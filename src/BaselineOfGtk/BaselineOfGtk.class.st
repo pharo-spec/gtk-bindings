@@ -11,13 +11,10 @@ BaselineOfGtk >> baseline: spec [
 	spec
 		for: #common
 		do: [ 
-			self spec: spec.
-			self specCode: spec.
-			self specMorphic: spec.
-			self threadedffi: spec.
-			
 			spec postLoadDoIt: #postLoad.
 
+			self threadedffi: spec.
+			
 			spec
 				"core"
 				package: 'Gtk-Pango';
@@ -68,34 +65,6 @@ BaselineOfGtk >> recompileStructures [
 	(Smalltalk at: #GtkEnumeration) allSubclassesDo: #initializeEnumeration.
 	(Smalltalk at: #GtkStructure) allSubclassesDo: #compileFields.
 	(Smalltalk at: #GtkWidget) withAllSubclassesDo: #recompile
-]
-
-{ #category : #'external projects' }
-BaselineOfGtk >> spec: spec [
-
-	spec baseline: 'SpecCore' with: [ 
-		spec 
-			repository: 'github://pharo-spec/Spec';
-			loads: 'Core' ]
-]
-
-{ #category : #'external projects' }
-BaselineOfGtk >> specCode: spec [
-
-	spec baseline: 'SpecCode' with: [ 
-		spec 
-			repository: 'github://pharo-spec/Spec';
-			className: 'BaselineOfSpecCore';
-			loads: 'Code' ]
-]
-
-{ #category : #'external projects' }
-BaselineOfGtk >> specMorphic: spec [
-
-	spec baseline: 'SpecMorphic' with: [ 
-		spec 
-			repository: 'github://pharo-spec/Spec';
-			className: 'BaselineOfSpec2' ]
 ]
 
 { #category : #'external projects' }
