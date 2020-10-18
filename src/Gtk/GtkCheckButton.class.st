@@ -1,0 +1,30 @@
+"
+GtkCheckButton
+GtkCheckButton — Create widgets with a discrete toggle button
+
+https://developer.gnome.org/gtk3/unstable/GtkCheckButton.html
+"
+Class {
+	#name : #GtkCheckButton,
+	#superclass : #GtkToggleButton,
+	#category : #'Gtk-Widget-Buttons'
+}
+
+{ #category : #private }
+GtkCheckButton class >> buttonNew [
+
+	^ self ffiCall: #(GtkCheckButton *gtk_check_button_new (void))
+]
+
+{ #category : #private }
+GtkCheckButton class >> buttonNewWithLabel: utf8EncodedString [
+
+	^ self ffiCall: #(GtkCheckButton *gtk_check_button_new_with_label (String utf8EncodedString))
+]
+
+{ #category : #accessing }
+GtkCheckButton class >> gType [ 
+	"This method was automatically generated"
+
+	^ self ffiCall: #(gsize gtk_check_button_get_type())
+]

@@ -1,0 +1,29 @@
+Class {
+	#name : #GButtonReleaseEventCallback,
+	#superclass : #GManagedSignalCallback,
+	#pools : [
+		'GtkTypes'
+	],
+	#category : #'Gtk-Base'
+}
+
+{ #category : #accessing }
+GButtonReleaseEventCallback class >> signalName [
+
+	^ 'button-release-event'
+]
+
+{ #category : #accessing }
+GButtonReleaseEventCallback >> do: aBlock [
+	
+	self
+		signature: self signature
+		block: [ :widget :event :aData | 
+			aBlock cull: (GdkEventButton fromHandle: event) ]
+]
+
+{ #category : #accessing }
+GButtonReleaseEventCallback >> signature [
+
+	^ #(gboolean (void *widget, void* event, void *aData))
+]
