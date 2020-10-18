@@ -29,9 +29,9 @@ BaselineOfGtk >> baseline: spec [
 				"testing morphic"
 				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ].
 		
-		spec group: 'Core' with: #('SpecCore' 'Gtk-Pango' 'Gtk' 'Mars-Spec-Frame').
-		spec group: 'Code' with: #('Gtk-SourceView').
-		spec group: 'Morphic' with: #('Gtk-Morphic' 'Gtk-Morphic-UIManager').
+		spec group: 'Core' with: #('Gtk-Pango' 'Gtk').
+		spec group: 'Code' with: #('Core' 'Gtk-SourceView').
+		spec group: 'Morphic' with: #('Core' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
 		spec group: 'Tests' with: #('Gtk-Tests').
 		spec group: 'MorphicTests' with: #('Gtk-Morphic-Tests').
 		
