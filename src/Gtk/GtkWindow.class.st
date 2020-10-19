@@ -143,8 +143,8 @@ GtkWindow >> decorated: setting [
 GtkWindow >> defaultSize: aPoint [
 
 	self 
-		defaultSizeWidth: aPoint x
-		height: aPoint y
+		defaultSizeWidth: aPoint x asInteger
+		height: aPoint y asInteger
 ]
 
 { #category : #private }
@@ -302,8 +302,8 @@ GtkWindow >> resizable: resizable [
 GtkWindow >> resize: aPoint [
 
 	self 
-		resizeWidth: aPoint x 
-		height: aPoint y
+		resizeWidth: aPoint x asInteger
+		height: aPoint y asInteger
 ]
 
 { #category : #private }
