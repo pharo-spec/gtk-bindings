@@ -750,10 +750,10 @@ GtkWidget >> queueDrawArea: rect [
 
 	^ GtkQueueDraw uniqueInstance 
 		queueDrawArea: self
-		x: rect left 
-		y: rect top
-		width: rect width 
-		height: rect height
+		x: rect left asInteger
+		y: rect top asInteger
+		width: rect width asInteger
+		height: rect height asInteger
 ]
 
 { #category : #style }
@@ -816,8 +816,8 @@ GtkWidget >> size [
 GtkWidget >> sizeRequest: aPoint [
 
 	self 
-		sizeRequestWidth: aPoint x asFloat 
-		height: aPoint y asFloat
+		sizeRequestWidth: aPoint x asInteger 
+		height: aPoint y asInteger
 ]
 
 { #category : #private }
