@@ -377,6 +377,12 @@ GtkMorphView >> canDraw [
 	^ self morph notNil
 ]
 
+{ #category : #'world simulation' }
+GtkMorphView >> convertWindowMouseEventPosition: aPoint [ 
+	
+	^ aPoint
+]
+
 { #category : #initialization }
 GtkMorphView >> createEventHandler [
 
@@ -779,5 +785,17 @@ GtkMorphView >> withAllOwnersDo: aBlock [
 GtkMorphView >> world [
 	"I'm simulating being a world"
 
+	^ self
+]
+
+{ #category : #'world simulation' }
+GtkMorphView >> worldRenderer [
+	
+	^ self
+]
+
+{ #category : #'world simulation' }
+GtkMorphView >> worldState [
+	
 	^ self
 ]
