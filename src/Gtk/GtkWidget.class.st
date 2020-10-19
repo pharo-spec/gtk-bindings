@@ -814,7 +814,10 @@ GtkWidget >> size [
 
 { #category : #geometry }
 GtkWidget >> sizeRequest: aPoint [
-	self sizeRequestWidth: aPoint x height: aPoint y
+
+	self 
+		sizeRequestWidth: aPoint x asFloat 
+		height: aPoint y asFloat
 ]
 
 { #category : #private }

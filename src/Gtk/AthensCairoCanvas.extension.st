@@ -1,6 +1,12 @@
 Extension { #name : #AthensCairoCanvas }
 
 { #category : #'*Gtk' }
+AthensCairoCanvas class >> fromHandle: aHandle [
+	^ self basicNew 
+		fromHandle: aHandle
+]
+
+{ #category : #'*Gtk' }
 AthensCairoCanvas >> fromHandle: aHandle [
 	
 	handle := aHandle.
@@ -14,12 +20,6 @@ AthensCairoCanvas >> fromHandle: aHandle [
 	
 	self setAA: CAIRO_ANTIALIAS_SUBPIXEL.	
 	self initializeWithSurface: surface
-]
-
-{ #category : #'*Gtk' }
-AthensCairoCanvas class >> fromHandle: aHandle [
-	^ self basicNew 
-		fromHandle: aHandle
 ]
 
 { #category : #'*Gtk' }
