@@ -4,6 +4,9 @@ I'm used to convert Gtk events into Morphic events to be passed to GtkMorphView 
 Class {
 	#name : #GtkMorphicEventHandler,
 	#superclass : #OSWindowMorphicEventHandler,
+	#instVars : [
+		'eventQueue'
+	],
 	#pools : [
 		'GdkKeyCodes'
 	],
@@ -107,6 +110,12 @@ GtkMorphicEventHandler >> dispatchMorphicEvent: anEvent [
 	super dispatchMorphicEvent: anEvent
 ]
 
+{ #category : #private }
+GtkMorphicEventHandler >> enqueue: anEvent [
+
+	eventQueue nextPut: anEvent
+]
+
 { #category : #events }
 GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
@@ -131,6 +140,13 @@ GtkMorphicEventHandler >> handleEvent: anEvent [
 	^ morphicEvent wasHandled
 ]
 
+{ #category : #initialization }
+GtkMorphicEventHandler >> initialize [
+
+	super initialize.
+	eventQueue := AtomicSharedQueue new
+]
+
 { #category : #converting }
 GtkMorphicEventHandler >> mapSymbolToKeyValue: symbol [
 
@@ -142,13 +158,13 @@ GtkMorphicEventHandler >> mapSymbolToKeyValue: symbol [
 				ifFalse: [ symbol ] ]
 ]
 
-{ #category : #events }
+{ #category : #private }
 GtkMorphicEventHandler >> processEventQueue [
 	| event |
 
-	self eventQueue isEmpty ifTrue: [ ^ self ].
+	eventQueue isEmpty ifTrue: [ ^ self ].
 
-	[ (event := self eventQueue nextOrNil) notNil ] 
+	[ (event := eventQueue nextOrNil) notNil ] 
 	whileTrue: [ super dispatchMorphicEvent: event ]
 ]
 

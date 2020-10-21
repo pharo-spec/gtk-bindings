@@ -421,8 +421,8 @@ GtkMorphView >> draw: cr [
 
 	drawing := true.	
 	[
-		self needUpdate ifTrue: [ 
-			self updateSurface ].
+		self needUpdate 
+			ifTrue: [ self updateSurface ].
 		self setSourceSurfaceTo: cr surface: activeSurface getHandle.
 		self paint: cr ]
 	ensure: [ 

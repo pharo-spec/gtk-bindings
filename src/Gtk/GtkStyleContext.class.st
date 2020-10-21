@@ -43,10 +43,10 @@ GtkStyleContext >> addProvider: aProvider [
 { #category : #accessing }
 GtkStyleContext >> addProvider: provider priority: priority [
 
-	self ffiCall: #(void
-gtk_style_context_add_provider (self,
-                                GtkStyleProvider *provider,
-                                guint priority))
+	self ffiCall: #(void gtk_style_context_add_provider (
+		self,
+ 		GtkStyleProvider *provider,
+ 		guint priority))
 ]
 
 { #category : #accessing }
