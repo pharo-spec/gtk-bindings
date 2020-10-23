@@ -251,6 +251,34 @@ GtkTreeDataStore >> imageAt: anObject ifAbsentPut: aBlock [
 		ifAbsentPut: aBlock
 ]
 
+{ #category : #accessing }
+GtkTreeDataStore >> indexOf: aTableColumn [
+	"Answer the 'pure' column (the one that does not defines an attribute)"
+
+	^ self indexOfColumnSuchAs: [ :aColumn | 
+		aColumn column = aTableColumn
+			and: [ aColumn tag isNil ] ]
+]
+
+{ #category : #accessing }
+GtkTreeDataStore >> indexOf: aTableColumn tag: anObject [
+	"Answer the 'pure' column (the one that does not defines an attribute)"
+
+	^ self indexOfColumnSuchAs: [ :aColumn | 
+		aColumn column = aTableColumn
+			and: [ aColumn tag = anObject ] ]
+]
+
+{ #category : #accessing }
+GtkTreeDataStore >> indexOfColumnSuchAs: aBlock [
+
+	columns withIndexDo: [ :each :index |
+		(aBlock value: each) 
+			ifTrue: [ ^ index ] ].
+	
+	^ nil
+]
+
 { #category : #initialization }
 GtkTreeDataStore >> initialize [
 
@@ -260,7 +288,7 @@ GtkTreeDataStore >> initialize [
 	paths := IdentityDictionary new.
 	children := IdentityDictionary new.
 	images := Dictionary new.
-	columns := OrderedCollection new.
+	columns := self newColumns.
 	
 	self registerForFinalize
 ]
@@ -440,6 +468,12 @@ GtkTreeDataStore >> iterParent: child iter: iter [
 	iter user_data: iterPath.
 
 	^ true
+]
+
+{ #category : #initialization }
+GtkTreeDataStore >> newColumns [
+	
+	^ OrderedCollection new
 ]
 
 { #category : #'private cache' }

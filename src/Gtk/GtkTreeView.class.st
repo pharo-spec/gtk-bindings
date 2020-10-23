@@ -207,7 +207,7 @@ GtkTreeView >> fixedHeightMode: enable [
 { #category : #private }
 GtkTreeView >> getModel [
 
-	^ self ffiCall: #(GtkListStore gtk_tree_view_get_model (self))
+	^ self ffiCall: #(GtkListStore *gtk_tree_view_get_model (self))
 ]
 
 { #category : #private }

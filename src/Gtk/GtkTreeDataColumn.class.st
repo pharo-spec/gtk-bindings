@@ -8,6 +8,8 @@ Class {
 	#name : #GtkTreeDataColumn,
 	#superclass : #Object,
 	#instVars : [
+		'column',
+		'tag',
 		'evaluation',
 		'store'
 	],
@@ -18,6 +20,27 @@ Class {
 GtkTreeDataColumn class >> evaluated: aBlock [ 
 
 	^ self new evaluated: aBlock
+]
+
+{ #category : #'instance creation' }
+GtkTreeDataColumn class >> on: aTableColumn [
+
+	^ self new 
+		column: aTableColumn;
+		evaluated: aTableColumn evaluation;
+		yourself
+]
+
+{ #category : #accessing }
+GtkTreeDataColumn >> column [
+
+	^ column
+]
+
+{ #category : #accessing }
+GtkTreeDataColumn >> column: aTableColumn [
+
+	column := aTableColumn
 ]
 
 { #category : #accessing }
@@ -59,4 +82,16 @@ GtkTreeDataColumn >> store [
 { #category : #accessing }
 GtkTreeDataColumn >> store: anObject [
 	store := anObject
+]
+
+{ #category : #accessing }
+GtkTreeDataColumn >> tag [
+
+	^ tag
+]
+
+{ #category : #accessing }
+GtkTreeDataColumn >> tag: anObject [
+
+	tag := anObject
 ]
