@@ -288,7 +288,7 @@ GtkTreeDataStore >> initialize [
 	paths := IdentityDictionary new.
 	children := IdentityDictionary new.
 	images := Dictionary new.
-	columns := self newColumns.
+	columns := OrderedCollection new.
 	
 	self registerForFinalize
 ]
@@ -468,12 +468,6 @@ GtkTreeDataStore >> iterParent: child iter: iter [
 	iter user_data: iterPath.
 
 	^ true
-]
-
-{ #category : #initialization }
-GtkTreeDataStore >> newColumns [
-	
-	^ OrderedCollection new
 ]
 
 { #category : #'private cache' }
