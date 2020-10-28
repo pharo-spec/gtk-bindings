@@ -491,7 +491,7 @@ GtkWidget >> getAllocation: allocation [
 	
 ]
 
-{ #category : #accessing }
+{ #category : #geometry }
 GtkWidget >> getPreferredSizeMin: minimum_size natural: natural_size [
 
 	self ffiCall: #(void gtk_widget_get_preferred_size (

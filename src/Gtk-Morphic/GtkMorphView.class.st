@@ -569,7 +569,7 @@ GtkMorphView >> morph: aMorph [
 	morph position: 0@0.
 	"check for the need of steppiong stepping"
 	morph wantsSteps ifTrue: [ self startStepping: morph ].
-	
+
 	self sizeRequest: aMorph extent.
 	self invalidate: needQueue
 ]
