@@ -44,7 +44,7 @@ GtkMenuToolButton >> connectShowMenu: aBlock [
 { #category : #api }
 GtkMenuToolButton >> menu [
 
-	^ self ffiCall: #(GtkMenu gtk_menu_tool_button_get_menu (self))
+	^ self ffiCall: #(GtkMenu *gtk_menu_tool_button_get_menu (self))
 ]
 
 { #category : #api }

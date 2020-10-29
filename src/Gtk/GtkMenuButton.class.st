@@ -8,7 +8,8 @@ Class {
 	#name : #GtkMenuButton,
 	#superclass : #GtkToggleButton,
 	#instVars : [
-		'popUpMenu'
+		'popover',
+		'popup'
 	],
 	#pools : [
 		'GtkArrowType'
@@ -55,7 +56,7 @@ GtkMenuButton class >> example [
 					fill: false
 					padding: 0;
 				packStart: (GtkMenuButton new
-						popUp: menu;
+						popup: menu;
 						yourself)
 					expand: false
 					fill: false
@@ -79,12 +80,6 @@ GtkMenuButton class >> gType [
 GtkMenuButton >> alignMenuWithWidget: aWidget [
 
 	^ self ffiCall: #(void gtk_menu_button_set_align_widget (self, GtkWidget *aWidget))
-]
-
-{ #category : #private }
-GtkMenuButton >> basicPopUp: aMenu [
-
-	self ffiCall: #(void gtk_menu_button_set_popup (self, GtkMenu *aMenu))
 ]
 
 { #category : #accessing }
@@ -117,6 +112,18 @@ GtkMenuButton >> bePopupDirectionUp [
 	self popupDirection: GTK_ARROW_UP
 ]
 
+{ #category : #private }
+GtkMenuButton >> getPopover [
+
+	^ self ffiCall: #(GtkPopover *gtk_menu_button_get_popover (self))
+]
+
+{ #category : #private }
+GtkMenuButton >> getPopup [
+
+	^ self ffiCall: #(GtkMenu *gtk_menu_button_get_popup (self))
+]
+
 { #category : #accessing }
 GtkMenuButton >> menuModel [
 
@@ -138,30 +145,29 @@ GtkMenuButton >> menuPopup: aMenu widgetGravity: widgetGavity menuGravity: menuG
 ]
 
 { #category : #accessing }
-GtkMenuButton >> popOver [
+GtkMenuButton >> popover [
 
-	^ self ffiCall: #(GtkPopover *gtk_menu_button_set_popover (self))
+	^ popover ifNil: [ popover := self getPopover ]
 ]
 
 { #category : #accessing }
-GtkMenuButton >> popOver: aPopover [
-	self halt: #doNotUse.
-	"We do not have menu models implemented.
-	Also, we should keep track of children"
-	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkPopover *aPopover))
+GtkMenuButton >> popover: aPopover [
+
+	popover := aPopover.
+	self setPopover: aPopover
 ]
 
 { #category : #accessing }
-GtkMenuButton >> popUp [
+GtkMenuButton >> popup [
 
-	^ self ffiCall: #(GtkMenu *gtk_menu_button_get_popup (self))
+	^ popup ifNil: [ popup := self getPopup ]
 ]
 
 { #category : #accessing }
-GtkMenuButton >> popUp: aMenu [
+GtkMenuButton >> popup: aMenu [
 
-	popUpMenu := aMenu.
-	self basicPopUp: aMenu
+	popup := aMenu.
+	self setPopup: aMenu
 ]
 
 { #category : #accessing }
@@ -174,6 +180,18 @@ GtkMenuButton >> popupDirection [
 GtkMenuButton >> popupDirection: direction [
 
 	^ self ffiCall: #(void gtk_menu_button_set_direction (self, GtkArrowType direction))
+]
+
+{ #category : #private }
+GtkMenuButton >> setPopover: aPopover [
+
+	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkPopover *aPopover))
+]
+
+{ #category : #private }
+GtkMenuButton >> setPopup: aMenu [
+
+	self ffiCall: #(void gtk_menu_button_set_popup (self, GtkMenu *aMenu))
 ]
 
 { #category : #accessing }

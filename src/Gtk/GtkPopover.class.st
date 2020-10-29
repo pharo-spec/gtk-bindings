@@ -23,6 +23,12 @@ GtkPopover class >> gType [
 	^ self ffiCall: #(gsize gtk_popover_get_type())
 ]
 
+{ #category : #private }
+GtkPopover class >> gtkPopoverNewRelativeTo: relative_to model: model [
+
+	^ self ffiCall: #(GtkPopover *gtk_popover_new_from_model (GtkWidget *relative_to, "GMenuModel *"GObject *model))
+]
+
 { #category : #'instance creation' }
 GtkPopover class >> new [
 
@@ -30,9 +36,21 @@ GtkPopover class >> new [
 ]
 
 { #category : #'instance creation' }
+GtkPopover class >> newFromModel: model [
+
+	^ (self gtkPopoverNewRelativeTo: GtkWidget null model: model) initialize
+]
+
+{ #category : #'instance creation' }
 GtkPopover class >> newRelativeTo: aWidget [
 
 	^ (self popoverNewRelativeTo: aWidget) initialize
+]
+
+{ #category : #'instance creation' }
+GtkPopover class >> newRelativeTo: aWidget model: model [
+
+	^ (self gtkPopoverNewRelativeTo: aWidget model: model) initialize
 ]
 
 { #category : #private }
