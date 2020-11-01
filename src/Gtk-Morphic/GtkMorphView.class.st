@@ -411,7 +411,7 @@ GtkMorphView >> currentExtent [
 { #category : #'world simulation' }
 GtkMorphView >> defer: aBlock [
 
-	aBlock value
+	GtkRunLoop forceDefer: aBlock
 ]
 
 { #category : #drawing }
