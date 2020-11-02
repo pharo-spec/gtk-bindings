@@ -66,6 +66,12 @@ GtkPopover >> beModal [
 ]
 
 { #category : #accessing }
+GtkPopover >> beNotModal [
+
+	self modal: false
+]
+
+{ #category : #accessing }
 GtkPopover >> bePositionBottom [
 
 	self preferredPosition: GTK_POS_BOTTOM
