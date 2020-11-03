@@ -13,6 +13,12 @@ Class {
 	#category : #'Gtk-Misc'
 }
 
+{ #category : #converting }
+GtkAllocation >> asRectangle [
+
+	^ self x@self y extent: self width@self height
+]
+
 { #category : #'accessing structure variables' }
 GtkAllocation >> height [
 	"This method was automatically generated"

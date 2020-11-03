@@ -251,7 +251,8 @@ GtkTreeView >> initialize [
 
 	super initialize.
 	self fixedHeightMode: true.
-	columns := OrderedCollection new: 1
+	columns := OrderedCollection new: 1.
+	self hExpand: true
 ]
 
 { #category : #testing }

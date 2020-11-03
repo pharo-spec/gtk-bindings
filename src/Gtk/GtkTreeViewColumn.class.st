@@ -52,6 +52,18 @@ GtkTreeViewColumn >> autoObjectUnref [
 ]
 
 { #category : #accessing }
+GtkTreeViewColumn >> beExpand [
+
+	self expand: true
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> beNotExpand [
+
+	self expand: false
+]
+
+{ #category : #accessing }
 GtkTreeViewColumn >> beResizable [
 
 	self resizable: true
@@ -73,6 +85,12 @@ GtkTreeViewColumn >> beSizingFixed [
 GtkTreeViewColumn >> beSizingGrowOnly [
 
 	self sizing: GTK_TREE_VIEW_COLUMN_GROW_ONLY
+]
+
+{ #category : #private }
+GtkTreeViewColumn >> expand: expand [
+
+	self ffiCall: #(void gtk_tree_view_column_set_expand (self, gboolean expand))
 ]
 
 { #category : #private }

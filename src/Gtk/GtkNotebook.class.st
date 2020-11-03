@@ -63,6 +63,18 @@ GtkNotebook >> basicRemove: aPage [
 	self removePageIndex: aPage zIndex
 ]
 
+{ #category : #accessing }
+GtkNotebook >> beNotScrollable [
+
+	self scrollable: false
+]
+
+{ #category : #accessing }
+GtkNotebook >> beScrollable [
+
+	self scrollable: true
+]
+
 { #category : #signals }
 GtkNotebook >> connectSwitchPage: aBlock [
 	"triggers when a page has been switched (by user or program).
@@ -72,6 +84,12 @@ GtkNotebook >> connectSwitchPage: aBlock [
 		connect: 'switch-page' 
 		signature: #(void (void *notebook, void *page, guint page_num, gpointer user_data))
 		do: [ :notebook :page :page_num :user_data | aBlock value: (self children at: page_num + 1) ]
+]
+
+{ #category : #testing }
+GtkNotebook >> isScrollable [
+
+	^ self ffiCall: #(gboolean gtk_notebook_get_scrollable (self))
 ]
 
 { #category : #factory }
@@ -105,4 +123,10 @@ GtkNotebook >> pageWithData: anObject ifNone: aBlock [
 GtkNotebook >> removePageIndex: page_num [
 	
 	self ffiCall: #(void gtk_notebook_remove_page (self, gint page_num))
+]
+
+{ #category : #private }
+GtkNotebook >> scrollable: scrollable [
+
+	self ffiCall: #(void gtk_notebook_set_scrollable (self, gboolean scrollable))
 ]

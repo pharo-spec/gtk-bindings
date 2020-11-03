@@ -756,6 +756,18 @@ GtkWidget >> queueDrawArea: rect [
 		height: rect height asInteger
 ]
 
+{ #category : #accessing }
+GtkWidget >> queueResize [
+
+	^ self ffiCall: #(void gtk_widget_queue_resize (self))
+]
+
+{ #category : #accessing }
+GtkWidget >> queueResizeNoRedraw [
+
+	^ self ffiCall: #(void gtk_widget_queue_resize_no_redraw (self))
+]
+
 { #category : #style }
 GtkWidget >> removeClass: aString [
 
@@ -810,6 +822,12 @@ GtkWidget >> showAll [
 GtkWidget >> size [
 
 	^  self width @ self height
+]
+
+{ #category : #geometry }
+GtkWidget >> sizeAllocate: aRect [
+
+	self widgetSizeAllocate: aRect asGtkAllocation
 ]
 
 { #category : #geometry }
@@ -912,6 +930,13 @@ GtkWidget >> widgetAddAccelerator: accel_signal group: accel_group key: accel_ke
 { #category : #private }
 GtkWidget >> widgetPathLength: path_length path: path reversed: path_reversed [
 	^ self ffiCall: #(void gtk_widget_path (self, guint *path_length, gchar **path, gchar **path_reversed))
+]
+
+{ #category : #private }
+GtkWidget >> widgetSizeAllocate: allocation [
+
+	self ffiCall: #(void gtk_widget_size_allocate (self, GtkAllocation *allocation))
+	
 ]
 
 { #category : #geometry }

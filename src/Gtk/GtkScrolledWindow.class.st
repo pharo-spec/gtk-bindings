@@ -64,6 +64,30 @@ GtkScrolledWindow >> kineticScrolling: kinetic_scrolling [
 ]
 
 { #category : #accessing }
+GtkScrolledWindow >> maxContentWidth [
+
+	self ffiCall: #(gint gtk_scrolled_window_get_max_content_width (self))
+]
+
+{ #category : #accessing }
+GtkScrolledWindow >> maxContentWidth: width [
+
+	self ffiCall: #(void gtk_scrolled_window_set_max_content_width (self, gint width))
+]
+
+{ #category : #accessing }
+GtkScrolledWindow >> minContentWidth [
+
+	self ffiCall: #(gint gtk_scrolled_window_get_min_content_width (self))
+]
+
+{ #category : #accessing }
+GtkScrolledWindow >> minContentWidth: width [
+
+	self ffiCall: #(void gtk_scrolled_window_set_min_content_width (self, gint width))
+]
+
+{ #category : #accessing }
 GtkScrolledWindow >> propagateNaturalHeight: propagate [
 
 	^ self ffiCall: #(void gtk_scrolled_window_set_propagate_natural_height(
