@@ -58,6 +58,18 @@ GtkTextView >> beWrapWordChar [
 	self setWrapMode: GTK_WRAP_WORD_CHAR
 ]
 
+{ #category : #accessing }
+GtkTextView >> bottomMargin [
+
+	self ffiCall: #(gint gtk_text_view_get_bottom_margin (self))
+]
+
+{ #category : #accessing }
+GtkTextView >> bottomMargin: bottom_margin [
+
+	self ffiCall: #(void gtk_text_view_set_bottom_margin (self, gint bottom_margin))
+]
+
 { #category : #signaling }
 GtkTextView >> connectPopulatePopup: aBlock [
 
@@ -114,6 +126,18 @@ GtkTextView >> iterLocation: iter [
 ]
 
 { #category : #accessing }
+GtkTextView >> leftMargin [
+
+	self ffiCall: #(gint gtk_text_view_get_left_margin (self))
+]
+
+{ #category : #accessing }
+GtkTextView >> leftMargin: left_margin [
+
+	self ffiCall: #(void gtk_text_view_set_left_margin (self, gint left_margin))
+]
+
+{ #category : #accessing }
 GtkTextView >> monospace [
 	
 	^ self ffiCall: #(gboolean gtk_text_view_get_monospace (self))
@@ -129,6 +153,18 @@ GtkTextView >> monospace: aBoolean [
 GtkTextView >> placeCursorOnScreen [
 
 	^ self ffiCall: #(gboolean gtk_text_view_place_cursor_onscreen (self))
+]
+
+{ #category : #accessing }
+GtkTextView >> rightMargin [
+
+	self ffiCall: #(gint gtk_text_view_get_right_margin (self))
+]
+
+{ #category : #accessing }
+GtkTextView >> rightMargin: right_margin [
+
+	self ffiCall: #(void gtk_text_view_set_right_margin (self, gint right_margin))
 ]
 
 { #category : #accessing }
@@ -196,6 +232,18 @@ GtkTextView >> textBuffer: aTextBuffer [
 
 	self setBuffer: aTextBuffer.
 	textBuffer := aTextBuffer
+]
+
+{ #category : #accessing }
+GtkTextView >> topMargin [
+
+	self ffiCall: #(gint gtk_text_view_get_top_margin (self))
+]
+
+{ #category : #accessing }
+GtkTextView >> topMargin: top_margin [
+
+	self ffiCall: #(void gtk_text_view_set_top_margin (self, gint top_margin))
 ]
 
 { #category : #accessing }
