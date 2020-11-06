@@ -20,6 +20,7 @@ GtkTreeDataPixbufColumn >> setValueOf: item to: gValue [
 	| image |
 
 	image := self readObject: item.
+	image ifNil: [ ^ self ].
 	gValue setObject: (self store
 		imageAt: image 
 		ifAbsentPut: [ image asGdkPixbuf ])
