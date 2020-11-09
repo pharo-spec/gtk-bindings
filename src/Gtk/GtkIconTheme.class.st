@@ -77,17 +77,6 @@ GtkIconTheme >> iconsInContext: aName [
 	^ (self namesInContext: aName) collect: [ :each | GtkImage newIconForButtonNamed: each ]
 ]
 
-{ #category : #'as yet unclassified' }
-GtkIconTheme >> inspectionIcons [
-	<inspectorPresentationOrder: 10 title: 'Icons'>
-	
-	^ SpListPresenter new
-		items: self allNames sorted;
-		display: [ :each | each ];
-		displayIcon: [ :each | GtkImage newIconForButtonNamed: each ];
-		yourself
-]
-
 { #category : #accessing }
 GtkIconTheme >> loadIconName: iconName size: iconSize [ 
 	| pixbuf error |		
