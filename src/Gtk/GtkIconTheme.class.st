@@ -38,7 +38,9 @@ GtkIconTheme >> allIcons [
 { #category : #accessing }
 GtkIconTheme >> allNames [
 
-	^ (GList fromHandle: self getAllIconNames) collect: [ :data | data readStringUTF8 ]
+	^ ((GList fromHandle: self getAllIconNames) 
+		collect: [ :data | data readStringUTF8 ])
+		reject: [ :each | each isNil ]
 ]
 
 { #category : #accessing }
