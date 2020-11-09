@@ -103,5 +103,7 @@ GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [
 { #category : #accessing }
 GtkIconTheme >> namesInContext: aString [
 
-	^ (GList fromHandle: (self getIconNames: aString)) collect: [ :data | data readStringUTF8 ]
+	^ ((GList fromHandle: (self getIconNames: aString)) 
+		collect: [ :data | data readStringUTF8 ])
+		reject: [ :each | each isNil ]
 ]
