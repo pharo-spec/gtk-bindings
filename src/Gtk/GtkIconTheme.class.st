@@ -26,7 +26,7 @@ GtkIconTheme >> allContextNames [
 	| gList result |
 	
 	result := OrderedCollection new.
-	gList := GList fromHandle: self getContextNames.
+	gList := GList fromHandle: self listContexts.
 	gList do: [ :data |
 		data isNull ifFalse: [ 
 			result add: data readStringUTF8.
@@ -47,7 +47,7 @@ GtkIconTheme >> allNames [
 	| gList result |
 	
 	result := OrderedCollection new: 1000.
-	gList := GList fromHandle: self getAllIconNames.
+	gList := GList fromHandle: self listAllIcons.
 	gList do: [ :data |
 		data isNull ifFalse: [
 			result add: data readStringUTF8.
@@ -63,26 +63,10 @@ GtkIconTheme >> allNamesByContext [
 	
 	namesByContext := Dictionary new.
 	self allContextNames do: [ :each |
-		namesByContext at: each put: (self iconNamesInContext: each) ].
+		namesByContext 
+			at: each 
+			put: (self iconNamesInContext: each) ].
 	^ namesByContext
-]
-
-{ #category : #private }
-GtkIconTheme >> getAllIconNames [
-
-	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_icons (self, NULL))
-]
-
-{ #category : #private }
-GtkIconTheme >> getContextNames [ 
-
-	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_contexts (self))
-]
-
-{ #category : #private }
-GtkIconTheme >> getIconNames: context [
-
-	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_icons (self, const gchar *context))
 ]
 
 { #category : #accessing }
@@ -90,7 +74,7 @@ GtkIconTheme >> iconNamesInContext: aString [
 	| gList result |
 	
 	result := OrderedCollection new: 1000.
-	gList := GList fromHandle: (self getIconNames: aString).
+	gList := GList fromHandle: (self listIcons: aString).
 	gList do: [ :data |
 		data isNull ifFalse: [
 			result add: data readStringUTF8.
@@ -104,6 +88,24 @@ GtkIconTheme >> iconNamesInContext: aString [
 GtkIconTheme >> iconsInContext: aName [
 
 	^ (self iconNamesInContext: aName) collect: [ :each | GtkImage newIconForButtonNamed: each ]
+]
+
+{ #category : #private }
+GtkIconTheme >> listAllIcons [
+
+	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_icons (self, NULL))
+]
+
+{ #category : #private }
+GtkIconTheme >> listContexts [ 
+
+	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_contexts (self))
+]
+
+{ #category : #private }
+GtkIconTheme >> listIcons: context [
+
+	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_icons (self, const gchar *context))
 ]
 
 { #category : #accessing }
