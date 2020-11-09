@@ -758,15 +758,23 @@ GtkMorphView >> updateSurface [
 
 { #category : #'private updating' }
 GtkMorphView >> updateSurfaceRectangles: aCollection [
-	| rect | 
+    | rect |
 
 	rect := aCollection size = 1
 		ifTrue: [ aCollection anyOne ]
 		ifFalse: [ Rectangle merging: aCollection ].
+		
+	self activeSurface ifNotNil: [
+		activeSurface drawDuring: [ :canvas |
+			canvas paintMode clear.
+			canvas
+				setPaint: Color transparent;
+				setShape: rect;
+				draw ] ].
 
 	(self intersectingMorphsWithin: rect) do: [ :eachMorph |
 		eachMorph = self morph ifTrue: [ ^ self updateAllSurface ].
-		self paintMorph: eachMorph ] 
+		self paintMorph: eachMorph ]
 ]
 
 { #category : #'world simulation' }
