@@ -23,10 +23,17 @@ GtkIconTheme class >> getDefault [
 
 { #category : #accessing }
 GtkIconTheme >> allContextNames [
+	| gList result |
+	
+	result := OrderedCollection new.
+	gList := GList fromHandle: self getContextNames.
+	gList do: [ :data |
+		data isNull ifFalse: [ 
+			result add: data readStringUTF8.
+			data gFree ] ].
+	gList free.
 
-	^ ((GList fromHandle: self getContextNames) 
-		collect: [ :data | data readStringUTF8 ])
-		reject: [ :each | each isNil ]
+	^ result
 ]
 
 { #category : #accessing }
@@ -37,10 +44,17 @@ GtkIconTheme >> allIcons [
 
 { #category : #accessing }
 GtkIconTheme >> allNames [
+	| gList result |
+	
+	result := OrderedCollection new: 1000.
+	gList := GList fromHandle: self getAllIconNames.
+	gList do: [ :data |
+		data isNull ifFalse: [
+			result add: data readStringUTF8.
+			data gFree ] ].
+	gList free.
 
-	^ ((GList fromHandle: self getAllIconNames) 
-		collect: [ :data | data readStringUTF8 ])
-		reject: [ :each | each isNil ]
+	^ result
 ]
 
 { #category : #accessing }
@@ -49,7 +63,7 @@ GtkIconTheme >> allNamesByContext [
 	
 	namesByContext := Dictionary new.
 	self allContextNames do: [ :each |
-		namesByContext at: each put: (self namesInContext: each) ].
+		namesByContext at: each put: (self iconNamesInContext: each) ].
 	^ namesByContext
 ]
 
@@ -72,9 +86,24 @@ GtkIconTheme >> getIconNames: context [
 ]
 
 { #category : #accessing }
+GtkIconTheme >> iconNamesInContext: aString [
+	| gList result |
+	
+	result := OrderedCollection new: 1000.
+	gList := GList fromHandle: (self getIconNames: aString).
+	gList do: [ :data |
+		data isNull ifFalse: [
+			result add: data readStringUTF8.
+			data gFree ] ].
+	gList free.
+
+	^ result
+]
+
+{ #category : #accessing }
 GtkIconTheme >> iconsInContext: aName [
 
-	^ (self namesInContext: aName) collect: [ :each | GtkImage newIconForButtonNamed: each ]
+	^ (self iconNamesInContext: aName) collect: [ :each | GtkImage newIconForButtonNamed: each ]
 ]
 
 { #category : #accessing }
@@ -98,12 +127,4 @@ GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [
 		gint size,
 		"GtkIconLookupFlags"gint flags,
 		"GError **"GError *error))
-]
-
-{ #category : #accessing }
-GtkIconTheme >> namesInContext: aString [
-
-	^ ((GList fromHandle: (self getIconNames: aString)) 
-		collect: [ :data | data readStringUTF8 ])
-		reject: [ :each | each isNil ]
 ]

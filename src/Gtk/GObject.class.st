@@ -384,7 +384,7 @@ GObject >> emitSignalByName: detailed_signal [
 { #category : #'private primitives' }
 GObject >> gFree: aPointer [
 
-	^ self ffiCall: #( void g_free(gpointer aPointer) )
+	^ self ffiCall: #(void g_free(gpointer aPointer))
 ]
 
 { #category : #'private primitives' }

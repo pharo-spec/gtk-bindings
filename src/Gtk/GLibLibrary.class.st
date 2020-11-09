@@ -4,6 +4,12 @@ Class {
 	#category : #'Gtk-Base'
 }
 
+{ #category : #'private primitives' }
+GLibLibrary >> gFree: anAddress [
+
+	^ self ffiCall: #(void g_free(gpointer anAddress))
+]
+
 { #category : #'as yet unclassified' }
 GLibLibrary >> gSetPrgName: prgname [
 
