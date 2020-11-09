@@ -63,6 +63,7 @@ GtkTreeDataColumn >> gType [
 { #category : #private }
 GtkTreeDataColumn >> readObject: anObject [ 
 
+	evaluation ifNil: [ ^ anObject asString ].
 	^ evaluation cull: anObject
 ]
 
