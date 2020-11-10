@@ -562,7 +562,7 @@ GtkMorphView >> morph: aMorph [
 			aMorph extent: morph extent ].
 		needQueue := true ].
 	
-	morph := aMorph.
+	morph := aMorph asMorph.
 	"I will be the owner (and I will act as a world)"
 	morph privateOwner: self.
 	"in this view, position of the morph is always 0@0"
