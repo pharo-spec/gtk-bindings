@@ -130,9 +130,7 @@ GtkContainer >> initialize [
 
 { #category : #inspecting }
 GtkContainer >> inspectionWidgets [
-	<inspectorPresentationOrder: 10 
-		title: 'Widgets'
-		if: #hasChildren>
+	<inspectorPresentationOrder: 10 title: 'Widgets'>
 
 	^ SpTreeTablePresenter new
 		roots: self children;
@@ -141,6 +139,12 @@ GtkContainer >> inspectionWidgets [
 				ifTrue: [ each children ]
 				ifFalse: [ #() ] ];
 		yourself
+]
+
+{ #category : #inspecting }
+GtkContainer >> inspectionWidgetsContext: aContext [ 
+	
+	aContext active: self hasChildren
 ]
 
 { #category : #private }
