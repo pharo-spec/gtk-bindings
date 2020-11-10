@@ -193,6 +193,12 @@ GtkTreeView >> enableTreeLines: enabled [
 ]
 
 { #category : #expanding }
+GtkTreeView >> expandAll [
+
+	self ffiCall: #(void gtk_tree_view_expand_all (self))
+]
+
+{ #category : #expanding }
 GtkTreeView >> expandToPath: pathArray [
 
 	self doExpandToPath: (GtkTreePath newFromArray: pathArray) autoRelease 
