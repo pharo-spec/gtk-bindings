@@ -58,6 +58,12 @@ GtkWindow >> addAcceleratorGroup: anAcceleratorGroup [
 	self windowAddAccelGroup: anAcceleratorGroup
 ]
 
+{ #category : #accessing }
+GtkWindow >> attachedTo: widget [
+	
+	self ffiCall: #(void gtk_window_set_attached_to (self, GtkWidget *widget))
+]
+
 { #category : #'external resource management' }
 GtkWindow >> autoRelease [
 	"autoReleasing windows is more complicated than the usual WeakRegistry mechanism, since 
