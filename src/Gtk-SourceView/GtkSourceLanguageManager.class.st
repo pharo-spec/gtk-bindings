@@ -6,7 +6,7 @@ https://developer.gnome.org/gtksourceview/unstable/GtkSourceLanguageManager.html
 Class {
 	#name : #GtkSourceLanguageManager,
 	#superclass : #GObject,
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Base'
 }
 
 { #category : #'accessing languages' }

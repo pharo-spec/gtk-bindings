@@ -6,7 +6,7 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceCompletionContext.html
 Class {
 	#name : #GtkSourceCompletionContext,
 	#superclass : #GObject,
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Completion'
 }
 
 { #category : #accessing }

@@ -18,7 +18,7 @@ Class {
 	#instVars : [
 		'completion'
 	],
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Base'
 }
 
 { #category : #example }

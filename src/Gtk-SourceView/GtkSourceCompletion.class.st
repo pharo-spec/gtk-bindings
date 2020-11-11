@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'providers'
 	],
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Completion'
 }
 
 { #category : #accessing }

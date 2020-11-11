@@ -4,7 +4,7 @@ I am the library to GtkSourceView.
 Class {
 	#name : #GtkSourceViewLibrary,
 	#superclass : #FFILibrary,
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Base'
 }
 
 { #category : #converting }

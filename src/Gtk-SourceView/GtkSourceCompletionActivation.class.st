@@ -11,7 +11,7 @@ Class {
 		'GTK_SOURCE_COMPLETION_ACTIVATION_NONE',
 		'GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED'
 	],
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Completion'
 }
 
 { #category : #'enum declaration' }

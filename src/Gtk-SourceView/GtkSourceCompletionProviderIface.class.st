@@ -31,7 +31,7 @@ Class {
 		'OFFSET_POPULATE',
 		'OFFSET_UPDATE_INFO'
 	],
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Completion'
 }
 
 { #category : #'field definition' }

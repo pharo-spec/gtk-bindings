@@ -6,7 +6,7 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceCompletionItem.html
 Class {
 	#name : #GtkSourceCompletionItem,
 	#superclass : #GObject,
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Completion'
 }
 
 { #category : #private }

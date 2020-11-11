@@ -6,7 +6,7 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceMark.html
 Class {
 	#name : #GtkSourceMark,
 	#superclass : #GtkTextMark,
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Base'
 }
 
 { #category : #'instance creation' }

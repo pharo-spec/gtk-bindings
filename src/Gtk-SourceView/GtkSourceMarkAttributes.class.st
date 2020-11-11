@@ -6,7 +6,7 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceMarkAttributes.html
 Class {
 	#name : #GtkSourceMarkAttributes,
 	#superclass : #GObject,
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Base'
 }
 
 { #category : #'instance creation' }

@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'language'
 	],
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Base'
 }
 
 { #category : #accessing }

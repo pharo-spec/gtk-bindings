@@ -17,7 +17,7 @@ Class {
 	#pools : [
 		'GtkSourceCompletionActivation'
 	],
-	#category : #'Gtk-SourceView'
+	#category : #'Gtk-SourceView-Completion-Pharo'
 }
 
 { #category : #'class initialization' }
@@ -139,7 +139,7 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: iter [
 	word := self currentWord: iter in: textBuffer.
 	word ifNil: [ ^ #() ].
 
-	completionContext := CoCompletionContext
+	completionContext := GtkCompletionContext
 		engine: self completionEngine
 		class: self completionEngine completionClass
 		source: textBuffer text
