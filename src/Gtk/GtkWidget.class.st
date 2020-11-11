@@ -338,11 +338,7 @@ GtkWidget >> connectShow: aBlock [
 { #category : #signaling }
 GtkWidget >> connectSizeAllocate: aBlock [
 
-	self 
-		connect: 'size-allocate'
-		signature: #(void (void *widget, void *allocation, gpointer user_data))
-		do: [ :widget :allocation :user_data |
-			aBlock cull: (GdkRectangle fromHandle: allocation) asRectangle ]
+	(GSizeAllocateCallback do: aBlock) connectTo: self
 ]
 
 { #category : #signaling }

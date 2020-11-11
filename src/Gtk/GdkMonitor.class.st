@@ -88,3 +88,9 @@ GdkMonitor >> getGeometry: geometry [
 	
 	self ffiCall: #(void gdk_monitor_get_geometry (self, GdkRectangle *geometry))
 ]
+
+{ #category : #accessing }
+GdkMonitor >> scaleFactor [
+
+	self ffiCall: #(int gdk_monitor_get_scale_factor (self))
+]
