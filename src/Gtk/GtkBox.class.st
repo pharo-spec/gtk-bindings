@@ -162,6 +162,19 @@ GtkBox >> reorderChild: aWidget position: position [
 ]
 
 { #category : #accessing }
+GtkBox >> reversePackEnd: child expand: expand fill: fill padding: padding [
+	"The regular 'packEnd' will pack widgets in reversed order (from end to begining), 
+	 causing the second packend to appear first than the first while displaying. 
+	 This method will reverse this order, effectively putting the element at the end."
+
+	self packEnd: child expand: expand fill: fill padding: padding.
+	self basicReorderChild: child position: 0.
+
+	^ child
+	
+]
+
+{ #category : #accessing }
 GtkBox >> spacing [
 		^ self ffiCall: #(gint gtk_box_get_spacing (self))
 ]
