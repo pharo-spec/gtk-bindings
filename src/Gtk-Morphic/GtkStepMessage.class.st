@@ -5,29 +5,25 @@ I'm used to implement the steping property of morphs in the context of a GtkMorp
 Class {
 	#name : #GtkStepMessage,
 	#superclass : #StepMessage,
-	#instVars : [
-		'process'
-	],
 	#category : #'Gtk-Morphic'
 }
 
 { #category : #scheduling }
 GtkStepMessage >> cancel [
 
-	process ifNil: [ ^ self ].
-
-	process terminate.
-	process := nil
+	GtkMorphicStepService uniqueInstance unregister: self
 ]
 
 { #category : #scheduling }
 GtkStepMessage >> schedule [
 
-	process := [ 
-		[ true ] whileTrue: [ 
-			self waitUntilExecution.
-			self value: Time millisecondClockValue ] ] 
-	fork
+	GtkMorphicStepService uniqueInstance register: self
+]
+
+{ #category : #scheduling }
+GtkStepMessage >> step [
+
+	self value: Time millisecondClockValue
 ]
 
 { #category : #accessing }
