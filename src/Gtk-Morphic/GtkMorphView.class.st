@@ -13,7 +13,8 @@ Class {
 		'activeHand',
 		'alarms',
 		'steps',
-		'layeredMorphs'
+		'layeredMorphs',
+		'kmDispatcher'
 	],
 	#category : #'Gtk-Morphic'
 }
@@ -539,6 +540,12 @@ GtkMorphView >> isMorphResizable [
 ]
 
 { #category : #'world simulation' }
+GtkMorphView >> kmDispatcher [
+
+	^ kmDispatcher ifNil: [ kmDispatcher := KMDispatcher target: self ]
+]
+
+{ #category : #'world simulation' }
 GtkMorphView >> layoutChanged [
 
 ]
@@ -595,6 +602,12 @@ GtkMorphView >> newSurfaceOfMorph: aMorph [
 		canvas pathTransform translateBy: aMorph position negated.
 		aMorph fullDrawOnAthensCanvas: canvas ].
 	^ newSurface
+]
+
+{ #category : #'world simulation' }
+GtkMorphView >> owner [
+
+	^ nil
 ]
 
 { #category : #'private updating' }

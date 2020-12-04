@@ -7,7 +7,7 @@ Class {
 	#superclass : #TKTService,
 	#instVars : [
 		'mutex',
-		'morphs'
+		'messages'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -33,7 +33,7 @@ GtkMorphicStepService >> initialize [
 	super initialize.
 	self stepDelay: 1000 milliseconds.
 	mutex := Mutex new.
-	morphs := Set new
+	messages := Set new
 ]
 
 { #category : #accessing }
@@ -43,10 +43,10 @@ GtkMorphicStepService >> name [
 ]
 
 { #category : #registry }
-GtkMorphicStepService >> register: aMorph [
+GtkMorphicStepService >> register: aGtkStepMessage [
 
 	mutex critical: [ 
-		morphs add: aMorph.
+		messages add: aGtkStepMessage.
 		self isRunning ifFalse: [ 
 			self start ] ].
 ]
@@ -54,14 +54,14 @@ GtkMorphicStepService >> register: aMorph [
 { #category : #stepping }
 GtkMorphicStepService >> stepService [
 
-	morphs do: #step
+	messages do: [ :each | each step ]
 ]
 
 { #category : #registry }
-GtkMorphicStepService >> unregister: anInspector [
+GtkMorphicStepService >> unregister: aGtkStepMessage [
 
 	mutex critical: [ 
-		morphs remove: anInspector ifAbsent: [ ].
-		morphs ifEmpty: [ 
+		messages remove: aGtkStepMessage ifAbsent: [ ].
+		messages ifEmpty: [ 
 			self stop ] ]
 ]

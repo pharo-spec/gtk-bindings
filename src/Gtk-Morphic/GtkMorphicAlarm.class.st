@@ -27,9 +27,8 @@ GtkMorphicAlarm >> schedule [
 
 	process := [ 
 		self waitUntilExecution.
-		self value: Time millisecondClockValue
-	] 
-	fork
+		self value: Time millisecondClockValue ] 
+		fork
 ]
 
 { #category : #private }
