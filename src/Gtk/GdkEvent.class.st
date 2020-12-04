@@ -62,8 +62,7 @@ GdkEvent class >> newConcreteFromHandle: handle [
 { #category : #'instance creation' }
 GdkEvent class >> newType: aType [
 
-	self flag: #TODO. "fromHandle: is workaround for a temporal problem"
-	^ (self fromHandle: (self eventNew: aType)) asConcreteType autoRelease
+	^ (self eventNew: aType) asConcreteType autoRelease
 ]
 
 { #category : #visiting }
