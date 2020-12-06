@@ -4,10 +4,10 @@ Extension { #name : #Rectangle }
 Rectangle >> asGdkRectangle [
 
 	^ GdkRectangle new 
-		x: self left;
-		y: self top;
-		width: self width;
-		height: self height
+		x: self left asInteger;
+		y: self top asInteger;
+		width: self width asInteger;
+		height: self height asInteger
 ]
 
 { #category : #'*Gtk' }
