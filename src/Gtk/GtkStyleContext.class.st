@@ -52,7 +52,7 @@ GtkStyleContext >> addProvider: provider priority: priority [
 { #category : #accessing }
 GtkStyleContext >> fontNormal [
 
-	^ self getFont: GTK_STATE_FLAG_NORMAL 
+	^ self getFont: GTK_STATE_FLAG_NORMAL
 ]
 
 { #category : #private }

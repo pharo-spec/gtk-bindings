@@ -678,6 +678,12 @@ GtkWidget >> overrideBackgroundState: state color: color [
 ]
 
 { #category : #accessing }
+GtkWidget >> pangoContext [
+
+	^ self ffiCall: #(PangoContext *gtk_widget_get_pango_context (self))
+]
+
+{ #category : #accessing }
 GtkWidget >> parentWindow [ 
 	| windowHandle |
 	
