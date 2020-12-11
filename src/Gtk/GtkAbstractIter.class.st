@@ -121,6 +121,16 @@ GtkAbstractIter >> gtkImageAt: anInteger [
 ]
 
 { #category : #accessing }
+GtkAbstractIter >> reset [ 
+
+	self stamp: 0.
+	self user_data: ExternalAddress null.
+	self user_data2: ExternalAddress null.
+	self user_data3: ExternalAddress null.
+	
+]
+
+{ #category : #accessing }
 GtkAbstractIter >> setValues: aValueArray [
 
 	self subclassResponsibility

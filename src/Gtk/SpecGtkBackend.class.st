@@ -22,6 +22,12 @@ SpecGtkBackend >> defer: aBlock [
 	GtkRunLoop defer: aBlock
 ]
 
+{ #category : #accessing }
+SpecGtkBackend >> forceDefer: aBlock [ 
+
+	GtkRunLoop forceDefer: aBlock
+]
+
 { #category : #initialization }
 SpecGtkBackend >> initialize [ 
 	

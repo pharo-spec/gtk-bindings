@@ -1,6 +1,4 @@
 "
-! GtkTreeDataStore
-
 A data store is a special implementation of a tree store that will provide data directly from the image (otherwise, with a ==GtkTreeStore== you need to provide elements ''before'', which is time consuming and not very friendly to calculate properties).
 
 Plesse, notice that the usage of a ==GtkTreeDataStore== is not magical and it will not solve all size/time to load problems, since ==GtkTreeView== fetches all elements in a leaf before showing it (meaning that if you have 10k elements in a list, it will take time to be filled).
@@ -23,12 +21,12 @@ Class {
 	#instVars : [
 		'roots',
 		'stamp',
-		'paths',
 		'childrenBlock',
-		'children',
 		'images',
 		'columns',
-		'isList'
+		'isList',
+		'wrappedRoots',
+		'holder'
 	],
 	#pools : [
 		'GType',
@@ -151,13 +149,11 @@ GtkTreeDataStore >> children: aBlock [
 	childrenBlock := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkTreeDataStore >> childrenFor: element [
 
 	childrenBlock ifNil: [ ^ #() ].
-	^ children
-		at: element 
-		ifAbsentPut: [ childrenBlock value: element ]
+	^ childrenBlock value: element
 ]
 
 { #category : #accessing }
@@ -191,19 +187,16 @@ GtkTreeDataStore >> getFlags [
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> getIter: path iter: iter [
-	| item iterPath |
+	| wrappedItem |
 
 	self assertNotNull: path ifFail: [ ^ false ].
 
-	item := self itemAtPath: path ifAbsent: [ ^ false ].
-	iterPath := self 
-		pathAtItem: item
-		ifAbsentPut: [ path copy ].
+	wrappedItem := self wrappedItemAtPath: path ifAbsent: [ ^ false ].
+	wrappedItem path 
+		ifNil: [ wrappedItem path: path copy ].
 
 	iter stamp: stamp.
-	iter user_data: iterPath.
-	iter user_data2: ExternalAddress null.
-	iter user_data3: ExternalAddress null.
+	iter user_data: wrappedItem path.
 	 
 	^ true
 ]
@@ -228,19 +221,21 @@ GtkTreeDataStore >> getPath: iter [
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> getValue: iter column: columnNumber value: gValue [
-	| path item column |
+	| path wrappedItem column |
 
 	self assertNotNull: iter ifFail: [ ^ self ].
 	self assertNotNull: iter user_data ifFail: [ ^ self ].
 
 	path := self pathFromIter: iter.
-	item := self 
-		itemAtPath: path 
+	wrappedItem := self 
+		wrappedItemAtPath: path 
 		ifAbsent: [ ^ self ].
 
 	column := columns at: (columnNumber + 1).
 	gValue init: column gType.
-	column setValueOf: item to: gValue.
+	column 
+		setValueOf: wrappedItem item 
+		to: gValue
 ]
 
 { #category : #'private cache' }
@@ -285,92 +280,55 @@ GtkTreeDataStore >> initialize [
 	super initialize.
 	stamp := 16rFFFF atRandom.
 	isList := false.
-	paths := IdentityDictionary new.
-	children := IdentityDictionary new.
 	images := Dictionary new.
 	columns := OrderedCollection new.
+	wrappedRoots := OrderedCollection new.
 	
 	self registerForFinalize
 ]
 
-{ #category : #private }
-GtkTreeDataStore >> itemAt: index of: anArray then: path [
-	"dives into elements of tree to find the one that corresponds to path"
-	| element |
-	
-	anArray size < index ifTrue: [ ^ nil ].
-	element := anArray at: index.
-	^ path 
-		ifNotEmpty: [ 
-			self 
-				itemAt: path first 
-				of: (self childrenFor: element) 
-				then: path allButFirst ]
-		ifEmpty: [ 
-			element ]
-]
-
-{ #category : #private }
-GtkTreeDataStore >> itemAtPath: path [
-	| pathArray |
-
-	self assertNotNull: path ifFail:  [ ^ nil ].
-
-	pathArray := path toArray.
-	^ self 
-		itemAt: pathArray first
-		of: self roots
-		then: pathArray allButFirst
-]
-
-{ #category : #private }
-GtkTreeDataStore >> itemAtPath: path ifAbsent: aBlock [
-	
-	^ (self itemAtPath: path) ifNil: aBlock
-]
-
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterChildren: parent iter: iter [
-	| path item itemChildren iterPath |
+	| path wrappedItem child |
 
 	self assertNotNull: parent ifFail: [ ^ false ].
 	self assertNotNull: parent user_data ifFail: [ ^ false ].
 	
 	path := self pathFromIter: parent.
-	item := self 
-		itemAtPath: path 
+	wrappedItem := self 
+		wrappedItemAtPath: path 
 		ifAbsent: [ ^ false ].
-	
-	itemChildren := self childrenFor: item.
-	itemChildren ifEmpty: [ ^ false ].
-	
-	iterPath := self 
-		pathAtItem: itemChildren first 
-		ifAbsentPut: [ path copy down ]. 
-		
+	self retrieveChildrenIfNeeded: wrappedItem.
+	wrappedItem hasChildren ifFalse: [ ^ false ].
+
+	child := wrappedItem children first.
+	child path ifNil: [ 
+		child path: path copy down ].
+
 	iter stamp: stamp. 
-	iter user_data: iterPath.
-	
+	iter user_data: child path.
+
 	^ true
 ]
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterHasChild: iter [
-	| item path |
+	| wrappedItem path |
 
 	childrenBlock ifNil: [ ^ false ].
 	self assertNotNull: iter ifFail: [ ^ false ].
 	self assertNotNull: iter user_data ifFail: [ ^ false ].
 
 	path := self pathFromIter: iter.
-	item := self itemAtPath: path ifAbsent: [ ^ false ].
-	
-	^ (self childrenFor: item) notEmpty
+	wrappedItem := self wrappedItemAtPath: path ifAbsent: [ ^ false ].
+	self retrieveChildrenIfNeeded: wrappedItem.
+
+	^ wrappedItem hasChildren
 ]
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterNChildren: iter [
-	| item path |
+	| wrappedItem path |
 
 	childrenBlock ifNil: [ ^ 0 ].
 	self assertNotNull: iter ifFail: [ ^ 0 ].
@@ -378,68 +336,67 @@ GtkTreeDataStore >> iterNChildren: iter [
 
 	path := self pathFromIter: iter.
 	path toArray ifEmpty: [ ^ self roots size ].
-	
-	item := self itemAtPath: path ifAbsent: [ ^ 0 ].
-	^ (self childrenFor: item) size
+
+	wrappedItem := self wrappedItemAtPath: path ifAbsent: [ ^ 0 ].
+	self retrieveChildrenIfNeeded: wrappedItem.
+	^ wrappedItem numberOfChildren
 ]
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterNext: iter [
-	| path item iterPath |
+	| path wrappedItem |
 
 	self assertNotNull: iter ifFail:  [ ^ false ].	
 	self assertNotNull: iter user_data ifFail:  [ ^ false ].	
 
 	path := self pathFromIter: iter.
 	path := path copy next.
-	item := self itemAtPath: path ifAbsent: [ nil].
-	item ifNil: [
+	wrappedItem := self wrappedItemAtPath: path ifAbsent: [ nil ].
+	wrappedItem ifNil: [
 		path free.
 		^ false ].
-	iterPath := self pathAtItem: item.
-	iterPath 
+
+	wrappedItem path 
 		ifNotNil: [ path free "I will not need this" ]
-		ifNil: [
-			iterPath := path.
-			self pathAtItem: item put: iterPath ].
+		ifNil: [ wrappedItem path: path ].
 	
 	iter stamp: stamp. 
-	iter user_data: iterPath.
+	iter user_data: wrappedItem path.
 
 	^ true
 ]
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterNthChild: parent number: n iter: iter [
-	| path childNumber item itemChildren iterPath |
+	| path childNumber wrappedItem wrappedChild |
 
 	self assertNotNull: parent ifFail: [ ^ false ].
 	self assertNotNull: parent user_data ifFail: [ ^ false ].
-	
-	path := self pathFromIter: parent.
-	item := self itemAtPath: path.
-	item ifNil: [ ^ false ].
 
+	path := self pathFromIter: parent.
+	wrappedItem := self wrappedItemAtPath: path.
+	wrappedItem ifNil: [ ^ false ].
+
+	self retrieveChildrenIfNeeded: wrappedItem.
 	childNumber := n + 1. "n is zero based"	
-	itemChildren := self childrenFor: item.
-	itemChildren size < childNumber ifTrue: [ ^ false ].
+	wrappedItem numberOfChildren < childNumber ifTrue: [ ^ false ].
 	
-	iterPath := paths 
-		at: (itemChildren at: childNumber) 
-		ifAbsentPut: [ | childPath |
-			childPath := path copy.
-			childPath appendIndex: n.
-			childPath ]. 
+	wrappedChild := wrappedItem childAt: childNumber.
+	wrappedChild path ifNil: [ 
+		wrappedChild path: (path copy 
+			appendIndex: n;
+			yourself) ].
 	
-	iter stamp: stamp. 
-	iter user_data: iterPath.
+	iter 
+		stamp: stamp;
+		user_data: wrappedChild path.
 
 	^ true
 ]
 
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterParent: child iter: iter [
-	| path item iterPath |
+	| path wrappedItem |
 
 	self assertNotNull: child ifFail: [ ^ false ].
 	self assertNotNull: child user_data ifFail: [ ^ false ].
@@ -451,51 +408,20 @@ GtkTreeDataStore >> iterParent: child iter: iter [
 		path free.
 		^ false ].
 	
-	item := self 
-		itemAtPath: path 
+	wrappedItem := self 
+		wrappedItemAtPath: path 
 		ifAbsent: [ 
 			path free.
 			^ false ].
 
-	iterPath := self pathAtItem: item.
-	iterPath 
-		ifNotNil: [ path free. "I will not need this" ]
-		ifNil: [ 
-			iterPath := path.
-			self pathAtItem: item put: iterPath ]. 
+	wrappedItem path
+		ifNotNil: [ path free "I will not need this" ] 
+		ifNil: [ wrappedItem path: path ].
 		 
 	iter stamp: stamp. 
-	iter user_data: iterPath.
+	iter user_data: wrappedItem path.
 
 	^ true
-]
-
-{ #category : #'private cache' }
-GtkTreeDataStore >> pathAtItem: item [
-
-	^ self pathAtItem: item ifAbsent: [ nil ]
-]
-
-{ #category : #'private cache' }
-GtkTreeDataStore >> pathAtItem: item ifAbsent: aBlock [
-
-	^ paths 
-		at: item 
-		ifAbsent: aBlock
-]
-
-{ #category : #'private cache' }
-GtkTreeDataStore >> pathAtItem: item ifAbsentPut: aBlock [
-
-	^ paths 
-		at: item 
-		ifAbsentPut: aBlock
-]
-
-{ #category : #'private cache' }
-GtkTreeDataStore >> pathAtItem: item put: aPath [ 
-
-	paths at: item put: aPath
 ]
 
 { #category : #private }
@@ -521,8 +447,15 @@ GtkTreeDataStore >> registerForFinalize [
 	self finalizationRegistry
 		add: stamp
 		executor: (GtkTreeDataStoreExecutor new 
-			dictionaryList: { paths. children };
+			holder: (holder := Array with: nil);
 			yourself)	
+]
+
+{ #category : #private }
+GtkTreeDataStore >> retrieveChildrenIfNeeded: aWrappedItem [
+
+	aWrappedItem needsChildren ifFalse: [ ^ self ].
+	aWrappedItem wrapChildren: (self childrenFor: aWrappedItem item)
 ]
 
 { #category : #accessing }
@@ -534,5 +467,55 @@ GtkTreeDataStore >> roots [
 { #category : #accessing }
 GtkTreeDataStore >> roots: aCollection [
 
-	roots := aCollection
+	roots := aCollection.
+	wrappedRoots := nil
+]
+
+{ #category : #private }
+GtkTreeDataStore >> wrappedItemAt: index of: anArray then: path [
+	"dives into elements of tree to find the one that corresponds to path"
+	| wrappedItem |
+	
+	anArray size < index ifTrue: [ ^ nil ].
+	wrappedItem := anArray at: index.
+	self retrieveChildrenIfNeeded: wrappedItem.	
+	^ path 
+		ifNotEmpty: [ 
+			self 
+				wrappedItemAt: path first 
+				of: wrappedItem children 
+				then: path allButFirst ]
+		ifEmpty: [ 
+			wrappedItem ]
+]
+
+{ #category : #private }
+GtkTreeDataStore >> wrappedItemAtPath: path [
+	| pathArray |
+
+	self assertNotNull: path ifFail:  [ ^ nil ].
+	pathArray := path toArray.
+	^ self 
+		wrappedItemAt: pathArray first
+		of: self wrappedRoots
+		then: pathArray allButFirst
+]
+
+{ #category : #private }
+GtkTreeDataStore >> wrappedItemAtPath: path ifAbsent: aBlock [
+	
+	^ (self wrappedItemAtPath: path) ifNil: aBlock
+]
+
+{ #category : #private }
+GtkTreeDataStore >> wrappedRoots [
+		
+	^ wrappedRoots ifNil: [ 
+		wrappedRoots := self roots 
+			withIndexCollect: [ :each :index | 
+				GtkTreeDataWrapper new
+					item: each;
+					yourself ].
+		holder at: 1 put: wrappedRoots.
+		wrappedRoots ]
 ]
