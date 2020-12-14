@@ -68,18 +68,10 @@ GtkLibrary >> macLibraryName [
 	^ '/usr/local/lib/libgtk-3.dylib'
 ]
 
-{ #category : #utils }
+{ #category : #accessing }
 GtkLibrary >> matchVersion: aString ifTrue: trueBlock ifFalse: falseBlock [ 
-	| version match |
 	
-	version := (aString substrings: '.') collect: #asNumber.
-	match := self 
-		matchVersionMajor: version first
-		minor: version second
-		micro: version third.
-	
-	"if null, everything is ok"
-	^ (match isNil or: [ match isNull ]) 
+	^ (self matchesVersion: aString) 
 		ifTrue: trueBlock
 		ifFalse: falseBlock
 ]
@@ -92,6 +84,20 @@ GtkLibrary >> matchVersionMajor: required_major minor: required_minor micro: req
 		guint required_major,
 		guint required_minor,
 		guint required_micro))
+]
+
+{ #category : #testing }
+GtkLibrary >> matchesVersion: aString [
+	| version match |
+	
+	version := (aString substrings: '.') collect: #asNumber.
+	match := self 
+		matchVersionMajor: version first
+		minor: version second
+		micro: version third.
+	
+	"if null, everything is ok"
+	^ match isNil or: [ match isNull ]
 ]
 
 { #category : #'accessing platform' }

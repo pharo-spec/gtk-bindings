@@ -26,8 +26,22 @@ GtkApplication class >> current [
 { #category : #accessing }
 GtkApplication class >> ensureRunning [
 
-	self isRunning ifTrue: [ ^ self ]. 
+	self isRunning ifTrue: [ ^ self ].
+	self ensureVersion.
 	self new run
+]
+
+{ #category : #accessing }
+GtkApplication class >> ensureVersion [
+	"Ensure the minimal version is installed"
+	| version |
+	
+	version := self requiredGtkVersion.
+	(GtkLibrary uniqueInstance matchesVersion: version) ifFalse: [ 
+		self error: ('Gtk3 installed version ({1}) is older than the minimum required ({2})' 
+			format: { 
+				GtkLibrary uniqueInstance version. 
+				version }) ]
 ]
 
 { #category : #'class initialization' }
@@ -41,6 +55,12 @@ GtkApplication class >> isRunning [
 	
 	^ self current notNil 
 		and: [ self current isRunning ]
+]
+
+{ #category : #accessing }
+GtkApplication class >> requiredGtkVersion [
+		
+	^ '3.22.0'
 ]
 
 { #category : #private }
