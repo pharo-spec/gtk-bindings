@@ -31,7 +31,7 @@ GtkMorphicStepService class >> uniqueInstance [
 GtkMorphicStepService >> initialize [
 
 	super initialize.
-	self stepDelay: 1000 milliseconds.
+	self stepDelay: 1000 milliSeconds.
 	mutex := Mutex new.
 	messages := Set new
 ]
