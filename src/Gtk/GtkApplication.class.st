@@ -27,8 +27,9 @@ GtkApplication class >> current [
 GtkApplication class >> ensureRunning [
 
 	self isRunning ifTrue: [ ^ self ].
-	self ensureVersion.
-	self new run
+	"self ensureVersion."
+	self new run.
+
 ]
 
 { #category : #accessing }
