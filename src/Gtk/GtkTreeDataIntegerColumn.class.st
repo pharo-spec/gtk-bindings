@@ -14,7 +14,7 @@ GtkTreeDataIntegerColumn >> gType [
 ]
 
 { #category : #accessing }
-GtkTreeDataIntegerColumn >> setValueOf: item to: gValue [
+GtkTreeDataIntegerColumn >> setValueOf: item path: path to: gValue [
 
 	gValue setInt: (self readObject: item)
 ]

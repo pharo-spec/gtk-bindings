@@ -235,6 +235,7 @@ GtkTreeDataStore >> getValue: iter column: columnNumber value: gValue [
 	gValue init: column gType.
 	column 
 		setValueOf: wrappedItem item 
+		path: path
 		to: gValue
 ]
 

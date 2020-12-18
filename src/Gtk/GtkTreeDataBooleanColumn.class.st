@@ -16,7 +16,7 @@ GtkTreeDataBooleanColumn >> gType [
 ]
 
 { #category : #accessing }
-GtkTreeDataBooleanColumn >> setValueOf: item to: gValue [
+GtkTreeDataBooleanColumn >> setValueOf: item path: path to: gValue [
 
 	gValue setBoolean: (self readObject: item)
 ]

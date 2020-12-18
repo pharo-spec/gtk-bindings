@@ -16,7 +16,7 @@ GtkTreeDataPixbufColumn >> gType [
 ]
 
 { #category : #accessing }
-GtkTreeDataPixbufColumn >> setValueOf: item to: gValue [
+GtkTreeDataPixbufColumn >> setValueOf: item path: path to: gValue [
 	| image |
 
 	image := self readObject: item.

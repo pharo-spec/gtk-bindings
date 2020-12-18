@@ -67,7 +67,7 @@ GtkTreeDataColumn >> readObject: anObject [
 ]
 
 { #category : #accessing }
-GtkTreeDataColumn >> setValueOf: item to: gValue [
+GtkTreeDataColumn >> setValueOf: item path: path to: gValue [
 	"Set the result of ==evaluation== transformation into ==gValue==. 
 	 When the gValue arrives, it is already initialised to receive the correct gType."
 

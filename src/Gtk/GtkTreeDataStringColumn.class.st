@@ -16,7 +16,7 @@ GtkTreeDataStringColumn >> gType [
 ]
 
 { #category : #accessing }
-GtkTreeDataStringColumn >> setValueOf: item to: gValue [
+GtkTreeDataStringColumn >> setValueOf: item path: path to: gValue [
 
 	gValue setString: (self readObject: item) asString
 ]
