@@ -86,6 +86,19 @@ GtkNotebook >> connectSwitchPage: aBlock [
 		do: [ :notebook :page :page_num :user_data | aBlock value: (self children at: page_num + 1) ]
 ]
 
+{ #category : #accessing }
+GtkNotebook >> currentPage [
+
+	^ self ffiCall: #(gint gtk_notebook_get_current_page (self))
+]
+
+{ #category : #accessing }
+GtkNotebook >> currentPage: page_num [
+
+	^ self ffiCall: #(void gtk_notebook_set_current_page (self, gint page_num))
+	
+]
+
 { #category : #testing }
 GtkNotebook >> isScrollable [
 
