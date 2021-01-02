@@ -34,6 +34,12 @@ GtkScrolledWindow class >> scrolledWindowNewHAdjustment: hadjustment vAdjustment
 ]
 
 { #category : #accessing }
+GtkScrolledWindow >> captureButtonPress: capture_button_press [
+
+	self ffiCall: #(void gtk_scrolled_window_set_capture_button_press (self, gboolean capture_button_press))
+]
+
+{ #category : #accessing }
 GtkScrolledWindow >> hAdjustment [
 
 	^ self ffiCall: #(GtkAdjustment *gtk_scrolled_window_get_hadjustment (self))
@@ -52,9 +58,21 @@ GtkScrolledWindow >> hScrollBar [
 ]
 
 { #category : #testing }
+GtkScrolledWindow >> isCaptureButtonPress [
+
+	self ffiCall: #(gboolean gtk_scrolled_window_get_capture_button_press (self))
+]
+
+{ #category : #testing }
 GtkScrolledWindow >> isKineticScrolling [
 
 	^ self ffiCall: #(gboolean gtk_scrolled_window_get_kinetic_scrolling(self))
+]
+
+{ #category : #testing }
+GtkScrolledWindow >> isOverlayScrolling [
+
+	^ self ffiCall: #(gboolean gtk_scrolled_window_get_overlay_scrolling (self))
 ]
 
 { #category : #accessing }
@@ -85,6 +103,14 @@ GtkScrolledWindow >> minContentWidth [
 GtkScrolledWindow >> minContentWidth: width [
 
 	self ffiCall: #(void gtk_scrolled_window_set_min_content_width (self, gint width))
+]
+
+{ #category : #accessing }
+GtkScrolledWindow >> overlayScrolling: overlay_scrolling [
+
+	self ffiCall: #(void gtk_scrolled_window_set_overlay_scrolling (
+		self, 
+		gboolean overlay_scrolling))
 ]
 
 { #category : #accessing }

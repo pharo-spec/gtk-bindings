@@ -63,13 +63,13 @@ GtkScaleButton >> connectPopup: aBlock [
 	self connect: 'popup' do: aBlock
 ]
 
-{ #category : #events }
+{ #category : #signaling }
 GtkScaleButton >> connectValueChanged: aBlock [
 
 	^ self 
 		connect: 'value-changed'
 		signature: #(gboolean (void *widget, gdouble value, void *aData))  
- 		do: [ :widget :value :aData | aBlock cull: value ] 
+ 		do: [ :widget :value :aData | aBlock cull: value ]
 ]
 
 { #category : #accessing }

@@ -76,6 +76,15 @@ GtkScale >> clearMarks [
 	self ffiCall: #(void gtk_scale_clear_marks (self))
 ]
 
+{ #category : #signaling }
+GtkScale >> connectValueChanged: aBlock [
+
+	^ self 
+		connect: 'value-changed'
+		signature: #(void (void *widget, void *aData))  
+ 		do: [ :widget :aData | aBlock value ] 
+]
+
 { #category : #accessing }
 GtkScale >> digits [
 
@@ -101,11 +110,6 @@ GtkScale >> drawsValue [
 ]
 
 { #category : #accessing }
-GtkScale >> getValue [
-	^ self ffiCall: #(gdouble gtk_range_get_value #(self))
-]
-
-{ #category : #accessing }
 GtkScale >> hasOrigin [
 
 	^ self ffiCall: #(gboolean gtk_scale_get_has_origin (self))
@@ -119,9 +123,14 @@ GtkScale >> hasOrigin: aBoolean [
 
 { #category : #accessing }
 GtkScale >> setValue: value [
-	^ self
-		ffiCall:
-			#(void gtk_range_set_value #(self , gdouble value))
+
+	^ self ffiCall: #(void gtk_range_set_value #(self, gdouble value))
+]
+
+{ #category : #accessing }
+GtkScale >> value [
+
+	^ self ffiCall: #(gdouble gtk_range_get_value #(self))
 ]
 
 { #category : #accessing }
