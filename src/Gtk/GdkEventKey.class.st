@@ -10,7 +10,8 @@ Class {
 	#classTraits : 'TGdkEventState classTrait',
 	#instVars : [
 		'keyValue',
-		'position'
+		'position',
+		'key'
 	],
 	#classVars : [
 		'InternalMap',
@@ -282,6 +283,15 @@ GdkEventKey >> is_modifier [
 GdkEventKey >> is_modifier: anObject [
 	"This method was automatically generated"
 	^handle platformUnsignedBitAt: OFFSET_IS_MODIFIER put: anObject
+]
+
+{ #category : #compatibility }
+GdkEventKey >> key [
+
+	^ key ifNil: [ 
+		key := KeyboardKey 
+			atValue: self keyValue
+			ifAbsent: [ Smalltalk os keyForValue: self keyValue ] ]
 ]
 
 { #category : #compatibility }
