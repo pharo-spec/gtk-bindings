@@ -35,12 +35,40 @@ GdkRGBA class >> fieldsDesc [
 	)
 ]
 
+{ #category : #'instance creation' }
+GdkRGBA class >> fromHexString: aColorHex [
+	"Returns a color instance from HEX (6 element elements)."
+	| green red blue alpha hexString |
+	
+	hexString := aColorHex withoutPrefix: '#'.
+	red := (Integer readFrom: (hexString first: 2) base: 16) / 255.0.
+	green := (Integer readFrom: (hexString copyFrom: 3 to: 4) base: 16) / 255.0.
+	blue := (Integer readFrom: (hexString copyFrom: 5 to: 6) base: 16) / 255.0.
+	
+	alpha := hexString size = 8 
+		ifFalse: [ 1.0 ]
+		ifTrue: [ (Integer readFrom: (hexString copyFrom: 7 to: 8) base: 16) / 255.0 ].
+	
+	^ self r: red g: green b: blue alpha: alpha
+]
+
 { #category : #accessing }
 GdkRGBA class >> gType [
 
 	^ self 
 		ffiCall: #(gsize gdk_rgba_get_type ())
 		module: GdkLibrary
+]
+
+{ #category : #'instance creation' }
+GdkRGBA class >> r: red g: green b: blue alpha: alpha [
+
+	^ self new 
+		red: red;
+		green: green;
+		blue: blue;
+		alpha: alpha;
+		yourself
 ]
 
 { #category : #'accessing structure variables' }
@@ -63,6 +91,12 @@ GdkRGBA >> asColor [
 		g: self green 
 		b: self blue 
 		alpha: self alpha
+]
+
+{ #category : #converting }
+GdkRGBA >> asGdkRGBA [
+
+	^ self
 ]
 
 { #category : #converting }
