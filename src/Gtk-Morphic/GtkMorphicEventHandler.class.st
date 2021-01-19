@@ -4,9 +4,6 @@ I'm used to convert Gtk events into Morphic events to be passed to GtkMorphView 
 Class {
 	#name : #GtkMorphicEventHandler,
 	#superclass : #OSWindowMorphicEventHandler,
-	#instVars : [
-		'eventQueue'
-	],
 	#pools : [
 		'GdkKeyCodes'
 	],
@@ -73,7 +70,7 @@ GtkMorphicEventHandler class >> symbolCharacterMappingAt: aKey ifAbsent: aBlock 
 		ifAbsent: aBlock
 ]
 
-{ #category : #converting }
+{ #category : #private }
 GtkMorphicEventHandler >> convertModifiers: anEvent [
 	| modifiers button |
 
@@ -103,25 +100,13 @@ GtkMorphicEventHandler >> convertModifiers: anEvent [
 	^ modifiers
 ]
 
-{ #category : #events }
-GtkMorphicEventHandler >> dispatchMorphicEvent: anEvent [
-
-	self processEventQueue.
-	super dispatchMorphicEvent: anEvent
-]
-
 { #category : #private }
-GtkMorphicEventHandler >> enqueue: anEvent [
-
-	eventQueue nextPut: anEvent
-]
-
-{ #category : #events }
 GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
 	(anEvent isEventKey
 		and: [ anEvent isKeyPress
-				and: [ anEvent hasAnyModifier and: [ anEvent keyCharacter = $. ] ] ])
+		and: [ anEvent hasAnyModifier 
+		and: [ anEvent keyCharacter = $. ] ] ])
 		ifTrue: [ UserInterruptHandler new handleUserInterrupt ]
 ]
 
@@ -131,23 +116,16 @@ GtkMorphicEventHandler >> handleEvent: anEvent [
 	| morphicEvent |
 	
 	morphicEvent := anEvent accept: self.
-	morphicEvent isMorphicEvent ifFalse: [ ^ false ].
-
-	self evaluateUserInterrupt: anEvent.
+	morphicEvent isMorphicEvent ifFalse: [ ^ false ].	
 	
+	self evaluateUserInterrupt: anEvent.
+
 	self dispatchMorphicEvent: morphicEvent.
 
 	^ morphicEvent wasHandled
 ]
 
-{ #category : #initialization }
-GtkMorphicEventHandler >> initialize [
-
-	super initialize.
-	eventQueue := AtomicSharedQueue new
-]
-
-{ #category : #converting }
+{ #category : #private }
 GtkMorphicEventHandler >> mapSymbolToKeyValue: symbol [
 
 	^ self class 
@@ -159,21 +137,12 @@ GtkMorphicEventHandler >> mapSymbolToKeyValue: symbol [
 ]
 
 { #category : #private }
-GtkMorphicEventHandler >> processEventQueue [
-	| event |
+GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
+	| keyDownEvent keyValue |
 
-	eventQueue isEmpty ifTrue: [ ^ self ].
-
-	[ (event := eventQueue nextOrNil) notNil ] 
-	whileTrue: [ super dispatchMorphicEvent: event ]
-]
-
-{ #category : #visiting }
-GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
-	| keyDownEvent keyStrokeEvent modifiers keyValue |
-
-	modifiers := self convertModifiers: anEvent modifiers.
 	keyValue := self mapSymbolToKeyValue: anEvent symbol.
+	keyValue = 0 ifTrue: [ ^ self ].
+	
 	keyDownEvent := KeyboardEvent new
 		setType: #keyDown
 		buttons: modifiers
@@ -183,16 +152,26 @@ GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 		hand:  self activeHand
 		stamp: Time millisecondClockValue.
 	keyDownEvent scanCode: anEvent scanCode.
-	self enqueue: keyDownEvent.
 	
-	"This is for ctrl/alt held alone makes morphic think that null character is good text input"
-	keyDownEvent keyValue = 0 ifTrue: [ ^ self ].
-	
+	"Instead of answering, the keydown process needs to dispatch the 
+	 event directly (to avoid it to be eaten by the visit method, who process 
+	 keystroke event too)"
+	self dispatchMorphicEvent: keyDownEvent
+]
+
+{ #category : #private }
+GtkMorphicEventHandler >> processKeystrokeEvent: anEvent  modifiers: modifiers [
+	| char keyStrokeEvent |
+
 	"That's stupid and horrible, but that's the way we doing it for now"
-	keyDownEvent keyValue = 27 "Esc" ifFalse: [
+	"keyDownEvent keyValue = 27 ""Esc"" ifFalse: [
 		anEvent character ifNil: [ 
 			(modifiers alt or: [ modifiers ctrl or: [ modifiers cmd ] ]) ifFalse: [ 
-				^ nil ] ] ].
+				^ nil ] ] ]."
+		
+	char := anEvent description 
+		ifNotEmpty: [ :aString | aString first ]
+		ifEmpty: [ ^ nil ].
 		
 	"Workaround for SDL<->Morphic: produce keystroke events
 	if any modifier key held down (for non-modified keys there are OSTextInputEvent)"
@@ -200,13 +179,22 @@ GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 		setType: #keystroke
 		buttons: modifiers
 		position: anEvent position
-		keyValue: keyValue
-		charCode: keyValue
+		keyValue: char charCode
+		charCode: char charCode
 		hand:  morphicWorld activeHand
 		stamp: Time millisecondClockValue.
-	keyStrokeEvent scanCode: anEvent scanCode.
-	
+	keyStrokeEvent key: (KeyboardKey fromCharacter: char ifNone: [ nil ]).
+ 	
 	^ keyStrokeEvent
+]
+
+{ #category : #visiting }
+GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
+	| modifiers |
+	
+	modifiers := self convertModifiers: anEvent modifiers.
+	self processKeyDownEvent: anEvent modifiers: modifiers.
+	^ self processKeystrokeEvent: anEvent modifiers: modifiers
 ]
 
 { #category : #visiting }
@@ -217,8 +205,8 @@ GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 	 click from two single clicks. 
 	 In order to make the world work properly, I need to let morphic do its interpretation (even 
 	 if is worst)"
-	anEvent isDoubleClick ifTrue: [ ^ nil ].
-	^ super visitMouseButtonPressEvent: anEvent.
+	anEvent isDoubleClick ifTrue: [ ^ self ].
+	^ super visitMouseButtonPressEvent: anEvent
 ]
 
 { #category : #visiting }
