@@ -273,6 +273,14 @@ GdkEventKey >> isReturn [
 	^ self keyValue = KEY_Return
 ]
 
+{ #category : #compatibility }
+GdkEventKey >> isTextInput [
+
+	self hasControlModifier ifTrue: [ ^ false ].
+	self hasCommandModifier ifTrue: [ ^ false ].
+	^ (self class internalMap keys includes: self keyValue) not
+]
+
 { #category : #'accessing structure variables' }
 GdkEventKey >> is_modifier [
 	"This method was automatically generated"
@@ -288,10 +296,10 @@ GdkEventKey >> is_modifier: anObject [
 { #category : #compatibility }
 GdkEventKey >> key [
 
-	^ key ifNil: [ 
+	^ key ifNil: [
 		key := KeyboardKey 
 			atValue: self keyValue
-			ifAbsent: [ Smalltalk os keyForValue: self keyValue ] ]
+			ifAbsent: [ Smalltalk os keyForValue: self scanCode ] ]
 ]
 
 { #category : #compatibility }

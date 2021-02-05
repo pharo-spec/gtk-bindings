@@ -85,9 +85,7 @@ GtkMorphicEventHandler >> convertModifiers: anEvent [
 	
 	anEvent hasControlModifier ifTrue: [ modifiers := modifiers | 2r00010000 ]. "Control key"
 	anEvent hasShiftModifier ifTrue: [ modifiers := modifiers | 8 ]. "Shift key"
-	self flag: #TODO. "In mac this mod2 is command, but not in linux."
-	Smalltalk os isMacOS ifTrue: [ 
-		anEvent hasMod2 ifTrue: [ modifiers := modifiers | 2r01000000 ]. "Cmd key" ].
+	anEvent hasCommandModifier ifTrue: [ modifiers := modifiers | 2r01000000 ]. "Cmd key".
 	
 	button := anEvent button.
 	(button ~= 1 and: [ anEvent hasButton1Modifier ]) 
@@ -146,35 +144,34 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 	keyDownEvent := KeyboardEvent new
 		setType: #keyDown
 		buttons: modifiers
-		position: anEvent position
+		position: (self convertPosition: anEvent position asIntegerPoint)
 		keyValue: keyValue
 		charCode: keyValue
 		hand:  self activeHand
 		stamp: Time millisecondClockValue.
-	keyDownEvent scanCode: anEvent scanCode.
-	
-	"Instead of answering, the keydown process needs to dispatch the 
-	 event directly (to avoid it to be eaten by the visit method, who process 
-	 keystroke event too)"
+	keyDownEvent
+		scanCode: anEvent scanCode;
+		key: anEvent key.
+
 	self dispatchMorphicEvent: keyDownEvent
 ]
 
 { #category : #private }
-GtkMorphicEventHandler >> processKeystrokeEvent: anEvent  modifiers: modifiers [
+GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 	| char keyStrokeEvent |
 
+	anEvent isTextInput ifFalse: [ ^ nil ].
+
 	"That's stupid and horrible, but that's the way we doing it for now"
-	"keyDownEvent keyValue = 27 ""Esc"" ifFalse: [
+	anEvent keyValue = 27 "Esc" ifFalse: [
 		anEvent character ifNil: [ 
 			(modifiers alt or: [ modifiers ctrl or: [ modifiers cmd ] ]) ifFalse: [ 
-				^ nil ] ] ]."
+				^ nil ] ] ].
 		
 	char := anEvent description 
 		ifNotEmpty: [ :aString | aString first ]
 		ifEmpty: [ ^ nil ].
 		
-	"Workaround for SDL<->Morphic: produce keystroke events
-	if any modifier key held down (for non-modified keys there are OSTextInputEvent)"
 	keyStrokeEvent := KeyboardEvent new
 		setType: #keystroke
 		buttons: modifiers
@@ -183,18 +180,41 @@ GtkMorphicEventHandler >> processKeystrokeEvent: anEvent  modifiers: modifiers [
 		charCode: char charCode
 		hand:  morphicWorld activeHand
 		stamp: Time millisecondClockValue.
-	keyStrokeEvent key: (KeyboardKey fromCharacter: char ifNone: [ nil ]).
- 	
-	^ keyStrokeEvent
+	keyStrokeEvent key: anEvent key.
+	
+	self dispatchMorphicEvent: keyStrokeEvent
+
 ]
 
 { #category : #visiting }
 GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	| modifiers |
-	
+
 	modifiers := self convertModifiers: anEvent modifiers.
 	self processKeyDownEvent: anEvent modifiers: modifiers.
-	^ self processKeystrokeEvent: anEvent modifiers: modifiers
+	self processKeystrokeEvent: anEvent modifiers: modifiers
+]
+
+{ #category : #visiting }
+GtkMorphicEventHandler >> visitKeyUpEvent: anEvent [
+	| keyUpEvent keyValue |
+
+	keyValue := self mapSymbolToKeyValue: anEvent symbol.
+	keyValue = 0 ifTrue: [ ^ self ].
+	
+	keyUpEvent := KeyboardEvent new
+		setType: #keyUp
+		buttons: (self convertModifiers: anEvent modifiers)
+		position: (self convertPosition: anEvent position asIntegerPoint)
+		keyValue: keyValue
+		charCode: keyValue
+		hand:  self activeHand
+		stamp: Time millisecondClockValue.
+	keyUpEvent
+		scanCode: anEvent scanCode;
+		key: anEvent key.
+	
+	self dispatchMorphicEvent: keyUpEvent
 ]
 
 { #category : #visiting }
