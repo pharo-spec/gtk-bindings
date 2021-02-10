@@ -297,9 +297,13 @@ GdkEventKey >> is_modifier: anObject [
 GdkEventKey >> key [
 
 	^ key ifNil: [
-		key := KeyboardKey 
-			atValue: self keyValue
-			ifAbsent: [ Smalltalk os keyForValue: self scanCode ] ]
+		self keyValue <= 16rFF 
+			ifTrue: [ 
+				KeyboardKey fromCharacter: (Character value: self keyValue) ]
+			ifFalse: [  
+				KeyboardKey 
+					atValue: self keyValue
+					ifAbsent: [ Smalltalk os keyForValue: self scanCode ] ] ]
 ]
 
 { #category : #compatibility }
@@ -344,6 +348,14 @@ GdkEventKey >> length [
 GdkEventKey >> length: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_LENGTH put: anObject
+]
+
+{ #category : #compatibility }
+GdkEventKey >> modifiedCharacter [
+	
+	self character ifNotNil: [ :c | ^ c ].
+	self keyValue <= 16rFF ifTrue: [ ^ Character value: self keyValue ]. 
+	^ Character value: 0
 ]
 
 { #category : #compatibility }

@@ -151,7 +151,7 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 		stamp: Time millisecondClockValue.
 	keyDownEvent
 		scanCode: anEvent scanCode;
-		key: anEvent key.
+		key: (OSKeySymbols mapKeySymbolValueToKeyboardKey: anEvent symbol).
 
 	self dispatchMorphicEvent: keyDownEvent
 ]
@@ -180,7 +180,9 @@ GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 		charCode: char charCode
 		hand:  morphicWorld activeHand
 		stamp: Time millisecondClockValue.
-	keyStrokeEvent key: anEvent key.
+	keyStrokeEvent
+		scanCode: anEvent scanCode;
+		key: (OSKeySymbols mapKeySymbolValueToKeyboardKey: anEvent symbol).
 	
 	self dispatchMorphicEvent: keyStrokeEvent
 
