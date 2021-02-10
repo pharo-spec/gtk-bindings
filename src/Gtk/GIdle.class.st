@@ -20,17 +20,18 @@ GIdle >> gIdleAddFull: aCallback [
 
 { #category : #accessing }
 GIdle >> idleAddFull: aBlock [
-	| cb |
 
 	mutex critical: [ 
+		| cb |
+		
 		deferring add: ((cb := GSourceFunc new)
 			signature: #(guint (void *data))
 			block: [ :data | 
 				aBlock value. 
 				mutex critical: [ deferring remove: cb ].
-				0 ]) ].
-
-	^ self gIdleAddFull: cb
+				0 ]).
+		
+		self gIdleAddFull: cb ]
 ]
 
 { #category : #initialization }
