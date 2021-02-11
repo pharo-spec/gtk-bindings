@@ -6,6 +6,9 @@ https://developer.gnome.org/gtk3/stable/GtkEntry.html
 Class {
 	#name : #GtkEntry,
 	#superclass : #GtkWidget,
+	#instVars : [
+		'entryCompletion'
+	],
 	#pools : [
 		'GtkInputPurpose'
 	],
@@ -160,6 +163,13 @@ GtkEntry >> cursorPosition [
 	^ self gObjectGetInteger: 'cursor-position'
 ]
 
+{ #category : #accessing }
+GtkEntry >> entryCompletion: anEntryCompletion [
+
+	entryCompletion := anEntryCompletion.
+	self setCompletion: anEntryCompletion	
+]
+
 { #category : #private }
 GtkEntry >> g_ucs4_to_utf8: aUCS4Character [
 
@@ -259,7 +269,7 @@ GtkEntry >> selectFrom: start_pos to: end_pos [
 	^ self ffiCall: #(void gtk_editable_select_region (self, gint start_pos, gint end_pos))
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkEntry >> setCompletion: aGtkEntryCompletion [
 
 	^ self ffiCall: #(void gtk_entry_set_completion (self, GtkEntryCompletion *aGtkEntryCompletion))
