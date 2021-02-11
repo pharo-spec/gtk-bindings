@@ -61,17 +61,3 @@ SpecGtkBackend >> selectDirectoryTitle: aString [
 		ifTrue: [ dialog filename asFileReference ]
 		ifFalse: [ nil ]
 ]
-
-{ #category : #'ui dialogs' }
-SpecGtkBackend >> selectFileTitle: aString [
-	| dialog |
-
-	dialog := GtkFileChooserDialog 
-		newOpenFileTitle: 'Select file...' 
-		acceptLabel: 'Accept' 
-		cancelLabel: 'Cancel'.
-	dialog showAll; run.
-	^ dialog isOk 
-		ifTrue: [ dialog filename asFileReference ]
-		ifFalse: [ nil ]
-]

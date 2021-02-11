@@ -21,6 +21,12 @@ GtkEntryCompletion class >> new [
 ]
 
 { #category : #accessing }
+GtkEntryCompletion >> getModel [
+
+	^ self ffiCall: #(GtkTreeModel * gtk_entry_completion_get_model  (self))
+]
+
+{ #category : #accessing }
 GtkEntryCompletion >> matchFunction: aFunction [ 
 
 	matchFunctionCallback := aFunction.
