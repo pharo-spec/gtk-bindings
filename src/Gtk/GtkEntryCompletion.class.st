@@ -1,6 +1,10 @@
 Class {
 	#name : #GtkEntryCompletion,
 	#superclass : #GObject,
+	#instVars : [
+		'model',
+		'matchFunctionCallback'
+	],
 	#category : #'Gtk-Misc'
 }
 
