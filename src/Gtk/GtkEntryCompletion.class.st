@@ -1,6 +1,6 @@
 Class {
 	#name : #GtkEntryCompletion,
-	#superclass : #GtkStructure,
+	#superclass : #GObject,
 	#category : #'Gtk-Misc'
 }
 
@@ -27,7 +27,7 @@ GtkEntryCompletion >> setMatchFunc: func [
 { #category : #initialization }
 GtkEntryCompletion >> setModel: model [
 
-	^ self ffiCall: #(void  gtk_entry_completion_set_model  ( void, void * model))
+	^ self ffiCall: #(void  gtk_entry_completion_set_model  ( self, void * model))
 ]
 
 { #category : #initialization }
