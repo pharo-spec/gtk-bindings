@@ -90,6 +90,15 @@ GtkRunLoop class >> defer: aBlock [
 ]
 
 { #category : #accessing }
+GtkRunLoop class >> delayedDefer: aBlock [ 
+
+	self defer: [ 
+		[ 
+			20 timesRepeat: [ Processor yield. ].
+			aBlock value ] fork ]
+]
+
+{ #category : #accessing }
 GtkRunLoop class >> forceDefer: aBlock [
 
 	^ GIdle uniqueInstance idleAddFull: aBlock

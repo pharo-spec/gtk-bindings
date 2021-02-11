@@ -154,6 +154,12 @@ GtkEntry >> convertGunichar: unichar toUtf8InBuffer: buffer [
 	^ self ffiCall: #(gint g_unichar_to_utf8 (gunichar unichar, String buffer)) module: GLibLibrary
 ]
 
+{ #category : #accessing }
+GtkEntry >> cursorPosition [
+
+	^ self gObjectGetInteger: 'cursor-position'
+]
+
 { #category : #private }
 GtkEntry >> g_ucs4_to_utf8: aUCS4Character [
 
@@ -167,6 +173,12 @@ GtkEntry >> g_ucs4_to_utf8: aUCS4Character [
 GtkEntry >> g_utf8_to_ucs4: aString [
 
 	^ self ffiCall: #(gunichar g_utf8_get_char(String aString)) module: GLibLibrary
+]
+
+{ #category : #accessing }
+GtkEntry >> imContextFilterKeypress: event [
+
+	^ self ffiCall: #(gboolean gtk_entry_im_context_filter_keypress (self, GdkEventKey *event))
 ]
 
 { #category : #accessing }
@@ -245,6 +257,18 @@ GtkEntry >> selectAll [
 GtkEntry >> selectFrom: start_pos to: end_pos [
 
 	^ self ffiCall: #(void gtk_editable_select_region (self, gint start_pos, gint end_pos))
+]
+
+{ #category : #accessing }
+GtkEntry >> setCompletion: aGtkEntryCompletion [
+
+	^ self ffiCall: #(void gtk_entry_set_completion (self, GtkEntryCompletion *aGtkEntryCompletion))
+]
+
+{ #category : #accessing }
+GtkEntry >> setCursorPosition: position [
+
+	^ self ffiCall: #(void gtk_editable_set_position (self, gint position))
 ]
 
 { #category : #accessing }

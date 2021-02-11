@@ -179,6 +179,12 @@ GtkComboBox >> fixedWidth: aBoolean [
 ]
 
 { #category : #accessing }
+GtkComboBox >> getEntry [
+
+	self ffiCall: #(GtkEntry * gtk_bin_get_child  (self) )
+]
+
+{ #category : #accessing }
 GtkComboBox >> hasEntry [
 
 	^ self ffiCall: #(gboolean gtk_combo_box_get_has_entry (self))
@@ -194,6 +200,18 @@ GtkComboBox >> model: aTreeModel [
 
 	model := aTreeModel.
 	self setModel: aTreeModel
+]
+
+{ #category : #accessing }
+GtkComboBox >> popdown [
+
+	self ffiCall: #(void gtk_combo_box_popdown  (self) )
+]
+
+{ #category : #accessing }
+GtkComboBox >> popup [
+
+	self ffiCall: #(void gtk_combo_box_popup (self) )
 ]
 
 { #category : #accessing }
@@ -222,6 +240,12 @@ GtkComboBox >> selectedIndexes [
 	^ selectedValue = -1
 		ifTrue: [ #() ]
 		ifFalse: [ {(selectedValue + 1)} ]
+]
+
+{ #category : #accessing }
+GtkComboBox >> setActive: index [
+
+	self ffiCall: #(void gtk_combo_box_set_active  (self, gint index) )
 ]
 
 { #category : #private }
