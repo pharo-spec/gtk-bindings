@@ -248,6 +248,18 @@ GtkEntry >> selectFrom: start_pos to: end_pos [
 ]
 
 { #category : #accessing }
+GtkEntry >> setCompletion: aGtkEntryCompletion [
+
+	^ self ffiCall: #(void gtk_entry_set_completion (self, GtkEntryCompletion *aGtkEntryCompletion))
+]
+
+{ #category : #accessing }
+GtkEntry >> setCursorPosition: position [
+
+	^ self ffiCall: #(void gtk_editable_set_position (self, gint position))
+]
+
+{ #category : #accessing }
 GtkEntry >> text [
 	
 	^ self basicText
