@@ -31,13 +31,13 @@ OSGtkBackendWindow >> bounds: newBounds [
 { #category : #accessing }
 OSGtkBackendWindow >> clipboardText [
 	
-	^ GtkClipboard forSelection waitForText
+	^ GtkClipboard forSelection waitForText withInternalLineEndings
 ]
 
 { #category : #accessing }
 OSGtkBackendWindow >> clipboardText: aString [
 
-	GtkClipboard forSelection text: aString
+	GtkClipboard forSelection text: (aString withLineEndings: OSPlatform current lineEnding)
 ]
 
 { #category : #accessing }
