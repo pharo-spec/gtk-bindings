@@ -55,6 +55,42 @@ GtkStyleContext >> fontNormal [
 	^ self getFont: GTK_STATE_FLAG_NORMAL
 ]
 
+{ #category : #accessing }
+GtkStyleContext >> getBackgroundColor [
+
+	| color state |
+	
+	color := GdkRGBA new.
+	state := GTK_STATE_FLAG_NORMAL.
+
+	self getBackgroundColor: color state: state.
+	^ color asColor
+]
+
+{ #category : #accessing }
+GtkStyleContext >> getBackgroundColor: color state: state [
+	
+	^ self ffiCall: #(void *gtk_style_context_get_background_color  (self, GtkStateFlags state, GdkRGBA *color))
+]
+
+{ #category : #accessing }
+GtkStyleContext >> getColor [
+
+	| color state |
+	
+	color := GdkRGBA new.
+	state := GTK_STATE_FLAG_NORMAL.
+
+	self getColor: color state: state.
+	^ color asColor
+]
+
+{ #category : #accessing }
+GtkStyleContext >> getColor: color state: state [
+	
+	^ self ffiCall: #(void *gtk_style_context_get_color  (self, GtkStateFlags state, GdkRGBA *color))
+]
+
 { #category : #private }
 GtkStyleContext >> getFont: state [
 	

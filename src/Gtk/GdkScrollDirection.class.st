@@ -53,3 +53,33 @@ GdkScrollDirection class >> enumDecl [
   GDK_SCROLL_SMOOTH	4
 )
 ]
+
+{ #category : #testing }
+GdkScrollDirection >> isDown [ 
+
+	^ value = GDK_SCROLL_DOWN
+]
+
+{ #category : #testing }
+GdkScrollDirection >> isLeft [
+
+	^ value = GDK_SCROLL_LEFT
+]
+
+{ #category : #testing }
+GdkScrollDirection >> isRight [
+
+	^ value = GDK_SCROLL_RIGHT
+]
+
+{ #category : #testing }
+GdkScrollDirection >> isSmooth [
+
+	^ value = GDK_SCROLL_SMOOTH
+]
+
+{ #category : #testing }
+GdkScrollDirection >> isUp [ 
+
+	^ value = self class GDK_SCROLL_UP
+]

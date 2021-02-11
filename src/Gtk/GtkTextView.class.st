@@ -103,6 +103,12 @@ GtkTextView >> getIterLocation: iter to: location [
 		GdkRectangle *location))
 ]
 
+{ #category : #accessing }
+GtkTextView >> imContextFilterKeypress: event [
+
+	^ self ffiCall: #(gboolean gtk_text_view_im_context_filter_keypress (self, GdkEventKey *event))
+]
+
 { #category : #testing }
 GtkTextView >> isCursorVisible [
 

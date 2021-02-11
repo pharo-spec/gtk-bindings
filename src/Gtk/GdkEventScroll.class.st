@@ -103,6 +103,12 @@ GdkEventScroll >> is_stop: anObject [
 ]
 
 { #category : #'accessing structure variables' }
+GdkEventScroll >> position [
+	
+	^ self x @ self y
+]
+
+{ #category : #'accessing structure variables' }
 GdkEventScroll >> send_event [
 	"This method was automatically generated"
 	^handle signedByteAt: OFFSET_SEND_EVENT
