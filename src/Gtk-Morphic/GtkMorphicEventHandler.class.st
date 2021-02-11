@@ -4,6 +4,10 @@ I'm used to convert Gtk events into Morphic events to be passed to GtkMorphView 
 Class {
 	#name : #GtkMorphicEventHandler,
 	#superclass : #OSWindowMorphicEventHandler,
+	#instVars : [
+		'imContext',
+		'lastEvent'
+	],
 	#pools : [
 		'GdkKeyCodes'
 	],
@@ -99,6 +103,28 @@ GtkMorphicEventHandler >> convertModifiers: anEvent [
 ]
 
 { #category : #private }
+GtkMorphicEventHandler >> doKeystroke: aString [
+	| char keyStrokeEvent |
+
+	char := aString first.
+		
+	keyStrokeEvent := KeyboardEvent new
+		setType: #keystroke
+		buttons: (self convertModifiers: lastEvent)
+		position: lastEvent position
+		keyValue: char charCode
+		charCode: char charCode
+		hand:  morphicWorld activeHand
+		stamp: Time millisecondClockValue.
+	
+	keyStrokeEvent
+		scanCode: lastEvent scanCode;
+		key: lastEvent key.
+	
+	self dispatchMorphicEvent: keyStrokeEvent
+]
+
+{ #category : #private }
 GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
 	(anEvent isEventKey
@@ -121,6 +147,22 @@ GtkMorphicEventHandler >> handleEvent: anEvent [
 	self dispatchMorphicEvent: morphicEvent.
 
 	^ morphicEvent wasHandled
+]
+
+{ #category : #private }
+GtkMorphicEventHandler >> imContext [
+
+	^ imContext ifNil: [ 
+		imContext := GtkRunLoop defer: [ GtkIMContext newSimple ] ]
+]
+
+{ #category : #initialization }
+GtkMorphicEventHandler >> initialize [
+
+	super initialize.
+	GtkRunLoop defer: [ 
+		self imContext 
+			connectCommit: [ :aString | self doKeystroke: aString ] ]
 ]
 
 { #category : #private }
@@ -151,14 +193,13 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 		stamp: Time millisecondClockValue.
 	keyDownEvent
 		scanCode: anEvent scanCode;
-		key: (OSKeySymbols mapKeySymbolValueToKeyboardKey: anEvent symbol).
+		key: anEvent key.
 
 	self dispatchMorphicEvent: keyDownEvent
 ]
 
 { #category : #private }
 GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
-	| char keyStrokeEvent |
 
 	anEvent isTextInput ifFalse: [ ^ nil ].
 
@@ -167,25 +208,10 @@ GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 		anEvent character ifNil: [ 
 			(modifiers alt or: [ modifiers ctrl or: [ modifiers cmd ] ]) ifFalse: [ 
 				^ nil ] ] ].
-		
-	char := anEvent description 
-		ifNotEmpty: [ :aString | aString first ]
-		ifEmpty: [ ^ nil ].
-		
-	keyStrokeEvent := KeyboardEvent new
-		setType: #keystroke
-		buttons: modifiers
-		position: anEvent position
-		keyValue: char charCode
-		charCode: char charCode
-		hand:  morphicWorld activeHand
-		stamp: Time millisecondClockValue.
-	keyStrokeEvent
-		scanCode: anEvent scanCode;
-		key: (OSKeySymbols mapKeySymbolValueToKeyboardKey: anEvent symbol).
-	
-	self dispatchMorphicEvent: keyStrokeEvent
 
+	lastEvent := anEvent copyInMemory.		
+	GtkRunLoop defer: [ 
+		self imContext filterKeypress: anEvent ]
 ]
 
 { #category : #visiting }
@@ -228,6 +254,7 @@ GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 	 In order to make the world work properly, I need to let morphic do its interpretation (even 
 	 if is worst)"
 	anEvent isDoubleClick ifTrue: [ ^ self ].
+	GtkRunLoop defer: [ self imContext reset ].
 	^ super visitMouseButtonPressEvent: anEvent
 ]
 

@@ -177,6 +177,20 @@ GdkEventKey >> asKeyCombination [
 ]
 
 { #category : #compatibility }
+GdkEventKey >> basicKey [
+
+	self keyValue <= 16rFF ifTrue: [ 
+		(KeyboardKey 
+			fromCharacter: self keyCharacter 
+			ifNone: [ nil ])
+			ifNotNil: [ :aKey | ^ aKey ] ].
+		
+	^ KeyboardKey 
+		atValue: self keyValue
+		ifAbsent: [ Smalltalk os keyForValue: self scanCode ]
+]
+
+{ #category : #compatibility }
 GdkEventKey >> character [
 
 	^ self keyCharacter
@@ -296,14 +310,7 @@ GdkEventKey >> is_modifier: anObject [
 { #category : #compatibility }
 GdkEventKey >> key [
 
-	^ key ifNil: [
-		self keyValue <= 16rFF 
-			ifTrue: [ 
-				KeyboardKey fromCharacter: (Character value: self keyValue) ]
-			ifFalse: [  
-				KeyboardKey 
-					atValue: self keyValue
-					ifAbsent: [ Smalltalk os keyForValue: self scanCode ] ] ]
+	^ key ifNil: [ key := self basicKey ]
 ]
 
 { #category : #compatibility }
