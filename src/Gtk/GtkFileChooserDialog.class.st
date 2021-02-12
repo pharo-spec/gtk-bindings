@@ -86,6 +86,6 @@ GtkFileChooserDialog >> filename [
 
 { #category : #accessing }
 GtkFileChooserDialog >> filename: filename [
-
-	self ffiCall: #(void *gtk_file_chooser_set_filename (self, const char filename))
+"The file must exist. For a new filename use currentFilename:"
+	self ffiCall: #(gboolean *gtk_file_chooser_set_filename (self, const gchar *filename))
 ]
