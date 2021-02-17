@@ -43,6 +43,18 @@ GtkTextTag >> asTextAttributeList [
 ]
 
 { #category : #accessing }
+GtkTextTag >> background [
+
+	^ Color fromHexString: (self gObjectGetString: 'background')
+]
+
+{ #category : #accessing }
+GtkTextTag >> background: aColor [
+
+	self gObjectSet: 'background' toString: '#', aColor asHexString
+]
+
+{ #category : #accessing }
 GtkTextTag >> beBold [
 
 	self gObjectSet: 'weight' toInteger: 800

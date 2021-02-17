@@ -48,6 +48,27 @@ GtkTextBuffer >> appendText: aString [
 ]
 
 { #category : #'accessing tags' }
+GtkTextBuffer >> applyTag: aTag start: start end: end [
+	| startIter endIter |
+	
+	startIter := self iterAtOffset: start.
+	endIter := self iterAtOffset: end.
+	self applyTag: aTag startIter: startIter endIter: endIter
+	
+	
+]
+
+{ #category : #private }
+GtkTextBuffer >> applyTag: tag startIter: start endIter: end [
+
+	self ffiCall: #(void gtk_text_buffer_apply_tag (
+		self,
+ 		GtkTextTag *tag,
+		const GtkTextIter *start,
+		const GtkTextIter *end))
+]
+
+{ #category : #'accessing tags' }
 GtkTextBuffer >> applyTagByName: aName start: start end: end [
 	| startIter endIter |
 	
