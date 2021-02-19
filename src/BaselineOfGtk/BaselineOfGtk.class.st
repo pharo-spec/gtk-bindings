@@ -13,12 +13,10 @@ BaselineOfGtk >> baseline: spec [
 		do: [ 
 			spec postLoadDoIt: #postLoad.
 
-			self threadedffi: spec.
-			
 			spec
 				"core"
 				package: 'Gtk-Pango';
-				package: 'Gtk' with: [ spec requires: #('ThreadedFFI' 'Gtk-Pango') ];
+				package: 'Gtk' with: [ spec requires: #('Gtk-Pango') ];
 				"code"
 				package: 'Gtk-SourceView' with: [ spec requires: #('Gtk') ];
 				"morphic"
@@ -67,13 +65,4 @@ BaselineOfGtk >> recompileStructures [
 	(Smalltalk at: #GtkEnumeration) allSubclassesDo: #initializeEnumeration.
 	(Smalltalk at: #GtkStructure) allSubclassesDo: #compileFields.
 	(Smalltalk at: #GtkWidget) withAllSubclassesDo: #recompile
-]
-
-{ #category : #'external projects' }
-BaselineOfGtk >> threadedffi: spec [
-
-	spec baseline: 'ThreadedFFI' with: [ 
-		spec 
-			repository: 'github://pharo-project/threadedFFI-Plugin';
-			loads: 'Core' ]
 ]
