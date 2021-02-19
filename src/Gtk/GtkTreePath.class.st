@@ -29,7 +29,7 @@ GtkTreePath class >> new [
 GtkTreePath class >> newFromArray: anArray [
 
 	"Gtk3 is zero based :("
-	^ self newFromString: ((anArray collect: [ :each | each - 1]) joinUsing: $:)
+	^ self newFromString: ((anArray collect: [ :each | each - 1 ]) joinUsing: $:)
 ]
 
 { #category : #private }

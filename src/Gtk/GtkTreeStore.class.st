@@ -84,17 +84,6 @@ GtkTreeStore >> numberOfColumns [
 	^ self ffiCall: #(gint gtk_tree_model_get_n_columns(self))
 ]
 
-{ #category : #private }
-GtkTreeStore >> setSortFunc: sort_func columnId: sort_column_id [
-
-	self ffiCall: #(void gtk_tree_sortable_set_sort_func (
-		self,
-		gint sort_column_id,
-		GCallback sort_func,
-		NULL,
-		NULL))
-]
-
 { #category : #accessing }
 GtkTreeStore >> stringAt: iter column: columnNumber [
 	| buffer |

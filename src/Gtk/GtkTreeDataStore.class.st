@@ -26,7 +26,8 @@ Class {
 		'columns',
 		'isList',
 		'wrappedRoots',
-		'holder'
+		'holder',
+		'sortedRoots'
 	],
 	#pools : [
 		'GType',
@@ -135,6 +136,12 @@ GtkTreeDataStore >> addColumn: aColumn [
 GtkTreeDataStore >> assertNotNull: anObject ifFail: aBlock [ 
 
 	(anObject isNil or: [ anObject getHandle isNull ]) ifTrue: aBlock
+]
+
+{ #category : #private }
+GtkTreeDataStore >> basicRoots [
+
+	^ roots
 ]
 
 { #category : #accessing }
@@ -453,6 +460,12 @@ GtkTreeDataStore >> registerForFinalize [
 ]
 
 { #category : #private }
+GtkTreeDataStore >> resetWrappedRoots [
+
+	wrappedRoots := nil
+]
+
+{ #category : #private }
 GtkTreeDataStore >> retrieveChildrenIfNeeded: aWrappedItem [
 
 	aWrappedItem needsChildren ifFalse: [ ^ self ].
@@ -462,14 +475,44 @@ GtkTreeDataStore >> retrieveChildrenIfNeeded: aWrappedItem [
 { #category : #accessing }
 GtkTreeDataStore >> roots [
 
-	^ roots
+	sortedRoots ifNotNil: [ ^ sortedRoots ].
+	^ self basicRoots
 ]
 
 { #category : #accessing }
 GtkTreeDataStore >> roots: aCollection [
 
+	sortedRoots := nil.
 	roots := aCollection.
-	wrappedRoots := nil
+	self resetWrappedRoots
+]
+
+{ #category : #private }
+GtkTreeDataStore >> rowsReorderedPath: path iter: iter newOrders: new_order [
+
+	self ffiCall: #(void gtk_tree_model_rows_reordered (
+		self, 
+		GtkTreePath *path,
+		GtkTreeIter *iter,
+		gint *new_order))
+]
+
+{ #category : #sorting }
+GtkTreeDataStore >> sortWith: aSortFunction [
+	| newOrders |
+
+	sortedRoots := self basicRoots sorted: aSortFunction.
+	self resetWrappedRoots.
+	newOrders := ByteArray new: (FFIInt32 externalTypeSize * (sortedRoots size + 1)).
+	self basicRoots withIndexDo: [ :each :index | 
+		newOrders 
+			signedLongAt: index 
+			put: (sortedRoots indexOf: each) ].
+	
+	self
+		rowsReorderedPath: GtkTreePath new 
+		iter: GtkTreeIter null
+		newOrders: newOrders
 ]
 
 { #category : #private }

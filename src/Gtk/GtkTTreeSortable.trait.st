@@ -64,6 +64,15 @@ GtkTTreeSortable >> sortBy: aBlock columnId: id [
 		columnId: id
 ]
 
+{ #category : #sorting }
+GtkTTreeSortable >> sortColumnId: sort_column_id orderType: order [
+
+	^ self ffiCall: #(void gtk_tree_sortable_set_sort_column_id (
+		self,
+		gint sort_column_id, 
+		"GtkSortType"gint order))
+]
+
 { #category : #private }
 GtkTTreeSortable >> sortFunc: aFunction columnId: id [
 

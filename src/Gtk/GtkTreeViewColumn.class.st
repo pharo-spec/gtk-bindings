@@ -11,6 +11,7 @@ Class {
 		'renderers'
 	],
 	#pools : [
+		'GtkSortType',
 		'GtkTreeViewColumnSizing'
 	],
 	#category : #'Gtk-Widget-Tree'
@@ -52,9 +53,21 @@ GtkTreeViewColumn >> autoObjectUnref [
 ]
 
 { #category : #accessing }
+GtkTreeViewColumn >> beClickable [
+
+	self clickable: true
+]
+
+{ #category : #accessing }
 GtkTreeViewColumn >> beExpand [
 
 	self expand: true
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> beNotClickable [
+
+	self clickable: false
 ]
 
 { #category : #accessing }
@@ -85,6 +98,30 @@ GtkTreeViewColumn >> beSizingFixed [
 GtkTreeViewColumn >> beSizingGrowOnly [
 
 	self sizing: GTK_TREE_VIEW_COLUMN_GROW_ONLY
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> beSortAscending [
+
+	self sortOrder: GTK_SORT_ASCENDING
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> beSortDescending [
+
+	self sortOrder: GTK_SORT_DESCENDING
+]
+
+{ #category : #private }
+GtkTreeViewColumn >> clickable: clickable [
+
+	self ffiCall: #(void gtk_tree_view_column_set_clickable (self, gboolean clickable))
+]
+
+{ #category : #signaling }
+GtkTreeViewColumn >> connectClicked: aBlock [
+
+	(GClickedCallback do: aBlock) connectTo: self
 ]
 
 { #category : #private }
@@ -124,6 +161,12 @@ GtkTreeViewColumn >> gtkTreeViewColumnSetTitle: string [
 ]
 
 { #category : #accessing }
+GtkTreeViewColumn >> hideSortIndicator [
+
+	self sortIndicator: false
+]
+
+{ #category : #accessing }
 GtkTreeViewColumn >> id [
 	^ self title
 ]
@@ -137,6 +180,12 @@ GtkTreeViewColumn >> initialize [
 ]
 
 { #category : #testing }
+GtkTreeViewColumn >> isClickable [
+
+	^ self ffiCall: #(gboolean gtk_tree_view_column_get_clickable (self))
+]
+
+{ #category : #testing }
 GtkTreeViewColumn >> isEditable [
 	
 	^ renderers anySatisfy: #isEditable 
@@ -146,6 +195,12 @@ GtkTreeViewColumn >> isEditable [
 GtkTreeViewColumn >> isResizable [ 
 
 	^ self ffiCall: #(gboolean gtk_tree_view_column_get_resizable (self))
+]
+
+{ #category : #testing }
+GtkTreeViewColumn >> isSortIndicatorVisible [
+
+	^ self ffiCall: #(gboolean gtk_tree_view_column_get_sort_indicator (self))
 ]
 
 { #category : #accessing }
@@ -210,6 +265,12 @@ GtkTreeViewColumn >> resizable: resizable [
 ]
 
 { #category : #accessing }
+GtkTreeViewColumn >> showSortIndicator [
+
+	self sortIndicator: true
+]
+
+{ #category : #accessing }
 GtkTreeViewColumn >> sizing [
 
 	^ self ffiCall: #(GtkTreeViewColumnSizing gtk_tree_view_column_get_sizing (self))
@@ -231,6 +292,24 @@ GtkTreeViewColumn >> sortColumnId [
 GtkTreeViewColumn >> sortColumnId: sort_column_id [
 	
 	self ffiCall: #(void gtk_tree_view_column_set_sort_column_id (self, gint sort_column_id))
+]
+
+{ #category : #private }
+GtkTreeViewColumn >> sortIndicator: setting [
+
+	self ffiCall: #(void gtk_tree_view_column_set_sort_indicator (self, gboolean setting))
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> sortOrder [
+
+	^ self ffiCall: #(GtkSortType gtk_tree_view_column_get_sort_order (self))
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> sortOrder: order [
+
+	self ffiCall: #(void gtk_tree_view_column_set_sort_order (self, GtkSortType order))
 ]
 
 { #category : #accessing }
