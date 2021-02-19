@@ -24,11 +24,11 @@ GCallback >> basicValueWithArguments: args [
 	finished := false.
 	^ [ 
 		result := block valueWithArguments: args.
+		self beSuccess.
 		finished := true.
 		result ]
-	ensure: [ 
-		finished ifFalse: [
-			^ self returnOnError ] ]
+	ensure: [
+		finished ifFalse: [  self beFailed ] ]
 ]
 
 { #category : #evaluating }

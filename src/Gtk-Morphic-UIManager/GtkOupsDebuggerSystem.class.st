@@ -24,15 +24,14 @@ GtkOupsDebuggerSystem >> openDebuggerOnRequest: aDebugRequest [
 	
 	self spawnNewUIProcessIfNecessary: aDebugRequest.
 	aDebugRequest debugSession isAboutUIProcess ifTrue: [ 
-		aDebugRequest debugSession newUIProcess: UIManager default  uiProcess ].
+		aDebugRequest debugSession newUIProcess: UIManager default uiProcess ].
 	
 	self ensureExceptionIn: aDebugRequest debugSession.
 
 	"Schedule the debugger opening in a deferred UI message to address redraw problems after opening a debugger e.g. from the testrunner."
 	debuggerOpeningStrategy := self debuggerSelectionStrategy.
 	self defaultUIManager defer: [ 
-		debuggerOpeningStrategy openDebuggerForSession:
-			aDebugRequest debugSession ].
+		debuggerOpeningStrategy openDebuggerForSession: aDebugRequest debugSession ].
 	self suspendDebuggedProcess: aDebugRequest.
 
 	aDebugRequest debugSession stopRunLoop

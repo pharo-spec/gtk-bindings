@@ -156,7 +156,13 @@ GtkDebugSession >> stopUIProcess [
 { #category : #'debugging actions' }
 GtkDebugSession >> terminate [
 
-	self stopRunLoop.
-	super terminate.
-
+	[
+		'TERMINATE' printToStdout.
+		10 timesRepeat: [ Processor yield ].
+		'TERMINATE1' printToStdout.
+		self stopRunLoop.
+		'TERMINATE2' printToStdout.
+		super terminate.
+		'TERMINATE3' printToStdout.
+	] fork
 ]
