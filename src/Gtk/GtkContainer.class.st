@@ -112,7 +112,8 @@ GtkContainer >> gtInspectorWidgetsIn: composite [
 
 { #category : #testing }
 GtkContainer >> hasChildren [
-	^ self children isEmptyOrNil not 
+
+	^ self children notEmpty
 ]
 
 { #category : #testing }
