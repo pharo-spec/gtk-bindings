@@ -19,6 +19,7 @@ Class {
 	#name : #GtkTreeDataStore,
 	#superclass : #GtkTreeStore,
 	#instVars : [
+		'owner',
 		'roots',
 		'stamp',
 		'childrenBlock',
@@ -42,7 +43,7 @@ GtkTreeDataStore class >> gClass [
 	^ GClass gClassAt: self
 ]
 
-{ #category : #accessing }
+{ #category : #'class initialization' }
 GtkTreeDataStore class >> gDefine: gClass [
 
 	gClass parent: GtkTreeStore.
@@ -51,7 +52,7 @@ GtkTreeDataStore class >> gDefine: gClass [
 		initialize: [ :interface | self gDefineTreeStoreInterface: interface ]
 ]
 
-{ #category : #accessing }
+{ #category : #'class initialization' }
 GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 
 	iface get_flags: (GCallback 
@@ -113,16 +114,23 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 				iter: (GtkTreeIter fromHandle: iter) ])
 ]
 
-{ #category : #accessing }
+{ #category : #'class initialization' }
 GtkTreeDataStore class >> gInstance: handle [
 
 	^ self gClass findInstance: handle
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 GtkTreeDataStore class >> new [
 
 	^ (GClass gDefinitionAt: self) new
+]
+
+{ #category : #accessing }
+GtkTreeDataStore class >> sortResortThreashold [
+	"More than this, sort will reset model (other than reorder rows)"
+
+	^ 1000
 ]
 
 { #category : #accessing }
@@ -295,6 +303,18 @@ GtkTreeDataStore >> initialize [
 	self registerForFinalize
 ]
 
+{ #category : #accessing }
+GtkTreeDataStore >> itemAtPath: pathArray [
+	| wrappedItem |	
+
+	wrappedItem := self 
+		wrappedItemAt: pathArray first
+		of: self wrappedRoots
+		then: pathArray allButFirst.
+		
+	^ wrappedItem ifNotNil: [ wrappedItem item ]
+]
+
 { #category : #'accessing store' }
 GtkTreeDataStore >> iterChildren: parent iter: iter [
 	| path wrappedItem child |
@@ -432,6 +452,18 @@ GtkTreeDataStore >> iterParent: child iter: iter [
 	^ true
 ]
 
+{ #category : #accessing }
+GtkTreeDataStore >> owner [
+
+	^ owner
+]
+
+{ #category : #accessing }
+GtkTreeDataStore >> owner: aTreeView [
+
+	owner := aTreeView
+]
+
 { #category : #private }
 GtkTreeDataStore >> pathFromIter: iter [
 
@@ -503,6 +535,10 @@ GtkTreeDataStore >> sortWith: aSortFunction [
 
 	sortedRoots := self basicRoots sorted: aSortFunction.
 	self resetWrappedRoots.
+	
+	sortedRoots size > self class sortResortThreashold ifTrue: [ 
+		^ self owner setModel: self ].
+	
 	newOrders := ByteArray new: (FFIInt32 externalTypeSize * (sortedRoots size + 1)).
 	self basicRoots withIndexDo: [ :each :index | 
 		newOrders 

@@ -320,6 +320,7 @@ GtkTreeView >> model: aListStore [
 	listStore ifNotNil: [ 
 		listStore prepareToDisconnect ].
 	listStore := aListStore.
+	listStore owner: self.
 	self setModel: aListStore
 ]
 
