@@ -307,6 +307,12 @@ GtkTreeView >> isHoverSelection [
 	^ self ffiCall: #(gboolean gtk_tree_view_get_hover_selection (self))
 ]
 
+{ #category : #selection }
+GtkTreeView >> isMultipleSelection [ 
+	
+	^ self selection mode = GtkSelectionMode GTK_SELECTION_MULTIPLE
+]
+
 { #category : #accessing }
 GtkTreeView >> model [
 
