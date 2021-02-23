@@ -83,7 +83,7 @@ GtkMainRunLoop >> spawnNewRunLoop [
 { #category : #'private installing' }
 GtkMainRunLoop >> uninstallRunLoop [
 	
-	self defer: [ self gtkMainQuit ].
+	GIdle uniqueInstance idleAddFull: [ self gtkMainQuit ].
 	
 	process ifNil: [ ^ self ].
 	"No need to do this since quitting gtk main will cause the process to end"

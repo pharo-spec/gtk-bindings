@@ -7,6 +7,12 @@ Class {
 	#category : #'Gtk-Morphic'
 }
 
+{ #category : #'private driver selection' }
+OSGtkDriver class >> isActiveForcedByCommandLine [
+
+	^ Smalltalk commandLine arguments includes: '--gtk'
+]
+
 { #category : #testing }
 OSGtkDriver class >> isSuitable [
 
