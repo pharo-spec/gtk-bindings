@@ -14,6 +14,7 @@ Class {
 		'gint',
 		'gint16',
 		'gint8',
+		'glong',
 		'gpointer',
 		'gsize',
 		'gssize',
@@ -33,6 +34,7 @@ GtkTypes class >> initialize [
 	gpointer := #'void *'.
 	gboolean := #FFIBoolean32.
 	gulong :=  #ulong.
+	glong :=  #long.
 	gint := #int.
 	gint8 := #int8.
 	guint8 := #uint8.
