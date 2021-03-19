@@ -34,6 +34,7 @@ GtkListBoxRow >> activatable: activatable [
 
 { #category : #converting }
 GtkListBoxRow >> asListBoxRow [
+	
 	^ self
 ]
 

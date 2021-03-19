@@ -908,6 +908,15 @@ GtkWidget >> translateCoordinatesTo: dest_widget x: src_x y: src_y toX: dest_x t
  		gint *dest_y))
 ]
 
+{ #category : #private }
+GtkWidget >> unparent [
+	"This function is only for use in widget implementations. Should be called 
+	 by implementations of the remove method on GtkContainer, to dissociate a 
+	 child from the container."
+
+	^ self ffiCall: #(void gtk_widget_unparent (self))
+]
+
 { #category : #geometry }
 GtkWidget >> vAlign [
 	^ self ffiCall: #(GtkAlign gtk_widget_get_valign (self))
