@@ -164,6 +164,12 @@ GtkEntry >> cursorPosition [
 ]
 
 { #category : #accessing }
+GtkEntry >> cursorPosition: anIndex [
+
+	self gObjectSet: 'cursor-position' toInteger: anIndex
+]
+
+{ #category : #accessing }
 GtkEntry >> entryCompletion: anEntryCompletion [
 
 	entryCompletion := anEntryCompletion.
