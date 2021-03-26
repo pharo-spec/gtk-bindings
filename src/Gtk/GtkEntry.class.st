@@ -170,6 +170,13 @@ GtkEntry >> cursorPosition: anIndex [
 ]
 
 { #category : #accessing }
+GtkEntry >> editable: setting [
+
+	"Determines if the user can edit the text in the editable widget or not."
+	self ffiCall: #(void gtk_editable_set_editable (self, gboolean setting))
+]
+
+{ #category : #accessing }
 GtkEntry >> entryCompletion: anEntryCompletion [
 
 	entryCompletion := anEntryCompletion.
@@ -219,6 +226,12 @@ GtkEntry >> invisibleCharacter [
 GtkEntry >> invisibleCharacter: aCharacter [
 
 	self basicInvisibleCharacter: (self g_utf8_to_ucs4: aCharacter)
+]
+
+{ #category : #accessing }
+GtkEntry >> isEditable [
+	"Retrieves whether editable is editable"
+	self ffiCall: #(gboolean gtk_editable_get_editable (self))
 ]
 
 { #category : #accessing }
