@@ -96,9 +96,8 @@ GList >> data: anObject [
 GList >> do: aBlock [
 	| node |
 	
-	node := self first.
-	[ node isNull ] 
-	whileFalse: [ 
+	node := self.
+	[ node isNull ] whileFalse: [ 
 		aBlock value: node data.
 		node := node next ]
 ]
@@ -112,7 +111,7 @@ GList >> ffiLibrary [
 { #category : #accessing }
 GList >> first [
 
-	^ GList fromHandle: self gListFirst
+	^ self class fromHandle: self gListFirst
 ]
 
 { #category : #finalization }
@@ -142,7 +141,7 @@ GList >> gListFirst [
 { #category : #'accessing structure variables' }
 GList >> next [
 	"This method was automatically generated"
-	^GList fromHandle: (handle pointerAt: OFFSET_NEXT)
+	^ self class fromHandle: (handle pointerAt: OFFSET_NEXT)
 ]
 
 { #category : #'accessing structure variables' }

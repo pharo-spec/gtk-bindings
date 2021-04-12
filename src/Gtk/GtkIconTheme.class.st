@@ -50,7 +50,9 @@ GtkIconTheme >> allNames [
 	gList := GList fromHandle: self listAllIcons.
 	gList do: [ :data |
 		data isNull ifFalse: [
-			result add: data readStringUTF8.
+			| name |
+			name := data readStringUTF8.
+			result add: name.
 			data gFree ] ].
 	gList free.
 
