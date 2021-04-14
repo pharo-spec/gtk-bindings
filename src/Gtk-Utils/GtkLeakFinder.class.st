@@ -1,3 +1,24 @@
+"
+A simple tool to match create/destroy of Gtk widgets.
+
+# Usage
+
+```Smalltalk
+| finder|
+
+finder := GtkLeakFinder new.
+finder start.
+""do your stuff""
+finder stop.
+finder leaks inspect. ""this will show collected leaks""
+```
+(alternatively you can inspect finder, it has a ""leaks"" tab to show results).
+
+## Notes
+
+- Use `reset`:  to clean up your collected stuff and start over
+
+"
 Class {
 	#name : #GtkLeakFinder,
 	#superclass : #SignalLogger,
