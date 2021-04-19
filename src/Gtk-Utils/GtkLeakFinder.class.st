@@ -9,6 +9,7 @@ A simple tool to match create/destroy of Gtk widgets.
 finder := GtkLeakFinder new.
 finder start.
 ""do your stuff""
+Smalltalk garbageCollect.
 finder stop.
 finder leaks inspect. ""this will show collected leaks""
 ```
