@@ -21,12 +21,6 @@ GtkSourceLanguageManager class >> default [
 	^ self getDefault
 ]
 
-{ #category : #'library path' }
-GtkSourceLanguageManager class >> ffiLibraryName [
-
-	^ GtkSourceViewLibrary 
-]
-
 { #category : #accessing }
 GtkSourceLanguageManager class >> gType [ 
 	"This method was automatically generated"
@@ -37,7 +31,9 @@ GtkSourceLanguageManager class >> gType [
 { #category : #private }
 GtkSourceLanguageManager class >> getDefault [ 
 
-	^ self ffiCall: #(GtkSourceLanguageManager *gtk_source_language_manager_get_default())
+	^ self 
+		ffiCall: #(GtkSourceLanguageManager *gtk_source_language_manager_get_default())
+		module: GtkSourceViewLibrary
 ]
 
 { #category : #'accessing languages' }
@@ -46,16 +42,26 @@ GtkSourceLanguageManager class >> markdown [
 	^ self default languageWithId: 'markdown'
 ]
 
-{ #category : #'library path' }
-GtkSourceLanguageManager >> ffiLibraryName [
+{ #category : #'instance creation' }
+GtkSourceLanguageManager class >> new [
+	
+	^ self sourceManagerLanguageNew initialize
+]
 
-	^ GtkSourceViewLibrary 
+{ #category : #private }
+GtkSourceLanguageManager class >> sourceManagerLanguageNew [
+
+	^ self 
+		ffiCall: #(GtkSourceLanguageManager *gtk_source_language_manager_new (void))
+		module: GtkSourceViewLibrary
 ]
 
 { #category : #private }
 GtkSourceLanguageManager >> getLanguageIds [
 
-	^ self ffiCall: #("gchar **"void *gtk_source_language_manager_get_language_ids(self))
+	^ self 
+		ffiCall: #("gchar **"void *gtk_source_language_manager_get_language_ids(self))
+		module: GtkSourceViewLibrary
 ]
 
 { #category : #accessing }
@@ -75,7 +81,32 @@ GtkSourceLanguageManager >> languageIds [
 { #category : #accessing }
 GtkSourceLanguageManager >> languageWithId: id [ 
 
-	^ self ffiCall: #(GtkSourceLanguage *gtk_source_language_manager_get_language(
-		self,
-		const gchar *id))
+	^ self 
+		ffiCall: #(GtkSourceLanguage *gtk_source_language_manager_get_language(
+			self,
+			const gchar *id))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : #accessing }
+GtkSourceLanguageManager >> searchPaths: anArrayOfString [
+	| array arrayOfPointers index |
+	
+	arrayOfPointers := anArrayOfString collect: [ :each | ExternalAddress fromString: each ].
+	array := ByteArray new: (anArrayOfString size + 1) * FFIExternalType pointerSize.
+	index := 1.
+	arrayOfPointers do: [ :each |
+		array pointerAt: index put: each.
+		index := index + FFIExternalType pointerSize ].
+	[ self setSearchPath: array ]
+	ensure: [ 
+		arrayOfPointers do: [ :each | each free ] ]
+]
+
+{ #category : #private }
+GtkSourceLanguageManager >> setSearchPath: dirs [
+
+	self 
+		ffiCall: #(void gtk_source_language_manager_set_search_path(self, "gchar **"void *dirs))
+		module: GtkSourceViewLibrary
 ]

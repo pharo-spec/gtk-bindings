@@ -157,6 +157,14 @@ GtkSourceBuffer >> setLanguage: aLanguage [
 ]
 
 { #category : #accessing }
+GtkSourceBuffer >> styleScheme: scheme [
+
+	self 
+		ffiCall: #(void gtk_source_buffer_set_style_scheme (self, GtkSourceStyleScheme *scheme))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : #accessing }
 GtkSourceBuffer >> undo [
 
 	^ self 
