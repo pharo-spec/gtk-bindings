@@ -119,6 +119,18 @@ GtkTreeView >> beSingleSelectionMode [
 	self selection mode: GtkSelectionMode GTK_SELECTION_SINGLE
 ]
 
+{ #category : #expanding }
+GtkTreeView >> collapseAll [
+
+	self ffiCall: #(void gtk_tree_view_collapse_all (self))
+]
+
+{ #category : #expanding }
+GtkTreeView >> collapseToPath: pathArray [
+
+	self doCollapseRow: (GtkTreePath newFromArray: pathArray) autoRelease 
+]
+
 { #category : #columns }
 GtkTreeView >> columnAt: index [
 	
@@ -165,6 +177,12 @@ GtkTreeView >> connectTestExpandRow: aBlock [
 			iter := (GtkTreeIter fromHandle: iterHandle) copyInMemory.
 			path := (GtkTreePath fromHandle: pathHandle) toArray.
 			aBlock cull: iter cull: path ]
+]
+
+{ #category : #private }
+GtkTreeView >> doCollapseRow: path [ 
+	
+	self ffiCall: #(gboolean gtk_tree_view_collapse_row (self, GtkTreePath *path))
 ]
 
 { #category : #private }
