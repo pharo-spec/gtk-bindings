@@ -33,6 +33,15 @@ GtkSettings class >> gtkSettingsGetDefault [
 	^ self ffiCall: #(GtkSettings *gtk_settings_get_default (void))
 ]
 
+{ #category : #signaling }
+GtkSettings >> connectThemeChanged: aBlock [
+
+	self 
+		connect: 'notify::gtk-theme-name' 
+		signature: #(void (void *settings, void *pspec, void *app))
+		do: aBlock
+]
+
 { #category : #settings }
 GtkSettings >> enableAnimations: aBoolean [ 
 
