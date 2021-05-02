@@ -299,6 +299,28 @@ GtkTextBuffer >> iterAtOffset: offset [
 ]
 
 { #category : #accessing }
+GtkTextBuffer >> lineAt: offset [
+	| start end |
+	
+	start := self iterAtOffset: offset.
+	start backwardChars: start lineOffset.
+
+	end := self iterAtOffset: offset.
+	end forwardToLineEnd.
+		
+	^ self 
+		textStart: start 
+		end: end
+		includeHiddenChars: false
+]
+
+{ #category : #accessing }
+GtkTextBuffer >> lineAtCursorPosition [
+	
+	^ self lineAt: self cursorPosition
+]
+
+{ #category : #accessing }
 GtkTextBuffer >> lineCount [
 
 	^ self ffiCall: #(gint gtk_text_buffer_get_line_count (self))
