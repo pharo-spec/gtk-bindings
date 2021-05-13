@@ -432,7 +432,9 @@ GtkTreeView >> selectPath: pathArray [
 { #category : #accessing }
 GtkTreeView >> selected [
 
-	^ self allSelected ifNotEmpty: #first
+	^ self allSelected 
+		ifNotEmpty: [ :selected | selected first ]
+		ifEmpty: [ nil ]
 ]
 
 { #category : #selection }
