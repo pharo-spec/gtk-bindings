@@ -55,6 +55,12 @@ GdkCursor class >> newFromSurface: aSurface [
 		initialize
 ]
 
+{ #category : #'instance creation' }
+GdkCursor class >> newWait [
+
+	^ self newFromName: 'wait'
+]
+
 { #category : #resources }
 GdkCursor >> ffiLibrary [
 

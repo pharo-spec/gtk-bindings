@@ -61,3 +61,20 @@ SpecGtkBackend >> selectDirectoryTitle: aString [
 		ifTrue: [ dialog filename asFileReference ]
 		ifFalse: [ nil ]
 ]
+
+{ #category : #private }
+SpecGtkBackend >> setCursor: cursor toAll: aCollection [ 
+
+	aCollection do: [ :each | 
+			each adapter widget gdkWindow cursor: cursor ].
+]
+
+{ #category : #ui }
+SpecGtkBackend >> showWaitCursorWhile: aBlock inApplication: anApplication [
+
+	self forceDefer: [
+		self setCursor: GdkCursor newWait toAll: anApplication windows ]. 
+	aBlock ensure: [ 
+		self forceDefer: [ 
+			self setCursor: GdkCursor null toAll: anApplication windows ] ]
+]
