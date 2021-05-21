@@ -611,7 +611,6 @@ GObject >> registerCallback: aCallback [
 
 	callbacks ifNil: [ callbacks := Set new ].
 	callbacks add: aCallback.
-	
 	"Stdio stdout << aCallback thunk printString << ':' << aCallback tfPrintString; lf"
 ]
 
