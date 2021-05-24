@@ -29,15 +29,6 @@ GtkOverlay class >> overlayNew [
 ]
 
 { #category : #adding }
-GtkOverlay >> add: widget [
-
-	self keepWidget: widget.
-	self basicAdd: widget.
-
-	^ widget
-]
-
-{ #category : #adding }
 GtkOverlay >> addOverlay: aWidget [
 
 	self keepWidget: aWidget.

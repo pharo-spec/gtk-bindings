@@ -141,6 +141,12 @@ GtkSourceBuffer >> maxUndoLevels: max_undo_levels [
 ]
 
 { #category : #accessing }
+GtkSourceBuffer >> newSearchContext [
+
+	^ GtkSourceSearchContext newBuffer: self
+]
+
+{ #category : #accessing }
 GtkSourceBuffer >> redo [
 
 	^ self 
