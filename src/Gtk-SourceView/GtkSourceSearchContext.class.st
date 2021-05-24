@@ -36,6 +36,63 @@ GtkSourceSearchContext class >> newBuffer: aSourceBuffer settings: aSourceSettin
 ]
 
 { #category : #accessing }
+GtkSourceSearchContext >> backward [
+
+	^ self backward: ((self buffer iterAtMark: self buffer insertMark)
+		backwardChar;
+		yourself)
+]
+
+{ #category : #accessing }
+GtkSourceSearchContext >> backward: iter [
+
+	^ self backward: iter thenDo: [ :start :end :wrappedAround | ]
+]
+
+{ #category : #private }
+GtkSourceSearchContext >> backward: iter matchStart: match_start matchEnd: match_end wrappedAround: has_wrapped_around [
+
+	^ self 
+		ffiCall: #(gboolean gtk_source_search_context_backward (
+			self,
+ 			GtkTextIter *iter,
+			GtkTextIter *match_start,
+			GtkTextIter *match_end,
+			gboolean *has_wrapped_around))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : #accessing }
+GtkSourceSearchContext >> backward: iter thenDo: aBlock [
+	| matchStart matchEnd wrappedAroundBuffer backward |
+		
+	matchStart := GtkTextIter new.
+	matchEnd := GtkTextIter new.
+	wrappedAroundBuffer := (GObject resolveType: #gboolean) newBuffer.
+	
+	backward := self 
+		backward: iter 
+		matchStart: matchStart getHandle
+		matchEnd: matchEnd getHandle
+		wrappedAround: wrappedAroundBuffer.
+	backward ifFalse: [ ^ self ].
+	aBlock 
+		value: matchStart 
+		value: matchEnd
+		value: (wrappedAroundBuffer booleanAt: 1)
+]
+
+{ #category : #accessing }
+GtkSourceSearchContext >> backwardThenDo: aBlock [
+
+	^ self 
+		backward: ((self buffer iterAtMark: self buffer insertMark)
+			backwardChar;
+			yourself)
+		thenDo: aBlock
+]
+
+{ #category : #accessing }
 GtkSourceSearchContext >> buffer [
 	
 	^ buffer ifNil: [ buffer := self getBuffer ]
@@ -51,20 +108,11 @@ GtkSourceSearchContext >> forward [
 
 { #category : #accessing }
 GtkSourceSearchContext >> forward: iter [
-	| matchStart matchEnd wrappedAroundBuffer |
-		
-	matchStart := GtkTextIter null.
-	matchEnd := GtkTextIter null.
-	wrappedAroundBuffer := (GObject resolveType: #gboolean) newBuffer.
-	
-	^ self 
-		forward: iter 
-		matchStart: matchStart 
-		matchEnd: matchEnd 
-		wrappedAround: wrappedAroundBuffer
+
+	^ self forward: iter thenDo: [ :start :end :wrappedAround | ]
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkSourceSearchContext >> forward: iter matchStart: match_start matchEnd: match_end wrappedAround: has_wrapped_around [
 
 	^ self 
@@ -75,6 +123,36 @@ GtkSourceSearchContext >> forward: iter matchStart: match_start matchEnd: match_
 			GtkTextIter *match_end,
 			gboolean *has_wrapped_around))
 		module: GtkSourceViewLibrary
+]
+
+{ #category : #accessing }
+GtkSourceSearchContext >> forward: iter thenDo: aBlock [
+	| matchStart matchEnd wrappedAroundBuffer forwarded |
+		
+	matchStart := GtkTextIter new.
+	matchEnd := GtkTextIter new.
+	wrappedAroundBuffer := (GObject resolveType: #gboolean) newBuffer.
+	
+	forwarded := self 
+		forward: iter 
+		matchStart: matchStart getHandle
+		matchEnd: matchEnd getHandle
+		wrappedAround: wrappedAroundBuffer.
+	forwarded ifFalse: [ ^ self ].
+	aBlock 
+		value: matchStart 
+		value: matchEnd
+		value: (wrappedAroundBuffer booleanAt: 1)
+]
+
+{ #category : #accessing }
+GtkSourceSearchContext >> forwardThenDo: aBlock [
+
+	^ self 
+		forward: ((self buffer iterAtMark: self buffer insertMark)
+			forwardChar;
+			yourself)
+		thenDo: aBlock
 ]
 
 { #category : #private }
