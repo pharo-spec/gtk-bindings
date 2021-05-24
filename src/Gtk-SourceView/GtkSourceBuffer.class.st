@@ -7,7 +7,8 @@ Class {
 	#name : #GtkSourceBuffer,
 	#superclass : #GtkTextBuffer,
 	#instVars : [
-		'language'
+		'language',
+		'searchContext'
 	],
 	#category : #'Gtk-SourceView-Base'
 }
@@ -140,7 +141,7 @@ GtkSourceBuffer >> maxUndoLevels: max_undo_levels [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkSourceBuffer >> newSearchContext [
 
 	^ GtkSourceSearchContext newBuffer: self
@@ -152,6 +153,12 @@ GtkSourceBuffer >> redo [
 	^ self 
 		ffiCall: #(void gtk_source_buffer_redo (self))
 		module: GtkSourceViewLibrary
+]
+
+{ #category : #accessing }
+GtkSourceBuffer >> searchContext [
+
+	^ searchContext ifNil: [ searchContext := self newSearchContext ]
 ]
 
 { #category : #private }

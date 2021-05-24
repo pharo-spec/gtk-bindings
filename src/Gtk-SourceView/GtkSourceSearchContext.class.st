@@ -111,7 +111,13 @@ GtkSourceSearchContext >> occurrencesCount [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing settings' }
+GtkSourceSearchContext >> searchText: aString [
+	
+	self settings searchText: aString
+]
+
+{ #category : #'accessing settings' }
 GtkSourceSearchContext >> settings [
 
 	^ settings ifNil: [ 
