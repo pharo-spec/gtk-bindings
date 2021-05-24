@@ -207,6 +207,15 @@ GtkTextBuffer >> endUserAction [
 ]
 
 { #category : #private }
+GtkTextBuffer >> getIter: iter atAtMark: mark [
+
+	self ffiCall: #(void gtk_text_buffer_get_iter_at_mark (
+		self,
+		GtkTextIter *iter,
+		GtkTextMark *mark))
+]
+
+{ #category : #private }
 GtkTextBuffer >> getIter: iter atLine: line_number [ 
 
 	self ffiCall: #(void gtk_text_buffer_get_iter_at_line (
@@ -285,6 +294,15 @@ GtkTextBuffer >> iterAtLine: lineNumber [
 	
 	iter := GtkTextIter new.
 	self getIter: iter atLine: lineNumber.
+	^ iter
+]
+
+{ #category : #accessing }
+GtkTextBuffer >> iterAtMark: aMark [
+	| iter |
+	
+	iter := GtkTextIter new.
+	self getIter: iter atAtMark: aMark.
 	^ iter
 ]
 

@@ -102,6 +102,12 @@ GtkWidget >> addClass: aString [
 ]
 
 { #category : #accessing }
+GtkWidget >> addEvents: events [
+	
+	self ffiCall: #(void gtk_widget_add_events (self, gint events))
+]
+
+{ #category : #accessing }
 GtkWidget >> allocation [
 	| allocation |
 	
