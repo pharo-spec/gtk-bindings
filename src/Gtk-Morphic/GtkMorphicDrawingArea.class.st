@@ -346,10 +346,7 @@ GtkMorphicDrawingArea >> handleEvent: event [
 GtkMorphicDrawingArea >> initialize [ 
 
 	super initialize.
-
-	self registerToAllEvents.
-	self canFocus: true.
-	self connectToSignals
+	self canFocus: true
 ]
 
 { #category : #accessing }
@@ -386,6 +383,12 @@ GtkMorphicDrawingArea >> queueDrawArea: rect [
 	"(drawing or: [ drawQueued ]) ifTrue: [ ^ self ].
 	drawQueued := true."
 	super queueDrawArea: rect
+]
+
+{ #category : #initialization }
+GtkMorphicDrawingArea >> registerToEvents [
+
+	self registerToAllEvents
 ]
 
 { #category : #private }

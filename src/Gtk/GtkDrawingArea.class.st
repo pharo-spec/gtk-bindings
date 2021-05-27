@@ -48,6 +48,10 @@ GtkDrawingArea >> connectDraw: aBlock [
 	"self eliotConnectDraw: aBlock"
 ]
 
+{ #category : #initialization }
+GtkDrawingArea >> connectToSignals [
+]
+
 { #category : #drawing }
 GtkDrawingArea >> draw: cr [
 
@@ -138,7 +142,10 @@ GtkDrawingArea >> initialize [
 	self hExpand: true.
 	self vExpand: true.
 	self appPaintable: true.
-	self connectDraw: [ :cr | self draw: cr ]
+	self registerToEvents.
+	self connectToSignals.
+	self connectDraw: [ :cr | self draw: cr ].
+
 ]
 
 { #category : #initialization }
@@ -147,6 +154,11 @@ GtkDrawingArea >> registerToAllEvents [
 	 you will need to connect to them and handle them after."
 
 	self events: GDK_ALL_EVENTS_MASK value
+]
+
+{ #category : #initialization }
+GtkDrawingArea >> registerToEvents [
+
 ]
 
 { #category : #private }

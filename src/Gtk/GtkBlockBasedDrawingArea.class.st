@@ -2,7 +2,8 @@ Class {
 	#name : #GtkBlockBasedDrawingArea,
 	#superclass : #GtkDrawingArea,
 	#instVars : [
-		'drawBlock'
+		'drawBlock',
+		'boundingBox'
 	],
 	#category : #'Gtk-Widget'
 }
@@ -10,6 +11,18 @@ Class {
 { #category : #private }
 GtkBlockBasedDrawingArea class >> drawingAreaNew [
 	^ self ffiCall: #( GtkBlockBasedDrawingArea *gtk_drawing_area_new () )
+]
+
+{ #category : #accessing }
+GtkBlockBasedDrawingArea >> boundingBox [ 
+
+	^ boundingBox ifNil: [ super boundingBox ]
+]
+
+{ #category : #initialization }
+GtkBlockBasedDrawingArea >> connectToSignals [
+
+	self connectSizeAllocate: [ :aRect | boundingBox := aRect ]
 ]
 
 { #category : #drawing }
