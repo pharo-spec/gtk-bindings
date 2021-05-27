@@ -15,17 +15,18 @@ Class {
 { #category : #finalization }
 GtkTreeDataStoreExecutor >> finalize [
 
-	holder first do: [ :each | each free ]
+	holder first ifNotNil: [ :h |
+		h do: [ :each | each free ] ]
 ]
 
 { #category : #accessing }
 GtkTreeDataStoreExecutor >> holder [
 
-	^ holder
+	^ holder first
 ]
 
 { #category : #accessing }
 GtkTreeDataStoreExecutor >> holder: anArray [
 
-	holder := anArray
+	holder := WeakArray with: anArray
 ]
