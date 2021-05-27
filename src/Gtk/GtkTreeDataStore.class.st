@@ -485,7 +485,7 @@ GtkTreeDataStore >> registerForFinalize [
 	"I use 'stamp' and not self because I do not want the shallow copy of an external store, 
 	 and stamp is a single number that will be collected along with it"
 	self finalizationRegistry
-		add: stamp
+		add: self
 		executor: (GtkTreeDataStoreExecutor new 
 			holder: (holder := Array with: nil);
 			yourself)	
