@@ -45,7 +45,6 @@ GtkDrawingArea >> appPaintable: app_paintable [
 GtkDrawingArea >> connectDraw: aBlock [
 
 	^ (GDrawCallback do: aBlock) connectTo: self
-	"self eliotConnectDraw: aBlock"
 ]
 
 { #category : #initialization }
@@ -62,53 +61,6 @@ GtkDrawingArea >> draw: cr [
 { #category : #drawing }
 GtkDrawingArea >> drawOnAthensCanvas: aCanvas [
 	self subclassResponsibility
-]
-
-{ #category : #signaling }
-GtkDrawingArea >> eliotCall: fnSpec [
-	"<ffiCalloutTranslator>"
-	
-	^ (self eliotCalloutIn: thisContext sender)
-		convention: self ffiCallingConvention;
-		options: #();
-		function: fnSpec module: self ffiLibrary uniqueInstance
-]
-
-{ #category : #signaling }
-GtkDrawingArea >> eliotCalloutIn: aContext [
-
-	^ FFICalloutAPI calloutAPIClass inContext: aContext
-]
-
-{ #category : #signaling }
-GtkDrawingArea >> eliotConnectDraw: aBlock [
-	| callback |
-	
-	callback := FFICallback 
-		signature: #(int (void *widget, void *cr, void *payload)) 
-		block: [ :w :cr :payload | aBlock value: cr ].
-
-	callbacks ifNil: [ callbacks := Set new ].
-	callbacks add: callback.
-	
-	self 
-		eliotConnectSignal: 'draw' 
-		callback: callback 
-		data: ExternalAddress null
-		notify: ExternalAddress null
-		flags: 0
-]
-
-{ #category : #signaling }
-GtkDrawingArea >> eliotConnectSignal: signalName callback: aCallback data: aData notify: aNotify flags: flags [
-
-	self eliotCall: #(ulong g_signal_connect_data ( 
-			self,
-			const char *signalName,
-			FFICallback aCallback,
-			void *	aData,
-			void *aNotify,
-			int flags ) )
 ]
 
 { #category : #private }
