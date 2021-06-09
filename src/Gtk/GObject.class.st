@@ -205,6 +205,31 @@ GObject >> basicConnectSignal: callback [
 	callback registerId: id
 ]
 
+{ #category : #signaling }
+GObject >> blockCallback: aString during: aBlock [
+
+	^ self 
+		blockCallbacks: { aString } 
+		during: aBlock
+]
+
+{ #category : #signaling }
+GObject >> blockCallbacks: aCollection during: aBlock [
+	| matching |
+
+	callbacks isEmptyOrNil ifTrue: [ 
+		aBlock value.
+		^ self ].
+	
+	matching := callbacks select: [ :each | aCollection includes: each signalName ].
+	"disconnect"
+	matching do: [ :each | self gSignalHandlerBlock: each registerId ].
+	aBlock ensure: [
+		"connect again"
+		matching do: [ :each |
+			self gSignalHandlerUnblock: each registerId ] ]
+]
+
 { #category : #accessing }
 GObject >> callbacks [
 
@@ -493,6 +518,22 @@ GObject >> gObjectSet: aName toString: aString [
 	self 
 		ffiCall: #(void g_object_set ( self, const gchar *aName, gchar *aString, NULL))
 		module: GObjectLibrary	
+]
+
+{ #category : #'private signaling' }
+GObject >> gSignalHandlerBlock: handler_id [
+
+	^ self 
+		ffiCall: #(void g_signal_handler_block (self, gulong handler_id)) 
+		module: GObjectLibrary
+]
+
+{ #category : #'private signaling' }
+GObject >> gSignalHandlerUnblock: handler_id [
+
+	^ self 
+		ffiCall: #(void g_signal_handler_unblock (self, gulong handler_id)) 
+		module: GObjectLibrary
 ]
 
 { #category : #accessing }
