@@ -14,6 +14,24 @@ Class {
 	#category : #'Gtk-Widget-Window'
 }
 
+{ #category : #examples }
+GtkFileChooserDialog class >> example [
+	| dialog |
+
+	GtkApplication ensureRunning.
+
+	dialog := self 
+		newOpenFileTitle: 'Export as...'
+		acceptLabel: 'Export'
+		cancelLabel: 'Cancel'. 
+	dialog showAll.
+	dialog run.
+
+	self inform: dialog filename.
+
+
+]
+
 { #category : #'instance creation' }
 GtkFileChooserDialog class >> newOpenDirectoryTitle: aString [
 
