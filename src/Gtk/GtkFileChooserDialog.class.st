@@ -89,3 +89,11 @@ GtkFileChooserDialog >> filename: filename [
 "The file must exist. For a new filename use currentFilename:"
 	self ffiCall: #(gboolean *gtk_file_chooser_set_filename (self, const gchar *filename))
 ]
+
+{ #category : #'as yet unclassified' }
+GtkFileChooserDialog >> overrideConfirmation: do_overwrite_confirmation [
+
+	self ffiCall: #(void gtk_file_chooser_set_do_overwrite_confirmation (
+		self,
+		gboolean do_overwrite_confirmation))
+]
