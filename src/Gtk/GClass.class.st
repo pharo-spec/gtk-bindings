@@ -219,7 +219,7 @@ GClass >> gInternStaticStringFromByteArray: string [
 { #category : #'private primitives' }
 GClass >> gObjectNew: object_type [
 
-	^ self ffiCall: #(void *g_object_new (gsize object_type, NULL))
+	^ GObject gObjectNew: object_type
 ]
 
 { #category : #'private primitives' }
