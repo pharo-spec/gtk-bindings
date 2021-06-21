@@ -366,6 +366,12 @@ GClass >> registerType [
 		flags: 0
 ]
 
+{ #category : #private }
+GClass >> safeFindInstance: handle [
+
+	^ instances at: handle asInteger ifAbsent: [ nil ]
+]
+
 { #category : #accessing }
 GClass >> targetClass: aClass [ 
 
