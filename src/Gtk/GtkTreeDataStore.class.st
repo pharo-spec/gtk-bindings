@@ -80,10 +80,11 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 	iface get_value: (GCallback 
 		signature: #(void (void *tree_model, void *iter, gint column, void *value)) 
 		block: [ :tree_model :iter :column :value |
-			(self gInstance: tree_model) 
-				getValue: (GtkTreeIter fromHandle: iter) 
-				column: column 
-				value: (GValue fromHandle: value) ]).
+			(self gInstanceSafe: tree_model) 
+				ifNotNil: [ :inst |
+					inst getValue: (GtkTreeIter fromHandle: iter) 
+					column: column 
+					value: (GValue fromHandle: value) ]]).
 	iface iter_next: (GCallback 
 		signature: #(gboolean (void *tree_model, void *iter)) 
 		block: [ :tree_model :iter |
@@ -489,9 +490,11 @@ GtkTreeDataStore >> prepareToDisconnect [
 	"When destroying a model, Gtk will try to iterate all root elements on it. 
 	 In case of large lists this may be an expensive task.
 	 This method will reset all roots, so we do not have undesirable cycles"
-	
+		
 	self roots: #().
 	columns := OrderedCollection new.
+	owner := nil.
+
 ]
 
 { #category : #initialization }

@@ -122,3 +122,9 @@ GValue >> setULong: u_long [
 
 	self ffiCall: #(void g_value_set_ulong (self, gulong u_long))
 ]
+
+{ #category : #accessing }
+GValue >> unset [
+
+	self ffiCall: #(void g_value_unset (self))
+]

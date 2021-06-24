@@ -78,6 +78,12 @@ GtkTreeIter >> firstChild [
 ]
 
 { #category : #private }
+GtkTreeIter >> free [
+
+	^ self ffiCall: #(void gtk_tree_iter_free ( self ))
+]
+
+{ #category : #private }
 GtkTreeIter >> getStringAtColumnIndex: index into: aValue [
 
 	 self ffiCall: #(void gtk_tree_model_get (
