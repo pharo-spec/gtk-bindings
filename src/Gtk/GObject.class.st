@@ -55,17 +55,21 @@ GObject class >> gDefine: aClass [
 { #category : #factory }
 GObject class >> gObjectNew: object_type [
 
-	^ self ffiCall: #(void *g_object_new (gsize object_type, NULL))
+	^ self 
+		ffiCall: #(void *g_object_new (gsize object_type, NULL))
+		module: GObjectLibrary
 ]
 
 { #category : #factory }
 GObject class >> gObjectNew: object_type propertyName: aName integerValue: aNumber [
 	
-	^ self ffiCall: #(void *g_object_new (
-		gsize object_type, 
-		String aName, 
-		gint aNumber,
-		NULL))
+	^ self 
+		ffiCall: #(void *g_object_new (
+			gsize object_type, 
+			String aName, 
+			gint aNumber,
+			NULL))
+		module: GObjectLibrary
 ]
 
 { #category : #accessing }
