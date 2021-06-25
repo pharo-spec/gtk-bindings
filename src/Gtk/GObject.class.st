@@ -52,6 +52,26 @@ GObject class >> gDefine: aClass [
 	"To be called by the new method of pharo classes who extent gtk classes"
 ]
 
+{ #category : #factory }
+GObject class >> gObjectNew: object_type [
+
+	^ self 
+		ffiCall: #(void *g_object_new (gsize object_type, NULL))
+		module: GObjectLibrary
+]
+
+{ #category : #factory }
+GObject class >> gObjectNew: object_type propertyName: aName integerValue: aNumber [
+	
+	^ self 
+		ffiCall: #(void *g_object_new (
+			gsize object_type, 
+			String aName, 
+			gint aNumber,
+			NULL))
+		module: GObjectLibrary
+]
+
 { #category : #accessing }
 GObject class >> gSize [
 

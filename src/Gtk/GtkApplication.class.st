@@ -140,6 +140,12 @@ GtkApplication >> isRunning [
 	^ runLoop isRunning
 ]
 
+{ #category : #testing }
+GtkApplication >> isWindowRegistered: aWindow [ 
+
+	^ windowRegistry includes: aWindow
+]
+
 { #category : #registry }
 GtkApplication >> registerShutdown: anObject [
 	"Some objects need special shutdown action *before* going out. 

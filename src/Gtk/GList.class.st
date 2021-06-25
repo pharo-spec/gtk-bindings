@@ -73,6 +73,13 @@ GList >> append: aGObject [
 	^ self class fromHandle: (self gListAppend: aGObject getHandle)
 ]
 
+{ #category : #converting }
+GList >> asArray [
+
+	^ Array streamContents: [ :stream | 
+		self do: [ :each | stream nextPut: each ] ]
+]
+
 { #category : #enumerating }
 GList >> collect: aBlock [ 
 

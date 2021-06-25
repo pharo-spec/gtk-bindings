@@ -393,6 +393,16 @@ GtkWindow >> transientTo: parent [
 ]
 
 { #category : #private }
+GtkWindow >> unregister [
+
+	"if this is the last window and I'm closing the app, it can happen than a destroy 
+	 is called after the GtkApplication is disposed. I need to verify if is nil to avoid 
+	 saving errors."
+	self application ifNotNil: [ :app | 
+		app unregisterWindow: self ]
+]
+
+{ #category : #private }
 GtkWindow >> windowAddAccelGroup: accel_group [
 
 	^ self ffiCall: #(void gtk_window_add_accel_group (self, GtkAccelGroup *accel_group))
@@ -409,11 +419,8 @@ GtkWindow >> windowDestroyed [
 	 Seems to mean if I receive the destroy signal, window no longer exist (and I do not need 
 	 to re-trigger destroy on it."	
 	handle beNull.
-	"if this is the last window and I'm closing the app, it can happen than a destroy 
-	 is called after the GtkApplication is disposed. I need to verify if is nil to avoid 
-	 saving errors."
-	self application ifNotNil: [ :app | 
-		app unregisterWindow: self ]
+	
+	self unregister
 ]
 
 { #category : #private }
