@@ -69,6 +69,12 @@ GtkSourceBuffer >> createSourceMarkNamed: name category: category where: where [
 		module: GtkSourceViewLibrary
 ]
 
+{ #category : #accessing }
+GtkSourceBuffer >> disableUndo [
+
+	self maxUndoLevels: 0
+]
+
 { #category : #private }
 GtkSourceBuffer >> getLanguage [
 
