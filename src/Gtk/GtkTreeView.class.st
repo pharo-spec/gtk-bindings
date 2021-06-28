@@ -119,6 +119,16 @@ GtkTreeView >> beSingleSelectionMode [
 	self selection mode: GtkSelectionMode GTK_SELECTION_SINGLE
 ]
 
+{ #category : #private }
+GtkTreeView >> cleanupAfterReplacing [
+
+	self model roots: #() .
+	self disconnect: #destroy.
+		
+	listStore prepareToDisconnect.
+	listStore := nil.
+]
+
 { #category : #expanding }
 GtkTreeView >> collapseAll [
 

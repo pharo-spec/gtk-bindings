@@ -200,6 +200,10 @@ GtkWidget >> canFocus: can_focus [
 	^ self ffiCall: #(void gtk_widget_set_can_focus (self, gboolean can_focus))
 ]
 
+{ #category : #private }
+GtkWidget >> cleanupAfterReplacing [
+]
+
 { #category : #signaling }
 GtkWidget >> connectButtonPressEvent: aBlock [
 	"connects to button-press-event signal 
