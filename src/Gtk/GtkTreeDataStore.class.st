@@ -67,9 +67,12 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 	iface get_iter: (GCallback 
 		signature: #(gboolean (void *tree_model, void *iter, void *path)) 
 		block: [ :tree_model :iter :path | 
-			(self gInstance: tree_model) 
-				getIter: (GtkTreePath fromHandle: path) 
-				iter: (GtkTreeIter fromHandle: iter) ]).
+			(self gInstanceSafe: tree_model) 
+				ifNotNil: [ :inst |
+					inst
+						getIter: (GtkTreePath fromHandle: path) 
+						iter: (GtkTreeIter fromHandle: iter) ]
+				ifNil: [ false ] ]).
 	iface get_path: (GCallback 
 		signature: #(GtkTreePath *(void *tree_model, void *iter)) 
 		block: [ :tree_model :iter | 
@@ -77,14 +80,18 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 	iface get_value: (GCallback 
 		signature: #(void (void *tree_model, void *iter, gint column, void *value)) 
 		block: [ :tree_model :iter :column :value |
-			(self gInstance: tree_model) 
-				getValue: (GtkTreeIter fromHandle: iter) 
-				column: column 
-				value: (GValue fromHandle: value) ]).
+			(self gInstanceSafe: tree_model) 
+				ifNotNil: [ :inst |
+					inst getValue: (GtkTreeIter fromHandle: iter) 
+					column: column 
+					value: (GValue fromHandle: value) ]]).
 	iface iter_next: (GCallback 
 		signature: #(gboolean (void *tree_model, void *iter)) 
 		block: [ :tree_model :iter |
-			(self gInstance: tree_model) iterNext: (GtkTreeIter fromHandle: iter) ]).
+			(self gInstanceSafe: tree_model) 
+				ifNotNil: [ :inst |
+					inst iterNext: (GtkTreeIter fromHandle: iter) ]
+				ifNil: [ false ] ]).
 	iface iter_children: (GCallback 
 		signature: #(gboolean (void *tree_model, void *iter, void *parent)) 
 		block: [ :tree_model :iter :parent | 
@@ -102,10 +109,12 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 	iface iter_nth_child: (GCallback 
 		signature: #(gboolean (void *tree_model, void *iter, void *parent, gint n)) 
 		block: [ :tree_model :iter :parent :n | 
-			(self gInstance: tree_model) 
-				iterNthChild: (GtkTreeIter fromHandle: parent) 
-				number: n 
-				iter: (GtkTreeIter fromHandle: iter) ]).
+			(self gInstanceSafe: tree_model) 
+				ifNotNil: [ :inst |
+					inst iterNthChild: (GtkTreeIter fromHandle: parent) 
+						number: n 
+						iter: (GtkTreeIter fromHandle: iter) ]
+				ifNil: [ false ] ]).
 	iface iter_parent: (GCallback 
 		signature: #(gboolean (void *tree_model, void *iter, void *child)) 
 		block: [ :tree_model :iter :child | 
@@ -118,6 +127,12 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 GtkTreeDataStore class >> gInstance: handle [
 
 	^ self gClass findInstance: handle
+]
+
+{ #category : #'class initialization' }
+GtkTreeDataStore class >> gInstanceSafe: handle [
+
+	^ self gClass safeFindInstance: handle
 ]
 
 { #category : #'instance creation' }
@@ -475,8 +490,11 @@ GtkTreeDataStore >> prepareToDisconnect [
 	"When destroying a model, Gtk will try to iterate all root elements on it. 
 	 In case of large lists this may be an expensive task.
 	 This method will reset all roots, so we do not have undesirable cycles"
-	
-	self roots: #()
+		
+	self roots: #().
+	columns := OrderedCollection new.
+	owner := nil.
+
 ]
 
 { #category : #initialization }

@@ -69,6 +69,13 @@ GtkContainer >> children [
 	^ children
 ]
 
+{ #category : #private }
+GtkContainer >> cleanupAfterReplacing [
+
+	children do: [ :aChild | aChild cleanupAfterReplacing ].
+	children := Array new
+]
+
 { #category : #accessing }
 GtkContainer >> destroy [
 	"Do not let gtk destroy container children. Instead, dereference them and let the regular
