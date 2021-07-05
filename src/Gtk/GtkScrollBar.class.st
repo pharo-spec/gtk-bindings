@@ -29,7 +29,7 @@ GtkScrollBar class >> example [
 	
 	| adjustment sb box win lastAdjustmentValueHolder |
 	
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	"We use a value holder here to keep reference to the adjustment object from the window.
 	It is required only for this simple example but you need to protect the adjustment

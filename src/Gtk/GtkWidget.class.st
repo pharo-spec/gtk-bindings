@@ -790,7 +790,7 @@ GtkWidget >> parentWindow [
 	windowHandle := self getTopLevel.
 	windowHandle isNull ifTrue: [ ^ nil ].
 	
-	^ GtkApplication current windowByHandle: windowHandle
+	^ GtkEngine current windowByHandle: windowHandle
 ]
 
 { #category : #accessing }

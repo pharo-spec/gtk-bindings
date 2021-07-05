@@ -34,7 +34,7 @@ GBaseObject class >> null [
 { #category : #accessing }
 GBaseObject >> application [
 
-	^ GtkApplication current
+	^ GtkEngine current
 ]
 
 { #category : #'external resource management' }

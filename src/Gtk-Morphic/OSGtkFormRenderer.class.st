@@ -59,7 +59,7 @@ OSGtkFormRenderer >> initialize [
 
 	super initialize.
 	formView := GtkFormView new.
-	GtkApplication current registerShutdown: self
+	GtkEngine current registerShutdown: self
 ]
 
 { #category : #initialization }

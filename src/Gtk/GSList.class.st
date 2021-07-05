@@ -52,7 +52,7 @@ GSList class >> isValidHandle: handle [
 { #category : #private }
 GSList >> application [
 
-	^ GtkApplication current
+	^ GtkEngine current
 ]
 
 { #category : #'external resource management' }

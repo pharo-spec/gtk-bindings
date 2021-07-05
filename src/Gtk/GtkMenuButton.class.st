@@ -33,7 +33,7 @@ GtkMenuButton class >> buttonNewWithLabel: utf8EncodedString [
 GtkMenuButton class >> example [
 	| button menu |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	(button := (GtkButton newLabel: 'Choose...'))
 		connectClicked: [ self inform: button label ].

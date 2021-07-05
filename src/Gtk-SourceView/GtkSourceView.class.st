@@ -24,7 +24,7 @@ Class {
 { #category : #example }
 GtkSourceView class >> example [
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	GtkWindow new
 		title: 'Source view example';
 		add: (GtkScrolledWindow newWidget: GtkSourceView new);
@@ -35,7 +35,7 @@ GtkSourceView class >> example [
 GtkSourceView class >> example1 [
 	| sourceView |
 	
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	sourceView := GtkSourceView new
 		showLineNumbers: true;
@@ -51,7 +51,7 @@ GtkSourceView class >> example1 [
 GtkSourceView class >> example2 [
 	| sourceView |
 	
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	sourceView := GtkSourceView new
 		showLineNumbers: true;
@@ -68,7 +68,7 @@ GtkSourceView class >> example2 [
 GtkSourceView class >> example3 [
 	| sourceView |
 	
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	sourceView := GtkSourceView new
 		showLineNumbers: true;
@@ -86,7 +86,7 @@ GtkSourceView class >> example3 [
 GtkSourceView class >> example4 [
 	| sourceView |
 	
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	sourceView := GtkSourceView new
 		showLineNumbers: true;

@@ -55,9 +55,7 @@ GObject class >> gDefine: aClass [
 { #category : #factory }
 GObject class >> gObjectNew: object_type [
 
-	^ self 
-		ffiCall: #(void *g_object_new (gsize object_type, NULL))
-		module: GObjectLibrary
+	^ self ffiCall: #(void *g_object_new (gsize object_type, NULL))
 ]
 
 { #category : #factory }

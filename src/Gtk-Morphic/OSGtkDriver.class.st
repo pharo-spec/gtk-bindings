@@ -52,7 +52,7 @@ OSGtkDriver >> createWindowWithAttributes: attributes osWindow: osWindow [
 { #category : #'window creation' }
 OSGtkDriver >> ensureGtkRunning [
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	"OSGtkDriverConfiguration new apply"
 ]
 

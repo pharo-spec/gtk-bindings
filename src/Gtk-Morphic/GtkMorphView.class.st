@@ -28,7 +28,7 @@ GtkMorphView class >> drawingAreaNew [
 { #category : #examples }
 GtkMorphView class >> example1 [
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 	
 	GtkWindow new 
 		resize: 500@500;
@@ -45,7 +45,7 @@ GtkMorphView class >> example1 [
 GtkMorphView class >> example2 [
 	| morph positionMorph |
 	"show mouse events"
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	morph := Morph new.
 	morph addMorphBack: (positionMorph := StringMorph contents: '[Position]').
@@ -67,7 +67,7 @@ GtkMorphView class >> example2 [
 GtkMorphView class >> example3 [
 	| morph |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	morph  := self 
 		newGridOf: 10 
@@ -90,7 +90,7 @@ GtkMorphView class >> example3 [
 GtkMorphView class >> example4 [
 	| morph1 morph2 |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	morph1 := self 
 		newGridOf: 10
@@ -121,7 +121,7 @@ GtkMorphView class >> example4 [
 GtkMorphView class >> example5 [
 	| morph inform |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	inform := GtkInfoArea new.
 
@@ -147,7 +147,7 @@ GtkMorphView class >> example5 [
 GtkMorphView class >> example6 [
 	| morph inform |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	inform := GtkInfoArea new.
 
@@ -174,7 +174,7 @@ GtkMorphView class >> example6 [
 GtkMorphView class >> example7 [
 	| morph inform |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	inform := GtkInfoArea new.
 
@@ -203,7 +203,7 @@ GtkMorphView class >> example7 [
 GtkMorphView class >> example8 [
 	| morph1 morph2 inform |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	inform := GtkInfoArea new.
 

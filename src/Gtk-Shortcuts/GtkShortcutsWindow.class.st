@@ -11,7 +11,7 @@ Class {
 GtkShortcutsWindow class >> example [
 	| data window |
 	
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	window := self new 
 		beModal;

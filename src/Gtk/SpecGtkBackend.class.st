@@ -31,7 +31,7 @@ SpecGtkBackend >> forceDefer: aBlock [
 { #category : #initialization }
 SpecGtkBackend >> initialize [ 
 	
-	GtkApplication ensureRunning.	
+	GtkEngine ensureRunning.	
 	super initialize.
 
 ]

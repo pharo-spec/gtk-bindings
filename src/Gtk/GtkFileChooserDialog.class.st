@@ -18,7 +18,7 @@ Class {
 GtkFileChooserDialog class >> example [
 	| dialog |
 
-	GtkApplication ensureRunning.
+	GtkEngine ensureRunning.
 
 	dialog := self 
 		newOpenFileTitle: 'Export as...'
