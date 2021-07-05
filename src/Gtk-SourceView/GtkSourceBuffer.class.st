@@ -92,6 +92,14 @@ GtkSourceBuffer >> highlightMatchingBrackets: highlight [
 ]
 
 { #category : #accessing }
+GtkSourceBuffer >> highlightSyntax: highlight [
+
+	self 
+		ffiCall: #(void gtk_source_buffer_set_highlight_syntax (self, gboolean highlight))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : #accessing }
 GtkSourceBuffer >> implicitTrailingNewline: implicit_trailing_newline [
 
 	self 
@@ -113,6 +121,14 @@ GtkSourceBuffer >> isHighlightMatchingBrackets [
 
 	^ self 
 		ffiCall: #(gboolean gtk_source_buffer_get_highlight_matching_brackets(self))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : #testing }
+GtkSourceBuffer >> isHighlightSyntax [
+
+	self 
+		ffiCall: #(gboolean gtk_source_buffer_get_highlight_syntax (self))
 		module: GtkSourceViewLibrary
 ]
 
