@@ -6,7 +6,6 @@ https://developer.gnome.org/glib/stable/glib-Error-Reporting.html
 Class {
 	#name : #GError,
 	#superclass : #GStructure,
-	#classTraits : 'GLibTLibrary classTrait',
 	#classVars : [
 		'OFFSET_CODE',
 		'OFFSET_DOMAIN',
