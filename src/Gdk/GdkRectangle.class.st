@@ -6,7 +6,6 @@ https://developer.gnome.org/gdk3/stable/gdk3-Points-Rectangles-and-Regions.html#
 Class {
 	#name : #GdkRectangle,
 	#superclass : #GStructure,
-	#classTraits : 'GtkTLibrary classTrait',
 	#classVars : [
 		'OFFSET_HEIGHT',
 		'OFFSET_WIDTH',
