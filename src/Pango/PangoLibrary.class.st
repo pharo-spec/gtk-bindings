@@ -22,7 +22,7 @@ PangoLibrary >> macLibraryName [
 { #category : #accessing }
 PangoLibrary >> runner [
 	
-	^ GtkLibrary naturalRunner
+	^ GObjectLibrary naturalRunner
 ]
 
 { #category : #'accessing platform' }

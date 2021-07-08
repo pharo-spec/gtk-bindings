@@ -6,6 +6,8 @@ https://developer.gnome.org/gdk3/stable/gdk3-RGBA-Colors.html
 Class {
 	#name : #GdkRGBA,
 	#superclass : #GStructure,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#classVars : [
 		'OFFSET_ALPHA',
 		'OFFSET_BLUE',
@@ -17,11 +19,6 @@ Class {
 	],
 	#category : #'Gdk-Misc'
 }
-
-{ #category : #'library path' }
-GdkRGBA class >> ffiLibraryName [
-	^ GtkLibrary
-]
 
 { #category : #'field definition' }
 GdkRGBA class >> fieldsDesc [
@@ -54,9 +51,7 @@ GdkRGBA class >> fromHexString: aColorHex [
 { #category : #accessing }
 GdkRGBA class >> gType [
 
-	^ self 
-		ffiCall: #(gsize gdk_rgba_get_type ())
-		module: GdkLibrary
+	^ self ffiCall: #(gsize gdk_rgba_get_type ())
 ]
 
 { #category : #'instance creation' }
@@ -113,11 +108,6 @@ GdkRGBA >> blue [
 GdkRGBA >> blue: anObject [
 	"This method was automatically generated"
 	handle doubleAt: OFFSET_BLUE put: anObject
-]
-
-{ #category : #'library path' }
-GdkRGBA >> ffiLibraryName [
-	^ self class ffiLibraryName
 ]
 
 { #category : #'accessing structure variables' }

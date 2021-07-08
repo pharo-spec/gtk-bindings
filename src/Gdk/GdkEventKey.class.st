@@ -6,8 +6,8 @@ https://developer.gnome.org/gdk3/stable/gdk3-Event-Structures.html#GdkEventKey
 Class {
 	#name : #GdkEventKey,
 	#superclass : #GdkEvent,
-	#traits : 'TGdkEventState',
-	#classTraits : 'TGdkEventState classTrait',
+	#traits : 'GdkTEventState',
+	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
 		'keyValue',
 		'position',

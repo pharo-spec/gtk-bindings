@@ -9,12 +9,7 @@ Class {
 	],
 	#pools : [
 		'GConnectFlags',
-		'GSignalMatchType',
-		'GdkModifierType',
-		'GtkAccelFlags',
-		'GtkAlign',
-		'GtkStateFlags',
-		'GtkStateType'
+		'GSignalMatchType'
 	],
 	#category : #'GObject-Base'
 }
@@ -27,10 +22,10 @@ GObject class >> finalizeResourceData: handle [
 
 	(self instanceIsObject: handle) 
 		ifTrue: [ 
-			GtkFinalizeSignal emitTarget: self handle: handle.
-			GtkRunLoop defer: [ self objectUnref: handle ] ]
+			GFinalizeAnnouncement emitTarget: self handle: handle.
+			GRunLoop defer: [ self objectUnref: handle ] ]
 		ifFalse: [
-			GtkZombieSignal emitTarget: self handle: handle ].
+			GZombieAnnouncement emitTarget: self handle: handle ].
 	handle beNull
 ]
 
@@ -287,7 +282,7 @@ GObject >> connectSignal: callback [
 		ifFound:  [ :aCallback | aCallback link: callback ]
 		ifNone: [ self basicConnectSignal: callback ]. 
 	
-	GtkConnectSignalSignal emitWidget: self signal: callback signalName.
+	GConnectSignalAnnouncement emitWidget: self signal: callback signalName.
 	
 	^ callback
 ]
@@ -393,7 +388,7 @@ GObject >> disconnectCallback: aCallback [
 	 will be wrapped by another function)"
 	numberDiconnected := self disconnectByData: aCallback thunk.
 	callbacks remove: aCallback.
-	GtkDisconnectCallbackSignal 
+	GDisconnectCallbackAnnouncement 
 		emitCallback: aCallback 
 		number: numberDiconnected.
 		
@@ -590,8 +585,8 @@ GObject >> initialize [
 GObject >> installDebugSignals [
 	"emit signals to debug"
 	
-	GtkCreateSignal emitWidget: self.
-	GtkDestroySignal installFor: self
+	GCreateAnnouncement emitWidget: self.
+	GDestroyAnnouncement installFor: self
 ]
 
 { #category : #private }

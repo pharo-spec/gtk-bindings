@@ -22,7 +22,7 @@ OSGtkFormRenderer >> backendWindow: aWindowHandle [
 { #category : #'updating screen' }
 OSGtkFormRenderer >> deferUpdatesWhile: aBlock [
 
-	GtkRunLoop defer: aBlock
+	GRunLoop defer: aBlock
 ]
 
 { #category : #private }

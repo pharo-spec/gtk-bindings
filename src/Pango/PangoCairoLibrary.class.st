@@ -16,7 +16,7 @@ PangoCairoLibrary >> calloutAPIClass [
 { #category : #'accessing platform' }
 PangoCairoLibrary >> macLibraryName [
 
-	GtkLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libpangocairo-1.0.0.dylib' ]. 
+	GObjectLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libpangocairo-1.0.0.dylib' ]. 
 	^ '/usr/local/lib/libpangocairo-1.0.0.dylib'
 
 ]
@@ -24,7 +24,7 @@ PangoCairoLibrary >> macLibraryName [
 { #category : #accessing }
 PangoCairoLibrary >> runner [
 	
-	^ GtkLibrary naturalRunner
+	^ GObjectLibrary naturalRunner
 ]
 
 { #category : #'accessing platform' }
@@ -36,7 +36,7 @@ PangoCairoLibrary >> unix32LibraryName [
 { #category : #'accessing platform' }
 PangoCairoLibrary >> unix64LibraryName [ 
 
-	GtkLibrary isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libpangocairo-1.0.so' ]. 
+	GObjectLibrary isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libpangocairo-1.0.so' ]. 
 	^ FFIUnix64LibraryFinder findLibrary: 'libpangocairo-1.0.so'
 ]
 

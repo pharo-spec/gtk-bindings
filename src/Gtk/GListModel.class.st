@@ -6,8 +6,8 @@ TODO: This is gio library, maybe worths to extract that to its own package (but 
 Class {
 	#name : #GListModel,
 	#superclass : #Object,
-	#traits : 'TGtkLibrary',
-	#classTraits : 'TGtkLibrary classTrait',
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'interface',
 		'itemType'

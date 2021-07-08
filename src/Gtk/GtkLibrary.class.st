@@ -1,47 +1,11 @@
 Class {
 	#name : #GtkLibrary,
-	#superclass : #FFILibrary,
-	#classVars : [
-		'Debug'
-	],
+	#superclass : #GObjectLibrary,
 	#pools : [
 		'GtkTypes'
 	],
 	#category : #'Gtk-Base'
 }
-
-{ #category : #accessing }
-GtkLibrary class >> beForDebug [
-	<script>
-	
-	Debug := true
-]
-
-{ #category : #accessing }
-GtkLibrary class >> beForProduction [
-	<script>
-
-	Debug := false
-]
-
-{ #category : #testing }
-GtkLibrary class >> isDebug [ 
-
-	^ Debug ifNil: [ Debug := false ]
-]
-
-{ #category : #accessing }
-GtkLibrary class >> naturalRunner [
-	"Answer the 'natural' FFI client to run Gtk"
-	
-	^ GtkRunLoop current naturalRunner
-]
-
-{ #category : #'accessing platform' }
-GtkLibrary >> calloutAPIClass [ 
-
-	^ TFCalloutAPI
-]
 
 { #category : #private }
 GtkLibrary >> getMajorVersion [
@@ -98,17 +62,6 @@ GtkLibrary >> matchesVersion: aString [
 	
 	"if null, everything is ok"
 	^ match isNil or: [ match isNull ]
-]
-
-{ #category : #'accessing platform' }
-GtkLibrary >> runner [
-	
-	^ self class naturalRunner
-]
-
-{ #category : #'accessing platform' }
-GtkLibrary >> unix32LibraryName [ 
-	^ '/usr/lib/i386-linux-gnu/libgtk-3.so.0'
 ]
 
 { #category : #'accessing platform' }

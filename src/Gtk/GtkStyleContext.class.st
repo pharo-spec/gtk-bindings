@@ -8,6 +8,9 @@ Class {
 		'GTK_STYLE_PROVIDER_PRIORITY_THEME',
 		'GTK_STYLE_PROVIDER_PRIORITY_USER'
 	],
+	#pools : [
+		'GtkStateFlags'
+	],
 	#category : #'Gtk-Styles'
 }
 

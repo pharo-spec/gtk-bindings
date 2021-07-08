@@ -201,22 +201,6 @@ GClass >> findInstance: handle [
 ]
 
 { #category : #'private primitives' }
-GClass >> gInternStaticString: string [
-
-	^ self 
-		ffiCall: #(void *g_intern_static_string (const gchar *string))
-		module: GLibLibrary
-]
-
-{ #category : #'private primitives' }
-GClass >> gInternStaticStringFromByteArray: string [
-
-	^ self 
-		ffiCall: #(void *g_intern_static_string (ByteArray string))
-		module: GLibLibrary
-]
-
-{ #category : #'private primitives' }
 GClass >> gObjectNew: object_type [
 
 	^ GObject gObjectNew: object_type

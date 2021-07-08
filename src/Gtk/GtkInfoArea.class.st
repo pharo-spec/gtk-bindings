@@ -136,9 +136,9 @@ GtkInfoArea >> setupFadeOut: infoBar [
 
 	[ 
 		self showTime wait.
-		GtkRunLoop defer: [ infoBar hide ].
+		GRunLoop defer: [ infoBar hide ].
 		self removeTime wait.
-		GtkRunLoop defer: [ infoBar destroy ] ] 
+		GRunLoop defer: [ infoBar destroy ] ] 
 	asTask schedule: TKTNewProcessTaskRunner new
 ]
 

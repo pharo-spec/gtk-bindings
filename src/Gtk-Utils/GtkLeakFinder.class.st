@@ -36,10 +36,10 @@ Class {
 GtkLeakFinder class >> startTraceLeaks [
 	<script>
 
-	GtkSignal filterAllSignalsExcept: { 
-		GtkCreateSignal. 
-		GtkDestroySignal. 
-		GtkFinalizeSignal }. 
+	GSignalBaseAnnouncement filterAllSignalsExcept: { 
+		GCreateAnnouncement. 
+		GDestroyAnnouncement. 
+		GFinalizeAnnouncement }. 
 	self start. 
 	self instance inspect
 ]
@@ -48,7 +48,7 @@ GtkLeakFinder class >> startTraceLeaks [
 GtkLeakFinder class >> stopTraceLeaks [
 	<script>
 
-	GtkSignal resetFilters.
+	GSignalBaseAnnouncement resetFilters.
 	self stop
 ]
 
@@ -179,7 +179,7 @@ GtkLeakFinder >> reset [
 { #category : #private }
 GtkLeakFinder >> signals [
 
-	^ { GtkCreateSignal. GtkDestroySignal. GtkZombieSignal }
+	^ { GCreateAnnouncement. GDestroyAnnouncement. GZombieAnnouncement }
 ]
 
 { #category : #registering }

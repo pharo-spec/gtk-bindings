@@ -6,8 +6,8 @@ Generated when the pointer moves.
 Class {
 	#name : #GdkEventMotion,
 	#superclass : #GdkEvent,
-	#traits : 'TGdkEventState',
-	#classTraits : 'TGdkEventState classTrait',
+	#traits : 'GdkTEventState',
+	#classTraits : 'GdkTEventState classTrait',
 	#classVars : [
 		'OFFSET_AXES',
 		'OFFSET_DEVICE',

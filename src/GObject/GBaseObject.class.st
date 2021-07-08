@@ -5,19 +5,14 @@ Since not all Gtk3 references are actually ""Gtk3 objects"", not all can be desc
 Class {
 	#name : #GBaseObject,
 	#superclass : #FFIOpaqueObject,
-	#traits : 'TGtkLibrary',
-	#classTraits : 'TGtkLibrary classTrait',
+	#traits : 'GObjectTLibrary',
+	#classTraits : 'GObjectTLibrary classTrait',
 	#pools : [
 		'GType',
 		'GtkTypes'
 	],
 	#category : #'GObject-Base'
 }
-
-{ #category : #'library path' }
-GBaseObject class >> ffiLibraryName [
-	^ GtkLibrary
-]
 
 { #category : #private }
 GBaseObject class >> isValidHandle: handle [
@@ -31,12 +26,6 @@ GBaseObject class >> null [
 	^ self fromHandle: ExternalAddress null
 ]
 
-{ #category : #accessing }
-GBaseObject >> application [
-
-	^ GtkEngine current
-]
-
 { #category : #'external resource management' }
 GBaseObject >> autoRelease [
 
@@ -46,7 +35,7 @@ GBaseObject >> autoRelease [
 { #category : #accessing }
 GBaseObject >> engine [
 
-	^ GtkEngine current
+	^ GEngine current
 ]
 
 { #category : #initialization }

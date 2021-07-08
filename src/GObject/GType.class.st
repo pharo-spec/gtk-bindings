@@ -38,18 +38,6 @@ Class {
 }
 
 { #category : #accessing }
-GType class >> GDK_TYPE_PIXBUF [
-
-	^ GdkPixbuf gType
-]
-
-{ #category : #accessing }
-GType class >> GDK_TYPE_RGBA [
-
-	^ GdkRGBA gType
-]
-
-{ #category : #accessing }
 GType class >> G_TYPE_BOOLEAN [
 	^ G_TYPE_BOOLEAN
 ]
@@ -165,8 +153,9 @@ GType class >> G_TYPE_VARIANT [
 ]
 
 { #category : #'library path' }
-GType class >> ffiLibraryName [
-	^ GtkLibrary
+GType class >> ffiLibrary [
+
+	^ GObjectLibrary
 ]
 
 { #category : #initialization }

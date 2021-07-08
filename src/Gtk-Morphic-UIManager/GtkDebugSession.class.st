@@ -109,7 +109,7 @@ GtkDebugSession >> spanNewSession [
 { #category : #running }
 GtkDebugSession >> spawnNewRunLoop [
 
-	runLoop := GtkRunLoop current spawnNewRunLoop
+	runLoop := GRunLoop current spawnNewRunLoop
 ]
 
 { #category : #keepAlive }

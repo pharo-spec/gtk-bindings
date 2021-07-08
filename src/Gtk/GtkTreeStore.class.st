@@ -71,7 +71,7 @@ GtkTreeStore >> getString: buffer column: column iter: iter [
 		gint -1))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 GtkTreeStore >> initialize [
 
 	self initializeTTreeSortable.

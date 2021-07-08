@@ -51,7 +51,7 @@ OSGtkBackendWindow >> extent [
 	| size |
 
 	self ifWindowIsNotValid: [ ^ 0@0 ].
-	GtkRunLoop defer: [ size := gtkWindow size ].
+	size := GRunLoop defer: [ gtkWindow size ].
 	
 	^ size
 ]
@@ -59,7 +59,7 @@ OSGtkBackendWindow >> extent [
 { #category : #accessing }
 OSGtkBackendWindow >> extent: newExtent [
 
-	GtkRunLoop defer: [ gtkWindow resize: newExtent ]
+	GRunLoop defer: [ gtkWindow resize: newExtent ]
 ]
 
 { #category : #private }
@@ -146,23 +146,19 @@ OSGtkBackendWindow >> isValid [
 
 { #category : #private }
 OSGtkBackendWindow >> newCursorFromForm: cursorForm [
-	| newCursor |
 
-	GtkRunLoop defer: [ 
-		newCursor := GdkCursor fromForm: cursorForm	].
-	^ newCursor
+	^ GRunLoop defer: [ GdkCursor fromForm: cursorForm	].
+
 ]
 
 { #category : #factory }
 OSGtkBackendWindow >> newFormRenderer: aForm [
 
-	GtkRunLoop defer: [ 
-		renderer := OSGtkFormRenderer new
+	^ GRunLoop defer: [ 
+		OSGtkFormRenderer new
 			form: aForm;
 			backendWindow: self;
-			yourself ].
-		
-	^ renderer
+			yourself ]
 ]
 
 { #category : #accessing }
@@ -189,7 +185,7 @@ OSGtkBackendWindow >> quitSession [
 { #category : #accessing }
 OSGtkBackendWindow >> raise [
 
-	GtkRunLoop defer: [ self gtkWindow present ]
+	GRunLoop defer: [ self gtkWindow present ]
 ]
 
 { #category : #private }
@@ -221,7 +217,7 @@ OSGtkBackendWindow >> setMouseCursor: cursorForm mask: maskForm [
 		at: cursorForm
 		ifAbsentPut: [ self newCursorFromForm: cursorForm ].
 	
-	GtkRunLoop defer: [
+	GRunLoop defer: [
 		self gtkWindow cursor: cursor ]
 ]
 

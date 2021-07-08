@@ -18,7 +18,7 @@ GtkMainRunLoop >> callerProcess [
 	^ callerProcess
 ]
 
-{ #category : #accessing }
+{ #category : #deferring }
 GtkMainRunLoop >> defer: aBlock [
 	| sem result |
 

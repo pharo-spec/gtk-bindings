@@ -6,8 +6,8 @@ https://developer.gnome.org/gdk3/stable/gdk3-Event-Structures.html#GdkEventButto
 Class {
 	#name : #GdkEventButton,
 	#superclass : #GdkEvent,
-	#traits : 'TGdkEventState',
-	#classTraits : 'TGdkEventState classTrait',
+	#traits : 'GdkTEventState',
+	#classTraits : 'GdkTEventState classTrait',
 	#classVars : [
 		'OFFSET_AXES',
 		'OFFSET_BUTTON',

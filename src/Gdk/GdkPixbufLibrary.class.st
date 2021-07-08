@@ -1,6 +1,6 @@
 Class {
 	#name : #GdkPixbufLibrary,
-	#superclass : #GtkLibrary,
+	#superclass : #GObjectLibrary,
 	#category : #'Gdk-Pixbuf'
 }
 

@@ -9,7 +9,7 @@ Class {
 		'deferring',
 		'mutex'
 	],
-	#category : #GLib
+	#category : #'GLib-Base'
 }
 
 { #category : #private }

@@ -21,7 +21,7 @@ Class {
 GtkWindow class >> finalizeResourceData: aHandle [
 
 	(self isValidHandle: aHandle) ifFalse: [ ^ self ].
-	GtkFinalizeSignal emitTarget: self handle: aHandle.
+	GFinalizeAnnouncement emitTarget: self handle: aHandle.
 	"self widgetDestroy: aHandle."
 	aHandle beNull
 ]
@@ -412,7 +412,7 @@ GtkWindow >> windowAddAccelGroup: accel_group [
 GtkWindow >> windowDestroyed [
 	"This process a destroy signal"
 
-	GtkWindowDestroySignal emitWidget: self.
+	GWindowDestroyAnnouncement emitWidget: self.
 	"according to documentation: Signals that all holders of a reference to the widget should 
 	 release the reference that they hold. May result in finalization of the widget if all 
 	 references are released.

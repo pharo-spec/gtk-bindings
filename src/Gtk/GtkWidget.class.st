@@ -131,7 +131,7 @@ GtkWidget >> autoObjectUnref [
 { #category : #'external resource management' }
 GtkWidget >> autoRelease [
 
-	GtkRegisterAutoRelease emitWidget: self.
+	GRegisterAutoReleaseAnnouncement emitWidget: self.
 	^ super autoRelease
 ]
 

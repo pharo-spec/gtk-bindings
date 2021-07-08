@@ -1,6 +1,6 @@
 Class {
 	#name : #GdkLibrary,
-	#superclass : #GtkLibrary,
+	#superclass : #GObjectLibrary,
 	#category : #'Gdk-Base'
 }
 

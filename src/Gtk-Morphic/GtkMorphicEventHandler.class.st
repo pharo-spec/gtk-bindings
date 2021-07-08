@@ -153,14 +153,14 @@ GtkMorphicEventHandler >> handleEvent: anEvent [
 GtkMorphicEventHandler >> imContext [
 
 	^ imContext ifNil: [ 
-		imContext := GtkRunLoop defer: [ GtkIMContext newSimple ] ]
+		imContext := GRunLoop defer: [ GtkIMContext newSimple ] ]
 ]
 
 { #category : #initialization }
 GtkMorphicEventHandler >> initialize [
 
 	super initialize.
-	GtkRunLoop defer: [ 
+	GRunLoop defer: [ 
 		self imContext 
 			connectCommit: [ :aString | self doKeystroke: aString ] ]
 ]
@@ -210,7 +210,7 @@ GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 				^ nil ] ] ].
 
 	lastEvent := anEvent copyInMemory.		
-	GtkRunLoop defer: [ 
+	GRunLoop defer: [ 
 		self imContext filterKeypress: anEvent ]
 ]
 
@@ -254,7 +254,7 @@ GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 	 In order to make the world work properly, I need to let morphic do its interpretation (even 
 	 if is worst)"
 	anEvent isDoubleClick ifTrue: [ ^ self ].
-	GtkRunLoop defer: [ self imContext reset ].
+	GRunLoop defer: [ self imContext reset ].
 	^ super visitMouseButtonPressEvent: anEvent
 ]
 

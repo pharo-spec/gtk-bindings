@@ -15,10 +15,13 @@ BaselineOfGtk >> baseline: spec [
 
 			spec
 				"core"
-				package: 'Gtk-Pango';
-				package: 'Gtk' with: [ spec requires: #('Gtk-Pango') ];
+				package: 'GObject';
+				package: 'GLib' with: [ spec requires: #('GObject') ];
+				package: 'Gdk' with: [ spec requires: #('GObject') ];
+				package: 'Pango' with: [ spec requires: #('GObject') ];
+				package: 'Gtk' with: [ spec requires: #('GObject' 'GLib' 'Gdk' 'Pango') ];
 				"code"
-				package: 'Gtk-SourceView' with: [ spec requires: #('Gtk') ];
+				package: 'GtkSourceView' with: [ spec requires: #('Gtk') ];
 				"morphic"
 				package: 'Gtk-Morphic' with: [ spec requires: #('Gtk') ];
 				package: 'Gtk-Morphic-UIManager' with: [ spec requires: #('Gtk-Morphic') ];
@@ -27,7 +30,7 @@ BaselineOfGtk >> baseline: spec [
 				"testing morphic"
 				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ].
 		
-		spec group: 'Core' with: #('Gtk-Pango' 'Gtk').
+		spec group: 'Core' with: #('Pango' 'Gtk').
 		spec group: 'Code' with: #('Core' 'Gtk-SourceView').
 		spec group: 'Morphic' with: #('Core' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
 		spec group: 'Tests' with: #('Gtk-Tests').

@@ -17,5 +17,5 @@ GtkDialogSpawnRunContext >> resume [
 { #category : #private }
 GtkDialogSpawnRunContext >> waitForAnswer [ 
 
-	runLoop := GtkRunLoop current spawnNewRunLoop
+	runLoop := GRunLoop current spawnNewRunLoop
 ]

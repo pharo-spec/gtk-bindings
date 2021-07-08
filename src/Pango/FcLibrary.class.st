@@ -25,14 +25,14 @@ FcLibrary >> fcInit [
 { #category : #'accessing platform' }
 FcLibrary >> macLibraryName [
 
-	GtkLibrary isDebug ifTrue: [ '/Users/gtk3/gtk/inst/lib/libfontconfig.dylib' ].
+	GObjectLibrary isDebug ifTrue: [ '/Users/gtk3/gtk/inst/lib/libfontconfig.dylib' ].
 	^ '/usr/local/lib/libfontconfig.dylib'
 ]
 
 { #category : #converting }
 FcLibrary >> runner [
 	
-	^ GtkLibrary naturalRunner
+	^ GObjectLibrary naturalRunner
 ]
 
 { #category : #'accessing platform' }

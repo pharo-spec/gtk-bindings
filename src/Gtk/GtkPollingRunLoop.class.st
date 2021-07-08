@@ -25,13 +25,20 @@ GtkPollingRunLoop >> callerProcess [
 	^ Processor activeProcess
 ]
 
-{ #category : #accessing }
+{ #category : #deferring }
 GtkPollingRunLoop >> defer: aBlock [
 	| oldDefer |
 
 	oldDefer := deferring.
 	deferring := true.
 	^ aBlock ensure: [ deferring := oldDefer ]
+]
+
+{ #category : #private }
+GtkPollingRunLoop >> getEventsPending [
+
+	^ self 
+		ffiCall: #( gboolean gtk_events_pending (void) )
 ]
 
 { #category : #initialization }
@@ -56,6 +63,13 @@ GtkPollingRunLoop >> installRunLoop [
 GtkPollingRunLoop >> isDeferring [
 
 	^ (deferring == true) or: [ self isInCallback ]
+]
+
+{ #category : #private }
+GtkPollingRunLoop >> mainIterationDo: blocking [
+	
+	^ self 
+		ffiCall: #( void gtk_main_iteration_do ( gboolean blocking ) )
 ]
 
 { #category : #'private installing' }

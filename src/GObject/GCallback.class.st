@@ -34,6 +34,6 @@ GCallback >> basicValueWithArguments: args [
 { #category : #evaluating }
 GCallback >> valueWithArguments: args [
 
-	GtkRunLoop current callbackEnter.	
+	GRunLoop current callbackEnter.	
 	^ self basicValueWithArguments: args
 ]

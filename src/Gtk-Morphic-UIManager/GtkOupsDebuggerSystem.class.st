@@ -10,10 +10,10 @@ GtkOupsDebuggerSystem >> openDebuggerOnRequest: aDebugRequest [
 	<debuggerCompleteToSender>
 	| debuggerOpeningStrategy inCallback |
 
-	inCallback := GtkRunLoop current isInCallback.
+	inCallback := GRunLoop current isInCallback.
 	inCallback ifTrue: [ 
 		aDebugRequest debugSession spawnNewRunLoop.
-		GtkRunLoop current callerProcess ifNotNil: [ :callerProcess |
+		GRunLoop current callerProcess ifNotNil: [ :callerProcess |
 			"force UI process if caller was correct"
 			callerProcess = UIManager default uiProcess ifTrue: [
 				aDebugRequest debugSession 

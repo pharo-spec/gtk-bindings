@@ -44,17 +44,9 @@ GdkPixbuf class >> newFromFile: filename [
 	error := GError new.
 	pixbuf := self getFromFile: filename error: error.
 	error isOk ifFalse: [ 
-		GtkError signal: error messageString ].	
+		GdkError signal: error messageString ].	
 	pixbuf initialize.
 	^ pixbuf
-]
-
-{ #category : #'instance creation' }
-GdkPixbuf class >> newFromIconName: iconName size: size [
-
-	^ GtkIconTheme default 
-		loadIconName: iconName 
-		size: size
 ]
 
 { #category : #'instance creation' }

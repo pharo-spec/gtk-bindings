@@ -1,7 +1,7 @@
 Class {
 	#name : #GLibLibrary,
-	#superclass : #GtkLibrary,
-	#category : #GLib
+	#superclass : #GObjectLibrary,
+	#category : #'GLib-Base'
 }
 
 { #category : #'private primitives' }

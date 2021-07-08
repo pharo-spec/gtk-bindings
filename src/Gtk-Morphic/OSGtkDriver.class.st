@@ -38,7 +38,7 @@ OSGtkDriver >> createWindowWithAttributes: attributes osWindow: osWindow [
 
 	self ensureGtkRunning.
 	
-	GtkRunLoop defer: [ 
+	GRunLoop defer: [ 
 		window := OSGtkBackendWindow newAttributes: attributes.
 		window osWindow: osWindow.
 		osWindow setJustCreatedHandle: window.

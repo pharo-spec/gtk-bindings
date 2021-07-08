@@ -5,8 +5,8 @@ I provide an API to access and modify this reified concepts (e.g. changing label
 Class {
 	#name : #GtkNotebookPage,
 	#superclass : #Object,
-	#traits : 'TGtkLibrary',
-	#classTraits : 'TGtkLibrary classTrait',
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'notebook',
 		'label',
