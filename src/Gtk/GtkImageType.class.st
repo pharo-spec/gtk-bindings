@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkImage.html#GtkImageType
 "
 Class {
 	#name : #GtkImageType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_IMAGE_ANIMATION',
 		'GTK_IMAGE_EMPTY',

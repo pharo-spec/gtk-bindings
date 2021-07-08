@@ -6,7 +6,7 @@ A GtkTargetEntry structure represents a single type of data than can be supplied
 "
 Class {
 	#name : #GtkTargetEntry,
-	#superclass : #GtkStructure,
+	#superclass : #GStructure,
 	#classVars : [
 		'OFFSET_FLAGS',
 		'OFFSET_INFO',

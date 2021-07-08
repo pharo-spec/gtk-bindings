@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/unstable/GtkMenuButton.html#GtkArrowType
 "
 Class {
 	#name : #GtkArrowType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_ARROW_DOWN',
 		'GTK_ARROW_LEFT',

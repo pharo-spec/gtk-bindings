@@ -1,3 +1,8 @@
+"
+https://developer.gnome.org/gio/stable/GListModel.html
+
+TODO: This is gio library, maybe worths to extract that to its own package (but for now this is the only class I have there)
+"
 Class {
 	#name : #GListModel,
 	#superclass : #Object,

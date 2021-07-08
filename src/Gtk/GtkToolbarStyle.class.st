@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkToolb
 "
 Class {
 	#name : #GtkToolbarStyle,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_TOOLBAR_BOTH',
 		'GTK_TOOLBAR_BOTH_HORIZ',

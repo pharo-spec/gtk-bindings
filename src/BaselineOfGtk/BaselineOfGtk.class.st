@@ -62,7 +62,7 @@ BaselineOfGtk >> postLoad [
 BaselineOfGtk >> recompileStructures [
 	"Recompile structures (just to be sure we match everything we need"
 
-	(Smalltalk at: #GtkEnumeration) allSubclassesDo: #initializeEnumeration.
-	(Smalltalk at: #GtkStructure) allSubclassesDo: #compileFields.
+	(Smalltalk at: #GEnumeration) allSubclassesDo: #initializeEnumeration.
+	(Smalltalk at: #GStructure) allSubclassesDo: #compileFields.
 	(Smalltalk at: #GtkWidget) withAllSubclassesDo: #recompile
 ]

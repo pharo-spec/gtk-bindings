@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkWindow.html#GtkWindowType
 "
 Class {
 	#name : #GtkWindowType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_WINDOW_POPUP',
 		'GTK_WINDOW_TOPLEVEL'

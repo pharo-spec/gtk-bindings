@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkMessageDialog.html#GtkMessageType
 "
 Class {
 	#name : #GtkMessageType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_MESSAGE_ERROR',
 		'GTK_MESSAGE_INFO',

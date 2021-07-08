@@ -1,6 +1,6 @@
 Class {
 	#name : #GtkTreeModelFlags,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_TREE_MODEL_ITERS_PERSIST',
 		'GTK_TREE_MODEL_LIST_ONLY'

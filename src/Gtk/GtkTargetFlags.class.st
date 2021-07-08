@@ -13,7 +13,7 @@ If this is set, the target will only be selected for drags within a single widge
 "
 Class {
 	#name : #GtkTargetFlags,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_TARGET_SAME_APP',
 		'GTK_TARGET_SAME_WIDGET'

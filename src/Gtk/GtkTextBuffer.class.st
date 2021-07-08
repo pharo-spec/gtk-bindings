@@ -323,7 +323,7 @@ GtkTextBuffer >> lineAt: offset [
 	start := self iterAtOffset: offset.
 	start backwardChars: start lineOffset.
 
-	end := self iterAtOffset: offset.
+	end := self iterAtOffset: start offset.
 	end forwardToLineEnd.
 		
 	^ self 
@@ -416,7 +416,7 @@ GtkTextBuffer >> selectLineAt: offset [
 	start := self iterAtOffset: offset.
 	start backwardChars: start lineOffset.
 
-	end := self iterAtOffset: offset.
+	end := self iterAtOffset: start offset.
 	end forwardToLineEnd.
 		
 	self selectRangeInsert: start bound: end

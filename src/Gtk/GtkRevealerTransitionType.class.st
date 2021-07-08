@@ -1,6 +1,6 @@
 Class {
 	#name : #GtkRevealerTransitionType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_REVEALER_TRANSITION_TYPE_CROSSFADE',
 		'GTK_REVEALER_TRANSITION_TYPE_NONE',

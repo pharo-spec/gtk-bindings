@@ -4,7 +4,7 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Base'
+	#category : #'Gtk-Base-Callbacks'
 }
 
 { #category : #accessing }

@@ -4,7 +4,7 @@ Describes which edge of a widget a certain feature is positioned at, e.g. the ta
 "
 Class {
 	#name : #GtkPositionType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_POS_BOTTOM',
 		'GTK_POS_LEFT',

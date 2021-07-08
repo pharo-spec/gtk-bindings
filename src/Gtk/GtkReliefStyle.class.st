@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkRelie
 "
 Class {
 	#name : #GtkReliefStyle,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_RELIEF_NONE',
 		'GTK_RELIEF_NORMAL'

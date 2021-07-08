@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk2/stable/gtk2-Standard-Enumerations.html#GtkState
 "
 Class {
 	#name : #GtkStateType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_STATE_ACTIVE',
 		'GTK_STATE_FOCUSED',

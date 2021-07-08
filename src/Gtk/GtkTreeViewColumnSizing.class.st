@@ -14,7 +14,7 @@ Columns are a fixed numbers of pixels wide.
 "
 Class {
 	#name : #GtkTreeViewColumnSizing,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_TREE_VIEW_COLUMN_AUTOSIZE',
 		'GTK_TREE_VIEW_COLUMN_FIXED',

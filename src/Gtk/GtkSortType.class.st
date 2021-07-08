@@ -9,7 +9,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkSortT
 "
 Class {
 	#name : #GtkSortType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_SORT_ASCENDING',
 		'GTK_SORT_DESCENDING'

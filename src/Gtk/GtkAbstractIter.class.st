@@ -1,6 +1,6 @@
 Class {
 	#name : #GtkAbstractIter,
-	#superclass : #GtkStructure,
+	#superclass : #GStructure,
 	#classTraits : 'TGtkLibrary classTrait',
 	#instVars : [
 		'store'

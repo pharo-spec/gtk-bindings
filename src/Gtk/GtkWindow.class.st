@@ -200,7 +200,7 @@ GtkWindow >> initialize [
 
 	super initialize.
 	"registering to prevent GC"
-	self application registerWindow: self.
+	self engine registerWindow: self.
 	"I need to ensure the handle is nil when destroy, to prevent double free"
 	self connectDestroy: [ self windowDestroyed ]
 ]
@@ -398,7 +398,7 @@ GtkWindow >> unregister [
 	"if this is the last window and I'm closing the app, it can happen than a destroy 
 	 is called after the GtkApplication is disposed. I need to verify if is nil to avoid 
 	 saving errors."
-	self application ifNotNil: [ :app | 
+	self engine ifNotNil: [ :app | 
 		app unregisterWindow: self ]
 ]
 

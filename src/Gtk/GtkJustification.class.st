@@ -3,7 +3,7 @@ Used for justifying the text inside a GtkLabel widget. (See also GtkAlignment).
 "
 Class {
 	#name : #GtkJustification,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_JUSTIFY_CENTER',
 		'GTK_JUSTIFY_FILL',

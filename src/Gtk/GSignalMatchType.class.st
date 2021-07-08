@@ -5,7 +5,7 @@ https://developer.gnome.org/gobject/unstable/gobject-Signals.html#GSignalMatchTy
 "
 Class {
 	#name : #GSignalMatchType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'G_SIGNAL_MATCH_CLOSURE',
 		'G_SIGNAL_MATCH_DATA',

@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkWindow.html#GtkWindowPosition
 "
 Class {
 	#name : #GtkWindowPosition,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_WIN_POS_CENTER',
 		'GTK_WIN_POS_CENTER_ALWAYS',

@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkOrien
 "
 Class {
 	#name : #GtkOrientation,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_ORIENTATION_HORIZONTAL',
 		'GTK_ORIENTATION_VERTICAL'

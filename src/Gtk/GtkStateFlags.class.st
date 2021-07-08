@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkState
 "
 Class {
 	#name : #GtkStateFlags,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_STATE_FLAG_ACTIVE',
 		'GTK_STATE_FLAG_BACKDROP',

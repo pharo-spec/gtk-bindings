@@ -26,7 +26,7 @@ GtkBaseDialog class >> gType [
 { #category : #private }
 GtkBaseDialog >> deferToAutoRelease [
 		
-	self application resourceManager
+	self engine resourceManager
 		addResource: self 
 		executor: (GtkDelayedDestroyExecutor new
 			handle: self getHandle;
@@ -45,8 +45,8 @@ GtkBaseDialog >> doNotKeepAlive [
 { #category : #private }
 GtkBaseDialog >> ensureRegister [
 
-	(self application isWindowRegistered: self) ifTrue: [ ^ self ].
-	self application registerWindow: self
+	(self engine isWindowRegistered: self) ifTrue: [ ^ self ].
+	self engine registerWindow: self
 ]
 
 { #category : #initialization }

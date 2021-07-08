@@ -5,7 +5,7 @@ https://developer.gnome.org/gobject/unstable/gobject-Signals.html#GConnectFlags
 "
 Class {
 	#name : #GConnectFlags,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'G_CONNECT_AFTER',
 		'G_CONNECT_NONE',

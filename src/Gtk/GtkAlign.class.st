@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkAlign
 "
 Class {
 	#name : #GtkAlign,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_ALIGN_BASELINE',
 		'GTK_ALIGN_CENTER',

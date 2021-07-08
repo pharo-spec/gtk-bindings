@@ -7,7 +7,7 @@ WARNING: GtkTextIter is an opaque type that is, however, threat as a regular str
 "
 Class {
 	#name : #GtkTextIter,
-	#superclass : #GtkStructure,
+	#superclass : #GStructure,
 	#instVars : [
 		'buffer'
 	],

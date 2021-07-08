@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkTextView.html#GtkWrapMode
 "
 Class {
 	#name : #GtkWrapMode,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_WRAP_CHAR',
 		'GTK_WRAP_NONE',

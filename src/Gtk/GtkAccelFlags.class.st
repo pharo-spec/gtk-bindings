@@ -3,7 +3,7 @@ https://people.gnome.org/~ryanl/gtk/html/gtk3-Standard-Enumerations.html#GtkAcce
 "
 Class {
 	#name : #GtkAccelFlags,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_ACCEL_LOCKED',
 		'GTK_ACCEL_MASK',

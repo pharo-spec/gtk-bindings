@@ -1,6 +1,6 @@
 Class {
 	#name : #GListModelInterface,
-	#superclass : #GtkStructure,
+	#superclass : #GStructure,
 	#instVars : [
 		'get_item_type',
 		'get_n_items',

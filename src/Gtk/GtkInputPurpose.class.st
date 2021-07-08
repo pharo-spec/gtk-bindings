@@ -8,7 +8,7 @@ https://developer.gnome.org/gtk3/stable/GtkEntry.html#GtkInputPurpose
 "
 Class {
 	#name : #GtkInputPurpose,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_INPUT_PURPOSE_ALPHA',
 		'GTK_INPUT_PURPOSE_DIGITS',

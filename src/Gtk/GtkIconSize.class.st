@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Themeable-Stock-Images.html#GtkIcon
 "
 Class {
 	#name : #GtkIconSize,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_ICON_SIZE_BUTTON',
 		'GTK_ICON_SIZE_DIALOG',

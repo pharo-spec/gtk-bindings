@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/unstable/GtkWidget.html#GtkRequisition-struct
 "
 Class {
 	#name : #GtkRequisition,
-	#superclass : #GtkStructure,
+	#superclass : #GStructure,
 	#classVars : [
 		'OFFSET_HEIGHT',
 		'OFFSET_WIDTH'

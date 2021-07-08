@@ -5,7 +5,7 @@ GtkPolicyType initializeEnumeration.
 "
 Class {
 	#name : #GtkPolicyType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_POLICY_ALWAYS',
 		'GTK_POLICY_AUTOMATIC',

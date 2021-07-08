@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkDialog.html#GtkResponseType
 "
 Class {
 	#name : #GtkResponseType,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_RESPONSE_ACCEPT',
 		'GTK_RESPONSE_APPLY',

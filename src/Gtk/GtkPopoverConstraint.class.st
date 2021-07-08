@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkPopover.html#GtkPopoverConstraint
 "
 Class {
 	#name : #GtkPopoverConstraint,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_POPOVER_CONSTRAINT_NONE',
 		'GTK_POPOVER_CONSTRAINT_WINDOW'

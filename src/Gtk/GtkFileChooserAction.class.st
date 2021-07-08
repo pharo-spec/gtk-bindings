@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkFileChooser.html#GtkFileChooserAction
 "
 Class {
 	#name : #GtkFileChooserAction,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER',
 		'GTK_FILE_CHOOSER_ACTION_OPEN',

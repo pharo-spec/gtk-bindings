@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkButtonBox.html#GtkButtonBoxStyle
 "
 Class {
 	#name : #GtkButtonBoxStyle,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_BUTTONBOX_CENTER',
 		'GTK_BUTTONBOX_EDGE',

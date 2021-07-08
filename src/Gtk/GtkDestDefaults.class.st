@@ -25,7 +25,7 @@ https://code.woboq.org/gtk/gtk/gtk/gtkdragdest.h.html
 "
 Class {
 	#name : #GtkDestDefaults,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_DEST_DEFAULT_ALL',
 		'GTK_DEST_DEFAULT_DROP',

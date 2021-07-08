@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkSelec
 "
 Class {
 	#name : #GtkSelectionMode,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GTK_SELECTION_BROWSE',
 		'GTK_SELECTION_MULTIPLE',

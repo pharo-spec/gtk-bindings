@@ -6,7 +6,7 @@ https://developer.gnome.org/gdk3/stable/gdk3-Events.html#GdkEventMask
 "
 Class {
 	#name : #GdkEventMask,
-	#superclass : #GtkEnumeration,
+	#superclass : #GEnumeration,
 	#classVars : [
 		'GDK_ALL_EVENTS_MASK',
 		'GDK_BUTTON1_MOTION_MASK',
