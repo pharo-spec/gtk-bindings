@@ -10,7 +10,7 @@ Should be connected if you wish to perform an action whenever the GtkToggleButto
 Class {
 	#name : #GToggledCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

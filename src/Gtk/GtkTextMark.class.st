@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkTextMark.html
 Class {
 	#name : #GtkTextMark,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#pools : [
 		'GtkTypes'
 	],

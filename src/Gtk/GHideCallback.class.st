@@ -11,7 +11,7 @@ The ::hide signal is emitted when widget is hidden, for example with gtk_widget_
 Class {
 	#name : #GHideCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

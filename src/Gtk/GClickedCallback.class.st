@@ -10,7 +10,7 @@ Emitted when the button has been activated (pressed and released).
 Class {
 	#name : #GClickedCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

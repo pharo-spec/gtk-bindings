@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/unstable/GtkCellRenderer.html
 Class {
 	#name : #GtkCellRenderer,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-CellRenderers'
 }
 

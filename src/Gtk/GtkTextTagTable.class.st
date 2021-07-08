@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkTextTagTable.html
 Class {
 	#name : #GtkTextTagTable,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'tags'
 	],

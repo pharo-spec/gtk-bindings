@@ -7,6 +7,8 @@ It can also mark its conclusion status (suceed or failure)
 Class {
 	#name : #GCallback,
 	#superclass : #FFICallback,
+	#traits : 'GObjectTLibrary',
+	#classTraits : 'GObjectTLibrary classTrait',
 	#pools : [
 		'GtkTypes'
 	],

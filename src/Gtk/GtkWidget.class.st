@@ -6,9 +6,16 @@ https://developer.gnome.org/gtk3/stable/GtkWidget.html
 Class {
 	#name : #GtkWidget,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'data',
 		'deferActions'
+	],
+	#pools : [
+		'GtkAccelFlags',
+		'GtkAlign',
+		'GtkStateFlags'
 	],
 	#category : #'Gtk-Widget'
 }

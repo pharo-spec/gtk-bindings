@@ -11,7 +11,7 @@ The ::row-activated signal is emitted when a row has been activated by the user.
 Class {
 	#name : #GListBoxRowActivatedCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

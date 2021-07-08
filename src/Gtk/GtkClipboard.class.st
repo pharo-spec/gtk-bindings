@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/gtk3-Clipboards.html
 Class {
 	#name : #GtkClipboard,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

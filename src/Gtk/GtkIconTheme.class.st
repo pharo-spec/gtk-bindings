@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/3.24/GtkIconTheme.html
 Class {
 	#name : #GtkIconTheme,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-Display'
 }
 

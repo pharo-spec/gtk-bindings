@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkTreeSelection.html
 Class {
 	#name : #GtkTreeSelection,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-Tree'
 }
 

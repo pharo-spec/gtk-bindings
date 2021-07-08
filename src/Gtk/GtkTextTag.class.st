@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkTextTag.html
 Class {
 	#name : #GtkTextTag,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

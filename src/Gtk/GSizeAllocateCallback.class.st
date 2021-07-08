@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-size-allocate
 Class {
 	#name : #GSizeAllocateCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

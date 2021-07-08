@@ -7,6 +7,8 @@ https://developer.gnome.org/gtk3/stable/GtkTreeViewColumn.html
 Class {
 	#name : #GtkTreeViewColumn,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'renderers'
 	],

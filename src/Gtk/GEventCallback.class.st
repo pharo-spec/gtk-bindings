@@ -11,7 +11,7 @@ https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-event
 Class {
 	#name : #GEventCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

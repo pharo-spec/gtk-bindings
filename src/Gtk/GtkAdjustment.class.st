@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkAdjustment.html
 Class {
 	#name : #GtkAdjustment,
 	#superclass : #GInitiallyUnowned,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#pools : [
 		'GtkTypes'
 	],

@@ -11,7 +11,7 @@ This signal is not suitable for saving widget state.
 Class {
 	#name : #GDestroyCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

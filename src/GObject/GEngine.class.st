@@ -26,8 +26,7 @@ GEngine class >> ensureRunning [
 
 	self isRunning ifTrue: [ ^ self ].
 	"self ensureVersion."
-	self new run.
-
+	self new run
 ]
 
 { #category : #testing }

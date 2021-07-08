@@ -11,7 +11,7 @@ The ::delete-event signal is emitted if a user requests that a toplevel window i
 Class {
 	#name : #GDeleteEventCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

@@ -438,7 +438,7 @@ GObject >> gObjectGet: aName intoAddress: aBuffer [
 
 	self 
 		ffiCall: #(void g_object_get (self, const gchar *aName, gpointer *aBuffer, NULL))
-		module: GObjectLibrary		
+		module: GObjectLibrary
 ]
 
 { #category : #'private primitives' }

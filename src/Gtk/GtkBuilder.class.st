@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkBuilder.html
 Class {
 	#name : #GtkBuilder,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-Builder'
 }
 

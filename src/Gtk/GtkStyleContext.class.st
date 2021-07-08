@@ -1,6 +1,8 @@
 Class {
 	#name : #GtkStyleContext,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#classVars : [
 		'GTK_STYLE_PROVIDER_PRIORITY_APPLICATION',
 		'GTK_STYLE_PROVIDER_PRIORITY_FALLBACK',

@@ -10,7 +10,7 @@ Emitted when the item is activated.
 Class {
 	#name : #GActivateCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

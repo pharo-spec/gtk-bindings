@@ -1,6 +1,8 @@
 Class {
 	#name : #GtkTreePath,
 	#superclass : #GBaseObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-Tree'
 }
 

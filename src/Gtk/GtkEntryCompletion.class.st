@@ -1,6 +1,8 @@
 Class {
 	#name : #GtkEntryCompletion,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'model',
 		'matchFunctionCallback'

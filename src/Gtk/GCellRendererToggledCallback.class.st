@@ -1,7 +1,7 @@
 Class {
 	#name : #GCellRendererToggledCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

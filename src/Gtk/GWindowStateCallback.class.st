@@ -12,7 +12,7 @@ https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-window-state-ev
 Class {
 	#name : #GWindowStateCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #signalling }

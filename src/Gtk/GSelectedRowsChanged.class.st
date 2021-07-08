@@ -10,7 +10,7 @@ https://developer.gnome.org/gtk3/stable/GtkListBox.html#GtkListBox-selected-rows
 Class {
 	#name : #GSelectedRowsChanged,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

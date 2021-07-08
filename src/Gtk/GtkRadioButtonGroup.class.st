@@ -7,6 +7,8 @@ Do not create me manually! Check GtkRadioButton instead.
 Class {
 	#name : #GtkRadioButtonGroup,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-Buttons'
 }
 

@@ -13,7 +13,7 @@ https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-event-after
 Class {
 	#name : #GEventAfterCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

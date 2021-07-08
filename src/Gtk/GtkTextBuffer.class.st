@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkTextBuffer.html
 Class {
 	#name : #GtkTextBuffer,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#pools : [
 		'GtkTypes'
 	],

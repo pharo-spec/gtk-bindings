@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkTreeView.html#GtkTreeViewSearchEqualF
 Class {
 	#name : #GtkTreeViewSearchEqualFunc,
 	#superclass : #GCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #enumerating }

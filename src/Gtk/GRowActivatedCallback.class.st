@@ -13,7 +13,7 @@ For selection handling refer to the tree widget conceptual overview as well as G
 Class {
 	#name : #GRowActivatedCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

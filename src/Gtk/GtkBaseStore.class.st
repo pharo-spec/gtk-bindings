@@ -5,6 +5,8 @@ I will keep the commonly used api (iterators, etc.)
 Class {
 	#name : #GtkBaseStore,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

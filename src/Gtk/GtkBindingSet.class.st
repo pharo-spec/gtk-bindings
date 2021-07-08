@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/unstable/gtk3-Bindings.html#GtkBindingSet
 Class {
 	#name : #GtkBindingSet,
 	#superclass : #GBaseObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

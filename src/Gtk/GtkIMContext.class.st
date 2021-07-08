@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkIMContext.html
 Class {
 	#name : #GtkIMContext,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

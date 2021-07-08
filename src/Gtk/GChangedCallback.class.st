@@ -11,7 +11,7 @@ E.g., a paste operation that replaces the contents of the selection will cause o
 Class {
 	#name : #GChangedCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }

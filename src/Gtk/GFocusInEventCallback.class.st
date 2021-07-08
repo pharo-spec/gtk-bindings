@@ -14,7 +14,7 @@ Returns
 Class {
 	#name : #GFocusInEventCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Base-Callbacks'
+	#category : #'Gtk-Callbacks'
 }
 
 { #category : #accessing }
