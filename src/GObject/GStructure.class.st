@@ -1,7 +1,6 @@
 Class {
 	#name : #GStructure,
 	#superclass : #FFIExternalStructure,
-	#traits : 'TGtkLibrary',
 	#classTraits : 'TGtkLibrary classTrait',
 	#pools : [
 		'GtkTypes'

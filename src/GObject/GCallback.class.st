@@ -1,11 +1,7 @@
 Class {
 	#name : #GCallback,
 	#superclass : #FFICallback,
-	#traits : 'TGtkLibrary',
-	#classTraits : 'TGtkLibrary classTrait',
-	#instVars : [
-		'count'
-	],
+	#instVars : [ ],
 	#pools : [
 		'GtkTypes'
 	],
