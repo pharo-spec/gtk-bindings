@@ -1,6 +1,7 @@
 Class {
 	#name : #GtkEngine,
 	#superclass : #GEngine,
+	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Base'
 }

@@ -4,6 +4,9 @@ Class {
 	#classVars : [
 		'Debug'
 	],
+	#pools : [
+		'GtkTypes'
+	],
 	#category : #'GObject-Base'
 }
 

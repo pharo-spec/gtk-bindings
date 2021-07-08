@@ -1,7 +1,12 @@
+"
+A generic callback for the GObject system.
+It will execute inside a run loop, and this will be marked accordingly (calling callbackEnter).
+It can also mark its conclusion status (suceed or failure)
+
+"
 Class {
 	#name : #GCallback,
 	#superclass : #FFICallback,
-	#instVars : [ ],
 	#pools : [
 		'GtkTypes'
 	],
