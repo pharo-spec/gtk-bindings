@@ -6,6 +6,8 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceBuffer.html
 Class {
 	#name : #GtkSourceBuffer,
 	#superclass : #GtkTextBuffer,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'language',
 		'searchContext'

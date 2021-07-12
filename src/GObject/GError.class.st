@@ -14,7 +14,7 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #GObject
+	#category : #'GObject-Misc'
 }
 
 { #category : #'field definition' }

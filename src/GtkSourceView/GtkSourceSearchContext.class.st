@@ -4,6 +4,8 @@
 Class {
 	#name : #GtkSourceSearchContext,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'settings',
 		'buffer'

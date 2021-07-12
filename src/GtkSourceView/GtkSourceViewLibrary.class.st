@@ -23,14 +23,14 @@ GtkSourceViewLibrary >> isAvailable [
 { #category : #'accessing platform' }
 GtkSourceViewLibrary >> macLibraryName [
 
-	GtkLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libgtksourceview-4.dylib' ]. 
+	GObjectLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libgtksourceview-4.dylib' ]. 
 	^ '/usr/local/lib/libgtksourceview-4.dylib'
 ]
 
 { #category : #converting }
 GtkSourceViewLibrary >> runner [
 	
-	^ GtkLibrary naturalRunner
+	^ GObjectLibrary naturalRunner
 ]
 
 { #category : #'accessing platform' }

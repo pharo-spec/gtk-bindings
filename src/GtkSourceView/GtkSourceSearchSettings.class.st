@@ -4,6 +4,8 @@
 Class {
 	#name : #GtkSourceSearchSettings,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#category : #'GtkSourceView-Base'
 }
 
@@ -12,17 +14,14 @@ GtkSourceSearchSettings >> atWordBoundaries [
 
 	^ self 
 		ffiCall: #(gboolean gtk_source_search_settings_get_at_word_boundaries (self))
-		module: GtkSourceViewLibrary
 ]
 
 { #category : #accessing }
 GtkSourceSearchSettings >> atWordBoundaries: at_word_boundaries [
 
-	^ self 
-		ffiCall: #(void gtk_source_search_settings_set_at_word_boundaries (
+	^ self ffiCall: #(void gtk_source_search_settings_set_at_word_boundaries (
 			self,
 			gboolean at_word_boundaries))
-		module: GtkSourceViewLibrary
 ]
 
 { #category : #accessing }

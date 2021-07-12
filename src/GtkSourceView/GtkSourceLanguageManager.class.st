@@ -6,6 +6,8 @@ https://developer.gnome.org/gtksourceview/unstable/GtkSourceLanguageManager.html
 Class {
 	#name : #GtkSourceLanguageManager,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#category : #'GtkSourceView-Base'
 }
 

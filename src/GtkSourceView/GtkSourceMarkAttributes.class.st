@@ -6,6 +6,8 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceMarkAttributes.html
 Class {
 	#name : #GtkSourceMarkAttributes,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#category : #'GtkSourceView-Base'
 }
 

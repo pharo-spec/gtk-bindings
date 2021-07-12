@@ -1,6 +1,8 @@
 Class {
 	#name : #GdkCursor,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#category : #'Gdk-Base'
 }
 
@@ -20,12 +22,6 @@ GdkCursor class >> cursorNewFromSurface: surface display: display x: x y: y [
 		"cairo_surface_t *"void *surface,
 		gdouble x,
  		gdouble y))
-]
-
-{ #category : #'library path' }
-GdkCursor class >> ffiLibrary [
-
-	^ GdkLibrary
 ]
 
 { #category : #accessing }
@@ -59,10 +55,4 @@ GdkCursor class >> newFromSurface: aSurface [
 GdkCursor class >> newWait [
 
 	^ self newFromName: 'wait'
-]
-
-{ #category : #resources }
-GdkCursor >> ffiLibrary [
-
-	^ GdkLibrary
 ]

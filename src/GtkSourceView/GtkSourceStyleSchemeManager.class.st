@@ -4,6 +4,8 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceStyleSchemeManager.htm
 Class {
 	#name : #GtkSourceStyleSchemeManager,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#category : #'GtkSourceView-Base'
 }
 

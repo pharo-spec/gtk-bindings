@@ -15,6 +15,8 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceView.html
 Class {
 	#name : #GtkSourceView,
 	#superclass : #GtkTextView,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'completion'
 	],

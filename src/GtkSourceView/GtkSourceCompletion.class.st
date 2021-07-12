@@ -6,6 +6,8 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceCompletion.html
 Class {
 	#name : #GtkSourceCompletion,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'providers'
 	],

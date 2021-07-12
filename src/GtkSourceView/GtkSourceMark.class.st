@@ -6,6 +6,8 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceMark.html
 Class {
 	#name : #GtkSourceMark,
 	#superclass : #GtkTextMark,
+	#traits : 'GtkSourceViewTLibrary',
+	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#category : #'GtkSourceView-Base'
 }
 
