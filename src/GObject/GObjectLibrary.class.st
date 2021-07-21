@@ -34,7 +34,7 @@ GObjectLibrary class >> isDebug [
 GObjectLibrary class >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk"
 	
-	^ GRunLoop current naturalRunner
+	^ GEngine ensureEngine naturalRunner
 ]
 
 { #category : #accessing }

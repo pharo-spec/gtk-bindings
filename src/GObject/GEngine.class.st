@@ -16,17 +16,40 @@ Class {
 	#category : #'GObject-Base'
 }
 
+{ #category : #private }
+GEngine class >> availableEngineClass [
+
+	^ GEngine allSubclasses detect: [ :each | each isAvailable ]
+]
+
 { #category : #accessing }
 GEngine class >> current [
 	^ Current
 ]
 
 { #category : #accessing }
+GEngine class >> ensureEngine [
+
+	self isRunning ifTrue: [ ^ self current ].
+	"self ensureVersion."
+	^ self availableEngineClass new
+]
+
+{ #category : #accessing }
 GEngine class >> ensureRunning [
 
-	self isRunning ifTrue: [ ^ self ].
-	"self ensureVersion."
-	self new run
+	"already running"
+	self isRunning ifTrue: [ ^ self current ].
+	"already instance but not running"
+	self current ifNotNil: [ ^ self current run ].
+	"we need to instantiate and run"
+	^ self ensureEngine run
+]
+
+{ #category : #testing }
+GEngine class >> isAvailable [
+
+	^ false
 ]
 
 { #category : #testing }
@@ -81,8 +104,7 @@ GEngine >> initialize [
 	super initialize.
 	windowRegistry := Set new.
 	shutdownRegistry := Set new.
-	self ensureRunLoop.
-	runLoop := GRunLoop current
+	runLoop := self ensureRunLoop
 ]
 
 { #category : #testing }
@@ -95,6 +117,12 @@ GEngine >> isRunning [
 GEngine >> isWindowRegistered: aWindow [ 
 
 	^ windowRegistry includes: aWindow
+]
+
+{ #category : #accessing }
+GEngine >> naturalRunner [
+
+	^ self subclassResponsibility
 ]
 
 { #category : #registry }
@@ -130,10 +158,17 @@ GEngine >> run [
 	
 ]
 
+{ #category : #accessing }
+GEngine >> runLoop [
+
+	^ runLoop
+]
+
 { #category : #'system startup' }
 GEngine >> shutDown: quitting [
 	
 	self isRunning ifFalse: [ ^ self ].
+
 	quitting ifTrue: [
 		"process shutdown *before* shutting down runloop, because actions may need 
 		 some gtk side actions"

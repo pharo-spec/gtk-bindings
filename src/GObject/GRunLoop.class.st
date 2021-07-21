@@ -17,27 +17,16 @@ Class {
 		'#running',
 		'#inCallback => ProcessLocalSlot'
 	],
-	#classVars : [
-		'#Current'
-	],
 	#pools : [
 		'GtkTypes'
-	],
-	#classInstVars : [
-		'#uniqueInstance'
 	],
 	#category : #'GObject-Base'
 }
 
 { #category : #accessing }
 GRunLoop class >> current [
-	^ Current ifNil: [ Current := self defaultRunLoopClass uniqueInstance ]
-]
 
-{ #category : #accessing }
-GRunLoop class >> current: aRunLoop [
-	Current ifNotNil: [ Current stop ].
-	Current := aRunLoop
+	^ GtkEngine current runLoop
 ]
 
 { #category : #private }
@@ -65,34 +54,6 @@ GRunLoop class >> delayedDefer: aBlock [
 GRunLoop class >> forceDefer: aBlock [
 
 	^ self current forceDefer: aBlock
-]
-
-{ #category : #accessing }
-GRunLoop class >> install [
-
-	self = GRunLoop ifTrue: [ 
-		self error: 'I''m an abstract class. You need to install one of my subclasses.' ].
-	^ self current: self uniqueInstance
-]
-
-{ #category : #'instance creation' }
-GRunLoop class >> new [
-	^ self error: 'Use #uniqueInstance'
-]
-
-{ #category : #accessing }
-GRunLoop class >> reset [
-	<script>
-
-	self current: nil
-]
-
-{ #category : #'instance creation' }
-GRunLoop class >> uniqueInstance [
-	
-	self = GRunLoop 
-		ifTrue: [ self error: 'I''m an abstract class. Use one of my children.' ].
-	^ uniqueInstance ifNil: [ uniqueInstance := self basicNew initialize ]
 ]
 
 { #category : #accessing }

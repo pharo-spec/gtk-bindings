@@ -30,6 +30,12 @@ GtkEngine class >> initialize [
 	SessionManager default registerSystemClassNamed: self name
 ]
 
+{ #category : #testing }
+GtkEngine class >> isAvailable [
+
+	^ true
+]
+
 { #category : #accessing }
 GtkEngine class >> requiredGtkVersion [
 		
@@ -65,9 +71,9 @@ GtkEngine >> ensureRunLoop [
 	runLoopClass := GtkRunLoop bestStrategyClass.
 	(runLoop notNil 
 		and: [ runLoop class = runLoopClass ])
-		ifTrue: [ ^ self ].
+		ifTrue: [ ^ runLoop ].
 		
-	runLoopClass install
+	^ runLoopClass new
 ]
 
 { #category : #private }
@@ -83,6 +89,12 @@ GtkEngine >> initGtk3 [
 	self 
 		initArgC: ExternalAddress null 
 		argV: ExternalAddress null
+]
+
+{ #category : #accessing }
+GtkEngine >> naturalRunner [
+
+	^ runLoop naturalRunner
 ]
 
 { #category : #'private running' }
