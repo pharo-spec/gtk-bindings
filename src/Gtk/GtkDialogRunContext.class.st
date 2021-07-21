@@ -98,8 +98,10 @@ GtkDialogRunContext >> run [
 
 { #category : #private }
 GtkDialogRunContext >> waitForAnswer [ 
+	| runLoop |
 
-	[ GtkPollingRunLoop uniqueInstance processEvents ]
+	runLoop := GtkPollingRunLoop new.
+	[ runLoop processEvents ]
 	doWhileFalse: [ dialogClosed ]
 ]
 
