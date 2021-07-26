@@ -241,20 +241,18 @@ GtkTreeDataStore >> columns: aCollection [
 
 { #category : #'accessing drag source' }
 GtkTreeDataStore >> drag_data_delete: path [
-'DEL' crTrace.
 
 	^ false
 ]
 
 { #category : #'accessing drag source' }
 GtkTreeDataStore >> drag_data_get: path data: selection_data [
-'GET' crTrace.
+
 	^ false
 ]
 
 { #category : #'accessing drag dest' }
 GtkTreeDataStore >> drag_data_received: path data: selection_data [
-'REC' crTrace.
 
 	^ false
 ]
@@ -601,13 +599,11 @@ GtkTreeDataStore >> roots: aCollection [
 { #category : #'accessing drag source' }
 GtkTreeDataStore >> row_draggable: path [
 
-	'OK' crTrace.
 	^ true
 ]
 
 { #category : #'accessing drag dest' }
 GtkTreeDataStore >> row_drop_possible: path data: selection_data [
-'DROP' crTrace.
 
 	^ false
 ]
