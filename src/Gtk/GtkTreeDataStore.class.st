@@ -46,10 +46,51 @@ GtkTreeDataStore class >> gClass [
 { #category : #'class initialization' }
 GtkTreeDataStore class >> gDefine: gClass [
 
-	gClass parent: GtkTreeStore.
-	gClass
+	gClass 
+		parent: GtkTreeStore;
 		addInterface: GtkTreeModelIface 
-		initialize: [ :interface | self gDefineTreeStoreInterface: interface ]
+			initialize: [ :interface | self gDefineTreeStoreInterface: interface ];
+		addInterface: GtkTreeDragSourceIface 
+			initialize: [ :interface | self gDefineTreeDragSouceInterface: interface ];
+		addInterface: GtkTreeDragDestIface 
+			initialize: [ :interface | self gDefineTreeDragDestInterface: interface ]
+]
+
+{ #category : #'class initialization' }
+GtkTreeDataStore class >> gDefineTreeDragDestInterface: iface [
+
+	iface drag_data_received: (GCallback 
+		signature: #(gboolean (void *drag_dest, void *dest, void *selection_data)) 
+		block: [ :drag_source :path :selection_data | 
+			(self gInstance: drag_source) 
+				drag_data_received: (GtkTreePath fromHandle: path) 
+				data: selection_data ]).
+	iface row_drop_possible: (GCallback 
+		signature: #(gboolean (void *drag_dest, void *dest, void *selection_data)) 
+		block: [ :drag_source :path :selection_data | 
+			(self gInstance: drag_source) 
+				row_drop_possible: (GtkTreePath fromHandle: path) 
+				data: selection_data ]).
+]
+
+{ #category : #'class initialization' }
+GtkTreeDataStore class >> gDefineTreeDragSouceInterface: iface [
+
+	iface row_draggable: (GCallback 
+		signature: #(gboolean (void *drag_source, void *path)) 
+		block: [ :drag_source :path | 
+			(self gInstance: drag_source) row_draggable: (GtkTreePath fromHandle: path) ]).
+	iface drag_data_get: (GCallback 
+		signature: #(gboolean (void *drag_source, void *path, void *selection_data)) 
+		block: [ :drag_source :path :selection_data | 
+			(self gInstance: drag_source) 
+				drag_data_get: (GtkTreePath fromHandle: path) 
+				data: selection_data ]).
+	iface drag_data_delete: (GCallback 
+		signature: #(gboolean (void *drag_source, void *path)) 
+		block: [ :drag_source :path |
+			(self gInstance: drag_source) drag_data_delete: (GtkTreePath fromHandle: path) ]).
+
 ]
 
 { #category : #'class initialization' }
@@ -196,6 +237,26 @@ GtkTreeDataStore >> columns [
 GtkTreeDataStore >> columns: aCollection [
 
 	columns := aCollection
+]
+
+{ #category : #'accessing drag source' }
+GtkTreeDataStore >> drag_data_delete: path [
+'DEL' crTrace.
+
+	^ false
+]
+
+{ #category : #'accessing drag source' }
+GtkTreeDataStore >> drag_data_get: path data: selection_data [
+'GET' crTrace.
+	^ false
+]
+
+{ #category : #'accessing drag dest' }
+GtkTreeDataStore >> drag_data_received: path data: selection_data [
+'REC' crTrace.
+
+	^ false
 ]
 
 { #category : #'accessing store' }
@@ -535,6 +596,20 @@ GtkTreeDataStore >> roots: aCollection [
 	sortedRoots := nil.
 	roots := aCollection.
 	self resetWrappedRoots
+]
+
+{ #category : #'accessing drag source' }
+GtkTreeDataStore >> row_draggable: path [
+
+	'OK' crTrace.
+	^ true
+]
+
+{ #category : #'accessing drag dest' }
+GtkTreeDataStore >> row_drop_possible: path data: selection_data [
+'DROP' crTrace.
+
+	^ false
 ]
 
 { #category : #private }

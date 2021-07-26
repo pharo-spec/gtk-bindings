@@ -51,12 +51,6 @@ GSList class >> isValidHandle: handle [
 	^ handle notNil and: [ handle isNull not ]
 ]
 
-{ #category : #'external resource management' }
-GSList >> autoRelease [
-
-	self engine resourceManager addResource: self
-]
-
 { #category : #private }
 GSList >> basicFree [
 
@@ -111,12 +105,6 @@ GSList >> next [
 	^ next isNull
 		ifTrue: [ nil ]
 		ifFalse: [ GSList fromHandle: next ]
-]
-
-{ #category : #'as yet unclassified' }
-GSList >> resourceData [
-
-	^ self getHandle
 ]
 
 { #category : #private }

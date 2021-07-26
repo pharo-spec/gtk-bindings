@@ -77,12 +77,6 @@ GdkEvent >> asConcreteType [
 	^ self class newConcreteFromHandle: self getHandle
 ]
 
-{ #category : #'external resource management' }
-GdkEvent >> autoRelease [
-
-	FFIExternalResourceManager addResource: self
-]
-
 { #category : #compatibility }
 GdkEvent >> button [
 	"button number pressed. 
@@ -148,12 +142,6 @@ GdkEvent >> printOn: aStream [
 			(self perform: field ) printOn: aStream.
 			] separatedBy: [ aStream cr ].
 	aStream cr; nextPut: $)
-]
-
-{ #category : #'external resource management' }
-GdkEvent >> resourceData [
-
-	^ self getHandle
 ]
 
 { #category : #'accessing structure variables' }

@@ -15,6 +15,11 @@ Class {
 		'columns',
 		'searchFunction'
 	],
+	#pools : [
+		'GdkDragAction',
+		'GdkModifierType',
+		'GtkTargetFlags'
+	],
 	#category : #'Gtk-Widget-Tree'
 }
 
@@ -199,6 +204,35 @@ GtkTreeView >> doCollapseRow: path [
 GtkTreeView >> doExpandToPath: path [ 
 	
 	self ffiCall: #(void gtk_tree_view_expand_to_path (self, GtkTreePath *path))
+]
+
+{ #category : #'drag and drop' }
+GtkTreeView >> enableModelDragSourceDefault [
+	"A convenience method that will enable the 'default way'"
+	| target |
+
+	target := GtkTargetEntry 
+		newTarget: 'GTK_TREE_MODEL_ROW' 
+		flags: GTK_TARGET_SAME_APP value
+		info: GTK_TARGET_SAME_APP value.		
+	[
+		self 
+			enableModelDragSourceMask: GDK_BUTTON1_MASK 
+			targets: target getHandle 
+			numTargets: 1
+			actions: GDK_ACTION_DEFAULT ]
+	ensure: [ target free ]
+]
+
+{ #category : #private }
+GtkTreeView >> enableModelDragSourceMask: start_button_mask targets: targets numTargets: n_targets actions: actions [
+
+	self ffiCall: #(void gtk_tree_view_enable_model_drag_source(
+		self,
+		GdkModifierType start_button_mask,
+		"const GtkTargetEntry *"void *targets,
+		gint n_targets,
+		GdkDragAction actions))
 ]
 
 { #category : #accessing }
