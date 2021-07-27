@@ -28,7 +28,10 @@ Class {
 		'isList',
 		'wrappedRoots',
 		'holder',
-		'sortedRoots'
+		'sortedRoots',
+		'dragEnabled',
+		'dropEnabled',
+		'acceptDrop'
 	],
 	#pools : [
 		'GType',
@@ -64,13 +67,13 @@ GtkTreeDataStore class >> gDefineTreeDragDestInterface: iface [
 		block: [ :drag_source :path :selection_data | 
 			(self gInstance: drag_source) 
 				drag_data_received: (GtkTreePath fromHandle: path) 
-				data: selection_data ]).
+				data: (GtkSelectionData fromHandle: selection_data) ]).
 	iface row_drop_possible: (GCallback 
 		signature: #(gboolean (void *drag_dest, void *dest, void *selection_data)) 
 		block: [ :drag_source :path :selection_data | 
 			(self gInstance: drag_source) 
 				row_drop_possible: (GtkTreePath fromHandle: path) 
-				data: selection_data ]).
+				data: (GtkSelectionData fromHandle: selection_data) ]).
 ]
 
 { #category : #'class initialization' }
@@ -85,7 +88,7 @@ GtkTreeDataStore class >> gDefineTreeDragSouceInterface: iface [
 		block: [ :drag_source :path :selection_data | 
 			(self gInstance: drag_source) 
 				drag_data_get: (GtkTreePath fromHandle: path) 
-				data: selection_data ]).
+				data: (GtkSelectionData fromHandle: selection_data) ]).
 	iface drag_data_delete: (GCallback 
 		signature: #(gboolean (void *drag_source, void *path)) 
 		block: [ :drag_source :path |
@@ -190,6 +193,12 @@ GtkTreeDataStore class >> sortResortThreashold [
 ]
 
 { #category : #accessing }
+GtkTreeDataStore >> acceptDrop: aBlock [
+
+	acceptDrop := aBlock
+]
+
+{ #category : #accessing }
 GtkTreeDataStore >> addColumn: aColumn [
 
 	aColumn store: self.
@@ -239,6 +248,18 @@ GtkTreeDataStore >> columns: aCollection [
 	columns := aCollection
 ]
 
+{ #category : #testing }
+GtkTreeDataStore >> dragEnabled [
+
+	^ dragEnabled
+]
+
+{ #category : #accessing }
+GtkTreeDataStore >> dragEnabled: aBoolean [
+
+	dragEnabled := aBoolean
+]
+
 { #category : #'accessing drag source' }
 GtkTreeDataStore >> drag_data_delete: path [
 
@@ -246,15 +267,43 @@ GtkTreeDataStore >> drag_data_delete: path [
 ]
 
 { #category : #'accessing drag source' }
-GtkTreeDataStore >> drag_data_get: path data: selection_data [
+GtkTreeDataStore >> drag_data_get: path data: selectionData [
+	| item |
 
-	^ false
+	item := self itemAtPath: path toArray.
+	GtkDragAndDropTransfer new 
+		owner: self owner;
+		passenger: { item };
+		set.
+	selectionData 
+		setAtom: (GdkAtom internStaticString: 'GTK_TREE_MODEL_ROW')
+		data: (path toString).
+
+	^ true
 ]
 
 { #category : #'accessing drag dest' }
-GtkTreeDataStore >> drag_data_received: path data: selection_data [
+GtkTreeDataStore >> drag_data_received: path data: selectionData [
 
-	^ false
+	selectionData target = (GdkAtom internStaticString: 'GTK_TREE_MODEL_ROW')
+		ifFalse: [ ^ false ].
+		
+	acceptDrop ifNil: [ ^ false ].
+	
+	acceptDrop value: GtkDragAndDropTransfer get.
+	^ true
+]
+
+{ #category : #testing }
+GtkTreeDataStore >> dropEnabled [
+
+	^ dropEnabled
+]
+
+{ #category : #accessing }
+GtkTreeDataStore >> dropEnabled: aBoolean [
+
+	dropEnabled := aBoolean
 ]
 
 { #category : #'accessing store' }
@@ -373,6 +422,8 @@ GtkTreeDataStore >> initialize [
 	images := Dictionary new.
 	columns := OrderedCollection new.
 	wrappedRoots := OrderedCollection new.
+	dragEnabled := false.
+	dropEnabled := false.
 	
 	self registerForFinalize
 ]
@@ -599,13 +650,13 @@ GtkTreeDataStore >> roots: aCollection [
 { #category : #'accessing drag source' }
 GtkTreeDataStore >> row_draggable: path [
 
-	^ true
+	^ self dragEnabled
 ]
 
 { #category : #'accessing drag dest' }
-GtkTreeDataStore >> row_drop_possible: path data: selection_data [
+GtkTreeDataStore >> row_drop_possible: path data: selectionData [
 
-	^ false
+	^ self dropEnabled
 ]
 
 { #category : #private }

@@ -166,7 +166,7 @@ GdkEventKey class >> newType: aType value: keyVal shift: shiftBoolean meta: meta
 	
 	^ (self newType: aType)
 		keyval: keyVal;
-		state: state;
+		state: state value;
 		yourself
 ]
 

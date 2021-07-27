@@ -255,6 +255,18 @@ GtkWidget >> connectDoubleClicked: aBlock [
 ]
 
 { #category : #signaling }
+GtkWidget >> connectDragBegin: aBlock [
+
+	(GDragBeginCallback do: aBlock) connectTo: self
+]
+
+{ #category : #signaling }
+GtkWidget >> connectDragEnd: aBlock [
+
+	(GDragEndCallback do: aBlock) connectTo: self
+]
+
+{ #category : #signaling }
 GtkWidget >> connectEnterNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"

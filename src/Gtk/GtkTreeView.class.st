@@ -207,21 +207,64 @@ GtkTreeView >> doExpandToPath: path [
 ]
 
 { #category : #'drag and drop' }
-GtkTreeView >> enableModelDragSourceDefault [
-	"A convenience method that will enable the 'default way'"
+GtkTreeView >> enableModelDragDestDefault [ 
+	"A convenience method that will enable the 'default way' of receive drops"
+
+	self enableModelDragDestDefaultTarget: 'GTK_TREE_MODEL_ROW'
+]
+
+{ #category : #'drag and drop' }
+GtkTreeView >> enableModelDragDestDefaultTarget: aString [
+	"A convenience method that will enable the 'default way' of receive drops"
 	| target |
 
 	target := GtkTargetEntry 
-		newTarget: 'GTK_TREE_MODEL_ROW' 
+		newTarget: aString 
 		flags: GTK_TARGET_SAME_APP value
-		info: GTK_TARGET_SAME_APP value.		
+		info: 0.
+	[
+		self 
+			enableModelDragDestTargets: target 
+			numTargets: 1 
+			actions: GDK_ACTION_MOVE | GDK_ACTION_COPY ]
+	ensure: [ target free ]
+]
+
+{ #category : #private }
+GtkTreeView >> enableModelDragDestTargets: targets numTargets: n_targets actions: actions [
+
+	self ffiCall: #(void gtk_tree_view_enable_model_drag_dest (
+		self,
+		"const GtkTargetEntry *"void *targets,
+		gint n_targets,
+		GdkDragAction actions))
+]
+
+{ #category : #'drag and drop' }
+GtkTreeView >> enableModelDragSourceDefault [
+	"A convenience method that will enable the 'default way' of allowing drags"
+
+	self enableModelDragSourceDefaultTarget: 'GTK_TREE_MODEL_ROW'
+]
+
+{ #category : #'drag and drop' }
+GtkTreeView >> enableModelDragSourceDefaultTarget: aString [
+	"A convenience method that will enable the 'default way' of allowing drags"
+	| target |
+
+	target := GtkTargetEntry 
+		newTarget: aString
+		flags: GTK_TARGET_SAME_APP value
+		info: 0.		
 	[
 		self 
 			enableModelDragSourceMask: GDK_BUTTON1_MASK 
 			targets: target getHandle 
 			numTargets: 1
-			actions: GDK_ACTION_DEFAULT ]
-	ensure: [ target free ]
+			actions: GDK_ACTION_MOVE | GDK_ACTION_COPY ]
+	ensure: [ target free ].
+	"ensure we clean the transfer when a drag&drop is end (to prevent leaks)"
+	self connectDragEnd: [ :context :user_data | GtkDragAndDropTransfer reset ]
 ]
 
 { #category : #private }

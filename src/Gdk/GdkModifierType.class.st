@@ -287,37 +287,3 @@ GdkModifierType class >> enumDecl [
 	
 
 ]
-
-{ #category : #private }
-GdkModifierType class >> newValue: anInteger [
-	"Used for aritmetic"
-
-	^ self basicNew 
-		initialize;
-		value: anInteger;
-		yourself
-]
-
-{ #category : #'logical operations' }
-GdkModifierType >> & aModifier [
-
-	^ self value & aModifier value
-]
-
-{ #category : #arithmetic }
-GdkModifierType >> + aModifierType [
-
-	^ self class newValue: (self value + aModifierType value)
-]
-
-{ #category : #arithmetic }
-GdkModifierType >> - aModifierType [
-
-	^ self class newValue: (self value - aModifierType value)
-]
-
-{ #category : #'logical operations' }
-GdkModifierType >> | aModifier [
-
-	^ self value | aModifier value
-]

@@ -18,6 +18,7 @@ Class {
 		'gpointer',
 		'gsize',
 		'gssize',
+		'guchar',
 		'guint',
 		'guint16',
 		'guint32',
@@ -30,7 +31,9 @@ Class {
 
 { #category : #'class initialization' }
 GtkTypes class >> initialize [
+
 	gchar 	:= #char.
+	guchar := #char.
 	gpointer := #'void *'.
 	gboolean := #FFIBoolean32.
 	gulong :=  #ulong.
