@@ -471,11 +471,14 @@ GtkTreeView >> scrollToCellPath: path column: column useAlign: use_align rowAlig
 
 { #category : #accessing }
 GtkTreeView >> scrollToPath: path [
-	
+	"Possible values: 
+	 	0.0 -> align on top. 
+		0.1 -> align 25% of list position
+		0.2 -> align 50% of list position (at the center)"	
 	self 
 		scrollToPath: (GtkTreePath newFromArray: path) autoRelease
 		useAlign: true 
-		rowAlign: 1.0 
+		rowAlign: 0.2
 		colAlign: 0.0
 ]
 
