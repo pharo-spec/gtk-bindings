@@ -23,6 +23,12 @@ GtkSourceLanguageManager class >> default [
 	^ self getDefault
 ]
 
+{ #category : #'accessing languages' }
+GtkSourceLanguageManager class >> diff [
+
+	^ self default languageWithId: 'diff'
+]
+
 { #category : #accessing }
 GtkSourceLanguageManager class >> gType [ 
 	"This method was automatically generated"
