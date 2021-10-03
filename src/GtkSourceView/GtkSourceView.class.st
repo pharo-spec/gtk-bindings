@@ -18,7 +18,8 @@ Class {
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
-		'completion'
+		'completion',
+		'markAttributes'
 	],
 	#category : #'GtkSourceView-Base'
 }
@@ -241,6 +242,17 @@ GtkSourceView >> isShowRightMargin [
 ]
 
 { #category : #accessing }
+GtkSourceView >> markAttributesForCategory: category attributes: attributes priority: priority [
+
+	markAttributes ifNil: [ markAttributes := SmallDictionary new ].
+	markAttributes at: category put: attributes.
+	self 
+		setMarkAttributesForCategory: category 
+		attributes: attributes 
+		priority: priority
+]
+
+{ #category : #private }
 GtkSourceView >> setMarkAttributesForCategory: category attributes: attributes priority: priority [
 
 	^ self 
