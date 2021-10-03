@@ -378,6 +378,12 @@ GtkMorphView >> canDraw [
 	^ self morph notNil
 ]
 
+{ #category : #accessing }
+GtkMorphView >> colorForInsets [
+	
+	^ Color transparent
+]
+
 { #category : #'world simulation' }
 GtkMorphView >> convertWindowMouseEventPosition: aPoint [ 
 	
