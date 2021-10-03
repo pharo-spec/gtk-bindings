@@ -44,6 +44,12 @@ GtkTextTagTable >> add: tag [
 ]
 
 { #category : #adding }
+GtkTextTagTable >> addAll: aListOfTags [
+
+	aListOfTags do: [ :each | self add: each ]
+]
+
+{ #category : #adding }
 GtkTextTagTable >> basicAdd: tag [
 
 	^ self ffiCall: #(gboolean gtk_text_tag_table_add (self, GtkTextTag *tag))
