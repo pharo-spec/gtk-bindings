@@ -228,7 +228,7 @@ GtkEntry >> invisibleCharacter: aCharacter [
 	self basicInvisibleCharacter: (self g_utf8_to_ucs4: aCharacter)
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 GtkEntry >> isEditable [
 	"Retrieves whether editable is editable"
 	self ffiCall: #(gboolean gtk_editable_get_editable (self))
