@@ -34,5 +34,5 @@ GtkMorphicAlarm >> schedule [
 { #category : #private }
 GtkMorphicAlarm >> waitUntilExecution [
 
-	(self scheduledTime - Time millisecondClockValue) milliseconds wait
+	(self scheduledTime - Time millisecondClockValue) milliSeconds wait
 ]
