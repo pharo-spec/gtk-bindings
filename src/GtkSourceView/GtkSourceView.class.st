@@ -109,6 +109,39 @@ GtkSourceView class >> example4 [
 		showAll
 ]
 
+{ #category : #example }
+GtkSourceView class >> example5 [
+	| sourceView1 sourceView2 |
+	
+	GtkEngine ensureRunning.
+	
+	sourceView1 := self new
+		beWrapWord;
+		showLineNumbers: true;
+		autoIndent: true;
+		text: (String loremIpsum: 2000);
+		yourself.
+
+	sourceView2 := self new
+		beWrapWord;
+		showLineNumbers: true;
+		autoIndent: true;
+		text: (String loremIpsum: 1000);
+		yourself.
+		
+	GtkWindow new
+		title: 'Source view double';
+		resize: 600@400;
+		add: (GtkScrolledWindow newWidget: (
+			GtkBox newHorizontal 
+				homogeneous: true;
+				packStart: sourceView1;
+				packStart: sourceView2;
+				yourself));
+		center;
+		showAll
+]
+
 { #category : #accessing }
 GtkSourceView class >> gType [ 
 
