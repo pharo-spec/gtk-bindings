@@ -61,6 +61,12 @@ GtkTreeStore >> appendNew [
 ]
 
 { #category : #private }
+GtkTreeStore >> clear [
+
+	^ self ffiCall: #(void gtk_tree_store_clear(self))
+]
+
+{ #category : #private }
 GtkTreeStore >> getString: buffer column: column iter: iter [
 	
 	self ffiCall: #(void gtk_tree_model_get (
@@ -75,7 +81,10 @@ GtkTreeStore >> getString: buffer column: column iter: iter [
 GtkTreeStore >> initialize [
 
 	self initializeTTreeSortable.
-	super initialize.
+	
+	"do not use super initialize to prevent installing of default debug signals causing leaks"
+	self isValidHandle ifTrue: [ 
+		self autoObjectUnref	]
 ]
 
 { #category : #testing }
