@@ -14,7 +14,8 @@ Class {
 		'alarms',
 		'steps',
 		'layeredMorphs',
-		'kmDispatcher'
+		'kmDispatcher',
+		'lastRequestedSize'
 	],
 	#category : #'Gtk-Morphic'
 }
@@ -510,6 +511,7 @@ GtkMorphView >> intersectingMorphsWithin: aRect [
 { #category : #'world simulation' }
 GtkMorphView >> invalidRect: damageRect from: aMorph [
 
+	self sizeRequest: aMorph extent.
 	self invalidateRect: damageRect
 ]
 
@@ -571,8 +573,8 @@ GtkMorphView >> morph: aMorph [
 		self stopStepping.
 		"if we are replacing a morph, we will need to transmit to the new morph some properties. 
 		 Also, we will need to force a queue"
-		(self isMorphResizable and: [ aMorph extent < morph extent ]) ifTrue: [ 
-			aMorph extent: morph extent ].
+		(self isMorphResizable and: [ aMorph extent < morph extent ]) 
+			ifTrue: [ aMorph extent: morph extent ].
 		needQueue := true ].
 	
 	morph := aMorph asMorph.
@@ -684,6 +686,14 @@ GtkMorphView >> resizeIfEnabledTo: extent [
 	self isMorphResizable ifFalse: [ ^ self ].
 	self morph ifNil: [ ^ self ].
 	self morph extent: extent
+]
+
+{ #category : #'world simulation' }
+GtkMorphView >> sizeRequest: anExtent [
+
+	lastRequestedSize = anExtent ifTrue: [ ^ self ].  
+	super sizeRequest: anExtent. 
+	lastRequestedSize := anExtent
 ]
 
 { #category : #'world simulation' }
