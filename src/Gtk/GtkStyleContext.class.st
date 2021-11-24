@@ -61,6 +61,18 @@ GtkStyleContext >> fontNormal [
 ]
 
 { #category : #accessing }
+GtkStyleContext >> getActiveColor [
+
+	| color state |
+	
+	color := GdkRGBA new.
+	state := GTK_STATE_FLAG_ACTIVE.
+
+	self getColor: color state: state.
+	^ color asColor
+]
+
+{ #category : #accessing }
 GtkStyleContext >> getBackgroundColor [
 
 	| color state |
@@ -100,6 +112,18 @@ GtkStyleContext >> getColor: color state: state [
 GtkStyleContext >> getFont: state [
 	
 	^ self ffiCall: #(PangoFontDescription *gtk_style_context_get_font (self, GtkStateFlags state))
+]
+
+{ #category : #accessing }
+GtkStyleContext >> getSelectedColor [
+
+	| color state |
+	
+	color := GdkRGBA new.
+	state := GTK_STATE_FLAG_SELECTED.
+
+	self getColor: color state: state.
+	^ color asColor
 ]
 
 { #category : #accessing }
