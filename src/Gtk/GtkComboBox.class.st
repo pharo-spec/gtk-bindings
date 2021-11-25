@@ -184,6 +184,12 @@ GtkComboBox >> getEntry [
 	self ffiCall: #(GtkEntry * gtk_bin_get_child  (self) )
 ]
 
+{ #category : #private }
+GtkComboBox >> getModel [
+
+	^ self ffiCall: #(GtkTreeModel *gtk_combo_box_get_model (self))
+]
+
 { #category : #accessing }
 GtkComboBox >> hasEntry [
 
@@ -192,7 +198,9 @@ GtkComboBox >> hasEntry [
 
 { #category : #accessing }
 GtkComboBox >> model [
-	^ model
+
+	^ model ifNil: [ model := self getModel ].
+
 ]
 
 { #category : #accessing }
