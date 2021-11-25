@@ -16,7 +16,7 @@ Class {
 GtkTreeDataStoreExecutor >> finalize [
 
 	holder first ifNotNil: [ :h |
-		h do: [ :each | each free ] ]
+		h do: [ :each | each ifNotNil: [ each free ] ] ]
 ]
 
 { #category : #accessing }
