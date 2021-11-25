@@ -28,7 +28,7 @@ GValue >> getBoolean [
 ]
 
 { #category : #accessing }
-GValue >> getObject: v_object [ 
+GValue >> getObject [
 
 	^ self ffiCall: #(gpointer g_value_get_object (self))
 ]
