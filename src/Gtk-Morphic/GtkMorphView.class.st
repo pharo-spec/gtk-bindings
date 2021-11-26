@@ -15,7 +15,8 @@ Class {
 		'steps',
 		'layeredMorphs',
 		'kmDispatcher',
-		'lastRequestedSize'
+		'lastRequestedSize',
+		'updating'
 	],
 	#category : #'Gtk-Morphic'
 }
@@ -440,7 +441,7 @@ GtkMorphView >> draw: cr [
 	^ true
 ]
 
-{ #category : #'private events' }
+{ #category : #'private - events' }
 GtkMorphView >> handleEvent: event [
 
 	self morph ifNil: [ ^ false ].
@@ -459,10 +460,11 @@ GtkMorphView >> initialize [
 	drawing := false.
 	damageRecorder := DamageRecorder new.	
 	layeredMorphs := OrderedCollection new: 1.
-	eventHandler := self createEventHandler	
+	eventHandler := self createEventHandler.
+	updating := false
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphView >> intersectingMorphs: aMorph within: aRect [
 	| morphs |
 	
@@ -484,7 +486,7 @@ GtkMorphView >> intersectingMorphs: aMorph within: aRect [
 	^ morphs reversed
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphView >> intersectingMorphsWithin: aRect [
 	| allMorphs intersectingMorphs |
 	
@@ -511,7 +513,8 @@ GtkMorphView >> intersectingMorphsWithin: aRect [
 { #category : #'world simulation' }
 GtkMorphView >> invalidRect: damageRect from: aMorph [
 
-	self sizeRequest: aMorph extent.
+	self isUpdating 
+		ifFalse: [ self sizeRequest: aMorph extent ].
 	self invalidateRect: damageRect
 ]
 
@@ -545,6 +548,12 @@ GtkMorphView >> isCursorOwner [
 GtkMorphView >> isMorphResizable [
 
 	^ morphResizable
+]
+
+{ #category : #'private - testing' }
+GtkMorphView >> isUpdating [
+
+	^ updating
 ]
 
 { #category : #'world simulation' }
@@ -618,7 +627,7 @@ GtkMorphView >> owner [
 	^ nil
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphView >> paintMorph: aMorph [
 	| cr position morphSurface |
 	
@@ -685,13 +694,15 @@ GtkMorphView >> resizeIfEnabledTo: extent [
 
 	self isMorphResizable ifFalse: [ ^ self ].
 	self morph ifNil: [ ^ self ].
-	self morph extent: extent
+	self updatingWhile: [
+		lastRequestedSize := extent.
+		self morph extent: extent ]
 ]
 
 { #category : #'world simulation' }
 GtkMorphView >> sizeRequest: anExtent [
 
-	lastRequestedSize = anExtent ifTrue: [ ^ self ].  
+	lastRequestedSize = anExtent ifTrue: [ ^ self ].
 	super sizeRequest: anExtent. 
 	lastRequestedSize := anExtent
 ]
@@ -764,7 +775,7 @@ GtkMorphView >> transformFrom: aMorph [
 	^ IdentityTransform new
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphView >> updateAllSurface [
 
 	self activeSurface: (self newSurfaceOfMorph: self morph).
@@ -772,7 +783,7 @@ GtkMorphView >> updateAllSurface [
 		self paintMorph: each ]
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphView >> updateSurface [
 	| rects |
 	
@@ -785,7 +796,7 @@ GtkMorphView >> updateSurface [
 		ifNil: [ self updateAllSurface ]
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphView >> updateSurfaceRectangles: aCollection [
     | rect |
 
@@ -804,6 +815,16 @@ GtkMorphView >> updateSurfaceRectangles: aCollection [
 	(self intersectingMorphsWithin: rect) do: [ :eachMorph |
 		eachMorph = self morph ifTrue: [ ^ self updateAllSurface ].
 		self paintMorph: eachMorph ]
+]
+
+{ #category : #'private - updating' }
+GtkMorphView >> updatingWhile: aBlock [
+	| oldUpdating |
+
+	oldUpdating := updating.
+	updating := true.
+	aBlock ensure: [ 
+		updating := oldUpdating ]
 ]
 
 { #category : #'world simulation' }

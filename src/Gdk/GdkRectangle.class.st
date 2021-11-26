@@ -38,7 +38,7 @@ GdkRectangle >> asGdkRectangle [
 
 { #category : #converting }
 GdkRectangle >> asRectangle [
-
+	
 	^ (self x @ self y) extent: (self width @ self height)
 ]
 
