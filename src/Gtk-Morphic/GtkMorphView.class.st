@@ -380,7 +380,7 @@ GtkMorphView >> canDraw [
 	^ self morph notNil
 ]
 
-{ #category : #accessing }
+{ #category : #'world simulation' }
 GtkMorphView >> colorForInsets [
 	
 	^ Color transparent
