@@ -54,7 +54,10 @@ GtkDrawingArea >> connectToSignals [
 { #category : #drawing }
 GtkDrawingArea >> draw: cr [
 
-	self drawOnAthensCanvas: (AthensCairoCanvas fromHandle: cr).
+	[ self drawOnAthensCanvas: (AthensCairoCanvas fromHandle: cr) ]
+	on: Error 
+	fork: [ :e | e debug ].
+	
 	^ true
 ]
 
@@ -96,8 +99,7 @@ GtkDrawingArea >> initialize [
 	self appPaintable: true.
 	self registerToEvents.
 	self connectToSignals.
-	self connectDraw: [ :cr | self draw: cr ].
-
+	self connectDraw: [ :cr | self draw: cr ]
 ]
 
 { #category : #initialization }

@@ -27,11 +27,13 @@ GtkBlockBasedDrawingArea >> connectToSignals [
 
 { #category : #drawing }
 GtkBlockBasedDrawingArea >> drawBlock [
+
 	^ drawBlock
 ]
 
 { #category : #drawing }
 GtkBlockBasedDrawingArea >> drawBlock: aBlock [
+
 	drawBlock := aBlock
 ]
 
