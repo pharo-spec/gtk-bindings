@@ -28,7 +28,10 @@ GIdle >> idleAddFull: aBlock [
 			signature: #(guint (void *data))
 			block: [ :data | 
 				aBlock value. 
-				mutex critical: [ deferring remove: cb ].
+				mutex critical: [ 
+					deferring 
+						remove: cb
+						ifAbsent: [ ('{1} not found while removing. Skipping.' format: { cb }) crTrace ] ].
 				0 ]).
 		
 		self gIdleAddFull: cb ]
@@ -39,7 +42,7 @@ GIdle >> initialize [
 
 	super initialize.
 	mutex := Mutex new.
-	deferring := Set new
+	deferring := IdentitySet new
 ]
 
 { #category : #'accessing platform' }
