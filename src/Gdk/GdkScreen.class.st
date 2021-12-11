@@ -6,6 +6,8 @@ https://developer.gnome.org/gdk3/stable/GdkScreen.html
 Class {
 	#name : #GdkScreen,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#category : #'Gdk-Base'
 }
 
