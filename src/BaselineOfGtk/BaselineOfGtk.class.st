@@ -23,7 +23,8 @@ BaselineOfGtk >> baseline: spec [
 				"code"
 				package: 'GtkSourceView' with: [ spec requires: #('Gtk') ];
 				"morphic"
-				package: 'Gtk-Morphic' with: [ spec requires: #('Gtk') ];
+				package: 'Gtk-FreeType' with: [ spec requires: #('Gtk') ];
+				package: 'Gtk-Morphic' with: [ spec requires: #('Gtk-FreeType' 'Gtk') ];
 				package: 'Gtk-Morphic-UIManager' with: [ spec requires: #('Gtk-Morphic') ];
 				"testing"
 				package: 'Gtk-Tests' with: [ spec requires: 'Gtk' ];
@@ -32,7 +33,7 @@ BaselineOfGtk >> baseline: spec [
 		
 		spec group: 'Core' with: #('Pango' 'Gtk').
 		spec group: 'Code' with: #('Core' 'GtkSourceView').
-		spec group: 'Morphic' with: #('Core' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
+		spec group: 'Morphic' with: #('Core' 'Gtk-FreeType' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
 		spec group: 'Tests' with: #('Gtk-Tests').
 		spec group: 'MorphicTests' with: #('Gtk-Morphic-Tests').
 		

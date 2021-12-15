@@ -1,12 +1,12 @@
 Extension { #name : #FT2FFILibrary }
 
-{ #category : #'*Gtk' }
+{ #category : #'*Gtk-FreeType' }
 FT2FFILibrary >> calloutAPIClass [ 
 
 	^ TFCalloutAPI
 ]
 
-{ #category : #'*Gtk' }
+{ #category : #'*Gtk-FreeType' }
 FT2FFILibrary >> macLibraryName [ 
 	
 	GtkLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libfreetype.dylib' ]. 
@@ -14,7 +14,7 @@ FT2FFILibrary >> macLibraryName [
 	"^ 'libfreetype.dylib'"
 ]
 
-{ #category : #'*Gtk' }
+{ #category : #'*Gtk-FreeType' }
 FT2FFILibrary >> runner [
 
 	^ TFSameThreadRunner uniqueInstance
