@@ -4,7 +4,7 @@ Class {
 	#category : #'GLib-Base'
 }
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GLibLibrary >> gFree: anAddress [
 
 	^ self ffiCall: #(void g_free(gpointer anAddress))
@@ -16,7 +16,7 @@ GLibLibrary >> gSetPrgName: prgname [
 	^ self ffiCall: #(void g_set_prgname (const gchar *prgname))
 ]
 
-{ #category : #'accessing platform' }
+{ #category : #'accessing - platform' }
 GLibLibrary >> win32LibraryName [
 
 	^ 'libglib-2.0-0.dll'

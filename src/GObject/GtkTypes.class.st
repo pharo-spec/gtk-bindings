@@ -5,6 +5,7 @@ Class {
 	#name : #GtkTypes,
 	#superclass : #SharedPool,
 	#classVars : [
+		'GPid',
 		'GQuark',
 		'GType',
 		'gboolean',
@@ -53,4 +54,6 @@ GtkTypes class >> initialize [
 	gsize := #FFISizeT.
 	
 	gunichar := #guint32.
+	
+	GPid := #int
 ]

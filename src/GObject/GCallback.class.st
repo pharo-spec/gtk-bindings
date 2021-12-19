@@ -15,6 +15,12 @@ Class {
 	#category : #'GObject-Callbacks'
 }
 
+{ #category : #'instance creation' }
+GCallback class >> null [
+
+	^ self 
+]
+
 { #category : #evaluating }
 GCallback >> basicValueWithArguments: args [
 	"This method is using a side effect of ensure (returning from it) in PURPOSE because I need to be 

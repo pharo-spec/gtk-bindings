@@ -180,6 +180,16 @@ GtkSourceBuffer >> redo [
 ]
 
 { #category : #accessing }
+GtkSourceBuffer >> removeSourceMarksStart: start end: end category: category [  
+
+	self ffiCall: #(void gtk_source_buffer_remove_source_marks (
+		self,
+ 		GtkTextIter *start,
+		GtkTextIter *end,
+		gchar *category))
+]
+
+{ #category : #accessing }
 GtkSourceBuffer >> searchContext [
 
 	^ searchContext ifNil: [ searchContext := self newSearchContext ]
