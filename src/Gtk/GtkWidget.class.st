@@ -945,8 +945,7 @@ GtkWidget >> setTooltipText: text [
 { #category : #showing }
 GtkWidget >> show [
 
-	^ self 
-		ffiCall: #(void gtk_widget_show (self))
+	^ self ffiCall: #(void gtk_widget_show (self))
 ]
 
 { #category : #showing }
