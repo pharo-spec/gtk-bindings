@@ -52,6 +52,12 @@ Class {
 	#category : #'GObject-ClassBuilder'
 }
 
+{ #category : #'library path' }
+GClass class >> ffiLibraryName [
+	
+	^ GObjectLibrary
+]
+
 { #category : #private }
 GClass class >> gClassAt: aClass [
 
