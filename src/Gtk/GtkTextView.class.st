@@ -12,6 +12,7 @@ Class {
 		'textBuffer'
 	],
 	#pools : [
+		'GtkTextWindowType',
 		'GtkWrapMode'
 	],
 	#category : #'Gtk-Widget'
