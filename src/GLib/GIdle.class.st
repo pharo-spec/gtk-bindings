@@ -45,6 +45,12 @@ GIdle >> initialize [
 	deferring := IdentitySet new
 ]
 
+{ #category : #accessing }
+GIdle >> reset [
+
+	deferring removeAll
+]
+
 { #category : #'accessing platform' }
 GIdle >> runner [
 
