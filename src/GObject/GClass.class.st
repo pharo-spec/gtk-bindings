@@ -350,9 +350,9 @@ GClass >> registerType [
 		gTypeRegisterStaticSimpleParent: parent gType
 		name: (self gInternStaticStringFromByteArray: utf8Name)
 		classSize: parent gClassSize
-		classInit: (classInitialize ifNil: [ GCallback new ])
+		classInit: (classInitialize ifNil: [ GCallback null ])
 		instanceSize: parent gSize
-		instanceInit: (initialize ifNil: [ GCallback new ])
+		instanceInit: (initialize ifNil: [ GCallback null ])
 		flags: 0
 ]
 
