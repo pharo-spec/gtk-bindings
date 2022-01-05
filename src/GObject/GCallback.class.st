@@ -18,7 +18,7 @@ Class {
 { #category : #'instance creation' }
 GCallback class >> null [
 
-	^ self 
+	^ self new
 ]
 
 { #category : #evaluating }
