@@ -3,7 +3,7 @@ Extension { #name : #Context }
 { #category : #'*Gtk-Utils' }
 Context >> printToStdout [
 
-	self shortDebugStackOn: (ZnNewLineWriterStream in: Stdio stdout)
+	self shortDebugStackOn: (ZnNewLineWriterStream on: Stdio stdout)
 ]
 
 { #category : #'*Gtk-Utils' }
