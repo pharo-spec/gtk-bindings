@@ -13,6 +13,8 @@ Class {
 { #category : #finalization }
 GtkDelayedDestroyExecutor >> finalize [
 
+	"handle could have been nulled (when starting an image)"
+	handle isNull ifTrue: [ ^ self ].
 	GtkWidget widgetDestroy: handle
 ]
 
