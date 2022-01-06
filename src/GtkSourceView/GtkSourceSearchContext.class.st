@@ -8,7 +8,8 @@ Class {
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'settings',
-		'buffer'
+		'buffer',
+		'lastForwardCallback'
 	],
 	#category : #'GtkSourceView-Base'
 }
@@ -148,6 +149,61 @@ GtkSourceSearchContext >> forward: iter thenDo: aBlock [
 ]
 
 { #category : #accessing }
+GtkSourceSearchContext >> forwardAsync: iter onFirstPositionDo: aBlock [ 
+
+	self 
+		forwardAsync: iter 
+		onReadyDo: [ :result |
+			| start end found |
+				
+			start := GtkTextIter new.		
+			end := GtkTextIter new.
+
+			found := self 
+				forwardFinish: result 
+				start: start 
+				end: end 
+				wrapped: ExternalAddress null 
+				error: GError null.
+			found ifTrue: [ 
+				aBlock value: start value: end ] ]
+]
+
+{ #category : #accessing }
+GtkSourceSearchContext >> forwardAsync: iter onReadyDo: aBlock [ 
+
+	self 
+		forwardAsync: iter 
+		ready: (lastForwardCallback := GCallback 
+			signature: #(void (void *context, void *result, gpointer user_data)) 
+			block: [ :context :result :user_data | 
+				aBlock value: result ] )
+]
+
+{ #category : #private }
+GtkSourceSearchContext >> forwardAsync: iter ready: callback [
+
+	^ self ffiCall: #(void gtk_source_search_context_forward_async (
+		self,
+		GtkTextIter *iter,
+		"GCancellable *cancellable"NULL,
+		"GAsyncReadyCallback"GCallback callback,
+		"gpointer user_data"NULL))
+]
+
+{ #category : #private }
+GtkSourceSearchContext >> forwardFinish: result start: match_start end: match_end wrapped: has_wrapped_around error: error [
+
+	self ffiCall: #(gboolean gtk_source_search_context_forward_finish (
+		self,
+		"GAsyncResult *"void *result,
+		GtkTextIter *match_start,
+		GtkTextIter *match_end,
+		"gboolean *"void *has_wrapped_around,
+		"GError **"GError *error))
+]
+
+{ #category : #accessing }
 GtkSourceSearchContext >> forwardThenDo: aBlock [
 
 	^ self 
@@ -163,6 +219,15 @@ GtkSourceSearchContext >> getBuffer [
 	^ self 
 		ffiCall: #(GtkSourceBuffer *gtk_source_search_context_get_buffer (self)) 
 		module: GtkSourceViewLibrary
+]
+
+{ #category : #private }
+GtkSourceSearchContext >> getOccurrencePositionStart: match_start end: match_end [
+
+	self ffiCall: #(gint gtk_source_search_context_get_occurrence_position (
+		self,
+		"GtkTextIter *"void *match_start,
+		"GtkTextIter *"void *match_end))
 ]
 
 { #category : #accessing }
@@ -186,9 +251,7 @@ GtkSourceSearchContext >> isHighlight [
 { #category : #accessing }
 GtkSourceSearchContext >> occurrencesCount [
 
-	^ self 
-		ffiCall: #(gint gtk_source_search_context_get_occurrences_count (self)) 
-		module: GtkSourceViewLibrary
+	self ffiCall: #(gint gtk_source_search_context_get_occurrences_count (self))
 ]
 
 { #category : #'accessing settings' }
