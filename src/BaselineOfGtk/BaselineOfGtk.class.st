@@ -17,6 +17,7 @@ BaselineOfGtk >> baseline: spec [
 				"core"
 				package: 'GObject';
 				package: 'GLib' with: [ spec requires: #('GObject') ];
+				package: 'GLib-IO' with: [ spec requires: #('GLib') ];
 				package: 'Gdk' with: [ spec requires: #('GObject') ];
 				package: 'Pango' with: [ spec requires: #('GObject') ];
 				package: 'Gtk' with: [ spec requires: #('GObject' 'GLib' 'Gdk' 'Pango') ];
@@ -39,7 +40,7 @@ BaselineOfGtk >> baseline: spec [
 		
 		spec group: 'Base' with: #('Core' 'Code').
 		
-		spec group: 'default' with: #('Base' 'Tests' 'Morphic' 'MorphicTests')
+		spec group: 'default' with: #('Base' 'GLib-IO' 'Tests' 'Morphic' 'MorphicTests')
 ]
 
 { #category : #doits }
