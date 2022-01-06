@@ -1,6 +1,6 @@
 Class {
 	#name : #GIOChannelLibrary,
-	#superclass : #GdkLibrary,
+	#superclass : #GLibLibrary,
 	#category : #'GLib-IO'
 }
 
