@@ -1,3 +1,8 @@
+"
+IO Channels — portable support for using files, pipes and sockets
+
+https://developer-old.gnome.org/glib/stable/glib-IO-Channels.html
+"
 Class {
 	#name : #GIOChannel,
 	#superclass : #GBaseObject,
@@ -18,18 +23,25 @@ GIOChannel class >> ffiLibraryName [
 	^ GIOChannelLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : #private }
 GIOChannel class >> g_io_channel_unix_new: fd [
 
 	^ self ffiCall: #(GIOChannel *g_io_channel_unix_new(int fd))
 ]
 
+{ #category : #private }
+GIOChannel class >> g_io_channel_win32_new_fd: fd [
+
+	^ self ffiCall: #(GIOChannel *g_io_channel_win32_new_fd(int fd))
+]
+
 { #category : #'instance creation' }
 GIOChannel class >> newFromFileDescriptor: fd [
 
-	self flag: #TODO. "if windows is different"
-	^ (self g_io_channel_unix_new: fd) initialize
-
+	^ (OSPlatform current isWindows 
+		ifTrue: [ self g_io_channel_win32_new_fd: fd ]
+		ifFalse: [ self g_io_channel_unix_new: fd ]) 
+		initialize
 ]
 
 { #category : #'library path' }

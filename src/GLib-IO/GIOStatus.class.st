@@ -1,3 +1,8 @@
+"
+enum GIOStatus
+
+Statuses returned by most of the GIOFuncs functions.
+"
 Class {
 	#name : #GIOStatus,
 	#superclass : #GEnumeration,

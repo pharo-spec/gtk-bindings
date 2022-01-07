@@ -1,3 +1,8 @@
+"
+enum GIOCondition
+
+A bitwise combination representing a condition to watch for on an event source.
+"
 Class {
 	#name : #GIOCondition,
 	#superclass : #GEnumeration,

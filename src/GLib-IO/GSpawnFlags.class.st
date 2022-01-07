@@ -1,3 +1,8 @@
+"
+enum GSpawnFlags
+
+Flags passed to g_spawn_sync(), g_spawn_async() and g_spawn_async_with_pipes().
+"
 Class {
 	#name : #GSpawnFlags,
 	#superclass : #GEnumeration,

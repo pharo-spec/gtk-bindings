@@ -33,6 +33,7 @@ BaselineOfGtk >> baseline: spec [
 				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ].
 		
 		spec group: 'Core' with: #('Pango' 'Gtk').
+		spec group: 'GIO' with: #('GLib-IO').
 		spec group: 'Code' with: #('Core' 'GtkSourceView').
 		spec group: 'Morphic' with: #('Core' 'Gtk-FreeType' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
 		spec group: 'Tests' with: #('Gtk-Tests').
@@ -40,7 +41,7 @@ BaselineOfGtk >> baseline: spec [
 		
 		spec group: 'Base' with: #('Core' 'Code').
 		
-		spec group: 'default' with: #('Base' 'GLib-IO' 'Tests' 'Morphic' 'MorphicTests')
+		spec group: 'default' with: #('Base' 'GIO' 'Tests' 'Morphic' 'MorphicTests')
 ]
 
 { #category : #doits }

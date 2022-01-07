@@ -1,3 +1,6 @@
+"
+An object to wrap the output of a GSpawn
+"
 Class {
 	#name : #GIOProcess,
 	#superclass : #Object,
