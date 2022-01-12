@@ -68,7 +68,7 @@ BaselineOfGtk >> postLoad [
 BaselineOfGtk >> recompileStructures [
 	"Recompile structures (just to be sure we match everything we need"
 
-	(Smalltalk at: #GEnumeration) allSubclassesDo: #initializeEnumeration.
-	(Smalltalk at: #GStructure) allSubclassesDo: #compileFields.
-	(Smalltalk at: #GtkWidget) withAllSubclassesDo: #recompile
+	(Smalltalk classNamed: #GEnumeration) ifNotNil: [ :c | c allSubclassesDo: #initializeEnumeration ].
+	(Smalltalk classNamed: #GStructure) ifNotNil: [ :c | c allSubclassesDo: #compileFields ].
+	(Smalltalk classNamed: #GtkWidget) ifNotNil: [ :c | c withAllSubclassesDo: #recompile ]
 ]
