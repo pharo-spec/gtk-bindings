@@ -23,6 +23,7 @@ BaselineOfGtk >> baseline: spec [
 				package: 'Gtk' with: [ spec requires: #('GObject' 'GLib' 'Gdk' 'Pango') ];
 				"code"
 				package: 'GtkSourceView' with: [ spec requires: #('Gtk') ];
+				package: 'Gtk-Shortcuts' with: [ spec requires: #('Gtk') ];
 				"morphic"
 				package: 'Gtk-FreeType' with: [ spec requires: #('Gtk') ];
 				package: 'Gtk-Morphic' with: [ spec requires: #('Gtk-FreeType' 'Gtk') ];
