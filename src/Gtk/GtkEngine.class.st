@@ -3,6 +3,9 @@ Class {
 	#superclass : #GEngine,
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
+	#instVars : [
+		'initAction'
+	],
 	#category : #'Gtk-Base'
 }
 
@@ -103,6 +106,7 @@ GtkEngine >> start [
 
 	self initGtk3.
 	GApplicationStartAnnouncement emit.
+	initAction ifNotNil: [ initAction cull: self ].
 	runLoop start
 ]
 
@@ -110,4 +114,10 @@ GtkEngine >> start [
 GtkEngine >> stop [
 	self isRunning ifFalse: [ ^ self ].
 	runLoop stop
+]
+
+{ #category : #events }
+GtkEngine >> whenInitializedDo: aBlock [
+
+	initAction := aBlock
 ]

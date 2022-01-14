@@ -5,8 +5,7 @@ Class {
 		'runLoop',
 		'windowRegistry',
 		'shutdownRegistry',
-		'resourceManager',
-		'initAction'
+		'resourceManager'
 	],
 	#classVars : [
 		'Current'
@@ -212,12 +211,6 @@ GEngine >> unregisterWindow: aWindow [
 	windowRegistry 
 		remove: aWindow 
 		ifAbsent: [ ]
-]
-
-{ #category : #events }
-GEngine >> whenInitializedDo: aBlock [
-
-	initAction := aBlock
 ]
 
 { #category : #accessing }
