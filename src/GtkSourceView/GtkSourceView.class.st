@@ -19,7 +19,9 @@ Class {
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'completion',
-		'markAttributes'
+		'markAttributes',
+		'gutterLeft',
+		'gutterRight'
 	],
 	#category : #'GtkSourceView-Base'
 }
@@ -192,6 +194,24 @@ GtkSourceView >> getCompletion [
 	^ self 
 		ffiCall: #(GtkSourceCompletion *gtk_source_view_get_completion (self))
 		module: GtkSourceViewLibrary
+]
+
+{ #category : #private }
+GtkSourceView >> getGutter: window_type [
+
+	^ self ffiCall: #(GtkSourceGutter *gtk_source_view_get_gutter (self, GtkTextWindowType window_type))
+]
+
+{ #category : #accessing }
+GtkSourceView >> gutterLeft [
+
+	^ gutterLeft ifNil: [ gutterLeft := self getGutter: GTK_TEXT_WINDOW_LEFT ]
+]
+
+{ #category : #accessing }
+GtkSourceView >> gutterRight [
+
+	^ gutterRight ifNil: [ gutterRight := self getGutter: GTK_TEXT_WINDOW_RIGHT ]
 ]
 
 { #category : #accessing }
