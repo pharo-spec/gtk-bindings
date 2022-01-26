@@ -8,3 +8,9 @@ Class {
 	#superclass : #PangoObject,
 	#category : #'Pango-Base'
 }
+
+{ #category : #accessing }
+PangoFontFamily >> name [
+
+	^ self ffiCall: #(const char* pango_font_family_get_name (self))
+]
