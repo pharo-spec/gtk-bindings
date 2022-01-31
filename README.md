@@ -79,7 +79,7 @@ If you open the image using `./pharo-ui Pharo.image`, the image should give the 
 The following code should open a small UI:
 
 ```Smalltalk
-GtkApplication ensureRunning.
+GEngine ensureRunning.
 GtkRunLoop defer: [
 	GtkWindow new 
 		title: 'Gtk3 Window';
