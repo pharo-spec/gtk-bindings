@@ -26,7 +26,7 @@ Class {
 { #category : #accessing }
 GRunLoop class >> current [
 
-	^ GtkEngine current runLoop
+	^ GEngine current runLoop
 ]
 
 { #category : #private }
