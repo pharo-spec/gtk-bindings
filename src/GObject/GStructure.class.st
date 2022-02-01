@@ -11,7 +11,7 @@ Class {
 GStructure >> autoRelease [
 
 	self isExternalAddress ifFalse: [ ^ self ].
-	^ GtkEngine current resourceManager addResource: self
+	^ GEngine current resourceManager addResource: self
 ]
 
 { #category : #copying }
