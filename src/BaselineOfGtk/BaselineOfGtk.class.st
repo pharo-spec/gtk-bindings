@@ -31,8 +31,11 @@ BaselineOfGtk >> baseline: spec [
 				"testing"
 				package: 'Gtk-Tests' with: [ spec requires: 'Gtk' ];
 				"testing morphic"
-				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ].
-		
+				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ];
+				"pango standalone engine and tests"
+				package: 'PangoStandaloneEngine' with: [ spec requires: #('GObject') ];
+				package: 'PangoStandaloneEngine-Test' with: [ spec requires: #('PangoStandaloneEngine') ].
+
 		spec group: 'Core' with: #('Pango' 'Gtk').
 		spec group: 'GIO' with: #('GLib' 'GLib-IO').
 		spec group: 'Code' with: #('Core' 'GtkSourceView').
@@ -42,7 +45,10 @@ BaselineOfGtk >> baseline: spec [
 		
 		spec group: 'Base' with: #('Core' 'Code').
 		
-		spec group: 'default' with: #('Base' 'GIO' 'Tests' 'Morphic' 'MorphicTests')
+		spec group: 'default' with: #('Base' 'GIO' 'Tests' 'Morphic' 'MorphicTests').
+		
+		spec group: 'PangoStandalone' with: #('Pango' 'PangoStandaloneEngine').
+
 ]
 
 { #category : #doits }
