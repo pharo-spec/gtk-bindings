@@ -60,6 +60,28 @@ PangoExamples class >> example2Text [
 ]
 
 { #category : #examples }
+PangoExamples class >> example3CreateLayoutFromContext [
+	<example>
+
+	| surface pangoLayout fontMap context |
+	fontMap := PangoFontMap getDefault.
+	context := fontMap newPangoContext.
+
+	surface := AthensCairoSurface width: 200 height: 135.
+
+	pangoLayout := PangoLayout newContext: context.
+	pangoLayout
+		text: String loremIpsum;
+		width: surface width * self pangoScale.
+
+	surface drawDuring: [ :canvas |
+		canvas showLayout: pangoLayout ].
+
+	surface asForm inspect
+
+]
+
+{ #category : #examples }
 PangoExamples class >> pangoScale [
 	"Pango requires this scale for measures"
 
