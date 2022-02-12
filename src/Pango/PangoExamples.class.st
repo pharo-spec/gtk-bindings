@@ -128,6 +128,32 @@ PangoExamples class >> example4ListFamilies [
 ]
 
 { #category : #examples }
+PangoExamples class >> example5DrawWithoutLayout [
+	<example>
+
+	| string fontMap context fontDescription surface pangoItems glyphItems |
+	string := 'Hello World'.
+	fontMap := PangoFontMap getDefault.
+	context := fontMap newPangoContext.
+	fontDescription := PangoFontDescription newFromString: 'Arial Black 60'.
+
+	self shouldBeImplemented.
+"	pangoItems := context itemize: string attributes: PangoAttrList new.
+	(https://docs.gtk.org/Pango/func.itemize.html)
+	
+	glyphItems := pangoItems collect: [ :each | context shapePangoItem: each text: string ].
+	(https://docs.gtk.org/Pango/func.shape_item.html)
+"
+	surface := AthensCairoSurface width: 200 height: 135.
+	surface drawDuring: [ :canvas |
+		glyphItems do: [ :each |
+			canvas showGlyphItem: each text: string ] ].
+
+	surface asForm inspect
+
+]
+
+{ #category : #examples }
 PangoExamples class >> pangoScale [
 	"Pango requires this scale for measures"
 
