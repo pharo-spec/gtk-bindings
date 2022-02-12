@@ -16,6 +16,12 @@ PangoFontDescription class >> finalizeResourceData: handle [
 ]
 
 { #category : #'instance creation' }
+PangoFontDescription class >> new [
+
+	^ self pango_font_description_new initialize
+]
+
+{ #category : #'instance creation' }
 PangoFontDescription class >> newFromString: aString [
 
 	^ (self pango_font_description_from_string: aString) initialize
@@ -31,6 +37,11 @@ PangoFontDescription class >> pango_font_description_from_string: str [
 	^ self ffiCall: #(PangoFontDescription *pango_font_description_from_string (const char *str))
 ]
 
+{ #category : #private }
+PangoFontDescription class >> pango_font_description_new [
+	^ self ffiCall: #(PangoFontDescription *pango_font_description_new ())
+]
+
 { #category : #accessing }
 PangoFontDescription >> familyName [
 	
@@ -41,4 +52,34 @@ PangoFontDescription >> familyName [
 PangoFontDescription >> familyName: family [ 
 
 	^ self ffiCall: #(void pango_font_description_set_family(self, String family))
+]
+
+{ #category : #'accessing font size' }
+PangoFontDescription >> hasSizeInDeviceUnits [
+	"Answer whether the font size is expressed in terms of points or device units.
+
+   The conversion factor between points and device units depends on
+   system configuration and the output device. For screen display, a
+   logical DPI of 96 is common, in which case a 10 point font corresponds
+   to a 10 * (96 / 72) = 13.3 pixel (device unit) font."
+
+	^ self ffiCall: #(Boolean pango_font_description_get_size_is_absolute (self))
+]
+
+{ #category : #'accessing font size' }
+PangoFontDescription >> sizeInDeviceUnits: anInteger [
+
+	self ffiCall: #(void pango_font_description_set_size(self, uint anInteger))
+]
+
+{ #category : #'accessing font size' }
+PangoFontDescription >> sizeInPoints: aFloat [
+
+	self ffiCall: #(void pango_font_description_set_absolute_size(self, double aFloat))
+]
+
+{ #category : #'accessing font size' }
+PangoFontDescription >> sizeInPointsOrDeviceUnits [
+
+	^ self ffiCall: #(uint pango_font_description_get_size(self))
 ]

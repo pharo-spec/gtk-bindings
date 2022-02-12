@@ -82,6 +82,52 @@ PangoExamples class >> example3CreateLayoutFromContext [
 ]
 
 { #category : #examples }
+PangoExamples class >> example4ListFamilies [
+	<example>
+
+	| surface numberOfFamilies fontFamilies fontSize |
+	fontSize := 48.
+	numberOfFamilies := 5.
+	surface := AthensCairoSurface width: 500 height: fontSize * 2 * numberOfFamilies.
+	fontFamilies := PangoFontMap getDefault listFamilies.
+
+	surface drawDuring: [ :canvas |
+		| fontDescription pangoLayout |
+		surface clear: Color white.
+
+		fontDescription := PangoFontDescription new
+			sizeInDeviceUnits: fontSize * self pangoScale;
+			yourself.
+
+		(1 to: numberOfFamilies)
+			do: [ :_ | 
+				| aFamily |
+				aFamily := fontFamilies atRandom.
+
+				canvas
+					setStrokePaint: Color random;
+					drawShape: (1@1 corner: 2@2).  
+				"--> Workaround a bug that happens unless something else is 
+				draw before showLayout:"
+
+				fontDescription familyName: aFamily name.
+				pangoLayout := (PangoLayout newCanvas: canvas)
+					fontDescription: fontDescription;
+					text: aFamily name;
+					yourself.
+				canvas showLayout: pangoLayout ]
+
+			separatedBy: [
+				canvas pathTransform
+					translateBy: 0 @ fontSize * 2.
+				canvas updateLayout: pangoLayout ]
+		].
+
+	surface asForm inspect
+
+]
+
+{ #category : #examples }
 PangoExamples class >> pangoScale [
 	"Pango requires this scale for measures"
 
