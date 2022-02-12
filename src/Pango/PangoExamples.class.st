@@ -12,10 +12,10 @@ PangoExamples class >> example1Markup [
 	fontDescription := PangoFontDescription newFromString: 'Helvetica 28'.
 	surface := AthensCairoSurface width: 500 height: 500.
 	surface drawDuring: [ :canvas |
-		| fontLayout |
-		fontLayout := PangoLayout newCanvas: canvas.
-		fontLayout fontDescription: fontDescription.
-		fontLayout markup: '<span foreground="blue" font_family="Helvetica">
+		| pangoLayout |
+		pangoLayout := PangoLayout newCanvas: canvas.
+		pangoLayout fontDescription: fontDescription.
+		pangoLayout markup: '<span foreground="blue" font_family="Helvetica">
 		<b> bold </b>
 		<u> is </u>
 		<i> nice </i>
@@ -23,7 +23,7 @@ PangoExamples class >> example1Markup [
 	<tt> hello </tt>
 	 <span font_family="sans" font_stretch="ultracondensed" letter_spacing="500" font_weight="light"> SANS</span><span foreground="#FFCC00"> colored</span>
 	'.
-		canvas showLayout: fontLayout ].
+		canvas showLayout: pangoLayout ].
 
 	surface asForm inspect
 
@@ -32,32 +32,40 @@ PangoExamples class >> example1Markup [
 { #category : #examples }
 PangoExamples class >> example2Text [
 	<example>
-	| fontDescription surface pangoScale fontLayout extent padding |
+	| fontDescription surface pangoLayout extent padding |
 	
-	pangoScale := 1024. "Pango requires this scale for measures"
 	padding := 20@20.
-	fontDescription := PangoFontDescription newFromString: 'Helvetica 40'.
-	surface := AthensCairoSurface width: 300 height: 200.
+	fontDescription := PangoFontDescription newFromString: 'Arial Black 60'.
+	surface := AthensCairoSurface width: 500 height: 250.
 	surface drawDuring: [ :canvas |
-		fontLayout := PangoLayout newCanvas: canvas.
-		fontLayout
+		pangoLayout := PangoLayout newCanvas: canvas.
+		pangoLayout
 			fontDescription: fontDescription;
-			text: 'é è à ô ü ö ß ä ó ñ í á';
-			width: surface width * pangoScale. "Wrapping to new line"
-		extent := fontLayout size / pangoScale.
+			width: surface width * self pangoScale; "Wrap to new line"
+			text: 'é è à ô ü ö ß ä ó ñ í á'.
+		extent := pangoLayout size / self pangoScale.
 
 		surface clear: Color white.
 
 		canvas pathTransform translateBy: padding.
 
 		canvas
-			updateLayout: fontLayout;
-			setStrokePaint: Color green;
-			drawShape: (1@1 corner: extent);
-			showLayout: fontLayout ].
+			setStrokePaint: Color green darker;
+			drawShape: (1@1 corner: extent);  "Bug if you don't draw something with the colotr beefoore showLayout:"
+			updateLayout: pangoLayout;
+			showLayout: pangoLayout ].
 
 	surface asForm inspect
 
+]
+
+{ #category : #examples }
+PangoExamples class >> pangoScale [
+	"Pango requires this scale for measures"
+
+	self flag: #todo. "move to a lib class (or autoconvert)"
+
+	^ 1024
 ]
 
 { #category : #'see class side' }
