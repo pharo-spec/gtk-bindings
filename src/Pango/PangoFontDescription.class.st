@@ -60,6 +60,12 @@ PangoFontDescription >> familyName: family [
 	^ self ffiCall: #(void pango_font_description_set_family(self, String family))
 ]
 
+{ #category : #'initialize-release' }
+PangoFontDescription >> free [
+
+	self class pango_font_description_free: handle
+]
+
 { #category : #accessing }
 PangoFontDescription >> size [
 

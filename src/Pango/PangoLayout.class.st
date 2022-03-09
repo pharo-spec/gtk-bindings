@@ -43,6 +43,12 @@ PangoLayout >> fontDescription: desc [
 ]
 
 { #category : #accessing }
+PangoLayout >> free [
+
+	^ self class g_object_unref: handle
+]
+
+{ #category : #accessing }
 PangoLayout >> indent [
 
 	self ffiCall: #(int pango_layout_get_indent (self))
@@ -83,6 +89,11 @@ PangoLayout >> spacing [
 { #category : #accessing }
 PangoLayout >> text: text [
 	self ffiCall: #(void pango_layout_set_text (self, const char *text, -1))
+]
+
+{ #category : #accessing }
+PangoLayout >> text: text length: len [
+	self ffiCall: #(void pango_layout_set_text (self, const char *text, int len))
 ]
 
 { #category : #accessing }
