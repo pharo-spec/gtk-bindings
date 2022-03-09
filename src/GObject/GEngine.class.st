@@ -19,7 +19,7 @@ Class {
 { #category : #private }
 GEngine class >> availableEngineClass [
 
-	^ GEngine allSubclasses detect: [ :each | each isAvailable ]
+	^ GEngine allSubclasses detect: [ :each | each isAvailable ] ifNone: [ GDummyEngine ]
 ]
 
 { #category : #accessing }

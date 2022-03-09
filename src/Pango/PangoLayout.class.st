@@ -42,6 +42,12 @@ PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
 ]
 
+{ #category : #accessing }
+PangoLayout >> indent [
+
+	self ffiCall: #(int pango_layout_get_indent (self))
+]
+
 { #category : #initialization }
 PangoLayout >> initialize [
 	self autoRelease
@@ -66,6 +72,12 @@ PangoLayout >> size [
 	heightBuffer := ByteArray new: FFIInt32 externalTypeSize.
 	self primGetSizeWidth: widthBuffer height: heightBuffer.
 	^ (widthBuffer signedLongAt: 1) @ (heightBuffer signedLongAt: 1)
+]
+
+{ #category : #accessing }
+PangoLayout >> spacing [
+
+	self ffiCall: #(int pango_layout_get_spacing (self))
 ]
 
 { #category : #accessing }

@@ -32,6 +32,11 @@ PangoFT2FontMap >> createContext [
 	^ self ffiCall: #(PangoContext *pango_ft2_font_map_create_context (self))
 ]
 
+{ #category : #misc }
+PangoFT2FontMap >> ft2Library [
+	^ self ffiCall: #(void *_pango_cairo_fc_font_map_get_library (self))
+]
+
 { #category : #initialization }
 PangoFT2FontMap >> initialize [
 	self autoRelease
