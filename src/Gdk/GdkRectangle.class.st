@@ -18,7 +18,7 @@ Class {
 	#category : #'Gdk-Misc'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'field definition' }
 GdkRectangle class >> fieldsDesc [ 
 	"self rebuildFieldAccessors"
 
