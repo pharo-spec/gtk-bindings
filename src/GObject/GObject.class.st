@@ -32,7 +32,7 @@ GObject class >> finalizeResourceData: handle [
 { #category : #accessing }
 GObject class >> gClass [
 
-	^ self gTypeClassPeek: self gType
+	^ self gTypeClass
 ]
 
 { #category : #accessing }
@@ -81,8 +81,25 @@ GObject class >> gType [
 	^ self ffiCall: #(gsize g_object_get_type()) module: GObjectLibrary 
 ]
 
+{ #category : #accessing }
+GObject class >> gTypeClass [
+	| gType handle |
+
+	gType := self gType.
+	handle := self gTypeClassPeek: gType.
+	handle isNull ifTrue: [ ^ self gTypeClassRef: gType ].
+	
+	^ handle
+]
+
 { #category : #private }
 GObject class >> gTypeClassPeek: type [
+
+	self ffiCall: #(gpointer g_type_class_peek (gsize type))
+]
+
+{ #category : #private }
+GObject class >> gTypeClassRef: type [
 
 	self ffiCall: #(gpointer g_type_class_ref (gsize type))
 ]
