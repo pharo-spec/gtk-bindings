@@ -60,6 +60,12 @@ PangoLayout >> primGetSizeWidth: width height: height [
 ]
 
 { #category : #accessing }
+PangoLayout >> setAttributes: attrs [
+
+	^ self ffiCall: #(void pango_layout_set_attributes ( self, PangoAttrList* attrs ))
+]
+
+{ #category : #accessing }
 PangoLayout >> size [ 
 	| widthBuffer heightBuffer |
 	widthBuffer := ByteArray new: FFIInt32 externalTypeSize.

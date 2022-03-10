@@ -42,3 +42,15 @@ PangoFontDescription >> familyName: family [
 
 	^ self ffiCall: #(void pango_font_description_set_family(self, String family))
 ]
+
+{ #category : #accessing }
+PangoFontDescription >> fontSize [
+
+	^ self ffiCall: #(gint pango_font_description_get_size (self))
+]
+
+{ #category : #printing }
+PangoFontDescription >> toString [
+
+	^ self ffiCall: #(char *pango_font_description_to_string (self))
+]

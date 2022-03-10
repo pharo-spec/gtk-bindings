@@ -3,6 +3,9 @@ Class {
 	#superclass : #FFIOpaqueObject,
 	#traits : 'TPangoLibrary',
 	#classTraits : 'TPangoLibrary classTrait',
+	#pools : [
+		'GtkTypes'
+	],
 	#category : #'Pango-Base'
 }
 

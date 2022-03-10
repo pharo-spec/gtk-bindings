@@ -61,51 +61,35 @@ GtkStyleContext >> fontNormal [
 ]
 
 { #category : #accessing }
-GtkStyleContext >> getActiveColor [
-
+GtkStyleContext >> getActiveRGBAColor [
 	| color state |
 	
 	color := GdkRGBA new.
 	state := GTK_STATE_FLAG_ACTIVE.
-
 	self getColor: color state: state.
-	^ color asColor
+	^ color
 ]
 
-{ #category : #accessing }
-GtkStyleContext >> getBackgroundColor [
-
-	| color state |
-	
-	color := GdkRGBA new.
-	state := GTK_STATE_FLAG_NORMAL.
-
-	self getBackgroundColor: color state: state.
-	^ color asColor
-]
-
-{ #category : #accessing }
+{ #category : #private }
 GtkStyleContext >> getBackgroundColor: color state: state [
 	
 	^ self ffiCall: #(void *gtk_style_context_get_background_color  (self, GtkStateFlags state, GdkRGBA *color))
 ]
 
 { #category : #accessing }
-GtkStyleContext >> getColor [
-
+GtkStyleContext >> getBackgroundRGBAColor [
 	| color state |
 	
 	color := GdkRGBA new.
 	state := GTK_STATE_FLAG_NORMAL.
-
-	self getColor: color state: state.
-	^ color asColor
+	self getBackgroundColor: color state: state.
+	^ color
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkStyleContext >> getColor: color state: state [
 	
-	^ self ffiCall: #(void *gtk_style_context_get_color  (self, GtkStateFlags state, GdkRGBA *color))
+	^ self ffiCall: #(void gtk_style_context_get_color  (self, GtkStateFlags state, GdkRGBA *color))
 ]
 
 { #category : #private }
@@ -115,19 +99,88 @@ GtkStyleContext >> getFont: state [
 ]
 
 { #category : #accessing }
-GtkStyleContext >> getSelectedColor [
+GtkStyleContext >> getPangoAttributes [
 
+	^ self getPangoAttributesCSStyle: self lookupCSSStyle
+]
+
+{ #category : #private }
+GtkStyleContext >> getPangoAttributesCSStyle: style [
+
+	^ self ffiCall: #(PangoAttrList *gtk_css_style_get_pango_attributes (void *style))
+]
+
+{ #category : #accessing }
+GtkStyleContext >> getRGBAColor [
+	| color state |
+	
+	color := GdkRGBA new.
+	state := GTK_STATE_FLAG_NORMAL.
+	self getColor: color state: state.
+	^ color
+]
+
+{ #category : #accessing }
+GtkStyleContext >> getSelectedRGBAColor [
 	| color state |
 	
 	color := GdkRGBA new.
 	state := GTK_STATE_FLAG_SELECTED.
-
 	self getColor: color state: state.
-	^ color asColor
+	^ color
+]
+
+{ #category : #private }
+GtkStyleContext >> lookupCSSStyle [
+
+	^ self ffiCall: #(void *gtk_style_context_lookup_style (self))
+]
+
+{ #category : #accessing }
+GtkStyleContext >> lookupColor: aName [
+	| color result |
+	
+	color := GdkRGBA new.
+	result := self lookupColor: aName into: color.
+	^ result 
+		ifTrue: [ color ]
+		ifFalse: [ nil ]
+]
+
+{ #category : #private }
+GtkStyleContext >> lookupColor: color_name into: color [ 
+
+	^ self ffiCall: #(gboolean gtk_style_context_lookup_color (
+		self,
+		const gchar *color_name,
+		GdkRGBA *color))
 ]
 
 { #category : #accessing }
 GtkStyleContext >> removeClass: class_name [
 
 	^ self ffiCall: #(void gtk_style_context_remove_class (self, const gchar *class_name))
+]
+
+{ #category : #rendering }
+GtkStyleContext >> renderLayout: layout cr: cr x: x y: y [
+
+	self ffiCall: #(void gtk_render_layout (
+		self,
+		void         *cr,
+		gdouble          x,
+		gdouble          y,
+		PangoLayout     *layout))
+]
+
+{ #category : #accessing }
+GtkStyleContext >> restore [
+
+	^ self ffiCall: #(void gtk_style_context_restore (self))
+]
+
+{ #category : #accessing }
+GtkStyleContext >> save [
+
+	^ self ffiCall: #(void gtk_style_context_save (self))
 ]
