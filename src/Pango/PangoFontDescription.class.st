@@ -66,6 +66,12 @@ PangoFontDescription >> free [
 	self class pango_font_description_free: handle
 ]
 
+{ #category : #isValid }
+PangoFontDescription >> isValid [
+	
+	^ handle isNull not 
+]
+
 { #category : #accessing }
 PangoFontDescription >> size [
 
