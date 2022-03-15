@@ -24,13 +24,19 @@ GValue >> ffiLibraryName [
 { #category : #accessing }
 GValue >> getBoolean [ 
 
-	^ self ffiCall: #(gboolean g_value_set_boolean (self))
+	^ self ffiCall: #(gboolean g_value_get_boolean (self))
 ]
 
 { #category : #accessing }
 GValue >> getObject [
 
 	^ self ffiCall: #(gpointer g_value_get_object (self))
+]
+
+{ #category : #accessing }
+GValue >> getString [
+
+	^ self ffiCall: #(gchar* g_value_get_string  (self))
 ]
 
 { #category : #accessing }

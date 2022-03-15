@@ -25,6 +25,7 @@ GtkTreeStore class >> basicNewWithNumberOfColumns: aNumber andTypes: anExternalA
 
 { #category : #accessing }
 GtkTreeStore class >> gClassSize [
+	"hardcoded. I took the size by executing sizeof in a C program"
 
 	^ 168
 ]

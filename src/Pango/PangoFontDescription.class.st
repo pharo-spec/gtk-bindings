@@ -73,13 +73,13 @@ PangoFontDescription >> isValid [
 ]
 
 { #category : #accessing }
-PangoFontDescription >> size [
+PangoFontDescription >> fontSize [
 
 	^ self ffiCall: #( uint pango_font_description_get_size(self) )
 ]
 
 { #category : #accessing }
-PangoFontDescription >> size: size [
+PangoFontDescription >> fontSize: size [
 
 	^ self ffiCall: #( void pango_font_description_set_size(self , uint size ) )
 ]
@@ -94,4 +94,10 @@ PangoFontDescription >> stretch: stretch [
 PangoFontDescription >> weight: weight [
 
 	^ self ffiCall: #( void pango_font_description_set_weight( self , PangoStyle weight ) )
+]
+
+{ #category : #printing }
+PangoFontDescription >> toString [
+
+	^ self ffiCall: #(char *pango_font_description_to_string (self))
 ]
