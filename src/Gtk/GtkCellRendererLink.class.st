@@ -2,7 +2,8 @@ Class {
 	#name : #GtkCellRendererLink,
 	#superclass : #GtkCellRendererCustom,
 	#instVars : [
-		'text'
+		'text',
+		'linkPrototype'
 	],
 	#category : #'Gtk-Widget-CellRenderers'
 }
@@ -19,7 +20,7 @@ GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
 		flags: GParamFlags G_PARAM_READWRITE
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - properties' }
 GtkCellRendererLink >> getProperty: id inValue: gValue [
 
 	id = 1 ifTrue: [ gValue setString: text ]
@@ -33,21 +34,28 @@ GtkCellRendererLink >> getSize: widget rectangle: rect xOffset: xOffset yOffset:
 	yOffset ifNotNil: [ yOffset signedLongAt: 1 put: 2 ].
 ]
 
-{ #category : #'instance creation' }
-GtkCellRendererLink >> newPangoLayout [
-
+{ #category : #private }
+GtkCellRendererLink >> linkPrototype [
 	
+	^ linkPrototype ifNil: [ 
+		linkPrototype := ((GtkLinkButton newWithUri: '')
+			addClass: 'hover';
+			addClass: 'cell-link';
+			yourself) ]
 ]
 
 { #category : #rendering }
 GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellArea: cellRect flags: flags [
-	| layout padding context x y canvas |
+	| layout padding context x y canvas attrs |
 
-	context := widget styleContext.
-	context save.
-	context addClass: 'cell-link'.
-	
-	layout := widget createPangoLayout: text.	
+	context := self linkPrototype styleContext.
+	layout := self linkPrototype createPangoLayout: text.	
+	attrs := PangoAttrList new.
+	"for some reason, 'text-decoration-line' css property is not working, so I 
+	 add the underline manually. "
+	attrs add: (PangoAttribute newUnderline: 1).
+	layout setAttributes: attrs.
+
 	layout width: -1.
 	
 	padding := self padding.
@@ -58,11 +66,10 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 	canvas := AthensCairoCanvas fromHandle: cr.
 	canvas primSaveState.
 	context renderLayout: layout cr: cr x: x y: y.
-	canvas primRestoreState.
-	context restore
+	canvas primRestoreState
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - properties' }
 GtkCellRendererLink >> setProperty: id toValue: gValue [
 
 	id = 1 ifTrue: [ text := gValue getString ]

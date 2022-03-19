@@ -38,6 +38,11 @@ PangoLayout class >> pango_layout_new: context [
 ]
 
 { #category : #accessing }
+PangoLayout >> fontDescription [
+	self ffiCall: #(PangoFontDescription *pango_layout_get_font_description (self))
+]
+
+{ #category : #accessing }
 PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
 ]

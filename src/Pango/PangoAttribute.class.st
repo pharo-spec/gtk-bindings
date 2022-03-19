@@ -62,6 +62,19 @@ PangoAttribute class >> newForegroundR: red g: green b: blue [
 	^ (self foregroundNewRed: red green: green blue: blue) initialize
 ]
 
+{ #category : #'instance creation' }
+PangoAttribute class >> newUnderline: weight [ 
+	"no = 0, simple=1, double=2"
+	
+	^ (self underlineNew: weight) initialize
+]
+
+{ #category : #private }
+PangoAttribute class >> underlineNew: underline [
+
+	^ self ffiCall: #(PangoAttribute* pango_attr_underline_new ("PangoUnderline"int underline))
+]
+
 { #category : #'accessing - structure variables' }
 PangoAttribute >> end_index [
 	"This method was automatically generated"
