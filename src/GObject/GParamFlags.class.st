@@ -1,3 +1,8 @@
+"
+https://docs.gtk.org/gobject/flags.ParamFlags.html
+
+Through the GParamFlags flag values, certain aspects of parameters can be configured.
+"
 Class {
 	#name : #GParamFlags,
 	#superclass : #GEnumeration,
@@ -6,7 +11,7 @@ Class {
 		'G_PARAM_READWRITE',
 		'G_PARAM_WRITABLE'
 	],
-	#category : #'Gtk-Widget-CellRenderers'
+	#category : #'GObject-ClassBuilder'
 }
 
 { #category : #'accessing enum' }
