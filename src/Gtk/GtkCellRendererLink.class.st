@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'text',
 		'linkPrototype',
-		'activateAction'
+		'activateAction',
+		'active'
 	],
 	#pools : [
 		'GParamFlags'
@@ -68,7 +69,8 @@ GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea:
 { #category : #'accessing - properties' }
 GtkCellRendererLink >> getProperty: id inValue: gValue [
 
-	id = 1 ifTrue: [ gValue setString: text ]
+	id = 1 ifTrue: [ gValue setString: text ].
+	id = 2 ifTrue: [ gValue setBoolean: active ]
 ]
 
 { #category : #rendering }
@@ -84,7 +86,8 @@ GtkCellRendererLink >> initialize [
 
 	super initialize. 
 	self padding: 2@2.
-	self mode: GTK_CELL_RENDERER_MODE_ACTIVATABLE
+	self mode: GTK_CELL_RENDERER_MODE_ACTIVATABLE.
+	active := false
 ]
 
 { #category : #private }
@@ -129,5 +132,6 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 { #category : #'accessing - properties' }
 GtkCellRendererLink >> setProperty: id toValue: gValue [
 
-	id = 1 ifTrue: [ text := gValue getString ]
+	id = 1 ifTrue: [ text := gValue getString ].
+	id = 2 ifTrue: [ active := gValue getBoolean ]
 ]
