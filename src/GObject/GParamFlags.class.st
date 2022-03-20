@@ -7,12 +7,19 @@ Class {
 	#name : #GParamFlags,
 	#superclass : #GEnumeration,
 	#classVars : [
+		'G_PARAM_EXPLICIT_NOTIFY',
 		'G_PARAM_READABLE',
 		'G_PARAM_READWRITE',
 		'G_PARAM_WRITABLE'
 	],
 	#category : #'GObject-ClassBuilder'
 }
+
+{ #category : #'accessing enum' }
+GParamFlags class >> G_PARAM_EXPLICIT_NOTIFY [
+	"This method was automatically generated"
+	^ G_PARAM_EXPLICIT_NOTIFY
+]
 
 { #category : #'accessing enum' }
 GParamFlags class >> G_PARAM_READABLE [
@@ -39,9 +46,10 @@ GParamFlags class >> enumDecl [
 	self rebuildEnumAccessors"
 
 	^ { 
-  #G_PARAM_READABLE           . 1 << 0.
+  #G_PARAM_READABLE            . 1 << 0.
   #G_PARAM_WRITABLE            . 1 << 1.
   #G_PARAM_READWRITE           . ((1 << 0) | (1 << 1)).
+  #G_PARAM_EXPLICIT_NOTIFY     . 1 << 30.
 "Not using any of this, letting them out"
   "G_PARAM_CONSTRUCT	      	   . 1 << 2,
   G_PARAM_CONSTRUCT_ONLY      . 1 << 3,
