@@ -51,7 +51,13 @@ GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
 		installPropertyStringId: 1
 		name: 'text' 
 		default: nil
-		flags: G_PARAM_READWRITE
+		flags: G_PARAM_READWRITE.
+		
+	aDefinition
+		installPropertyBooleanId: 2
+		name: 'active' 
+		default: false
+		flags: G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY
 ]
 
 { #category : #activating }
@@ -125,6 +131,7 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 	
 	canvas := AthensCairoCanvas fromHandle: cr.
 	canvas primSaveState.
+	canvas pushClipRect: cellRect. 
 	context renderLayout: layout cr: cr x: x y: y.
 	canvas primRestoreState
 ]
