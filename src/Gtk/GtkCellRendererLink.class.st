@@ -3,10 +3,45 @@ Class {
 	#superclass : #GtkCellRendererCustom,
 	#instVars : [
 		'text',
-		'linkPrototype'
+		'linkPrototype',
+		'activateAction'
+	],
+	#pools : [
+		'GParamFlags'
 	],
 	#category : #'Gtk-Widget-CellRenderers'
 }
+
+{ #category : #'class initialization' }
+GtkCellRendererLink class >> gInitializeClass: aDefinition [
+
+	super gInitializeClass: aDefinition.
+	self gInitializeClassActivate: aDefinition.
+	
+	aDefinition setAccessibleType: self gtkBooleanCellAccessibleGetType
+]
+
+{ #category : #'class initialization' }
+GtkCellRendererLink class >> gInitializeClassActivate: aDefinition [
+
+	aDefinition activate: (GCallback 
+		signature: #(gboolean (
+			"GtkCellRenderer      *"void *cell,
+			"GdkEvent             *"void *event,
+			"GtkWidget            *"void *widget,
+			const gchar          *path,
+			"const GdkRectangle   *"void *background_area,
+			"const GdkRectangle   *"void *cell_area,
+			"GtkCellRendererState" int flags))
+		block: [ :cell :event : widget :path :bgArea :cellArea :flags |
+			(self gInstance: cell) 
+				activate: (GdkEvent fromHandle: event) 
+				widget: (GtkWidget fromHandle: widget)
+				path: path
+				backgroundArea: (GdkRectangle fromHandle: bgArea)
+				cellArea: (GdkRectangle fromHandle: cellArea)
+				flags: flags ])	
+]
 
 { #category : #'class initialization' }
 GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
@@ -14,10 +49,20 @@ GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
 	aDefinition
 		installPropertyStringId: 1
 		name: 'text' 
-		nick: 'text' 
-		blurb: 'text'
 		default: nil
-		flags: GParamFlags G_PARAM_READWRITE
+		flags: G_PARAM_READWRITE
+]
+
+{ #category : #activating }
+GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea: bgRect cellArea: cellRect flags: flags [
+
+	activateAction ifNotNil: [ 
+		activateAction 
+			value: event 
+			value: widget 
+			value: path ].
+	
+	^ false
 ]
 
 { #category : #'accessing - properties' }
@@ -34,6 +79,14 @@ GtkCellRendererLink >> getSize: widget rectangle: rect xOffset: xOffset yOffset:
 	yOffset ifNotNil: [ yOffset signedLongAt: 1 put: 2 ].
 ]
 
+{ #category : #initialization }
+GtkCellRendererLink >> initialize [
+
+	super initialize. 
+	self padding: 2@2.
+	self mode: GTK_CELL_RENDERER_MODE_ACTIVATABLE
+]
+
 { #category : #private }
 GtkCellRendererLink >> linkPrototype [
 	
@@ -44,9 +97,15 @@ GtkCellRendererLink >> linkPrototype [
 			yourself) ]
 ]
 
+{ #category : #activating }
+GtkCellRendererLink >> onActivate: aBlock [
+
+	activateAction := aBlock
+]
+
 { #category : #rendering }
 GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellArea: cellRect flags: flags [
-	| layout padding context x y canvas attrs |
+	| layout context x y canvas attrs |
 
 	context := self linkPrototype styleContext.
 	layout := self linkPrototype createPangoLayout: text.	
@@ -58,10 +117,8 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 
 	layout width: -1.
 	
-	padding := self padding.
-	
-	x := cellRect x + padding x.
-	y := cellRect y + padding y.
+	x := cellRect x + self padding x.
+	y := cellRect y + self padding y.
 	
 	canvas := AthensCairoCanvas fromHandle: cr.
 	canvas primSaveState.

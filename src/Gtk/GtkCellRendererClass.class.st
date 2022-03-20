@@ -1,6 +1,11 @@
+"
+https://developer-old.gnome.org/gtk3/unstable/GtkCellRenderer.html#GtkCellRendererClass
+"
 Class {
 	#name : #GtkCellRendererClass,
 	#superclass : #GStructure,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'render',
 		'activate',
@@ -169,6 +174,19 @@ GtkCellRendererClass >> gInstallPropertyId: property_id spec: pspec [
 ]
 
 { #category : #'accessing - properties' }
+GtkCellRendererClass >> gParamSpecBooleanName: name nick: nick blurb: blurb default: default flags: flags [
+
+	^ self 
+		ffiCall: #("GParamSpec *"GObject *g_param_spec_boolean (
+			const gchar* name,
+  			const gchar* nick,
+  			const gchar* blurb,
+  			gboolean default,
+  			GParamFlags flags))
+		module: GObjectLibrary
+]
+
+{ #category : #'accessing - properties' }
 GtkCellRendererClass >> gParamSpecBoxedName: name nick: nick blurb: blurb type: object_type flags: flags [
 
 	^ self 
@@ -321,6 +339,31 @@ GtkCellRendererClass >> get_size: aCallback [
 ]
 
 { #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyBooleanId: index name: aName default: default flags: flags [
+
+	self 
+		installPropertyBooleanId: index 
+		name: aName 
+		nick: aName 
+		blurb: aName 
+		default: default 
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyBooleanId: index name: aName nick: aNickname blurb: aBlurb default: default flags: flags [
+
+	self 
+		gInstallPropertyId: index 
+		spec: (self 
+			gParamSpecBooleanName: aName 
+			nick: aNickname 
+			blurb: aBlurb 
+			default: default 
+			flags: flags)
+]
+
+{ #category : #'accessing - properties' }
 GtkCellRendererClass >> installPropertyObjectId: index name: aName nick: aNickname blurb: aBlurb type: aGType flags: flags [
 
 	self 
@@ -331,6 +374,18 @@ GtkCellRendererClass >> installPropertyObjectId: index name: aName nick: aNickna
 			blurb: aBlurb 
 			type: aGType 
 			flags: flags)
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyStringId: index name: aName default: default flags: flags [
+
+	self 
+		installPropertyStringId: index 
+		name: aName 
+		nick: aName
+		blurb: aName 
+		default: default 
+		flags: flags
 ]
 
 { #category : #'accessing - properties' }
@@ -395,6 +450,12 @@ GtkCellRendererClass >> render: aCallback [
 		put: (aCallback 
 			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
+]
+
+{ #category : #initialization }
+GtkCellRendererClass >> setAccessibleType: type [ 
+
+	self ffiCall: #(void gtk_cell_renderer_class_set_accessible_type ( self, "GType"gsize type ))
 ]
 
 { #category : #'accessing - structure variables' }

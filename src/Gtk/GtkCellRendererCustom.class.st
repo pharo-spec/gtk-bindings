@@ -1,6 +1,12 @@
 Class {
 	#name : #GtkCellRendererCustom,
 	#superclass : #GtkCellRenderer,
+	#instVars : [
+		'padding'
+	],
+	#pools : [
+		'GtkCellRendererMode'
+	],
 	#classInstVars : [
 		'gtkCellRendererStructure'
 	],
@@ -122,6 +128,12 @@ GtkCellRendererCustom class >> gInstance: handle [
 	^ self gClass findInstance: handle
 ]
 
+{ #category : #private }
+GtkCellRendererCustom class >> gtkBooleanCellAccessibleGetType [
+
+	^ self ffiCall: #(gsize #gtk_boolean_cell_accessible_get_type())
+]
+
 { #category : #'instance creation' }
 GtkCellRendererCustom class >> new [
 
@@ -141,6 +153,27 @@ GtkCellRendererCustom >> getSize: widget
 	width: widthBuffer 
 	height: heightBuffer [
 	"override this to calculate size and set them in buffers"
+]
+
+{ #category : #accessing }
+GtkCellRendererCustom >> mode: aGtkCellRendererMode [
+
+	self 
+		gObjectSet: 'mode' 
+		toInteger: aGtkCellRendererMode value
+]
+
+{ #category : #accessing }
+GtkCellRendererCustom >> padding [
+
+	^ padding ifNil: [ padding := super padding ]
+]
+
+{ #category : #accessing }
+GtkCellRendererCustom >> padding: aPoint [
+
+	padding := nil.
+	super padding: aPoint
 ]
 
 { #category : #rendering }
