@@ -18,6 +18,7 @@ GtkCellRendererLink class >> gInitializeClass: aDefinition [
 
 	super gInitializeClass: aDefinition.
 	self gInitializeClassActivate: aDefinition.
+	self gInitializeClassGetPreferredWidth: aDefinition.
 	
 	aDefinition setAccessibleType: self gtkBooleanCellAccessibleGetType
 ]
@@ -42,6 +43,22 @@ GtkCellRendererLink class >> gInitializeClassActivate: aDefinition [
 				backgroundArea: (GdkRectangle fromHandle: bgArea)
 				cellArea: (GdkRectangle fromHandle: cellArea)
 				flags: flags ])	
+]
+
+{ #category : #'class initialization' }
+GtkCellRendererLink class >> gInitializeClassGetPreferredWidth: aDefinition [
+
+	aDefinition get_preferred_width: (GCallback 
+		signature: #(void (
+			"GtkCellRenderer      *"void *cell,
+			"GtkWidget            *"void *widget,
+			"gint                 *"void *minimum,
+			"gint                 *"void *natural ))
+		block: [ :cell :widget :width :natural |
+			(self gInstance: cell) 
+				getPreferredWidth: widget 
+				minimum: width 
+				natural: natural ])
 ]
 
 { #category : #'class initialization' }
@@ -72,6 +89,24 @@ GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea:
 	^ false
 ]
 
+{ #category : #'accessing - geometry' }
+GtkCellRendererLink >> getPreferredWidth: widget minimum: minimumSize natural: naturalSize [
+	| layout textWidth |
+		
+	layout := self linkPrototype createPangoLayout: text.	
+	layout width: -1.
+	textWidth := layout size x.
+	
+	minimumSize isNull ifFalse: [ 
+		minimumSize 
+			signedLongAt: 1 
+			put: (textWidth > 100 
+				ifTrue: [ 100 ] 
+				ifFalse: [ textWidth ceiling ]) ].
+	naturalSize isNull ifFalse: [ 
+		naturalSize signedLongAt: 1 put: textWidth ceiling ]
+]
+
 { #category : #'accessing - properties' }
 GtkCellRendererLink >> getProperty: id inValue: gValue [
 
@@ -79,12 +114,13 @@ GtkCellRendererLink >> getProperty: id inValue: gValue [
 	id = 2 ifTrue: [ gValue setBoolean: active ]
 ]
 
-{ #category : #rendering }
+{ #category : #'accessing - geometry' }
 GtkCellRendererLink >> getSize: widget rectangle: rect xOffset: xOffset yOffset: yOffset width: width height: height [ 
 
-	
-	xOffset ifNotNil: [ xOffset signedLongAt: 1 put: 2 ].
-	yOffset ifNotNil: [ yOffset signedLongAt: 1 put: 2 ].
+	xOffset isNull ifFalse: [ xOffset signedLongAt: 1 put: 2 ].
+	yOffset isNull ifFalse: [ yOffset signedLongAt: 1 put: 2 ].
+	width isNull ifFalse: [ width signedLongAt: 1 put: 100 ].
+	height isNull ifFalse: [ height signedLongAt: 1 put: 20 ].	
 ]
 
 { #category : #initialization }

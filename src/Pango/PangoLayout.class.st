@@ -73,8 +73,9 @@ PangoLayout >> setAttributes: attrs [
 { #category : #accessing }
 PangoLayout >> size [ 
 	| widthBuffer heightBuffer |
-	widthBuffer := ByteArray new: FFIInt32 externalTypeSize.
-	heightBuffer := ByteArray new: FFIInt32 externalTypeSize.
+	
+	widthBuffer := FFIInt32 newBuffer.
+	heightBuffer := FFIInt32 newBuffer.
 	self primGetSizeWidth: widthBuffer height: heightBuffer.
 	^ (widthBuffer signedLongAt: 1) @ (heightBuffer signedLongAt: 1)
 ]

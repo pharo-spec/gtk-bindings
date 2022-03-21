@@ -65,17 +65,17 @@ GtkCellRendererCustom class >> gInitializeClassGetSize: aDefinition [
 
 	 aDefinition get_size: (GCallback 
 			signature: #(void (
-				""GtkCellRenderer            *""void *cell,
-				""GtkWidget                  *""void *widget,
-				""const GdkRectangle         *""void *rectangle,
-				""gint                       *""void *x_offset,
-				""gint                       *""void *y_offset,
-				""gint                       *""void *width,
-				""gint                       *""void *height) )
+				"GtkCellRenderer            *"void *cell,
+				"GtkWidget                  *"void *widget,
+				"const GdkRectangle         *"void *rectangle,
+				"gint                       *"void *x_offset,
+				"gint                       *"void *y_offset,
+				"gint                       *"void *width,
+				"gint                       *"void *height) )
 			block: [ :cell :widget :rect :xOff :yOff :width :height | 
 				(self gInstance: cell) 
 					getSize: widget 
-					rectangle: rect 
+					rectangle: (GdkRectangle fromHandle: rect) 
 					xOffset: xOff 
 					yOffset: yOff 
 					width: width 
@@ -140,12 +140,17 @@ GtkCellRendererCustom class >> new [
 	^ (GClass gDefinitionAt: self) new
 ]
 
+{ #category : #'accessing - geometry' }
+GtkCellRendererCustom >> getPreferredWidth: widget minimum: minimumSize natural: naturalSize [
+	"override this to calculate width and set them in buffers"
+]
+
 { #category : #'accessing - properties' }
 GtkCellRendererCustom >> getProperty: id inValue: gValue [
 	"override this to get a property value"
 ]
 
-{ #category : #rendering }
+{ #category : #'accessing - geometry' }
 GtkCellRendererCustom >> getSize: widget 
 	rectangle: rect 
 	xOffset: xOffsetBuffer 
