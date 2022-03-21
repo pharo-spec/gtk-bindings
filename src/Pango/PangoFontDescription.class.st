@@ -6,6 +6,9 @@ https://developer.gnome.org/pango/stable/pango-Fonts.html#PangoFontDescription
 Class {
 	#name : #PangoFontDescription,
 	#superclass : #PangoObject,
+	#classVars : [
+		'PANGO_SCALE'
+	],
 	#category : #'Pango-Base'
 }
 
@@ -13,6 +16,12 @@ Class {
 PangoFontDescription class >> finalizeResourceData: handle [
 	handle isNull ifTrue: [ ^ self ].
 	^ self pango_font_description_free: handle
+]
+
+{ #category : #initialization }
+PangoFontDescription class >> initialize [
+
+	PANGO_SCALE := 1024
 ]
 
 { #category : #'instance creation' }
@@ -41,4 +50,40 @@ PangoFontDescription >> familyName [
 PangoFontDescription >> familyName: family [ 
 
 	^ self ffiCall: #(void pango_font_description_set_family(self, String family))
+]
+
+{ #category : #accessing }
+PangoFontDescription >> fontSize [
+
+	^ self ffiCall: #(gint pango_font_description_get_size ( self ))
+]
+
+{ #category : #accessing }
+PangoFontDescription >> fontSize: size [
+
+	self setSize: size * PANGO_SCALE
+]
+
+{ #category : #private }
+PangoFontDescription >> getSize [
+
+	^ self ffiCall: #(gint pango_font_description_get_size ( self ))
+]
+
+{ #category : #private }
+PangoFontDescription >> setSize: size [
+
+	^ self ffiCall: #(void pango_font_description_set_size ( self, gint size ))
+]
+
+{ #category : #accessing }
+PangoFontDescription >> toFileName [
+
+	^ self ffiCall: #(char *pango_font_description_to_filename ( self ))
+]
+
+{ #category : #accessing }
+PangoFontDescription >> toString [
+
+	^ self ffiCall: #(char *pango_font_description_to_string ( self ))
 ]
