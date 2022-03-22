@@ -5,13 +5,20 @@ Class {
 		'text',
 		'linkPrototype',
 		'activateAction',
-		'active'
+		'active',
+		'minimalWidth'
 	],
 	#pools : [
 		'GParamFlags'
 	],
 	#category : #'Gtk-Widget-CellRenderers'
 }
+
+{ #category : #defaults }
+GtkCellRendererLink class >> defaultMinimalWidth [
+
+	^ 80
+]
 
 { #category : #'class initialization' }
 GtkCellRendererLink class >> gInitializeClass: aDefinition [
@@ -100,8 +107,8 @@ GtkCellRendererLink >> getPreferredWidth: widget minimum: minimumSize natural: n
 	minimumSize isNull ifFalse: [ 
 		minimumSize 
 			signedLongAt: 1 
-			put: (textWidth > 100 
-				ifTrue: [ 100 ] 
+			put: (textWidth > self minimalWidth
+				ifTrue: [ self minimalWidth ] 
 				ifFalse: [ textWidth ceiling ]) ].
 	naturalSize isNull ifFalse: [ 
 		naturalSize signedLongAt: 1 put: textWidth ceiling ]
@@ -140,6 +147,18 @@ GtkCellRendererLink >> linkPrototype [
 			addClass: 'hover';
 			addClass: 'cell-link';
 			yourself) ]
+]
+
+{ #category : #accessing }
+GtkCellRendererLink >> minimalWidth [
+
+	^ minimalWidth ifNil: [ self class defaultMinimalWidth ]
+]
+
+{ #category : #accessing }
+GtkCellRendererLink >> minimalWidth: aNumber [
+
+	minimalWidth := aNumber
 ]
 
 { #category : #activating }
