@@ -77,8 +77,6 @@ GtkTextBuffer >> applyTagByName: aName start: start end: end [
 	startIter := self iterAtOffset: start.
 	endIter := self iterAtOffset: end.
 	self applyTagByName: aName startIter: startIter endIter: endIter
-	
-	
 ]
 
 { #category : #private }
@@ -139,6 +137,12 @@ GtkTextBuffer >> connectMarkSet: aBlock [
 				value: (GtkTextMark fromHandle: mark) ]	
 ]
 
+{ #category : #'accessing tags' }
+GtkTextBuffer >> createAnonymousTag [
+
+	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, NULL, NULL))
+]
+
 { #category : #'accessing mark' }
 GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravity [
 
@@ -147,6 +151,12 @@ GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravi
 			const gchar *mark_name,
 			const GtkTextIter *where,
 			gboolean left_gravity))
+]
+
+{ #category : #'accessing tags' }
+GtkTextBuffer >> createTag: tag_name [
+
+	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, gchar *tag_name, NULL))
 ]
 
 { #category : #accessing }
@@ -378,15 +388,53 @@ GtkTextBuffer >> placeCursor: where [
 GtkTextBuffer >> removeAllTags [ 
 
 	self 
-		removeAllTagsFrom: self startIter 
-		to: self endIter
+		removeAllTagsStartIter: self startIter 
+		endIter: self endIter
 ]
 
 { #category : #private }
-GtkTextBuffer >> removeAllTagsFrom: start to: end [
+GtkTextBuffer >> removeAllTagsStartIter: start endIter: end [
 
 	self ffiCall: #(void gtk_text_buffer_remove_all_tags (
 		self, 
+		const GtkTextIter *start, 
+		const GtkTextIter *end))
+]
+
+{ #category : #'accessing - tags' }
+GtkTextBuffer >> removeTag: aTag [ 
+	
+	self 
+		removeTag: aTag 
+		startIter: self startIter 
+		endIter: self endIter
+]
+
+{ #category : #private }
+GtkTextBuffer >> removeTag: tag startIter: start endIter: end [
+
+	self ffiCall: #(void gtk_text_buffer_remove_tag (
+		self, 
+		GtkTextTag *tag,
+		const GtkTextIter *start, 
+		const GtkTextIter *end))
+]
+
+{ #category : #'accessing tags' }
+GtkTextBuffer >> removeTagByName: aTag [
+
+	self 
+		removeTag: aTag 
+		startIter: self startIter 
+		endIter: self endIter
+]
+
+{ #category : #private }
+GtkTextBuffer >> removeTagByName: name startIter: start endIter: end [
+
+	self ffiCall: #(void gtk_text_buffer_remove_tag_by_name (
+		self, 
+		const gchar *name,
 		const GtkTextIter *start, 
 		const GtkTextIter *end))
 ]
