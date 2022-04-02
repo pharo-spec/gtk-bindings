@@ -304,6 +304,22 @@ GObject >> connectSignal: callback [
 	^ callback
 ]
 
+{ #category : #accessing }
+GObject >> dataAt: key [
+
+	self 
+		ffiCall: #(gpointer g_object_get_data (self, const gchar* key))
+		module: GObjectLibrary
+]
+
+{ #category : #accessing }
+GObject >> dataAt: key put: data [
+
+	self 
+		ffiCall: #(void g_object_set_data ( self, const gchar* key, gpointer data))
+		module: GObjectLibrary
+]
+
 { #category : #private }
 GObject >> detectCallbackBySignal: aName ifFound: foundBlock ifNone: noneBlock [
 
