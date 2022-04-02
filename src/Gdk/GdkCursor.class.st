@@ -1,3 +1,6 @@
+"
+https://developer-old.gnome.org/gdk3/stable/gdk3-Cursors.html
+"
 Class {
 	#name : #GdkCursor,
 	#superclass : #GObject,
@@ -32,6 +35,12 @@ GdkCursor class >> gType [
 ]
 
 { #category : #'instance creation' }
+GdkCursor class >> newDefault [
+
+	^ self newFromName: 'default'
+]
+
+{ #category : #'instance creation' }
 GdkCursor class >> newFromName: aName [
 
 	^ (self 
@@ -49,6 +58,18 @@ GdkCursor class >> newFromSurface: aSurface [
 		x: 0.0
 		y: 0.0)
 		initialize
+]
+
+{ #category : #'instance creation' }
+GdkCursor class >> newHand [
+
+	^ self newFromName: 'hand'
+]
+
+{ #category : #'instance creation' }
+GdkCursor class >> newText [
+
+	^ self newFromName: 'text'
 ]
 
 { #category : #'instance creation' }
