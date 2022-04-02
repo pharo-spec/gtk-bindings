@@ -15,3 +15,9 @@ GdkEventButtonRelease >> accept: aVisitor [
  
 	^ aVisitor visitMouseButtonReleaseEvent: self
 ]
+
+{ #category : #testing }
+GdkEventButtonRelease >> isButtonRelease [
+
+	^ true
+]

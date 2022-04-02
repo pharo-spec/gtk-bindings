@@ -20,3 +20,9 @@ GdkEventButtonPress >> accept: aVisitor [
 
 	^ aVisitor visitMouseButtonPressEvent: self
 ]
+
+{ #category : #testing }
+GdkEventButtonPress >> isButtonPress [
+
+	^ true
+]
