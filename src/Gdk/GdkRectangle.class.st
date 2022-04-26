@@ -18,7 +18,7 @@ Class {
 	#category : #'Gdk-Misc'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'field definition' }
 GdkRectangle class >> fieldsDesc [ 
 	"self rebuildFieldAccessors"
 
@@ -52,6 +52,18 @@ GdkRectangle >> height [
 GdkRectangle >> height: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_HEIGHT put: anObject
+]
+
+{ #category : #'accessing - compatibility' }
+GdkRectangle >> left [
+
+	^ self x
+]
+
+{ #category : #'accessing - compatibility' }
+GdkRectangle >> top [
+
+	^ self y
 ]
 
 { #category : #'accessing structure variables' }

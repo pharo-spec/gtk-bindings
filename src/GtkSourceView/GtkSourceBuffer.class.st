@@ -152,7 +152,7 @@ GtkSourceBuffer >> language [
 GtkSourceBuffer >> language: aLanguage [
 
 	language := aLanguage.
-	self setLanguage: language
+	self setLanguage: (language ifNil: [ GObject null ])
 ]
 
 { #category : #accessing }

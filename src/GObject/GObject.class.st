@@ -32,7 +32,7 @@ GObject class >> finalizeResourceData: handle [
 { #category : #accessing }
 GObject class >> gClass [
 
-	^ self gTypeClassPeek: self gType
+	^ self gTypeClass
 ]
 
 { #category : #accessing }
@@ -81,8 +81,25 @@ GObject class >> gType [
 	^ self ffiCall: #(gsize g_object_get_type()) module: GObjectLibrary 
 ]
 
+{ #category : #accessing }
+GObject class >> gTypeClass [
+	| gType handle |
+
+	gType := self gType.
+	handle := self gTypeClassPeek: gType.
+	handle isNull ifTrue: [ ^ self gTypeClassRef: gType ].
+	
+	^ handle
+]
+
 { #category : #private }
 GObject class >> gTypeClassPeek: type [
+
+	self ffiCall: #(gpointer g_type_class_peek (gsize type))
+]
+
+{ #category : #private }
+GObject class >> gTypeClassRef: type [
 
 	self ffiCall: #(gpointer g_type_class_ref (gsize type))
 ]
@@ -206,7 +223,7 @@ GObject >> autoObjectUnref [
 	self autoRelease
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> basicConnectSignal: callback [
 	| id |
 	
@@ -274,7 +291,7 @@ GObject >> connect: aString signature: signature do: aBlock [
 		block: aBlock)
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> connectSignal: callback [
 
 	self 
@@ -285,6 +302,22 @@ GObject >> connectSignal: callback [
 	GConnectSignalAnnouncement emitWidget: self signal: callback signalName.
 	
 	^ callback
+]
+
+{ #category : #accessing }
+GObject >> dataAt: key [
+
+	self 
+		ffiCall: #(gpointer g_object_get_data (self, const gchar* key))
+		module: GObjectLibrary
+]
+
+{ #category : #accessing }
+GObject >> dataAt: key put: data [
+
+	self 
+		ffiCall: #(void g_object_set_data ( self, const gchar* key, gpointer data))
+		module: GObjectLibrary
 ]
 
 { #category : #private }
@@ -341,7 +374,7 @@ GObject >> disconnectAll: aCollection during: aBlock [
 			self connectSignal: each ] ]
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> disconnectByData: pointerToData [
 
 	^ self 
@@ -353,7 +386,7 @@ GObject >> disconnectByData: pointerToData [
 		data: pointerToData
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> disconnectByFunc: pointerToFunc [
 
 	^ self 
@@ -365,7 +398,7 @@ GObject >> disconnectByFunc: pointerToFunc [
 		data: ExternalAddress null
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> disconnectById: anId [
 
 	^ self 
@@ -377,7 +410,7 @@ GObject >> disconnectById: anId [
 		data: ExternalAddress null
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> disconnectCallback: aCallback [
 	| numberDiconnected |
 
@@ -395,7 +428,7 @@ GObject >> disconnectCallback: aCallback [
 	^ numberDiconnected
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> disconnectMatchedMask: mask 
 	signal: signal_id 
 	detail: detail 
@@ -419,13 +452,13 @@ GObject >> emitSignalByName: detailed_signal [
 	self ffiCall: #(void g_signal_emit_by_name (self, const gchar *detailed_signal))
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gFree: aPointer [
 
 	^ self ffiCall: #(void g_free(gpointer aPointer))
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGet: aName into: aBuffer [
 
 	self 
@@ -433,7 +466,7 @@ GObject >> gObjectGet: aName into: aBuffer [
 		module: GObjectLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGet: aName intoAddress: aBuffer [
 
 	self 
@@ -441,7 +474,7 @@ GObject >> gObjectGet: aName intoAddress: aBuffer [
 		module: GObjectLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGetBoolean: aName [
 	"a convenience method to read boolean properties"
 	| buffer |
@@ -451,7 +484,7 @@ GObject >> gObjectGetBoolean: aName [
 	^ buffer booleanAt: 1
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGetDouble: aName [
 	"a convenience method to read boolean properties"
 	| buffer |
@@ -461,7 +494,7 @@ GObject >> gObjectGetDouble: aName [
 	^ buffer doubleAt: 1
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGetHandle: aName [
 	| address |
 	
@@ -471,7 +504,7 @@ GObject >> gObjectGetHandle: aName [
 			
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGetHandle: aName as: aClass [
 	| address |
 
@@ -481,7 +514,7 @@ GObject >> gObjectGetHandle: aName as: aClass [
 	^ aClass fromHandle: address
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGetInteger: aName [
 	"a convenience method to read boolean properties"
 	| buffer |
@@ -491,7 +524,7 @@ GObject >> gObjectGetInteger: aName [
 	^ buffer signedLongAt: 1
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectGetString: aName [
 	"a convenience method to read string properties"
 	| buffer |
@@ -501,7 +534,7 @@ GObject >> gObjectGetString: aName [
 	^ buffer readStringUTF8
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectSet: aName toBoolean: aBoolean [
 
 	self 
@@ -509,7 +542,7 @@ GObject >> gObjectSet: aName toBoolean: aBoolean [
 		module: GObjectLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectSet: aName toDouble: aNumber [
 
 	self 
@@ -517,7 +550,7 @@ GObject >> gObjectSet: aName toDouble: aNumber [
 		module: GObjectLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gObjectSet: aName toInteger: aNumber [
 
 	self 
@@ -525,7 +558,15 @@ GObject >> gObjectSet: aName toInteger: aNumber [
 		module: GObjectLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
+GObject >> gObjectSet: aName toPointer: aPointer [
+
+	self 
+		ffiCall: #(void g_object_set (self, const gchar *aName, gpointer aPointer, NULL))
+		module: GObjectLibrary
+]
+
+{ #category : #'private - primitives' }
 GObject >> gObjectSet: aName toString: aString [
 
 	self 
@@ -533,7 +574,7 @@ GObject >> gObjectSet: aName toString: aString [
 		module: GObjectLibrary	
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> gSignalHandlerBlock: handler_id [
 
 	^ self 
@@ -541,7 +582,7 @@ GObject >> gSignalHandlerBlock: handler_id [
 		module: GObjectLibrary
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> gSignalHandlerUnblock: handler_id [
 
 	^ self 
@@ -556,20 +597,10 @@ GObject >> gType [
 	
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GObject >> gTypeName: type [
 
 	^ self ffiCall: #(gchar *g_type_name (gsize type))
-]
-
-{ #category : #'GT-Inspector-Extension' }
-GObject >> gtInspectorCallbacksIn: composite [
-	<gtInspectorPresentationOrder: 90>  
-
-	composite fastList
-		title: 'Callbacks';
-		display: [ callbacks asArray ];
-		when: [ callbacks isEmptyOrNil not ]
 ]
 
 { #category : #initialization }
@@ -581,7 +612,7 @@ GObject >> initialize [
 		self installDebugSignals	]
 ]
 
-{ #category : #'private debugging' }
+{ #category : #'private - debugging' }
 GObject >> installDebugSignals [
 	"emit signals to debug"
 	
@@ -635,25 +666,25 @@ GObject >> markForAutoRelease [
 	self autoRelease
 ]
 
-{ #category : #'private referencing' }
+{ #category : #'private - referencing' }
 GObject >> objectRef [
 
 	self ffiCall: #(gpointer g_object_ref (self)) module: GObjectLibrary
 ]
 
-{ #category : #'private referencing' }
+{ #category : #'private - referencing' }
 GObject >> objectRefSink [
 
 	self ffiCall: #(gpointer g_object_ref_sink (self))
 ]
 
-{ #category : #'private referencing' }
+{ #category : #'private - referencing' }
 GObject >> objectUnref [
 
 	self ffiCall: #(gpointer g_object_unref (self)) module: GObjectLibrary
 ]
 
-{ #category : #'private debugging' }
+{ #category : #'private - debugging' }
 GObject >> referenceCount [
 	"Access the reference count of this object."
 
@@ -668,7 +699,7 @@ GObject >> registerCallback: aCallback [
 	"Stdio stdout << aCallback thunk printString << ':' << aCallback tfPrintString; lf"
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> signal: aString connect: callback data: aData [
 
 	^ self 
@@ -678,7 +709,7 @@ GObject >> signal: aString connect: callback data: aData [
 		flags: G_CONNECT_NONE
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> signal: signalName connect: callback data: aData flags: connectFlags [
 
 	^ self 
@@ -692,7 +723,7 @@ GObject >> signal: signalName connect: callback data: aData flags: connectFlags 
 		module: GObjectLibrary
 ]
 
-{ #category : #'private signaling' }
+{ #category : #'private - signaling' }
 GObject >> signal: signalName connect: callback data: aData flags: connectFlags variable: variable [
 	
 	^ self ffiCall: #( gulong g_signal_connect_data ( 
@@ -710,7 +741,7 @@ GObject >> typeName [
 	^ self gTypeName: self gType
 ]
 
-{ #category : #'private referencing' }
+{ #category : #'private - referencing' }
 GObject >> weakRef: notify [ 
 
 	^ self 

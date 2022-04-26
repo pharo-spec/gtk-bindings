@@ -90,9 +90,31 @@ GtkTextView >> editable: setting [
 ]
 
 { #category : #private }
+GtkTextView >> gdkWindowOfType: win [
+
+	^ self ffiCall: #(GdkWindow *gtk_text_view_get_window (self, GtkTextWindowType win))	
+]
+
+{ #category : #accessing }
+GtkTextView >> gdkWindowText [
+
+	^ self gdkWindowOfType: GTK_TEXT_WINDOW_TEXT
+]
+
+{ #category : #private }
 GtkTextView >> getBuffer [
 
 	^ self ffiCall: #(GtkTextBuffer *gtk_text_view_get_buffer (self))
+]
+
+{ #category : #private }
+GtkTextView >> getIterAtLocationX: x y: y to: iter [
+
+	^ self ffiCall: #(gboolean gtk_text_view_get_iter_at_location (
+		self,
+		GtkTextIter *iter,
+		gint x,
+		gint y))
 ]
 
 { #category : #private }
@@ -121,6 +143,17 @@ GtkTextView >> isEditable [
 	"Returns the default editability of the GtkTextView. 
 	 Tags in the buffer may override this setting for some ranges of text."
 	self ffiCall: #(gboolean gtk_text_view_get_editable (self))
+]
+
+{ #category : #accessing }
+GtkTextView >> iterAtLocation: aPoint [ 
+	| iter result |
+	
+	iter := GtkTextIter new.
+	result := self getIterAtLocationX: aPoint x y: aPoint y to: iter.
+	^ result 
+		ifTrue: [ iter ]
+		ifFalse: [ nil ]
 ]
 
 { #category : #accessing }
@@ -251,6 +284,35 @@ GtkTextView >> topMargin [
 GtkTextView >> topMargin: top_margin [
 
 	self ffiCall: #(void gtk_text_view_set_top_margin (self, gint top_margin))
+]
+
+{ #category : #accessing }
+GtkTextView >> windowToBufferCoordinates: aPoint [ 
+	| bufferX bufferY |
+	
+	bufferX := FFIInt32 newBuffer.
+	bufferY := FFIInt32 newBuffer.
+	self 
+		windowToBufferCoordsType: GTK_TEXT_WINDOW_WIDGET 
+		x: aPoint x
+		y: aPoint y 
+		bufferX: bufferX 
+		bufferY: bufferY.
+	
+	^ (bufferX signedLongAt: 1)@(bufferY signedLongAt: 1)
+
+]
+
+{ #category : #private }
+GtkTextView >> windowToBufferCoordsType: win x: window_x y: window_y bufferX: buffer_x bufferY: buffer_y [
+
+	^ self ffiCall: #(void gtk_text_view_window_to_buffer_coords (
+		self,
+      GtkTextWindowType win,
+		gint window_x,
+		gint window_y,
+		"gint *"void *buffer_x,
+		"gint *"void *buffer_y))
 ]
 
 { #category : #accessing }

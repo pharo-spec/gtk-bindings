@@ -397,6 +397,12 @@ GtkWidget >> contextMenu: aGtkMenu [
 		false ]
 ]
 
+{ #category : #'accessing - fonts' }
+GtkWidget >> createPangoLayout: text [
+
+	^ self ffiCall: #(PangoLayout *gtk_widget_create_pango_layout ( self, const gchar* text ))
+]
+
 { #category : #accessing }
 GtkWidget >> data [
 	"Stores any kind of 'data' you want to keep associated to the widget"
@@ -483,7 +489,7 @@ GtkWidget >> ffiLibraryName [
 	^ self class ffiLibraryName
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - fonts' }
 GtkWidget >> fontMap: font_map [
 
 	^ self ffiCall: #(void gtk_widget_set_font_map (self, PangoFontMap *font_map))
@@ -644,16 +650,6 @@ GtkWidget >> grabFocus [
 	self ffiCall: #(void gtk_widget_grab_focus (self))
 ]
 
-{ #category : #'GT-Inspector-Extension' }
-GtkWidget >> gtInspectorDeferActionsIn: composite [
-	<gtInspectorPresentationOrder: 100>  
-
-	composite fastList
-		title: 'Deferred actions';
-		display: [ deferActions asArray ];
-		when: [ deferActions isEmptyOrNil not ]
-]
-
 { #category : #geometry }
 GtkWidget >> hAlign [
 	^ self ffiCall: #(GtkAlign gtk_widget_get_halign (self))
@@ -796,7 +792,7 @@ GtkWidget >> overrideBackgroundState: state color: color [
 	^ self ffiCall: #(void gtk_widget_override_background_color (self, GtkStateFlags state, const GdkRGBA *color))
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - fonts' }
 GtkWidget >> pangoContext [
 
 	^ self ffiCall: #(PangoContext *gtk_widget_get_pango_context (self))

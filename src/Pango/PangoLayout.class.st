@@ -38,6 +38,11 @@ PangoLayout class >> pango_layout_new: context [
 ]
 
 { #category : #accessing }
+PangoLayout >> fontDescription [
+	self ffiCall: #(PangoFontDescription *pango_layout_get_font_description (self))
+]
+
+{ #category : #accessing }
 PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
 ]
@@ -60,10 +65,17 @@ PangoLayout >> primGetSizeWidth: width height: height [
 ]
 
 { #category : #accessing }
+PangoLayout >> setAttributes: attrs [
+
+	^ self ffiCall: #(void pango_layout_set_attributes ( self, PangoAttrList* attrs ))
+]
+
+{ #category : #accessing }
 PangoLayout >> size [ 
 	| widthBuffer heightBuffer |
-	widthBuffer := ByteArray new: FFIInt32 externalTypeSize.
-	heightBuffer := ByteArray new: FFIInt32 externalTypeSize.
+	
+	widthBuffer := FFIInt32 newBuffer.
+	heightBuffer := FFIInt32 newBuffer.
 	self primGetSizeWidth: widthBuffer height: heightBuffer.
 	^ (widthBuffer signedLongAt: 1) @ (heightBuffer signedLongAt: 1)
 ]
