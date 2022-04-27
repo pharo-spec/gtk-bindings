@@ -41,9 +41,9 @@ PangoExamples class >> example2Text [
 		pangoLayout := PangoLayout newCanvas: canvas.
 		pangoLayout
 			fontDescription: fontDescription;
-			width: surface width * self pangoScale; "Wrap to new line"
+			width: surface width pangoScaled; "Wrap to new line"
 			text: 'é è à ô ü ö ß ä ó ñ í á'.
-		extent := pangoLayout size / self pangoScale.
+		extent := pangoLayout size pangoUnscaled.
 
 		surface clear: Color white.
 
@@ -72,7 +72,7 @@ PangoExamples class >> example3CreateLayoutFromContext [
 	pangoLayout := PangoLayout newContext: context.
 	pangoLayout
 		text: String loremIpsum;
-		width: surface width * self pangoScale.
+		width: surface width pangoScaled.
 
 	surface drawDuring: [ :canvas |
 		canvas showLayout: pangoLayout ].
@@ -96,7 +96,7 @@ PangoExamples class >> example4ListFamilies [
 		surface clear: Color white.
 
 		fontDescription := PangoFontDescription new
-			sizeInDeviceUnits: fontSize * self pangoScale;
+			sizeInDeviceUnits: fontSize pangoScaled;
 			yourself.
 
 		(1 to: numberOfFamilies)
@@ -151,15 +151,6 @@ PangoExamples class >> example5DrawWithoutLayout [
 
 	surface asForm inspect
 
-]
-
-{ #category : #examples }
-PangoExamples class >> pangoScale [
-	"Pango requires this scale for measures"
-
-	self flag: #todo. "move to a lib class (or autoconvert)"
-
-	^ 1024
 ]
 
 { #category : #'see class side' }
