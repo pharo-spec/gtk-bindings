@@ -38,6 +38,12 @@ PangoLayout class >> pango_layout_new: context [
 ]
 
 { #category : #accessing }
+PangoLayout >> baseline [
+
+	^ self ffiCall: #( int pango_layout_get_baseline ( self ) )
+]
+
+{ #category : #accessing }
 PangoLayout >> fontDescription [
 	self ffiCall: #(PangoFontDescription *pango_layout_get_font_description (self))
 ]

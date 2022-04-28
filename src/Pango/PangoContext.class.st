@@ -41,10 +41,64 @@ PangoContext >> initialize [
 	self autoRelease
 ]
 
+{ #category : #itemizing }
+PangoContext >> itemize: aString [
+	"Answer a GList of PangoItem for a complete String, without any attribute."
+		
+	^ self
+		  itemize: aString
+		  attributes: PangoAttrList new
+
+]
+
+{ #category : #itemizing }
+PangoContext >> itemize: aString attributes: aPangoAttrList [
+	"Answer a GList of PangoItem for a complete String"
+		
+	| glist |
+	glist := self
+		  itemize: aString
+		  startIndex: 0
+		  length: aString size
+		  attributes: aPangoAttrList
+		  cachedIterator: ExternalAddress null.
+		
+	self flag: #todo. "LEAK! These items are not freed currently! read function doc"
+	^ glist collect: [ :each |
+		PangoItem fromHandle: each getHandle ]
+]
+
+{ #category : #private }
+PangoContext >> itemize: aString startIndex: startIndex length: length attributes: aPangoAttrList cachedIterator: cachedIterator [
+	"https://docs.gtk.org/Pango/func.itemize.html"
+
+	^ self ffiCall: #(
+		GList*
+		pango_itemize (
+			self,
+			String aString,
+			int startIndex,
+			int length,
+			PangoAttrList * aPangoAttrList,
+			void * cachedIterator ))
+]
+
 { #category : #accessing }
 PangoContext >> language [
 
 	^ self ffiCall: #(PangoLanguage *pango_context_get_language (self))
+]
+
+{ #category : #private }
+PangoContext >> loadFontDescription: desc [
+
+	^ self 
+		ffiCall: #(
+			PangoFont*
+			pango_context_load_font (
+			  self,
+			  const PangoFontDescription* desc ))
+		module: PangoLibrary
 ]
 
 { #category : #accessing }

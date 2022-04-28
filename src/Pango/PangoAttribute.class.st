@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/Pango/struct.Attribute.html
+"
 Class {
 	#name : #PangoAttribute,
 	#superclass : #GStructure,
@@ -14,6 +17,21 @@ Class {
 	#category : #'Pango-Base'
 }
 
+{ #category : #private }
+PangoAttribute class >> backgroundNewAlpha: alpha [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_background_alpha_new ( guint16 alpha ))
+]
+
+{ #category : #private }
+PangoAttribute class >> backgroundNewRed: red green: green blue: blue [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_background_new (
+  		guint16 red,
+  		guint16 green,
+  		guint16 blue))
+]
+
 { #category : #'field definition' }
 PangoAttribute class >> fieldsDesc [
 	"self rebuildFieldAccessors"
@@ -23,6 +41,13 @@ PangoAttribute class >> fieldsDesc [
  	guint start_index;
 	guint end_index;	
 	)
+]
+
+{ #category : #private }
+PangoAttribute class >> fontDescription: desc [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_font_desc_new (
+  		const PangoFontDescription* desc ))
 ]
 
 { #category : #private }
@@ -38,6 +63,34 @@ PangoAttribute class >> foregroundNewRed: red green: green blue: blue [
   		guint16 red,
   		guint16 green,
   		guint16 blue))
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newBackgroundAlpha: alpha [
+
+	^ (self backgroundNewAlpha: alpha) initialize 
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newBackgroundColor: pangoColor [
+
+	^ (self 
+		backgroundNewRed: pangoColor red 
+		green: pangoColor green 
+		blue: pangoColor blue)
+		initialize 
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newBackgroundR: red g: green b: blue [
+
+	^ (self backgroundNewRed: red green: green blue: blue) initialize
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newFontDescription: aPangoFontDescription [
+
+	^ (self fontDescription: aPangoFontDescription) initialize
 ]
 
 { #category : #'instance creation' }
