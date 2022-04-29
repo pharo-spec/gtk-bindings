@@ -42,30 +42,32 @@ PangoContext >> initialize [
 ]
 
 { #category : #itemizing }
-PangoContext >> itemize: aString [
+PangoContext >> itemize: aUTF8ByteArray [
 	"Answer a GList of PangoItem for a complete String, without any attribute."
 		
 	^ self
-		  itemize: aString
+		  itemize: aUTF8ByteArray
 		  attributes: PangoAttrList new
 
 ]
 
 { #category : #itemizing }
-PangoContext >> itemize: aString attributes: aPangoAttrList [
+PangoContext >> itemize: aUTF8ByteArray attributes: aPangoAttrList [
 	"Answer a GList of PangoItem for a complete String"
-		
+	
 	| glist |
-	glist := self
-		  itemize: aString
+	glist :=
+		self
+		  itemize: aUTF8ByteArray
 		  startIndex: 0
-		  length: aString size
+		  length: aUTF8ByteArray size
 		  attributes: aPangoAttrList
-		  cachedIterator: ExternalAddress null.
-		
-	self flag: #todo. "LEAK! These items are not freed currently! read function doc"
+		  cachedIterator: aPangoAttrList getIterator.
+	
+	self flag: #todo. "LEAK! These items are not freed currently! read function doc.
+	Also getIterator needs destroy."
 	^ glist collect: [ :each |
-		PangoItem fromHandle: each getHandle ]
+			PangoItem fromHandle: each getHandle ]
 ]
 
 { #category : #private }
@@ -76,7 +78,7 @@ PangoContext >> itemize: aString startIndex: startIndex length: length attribute
 		GList*
 		pango_itemize (
 			self,
-			String aString,
+			const char* aString,
 			int startIndex,
 			int length,
 			PangoAttrList * aPangoAttrList,

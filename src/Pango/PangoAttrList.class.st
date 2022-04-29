@@ -13,7 +13,8 @@ Class {
 PangoAttrList class >> finalizeResourceData: handle [
 
 	handle isNull ifTrue: [ ^ self ].
-	^ self pango_attr_list_unref: handle
+	self pango_attr_list_unref: handle.
+	handle beNull
 ]
 
 { #category : #'instance creation' }
@@ -43,6 +44,12 @@ PangoAttrList >> add: attr [
 	self insert: attr.
 ]
 
+{ #category : #accessing }
+PangoAttrList >> getIterator [
+
+	^ self ffiCall: #( PangoAttrIterator* pango_attr_list_get_iterator ( self ) )
+]
+
 { #category : #initialization }
 PangoAttrList >> initialize [
 
@@ -54,4 +61,12 @@ PangoAttrList >> initialize [
 PangoAttrList >> insert: attr [
 
 	self ffiCall: #(void pango_attr_list_insert ( self, PangoAttribute* attr))
+]
+
+{ #category : #accessing }
+PangoAttrList >> newIterator [
+
+	^ self getIterator
+		  autoRelease;
+		  yourself
 ]

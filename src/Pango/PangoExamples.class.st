@@ -146,68 +146,18 @@ PangoExamples class >> example5Shape [
 	<example>
 
 	| string fontMap context fontDescription surface pangoItems glyphs font |
-	string := 'Hello World'.
+	string := 'Jellóu güorld' utf8Encoded.
 	fontMap := PangoFontMap getDefault.
 	context := fontMap newPangoContext.
-	fontDescription := PangoFontDescription newFromString: 'Arial 10'.
+	fontDescription := PangoFontDescription newFromString: 'Arial 11'.
 	font := context loadFontDescription: fontDescription.
 	
 	pangoItems := context itemize: string.
 	glyphs := pangoItems collect: [ :each |
 		PangoGlyphString shape: string analysis: each analysis ].
 
-	surface := AthensCairoSurface width: 400 height: 400.
+	surface := AthensCairoSurface width: 400 height: 100.
 
-	surface drawDuring: [ :canvas |
-		surface clear: Color white.
-
-		glyphs do: [ :each |
-			| extentsArray logicalBounds |
-			
-			"Calculate extents"
-			extentsArray := each extentsWithFont: font.
-			logicalBounds := extentsArray second asRectangle.
-
-			canvas pathTransform
-				scaleBy: 4.0;
-				translateX: logicalBounds left negated
-					Y: logicalBounds top negated.
-
-			"Workaround: glyphs are shown with last color used by the
-			Athens canvas in the previous drawing operation."
-			canvas
-				setStrokePaint: Color black;
-				drawShape: (1@1 corner: 1@1).
-
-			"Draw glyphs"
-			canvas showGlyphString: each font: font
-			]
-		].
-
-	surface asForm inspect
-]
-
-{ #category : #examples }
-PangoExamples class >> example6ShapeFull [
-	"An example of pango_itemize and pango_shape_full, and drawing bounds.
-	See: https://docs.gtk.org/Pango/func.shape_full.html"
-	<example>
-
-	| string fontMap context fontDescription surface pangoItems glyphs font |
-	string := 'Hello World'.
-	fontMap := PangoFontMap getDefault.
-	context := fontMap newPangoContext.
-	fontDescription := PangoFontDescription newFromString: 'Arial 10'.
-	font := context loadFontDescription: fontDescription.
-	
-	pangoItems := context itemize: string.
-	glyphs := pangoItems collect: [ :each |
-		PangoGlyphString
-			shapeFull: string
-			paragraph: ExternalAddress null
-			analysis: each analysis ].
-
-	surface := AthensCairoSurface width: 400 height: 400.
 	surface drawDuring: [ :canvas |
 		surface clear: Color white.
 
@@ -243,11 +193,72 @@ PangoExamples class >> example6ShapeFull [
 		].
 
 	surface asForm inspect
+]
+
+{ #category : #examples }
+PangoExamples class >> example6ShapeFull [
+	"An example of pango_itemize and pango_shape_full, and drawing bounds.
+	See: https://docs.gtk.org/Pango/func.shape_full.html"
+	<example>
+
+	| utf8ByteArray fontMap context fontDescription surface pangoItems glyphs font attributeList |
+	fontMap := PangoFontMap getDefault.
+	context := fontMap newPangoContext.
+	fontDescription := PangoFontDescription newFromString: 'Arial 9'.
+	font := context loadFontDescription: fontDescription.
+
+	attributeList := PangoAttrList new
+"		add: (PangoAttribute newUnderline: 2);"
+		add: (PangoAttribute newForegroundColor: Color blue);
+"		add: (PangoAttribute newBackgroundColor: Color yellow);
+		add: ((PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial 12'))
+			start_index: 1;
+			end_index: 3;
+			yourself);
+"		yourself.
+	
+	utf8ByteArray := 'Hello World!' utf8Encoded.
+	pangoItems := context
+		itemize: utf8ByteArray
+		attributes: attributeList.
+	glyphs := pangoItems collect: [ :each |
+		PangoGlyphString
+			shapeFull: utf8ByteArray
+			paragraph: utf8ByteArray
+			analysis: each analysis ].
+
+	surface := AthensCairoSurface width: 400 height: 100.
+	surface drawDuring: [ :canvas |
+		surface clear: Color white.
+
+		glyphs do: [ :each |
+			| extentsArray logicalBounds |
+			
+			"Calculate extents"
+			extentsArray := each extentsWithFont: font.
+			logicalBounds := extentsArray second asRectangle.
+
+			canvas pathTransform
+				scaleBy: 4.0;
+				translateX: logicalBounds left negated Y: logicalBounds top negated.
+
+			"Workaround: glyphs are shown with last color used by the
+			Athens canvas in the previous drawing operation."
+			canvas
+				setStrokePaint: Color black;
+				drawShape: (1@1 corner: 1@1).
+
+			"Draw glyphs"
+			canvas showGlyphString: each font: font
+			]
+		].
+
+	surface asForm inspect
 
 ]
 
 { #category : #examples }
-PangoExamples class >> example7ShapeItem [
+PangoExamples class >> example7ShapeItemCRASH [
 	<example>
 
 	| string fontMap context surface pangoItems glyphItems |
@@ -268,25 +279,6 @@ PangoExamples class >> example7ShapeItem [
 
 	surface asForm inspect
 
-]
-
-{ #category : #examples }
-PangoExamples class >> example8Attributes [
-	<example>
-
-	| string fontMap context attributeList pangoItems |
-	string := 'Hello World'.
-	fontMap := PangoFontMap getDefault.
-	context := fontMap newPangoContext.
-
-	attributeList := PangoAttrList new.
-	attributeList
-		add: (PangoAttribute newUnderline: 1);
-		add: (PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial Black 60')).
-
-	pangoItems := context itemize: string attributes: attributeList.
-
-"..."
 ]
 
 { #category : #'see class side' }
