@@ -351,16 +351,21 @@ PangoExamples class >> example9LayoutNoMarkup [
 		pangoLayout := PangoLayout newCanvas: canvas.
 		pangoLayout
 			"default font"
-			fontDescription: (PangoFontDescription newFromString: 'Arial 14');
+			fontDescription: (PangoFontDescription newFromString: 'Arial 16');
 			"wrap text at this width"
-			width: surface width pangoScaled.
+			width: surface width pangoScaled;
+			"More!"
+			setJustify: true;
+			setLineSpacing: 1.5.
 
 		attributeList := PangoAttrList new
+			add: (PangoAttribute newForegroundColor: Color blue muchDarker);
+			add: (PangoAttribute newBackgroundColor: Color paleOrange);
 			add: (PangoAttribute newFontDescription: 
 					(PangoFontDescription newFromString: 'Arial Black 30'))
 				from: 0
 				to: 5;
-			add: (PangoAttribute newForegroundColor: Color blue)
+			add: (PangoAttribute newForegroundColor: Color orange)
 				from: 0
 				to: 5;
 			add: (PangoAttribute newBackgroundColor: Color paleGreen)
@@ -372,14 +377,14 @@ PangoExamples class >> example9LayoutNoMarkup [
 			add: (PangoAttribute newUnderline: 2)
 				from: 18
 				to: 21;
-			add: (PangoAttribute newBackgroundColor: Color paleOrange);
-			yourself.			
+			yourself.
 
 		"set text and its attributes"
 		pangoLayout
-			text: (String loremIpsum: 50);
+			text: (String loremIpsum: 75);
 			setAttributes: attributeList.
 
+		surface clear: Color white.
 		canvas showLayout: pangoLayout
 		].
 

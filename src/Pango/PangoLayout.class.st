@@ -77,6 +77,29 @@ PangoLayout >> setAttributes: attrs [
 ]
 
 { #category : #accessing }
+PangoLayout >> setJustify: justify [
+
+	^ self ffiCall: #(
+		void
+		pango_layout_set_justify (
+		  self,
+		  bool justify
+		))
+]
+
+{ #category : #accessing }
+PangoLayout >> setLineSpacing: factor [
+	"https://docs.gtk.org/Pango/method.Layout.set_line_spacing.html"
+
+	^ self ffiCall: #(
+		void
+		pango_layout_set_line_spacing (
+		  self,
+		  float factor
+		))
+]
+
+{ #category : #accessing }
 PangoLayout >> size [ 
 	| widthBuffer heightBuffer |
 	
