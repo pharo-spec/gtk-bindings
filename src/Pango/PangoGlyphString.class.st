@@ -195,14 +195,13 @@ PangoGlyphString >> shapeFull: itemText length: itemLength paragraphText: paragr
 PangoGlyphString >> shapeItem: aPangoItem paragraphText: paragraphText paragraphLength: paragraphLength logAttrs: logAttrs flags: flags [
 	"https://docs.gtk.org/Pango/func.shape_item.html"
 
-	"		  PangoLogAttr* logAttrs,"
 	^ self ffiCall: #(
 		void
 		pango_shape_item (
 		  PangoItem* aPangoItem,
 		  const char* paragraphText,
 		  int paragraphLength,
-		  void* logAttrs,
+		  PangoLogAttr* logAttrs,
 		  self,
 		  PangoShapeFlags flags ))
 ]
