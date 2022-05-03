@@ -70,3 +70,12 @@ PangoAttrList >> newIterator [
 		  autoRelease;
 		  yourself
 ]
+
+{ #category : #accessing }
+PangoAttrList >> to_string [
+
+	^ self ffiCall: #(
+		char*
+		pango_attr_list_to_string (
+		  PangoAttrList* list ))
+]
