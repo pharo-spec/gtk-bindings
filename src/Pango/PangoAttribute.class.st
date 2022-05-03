@@ -75,9 +75,9 @@ PangoAttribute class >> newBackgroundAlpha: alpha [
 PangoAttribute class >> newBackgroundColor: pangoColor [
 
 	^ (self 
-		backgroundNewRed: pangoColor red 
-		green: pangoColor green 
-		blue: pangoColor blue)
+		backgroundNewRed: pangoColor red * 65535
+		green: pangoColor green * 65535
+		blue: pangoColor blue * 65535)
 		initialize 
 ]
 
@@ -103,9 +103,9 @@ PangoAttribute class >> newForegroundAlpha: alpha [
 PangoAttribute class >> newForegroundColor: pangoColor [
 
 	^ (self 
-		foregroundNewRed: pangoColor red 
-		green: pangoColor green 
-		blue: pangoColor blue)
+		foregroundNewRed: pangoColor red * 65535
+		green: pangoColor green * 65535
+		blue: pangoColor blue * 65535)
 		initialize 
 ]
 

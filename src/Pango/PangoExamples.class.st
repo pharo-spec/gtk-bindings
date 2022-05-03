@@ -281,6 +281,98 @@ PangoExamples class >> example7ShapeItemCRASH [
 
 ]
 
+{ #category : #examples }
+PangoExamples class >> example8LineBreak [
+	<example>
+
+	| string fontMap context fontDescription surface pangoItems glyphs font break |
+	break := String crlf.
+	string := 'Line1' utf8Encoded, break, 'Line2' utf8Encoded.
+
+	PangoLogAttr.
+
+	fontMap := PangoFontMap getDefault.
+	context := fontMap newPangoContext.
+	fontDescription := PangoFontDescription newFromString: 'Arial 11'.
+	font := context loadFontDescription: fontDescription.
+	
+	pangoItems := context itemize: string.
+	glyphs := pangoItems collect: [ :each |
+		PangoGlyphString shape: string analysis: each analysis ].
+
+	surface := AthensCairoSurface width: 400 height: 200.
+
+	surface drawDuring: [ :canvas |
+		surface clear: Color white.
+
+		glyphs do: [ :each |
+			| extentsArray logicalBounds inkBounds |
+			
+			"Calculate extents"
+			extentsArray := each extentsWithFont: font.
+			inkBounds := extentsArray first asRectangle.
+			logicalBounds := extentsArray second asRectangle.
+
+			canvas pathTransform
+				scaleBy: 4.0;
+				translateX: logicalBounds left negated Y: logicalBounds top negated.
+			
+			"Draw 'ink' bounds"
+			(canvas setStrokePaint: Color green) width: 0.25.
+			canvas drawShape: inkBounds.
+			
+			"Draw 'logical' bounds"
+			(canvas setStrokePaint: Color red) width: 0.25.
+			canvas drawShape: logicalBounds.
+
+			"Workaround: glyphs are shown with last color used by the
+			Athens canvas in the previous drawing operation."
+			canvas
+				setStrokePaint: Color black;
+				drawShape: (1@1 corner: 1@1).
+
+			"Draw glyphs"
+			canvas showGlyphString: each font: font
+			]
+		].
+
+	surface asForm inspect
+]
+
+{ #category : #examples }
+PangoExamples class >> example9LayoutNoMarkup [
+	<example>
+
+	| fontMap context fontDescription surface attributeList |
+	fontMap := PangoFontMap getDefault.
+	context := fontMap newPangoContext.
+	fontDescription := PangoFontDescription newFromString: 'Arial 20'.
+
+	attributeList := PangoAttrList new
+		add: (PangoAttribute newUnderline: 1);
+		add: (PangoAttribute newForegroundColor: Color blue);
+		add: (PangoAttribute newBackgroundColor: Color yellow);
+		"add: ((PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial 10'))"
+		yourself.
+	
+	surface := AthensCairoSurface width: 300 height: 500.
+	surface drawDuring: [ :canvas |
+
+		| pangoLayout |
+		pangoLayout := PangoLayout newCanvas: canvas.
+		pangoLayout
+			fontDescription: fontDescription;
+			text: String loremIpsum;
+			width: surface width pangoScaled;
+			setAttributes: attributeList.
+
+		canvas showLayout: pangoLayout
+		].
+
+	surface asForm inspect
+
+]
+
 { #category : #'see class side' }
 PangoExamples >> seeClassSide [
 ]
