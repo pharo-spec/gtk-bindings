@@ -346,13 +346,21 @@ PangoExamples class >> example9LayoutNoMarkup [
 	| fontMap context fontDescription surface attributeList |
 	fontMap := PangoFontMap getDefault.
 	context := fontMap newPangoContext.
-	fontDescription := PangoFontDescription newFromString: 'Arial 20'.
+	fontDescription := PangoFontDescription newFromString: 'Arial 16'.
 
 	attributeList := PangoAttrList new
-		add: (PangoAttribute newUnderline: 1);
-		add: (PangoAttribute newForegroundColor: Color blue);
-		add: (PangoAttribute newBackgroundColor: Color yellow);
-		"add: ((PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial 10'))"
+		add: (PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial 24'))
+			from: 0
+			to: 5;
+		add: (PangoAttribute newForegroundColor: Color blue)
+			from: 0
+			to: 5;
+		add: (PangoAttribute newBackgroundColor: Color yellow)
+			from: 6
+			to: 11;
+		add: (PangoAttribute newUnderline: 1)
+			from: 6
+			to: 11;
 		yourself.
 	
 	surface := AthensCairoSurface width: 300 height: 500.
@@ -361,9 +369,12 @@ PangoExamples class >> example9LayoutNoMarkup [
 		| pangoLayout |
 		pangoLayout := PangoLayout newCanvas: canvas.
 		pangoLayout
-			fontDescription: fontDescription;
-			text: String loremIpsum;
+			"default font"
+			fontDescription: (PangoFontDescription newFromString: 'Arial 11');
+			"wrap text at this width"
 			width: surface width pangoScaled;
+			"set text and its attributes"
+			text: String loremIpsum;
 			setAttributes: attributeList.
 
 		canvas showLayout: pangoLayout

@@ -36,12 +36,18 @@ PangoAttrList class >> pango_attr_list_unref: list [
 ]
 
 { #category : #adding }
-PangoAttrList >> add: attr [ 
+PangoAttrList >> add: attr [
 
-	attr 
-		start_index: 0; 
-		end_index: 16rFFFF.
-	self insert: attr.
+	self add: attr from: 0 to: 16rFFFF
+]
+
+{ #category : #adding }
+PangoAttrList >> add: attr from: startIndex to: endIndex [
+
+	attr
+		start_index: startIndex;
+		end_index: endIndex.
+	self insert: attr
 ]
 
 { #category : #accessing }
