@@ -17,6 +17,12 @@ Class {
 	#category : #'Pango-Base'
 }
 
+{ #category : #'as yet unclassified' }
+PangoAttribute class >> attributeDestroy: handle [
+
+	self ffiCall: #( void pango_attribute_destroy ( void* handle ) )
+]
+
 { #category : #private }
 PangoAttribute class >> backgroundNewAlpha: alpha [
 
@@ -41,6 +47,14 @@ PangoAttribute class >> fieldsDesc [
  	guint start_index;
 	guint end_index;	
 	)
+]
+
+{ #category : #finalization }
+PangoAttribute class >> finalizeResourceData: handle [
+
+	handle isNull ifTrue: [ ^ self ].
+	self attributeDestroy: handle.
+	handle beNull
 ]
 
 { #category : #private }
@@ -138,6 +152,14 @@ PangoAttribute >> end_index [
 PangoAttribute >> end_index: anObject [
 	"This method was automatically generated"
 	handle unsignedLongAt: OFFSET_END_INDEX put: anObject
+]
+
+{ #category : #initialization }
+PangoAttribute >> initialize [
+
+	super initialize.
+	
+	self autoRelease.
 ]
 
 { #category : #'accessing - structure variables' }
