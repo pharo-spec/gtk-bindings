@@ -343,38 +343,41 @@ PangoExamples class >> example8LineBreak [
 PangoExamples class >> example9LayoutNoMarkup [
 	<example>
 
-	| fontMap context fontDescription surface attributeList |
-	fontMap := PangoFontMap getDefault.
-	context := fontMap newPangoContext.
-	fontDescription := PangoFontDescription newFromString: 'Arial 16'.
-
-	attributeList := PangoAttrList new
-		add: (PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial 24'))
-			from: 0
-			to: 5;
-		add: (PangoAttribute newForegroundColor: Color blue)
-			from: 0
-			to: 5;
-		add: (PangoAttribute newBackgroundColor: Color yellow)
-			from: 6
-			to: 11;
-		add: (PangoAttribute newUnderline: 1)
-			from: 6
-			to: 11;
-		yourself.
-	
-	surface := AthensCairoSurface width: 300 height: 500.
+	| surface attributeList |
+	surface := AthensCairoSurface width: 250 height: 400.
 	surface drawDuring: [ :canvas |
 
 		| pangoLayout |
 		pangoLayout := PangoLayout newCanvas: canvas.
 		pangoLayout
 			"default font"
-			fontDescription: (PangoFontDescription newFromString: 'Arial 11');
+			fontDescription: (PangoFontDescription newFromString: 'Arial 14');
 			"wrap text at this width"
-			width: surface width pangoScaled;
-			"set text and its attributes"
-			text: String loremIpsum;
+			width: surface width pangoScaled.
+
+		attributeList := PangoAttrList new
+			add: (PangoAttribute newFontDescription: 
+					(PangoFontDescription newFromString: 'Arial Black 30'))
+				from: 0
+				to: 5;
+			add: (PangoAttribute newForegroundColor: Color blue)
+				from: 0
+				to: 5;
+			add: (PangoAttribute newBackgroundColor: Color paleGreen)
+				from: 6
+				to: 11;
+			add: (PangoAttribute newUnderline: 1)
+				from: 12
+				to: 17;
+			add: (PangoAttribute newUnderline: 2)
+				from: 18
+				to: 21;
+			add: (PangoAttribute newBackgroundColor: Color paleOrange);
+			yourself.			
+
+		"set text and its attributes"
+		pangoLayout
+			text: (String loremIpsum: 50);
 			setAttributes: attributeList.
 
 		canvas showLayout: pangoLayout
