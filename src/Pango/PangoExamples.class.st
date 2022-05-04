@@ -171,7 +171,7 @@ PangoExamples class >> example5Shape [
 
 			canvas pathTransform
 				scaleBy: 4.0;
-				translateX: logicalBounds left negated Y: logicalBounds top negated.
+				translateBy: logicalBounds origin negated.
 			
 			"Draw 'ink' bounds"
 			(canvas setStrokePaint: Color green) width: 0.25.
@@ -208,14 +208,8 @@ PangoExamples class >> example6ShapeFull [
 	font := context loadFontDescription: fontDescription.
 
 	attributeList := PangoAttrList new
-"		add: (PangoAttribute newUnderline: 2);"
 		add: (PangoAttribute newForegroundColor: Color blue);
-"		add: (PangoAttribute newBackgroundColor: Color yellow);
-		add: ((PangoAttribute newFontDescription: (PangoFontDescription newFromString: 'Arial 12'))
-			start_index: 1;
-			end_index: 3;
-			yourself);
-"		yourself.
+		yourself.
 	
 	utf8ByteArray := 'Hello World!' utf8Encoded.
 	pangoItems := context
@@ -232,15 +226,14 @@ PangoExamples class >> example6ShapeFull [
 		surface clear: Color white.
 
 		glyphs do: [ :each |
-			| extentsArray logicalBounds |
+			| logicalBounds |
 			
 			"Calculate extents"
-			extentsArray := each extentsWithFont: font.
-			logicalBounds := extentsArray second asRectangle.
+			logicalBounds := each logicalRectangleWithFont: font.
 
 			canvas pathTransform
 				scaleBy: 4.0;
-				translateX: logicalBounds left negated Y: logicalBounds top negated.
+				translateBy: logicalBounds origin negated.
 
 			"Workaround: glyphs are shown with last color used by the
 			Athens canvas in the previous drawing operation."

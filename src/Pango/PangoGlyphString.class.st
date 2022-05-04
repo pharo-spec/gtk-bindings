@@ -151,6 +151,22 @@ PangoGlyphString >> log_clusters: anObject [
 	handle pointerAt: OFFSET_LOG_CLUSTERS put: anObject getHandle.
 ]
 
+{ #category : #measuring }
+PangoGlyphString >> logicalRectangleWithFont: aFont [
+	"Answer a Rectangle with the logical bounds.
+	See https://docs.gtk.org/Pango/method.GlyphString.extents.html"
+
+	| logicalRectangle |
+	logicalRectangle := PangoRectangle externalNew.
+
+	self
+		extentsWithFont: aFont
+		inkRectangle: ExternalAddress null
+		logicalRectangle: logicalRectangle.
+
+	^ logicalRectangle asRectangle
+]
+
 { #category : #'accessing - structure variables' }
 PangoGlyphString >> num_glyphs [
 	"This method was automatically generated"
