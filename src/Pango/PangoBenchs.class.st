@@ -1,3 +1,8 @@
+"
+I run benchmarks to compare performance for rendering basic text of Pango vs. Plain Cairo.
+
+See my class side.
+"
 Class {
 	#name : #PangoBenchs,
 	#superclass : #Object,
@@ -37,7 +42,7 @@ PangoBenchs >> initialize [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #debugging }
 PangoBenchs >> inspectForms [
 
 	((#(pangoLayoutSurface pangoLowLevelSurface plainCairoSurface) 
@@ -46,11 +51,11 @@ PangoBenchs >> inspectForms [
 		do: [ :each | each value asForm inspectWithLabel: each key ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #debugging }
 PangoBenchs >> printBenchs [
 
 	#(pangoLayoutBench pangoLowLevelBench plainCairoBench) do: [ :each |
-		(each padRightTo: 20) trace.
+		(each padRightTo: 25) trace.
 		(self instVarNamed: each) traceCr  ]
 ]
 
@@ -78,7 +83,7 @@ PangoBenchs >> runPangoLowLevel [
 
 	| fontMap context fontDescription font pangoItems glyphs pangoGlyph logicalBounds |
 	pangoLowLevelSurface := AthensCairoSurface extent: extent.
-	pangoLowLevelSurface drawDuring: [ :canvas |
+	pangoLowLevelSurface drawDuring: [ :athensCanvas |
 
 		fontMap := PangoFontMap getDefault.
 		context := fontMap newPangoContext.
@@ -94,17 +99,11 @@ PangoBenchs >> runPangoLowLevel [
 
 		"Translate to draw inside the surface"
 		logicalBounds := pangoGlyph logicalRectangleWithFont: font.
-		canvas pathTransform
-			translateBy: logicalBounds origin negated.
-
-		"Workaround: glyphs are shown with last color used by the
-		Athens canvas in the previous drawing operation."
-		canvas
-			setStrokePaint: Color black;
-			drawShape: (1@1 corner: 1@1).
+		athensCanvas pathTransform translateBy: logicalBounds origin negated.
+		athensCanvas setPathMatrix. "Apply pathTransformation in the cairo context"
 
 		pangoLowLevelBench := [
-			canvas
+			athensCanvas
 				showGlyphString: pangoGlyph
 				font: font ] bench.
 
@@ -116,14 +115,11 @@ PangoBenchs >> runPangoLowLevel [
 PangoBenchs >> runPlainCairo [
 	<script: 'self new runPlainCairo inspectForms'>
 
-	| aCanvas aLabel |
-	aCanvas := RSCanvas new.
+	| aLabel |
 	aLabel := RSLabel new
 		fontName: 'Arial'; 
 		text: aString;
-		color: Color black;
 		fontSize: 11.
-	aCanvas add: aLabel.
 
 	plainCairoSurface := AthensCairoSurface extent: extent.
 	plainCairoSurface drawDuring: [ :athensCanvas |
@@ -136,14 +132,13 @@ PangoBenchs >> runPlainCairo [
 
 		athensCanvas pathTransform
 			translateBy: aLabel textExtents translationPoint. 
-		athensCanvas setPathMatrix.
+		athensCanvas setPathMatrix. "Apply pathTransformation in the cairo context"
 
-		font := aLabel cairoFont.
-		(aLabel paint asAthensPaintOn: athensCanvas)
-			loadOnCairoCanvas: athensCanvas.
 
 		plainCairoBench := [
+			font := aLabel cairoFont.
 			font lock.
+
 			athensCanvas setScaledFont: font.
 
 			athensCanvas
@@ -152,6 +147,6 @@ PangoBenchs >> runPlainCairo [
 
 			font unlock.
 		] bench.
-			
+		
 		].
 ]
