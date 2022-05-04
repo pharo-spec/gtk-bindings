@@ -38,6 +38,14 @@ PangoLayout class >> pango_layout_new: context [
 ]
 
 { #category : #accessing }
+PangoLayout >> attributes [
+
+	^ self getAttributes
+		  autoRelease;
+		  yourself
+]
+
+{ #category : #accessing }
 PangoLayout >> baseline [
 
 	^ self ffiCall: #( int pango_layout_get_baseline ( self ) )
@@ -51,6 +59,13 @@ PangoLayout >> fontDescription [
 { #category : #accessing }
 PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
+]
+
+{ #category : #accessing }
+PangoLayout >> getAttributes [
+	"https://docs.gtk.org/Pango/method.Layout.get_attributes.html"
+
+	^ self ffiCall: #( PangoAttrList* pango_layout_get_attributes ( self ) )
 ]
 
 { #category : #accessing }
