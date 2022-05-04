@@ -5,6 +5,30 @@ Class {
 }
 
 { #category : #examples }
+PangoExamples class >> _exampleShapeItemCRASH [
+	<example>
+
+	| string fontMap context surface pangoItems glyphItems |
+	string := 'Hello World'.
+	fontMap := PangoFontMap getDefault.
+	context := fontMap newPangoContext.
+
+	pangoItems := context itemize: string.
+	
+	glyphItems := pangoItems collect: [ :each |
+		PangoGlyphString shapeItem: each paragraphText: string ].
+
+	surface := AthensCairoSurface width: 400 height: 400.
+	surface drawDuring: [ :canvas |
+		glyphItems do: [ :each |
+"			THIS CRASHES:"
+			canvas showGlyphItem: each text: string ] ].
+
+	surface asForm inspect
+
+]
+
+{ #category : #examples }
 PangoExamples class >> example1Markup [
 	<example>
 	| fontDescription surface |
@@ -234,12 +258,8 @@ PangoExamples class >> example6ShapeFull [
 			canvas pathTransform
 				scaleBy: 4.0;
 				translateBy: logicalBounds origin negated.
-
-			"Workaround: glyphs are shown with last color used by the
-			Athens canvas in the previous drawing operation."
-			canvas
-				setStrokePaint: Color black;
-				drawShape: (1@1 corner: 1@1).
+			canvas setPathMatrix. "Apply pathTransformation in the cairo context"
+			Color black loadOnCairoCanvas: canvas.
 
 			"Draw glyphs"
 			canvas showGlyphString: each font: font
@@ -251,93 +271,11 @@ PangoExamples class >> example6ShapeFull [
 ]
 
 { #category : #examples }
-PangoExamples class >> example7ShapeItemCRASH [
-	<example>
-
-	| string fontMap context surface pangoItems glyphItems |
-	string := 'Hello World'.
-	fontMap := PangoFontMap getDefault.
-	context := fontMap newPangoContext.
-
-	pangoItems := context itemize: string.
-	
-	glyphItems := pangoItems collect: [ :each |
-		PangoGlyphString shapeItem: each paragraphText: string ].
-
-	surface := AthensCairoSurface width: 400 height: 400.
-	surface drawDuring: [ :canvas |
-		glyphItems do: [ :each |
-"			THIS CRASHES:"
-			canvas showGlyphItem: each text: string ] ].
-
-	surface asForm inspect
-
-]
-
-{ #category : #examples }
-PangoExamples class >> example8LineBreak [
-	<example>
-
-	| string fontMap context fontDescription surface pangoItems glyphs font break |
-	break := String crlf.
-	string := 'Line1' utf8Encoded, break, 'Line2' utf8Encoded.
-
-	PangoLogAttr.
-
-	fontMap := PangoFontMap getDefault.
-	context := fontMap newPangoContext.
-	fontDescription := PangoFontDescription newFromString: 'Arial 11'.
-	font := context loadFontDescription: fontDescription.
-	
-	pangoItems := context itemize: string.
-	glyphs := pangoItems collect: [ :each |
-		PangoGlyphString shape: string analysis: each analysis ].
-
-	surface := AthensCairoSurface width: 400 height: 200.
-
-	surface drawDuring: [ :canvas |
-		surface clear: Color white.
-
-		glyphs do: [ :each |
-			| extentsArray logicalBounds inkBounds |
-			
-			"Calculate extents"
-			extentsArray := each extentsWithFont: font.
-			inkBounds := extentsArray first asRectangle.
-			logicalBounds := extentsArray second asRectangle.
-
-			canvas pathTransform
-				scaleBy: 4.0;
-				translateX: logicalBounds left negated Y: logicalBounds top negated.
-			
-			"Draw 'ink' bounds"
-			(canvas setStrokePaint: Color green) width: 0.25.
-			canvas drawShape: inkBounds.
-			
-			"Draw 'logical' bounds"
-			(canvas setStrokePaint: Color red) width: 0.25.
-			canvas drawShape: logicalBounds.
-
-			"Workaround: glyphs are shown with last color used by the
-			Athens canvas in the previous drawing operation."
-			canvas
-				setStrokePaint: Color black;
-				drawShape: (1@1 corner: 1@1).
-
-			"Draw glyphs"
-			canvas showGlyphString: each font: font
-			]
-		].
-
-	surface asForm inspect
-]
-
-{ #category : #examples }
-PangoExamples class >> example9LayoutNoMarkup [
+PangoExamples class >> example7LayoutNoMarkup [
 	<example>
 
 	| surface attributeList |
-	surface := AthensCairoSurface width: 250 height: 400.
+	surface := AthensCairoSurface width: 250 height: 200.
 	surface drawDuring: [ :canvas |
 
 		| pangoLayout |
@@ -347,6 +285,7 @@ PangoExamples class >> example9LayoutNoMarkup [
 			fontDescription: (PangoFontDescription newFromString: 'Arial 16');
 			"wrap text at this width"
 			width: surface width pangoScaled;
+			height: surface height pangoScaled;
 			"More!"
 			setJustify: true;
 			setLineSpacing: 1.5.
