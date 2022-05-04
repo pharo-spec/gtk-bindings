@@ -72,7 +72,9 @@ PangoBenchs >> runPangoLayout [
 			fontDescription: (PangoFontDescription newFromString: 'Arial 11');
 			text: aString.
 
-		pangoLayoutBench := [ canvas showLayout: pangoLayout ] bench.
+		pangoLayoutBench := [
+			canvas showLayout: pangoLayout
+			] bench.
 		].
 
 ]
@@ -103,9 +105,8 @@ PangoBenchs >> runPangoLowLevel [
 		athensCanvas setPathMatrix. "Apply pathTransformation in the cairo context"
 
 		pangoLowLevelBench := [
-			athensCanvas
-				showGlyphString: pangoGlyph
-				font: font ] bench.
+			athensCanvas showGlyphString: pangoGlyph font: font
+			] bench.
 
 	]
 
@@ -127,10 +128,10 @@ PangoBenchs >> runPlainCairo [
 		| renderer font |
 		renderer := RSAthensRenderer new.
 		renderer canvas: athensCanvas.
-		athensCanvas pathTransform
-			translateBy: aLabel extent // 2.
 
+"		metrics := RSCairoMetricsProvider new extentsOf: aLabel."
 		athensCanvas pathTransform
+			translateBy: aLabel extent // 2;
 			translateBy: aLabel textExtents translationPoint. 
 		athensCanvas setPathMatrix. "Apply pathTransformation in the cairo context"
 
@@ -139,14 +140,13 @@ PangoBenchs >> runPlainCairo [
 			font := aLabel cairoFont.
 			font lock.
 
-			athensCanvas setScaledFont: font.
-
 			athensCanvas
+				setScaledFont: font;
 				showGlyphs: aLabel cairoGlyphs getHandle
-				size: aLabel cairoGlyphs size.
+					size: aLabel cairoGlyphs size.
 
 			font unlock.
-		] bench.
+			] bench.
 		
 		].
 ]
