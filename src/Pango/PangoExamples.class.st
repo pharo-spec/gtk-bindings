@@ -5,30 +5,6 @@ Class {
 }
 
 { #category : #examples }
-PangoExamples class >> _exampleShapeItemCRASH [
-	<example>
-
-	| string fontMap context surface pangoItems glyphItems |
-	string := 'Hello World'.
-	fontMap := PangoFontMap getDefault.
-	context := fontMap newPangoContext.
-
-	pangoItems := context itemize: string.
-	
-	glyphItems := pangoItems collect: [ :each |
-		PangoGlyphString shapeItem: each paragraphText: string ].
-
-	surface := AthensCairoSurface width: 400 height: 400.
-	surface drawDuring: [ :canvas |
-		glyphItems do: [ :each |
-"			THIS CRASHES:"
-			canvas showGlyphItem: each text: string ] ].
-
-	surface asForm inspect
-
-]
-
-{ #category : #examples }
 PangoExamples class >> example1Markup [
 	<example>
 	| fontDescription surface |
