@@ -53,6 +53,13 @@ PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
 ]
 
+{ #category : #accessing }
+PangoLayout >> height: height [
+	"https://docs.gtk.org/Pango/method.Layout.set_height.html"
+
+	self ffiCall: #(void pango_layout_set_height (self, int height))
+]
+
 { #category : #initialization }
 PangoLayout >> initialize [
 	self autoRelease
@@ -77,9 +84,21 @@ PangoLayout >> setAttributes: attrs [
 ]
 
 { #category : #accessing }
+PangoLayout >> setEllipsize: ellipsize [
+	"https://docs.gtk.org/Pango/method.Layout.set_ellipsize.html"
+
+	self ffiCall: #(
+		void
+		pango_layout_set_ellipsize (
+		  self,
+		  PangoEllipsizeMode ellipsize
+		))
+]
+
+{ #category : #accessing }
 PangoLayout >> setJustify: justify [
 
-	^ self ffiCall: #(
+	self ffiCall: #(
 		void
 		pango_layout_set_justify (
 		  self,
@@ -91,7 +110,7 @@ PangoLayout >> setJustify: justify [
 PangoLayout >> setLineSpacing: factor [
 	"https://docs.gtk.org/Pango/method.Layout.set_line_spacing.html"
 
-	^ self ffiCall: #(
+	self ffiCall: #(
 		void
 		pango_layout_set_line_spacing (
 		  self,
