@@ -97,9 +97,9 @@ PangoExamples class >> example4ListFamilies [
 	<example>
 
 	| surface numberOfFamilies fontFamilies fontSize |
-	fontSize := 48.
-	numberOfFamilies := 5.
-	surface := AthensCairoSurface width: 500 height: fontSize * 2 * numberOfFamilies.
+	fontSize := 18.
+	numberOfFamilies := 12.
+	surface := AthensCairoSurface width: 300 height: fontSize * 2 * numberOfFamilies.
 	fontFamilies := PangoFontMap getDefault listFamilies.
 
 	surface drawDuring: [ :canvas |
@@ -114,23 +114,19 @@ PangoExamples class >> example4ListFamilies [
 			do: [ :_ | 
 				| aFamily |
 				aFamily := fontFamilies atRandom.
-
-				canvas
-					setStrokePaint: Color random;
-					drawShape: (1@1 corner: 2@2).  
-				"--> Workaround a bug that happens unless something else is 
-				draw before showLayout:"
-
 				fontDescription familyName: aFamily name.
 				pangoLayout := (PangoLayout newCanvas: canvas)
 					fontDescription: fontDescription;
 					text: aFamily name;
 					yourself.
+
+				Color random loadOnCairoCanvas: canvas.
 				canvas showLayout: pangoLayout ]
 
 			separatedBy: [
 				canvas pathTransform
 					translateBy: 0 @ fontSize * 2.
+				canvas setPathMatrix. "Apply pathTransform"
 				canvas updateLayout: pangoLayout ]
 		].
 
@@ -181,13 +177,8 @@ PangoExamples class >> example5Shape [
 			(canvas setStrokePaint: Color red) width: 0.25.
 			canvas drawShape: logicalBounds.
 
-			"Workaround: glyphs are shown with last color used by the
-			Athens canvas in the previous drawing operation."
-			canvas
-				setStrokePaint: Color black;
-				drawShape: (1@1 corner: 1@1).
-
 			"Draw glyphs"
+			Color black loadOnCairoCanvas: canvas.
 			canvas showGlyphString: each font: font
 			]
 		].
