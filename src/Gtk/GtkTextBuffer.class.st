@@ -49,7 +49,7 @@ GtkTextBuffer >> appendText: aString [
 		text: aString
 ]
 
-{ #category : #'accessing tags' }
+{ #category : #'accessing - tags' }
 GtkTextBuffer >> applyTag: aTag start: start end: end [
 	| startIter endIter |
 	
@@ -70,7 +70,7 @@ GtkTextBuffer >> applyTag: tag startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing tags' }
+{ #category : #'accessing - tags' }
 GtkTextBuffer >> applyTagByName: aName start: start end: end [
 	| startIter endIter |
 	
@@ -87,24 +87,6 @@ GtkTextBuffer >> applyTagByName: name startIter: start endIter: end [
  		const gchar *name,
 		const GtkTextIter *start,
 		const GtkTextIter *end))
-]
-
-{ #category : #converting }
-GtkTextBuffer >> asText [
-	| text pos iter atEnd |
-	
-	text := self text asText.
-	iter := self startIter.
-	pos := 1.
-	atEnd := false.
-	[ atEnd ] whileFalse: [ 
-		iter tags do: [ :eachTag |
-			eachTag asTextAttributeList do: [ :eachAttr | 
-				text addAttribute: eachAttr from: pos to: pos ] ].
-		pos := pos + 1.
-		atEnd := iter forwardChar not ].
-
-	^ text
 ]
 
 { #category : #private }
@@ -137,13 +119,13 @@ GtkTextBuffer >> connectMarkSet: aBlock [
 				value: (GtkTextMark fromHandle: mark) ]	
 ]
 
-{ #category : #'accessing tags' }
+{ #category : #'accessing - tags' }
 GtkTextBuffer >> createAnonymousTag [
 
 	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, NULL, NULL))
 ]
 
-{ #category : #'accessing mark' }
+{ #category : #'accessing - mark' }
 GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravity [
 
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_create_mark (
@@ -153,7 +135,7 @@ GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravi
 			gboolean left_gravity))
 ]
 
-{ #category : #'accessing tags' }
+{ #category : #'accessing - tags' }
 GtkTextBuffer >> createTag: tag_name [
 
 	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, gchar *tag_name, NULL))
@@ -254,7 +236,7 @@ GtkTextBuffer >> insertIter: iter text: text [
                         gint -1))
 ]
 
-{ #category : #'accessing mark' }
+{ #category : #'accessing - mark' }
 GtkTextBuffer >> insertMark [
 
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_get_insert (self))
@@ -356,13 +338,13 @@ GtkTextBuffer >> lineCount [
 	^ self ffiCall: #(gint gtk_text_buffer_get_line_count (self))
 ]
 
-{ #category : #'accessing mark' }
+{ #category : #'accessing - mark' }
 GtkTextBuffer >> markNamed: aName [
 
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_get_mark (self, const gchar *aName))
 ]
 
-{ #category : #'accessing mark' }
+{ #category : #'accessing - mark' }
 GtkTextBuffer >> moveMark: mark to: where [
 
 	^ self ffiCall: #(void gtk_text_buffer_move_mark (
@@ -378,13 +360,21 @@ GtkTextBuffer >> offsetIter: iter pos: char_offset [
 	
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> placeCursor: where [
 
 	self ffiCall: #(void gtk_text_buffer_place_cursor (self, const GtkTextIter *where))
 ]
 
-{ #category : #'accessing tags' }
+{ #category : #private }
+GtkTextBuffer >> registerSerializeTagSet [
+
+	^ self ffiCall: #(void *gtk_text_buffer_register_serialize_tagset (self, NULL))
+	
+	
+]
+
+{ #category : #'accessing - tags' }
 GtkTextBuffer >> removeAllTags [ 
 
 	self 
@@ -420,7 +410,7 @@ GtkTextBuffer >> removeTag: tag startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing tags' }
+{ #category : #'accessing - tags' }
 GtkTextBuffer >> removeTagByName: aTag [
 
 	self 
@@ -439,7 +429,7 @@ GtkTextBuffer >> removeTagByName: name startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> selectAll [
 
 	self 
@@ -447,7 +437,7 @@ GtkTextBuffer >> selectAll [
 		bound: self endIter
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> selectFrom: start to: end [
 	| startIter endIter |
 
@@ -459,7 +449,7 @@ GtkTextBuffer >> selectFrom: start to: end [
 	self selectRangeInsert: startIter bound: endIter
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> selectLineAt: offset [
 	| start end |
 	
@@ -472,7 +462,7 @@ GtkTextBuffer >> selectLineAt: offset [
 	self selectRangeInsert: start bound: end
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> selectLineAtCursor [
 
 	self selectLineAt: self cursorPosition
@@ -487,7 +477,7 @@ GtkTextBuffer >> selectRangeInsert: ins bound: bound [
 		const GtkTextIter *bound))
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> selection [ 
 	"answer an interval of current selection"
 
@@ -496,7 +486,7 @@ GtkTextBuffer >> selection [
 		ifNone: [ nil ]
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #'accessing - selection' }
 GtkTextBuffer >> selectionIteratorsDo: aBlock ifNone: noneBlock [
 	"answer an interval of current selection"
 	| start end |
@@ -506,6 +496,45 @@ GtkTextBuffer >> selectionIteratorsDo: aBlock ifNone: noneBlock [
 	^ (self getSelectionBoundsStart: start end: end)
 		ifTrue: [ aBlock value: start value: end ]
 		ifFalse: noneBlock	
+]
+
+{ #category : #serializing }
+GtkTextBuffer >> serialize [
+	| format lengthBuffer result serializedSize serializedBuffer |
+
+	format := self registerSerializeTagSet.
+
+	lengthBuffer := FFISizeT newBuffer. 
+	result := self 
+		serializeFormat: format
+		start: self startIter
+		end: self endIter
+		length: lengthBuffer.
+	serializedSize := lengthBuffer signedLongAt: 1.
+	serializedSize = 0 ifTrue: [ ^ nil ].
+		
+	serializedBuffer := ByteArray new: serializedSize.
+	LibC 
+		memCopy: result 
+		to: serializedBuffer 
+		size: serializedSize.
+	
+	self gFree: result.
+
+	^ serializedBuffer
+]
+
+{ #category : #private }
+GtkTextBuffer >> serializeFormat: format start: start end: end length: length [
+
+	self ffiCall: #(void *gtk_text_buffer_serialize (
+  		self,
+  		self,
+  		"GdkAtom"void *format,
+  		GtkTextIter* start,
+  		GtkTextIter* end,
+  		"gsize *"void *length
+		))
 ]
 
 { #category : #private }
@@ -523,6 +552,28 @@ GtkTextBuffer >> startIter [
 GtkTextBuffer >> startIter: iter [
 
 	self ffiCall: #(void gtk_text_buffer_get_start_iter (self, GtkTextIter *iter))
+]
+
+{ #category : #'accessing - tags' }
+GtkTextBuffer >> tagsWithRange [
+	"Answer a collection with all tags in text buffer and their ranges. 
+	 Useful for serializing purposes"
+	| pos iter atEnd tagsWithRange |
+	
+	tagsWithRange := OrderedDictionary new.
+	iter := self startIter.
+	pos := 1.
+	atEnd := false.
+	[ atEnd ] whileFalse: [ 
+		iter tags do: [ :eachTag | 
+			(tagsWithRange 
+				at: eachTag getHandle asInteger 
+				ifAbsentPut: [ GtkTagRange newTag: eachTag ])
+				updatePosition: pos ].
+		pos := pos + 1.
+		atEnd := iter forwardChar not ].
+
+	^ tagsWithRange values
 ]
 
 { #category : #accessing }
