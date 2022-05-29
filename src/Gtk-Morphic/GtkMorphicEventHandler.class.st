@@ -181,7 +181,7 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 	| keyDownEvent keyValue |
 
 	keyValue := self mapSymbolToKeyValue: anEvent symbol.
-	keyValue = 0 ifTrue: [ ^ self ].
+	keyValue = 0 ifTrue: [ ^ nil ].
 	
 	keyDownEvent := KeyboardEvent new
 		setType: #keyDown
@@ -224,8 +224,9 @@ GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	keyDownEvent := self processKeyDownEvent: anEvent modifiers: modifiers.
 	self processKeystrokeEvent: anEvent modifiers: modifiers.
 	
-	keyDownEvent wasHandled: ((morphicWorld morph handlesKeyDown: keyDownEvent) 
-		or: [ morphicWorld morph handlesKeyStroke: keyDownEvent ]).
+	keyDownEvent ifNotNil: [ 
+		keyDownEvent wasHandled: ((morphicWorld morph handlesKeyDown: keyDownEvent) 
+			or: [ morphicWorld morph handlesKeyStroke: keyDownEvent ]) ].
 	
 	^ keyDownEvent
 ]
