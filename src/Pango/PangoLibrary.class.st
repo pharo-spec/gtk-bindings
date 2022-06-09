@@ -38,6 +38,12 @@ PangoLibrary >> unix64LibraryName [
 ]
 
 { #category : #'accessing platform' }
+PangoLibrary >> versionString [
+	^ self ffiCall: #( String pango_version_string #() )
+
+]
+
+{ #category : #'accessing platform' }
 PangoLibrary >> win32LibraryName [
 	
 	"this could be  libpangowin32-1.0-0.dll instead"

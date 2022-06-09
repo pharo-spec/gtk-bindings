@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/Pango/struct.Attribute.html
+"
 Class {
 	#name : #PangoAttribute,
 	#superclass : #GStructure,
@@ -14,6 +17,27 @@ Class {
 	#category : #'Pango-Base'
 }
 
+{ #category : #'as yet unclassified' }
+PangoAttribute class >> attributeDestroy: handle [
+
+	self ffiCall: #( void pango_attribute_destroy ( void* handle ) )
+]
+
+{ #category : #private }
+PangoAttribute class >> backgroundNewAlpha: alpha [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_background_alpha_new ( guint16 alpha ))
+]
+
+{ #category : #private }
+PangoAttribute class >> backgroundNewRed: red green: green blue: blue [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_background_new (
+  		guint16 red,
+  		guint16 green,
+  		guint16 blue))
+]
+
 { #category : #'field definition' }
 PangoAttribute class >> fieldsDesc [
 	"self rebuildFieldAccessors"
@@ -23,6 +47,21 @@ PangoAttribute class >> fieldsDesc [
  	guint start_index;
 	guint end_index;	
 	)
+]
+
+{ #category : #finalization }
+PangoAttribute class >> finalizeResourceData: handle [
+
+	handle isNull ifTrue: [ ^ self ].
+	self attributeDestroy: handle.
+	handle beNull
+]
+
+{ #category : #private }
+PangoAttribute class >> fontDescription: desc [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_font_desc_new (
+  		const PangoFontDescription* desc ))
 ]
 
 { #category : #private }
@@ -41,6 +80,34 @@ PangoAttribute class >> foregroundNewRed: red green: green blue: blue [
 ]
 
 { #category : #'instance creation' }
+PangoAttribute class >> newBackgroundAlpha: alpha [
+
+	^ (self backgroundNewAlpha: alpha) initialize 
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newBackgroundColor: pangoColor [
+
+	^ (self 
+		backgroundNewRed: pangoColor red * 65535
+		green: pangoColor green * 65535
+		blue: pangoColor blue * 65535)
+		initialize 
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newBackgroundR: red g: green b: blue [
+
+	^ (self backgroundNewRed: red green: green blue: blue) initialize
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newFontDescription: aPangoFontDescription [
+
+	^ (self fontDescription: aPangoFontDescription) initialize
+]
+
+{ #category : #'instance creation' }
 PangoAttribute class >> newForegroundAlpha: alpha [
 
 	^ (self foregroundNewAlpha: alpha) initialize 
@@ -50,9 +117,9 @@ PangoAttribute class >> newForegroundAlpha: alpha [
 PangoAttribute class >> newForegroundColor: pangoColor [
 
 	^ (self 
-		foregroundNewRed: pangoColor red 
-		green: pangoColor green 
-		blue: pangoColor blue)
+		foregroundNewRed: pangoColor red * 65535
+		green: pangoColor green * 65535
+		blue: pangoColor blue * 65535)
 		initialize 
 ]
 
@@ -85,6 +152,14 @@ PangoAttribute >> end_index [
 PangoAttribute >> end_index: anObject [
 	"This method was automatically generated"
 	handle unsignedLongAt: OFFSET_END_INDEX put: anObject
+]
+
+{ #category : #initialization }
+PangoAttribute >> initialize [
+
+	super initialize.
+	
+	self autoRelease.
 ]
 
 { #category : #'accessing - structure variables' }
