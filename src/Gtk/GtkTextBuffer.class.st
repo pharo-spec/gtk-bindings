@@ -76,7 +76,10 @@ GtkTextBuffer >> applyTagByName: aName start: start end: end [
 	
 	startIter := self iterAtOffset: start.
 	endIter := self iterAtOffset: end.
-	self applyTagByName: aName startIter: startIter endIter: endIter
+	self 
+		applyTagByName: aName 
+		startIter: startIter 
+		endIter: endIter
 ]
 
 { #category : #private }
