@@ -327,6 +327,12 @@ GdkEventKey >> keySymbol [
 		ifFalse: [ self keyValue & (self state & self class modMask)  ] 
 ]
 
+{ #category : #utility }
+GdkEventKey >> keyValToUnicode: keyval [
+
+	 ^ self ffiCall: #(guint32 gdk_keyval_to_unicode  (guint keyval))
+]
+
 { #category : #accessing }
 GdkEventKey >> keyValue [
 
@@ -414,6 +420,16 @@ GdkEventKey >> string: anObject [
 	handle pointerAt: OFFSET_STRING put: anObject getHandle.
 ]
 
+{ #category : #accessing }
+GdkEventKey >> stringOrNil [ 
+
+	| unicodeVal |
+	
+	unicodeVal := self keyValToUnicode: self keyval.
+	unicodeVal = 0 ifTrue: [ ^ nil ].
+	^ Unicode value: unicodeVal
+]
+
 { #category : #compatibility }
 GdkEventKey >> symbol [
 
@@ -452,6 +468,12 @@ GdkEventKey >> type [
 GdkEventKey >> type: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_TYPE put: anObject value
+]
+
+{ #category : #utility }
+GdkEventKey >> unicodeToKeyVal: wc [
+
+	^ self ffiCall: #(guint gdk_unicode_to_keyval  (guint32 wc))
 ]
 
 { #category : #compatibility }

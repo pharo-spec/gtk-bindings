@@ -74,3 +74,21 @@ PangoFontMap >> listFamilies: families count: n_families [
   		"PangoFontFamily***" void **families,
   		"int*" void *n_families))
 ]
+
+{ #category : #accessing }
+PangoFontMap >> loadFontContext: pangoContext description: pangoFontDescription [
+
+	^ self 
+		ffiCall: #(PangoFont *pango_font_map_load_font (
+			self,
+			PangoContext *pangoContext,
+			const PangoFontDescription *pangoFontDescription))
+		module: PangoLibrary
+]
+
+{ #category : #accessing }
+PangoFontMap >> newPangoContext [
+
+	^ self ffiCall: #(
+		PangoContext* pango_font_map_create_context (PangoFontMap * self))
+]
