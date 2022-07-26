@@ -17,7 +17,7 @@ Class {
 	#category : #'Pango-Base'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #finalization }
 PangoAttribute class >> attributeDestroy: handle [
 
 	self ffiCall: #( void pango_attribute_destroy ( void* handle ) )
@@ -102,6 +102,12 @@ PangoAttribute class >> newBackgroundR: red g: green b: blue [
 ]
 
 { #category : #'instance creation' }
+PangoAttribute class >> newBold [
+
+	^ self newWeight: 700
+]
+
+{ #category : #'instance creation' }
 PangoAttribute class >> newFontDescription: aPangoFontDescription [
 
 	^ (self fontDescription: aPangoFontDescription) initialize
@@ -130,16 +136,72 @@ PangoAttribute class >> newForegroundR: red g: green b: blue [
 ]
 
 { #category : #'instance creation' }
+PangoAttribute class >> newItalic [
+
+	^ self newStyle: 2
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newStyle: style [
+	"
+PANGO_STYLE_NORMAL, The font is upright. 0
+PANGO_STYLE_OBLIQUE, The font is slanted, but in a roman style. 1
+PANGO_STYLE_ITALIC, The font is slanted in an italic style. 2
+"
+
+	^ (self styleNew: style) initialize
+]
+
+{ #category : #'instance creation' }
+PangoAttribute class >> newUnderline [
+	
+	^ self newUnderline: 1
+]
+
+{ #category : #'instance creation' }
 PangoAttribute class >> newUnderline: weight [ 
 	"no = 0, simple=1, double=2"
 	
 	^ (self underlineNew: weight) initialize
 ]
 
+{ #category : #'instance creation' }
+PangoAttribute class >> newWeight: weight [
+	"
+PANGO_WEIGHT_THIN, The thin weight (= 100) Since: 1.24
+PANGO_WEIGHT_ULTRALIGHT, The ultralight weight (= 200)
+PANGO_WEIGHT_LIGHT, The light weight (= 300)
+PANGO_WEIGHT_SEMILIGHT, The semilight weight (= 350) Since: 1.36.7
+PANGO_WEIGHT_BOOK, The book weight (= 380) Since: 1.24)
+PANGO_WEIGHT_NORMAL, The default weight (= 400)
+PANGO_WEIGHT_MEDIUM, The normal weight (= 500) Since: 1.24
+PANGO_WEIGHT_SEMIBOLD, The semibold weight (= 600)
+PANGO_WEIGHT_BOLD, The bold weight (= 700)
+PANGO_WEIGHT_ULTRABOLD, The ultrabold weight (= 800)
+PANGO_WEIGHT_HEAVY, The heavy weight (= 900)
+PANGO_WEIGHT_ULTRAHEAVY, The ultraheavy weight (= 1000) Since: 1.24"
+
+	^ (self weightNew: weight) initialize
+]
+
+{ #category : #private }
+PangoAttribute class >> styleNew: style [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_style_new ("PangoStyle" uint style))
+	
+]
+
 { #category : #private }
 PangoAttribute class >> underlineNew: underline [
 
 	^ self ffiCall: #(PangoAttribute* pango_attr_underline_new ("PangoUnderline"int underline))
+]
+
+{ #category : #private }
+PangoAttribute class >> weightNew: weight [
+
+	^ self ffiCall: #(PangoAttribute *pango_attr_weight_new ("PangoWeight" uint weight))
+	
 ]
 
 { #category : #'accessing - structure variables' }
