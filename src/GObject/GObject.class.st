@@ -448,8 +448,20 @@ GObject >> disconnectMatchedMask: mask
 
 { #category : #signaling }
 GObject >> emitSignalByName: detailed_signal [
+	| handledBuffer |
 
-	self ffiCall: #(void g_signal_emit_by_name (self, const gchar *detailed_signal))
+	handledBuffer := FFIInt64 newBuffer.
+	self 
+		emitSignalByName: detailed_signal 
+		handled: handledBuffer.
+	^ handledBuffer booleanAt: 1
+]
+
+{ #category : #signaling }
+GObject >> emitSignalByName: detailed_signal handled: buffer [
+	"buffer is a ByteArray that contains a boolean (int32)"
+
+	self ffiCall: #(void g_signal_emit_by_name (self, const gchar *detailed_signal, void *buffer))
 ]
 
 { #category : #'private - primitives' }
