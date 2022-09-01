@@ -6,7 +6,8 @@ Class {
 		'linkPrototype',
 		'activateAction',
 		'active',
-		'minimalWidth'
+		'minimalWidth',
+		'xalign'
 	],
 	#pools : [
 		'GParamFlags'
@@ -76,9 +77,17 @@ GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
 		name: 'text' 
 		default: nil
 		flags: G_PARAM_READWRITE.
+
+	aDefinition
+		installPropertyFloatId: 2
+		name: 'xalign' 
+		minimum: 0.0
+		maximum: 1.0
+		default: 0.0
+		flags: G_PARAM_READWRITE.
 		
 	aDefinition
-		installPropertyBooleanId: 2
+		installPropertyBooleanId: 3
 		name: 'active' 
 		default: false
 		flags: G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY
@@ -94,6 +103,16 @@ GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea:
 			value: path ].
 	
 	^ false
+]
+
+{ #category : #private }
+GtkCellRendererLink >> calculateXIn: cellRect layout: layout [
+	
+	self xalign < 0.5 ifTrue: [ ^ cellRect x + self padding x ].
+	self xalign = 0.5 ifTrue: [ ^ (cellRect x + (cellRect width - self padding x - layout scaledSize x) // 2) ].
+	self xalign > 0.5 ifTrue: [ ^ (cellRect x + cellRect width) - self padding x - layout scaledSize x ].
+	
+	self error: 'Should not arrive here'
 ]
 
 { #category : #'accessing - geometry' }
@@ -118,7 +137,8 @@ GtkCellRendererLink >> getPreferredWidth: widget minimum: minimumSize natural: n
 GtkCellRendererLink >> getProperty: id inValue: gValue [
 
 	id = 1 ifTrue: [ gValue setString: text ].
-	id = 2 ifTrue: [ gValue setBoolean: active ]
+	id = 2 ifTrue: [ gValue setFloat: xalign ].
+	id = 3 ifTrue: [ gValue setBoolean: active ]
 ]
 
 { #category : #'accessing - geometry' }
@@ -136,7 +156,8 @@ GtkCellRendererLink >> initialize [
 	super initialize. 
 	self padding: 2@2.
 	self mode: GTK_CELL_RENDERER_MODE_ACTIVATABLE.
-	active := false
+	active := false.
+	xalign := 0.0
 ]
 
 { #category : #private }
@@ -179,11 +200,11 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 	attrs add: (PangoAttribute newUnderline: 1).
 	layout setAttributes: attrs.
 
+	x := self calculateXIn: cellRect layout: layout.	
+	y := cellRect y + self padding y.	
+
 	layout width: -1.
-	
-	x := cellRect x + self padding x.
-	y := cellRect y + self padding y.
-	
+
 	canvas := AthensCairoCanvas fromHandle: cr.
 	canvas primSaveState.
 	canvas pushClipRect: cellRect. 
@@ -195,5 +216,12 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 GtkCellRendererLink >> setProperty: id toValue: gValue [
 
 	id = 1 ifTrue: [ text := gValue getString ].
-	id = 2 ifTrue: [ active := gValue getBoolean ]
+	id = 2 ifTrue: [ xalign := gValue getFloat ].
+	id = 3 ifTrue: [ active := gValue getBoolean ]
+]
+
+{ #category : #private }
+GtkCellRendererLink >> xalign [
+
+	^ xalign
 ]

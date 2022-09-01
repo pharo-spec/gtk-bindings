@@ -36,6 +36,7 @@ PangoEllipsizeMode class >> PANGO_ELLIPSIZE_START [
 
 { #category : #'enum declaration' }
 PangoEllipsizeMode class >> enumDecl [
+	"self initializeEnumeration; rebuildEnumAccessors"
 
 	^ #(
   PANGO_ELLIPSIZE_NONE   0
