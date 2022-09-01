@@ -7,7 +7,9 @@ Class {
 		'activateAction',
 		'active',
 		'minimalWidth',
-		'xalign'
+		'xalign',
+		'treeView',
+		'column'
 	],
 	#pools : [
 		'GParamFlags'
@@ -105,6 +107,16 @@ GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea:
 	^ false
 ]
 
+{ #category : #initialization }
+GtkCellRendererLink >> addedToTreeView: aTreeView column: aColumn [
+	
+	treeView := aTreeView.
+	column := aColumn.
+	aTreeView connectMotionNotify: [ :event | 
+		self maybeSetCursor: event.
+		false ]
+]
+
 { #category : #private }
 GtkCellRendererLink >> calculateXIn: cellRect layout: layout [
 	
@@ -160,6 +172,16 @@ GtkCellRendererLink >> initialize [
 	xalign := 0.0
 ]
 
+{ #category : #'private - testing' }
+GtkCellRendererLink >> isEventInCell: event [
+		
+	treeView 
+		pathAtPosition: event position
+		then: [ :path :columnHandle :cell | 
+			^ columnHandle = column getHandle ]. 
+	^ false
+]
+
 { #category : #private }
 GtkCellRendererLink >> linkPrototype [
 	
@@ -168,6 +190,14 @@ GtkCellRendererLink >> linkPrototype [
 			addClass: 'hover';
 			addClass: 'cell-link';
 			yourself) ]
+]
+
+{ #category : #initialization }
+GtkCellRendererLink >> maybeSetCursor: event [
+	
+	(self isEventInCell: event)
+		ifTrue: [ treeView gdkWindow cursor: GdkCursor newHand ]
+		ifFalse: [ treeView gdkWindow cursor: GdkCursor null ]
 ]
 
 { #category : #accessing }

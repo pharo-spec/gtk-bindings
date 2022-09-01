@@ -71,7 +71,8 @@ GtkTreeView >> allSelected [
 GtkTreeView >> appendColumn: column [
 	
 	columns add: column.
-	self basicAppendColumn: column
+	self basicAppendColumn: column.
+	column addedToTreeView: self
 ]
 
 { #category : #'convenience columns' }
@@ -328,6 +329,19 @@ GtkTreeView >> getModel [
 ]
 
 { #category : #private }
+GtkTreeView >> getPathAtPosX: x y: y path: path column: column cellX: cell_x cellY: cell_y [
+
+	^ self ffiCall: #(gboolean gtk_tree_view_get_path_at_pos (
+		self,
+		gint x,
+		gint y,
+		"GtkTreePath **"void **path,
+		"GtkTreeViewColumn **"void **column,
+		"gint *"void *cell_x,
+		"gint *"void *cell_y))
+]
+
+{ #category : #private }
 GtkTreeView >> getSelection [ 
 
 	^ self ffiCall: #(GtkTreeSelection *gtk_tree_view_get_selection (self))
@@ -447,13 +461,30 @@ GtkTreeView >> model: aListStore [
 	self setModel: aListStore
 ]
 
-{ #category : #columns }
-GtkTreeView >> newColumn [
+{ #category : #accessing }
+GtkTreeView >> pathAtPosition: aPoint then: aBlock [
+	"gets the path, the column and the cell pointed by aPoint  which is a mouse position"
+	| result pathHandle columnHandle xBuffer yBuffer |
+	
+	pathHandle := ExternalAddress new.
+	columnHandle := ExternalAddress new.
+	xBuffer := FFIInt32 newBuffer.
+	yBuffer := FFIInt32 newBuffer.
+	result := self 
+		getPathAtPosX: aPoint x 
+		y: aPoint y
+		path: pathHandle
+		column: columnHandle
+		cellX: xBuffer 
+		cellY: yBuffer.
 
-	| column |
-	column := GtkTreeViewColumn new.
-	self appendColumn: column.
-	^ column
+	result ifTrue: [ 
+		aBlock 
+			value: (GtkTreePath fromHandle: pathHandle)
+			value: columnHandle
+			value: ((xBuffer signedLongAt: 1) + 1)@((yBuffer signedLongAt: 1) + 1) ].
+		
+	^ result
 ]
 
 { #category : #columns }
@@ -463,7 +494,7 @@ GtkTreeView >> removeAllColumns [
 ]
 
 { #category : #columns }
-GtkTreeView >> removeColumn: aGtkTreeViewColumn [ 
+GtkTreeView >> removeColumn: aGtkTreeViewColumn [
 	
 	columns remove: aGtkTreeViewColumn.
 	self basicRemoveColumn: aGtkTreeViewColumn
