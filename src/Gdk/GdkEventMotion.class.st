@@ -99,9 +99,9 @@ GdkEventMotion >> is_hint: anObject [
 	handle signedShortAt: OFFSET_IS_HINT put: anObject
 ]
 
-{ #category : #compatibility }
+{ #category : #accessing }
 GdkEventMotion >> position [
-	
+
 	^ self x @ self y
 ]
 
