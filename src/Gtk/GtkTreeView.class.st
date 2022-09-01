@@ -102,6 +102,12 @@ GtkTreeView >> appendTextColumn: columnIndex [
 		addAttribute: 'text' column: columnIndex renderer: renderer)
 ]
 
+{ #category : #accessing }
+GtkTreeView >> autosize [
+
+	self ffiCall: #(void gtk_tree_view_columns_autosize (self))
+]
+
 { #category : #private }
 GtkTreeView >> basicAppendColumn: column [
 
@@ -418,6 +424,12 @@ GtkTreeView >> isMultipleSelection [
 	^ self selection mode = GtkSelectionMode GTK_SELECTION_MULTIPLE
 ]
 
+{ #category : #testing }
+GtkTreeView >> isShowExpander [
+
+	^ self ffiCall: #(gboolean gtk_tree_view_get_show_expanders (self))
+]
+
 { #category : #accessing }
 GtkTreeView >> model [
 
@@ -559,4 +571,10 @@ GtkTreeView >> setSearchEqualFunc: search_equal_func [
  		GCallback search_equal_func,
  		NULL,
  		NULL))
+]
+
+{ #category : #accessing }
+GtkTreeView >> showExpander: enabled [
+
+	self ffiCall: #(void gtk_tree_view_set_show_expanders (self, gboolean enabled))
 ]
