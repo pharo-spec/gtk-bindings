@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #options }
-GIOSyncProcess class >> gSpawnSync: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data childPidOut: child_pid_out standard_output: standard_output standard_error: standard_error error: error [
+GIOSyncProcess class >> gSpawnSync: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data standard_output: standard_output standard_error: standard_error wait_status: wait_status error: error [
 	"bool spawn_sync (string? working_directory, string[] argv, string[]? envp, SpawnFlags _flags, SpawnChildSetupFunc? child_setup, out string standard_output = null, out string standard_error = null, out int wait_status = null) throws SpawnError "
 	"void (*GSpawnChildSetupFunc) (gpointer user_data)"
 
@@ -22,19 +22,19 @@ GIOSyncProcess class >> gSpawnSync: working_directory argv: argv envp: envp flag
 		GSpawnFlags flags,
  		"GSpawnChildSetupFunc "void *child_setup,
 		gpointer user_data,
-		"GPid *"void *child_pid_out,
-		"gchar *"void *standard_output,
-		"gint *"void *standard_error,
-		"GError **"GError *error))
+		gpointerHolder standard_output,
+		gpointerHolder standard_error,
+		gint* wait_status,
+		GError *error))
 ]
 
 { #category : #'as yet unclassified' }
 GIOSyncProcess class >> gSpawnSync: working_directory command: command arguments: anArray flags: flags childSetup: child_setup data: user_data [
-	| argv envp gPidOut error standard_output standard_error return |
+	| argv envp error standard_output standard_error return wait_status |
 
 	envp := ExternalAddress null.
 	argv := ExternalAddress arrayOfStringsFrom: { command }, anArray.
-	gPidOut := FFIInt32 newBuffer.
+	wait_status := FFIInt32 newBuffer.
 	error := GError new.
 	standard_output := gpointerHolder new.
 	standard_error := gpointerHolder new.
@@ -47,9 +47,9 @@ GIOSyncProcess class >> gSpawnSync: working_directory command: command arguments
 				flags: flags 
 				childSetup: child_setup 
 				data: user_data
-				childPidOut: gPidOut
 				standard_output: standard_output 
-				standard_error: standard_error 
+				standard_error: standard_error
+				wait_status: wait_status
 				error: error.
 		^ return 
 			ifTrue:[ 	standard_output value readStringUTF8]
@@ -57,8 +57,8 @@ GIOSyncProcess class >> gSpawnSync: working_directory command: command arguments
 				]
 		ensure: [ 
 			argv freeArrayOfStrings.
-			standard_output value gfree.
-			"standard_error value gfree."
+			standard_output value gFree.
+			standard_error value gFree.
 			 ]
 ]
 

@@ -59,7 +59,7 @@ GError >> domainString [
 { #category : #private }
 GError >> gquarkToString: quark [
 
-	^ self ffiCall: #(const gchar *g_quark_to_string (GQuark quark))
+	^ self ffiCall: #(const gchar *g_quark_to_string (GQuark quark)) module: GLibLibrary
 ]
 
 { #category : #testing }
