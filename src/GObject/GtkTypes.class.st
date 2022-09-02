@@ -17,6 +17,7 @@ Class {
 		'gint8',
 		'glong',
 		'gpointer',
+		'gpointerHolder',
 		'gsize',
 		'gssize',
 		'guchar',
@@ -55,5 +56,6 @@ GtkTypes class >> initialize [
 	
 	gunichar := #guint32.
 	
-	GPid := #int
+	GPid := #int.
+	gpointerHolder := FFIExternalValueHolder ofType: gpointer.
 ]
