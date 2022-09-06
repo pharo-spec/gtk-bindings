@@ -58,11 +58,18 @@ GError >> domainString [
 
 { #category : #freeing }
 GError >> free [
+	"Frees a GError and associated resources."
+
+	self g_error_free.
+	handle := nil.
+]
+
+{ #category : #freeing }
+GError >> g_error_free [
 	"Frees a GError and associated resources.
 	void g_error_free (GError* error)"
 
 	self ffiCall: #(void g_error_free(self) ) module: GLibLibrary.
-	handle := nil.
 ]
 
 { #category : #private }
