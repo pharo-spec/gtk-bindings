@@ -1,43 +1,43 @@
 "
 I am a GEngine that just executes on in the image's same thread.
 
-I am a substitution for the GtkEngine to call Pango API.
+I am a substitution for the GtkEngine to call Glib API.
 
 "
 Class {
-	#name : #PangoStandaloneEngine,
+	#name : #GlibStandaloneEngine,
 	#superclass : #GEngine,
-	#category : #PangoStandaloneEngine
+	#category : #GlibStandaloneEngine
 }
 
 { #category : #testing }
-PangoStandaloneEngine class >> isAvailable [
+GlibStandaloneEngine class >> isAvailable [
 
 	^ true
 ]
 
 { #category : #'system startup' }
-PangoStandaloneEngine >> ensureRunLoop [
+GlibStandaloneEngine >> ensureRunLoop [
 
-	^ runLoop ifNil: [ runLoop := PangoStandaloneRunLoop new ]
+	^ runLoop ifNil: [ runLoop := GlibStandaloneRunLoop new ]
 
 ]
 
 { #category : #accessing }
-PangoStandaloneEngine >> naturalRunner [
+GlibStandaloneEngine >> naturalRunner [
 
 	^ runLoop naturalRunner
 ]
 
 { #category : #'private running' }
-PangoStandaloneEngine >> start [
+GlibStandaloneEngine >> start [
 
 	self isRunning ifTrue: [ self stop ].
 	runLoop start
 ]
 
 { #category : #'private running' }
-PangoStandaloneEngine >> stop [
+GlibStandaloneEngine >> stop [
 	self isRunning ifFalse: [ ^ self ].
 	runLoop stop
 ]

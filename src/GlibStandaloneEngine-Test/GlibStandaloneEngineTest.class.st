@@ -2,17 +2,17 @@
 A PangoStandaloneEngineTest is a test class for testing the behavior of PangoStandaloneEngine
 "
 Class {
-	#name : #PangoStandaloneEngineTest,
+	#name : #GlibStandaloneEngineTest,
 	#superclass : #TestCase,
-	#category : #'PangoStandaloneEngine-Test'
+	#category : #'GlibStandaloneEngine-Test'
 }
 
 { #category : #tests }
-PangoStandaloneEngineTest >> testLifecycle [
+GlibStandaloneEngineTest >> testLifecycle [
 
 	"This test requires only one available engine"
 	GEngine reset. "If there is a current engine, this will #stop it."
-	self assert: (GEngine ensureEngine isKindOf: PangoStandaloneEngine).
+	self assert: (GEngine ensureEngine isKindOf: GlibStandaloneEngine).
 
 	"Until the engine is started, a new instance is answered by #ensureEngine."
 	self deny: GEngine ensureEngine identicalTo: GEngine ensureEngine.
