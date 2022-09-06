@@ -56,7 +56,7 @@ GError >> domainString [
 	^ self gquarkToString: self domain
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #freeing }
 GError >> free [
 	"Frees a GError and associated resources.
 	void g_error_free (GError* error)"
