@@ -8,13 +8,13 @@ Class {
 	#traits : 'GLibTLibrary',
 	#classTraits : 'GLibTLibrary classTrait',
 	#instVars : [
-		'argv',
-		'envp',
-		'wait_status',
 		'errorHolder',
-		'standard_output',
-		'standard_error',
-		'isSuccess'
+		'isSuccess',
+		'arguments',
+		'environment',
+		'standardError',
+		'standardOutput',
+		'waitStatus'
 	],
 	#pools : [
 		'GSpawnError',
@@ -23,19 +23,6 @@ Class {
 	],
 	#category : #'GLib-IO'
 }
-
-{ #category : #'as yet unclassified' }
-GIOSyncProcess class >> processError: aGError waitStatus: wait_status [
-
-	| return error errorHolder |
-	
-	[ errorHolder := gErrorHolder new.
-	return := self gSpawnCheckWaitStatus: wait_status error: errorHolder.
-	error := GError fromHandle: errorHolder value.
-	1 halt. ]
-		ensure: [ error free ]
-	
-]
 
 { #category : #'instance creation' }
 GIOSyncProcess class >> spawn: command arguments: anArray workingDirectory: workingdirectory flags: flags processInfo: processInfo [
@@ -53,24 +40,24 @@ GIOSyncProcess class >> spawn: command arguments: anArray workingDirectory: work
 { #category : #private }
 GIOSyncProcess >> basicgSpawnSync: working_directory command: command arguments: anArray flags: flags childSetup: child_setup data: user_data processInfo: processInfo [
 
-	argv := ExternalAddress arrayOfStringsFrom: { command } , anArray.
+	arguments := ExternalAddress arrayOfStringsFrom: { command } , anArray.
 
 	isSuccess := self
 		             gSpawnSync: working_directory
-		             argv: argv
-		             envp: envp
+		             argv: arguments
+		             envp: environment
 		             flags: flags
 		             childSetup: child_setup
 		             data: user_data
-		             standard_output: standard_output
-		             standard_error: standard_error
-		             wait_status: wait_status
+		             standard_output: standardOutput
+		             standard_error: standardError
+		             wait_status: waitStatus
 		             error: errorHolder.
 	self setErrorIfAny: processInfo.
 	self setExitCodeIfNoError: processInfo.
 	^ processInfo
-		stdOut: standard_output value readStringUTF8;
-		stdErr: standard_error value readStringUTF8;
+		stdOut: standardOutput value readStringUTF8;
+		stdErr: standardError value readStringUTF8;
 		success: isSuccess;
 		yourself
 ]
@@ -101,7 +88,7 @@ g_spawn_sync (
 		gpointerHolder standard_output,
 		gpointerHolder standard_error,
 		gint* wait_status,
-		gErrorHolder error))
+		gpointerHolder error))
 ]
 
 { #category : #private }
@@ -117,9 +104,9 @@ GIOSyncProcess >> gSpawnSync: working_directory command: command arguments: anAr
 		  data: user_data
 		  processInfo: processInfo 
 	] ensure: [ 
-		  argv freeArrayOfStrings. argv := nil.
-		  standard_output value gFree. standard_output := nil.
-		  standard_error value gFree. standard_error := nil.
+		  arguments freeArrayOfStrings. arguments := nil.
+		  standardOutput value gFree. standardOutput := nil.
+		  standardError value gFree. standardError := nil.
 	]
 ]
 
@@ -127,11 +114,11 @@ GIOSyncProcess >> gSpawnSync: working_directory command: command arguments: anAr
 GIOSyncProcess >> initialize [
 
 	super initialize.
-	envp := ExternalAddress null.
-	wait_status := FFIInt32 newBuffer.
-	errorHolder := gErrorHolder new.
-	standard_output := gpointerHolder new.
-	standard_error := gpointerHolder new
+	environment := ExternalAddress null.
+	waitStatus := FFIInt32 newBuffer.
+	errorHolder := gpointerHolder new.
+	standardOutput := gpointerHolder new.
+	standardError := gpointerHolder new
 ]
 
 { #category : #accessing }
@@ -160,5 +147,5 @@ GIOSyncProcess >> setExitCodeIfNoError: processInfo [
 
 	self isSuccess ifFalse: [ ^ self ].
 	
-	processInfo exitCode: (wait_status signedLongAt: 1).
+	processInfo exitCode: (waitStatus signedLongAt: 1).
 ]

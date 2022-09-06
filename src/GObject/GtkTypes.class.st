@@ -59,5 +59,4 @@ GtkTypes class >> initialize [
 	
 	GPid := #int.
 	gpointerHolder := FFIExternalValueHolder ofType: gpointer.
-	gErrorHolder := FFIExternalValueHolder ofType: 'GError *'.
 ]
