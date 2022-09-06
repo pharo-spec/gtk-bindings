@@ -8,6 +8,7 @@ Class {
 		'GPid',
 		'GQuark',
 		'GType',
+		'gErrorHolder',
 		'gboolean',
 		'gchar',
 		'gdouble',
@@ -58,4 +59,5 @@ GtkTypes class >> initialize [
 	
 	GPid := #int.
 	gpointerHolder := FFIExternalValueHolder ofType: gpointer.
+	gErrorHolder := FFIExternalValueHolder ofType: 'GError *'.
 ]
