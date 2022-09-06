@@ -56,6 +56,15 @@ GError >> domainString [
 	^ self gquarkToString: self domain
 ]
 
+{ #category : #'as yet unclassified' }
+GError >> free [
+	"Frees a GError and associated resources.
+	void g_error_free (GError* error)"
+
+	self ffiCall: #(void g_error_free(self) ) module: GLibLibrary.
+	handle := nil.
+]
+
 { #category : #private }
 GError >> gquarkToString: quark [
 
