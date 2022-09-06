@@ -1,6 +1,7 @@
 "
 Error codes returned by spawning processes.
 See https://github.com/GNOME/glib/blob/main/glib/gspawn.h
+You can instantiate me like this: `(GSpawnError newValue: error code)`
 
 GSpawnError:
  * @G_SPAWN_ERROR_FORK: Fork failed due to lack of memory.
