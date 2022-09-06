@@ -1,6 +1,10 @@
 Class {
 	#name : #PangoLayout,
 	#superclass : #PangoObject,
+	#pools : [
+		'PangoAlignment',
+		'PangoFontDescription'
+	],
 	#category : #'Pango-Base'
 }
 
@@ -35,6 +39,12 @@ PangoLayout class >> pango_cairo_create_layout: cr [
 { #category : #private }
 PangoLayout class >> pango_layout_new: context [
 	^ self ffiCall: #(PangoLayout *pango_layout_new (PangoContext *context))
+]
+
+{ #category : #accessing }
+PangoLayout >> alignment [
+
+	^ self ffiCall: #(PangoAlignment pango_layout_get_alignment (self))
 ]
 
 { #category : #accessing }
@@ -93,6 +103,18 @@ PangoLayout >> primGetSizeWidth: width height: height [
 ]
 
 { #category : #accessing }
+PangoLayout >> scaledSize [
+
+	^ (self size / PANGO_SCALE) asIntegerPoint
+]
+
+{ #category : #accessing }
+PangoLayout >> setAlignment: alignment [
+
+	self ffiCall: #(void pango_layout_set_alignment (self, PangoAlignment alignment))
+]
+
+{ #category : #accessing }
 PangoLayout >> setAttributes: attrs [
 
 	^ self ffiCall: #(void pango_layout_set_attributes ( self, PangoAttrList* attrs ))
@@ -146,6 +168,12 @@ PangoLayout >> size [
 { #category : #accessing }
 PangoLayout >> text: text [
 	self ffiCall: #(void pango_layout_set_text (self, const char *text, -1))
+]
+
+{ #category : #accessing }
+PangoLayout >> width [
+
+	self ffiCall: #(int pango_layout_get_width (self))
 ]
 
 { #category : #accessing }

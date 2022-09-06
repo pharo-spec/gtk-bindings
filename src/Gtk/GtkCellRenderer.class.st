@@ -43,6 +43,11 @@ GtkCellRenderer class >> new [
 	^ self cellRendererNew
 ]
 
+{ #category : #initialization }
+GtkCellRenderer >> addedToTreeView: aTreeView column: aColumn [
+	"do nothing, this is just useful for custom renderers and in certain cases"
+]
+
 { #category : #private }
 GtkCellRenderer >> getPaddingX: xpad y: ypad [
 

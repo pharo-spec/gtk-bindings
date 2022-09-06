@@ -49,6 +49,15 @@ GtkTreeViewColumn >> addAttribute: attribute column: column renderer: aRenderer 
 ]
 
 { #category : #initialization }
+GtkTreeViewColumn >> addedToTreeView: aTreeView [
+
+	renderers do: [ :each |
+		each 
+			addedToTreeView: aTreeView
+			column: self ]
+]
+
+{ #category : #initialization }
 GtkTreeViewColumn >> autoObjectUnref [
 
 	"do not unref"
@@ -130,6 +139,12 @@ GtkTreeViewColumn >> connectClicked: aBlock [
 GtkTreeViewColumn >> expand: expand [
 
 	self ffiCall: #(void gtk_tree_view_column_set_expand (self, gboolean expand))
+]
+
+{ #category : #accessing }
+GtkTreeViewColumn >> fixedWidth: fixed_width [
+
+	self ffiCall: #(void gtk_tree_view_column_set_fixed_width (self, gint fixed_width)) 
 ]
 
 { #category : #private }

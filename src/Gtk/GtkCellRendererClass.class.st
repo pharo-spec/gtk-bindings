@@ -200,6 +200,36 @@ GtkCellRendererClass >> gParamSpecBoxedName: name nick: nick blurb: blurb type: 
 ]
 
 { #category : #'accessing - properties' }
+GtkCellRendererClass >> gParamSpecFloatName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
+
+	^ self 
+		ffiCall: #("GParamSpec *"GObject *g_param_spec_float (
+  			const gchar* name,
+  			const gchar* nick,
+  			const gchar* blurb,
+  			gfloat minimum,
+  			gfloat maximum,
+  			gfloat default_value,
+  			GParamFlags flags))
+		module: GObjectLibrary
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> gParamSpecIntName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
+
+	^ self 
+		ffiCall: #("GParamSpec *"GObject *g_param_spec_int (
+  			const gchar* name,
+  			const gchar* nick,
+  			const gchar* blurb,
+  			gint minimum,
+  			gint maximum,
+  			gint default_value,
+  			GParamFlags flags))
+		module: GObjectLibrary
+]
+
+{ #category : #'accessing - properties' }
 GtkCellRendererClass >> gParamSpecStringName: name nick: nick blurb: blurb default: default flags: flags [
 
 	^ self 
@@ -254,7 +284,7 @@ GtkCellRendererClass >> get_preferred_height_for_width [
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_PREFERRED_HEIGHT_FOR_WIDTH) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : #'library path' }
 GtkCellRendererClass >> get_preferred_height_for_width: aCallback [
 	"This method was automatically generated"
 	
@@ -359,6 +389,92 @@ GtkCellRendererClass >> installPropertyBooleanId: index name: aName nick: aNickn
 			gParamSpecBooleanName: aName 
 			nick: aNickname 
 			blurb: aBlurb 
+			default: default 
+			flags: flags)
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyFloatId: index name: aName default: default flags: flags [
+
+	self 
+		installPropertyFloatId: index 
+		name: aName 
+		nick: aName
+		blurb: aName
+		minimum: Float fmin 
+		maximum: Float fmax
+		default: default 
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyFloatId: index name: aName minimum: minimum maximum: maximum default: default flags: flags [
+
+	self 
+		installPropertyFloatId: index 
+		name: aName 
+		nick: aName
+		blurb: aName
+		minimum: minimum
+		maximum: maximum
+		default: default 
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyFloatId: index name: aName nick: aNickname blurb: aBlurb minimum: minimum maximum: maximum default: default flags: flags [
+
+	self 
+		gInstallPropertyId: index 
+		spec: (self 
+			gParamSpecFloatName: aName 
+			nick: aNickname 
+			blurb: aBlurb
+			minimum: minimum 
+			maximum: maximum 
+			default: default 
+			flags: flags)
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyIntId: index name: aName default: default flags: flags [
+
+	self 
+		installPropertyIntId: index 
+		name: aName 
+		nick: aName
+		blurb: aName
+		minimum: 0 
+		maximum: SmallInteger maxVal
+		default: default 
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyIntId: index name: aName minimum: minimum maximum: maximum default: default flags: flags [
+
+	self 
+		installPropertyIntId: index 
+		name: aName 
+		nick: aName
+		blurb: aName
+		minimum: minimum 
+		maximum: maximum
+		default: default 
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GtkCellRendererClass >> installPropertyIntId: index name: aName nick: aNickname blurb: aBlurb minimum: minimum maximum: maximum default: default flags: flags [
+
+	self 
+		gInstallPropertyId: index 
+		spec: (self 
+			gParamSpecIntName: aName 
+			nick: aNickname 
+			blurb: aBlurb
+			minimum: minimum 
+			maximum: maximum 
 			default: default 
 			flags: flags)
 ]

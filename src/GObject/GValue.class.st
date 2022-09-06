@@ -28,6 +28,12 @@ GValue >> getBoolean [
 ]
 
 { #category : #accessing }
+GValue >> getFloat [
+
+	^ self ffiCall: #(gfloat g_value_get_float (self))
+]
+
+{ #category : #accessing }
 GValue >> getObject [
 
 	^ self ffiCall: #(gpointer g_value_get_object (self))
