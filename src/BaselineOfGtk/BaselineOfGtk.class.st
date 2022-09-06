@@ -82,7 +82,7 @@ BaselineOfGtk >> installGtkDriver [
 { #category : #doits }
 BaselineOfGtk >> postLoad [
 
-	"self installGtkDriver."
+	self installGtkDriver.
 	self recompileStructures
 ]
 
