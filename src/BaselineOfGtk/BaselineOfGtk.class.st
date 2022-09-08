@@ -15,11 +15,11 @@ BaselineOfGtk >> baseline: spec [
 			
 			self glib: spec.
 			self gio: spec.
+			self pango: spec.
 
 			spec
 				"core"
 				package: 'Gdk' with: [ spec requires: #('GIO') ];
-				package: 'Pango' with: [ spec requires: #('Glib') ];
 				package: 'Gtk' with: [ spec requires: #('Glib' 'Gdk' 'Pango') ];
 
 				"code"
@@ -77,6 +77,16 @@ BaselineOfGtk >> installGtkDriver [
 	Smalltalk globals
 		at: #OSGtkDriver
 		ifPresent: [ :driverClass | OSWindowDriver driverClass: driverClass ]
+]
+
+{ #category : #baseline }
+BaselineOfGtk >> pango: spec [
+
+	spec baseline: 'Pango' with: [ 
+		spec
+			loads: #('default'); 
+			repository: self packageRepositoryURL ].
+
 ]
 
 { #category : #doits }
