@@ -14,3 +14,17 @@ PangoFontFamily >> name [
 
 	^ self ffiCall: #(const char* pango_font_family_get_name (self))
 ]
+
+{ #category : #printing }
+PangoFontFamily >> printOn: aStream [
+
+	"Append a sequence of characters to aStream that identify the receiver."
+
+	aStream
+		nextPutAll: self className;
+		nextPutAll: '(name: ';
+		print: self name;
+		nextPutAll: ' handle: ';
+		print: handle;
+		nextPutAll: ')'
+]

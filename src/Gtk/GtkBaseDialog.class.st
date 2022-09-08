@@ -101,6 +101,7 @@ GtkBaseDialog >> keepAlive [
 { #category : #private }
 GtkBaseDialog >> respond [ 
 
+	self runContext ifNil: [ ^ self ].
 	self runContext resume.
 	self hide.
 	self isKeepAlive 

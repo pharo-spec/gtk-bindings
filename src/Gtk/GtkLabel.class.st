@@ -37,6 +37,12 @@ GtkLabel class >> newLabel: aString [
 	^ (self labelNew: aString) initialize
 ]
 
+{ #category : #accessing }
+GtkLabel >> attributes: attrs [ 
+
+	self ffiCall: #(void gtk_label_set_attributes (self, PangoAttrList *attrs))
+]
+
 { #category : #private }
 GtkLabel >> basicText [
 	^ self ffiCall: #(String gtk_label_get_text (self))
@@ -90,6 +96,12 @@ GtkLabel >> label [
 GtkLabel >> label: aString [ 
 	
 	self ffiCall: #(void gtk_label_set_label (self, String aString))
+]
+
+{ #category : #accessing }
+GtkLabel >> markup: aString [ 
+	
+	self ffiCall: #(void gtk_label_set_markup (self, String aString))
 ]
 
 { #category : #accessing }

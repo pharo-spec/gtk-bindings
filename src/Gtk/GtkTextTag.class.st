@@ -122,3 +122,9 @@ GtkTextTag >> isForegroundSet [
 
 	^ self gObjectGetBoolean: 'foreground-set'
 ]
+
+{ #category : #accessing }
+GtkTextTag >> name [
+
+	^ self gObjectGetString: 'name'
+]

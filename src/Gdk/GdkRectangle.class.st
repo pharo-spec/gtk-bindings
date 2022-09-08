@@ -54,6 +54,18 @@ GdkRectangle >> height: anObject [
 	handle signedLongAt: OFFSET_HEIGHT put: anObject
 ]
 
+{ #category : #'accessing - compatibility' }
+GdkRectangle >> left [
+
+	^ self x
+]
+
+{ #category : #'accessing - compatibility' }
+GdkRectangle >> top [
+
+	^ self y
+]
+
 { #category : #'accessing structure variables' }
 GdkRectangle >> width [
 	"This method was automatically generated"

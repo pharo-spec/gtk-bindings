@@ -1,6 +1,10 @@
 Class {
 	#name : #PangoLayout,
 	#superclass : #PangoObject,
+	#pools : [
+		'PangoAlignment',
+		'PangoFontDescription'
+	],
 	#category : #'Pango-Base'
 }
 
@@ -38,6 +42,31 @@ PangoLayout class >> pango_layout_new: context [
 ]
 
 { #category : #accessing }
+PangoLayout >> alignment [
+
+	^ self ffiCall: #(PangoAlignment pango_layout_get_alignment (self))
+]
+
+{ #category : #accessing }
+PangoLayout >> attributes [
+
+	^ self getAttributes
+		  autoRelease;
+		  yourself
+]
+
+{ #category : #accessing }
+PangoLayout >> baseline [
+
+	^ self ffiCall: #( int pango_layout_get_baseline ( self ) )
+]
+
+{ #category : #accessing }
+PangoLayout >> fontDescription [
+	self ffiCall: #(PangoFontDescription *pango_layout_get_font_description (self))
+]
+
+{ #category : #accessing }
 PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
 ]
@@ -52,6 +81,20 @@ PangoLayout >> free [
 PangoLayout >> indent [
 
 	self ffiCall: #(int pango_layout_get_indent (self))
+]
+
+{ #category : #accessing }
+PangoLayout >> getAttributes [
+	"https://docs.gtk.org/Pango/method.Layout.get_attributes.html"
+
+	^ self ffiCall: #( PangoAttrList* pango_layout_get_attributes ( self ) )
+]
+
+{ #category : #accessing }
+PangoLayout >> height: height [
+	"https://docs.gtk.org/Pango/method.Layout.set_height.html"
+
+	self ffiCall: #(void pango_layout_set_height (self, int height))
 ]
 
 { #category : #initialization }
@@ -72,16 +115,64 @@ PangoLayout >> primGetSizeWidth: width height: height [
 ]
 
 { #category : #accessing }
+PangoLayout >> scaledSize [
+
+	^ (self size / PANGO_SCALE) asIntegerPoint
+]
+
+{ #category : #accessing }
+PangoLayout >> setAlignment: alignment [
+
+	self ffiCall: #(void pango_layout_set_alignment (self, PangoAlignment alignment))
+]
+
+{ #category : #accessing }
 PangoLayout >> setAttributes: attrs [
 
 	^ self ffiCall: #(void pango_layout_set_attributes ( self, PangoAttrList* attrs ))
 ]
 
 { #category : #accessing }
+PangoLayout >> setEllipsize: ellipsize [
+	"https://docs.gtk.org/Pango/method.Layout.set_ellipsize.html"
+
+	self ffiCall: #(
+		void
+		pango_layout_set_ellipsize (
+		  self,
+		  PangoEllipsizeMode ellipsize
+		))
+]
+
+{ #category : #accessing }
+PangoLayout >> setJustify: justify [
+
+	self ffiCall: #(
+		void
+		pango_layout_set_justify (
+		  self,
+		  bool justify
+		))
+]
+
+{ #category : #accessing }
+PangoLayout >> setLineSpacing: factor [
+	"https://docs.gtk.org/Pango/method.Layout.set_line_spacing.html"
+
+	self ffiCall: #(
+		void
+		pango_layout_set_line_spacing (
+		  self,
+		  float factor
+		))
+]
+
+{ #category : #accessing }
 PangoLayout >> size [ 
 	| widthBuffer heightBuffer |
-	widthBuffer := ByteArray new: FFIInt32 externalTypeSize.
-	heightBuffer := ByteArray new: FFIInt32 externalTypeSize.
+	
+	widthBuffer := FFIInt32 newBuffer.
+	heightBuffer := FFIInt32 newBuffer.
 	self primGetSizeWidth: widthBuffer height: heightBuffer.
 	^ (widthBuffer signedLongAt: 1) @ (heightBuffer signedLongAt: 1)
 ]
@@ -98,8 +189,14 @@ PangoLayout >> text: text [
 ]
 
 { #category : #accessing }
+<<<<<<< HEAD
 PangoLayout >> text: text length: len [
 	self ffiCall: #(void pango_layout_set_text (self, const char *text, int len))
+=======
+PangoLayout >> width [
+
+	self ffiCall: #(int pango_layout_get_width (self))
+>>>>>>> master
 ]
 
 { #category : #accessing }

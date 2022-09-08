@@ -105,6 +105,18 @@ GdkEventButton >> device: anObject [
 ]
 
 { #category : #testing }
+GdkEventButton >> isButtonPress [
+
+	^ false
+]
+
+{ #category : #testing }
+GdkEventButton >> isButtonRelease [
+
+	^ false
+]
+
+{ #category : #testing }
 GdkEventButton >> isDoubleClick [ 
 
 	^ self type = GDK_2BUTTON_PRESS

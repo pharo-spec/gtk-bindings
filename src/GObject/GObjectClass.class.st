@@ -1,3 +1,12 @@
+"
+Represents the structure of the GObject class.
+
+https://developer-old.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#GObjectClass
+
+This is useful when extending class and adding properties to it.
+
+See `GtkCellRendererCustom` hierarchy as an example. 
+"
 Class {
 	#name : #GObjectClass,
 	#superclass : #GStructure,
@@ -32,7 +41,7 @@ Class {
 		'OFFSET_PDUMMY6',
 		'OFFSET_SET_PROPERTY'
 	],
-	#category : #'Gtk-Widget-CellRenderers'
+	#category : #'GObject-ClassBuilder'
 }
 
 { #category : #'field definition' }

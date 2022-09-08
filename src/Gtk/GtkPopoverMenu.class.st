@@ -20,3 +20,9 @@ GtkPopoverMenu class >> new [
 
 	^ self gtkPopoverMenuNew initialize
 ]
+
+{ #category : #initialization }
+GtkPopoverMenu >> autoObjectUnref [
+
+	self autoRelease
+]

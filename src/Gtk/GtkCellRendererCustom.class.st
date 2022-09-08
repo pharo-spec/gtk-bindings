@@ -1,6 +1,12 @@
 Class {
 	#name : #GtkCellRendererCustom,
 	#superclass : #GtkCellRenderer,
+	#instVars : [
+		'padding'
+	],
+	#pools : [
+		'GtkCellRendererMode'
+	],
 	#classInstVars : [
 		'gtkCellRendererStructure'
 	],
@@ -59,17 +65,17 @@ GtkCellRendererCustom class >> gInitializeClassGetSize: aDefinition [
 
 	 aDefinition get_size: (GCallback 
 			signature: #(void (
-				""GtkCellRenderer            *""void *cell,
-				""GtkWidget                  *""void *widget,
-				""const GdkRectangle         *""void *rectangle,
-				""gint                       *""void *x_offset,
-				""gint                       *""void *y_offset,
-				""gint                       *""void *width,
-				""gint                       *""void *height) )
+				"GtkCellRenderer            *"void *cell,
+				"GtkWidget                  *"void *widget,
+				"const GdkRectangle         *"void *rectangle,
+				"gint                       *"void *x_offset,
+				"gint                       *"void *y_offset,
+				"gint                       *"void *width,
+				"gint                       *"void *height) )
 			block: [ :cell :widget :rect :xOff :yOff :width :height | 
 				(self gInstance: cell) 
 					getSize: widget 
-					rectangle: rect 
+					rectangle: (GdkRectangle fromHandle: rect) 
 					xOffset: xOff 
 					yOffset: yOff 
 					width: width 
@@ -122,10 +128,21 @@ GtkCellRendererCustom class >> gInstance: handle [
 	^ self gClass findInstance: handle
 ]
 
+{ #category : #private }
+GtkCellRendererCustom class >> gtkBooleanCellAccessibleGetType [
+
+	^ self ffiCall: #(gsize #gtk_boolean_cell_accessible_get_type())
+]
+
 { #category : #'instance creation' }
 GtkCellRendererCustom class >> new [
 
 	^ (GClass gDefinitionAt: self) new
+]
+
+{ #category : #'accessing - geometry' }
+GtkCellRendererCustom >> getPreferredWidth: widget minimum: minimumSize natural: naturalSize [
+	"override this to calculate width and set them in buffers"
 ]
 
 { #category : #'accessing - properties' }
@@ -133,7 +150,7 @@ GtkCellRendererCustom >> getProperty: id inValue: gValue [
 	"override this to get a property value"
 ]
 
-{ #category : #rendering }
+{ #category : #'accessing - geometry' }
 GtkCellRendererCustom >> getSize: widget 
 	rectangle: rect 
 	xOffset: xOffsetBuffer 
@@ -141,6 +158,27 @@ GtkCellRendererCustom >> getSize: widget
 	width: widthBuffer 
 	height: heightBuffer [
 	"override this to calculate size and set them in buffers"
+]
+
+{ #category : #accessing }
+GtkCellRendererCustom >> mode: aGtkCellRendererMode [
+
+	self 
+		gObjectSet: 'mode' 
+		toInteger: aGtkCellRendererMode value
+]
+
+{ #category : #accessing }
+GtkCellRendererCustom >> padding [
+
+	^ padding ifNil: [ padding := super padding ]
+]
+
+{ #category : #accessing }
+GtkCellRendererCustom >> padding: aPoint [
+
+	padding := nil.
+	super padding: aPoint
 ]
 
 { #category : #rendering }
