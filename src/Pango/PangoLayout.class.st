@@ -189,14 +189,14 @@ PangoLayout >> text: text [
 ]
 
 { #category : #accessing }
-<<<<<<< HEAD
 PangoLayout >> text: text length: len [
 	self ffiCall: #(void pango_layout_set_text (self, const char *text, int len))
-=======
+]
+
+{ #category : #accessing }
 PangoLayout >> width [
 
 	self ffiCall: #(int pango_layout_get_width (self))
->>>>>>> master
 ]
 
 { #category : #accessing }
