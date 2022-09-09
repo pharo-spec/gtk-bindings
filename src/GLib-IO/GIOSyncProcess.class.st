@@ -56,8 +56,8 @@ GIOSyncProcess >> basicgSpawnSync: working_directory command: command arguments:
 	self setErrorIfAny: processInfo.
 	self setExitCodeIfNoError: processInfo.
 	^ processInfo
-		stdOut: standardOutput value readStringUTF8;
-		stdErr: standardError value readStringUTF8;
+		stdOut: standardOutput value readString;
+		stdErr: standardError value readString;
 		success: isSuccess;
 		yourself
 ]
