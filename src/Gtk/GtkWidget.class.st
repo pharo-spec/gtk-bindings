@@ -148,42 +148,6 @@ GtkWidget >> basicGrabDefault [
 	self ffiCall: #(void gtk_widget_grab_default (self))
 ]
 
-{ #category : #geometry }
-GtkWidget >> beHAlignCenter [
-
-	self hAlign: GTK_ALIGN_CENTER
-]
-
-{ #category : #geometry }
-GtkWidget >> beHAlignEnd [
-
-	self hAlign: GTK_ALIGN_END
-]
-
-{ #category : #geometry }
-GtkWidget >> beHAlignStart [
-
-	self hAlign: GTK_ALIGN_START
-]
-
-{ #category : #geometry }
-GtkWidget >> beVAlignCenter [
-
-	self vAlign: GTK_ALIGN_CENTER
-]
-
-{ #category : #geometry }
-GtkWidget >> beVAlignEnd [
-
-	self vAlign: GTK_ALIGN_END
-]
-
-{ #category : #geometry }
-GtkWidget >> beVAlignStart [
-
-	self vAlign: GTK_ALIGN_START
-]
-
 { #category : #TOREMOVE }
 GtkWidget >> bindKeyCombination: aShortcut toAction: aBlock [
  
@@ -661,6 +625,24 @@ GtkWidget >> hAlign: align [
 ]
 
 { #category : #geometry }
+GtkWidget >> hAlignCenter [
+
+	self hAlign: GTK_ALIGN_CENTER
+]
+
+{ #category : #geometry }
+GtkWidget >> hAlignEnd [
+
+	self hAlign: GTK_ALIGN_END
+]
+
+{ #category : #geometry }
+GtkWidget >> hAlignStart [
+
+	self hAlign: GTK_ALIGN_START
+]
+
+{ #category : #geometry }
 GtkWidget >> hExpand: expand [
 
 	self ffiCall: #(void gtk_widget_set_hexpand (self, gboolean expand))
@@ -1048,6 +1030,24 @@ GtkWidget >> vAlign [
 { #category : #geometry }
 GtkWidget >> vAlign: align [
 	^ self ffiCall: #(void gtk_widget_set_valign (self, GtkAlign align))
+]
+
+{ #category : #geometry }
+GtkWidget >> vAlignCenter [
+
+	self vAlign: GTK_ALIGN_CENTER
+]
+
+{ #category : #geometry }
+GtkWidget >> vAlignEnd [
+
+	self vAlign: GTK_ALIGN_END
+]
+
+{ #category : #geometry }
+GtkWidget >> vAlignStart [
+
+	self vAlign: GTK_ALIGN_START
 ]
 
 { #category : #geometry }

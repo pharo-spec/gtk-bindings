@@ -77,8 +77,8 @@ GtkLabel >> beJustifyRight [
 { #category : #initialization }
 GtkLabel >> initialize [ 
 	super initialize.
-	self beHAlignStart.
-	self beVAlignCenter
+	self hAlignStart.
+	self vAlignCenter
 ]
 
 { #category : #accessing }

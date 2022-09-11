@@ -58,8 +58,10 @@ GtkLinkButton class >> newWithUri: aString withLabel: aLabel [
 
 { #category : #events }
 GtkLinkButton >> connectActivateLink: aBlock [
+	"aBlock receives zero arguments
+	 aBlock needs to return a Boolean"
 
-	self connect: 'activate-link' do: aBlock
+	(GActivateLinkCallback do: aBlock) connectTo: self 
 ]
 
 { #category : #private }
