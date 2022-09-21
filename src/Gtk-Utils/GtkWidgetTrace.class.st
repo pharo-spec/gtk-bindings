@@ -28,6 +28,24 @@ GtkWidgetTrace >> handle: anObject [
 	handle := anObject
 ]
 
+{ #category : #inspecting }
+GtkWidgetTrace >> inspectionInfo [
+	<inspectorPresentationOrder: 0 title: 'Info'>
+
+	^ SpTablePresenter new 
+		hideColumnHeaders;
+		addColumn: (SpStringTableColumn evaluated: [ :assoc | assoc key ]);
+		addColumn: (SpStringTableColumn evaluated: [ :assoc | assoc value ]);
+		items: {  
+			'Class' -> self widgetClass name.
+			'Address' -> self handle printString.
+			'isAlive' -> self isAlive.
+			'Instances' -> self instances size.
+			'Referece Count' -> self referenceCount.
+			};
+		yourself
+]
+
 { #category : #accessing }
 GtkWidgetTrace >> instanceCount [
 
@@ -46,6 +64,12 @@ GtkWidgetTrace >> instances [
 	^ stream contents
 ]
 
+{ #category : #accessing }
+GtkWidgetTrace >> isAlive [
+
+	^ GRunLoop defer: [ (GObject fromHandle: self handle) isAlive ]
+]
+
 { #category : #printing }
 GtkWidgetTrace >> printOn: stream [ 
 
@@ -55,7 +79,7 @@ GtkWidgetTrace >> printOn: stream [
 { #category : #accessing }
 GtkWidgetTrace >> referenceCount [
 
-	^ (GtkWidget basicNew setHandle: self handle) referenceCount
+	^ GRunLoop defer: [ (GObject fromHandle: self handle) referenceCount ]
 ]
 
 { #category : #accessing }
