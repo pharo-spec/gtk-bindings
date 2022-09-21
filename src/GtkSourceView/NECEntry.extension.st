@@ -8,7 +8,7 @@ NECEntry >> icon [
 	completion first isUppercase ifTrue: [ 
 		Smalltalk globals 
 			at: completion
-			ifPresent: [ :aGlobal | ^ aGlobal systemIcon ] ].
+			ifPresent: [ :aGlobal | ^ self iconNamed: aGlobal systemIconName ] ].
 	
 	^ nil
 ]
