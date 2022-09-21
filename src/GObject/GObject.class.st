@@ -464,6 +464,28 @@ GObject >> emitSignalByName: detailed_signal handled: buffer [
 	self ffiCall: #(void g_signal_emit_by_name (self, const gchar *detailed_signal, void *buffer))
 ]
 
+{ #category : #'accessing - referencing' }
+GObject >> ensureObjectRefAndAutoRelease [
+	"If it is already marked for release means the object reference is also already incresed. 
+	 We skip that condition to ensure we do not have more 'objectRef' than those we want 
+	 (we want just one)
+	 This is to be used when replacing layouts and similar approaches. It is needed because 
+	 to move a widget from one layout to another I first need to take ownership of the widget:
+	 - If I just remove it from old layout it will be collected, and 
+	 - I cannot give it to a new layout before removing it first from the older layout.
+	 So, what I need to do in those cases is:  
+	 ```
+		 widgetToMove ensureObjectRefAndAutoRelease.
+		 oldLayout remove: widgetToMove.
+		 newLayout add: widgetToMove.
+	 ```
+	 NOTICE: In any other case, seem better to use `GObject>>#autoRelease`"
+
+	self isMarkedForAutoRelease ifTrue: [ ^ self ].
+	self objectRef.
+	self autoRelease
+]
+
 { #category : #'private - primitives' }
 GObject >> gFree: aPointer [
 
@@ -667,30 +689,19 @@ GObject >> isObject [
 	^ self instanceIsFundamentallyA: G_TYPE_OBJECT
 ]
 
-{ #category : #'external resource management' }
-GObject >> markForAutoRelease [
-	"If it is already marked for release means the object reference is also already incresed. 
-	 We skip that condition to ensure we do not have more 'objectRef' than those we want 
-	 (we want just one)"
-
-	self isMarkedForAutoRelease ifTrue: [ ^ self ].
-	self objectRef.
-	self autoRelease
-]
-
-{ #category : #'private - referencing' }
+{ #category : #'accessing - referencing' }
 GObject >> objectRef [
 
 	self ffiCall: #(gpointer g_object_ref (self)) module: GObjectLibrary
 ]
 
-{ #category : #'private - referencing' }
+{ #category : #'accessing - referencing' }
 GObject >> objectRefSink [
 
 	self ffiCall: #(gpointer g_object_ref_sink (self))
 ]
 
-{ #category : #'private - referencing' }
+{ #category : #'accessing - referencing' }
 GObject >> objectUnref [
 
 	self ffiCall: #(gpointer g_object_unref (self)) module: GObjectLibrary
@@ -753,7 +764,7 @@ GObject >> typeName [
 	^ self gTypeName: self gType
 ]
 
-{ #category : #'private - referencing' }
+{ #category : #'accessing - referencing' }
 GObject >> weakRef: notify [ 
 
 	^ self 

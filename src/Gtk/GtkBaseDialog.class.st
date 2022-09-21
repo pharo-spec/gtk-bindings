@@ -95,7 +95,7 @@ GtkBaseDialog >> keepAlive [
 	 WARNING: garbagge collection will still collect the dialog"
 
 	keepAlive := true.
-	self markForAutoRelease
+	self ensureObjectRefAndAutoRelease
 ]
 
 { #category : #private }
