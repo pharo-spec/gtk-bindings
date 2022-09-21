@@ -186,10 +186,11 @@ GtkCellRendererLink >> isEventInCell: event [
 GtkCellRendererLink >> linkPrototype [
 	
 	^ linkPrototype ifNil: [ 
-		linkPrototype := ((GtkLinkButton newWithUri: '')
+		linkPrototype := (GtkLinkButton newWithUri: '')
+			autoRelease;
 			addClass: 'hover';
 			addClass: 'cell-link';
-			yourself) ]
+			yourself ]
 ]
 
 { #category : #initialization }
