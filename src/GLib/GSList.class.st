@@ -6,8 +6,8 @@ https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList
 Class {
 	#name : #GSList,
 	#superclass : #GStructure,
-	#traits : 'GLibTLibrary',
-	#classTraits : 'GLibTLibrary classTrait',
+	#traits : 'GLibTLibrary + GTEnumerable',
+	#classTraits : 'GLibTLibrary classTrait + GTEnumerable classTrait',
 	#classVars : [
 		'OFFSET_DATA',
 		'OFFSET_NEXT'
