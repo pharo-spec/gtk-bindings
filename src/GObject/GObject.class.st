@@ -704,7 +704,7 @@ GObject >> objectRefSink [
 { #category : #'accessing - referencing' }
 GObject >> objectUnref [
 
-	self ffiCall: #(gpointer g_object_unref (self)) module: GObjectLibrary
+	self ffiCall: #(void g_object_unref (self)) module: GObjectLibrary
 ]
 
 { #category : #'private - debugging' }

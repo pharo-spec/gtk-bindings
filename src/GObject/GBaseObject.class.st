@@ -37,6 +37,13 @@ GBaseObject class >> null [
 	^ self fromHandle: ExternalAddress null
 ]
 
+{ #category : #comparing }
+GBaseObject >> = other [
+
+	^ self species = other species 
+		and: [ self getHandle = other getHandle ]
+]
+
 { #category : #'external resource management' }
 GBaseObject >> autoRelease [
 
@@ -68,6 +75,13 @@ GBaseObject >> ffiLibrary [
 	theMethod := thisContext sender sender method. 
 	theClass := theMethod methodClass.
 	^ theClass ffiLibraryName asFFILibrary
+]
+
+{ #category : #comparing }
+GBaseObject >> hash [
+
+	^ self species hash
+		bitXor: self getHandle hash
 ]
 
 { #category : #initialization }
