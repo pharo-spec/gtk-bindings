@@ -8,6 +8,9 @@ Class {
 	#superclass : #GObject,
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
+	#instVars : [
+		'tagTable'
+	],
 	#pools : [
 		'GtkTypes'
 	],
@@ -24,7 +27,7 @@ GtkTextBuffer class >> gType [
 { #category : #'instance creation' }
 GtkTextBuffer class >> newTable: table [ 
 
-	^ (self textBufferNew: table) initialize 
+	^ (self textBufferNew: table) initializeTable: table
 ]
 
 { #category : #private }
@@ -228,6 +231,13 @@ GtkTextBuffer >> getSelectionBoundsStart: start end: end [
 		self,
 		GtkTextIter *start,
 		GtkTextIter *end))
+]
+
+{ #category : #initialization }
+GtkTextBuffer >> initializeTable: aTagTable [
+
+	tagTable := aTagTable.
+	self initialize
 ]
 
 { #category : #private }
