@@ -18,8 +18,8 @@ struct _GList
 Class {
 	#name : #GList,
 	#superclass : #GStructure,
-	#traits : 'GLibTLibrary',
-	#classTraits : 'GLibTLibrary classTrait',
+	#traits : 'GLibTLibrary + GTEnumerable',
+	#classTraits : 'GLibTLibrary classTrait + GTEnumerable classTrait',
 	#classVars : [
 		'OFFSET_DATA',
 		'OFFSET_NEXT',
@@ -80,13 +80,6 @@ GList >> asArray [
 
 	^ Array streamContents: [ :stream | 
 		self do: [ :each | stream nextPut: each ] ]
-]
-
-{ #category : #enumerating }
-GList >> collect: aBlock [ 
-
-	^ Array streamContents: [ :stream | 
-		self do: [ :each | stream nextPut: (aBlock value: each) ] ]
 ]
 
 { #category : #'accessing structure variables' }
