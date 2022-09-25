@@ -321,9 +321,8 @@ GtkTextIter >> tags [
 
 	tags := OrderedCollection new.
 	tagList := GSList fromHandle: self basicTags.
-	tagList do: [ :eachHandle |
-		tags add: (GtkTextTag fromHandle: eachHandle) ].
-	"list needs to be freed after using it (and autoReleasing is not working)"
+	tags := tagList collect: [ :each | GtkTextTag fromHandleUnreferenced: each ].
 	tagList free.
+	
 	^ tags asArray
 ]
