@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'runLoop',
 		'windowRegistry',
-		'shutdownRegistry',
-		'resourceManager'
+		'shutdownRegistry'
 	],
 	#classVars : [
 		'Current'
