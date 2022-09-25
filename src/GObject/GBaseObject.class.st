@@ -25,6 +25,17 @@ GBaseObject class >> ffiLibrary [
 	^  theClass ffiLibraryName asFFILibrary
 ]
 
+{ #category : #'instance creation' }
+GBaseObject class >> fromHandleUnreferenced: aHandle [ 
+	"Creates an instance ensuring this reference does not enter the autoRelease cycle. 
+	 This will prevent an undesirable GC. 
+	 This style of instantiation is useful when creating objects that are actually managed in the 
+	 gtk side, and we do not want to interfere.
+	 e.g. `GtkTextIter>>#tags`"
+
+	^ self basicNew setHandle: aHandle
+]
+
 { #category : #private }
 GBaseObject class >> isValidHandle: handle [
 
