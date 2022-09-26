@@ -12,16 +12,20 @@ BaselineOfGtk >> baseline: spec [
 		for: #common
 		do: [ 
 			spec postLoadDoIt: #postLoad.
-			
-			self glib: spec.
-			self gio: spec.
 
 			spec
-				"core"
-				package: 'Gdk' with: [ spec requires: #('GIO') ];
-				package: 'Pango' with: [ spec requires: #('Glib') ];
-				package: 'Gtk' with: [ spec requires: #('Glib' 'Gdk' 'Pango') ];
-
+				"this is GLib, but refering to a baseline in same repository is not correctly 
+				 supported right now in metacello, so we are forced to duplicate. 
+				 BEWARE: If you modify something here, you may want to check and modify 
+				 BaselineOfGLib too."
+				"GLib"
+				package: 'GObject';
+				package: 'GLib' with: [ spec requires: #('GObject') ];
+				package: 'GLib-IO' with: [ spec requires: #('GLib') ];
+				"Gdk"
+				package: 'Gdk' with: [ spec requires: #('GObject') ];
+				package: 'Pango' with: [ spec requires: #('GObject' 'GLib') ];
+				package: 'Gtk' with: [ spec requires: #('GObject' 'GLib' 'Gdk' 'Pango') ];
 				"code"
 				package: 'GtkSourceView' with: [ spec requires: #('Gtk') ];
 				package: 'Gtk-Shortcuts' with: [ spec requires: #('Gtk') ];
@@ -32,9 +36,13 @@ BaselineOfGtk >> baseline: spec [
 				"testing"
 				package: 'Gtk-Tests' with: [ spec requires: 'Gtk' ];
 				"testing morphic"
-				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ].
+				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ];
+				"pango standalone engine and tests"
+				package: 'PangoStandaloneEngine' with: [ spec requires: #('GObject') ];
+				package: 'PangoStandaloneEngine-Test' with: [ spec requires: #('PangoStandaloneEngine') ].
 
 		spec group: 'Core' with: #('Pango' 'Gtk').
+		spec group: 'GIO' with: #('GLib' 'GLib-IO').
 		spec group: 'Code' with: #('Core' 'GtkSourceView').
 		spec group: 'Morphic' with: #('Core' 'Gtk-FreeType' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
 		spec group: 'Tests' with: #('Gtk-Tests').
@@ -43,26 +51,8 @@ BaselineOfGtk >> baseline: spec [
 		spec group: 'Base' with: #('Core' 'Code').
 		
 		spec group: 'default' with: #('Base' 'GIO' 'Tests' 'Morphic' 'MorphicTests').
-	
-
-]
-
-{ #category : #baseline }
-BaselineOfGtk >> gio: spec [
-
-	spec 
-		project: 'GIO' 
-		copyFrom: 'Glib' 
-		with: [spec loads: 'GIO'].
-]
-
-{ #category : #baseline }
-BaselineOfGtk >> glib: spec [
-
-	spec baseline: 'Glib' with: [ 
-		spec
-			loads: #('default'); 
-			repository: self packageRepositoryURL ].
+		
+		spec group: 'PangoStandalone' with: #('Pango' 'PangoStandaloneEngine').
 
 ]
 
