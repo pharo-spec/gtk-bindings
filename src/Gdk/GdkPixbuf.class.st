@@ -22,7 +22,7 @@ GdkPixbuf class >> getFromFile: filename error: error [
 	
 	^ self ffiCall: #(GdkPixbuf *gdk_pixbuf_new_from_file (
 		const char *filename, 
-		"GError **"GError *error))
+		"GError **"void *error))
 ]
 
 { #category : #private }
@@ -39,10 +39,11 @@ GdkPixbuf class >> getFromSurface: surface x: src_x y: src_y width: width height
 
 { #category : #'instance creation' }
 GdkPixbuf class >> newFromFile: filename [ 
-	| error pixbuf |
+	| errorBuffer error pixbuf |
 
-	error := GError new.
-	pixbuf := self getFromFile: filename error: error.
+	errorBuffer := FFIOop newBuffer.
+	pixbuf := self getFromFile: filename error: errorBuffer.
+	error := GError fromPointerBuffer: errorBuffer.
 	error isOk ifFalse: [ 
 		GdkError signal: error messageString ].	
 	pixbuf initialize.

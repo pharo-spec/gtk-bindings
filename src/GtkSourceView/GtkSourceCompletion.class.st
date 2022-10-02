@@ -16,14 +16,14 @@ Class {
 
 { #category : #accessing }
 GtkSourceCompletion >> addProvider: provider [
-	| ok error |
+	| ok errorBuffer error |
 	
-	error := GError new.
-	ok := self addProvider: provider error: error. 
+	errorBuffer := FFIOop newBuffer.
+	ok := self addProvider: provider error: errorBuffer. 
+	error := GError fromPointerBuffer: errorBuffer.
 	ok ifFalse: [ 
 		GtkError signal: error messageString ].
 	self keepProvider: provider
-	
 ]
 
 { #category : #private }
@@ -32,7 +32,7 @@ GtkSourceCompletion >> addProvider: provider error: error [
 	^ self ffiCall: #(gboolean gtk_source_completion_add_provider (
 		self,
  		GObject *provider,
-   		GError *error))
+   		"GError **"void *error))
 ]
 
 { #category : #private }

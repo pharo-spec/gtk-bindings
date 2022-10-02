@@ -164,7 +164,7 @@ GtkSourceSearchContext >> forwardAsync: iter onFirstPositionDo: aBlock [
 				start: start 
 				end: end 
 				wrapped: ExternalAddress null 
-				error: GError null.
+				error: ExternalAddress null.
 			found ifTrue: [ 
 				aBlock value: start value: end ] ]
 ]
@@ -200,7 +200,7 @@ GtkSourceSearchContext >> forwardFinish: result start: match_start end: match_en
 		GtkTextIter *match_start,
 		GtkTextIter *match_end,
 		"gboolean *"void *has_wrapped_around,
-		"GError **"GError *error))
+		"GError **"void *error))
 ]
 
 { #category : #accessing }

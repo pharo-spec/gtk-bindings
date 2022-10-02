@@ -114,10 +114,15 @@ GtkIconTheme >> listIcons: context [
 
 { #category : #accessing }
 GtkIconTheme >> loadIconName: iconName size: iconSize [ 
-	| pixbuf error |		
+	| pixbuf errorBuffer error |		
 
-	error := GError new.
-	pixbuf := self loadIconName: iconName size: iconSize flags: 0 error: error.
+	errorBuffer := FFIOop newBuffer.
+	pixbuf := self 
+		loadIconName: iconName 
+		size: iconSize 
+		flags: 0
+		 error: errorBuffer.
+	error := GError fromPointerBuffer: errorBuffer.
 	error isOk ifFalse: [ 
 		GtkError signal: error messageString ].	
 	pixbuf initialize.
@@ -132,5 +137,5 @@ GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [
 		const gchar *icon_name,
 		gint size,
 		"GtkIconLookupFlags"gint flags,
-		"GError **"GError *error))
+		"GError **"void *error))
 ]
