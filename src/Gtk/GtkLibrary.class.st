@@ -28,8 +28,7 @@ GtkLibrary >> getMinorVersion [
 { #category : #'accessing platform' }
 GtkLibrary >> macLibraryName [
 
-	self class isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libgtk-3.dylib' ]. 
-	^ '/usr/local/lib/libgtk-3.dylib'
+	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
 ]
 
 { #category : #accessing }

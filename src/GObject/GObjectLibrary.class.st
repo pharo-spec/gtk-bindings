@@ -1,34 +1,11 @@
 Class {
 	#name : #GObjectLibrary,
 	#superclass : #FFILibrary,
-	#classVars : [
-		'Debug'
-	],
 	#pools : [
 		'GtkTypes'
 	],
 	#category : #'GObject-Base'
 }
-
-{ #category : #accessing }
-GObjectLibrary class >> beForDebug [
-	<script>
-	
-	Debug := true
-]
-
-{ #category : #accessing }
-GObjectLibrary class >> beForProduction [
-	<script>
-
-	Debug := false
-]
-
-{ #category : #testing }
-GObjectLibrary class >> isDebug [ 
-
-	^ Debug ifNil: [ Debug := false ]
-]
 
 { #category : #accessing }
 GObjectLibrary class >> naturalRunner [
@@ -49,8 +26,7 @@ GObjectLibrary >> macLibraryName [
 	 library, you will find also the symbols on dependent librarues. 
 	 So I will point directly to the gtk3 library, just to simplify"
 
-	self class isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libgtk-3.dylib' ]. 
-	^ '/usr/local/lib/libgtk-3.dylib'
+	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
 ]
 
 { #category : #accessing }

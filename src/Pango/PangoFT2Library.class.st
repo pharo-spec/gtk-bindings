@@ -16,8 +16,7 @@ PangoFT2Library >> calloutAPIClass [
 { #category : #'accessing platform' }
 PangoFT2Library >> macLibraryName [
 
-	GObjectLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libpangoft2-1.0.0.dylib' ]. 
-	^ '/usr/local/lib/libpangoft2-1.0.0.dylib'
+	^ GMacLibraryFinder findLibrary: 'libpangoft2-1.0.0.dylib'
 ]
 
 { #category : #accessing }
