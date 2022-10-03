@@ -23,8 +23,7 @@ GtkSourceViewLibrary >> isAvailable [
 { #category : #'accessing platform' }
 GtkSourceViewLibrary >> macLibraryName [
 
-	GObjectLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libgtksourceview-4.dylib' ]. 
-	^ '/usr/local/lib/libgtksourceview-4.dylib'
+	^ GMacLibraryFinder findAnyLibrary: #('libgtksourceview-4.0.dylib' 'libgtksourceview-4.dylib')
 ]
 
 { #category : #converting }

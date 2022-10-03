@@ -25,8 +25,7 @@ FcLibrary >> fcInit [
 { #category : #'accessing platform' }
 FcLibrary >> macLibraryName [
 
-	GObjectLibrary isDebug ifTrue: [ '/Users/gtk3/gtk/inst/lib/libfontconfig.dylib' ].
-	^ '/usr/local/lib/libfontconfig.dylib'
+	^ GMacLibraryFinder findAnyLibrary: #('libfontconfig.1.dylib' 'libfontconfig.dylib')
 ]
 
 { #category : #converting }

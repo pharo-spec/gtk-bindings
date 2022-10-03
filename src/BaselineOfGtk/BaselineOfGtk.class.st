@@ -73,7 +73,9 @@ BaselineOfGtk >> installGtkDriver [
 BaselineOfGtk >> postLoad [
 
 	self installGtkDriver.
-	self recompileStructures
+	self recompileStructures.
+	(Smalltalk classNamed: #GEnumeration) allSubclassesDo: [ :each | each initializeEnumeration ].
+	(Smalltalk classNamed: #GStructure) allSubclassesDo: [ :each | each compiledSpec ].
 ]
 
 { #category : #doits }

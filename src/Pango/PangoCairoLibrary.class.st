@@ -16,8 +16,7 @@ PangoCairoLibrary >> calloutAPIClass [
 { #category : #'accessing platform' }
 PangoCairoLibrary >> macLibraryName [
 
-	GObjectLibrary isDebug ifTrue: [ ^ '/Users/gtk3/gtk/inst/lib/libpangocairo-1.0.0.dylib' ]. 
-	^ '/usr/local/lib/libpangocairo-1.0.0.dylib'
+	^ GMacLibraryFinder findLibrary: 'libpangocairo-1.0.0.dylib'
 
 ]
 
