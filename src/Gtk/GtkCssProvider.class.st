@@ -24,19 +24,19 @@ GtkCssProvider class >> cssProviderNew [
 
 { #category : #private }
 GtkCssProvider class >> fileNameToUTF8: aString [
-	| encoded read written errorBuffer error |
-	
+	| encoded read written errorHolder error |
+
 	read := ExternalAddress new.
 	written := ExternalAddress new.
-	errorBuffer := FFIOop newBuffer.
+	errorHolder := GErrorHolder new.
 	encoded := self 
 		fileNameToUTF8: aString 
 		len: aString size 
 		read: read 
 		written: written
-		error: errorBuffer.
+		error: errorHolder.
 
-	error := GError fromPointerBuffer: errorBuffer.		
+	error := errorHolder value.		
 	error isOk ifFalse: [ 
 		GtkError signal: error messageString ].
 	
@@ -52,7 +52,7 @@ GtkCssProvider class >> fileNameToUTF8: opsysstring len: len read: bytes_read wr
 			gssize len,
 			gsize *bytes_read,
 			gsize *bytes_written,
-			"GError **"void *error))
+			"GError **"GErrorHolder error))
 		module: GLibLibrary
 ]
 
@@ -120,12 +120,12 @@ GtkCssProvider >> addForUserToDefaultScreen [
 
 { #category : #accessing }
 GtkCssProvider >> loadFromData: aString [
-	| errorBuffer error |
+	| errorHolder error |
 	
-	errorBuffer := FFIOop newBuffer.
-	(self loadFromData: aString length: aString size error: errorBuffer)
+	errorHolder := GErrorHolder new.
+	(self loadFromData: aString length: aString size error: errorHolder)
 		ifFalse: [ 
-			error := GError fromPointerBuffer: errorBuffer.
+			error := errorHolder value.
 			GtkError signal: error messageString ]
 ]
 
@@ -135,18 +135,18 @@ GtkCssProvider >> loadFromData: data length: length error: error [
 		self,
 		const gchar *data,
 		gssize length,
-		"GError *"void *error))
+		"GError **"GErrorHolder error))
 ]
 
 { #category : #accessing }
 GtkCssProvider >> loadFromPath: path [
-	| encodedPath errorBuffer error |
+	| encodedPath errorHolder error |
 	
-	errorBuffer := FFIOop newBuffer.
+	errorHolder := GErrorHolder new.
 	encodedPath := self class fileNameToUTF8: path.
-	(self loadFromPath: encodedPath error: errorBuffer ) 
+	(self loadFromPath: encodedPath error: errorHolder) 
 		ifFalse: [ 
-			error := GError fromPointerBuffer: errorBuffer.
+			error := errorHolder value.
 			GtkError signal: error messageString ]
 ]
 
@@ -155,7 +155,7 @@ GtkCssProvider >> loadFromPath: path error: error [
 	^ self ffiCall: #(gboolean gtk_css_provider_load_from_path (
 		self, 
 		const gchar *path,
-		"GError **"void *error))
+		"GError **"GErrorHolder error))
 ]
 
 { #category : #accessing }
