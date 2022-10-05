@@ -7,6 +7,12 @@ Class {
 	#category : #'GObject-Base'
 }
 
+{ #category : #testing }
+GObjectLibrary class >> isDebug [
+	
+	^ GMacLibraryFinder isDebug
+]
+
 { #category : #accessing }
 GObjectLibrary class >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk"
