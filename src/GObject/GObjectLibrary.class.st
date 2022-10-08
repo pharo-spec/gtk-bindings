@@ -1,6 +1,9 @@
 Class {
 	#name : #GObjectLibrary,
 	#superclass : #FFILibrary,
+	#instVars : [
+		'runner'
+	],
 	#pools : [
 		'GtkTypes'
 	],
@@ -30,25 +33,23 @@ GObjectLibrary >> calloutAPIClass [
 GObjectLibrary >> macLibraryName [
 	"In linux and mac this is not really important, because once you load the main 
 	 library, you will find also the symbols on dependent librarues. 
-	 So I will point directly to the gtk3 library, just to simplify"
+	 So I will point directly to the gtk4 library, just to simplify"
 
-	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
+	^ GMacLibraryFinder findLibrary: 'libgtk-4.dylib'
 ]
 
 { #category : #accessing }
 GObjectLibrary >> runner [
 	
-	^ self class naturalRunner
+	^ TFProcessLocalWorker new 
+		defaultWorker: self class naturalRunner;
+		yourself
 ]
 
 { #category : #'accessing platform' }
 GObjectLibrary >> unix64LibraryName [ 
-	"In linux and mac this is not really important, because once you load the main 
-	 library, you will find also the symbols on dependent librarues. 
-	 So I will point directly to the gtk3 library, just to simplify"
 
-	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-3.so' ]. 
-	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgtk-3.so' 'libgtk-3.so.0')
+	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
 ]
 
 { #category : #'accessing platform' }

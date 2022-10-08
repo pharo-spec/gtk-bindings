@@ -10,7 +10,7 @@ GLibLibrary >> gFree: anAddress [
 	^ self ffiCall: #(void g_free(gpointer anAddress))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'accessing - platform' }
 GLibLibrary >> gSetPrgName: prgname [
 
 	^ self ffiCall: #(void g_set_prgname (const gchar *prgname))

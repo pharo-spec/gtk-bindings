@@ -29,12 +29,6 @@ GRunLoop class >> current [
 	^ GEngine current runLoop
 ]
 
-{ #category : #private }
-GRunLoop class >> defaultRunLoopClass [
-
-	^ self subclassResponsibility
-]
-
 { #category : #deferring }
 GRunLoop class >> defer: aBlock [
 
@@ -60,6 +54,12 @@ GRunLoop class >> forceDefer: aBlock [
 GRunLoop >> callbackEnter [
 
 	inCallback := true
+]
+
+{ #category : #accessing }
+GRunLoop >> callbackLeave [
+
+	inCallback := false
 ]
 
 { #category : #accessing }
@@ -94,7 +94,7 @@ GRunLoop >> initialize [
 	super initialize
 ]
 
-{ #category : #'private installing' }
+{ #category : #'private - installing' }
 GRunLoop >> installRunLoop [
 
 	self subclassResponsibility
@@ -149,7 +149,7 @@ GRunLoop >> stop [
 	running := false
 ]
 
-{ #category : #'private installing' }
+{ #category : #'private - installing' }
 GRunLoop >> uninstallRunLoop [
 
 	self subclassResponsibility

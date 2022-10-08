@@ -17,12 +17,6 @@ Class {
 	#category : #'GLib-IO'
 }
 
-{ #category : #'library path' }
-GIOChannel class >> ffiLibraryName [
-
-	^ GIOChannelLibrary
-]
-
 { #category : #private }
 GIOChannel class >> g_io_channel_unix_new: fd [
 
@@ -42,12 +36,6 @@ GIOChannel class >> newFromFileDescriptor: fd [
 		ifTrue: [ self g_io_channel_win32_new_fd: fd ]
 		ifFalse: [ self g_io_channel_unix_new: fd ]) 
 		initialize
-]
-
-{ #category : #'library path' }
-GIOChannel >> ffiLibraryName [
-
-	^ GIOChannelLibrary
 ]
 
 { #category : #accessing }

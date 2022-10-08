@@ -58,7 +58,7 @@ GBaseObject >> = other [
 { #category : #'external resource management' }
 GBaseObject >> autoRelease [
 
-	self engine resourceManager addResource: self
+	self resourceManager addResource: self
 ]
 
 { #category : #accessing }
@@ -106,4 +106,10 @@ GBaseObject >> initialize [
 GBaseObject >> isValidHandle [ 
 
 	^ self class isValidHandle: self getHandle
+]
+
+{ #category : #accessing }
+GBaseObject >> resourceManager [
+	
+	^ GEngine current resourceManager
 ]

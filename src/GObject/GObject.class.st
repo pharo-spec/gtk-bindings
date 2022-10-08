@@ -680,7 +680,7 @@ GObject >> isFloating [
 { #category : #testing }
 GObject >> isMarkedForAutoRelease [
 
-	^ self engine resourceManager includesObject: self
+	^ self resourceManager includesObject: self
 ]
 
 { #category : #testing }
