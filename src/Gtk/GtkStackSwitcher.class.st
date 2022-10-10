@@ -7,6 +7,9 @@ https://developer.gnome.org/gtk3/stable/GtkStackSwitcher.html
 Class {
 	#name : #GtkStackSwitcher,
 	#superclass : #GtkBox,
+	#instVars : [
+		'stack'
+	],
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -35,14 +38,28 @@ GtkStackSwitcher class >> new [
 	^ self gtkNewStackSwitcher initialize
 ]
 
+{ #category : #private }
+GtkStackSwitcher >> getStack [
+
+	^ self ffiCall: #(GtkStack gtk_stack_switcher_get_stack (self))
+]
+
+{ #category : #private }
+GtkStackSwitcher >> setStack: aStack [
+
+	self ffiCall: #(void gtk_stack_switcher_set_stack (self, GtkStack *aStack))
+]
+
 { #category : #accessing }
 GtkStackSwitcher >> stack [
 
-	^ self ffiCall: #(GtkStack gtk_stack_switcher_get_stack (self))
+	^ stack ifNil: [ stack := self getStack ]
 ]
 
 { #category : #accessing }
 GtkStackSwitcher >> stack: aStack [
 
-	self ffiCall: #(void gtk_stack_switcher_set_stack (self, GtkStack *aStack))
+	stack := aStack.
+	self setStack: aStack
+	
 ]

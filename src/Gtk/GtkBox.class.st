@@ -77,18 +77,20 @@ GtkBox >> basicPrepend: child [
 ]
 
 { #category : #private }
-GtkBox >> basicReorderChild: child position: position [
+GtkBox >> basicRemove: child [
 
-	^ self ffiCall: #(void gtk_box_reorder_child (self, GtkWidget *child, gint position))
+	self ffiCall: #(void gtk_box_remove (self, GtkWidget* child))
 ]
 
 { #category : #accessing }
 GtkBox >> homogeneous: homogeneous [
+
 	self ffiCall: #(void gtk_box_set_homogeneous (self, gboolean homogeneous)) 
 ]
 
 { #category : #testing }
 GtkBox >> isHomogeneous [
+
 	self ffiCall: #(gboolean gtk_box_get_homogeneous (self)) 
 ]
 
@@ -193,32 +195,6 @@ GtkBox >> prepend: child [
 
 	self keepWidget: child.
 	self basicPrepend: child
-]
-
-{ #category : #accessing }
-GtkBox >> reorderChild: aWidget position: position [
-
-	"re-sort children"
-	children := children copyWithout: aWidget.
-	children :=
-		(children first: position - 1), 
-		{ aWidget }, 
-		(children last: children size - position + 1).
-	"re-sort container"
-	self basicReorderChild: aWidget position: position - 1
-]
-
-{ #category : #accessing }
-GtkBox >> reversePackEnd: child expand: expand fill: fill padding: padding [
-	"The regular 'packEnd' will pack widgets in reversed order (from end to begining), 
-	 causing the second packend to appear first than the first while displaying. 
-	 This method will reverse this order, effectively putting the element at the end."
-
-	self packEnd: child expand: expand fill: fill padding: padding.
-	self basicReorderChild: child position: 0.
-
-	^ child
-	
 ]
 
 { #category : #accessing }
