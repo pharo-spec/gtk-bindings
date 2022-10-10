@@ -26,11 +26,12 @@ Gtk4RunLoop >> defer: aBlock [
 
 	(self isRunning not 
 		or: [ self isInCallback ]) 
-		ifTrue: [ ^ aBlock value ].
+		ifTrue: [ 
+			^ aBlock value ].
 
 	callerProcess := Processor activeProcess.
 	sem := Semaphore new.
-	GIdle uniqueInstance idleAddFull: [ 
+	GIdle uniqueInstance idleAddFull: [
 		result := aBlock ensure: [ sem signal ] ].
 	sem wait.
 	callerProcess := nil.

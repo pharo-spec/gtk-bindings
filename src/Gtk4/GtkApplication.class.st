@@ -1,8 +1,8 @@
 Class {
-	#name : #Gtk4Application,
-	#superclass : #G4Application,
-	#traits : 'Gtk4TLibrary',
-	#classTraits : 'Gtk4TLibrary classTrait',
+	#name : #GtkApplication,
+	#superclass : #GApplication,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'applicationId',
 		'runProcess'
@@ -11,21 +11,28 @@ Class {
 }
 
 { #category : #private }
-Gtk4Application class >> gtk_application_new: application_id flags: flags [
+GtkApplication class >> finalize: handle [
 
-	self ffiCall: #(#Gtk4Application *gtk_application_new ( 
+	self objectRefSink: handle.
+	^ super finalize: handle
+]
+
+{ #category : #private }
+GtkApplication class >> gtk_application_new: application_id flags: flags [
+
+	self ffiCall: #(#GtkApplication *gtk_application_new ( 
 		const char* application_id, 
 		"GApplicationFlags"int flags))
 ]
 
 { #category : #'instance creation' }
-Gtk4Application class >> new [ 
+GtkApplication class >> new [ 
 
 	^ self error: 'Use #newId:flags:'
 ]
 
 { #category : #'instance creation' }
-Gtk4Application class >> newId: anId [
+GtkApplication class >> newId: anId [
 
 	^ self newId: anId flags: 0
 
@@ -33,7 +40,7 @@ Gtk4Application class >> newId: anId [
 ]
 
 { #category : #'instance creation' }
-Gtk4Application class >> newId: anId flags: flags [
+GtkApplication class >> newId: anId flags: flags [
 
 	^ (self gtk_application_new: anId flags: flags) 
 		id: anId;
@@ -41,21 +48,27 @@ Gtk4Application class >> newId: anId flags: flags [
 		yourself
 ]
 
+{ #category : #private }
+GtkApplication class >> objectRefSink: handle [
+
+	^ self ffiCall: #(void *g_object_ref_sink (void* handle))
+]
+
 { #category : #initialization }
-Gtk4Application >> id: anId [ 
+GtkApplication >> id: anId [ 
 
 	applicationId := anId
 ]
 
 { #category : #testing }
-Gtk4Application >> isRunning [
+GtkApplication >> isRunning [
 
 	^ runProcess notNil 
 		and: [ runProcess isTerminated not ]
 ]
 
 { #category : #running }
-Gtk4Application >> run [
+GtkApplication >> run [
 	
 	runProcess := [
 		| exitCode | 

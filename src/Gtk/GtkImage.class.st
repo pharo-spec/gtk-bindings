@@ -45,12 +45,13 @@ GtkImage class >> imageNewFromSurface: surface [
 	^ self ffiCall: #(GtkImage *gtk_image_new_from_surface (AthensCairoSurface surface))
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 GtkImage class >> new [
+
 	^ self newEmpty
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 GtkImage class >> newEmpty [
 
 	^ self basicNewEmpty initialize
@@ -187,6 +188,12 @@ GtkImage >> iconSize [
 GtkImage >> imageType [
 
 	^ self ffiCall: #(GtkImageType gtk_image_get_storage_type (self))
+]
+
+{ #category : #accessing }
+GtkImage >> pixbuf: pixbuf [
+
+	self ffiCall: #(void gtk_image_set_from_pixbuf (self, GdkPixbuf* pixbuf))
 ]
 
 { #category : #converting }

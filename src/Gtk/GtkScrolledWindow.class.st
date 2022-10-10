@@ -129,6 +129,12 @@ GtkScrolledWindow >> propagateNaturalWidth: propagate [
 		gboolean propagate))
 ]
 
+{ #category : #private }
+GtkScrolledWindow >> setChild: aWidget [
+
+	^ self ffiCall: #(void gtk_scrolled_window_set_child (self, GtkWidget* aWidget))
+]
+
 { #category : #accessing }
 GtkScrolledWindow >> vAdjustment [
 

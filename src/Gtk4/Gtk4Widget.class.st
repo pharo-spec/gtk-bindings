@@ -1,8 +1,8 @@
 Class {
 	#name : #Gtk4Widget,
 	#superclass : #GObject,
-	#traits : 'Gtk4TLibrary',
-	#classTraits : 'Gtk4TLibrary classTrait',
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #Gtk4
 }
 

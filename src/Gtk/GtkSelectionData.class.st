@@ -1,3 +1,6 @@
+"
+Uses in GtkTreeDataStore (it uses selection data)
+"
 Class {
 	#name : #GtkSelectionData,
 	#superclass : #GBaseObject,

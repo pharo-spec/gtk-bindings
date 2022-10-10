@@ -63,13 +63,6 @@ GtkLibrary >> matchesVersion: aString [
 	^ match isNil or: [ match isNull ]
 ]
 
-{ #category : #'accessing platform' }
-GtkLibrary >> unix64LibraryName [ 
-
-	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-3.so' ]. 
-	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgtk-3.so' 'libgtk-3.so.0')
-]
-
 { #category : #accessing }
 GtkLibrary >> version [
 

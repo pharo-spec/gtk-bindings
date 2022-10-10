@@ -36,7 +36,7 @@ GtkEngine class >> initialize [
 { #category : #testing }
 GtkEngine class >> isAvailable [
 
-	^ true
+	^ false "forced to false to use Gtk4Engine"
 ]
 
 { #category : #accessing }

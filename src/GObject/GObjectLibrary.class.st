@@ -49,6 +49,7 @@ GObjectLibrary >> runner [
 { #category : #'accessing platform' }
 GObjectLibrary >> unix64LibraryName [ 
 
+	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
 	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
 ]
 

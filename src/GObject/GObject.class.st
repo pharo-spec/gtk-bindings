@@ -14,11 +14,20 @@ Class {
 	#category : #'GObject-Base'
 }
 
+{ #category : #private }
+GObject class >> finalize: handle [
+	
+	^ self objectUnref: handle
+]
+
 { #category : #finalization }
 GObject class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
 	(self isValidHandle: handle) ifFalse: [ ^ self ].
+
+	self printToStdout.
+	handle printToStdout.
 
 	(self instanceIsObject: handle) 
 		ifTrue: [ 
@@ -26,7 +35,9 @@ GObject class >> finalizeResourceData: handle [
 			GRunLoop defer: [ self objectUnref: handle ] ]
 		ifFalse: [
 			GZombieAnnouncement emitTarget: self handle: handle ].
-	handle beNull
+	handle beNull.
+
+	'END' printToStdout
 ]
 
 { #category : #accessing }

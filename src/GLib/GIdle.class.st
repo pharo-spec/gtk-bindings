@@ -15,7 +15,11 @@ Class {
 { #category : #private }
 GIdle >> gIdleAddFull: aCallback [
 
-	self ffiCall: #(void g_idle_add_full(gint 100, GCallback aCallback, NULL, NULL))
+	self ffiCall: #(void g_idle_add_full(
+		gint 100 "G_PRIORITY_HIGH_IDLE", 
+		GCallback aCallback, 
+		NULL, 
+		NULL))
 ]
 
 { #category : #accessing }

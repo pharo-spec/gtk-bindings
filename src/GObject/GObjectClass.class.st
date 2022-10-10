@@ -10,8 +10,8 @@ See `GtkCellRendererCustom` hierarchy as an example.
 Class {
 	#name : #GObjectClass,
 	#superclass : #GStructure,
-	#traits : 'GObjectTLibrary',
-	#classTraits : 'GObjectTLibrary classTrait',
+	#traits : 'GObjectTLibrary + GTClassStructure',
+	#classTraits : 'GObjectTLibrary classTrait + GTClassStructure classTrait',
 	#instVars : [
 		'constructed',
 		'constructor',
@@ -188,6 +188,12 @@ GObjectClass >> flags [
 GObjectClass >> flags: anObject [
 	"This method was automatically generated"
 	^handle platformSizeTAt: OFFSET_FLAGS put: anObject
+]
+
+{ #category : #accessing }
+GObjectClass >> gObjectClass [
+
+	^ self
 ]
 
 { #category : #'accessing - structure variables' }

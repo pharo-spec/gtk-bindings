@@ -54,28 +54,26 @@ GtkBox class >> newVerticalSpacing: spacing [
 GtkBox >> add: child [
 	"Add is not a valid message for boxes (they use pack* family)"
 	
-	"self shouldNotImplement"
-	^ self packStart: child
+	^ self append: child
+]
+
+{ #category : #accessing }
+GtkBox >> append: child [
+
+	self keepWidget: child.
+	self basicAppend: child
 ]
 
 { #category : #private }
-GtkBox >> basicPackEnd: child expand: expand fill: fill padding: padding [ 
-	^ self ffiCall: #(void gtk_box_pack_end (
-		self, 
-		GtkWidget *child, 
-		gboolean expand, 
-		gboolean fill, 
-		guint padding))
+GtkBox >> basicAppend: child [ 
+
+	^ self ffiCall: #(void gtk_box_append (self, GtkWidget *child))
 ]
 
 { #category : #private }
-GtkBox >> basicPackStart: child expand: expand fill: fill padding: padding [ 
-	^ self ffiCall: #(void gtk_box_pack_start (
-		self, 
-		GtkWidget *child, 
-		gboolean expand, 
-		gboolean fill, 
-		guint padding))
+GtkBox >> basicPrepend: child [ 
+
+	^ self ffiCall: #(void gtk_box_prepend (self, GtkWidget *child))
 ]
 
 { #category : #private }
@@ -97,55 +95,104 @@ GtkBox >> isHomogeneous [
 { #category : #accessing }
 GtkBox >> packEnd: child [
 
-	^ self packEnd: child expand: true fill: true padding: 0 
+	self 
+		deprecated: 'Use #prepend: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packEnd: `@child' 
+			-> '`@receiver prepend: `@child'.
+
+	^ self prepend: child
 ]
 
 { #category : #accessing }
 GtkBox >> packEnd: child expand: aBoolean [
 
-	^ self packEnd: child expand: aBoolean fill: aBoolean padding: 0 
+	self 
+		deprecated: 'Use #prepend: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packEnd: `@child expand: `@expand' 
+			-> '`@receiver prepend: `@child'.
+
+	^ self prepend: child
 ]
 
 { #category : #accessing }
 GtkBox >> packEnd: child expand: expand fill: fill padding: padding [
 
-	self keepWidget: child.
-	self basicPackEnd: child expand: expand fill: fill padding: padding.
+	self 
+		deprecated: 'Use #prepend: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packEnd: `@child expand: `@expand fill: `@fill padding: `@padding' 
+			-> '`@receiver prepend: `@child'.
 
-	^ child
+	^ self prepend: child
 ]
 
 { #category : #accessing }
 GtkBox >> packEnd: child padding: padding [
 
-	^ self packEnd: child expand: true fill: true padding: padding
+	self 
+		deprecated: 'Use #prepend: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packEnd: `@child padding: `@padding' 
+			-> '`@receiver prepend: `@child'.
+
+	^ self prepend: child
 ]
 
 { #category : #accessing }
 GtkBox >> packStart: child [
 
-	^ self packStart: child expand: true fill: true padding: 0
+	self 
+		deprecated: 'Use #append: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packStart: `@child' 
+			-> '`@receiver append: `@child'.
+
+	^ self append: child
 ]
 
 { #category : #accessing }
-GtkBox >> packStart: child expand: aBoolean [
+GtkBox >> packStart: child expand: expand [
 
-	^ self packStart: child expand: aBoolean fill: aBoolean padding: 0
+	self 
+		deprecated: 'Use #append: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packStart: `@child expand: `@expand' 
+			-> '`@receiver append: `@child'.
+
+	^ self append: child
 ]
 
 { #category : #accessing }
 GtkBox >> packStart: child expand: expand fill: fill padding: padding [ 
 
-	self keepWidget: child.
-	self basicPackStart: child expand: expand fill: fill padding: padding.
+	self 
+		deprecated: 'Use #append: (there are other forms to declare the other properties)' 
+		transformWith: 
+			   '`@receiver packStart: `@child expand: `@expand fill: `@fill padding: `@padding' 
+			-> '`@receiver append: `@child'.
 
-	^ child
+	^ self append: child
 ]
 
 { #category : #accessing }
 GtkBox >> packStart: child padding: padding [
 
-	^ self packStart: child expand: true fill: true padding: padding
+	self 
+		deprecated: 'Use #packStart: (padding need to be declared by styles)' 
+		transformWith: 
+			   '`@receiver packStart: `@child padding: `@padding' 
+			-> '`@receiver append: `@child'.
+
+	^ self append: child
+]
+
+{ #category : #accessing }
+GtkBox >> prepend: child [
+
+	self keepWidget: child.
+	self basicPrepend: child
 ]
 
 { #category : #accessing }
@@ -176,10 +223,12 @@ GtkBox >> reversePackEnd: child expand: expand fill: fill padding: padding [
 
 { #category : #accessing }
 GtkBox >> spacing [
-		^ self ffiCall: #(gint gtk_box_get_spacing (self))
+
+	^ self ffiCall: #(gint gtk_box_get_spacing (self))
 ]
 
 { #category : #accessing }
 GtkBox >> spacing: 	spacing [
-		^ self ffiCall: #(void gtk_box_set_spacing (self, gint spacing))
+	
+	^ self ffiCall: #(void gtk_box_set_spacing (self, gint spacing))
 ]

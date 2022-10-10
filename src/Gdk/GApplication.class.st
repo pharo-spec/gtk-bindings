@@ -3,7 +3,7 @@
 "
 Class {
 	#name : #GApplication,
-	#superclass : #GBaseObject,
+	#superclass : #GObject,
 	#category : #'Gdk-Base'
 }
 
@@ -49,10 +49,22 @@ GApplication class >> newName: aName flags: flags [
 	^ (self gApplicationNew: aName flags: 0) initialize
 ]
 
+{ #category : #signaling }
+GApplication >> connectActivate: aBlock [
+
+	(GActivateApplicationCallback do: aBlock) connectTo: self
+]
+
 { #category : #resources }
 GApplication >> ffiLibraryName [
 
 	^ GdkLibrary 
+]
+
+{ #category : #'private - primitives' }
+GApplication >> gRun [
+	
+	^ self ffiCall: #(int g_application_run (self, int 0, NULL))
 ]
 
 { #category : #'tools registry' }

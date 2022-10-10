@@ -64,8 +64,8 @@ GtkTreeDataStore class >> gDefineTreeDragDestInterface: iface [
 
 	iface drag_data_received: (GCallback 
 		signature: #(gboolean (void *drag_dest, void *dest, void *selection_data)) 
-		block: [ :drag_source :path :selection_data | 
-			(self gInstance: drag_source) 
+		block: [ :drag_dest :path :selection_data | 
+			(self gInstance: drag_dest) 
 				drag_data_received: (GtkTreePath fromHandle: path) 
 				data: (GtkSelectionData fromHandle: selection_data) ]).
 	iface row_drop_possible: (GCallback 

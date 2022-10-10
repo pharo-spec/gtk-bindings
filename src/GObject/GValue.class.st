@@ -5,20 +5,63 @@ https://developer.gnome.org/gobject/stable/gobject-Generic-values.html#GValue
 "
 Class {
 	#name : #GValue,
-	#superclass : #GBaseObject,
+	#superclass : #GStructure,
+	#traits : 'GObjectTLibrary',
+	#classTraits : 'GObjectTLibrary classTrait',
+	#classVars : [
+		'OFFSET_DATA_1',
+		'OFFSET_DATA_2',
+		'OFFSET_G_TYPE'
+	],
 	#category : #'GObject-Misc'
 }
 
-{ #category : #'library path' }
-GValue class >> ffiLibraryName [
+{ #category : #'field definition' }
+GValue class >> fieldsDesc [
+	"self rebuildFieldAccessors"
 
-	^ GObjectLibrary
+	^ #( 
+	GType g_type;
+	"this is an union, in fact, but we don't care as is opaque"
+	gpointer data_1;
+	gpointer data_2;	
+	 )
 ]
 
-{ #category : #'library path' }
-GValue >> ffiLibraryName [
+{ #category : #'accessing - structure variables' }
+GValue >> data_1 [
+	"This method was automatically generated"
+	^ExternalData fromHandle: (handle pointerAt: OFFSET_DATA_1) type: ExternalType void asPointerType
+]
 
-	^ self class ffiLibraryName
+{ #category : #'accessing - structure variables' }
+GValue >> data_1: anObject [
+	"This method was automatically generated"
+	handle pointerAt: OFFSET_DATA_1 put: anObject getHandle.
+]
+
+{ #category : #'accessing - structure variables' }
+GValue >> data_2 [
+	"This method was automatically generated"
+	^ExternalData fromHandle: (handle pointerAt: OFFSET_DATA_2) type: ExternalType void asPointerType
+]
+
+{ #category : #'accessing - structure variables' }
+GValue >> data_2: anObject [
+	"This method was automatically generated"
+	handle pointerAt: OFFSET_DATA_2 put: anObject getHandle.
+]
+
+{ #category : #'accessing - structure variables' }
+GValue >> g_type [
+	"This method was automatically generated"
+	^handle platformSizeTAt: OFFSET_G_TYPE
+]
+
+{ #category : #'accessing - structure variables' }
+GValue >> g_type: anObject [
+	"This method was automatically generated"
+	^handle platformSizeTAt: OFFSET_G_TYPE put: anObject
 ]
 
 { #category : #accessing }
@@ -31,6 +74,12 @@ GValue >> getBoolean [
 GValue >> getFloat [
 
 	^ self ffiCall: #(gfloat g_value_get_float (self))
+]
+
+{ #category : #accessing }
+GValue >> getInt [ 
+
+	^ self ffiCall: #(int g_value_get_int (self))
 ]
 
 { #category : #accessing }

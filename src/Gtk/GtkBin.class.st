@@ -6,6 +6,9 @@ https://developer.gnome.org/gtk3/stable/GtkBin.html
 Class {
 	#name : #GtkBin,
 	#superclass : #GtkContainer,
+	#instVars : [
+		'child'
+	],
 	#pools : [
 		'GtkOrientation'
 	],
@@ -22,17 +25,20 @@ GtkBin class >> gType [
 { #category : #'instance creation' }
 GtkBin class >> newWidget: aWidget [
 	^ self new 
-		add: aWidget;
+		child: aWidget;
 		yourself
 ]
 
 { #category : #accessing }
 GtkBin >> add: aWidget [
 
-	self children ifNotEmpty: [ 
-		GtkError signal: 'Bin container already contains a widget!' ].
+	self 
+		deprecated: 'Use #child: instead.' 
+		transformWith: '`@receiver add: `@arg1' -> '`@receiver child: `@arg1'.
 
-	^ super add: aWidget
+	child ifNotNil: [ 
+		GtkError signal: 'Bin container already contains a widget!' ].
+	^ self child: aWidget
 ]
 
 { #category : #accessing }
@@ -41,7 +47,20 @@ GtkBin >> child [
 ]
 
 { #category : #accessing }
+GtkBin >> child: aWidget [
+
+	child := aWidget.
+	self setChild: aWidget
+]
+
+{ #category : #accessing }
 GtkBin >> removeChild [
 
 	self remove: self child
+]
+
+{ #category : #private }
+GtkBin >> setChild: aWidget [
+
+	^ self subclassResponsibility
 ]

@@ -19,11 +19,17 @@ Gtk4Window class >> new [
 	^ self gtkNew initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+Gtk4Window >> child [
+
+	^ child ifNil: [ child := self getChild ]
+]
+
+{ #category : #accessing }
 Gtk4Window >> child: aWidget [
 
 	child := aWidget.
-	self gtkSetChild: aWidget
+	self setChild: aWidget
 ]
 
 { #category : #showing }
@@ -32,14 +38,20 @@ Gtk4Window >> close [
 	self ffiCall: #(void gtk_window_close (self))
 ]
 
-{ #category : #'as yet unclassified' }
-Gtk4Window >> gtkSetChild: child [
+{ #category : #private }
+Gtk4Window >> getChild [
 
-	self ffiCall: #(void gtk_window_set_child (self, GtkWidget *child))
+	self ffiCall: #(GtkWidget *gtk_window_get_child (self))
 ]
 
 { #category : #showing }
 Gtk4Window >> present [
 
 	^ self ffiCall: #(void gtk_window_present (self))
+]
+
+{ #category : #private }
+Gtk4Window >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_window_set_child (self, GtkWidget *aWidget))
 ]

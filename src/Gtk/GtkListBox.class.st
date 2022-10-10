@@ -60,17 +60,6 @@ GtkListBox >> beSingleSelectionMode [
 	self selectionMode: GTK_SELECTION_SINGLE
 ]
 
-{ #category : #private }
-GtkListBox >> bindModel: aListModel [
-	
-	self ffiCall: #(void gtk_list_box_bind_model (
-		self,
-		GListModelInterface *aListModel,
-		"GtkListBoxCreateWidgetFunc create_widget_func" NULL,
-		"gpointer user_data" NULL,
-		"GDestroyNotify user_data_free_func" NULL))
-]
-
 { #category : #signaling }
 GtkListBox >> connectRowActivated: aBlock [ 
 	
@@ -130,13 +119,6 @@ GtkListBox >> isActivateOnSingleClick [
 GtkListBox >> items [
 
 	^ self children
-]
-
-{ #category : #accessing }
-GtkListBox >> listModel: aListModel [
-
-	listModel := aListModel. 
-	self bindModel: aListModel interface
 ]
 
 { #category : #accessing }
