@@ -7,6 +7,11 @@ https://developer.gnome.org/gtk3/stable/GtkFrame.html
 Class {
 	#name : #GtkFrame,
 	#superclass : #GtkBin,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
+	#instVars : [
+		'labelWidget'
+	],
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -34,6 +39,12 @@ GtkFrame class >> newLabel: aString [
 	^ (self gtkFrameNewWithLabel: aString) initialize
 ]
 
+{ #category : #private }
+GtkFrame >> getLabelWidget [
+
+	self ffiCall: #(GtkWidget *gtk_frame_get_label_widget (self))
+]
+
 { #category : #accessing }
 GtkFrame >> label [
 
@@ -49,11 +60,24 @@ GtkFrame >> label: label [
 { #category : #accessing }
 GtkFrame >> labelWidget [
 
-	self ffiCall: #(GtkWidget *gtk_frame_get_label_widget (self))
+	^ labelWidget ifNil: [ labelWidget := self getLabelWidget ]
 ]
 
 { #category : #accessing }
 GtkFrame >> labelWidget: label_widget [
+
+	labelWidget := label_widget.
+	self setLabelWidget: label_widget
+]
+
+{ #category : #private }
+GtkFrame >> setChild: aWidget [
+
+	^ self ffiCall: #(void gtk_frame_set_child (self, GtkWidget* child))
+]
+
+{ #category : #private }
+GtkFrame >> setLabelWidget: label_widget [
 
 	self ffiCall: #(void gtk_frame_set_label_widget (self, GtkWidget *label_widget))
 ]

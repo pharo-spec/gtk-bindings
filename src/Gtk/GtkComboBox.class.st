@@ -6,11 +6,12 @@ https://developer.gnome.org/gtk3/stable/GtkComboBox.html
 Class {
 	#name : #GtkComboBox,
 	#superclass : #GtkBin,
-	#traits : 'GtkTCellLayout',
-	#classTraits : 'GtkTCellLayout classTrait',
+	#traits : 'GtkTBin + GtkTCellLayout',
+	#classTraits : 'GtkTBin classTrait + GtkTCellLayout classTrait',
 	#instVars : [
 		'model',
-		'columns'
+		'columns',
+		'entry'
 	],
 	#category : #'Gtk-Widget-Input'
 }
@@ -76,7 +77,7 @@ GtkComboBox >> activeIndex: index [
 	^ self ffiCall: #(void gtk_combo_box_set_active (self, gint index))
 ]
 
-{ #category : #'convenience columns' }
+{ #category : #'convenience - columns' }
 GtkComboBox >> appendPixbufColumn: columnIndex [
 	| renderer |
 
@@ -88,7 +89,7 @@ GtkComboBox >> appendPixbufColumn: columnIndex [
 			renderer: renderer
 ]
 
-{ #category : #'convenience columns' }
+{ #category : #'convenience - columns' }
 GtkComboBox >> appendTextColumn: columnIndex [
 	| renderer |
 
@@ -110,18 +111,6 @@ GtkComboBox >> basicActiveId [
 GtkComboBox >> basicActiveId: utf8EncodedId [
 
 	^ self ffiCall: #(gboolean gtk_combo_box_set_active_id (self, String utf8EncodedId))
-]
-
-{ #category : #TOREFACTOR }
-GtkComboBox >> beText [
-	"I'm assuming there is just one column. 
-	 And that it will be a text column. 
-	 I'm asuming a lot of things :P"
-	| cell |
-	
-	cell := GtkCellRendererText new.
-	self packStart: cell expand: true.
-	self addAttribute: 'text' column: 0 renderer: cell
 ]
 
 { #category : #accessing }
@@ -155,6 +144,12 @@ GtkComboBox >> connectChanged: aBlock [
 ]
 
 { #category : #accessing }
+GtkComboBox >> entry [
+
+	^ entry ifNil: [ entry := self getEntry ]
+]
+
+{ #category : #accessing }
 GtkComboBox >> entryTextColumn [
 
 	^ self ffiCall: #(gint gtk_combo_box_get_entry_text_column (self))
@@ -178,10 +173,10 @@ GtkComboBox >> fixedWidth: aBoolean [
 	^ self ffiCall: #(void gtk_combo_box_set_popup_fixed_width (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkComboBox >> getEntry [
 
-	self ffiCall: #(GtkEntry * gtk_bin_get_child  (self) )
+	self ffiCall: #(GtkEntry *gtk_bin_get_child  (self) )
 ]
 
 { #category : #private }
@@ -190,7 +185,7 @@ GtkComboBox >> getModel [
 	^ self ffiCall: #(GtkTreeModel *gtk_combo_box_get_model (self))
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 GtkComboBox >> hasEntry [
 
 	^ self ffiCall: #(gboolean gtk_combo_box_get_has_entry (self))
@@ -199,8 +194,7 @@ GtkComboBox >> hasEntry [
 { #category : #accessing }
 GtkComboBox >> model [
 
-	^ model ifNil: [ model := self getModel ].
-
+	^ model ifNil: [ model := self getModel ]
 ]
 
 { #category : #accessing }
@@ -254,6 +248,13 @@ GtkComboBox >> selectedIndexes [
 GtkComboBox >> setActive: index [
 
 	self ffiCall: #(void gtk_combo_box_set_active  (self, gint index) )
+]
+
+{ #category : #private }
+GtkComboBox >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_combo_box_set_child (self, GtkWidget* child))
+
 ]
 
 { #category : #private }

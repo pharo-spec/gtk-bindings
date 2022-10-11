@@ -10,14 +10,8 @@ Class {
 	#category : #'Gtk-Widget-Container'
 }
 
-{ #category : #'as yet unclassified' }
-GtkEventBox class >> eventBoxNew [
+{ #category : #testing }
+GtkEventBox class >> isDeprecated [
 
-	^ self ffiCall: #(GtkEventBox *gtk_event_box_new (void))
-]
-
-{ #category : #'instance creation' }
-GtkEventBox class >> new [
-
-	^ self eventBoxNew initialize
+	^ true
 ]

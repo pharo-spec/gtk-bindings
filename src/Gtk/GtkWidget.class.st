@@ -667,8 +667,20 @@ GtkWidget >> hide [
 ]
 
 { #category : #testing }
+GtkWidget >> isBin [
+
+	^ false
+]
+
+{ #category : #testing }
 GtkWidget >> isConfiguredVisible [
 	^ self ffiCall: #(gboolean gtk_widget_get_visible (self))
+]
+
+{ #category : #testing }
+GtkWidget >> isContainer [
+
+	^ false
 ]
 
 { #category : #testing }

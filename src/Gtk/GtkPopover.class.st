@@ -7,6 +7,8 @@ https://developer.gnome.org/gtk3/stable/GtkPopover.html
 Class {
 	#name : #GtkPopover,
 	#superclass : #GtkBin,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
 	#instVars : [
 		'defaultWidget'
 	],
@@ -65,45 +67,40 @@ GtkPopover >> autoObjectUnref [
 ]
 
 { #category : #accessing }
-GtkPopover >> beModal [
+GtkPopover >> autohide: autohide [
 
-	self modal: true
-]
-
-{ #category : #accessing }
-GtkPopover >> beNotModal [
-
-	self modal: false
+	self ffiCall: #(void gtk_popover_set_autohide (self, gboolean autohide))
 ]
 
 { #category : #accessing }
 GtkPopover >> bePositionBottom [
 
-	self preferredPosition: GTK_POS_BOTTOM
+	self position: GTK_POS_BOTTOM
 ]
 
 { #category : #accessing }
 GtkPopover >> bePositionLeft [
 
-	self preferredPosition: GTK_POS_LEFT
+	self position: GTK_POS_LEFT
 ]
 
 { #category : #accessing }
 GtkPopover >> bePositionRight [
 
-	self preferredPosition: GTK_POS_RIGHT
+	self position: GTK_POS_RIGHT
 ]
 
 { #category : #accessing }
 GtkPopover >> bePositionTop [
 
-	self preferredPosition: GTK_POS_TOP
+	self position: GTK_POS_TOP
 ]
 
 { #category : #accessing }
 GtkPopover >> beRelativeTo: aWidget [
 
-	^ self ffiCall: #(void gtk_popover_set_relative_to (self, GtkWidget *aWidget))
+	self flag: #REMOVEME.
+	self error: 'Not anymore posible'
 ]
 
 { #category : #accessing }
@@ -120,27 +117,34 @@ GtkPopover >> defaultWidget: aWidget [
 ]
 
 { #category : #private }
-GtkPopover >> getConstraintTo [
-
-	^ self ffiCall: #(GtkPopoverConstraint gtk_popover_get_constrain_to (self))
-]
-
-{ #category : #private }
 GtkPopover >> getDefaultWidget [
 
 	^ self ffiCall: #(GtkWidget *gtk_popover_get_default_widget (self))
 ]
 
 { #category : #testing }
-GtkPopover >> isModal [
+GtkPopover >> hasArrow [
 
-	^ self ffiCall: #(gboolean gtk_popover_get_modal (self))
+	^ self ffiCall: #(gboolean gtk_popover_get_has_arrow (self))
 ]
 
-{ #category : #private }
-GtkPopover >> modal: modal [
+{ #category : #accessing }
+GtkPopover >> hasArrow: has_arrow [
 
-	^ self ffiCall: #(void gtk_popover_set_modal (self, gboolean modal))
+	self ffiCall: #(void gtk_popover_set_has_arrow (self, gboolean has_arrow))
+]
+
+{ #category : #testing }
+GtkPopover >> isAutohide [
+
+	^ self ffiCall: #(gboolean gtk_popover_get_autohide (self))
+
+]
+
+{ #category : #accessing }
+GtkPopover >> offset: aPoint [ 
+
+	self setOffsetX: aPoint x y: aPoint y
 ]
 
 { #category : #accessing }
@@ -162,33 +166,46 @@ GtkPopover >> popup [
 ]
 
 { #category : #accessing }
-GtkPopover >> preferredPosition [
+GtkPopover >> position [
 
 	^ self ffiCall: #(GtkPositionType gtk_popover_get_position (self))
 ]
 
 { #category : #accessing }
-GtkPopover >> preferredPosition: position [
+GtkPopover >> position: position [
 
 	^ self ffiCall: #(void gtk_popover_set_position (self, GtkPositionType position))
 ]
 
 { #category : #accessing }
+GtkPopover >> present [
+
+	self ffiCall: #(void gtk_popover_present (self))
+]
+
+{ #category : #accessing }
 GtkPopover >> relativeWidget [
 
-	^ self ffiCall: #(GtkWidget *gtk_popover_get_relative_to (self))
+	self flag: #REMOVEME.
+	self error: 'Not anymore posible'
 ]
 
 { #category : #private }
-GtkPopover >> setConstraintTo: constraint [
+GtkPopover >> setChild: aWidget [
 
-	^ self ffiCall: #(void gtk_popover_set_constrain_to (self, GtkPopoverConstraint constraint))
+	self ffiCall: #(void gtk_popover_set_child (self, GtkWidget* aWidget))
 ]
 
 { #category : #private }
 GtkPopover >> setDefaultWidget: aWidget [
 
 	^ self ffiCall: #(void gtk_popover_set_default_widget (self, GtkWidget *aWidget))
+]
+
+{ #category : #private }
+GtkPopover >> setOffsetX: x_offset y: y_offset [
+
+	self ffiCall: #(void gtk_popover_set_offset (self, int x_offset, int y_offset))
 ]
 
 { #category : #private }

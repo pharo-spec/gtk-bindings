@@ -7,6 +7,9 @@ https://developer.gnome.org/gtk3/stable/GtkStackSidebar.html
 Class {
 	#name : #GtkStackSidebar,
 	#superclass : #GtkBin,
+	#instVars : [
+		'stack'
+	],
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -36,20 +39,26 @@ GtkStackSidebar class >> new [
 ]
 
 { #category : #private }
-GtkStackSidebar >> basicStack: aStack [
+GtkStackSidebar >> getStack [
+
+	^ self ffiCall: #(GtkStack *gtk_stack_sidebar_get_stack (self))
+]
+
+{ #category : #private }
+GtkStackSidebar >> setStack: aStack [
 
 	self ffiCall: #(void gtk_stack_sidebar_set_stack (self, GtkStack *aStack))
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 GtkStackSidebar >> stack [
 
-	^ self ffiCall: #(GtkStack *gtk_stack_sidebar_get_stack (self))
+	^ stack ifNil: [ stack := self getStack ]
 ]
 
 { #category : #accessing }
 GtkStackSidebar >> stack: aStack [
 
-	self keepWidget: aStack.
-	self basicStack: aStack
+	stack := aStack.
+	self setStack: aStack
 ]

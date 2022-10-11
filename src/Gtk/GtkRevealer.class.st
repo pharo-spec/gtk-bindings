@@ -7,6 +7,8 @@ https://developer.gnome.org/gtk3/stable/GtkRevealer.html
 Class {
 	#name : #GtkRevealer,
 	#superclass : #GtkBin,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -65,6 +67,12 @@ GtkRevealer >> revealChild [
 GtkRevealer >> revealChild: aBoolean [
 
 	^ self ffiCall: #(void gtk_revealer_set_reveal_child (self, gboolean aBoolean))
+]
+
+{ #category : #private }
+GtkRevealer >> setChild: aWidget [
+
+	^ self ffiCall: #(void gtk_revealer_set_child (self, GtkWidget* child))
 ]
 
 { #category : #accessing }

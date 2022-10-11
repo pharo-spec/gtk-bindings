@@ -5,7 +5,12 @@ https://developer.gnome.org/gtk3/stable/GtkActionBar.html
 "
 Class {
 	#name : #GtkActionBar,
-	#superclass : #GtkBin,
+	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
+	#instVars : [
+		'centerWidget'
+	],
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -40,20 +45,38 @@ GtkActionBar >> basicPackStart: child [
 	^ self ffiCall: #(void gtk_action_bar_pack_start (self, GtkWidget *child))
 ]
 
+{ #category : #private }
+GtkActionBar >> basicRemove: child [
+
+	self ffiCall: #(void gtk_action_bar_remove (self, GtkWidget* child))
+]
+
 { #category : #accessing }
 GtkActionBar >> centerWidget [
+	
+	^ centerWidget ifNil: [ centerWidget := self getCenterWidget ]
+]
+
+{ #category : #accessing }
+GtkActionBar >> centerWidget: center_widget [
+
+	centerWidget := center_widget.
+	self setCenterWidget: center_widget
+]
+
+{ #category : #private }
+GtkActionBar >> getCenterWidget [
 	"It will answer a generic widget, you need to 'cast' it to what it really is. 
 	 Default is GtkBox (TO VERIFY)"
 
 	^ self ffiCall: #(GtkWidget *gtk_action_bar_get_center_widget (self))
 ]
 
-{ #category : #accessing }
-GtkActionBar >> centerWidget: center_widget [
+{ #category : #testing }
+GtkActionBar >> isRevealed [
 
-	^ self ffiCall: #(void gtk_action_bar_set_center_widget (
-		self,
-		GtkWidget *center_widget))
+	^ self ffiCall: #(gboolean gtk_action_bar_get_revealed (self))
+
 ]
 
 { #category : #accessing }
@@ -72,4 +95,12 @@ GtkActionBar >> packStart: child [
 	self basicPackStart: child.
 
 	^ child
+]
+
+{ #category : #private }
+GtkActionBar >> setCenterWidget: center_widget [
+
+	^ self ffiCall: #(void gtk_action_bar_set_center_widget (
+		self,
+		GtkWidget *center_widget))
 ]

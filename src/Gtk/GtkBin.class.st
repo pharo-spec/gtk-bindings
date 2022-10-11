@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkBin.html
 Class {
 	#name : #GtkBin,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
 	#instVars : [
 		'child'
 	],
@@ -15,18 +17,10 @@ Class {
 	#category : #'Gtk-Widget-Container'
 }
 
-{ #category : #accessing }
-GtkBin class >> gType [ 
-	"This method was automatically generated"
+{ #category : #testing }
+GtkBin class >> isDeprecated [
 
-	^ self ffiCall: #(gsize gtk_bin_get_type())
-]
-
-{ #category : #'instance creation' }
-GtkBin class >> newWidget: aWidget [
-	^ self new 
-		child: aWidget;
-		yourself
+	^ super isDeprecated or: [ self = GtkBin ]
 ]
 
 { #category : #accessing }
@@ -39,28 +33,4 @@ GtkBin >> add: aWidget [
 	child ifNotNil: [ 
 		GtkError signal: 'Bin container already contains a widget!' ].
 	^ self child: aWidget
-]
-
-{ #category : #accessing }
-GtkBin >> child [
-	^ self children anyOne
-]
-
-{ #category : #accessing }
-GtkBin >> child: aWidget [
-
-	child := aWidget.
-	self setChild: aWidget
-]
-
-{ #category : #accessing }
-GtkBin >> removeChild [
-
-	self remove: self child
-]
-
-{ #category : #private }
-GtkBin >> setChild: aWidget [
-
-	^ self subclassResponsibility
 ]

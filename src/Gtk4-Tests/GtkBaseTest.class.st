@@ -1,10 +1,6 @@
 Class {
 	#name : #GtkBaseTest,
 	#superclass : #TestCase,
-	#instVars : [
-		'waitSemaphore',
-		'application'
-	],
 	#category : #'Gtk4-Tests'
 }
 
@@ -12,12 +8,6 @@ Class {
 GtkBaseTest class >> isAbstract [
 
 	^ super isAbstract or: [ self = GtkBaseTest ]
-]
-
-{ #category : #private }
-GtkBaseTest >> continue [
-
-	waitSemaphore signal
 ]
 
 { #category : #private }
@@ -29,43 +19,35 @@ GtkBaseTest >> defer: aBlock [
 { #category : #'instance creation' }
 GtkBaseTest >> newApplication [
 
-	^ GtkApplication newId: 'org.pharo.Gtk4TestingApp'
+	^ GtkApplication newId: ('org.pharo.Gtk4TestCase-', UUID new asString36)
 ]
 
 { #category : #'instance creation' }
 GtkBaseTest >> runApplicationWith: aBlock [
+	| sem |
 
-	(application := self newApplication) 
+	sem := Semaphore new.
+	self newApplication
 		connectActivate: [ 
-			aBlock value.
-			self continue ];
+			aBlock ensure: [ sem signalAll ] ];
 		run.
-	self wait
+	sem wait
 ]
 
 { #category : #running }
 GtkBaseTest >> runCase [
 
-	GEngine ensureRunning.
 	super runCase
 ]
 
 { #category : #initialization }
 GtkBaseTest >> setUp [
 
-	super setUp.
-	waitSemaphore := Semaphore new
+	super setUp
 ]
 
 { #category : #running }
 GtkBaseTest >> tearDown [
 
-	application := nil.
 	super tearDown
-]
-
-{ #category : #private }
-GtkBaseTest >> wait [
-
-	waitSemaphore wait
 ]

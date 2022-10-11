@@ -7,6 +7,8 @@ https://developer.gnome.org/gtk3/stable/GtkSearchBar.html
 Class {
 	#name : #GtkSearchBar,
 	#superclass : #GtkBin,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget-Input'
 }
 
@@ -47,8 +49,8 @@ GtkSearchBar >> hideCloseButton [
 	^ self showCloseButton: false
 ]
 
-{ #category : #accessing }
-GtkSearchBar >> searchMode [
+{ #category : #testing }
+GtkSearchBar >> isSearchModeOn [
 
 	^ self ffiCall: #(gboolean gtk_search_bar_get_search_mode (self))
 ]
@@ -71,6 +73,12 @@ GtkSearchBar >> searchModeOn [
 	self searchMode: true
 ]
 
+{ #category : #private }
+GtkSearchBar >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_search_bar_set_child (self, GtkWidget* aWidget))
+]
+
 { #category : #accessing }
 GtkSearchBar >> showCloseButton [
 
@@ -83,7 +91,7 @@ GtkSearchBar >> showCloseButton: aBoolean [
 	^ self ffiCall: #(void gtk_search_bar_set_show_close_button (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 GtkSearchBar >> showsCloseButton [
 
 	^ self ffiCall: #(gboolean gtk_search_bar_get_show_close_button (self))

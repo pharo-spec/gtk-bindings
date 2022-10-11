@@ -1,11 +1,11 @@
 Class {
-	#name : #GtkListViewTest,
+	#name : #GtkFrameTest,
 	#superclass : #GtkWidgetTest,
 	#category : #'Gtk4-Tests'
 }
 
 { #category : #accessing }
-GtkListViewTest >> widgetClass [
+GtkFrameTest >> widgetClass [
 
-	^ GtkListView
+	^ GtkFrame
 ]

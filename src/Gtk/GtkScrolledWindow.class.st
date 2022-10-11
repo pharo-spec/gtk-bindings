@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkScrolledWindow.html
 Class {
 	#name : #GtkScrolledWindow,
 	#superclass : #GtkBin,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget-Container'
 }
 

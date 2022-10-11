@@ -1,11 +1,11 @@
 Class {
-	#name : #GtkListViewTest,
+	#name : #GtkComboBoxTest,
 	#superclass : #GtkWidgetTest,
 	#category : #'Gtk4-Tests'
 }
 
 { #category : #accessing }
-GtkListViewTest >> widgetClass [
+GtkComboBoxTest >> widgetClass [
 
-	^ GtkListView
+	^ GtkComboBox
 ]

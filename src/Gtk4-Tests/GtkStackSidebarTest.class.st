@@ -1,11 +1,11 @@
 Class {
-	#name : #GtkListViewTest,
+	#name : #GtkStackSidebarTest,
 	#superclass : #GtkWidgetTest,
 	#category : #'Gtk4-Tests'
 }
 
 { #category : #accessing }
-GtkListViewTest >> widgetClass [
+GtkStackSidebarTest >> widgetClass [
 
-	^ GtkListView
+	^ GtkStackSidebar
 ]

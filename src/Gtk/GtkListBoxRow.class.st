@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkListBox.html
 Class {
 	#name : #GtkListBoxRow,
 	#superclass : #GtkBin,
+	#traits : 'GtkTBin',
+	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget'
 }
 
@@ -60,4 +62,10 @@ GtkListBoxRow >> isSelectable [
 GtkListBoxRow >> selectable: selectable [
 
 	self ffiCall: #(void gtk_list_box_row_set_selectable (self, gboolean selectable))
+]
+
+{ #category : #private }
+GtkListBoxRow >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_list_box_row_set_child (self, GtkWidget* child))
 ]
