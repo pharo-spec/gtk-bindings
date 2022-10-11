@@ -47,17 +47,23 @@ GtkWidgetTest >> tearDown [
 GtkWidgetTest >> testSmoke [
 	"a smoke test that tests the widget can be created and added into a window"
 	
-	window child: widget
+	self window child: self widget
 ]
 
 { #category : #accessing }
 GtkWidgetTest >> widget [
 
-	^ widget ifNil: [ widget := GRunLoop defer: [ self widgetClass new ] ]
+	^ widget
 ]
 
 { #category : #accessing }
 GtkWidgetTest >> widgetClass [
 
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GtkWidgetTest >> window [
+
+	^ window
 ]
