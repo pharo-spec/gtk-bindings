@@ -26,10 +26,12 @@ GtkBaseTest >> newApplication [
 GtkBaseTest >> runApplicationWith: aBlock [
 	| sem |
 
+	GEngine ensureRunning.
 	sem := Semaphore new.
 	self newApplication
 		connectActivate: [ 
-			aBlock ensure: [ sem signalAll ] ];
+			aBlock 
+			ensure: [ sem signal ] ];
 		run.
 	sem wait
 ]

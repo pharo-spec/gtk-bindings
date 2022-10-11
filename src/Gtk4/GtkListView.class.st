@@ -1,6 +1,9 @@
+"
+https://docs.gtk.org/gtk4/class.ListView.html
+"
 Class {
 	#name : #GtkListView,
-	#superclass : #Gtk4Widget,
+	#superclass : #GtkWidget,
 	#instVars : [
 		'factory',
 		'selectionModel'

@@ -2,11 +2,11 @@
 GtkStackSidebar
 GtkStackSidebar — An automatic sidebar widget
 
-https://developer.gnome.org/gtk3/stable/GtkStackSidebar.html
+https://docs.gtk.org/gtk4/class.StackSidebar.html
 "
 Class {
 	#name : #GtkStackSidebar,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#instVars : [
 		'stack'
 	],

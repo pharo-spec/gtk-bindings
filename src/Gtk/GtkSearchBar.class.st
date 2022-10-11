@@ -2,11 +2,11 @@
 GtkSearchBar
 GtkSearchBar — A toolbar to integrate a search entry with
 
-https://developer.gnome.org/gtk3/stable/GtkSearchBar.html
+https://docs.gtk.org/gtk4/class.SearchBar.html
 "
 Class {
 	#name : #GtkSearchBar,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget-Input'

@@ -1,9 +1,7 @@
 "
 I'm a widget that displays a small to medium amount of text.
 
-https://developer.gnome.org/gtk3/stable/GtkLabel.html
-
-
+https://docs.gtk.org/gtk4/class.Label.html
 "
 Class {
 	#name : #GtkLabel,

@@ -23,7 +23,6 @@ GtkWidgetTest >> newWidget [
 { #category : #running }
 GtkWidgetTest >> runCase [
 
-	GEngine ensureRunning.
 	self runApplicationWith: [ super runCase ]
 ]
 

@@ -1,7 +1,7 @@
 "
 GtkComboBoxText — A simple, text-only combo box
 
-https://developer.gnome.org/gtk3/stable/GtkComboBoxText.html
+https://docs.gtk.org/gtk4/class.ComboBoxText.html
 "
 Class {
 	#name : #GtkComboBoxText,

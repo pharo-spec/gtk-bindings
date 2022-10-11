@@ -1,11 +1,11 @@
 "
 I'm an element inside a GtkListBox
 
-https://developer.gnome.org/gtk3/stable/GtkListBox.html
+https://docs.gtk.org/gtk4/class.ListBoxRow.html
 "
 Class {
 	#name : #GtkListBoxRow,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget'

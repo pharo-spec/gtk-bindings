@@ -2,11 +2,11 @@
 GtkFrame
 GtkFrame — A bin with a decorative frame and optional label
 
-https://developer.gnome.org/gtk3/stable/GtkFrame.html
+https://docs.gtk.org/gtk4/class.Frame.html
 "
 Class {
 	#name : #GtkFrame,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#instVars : [

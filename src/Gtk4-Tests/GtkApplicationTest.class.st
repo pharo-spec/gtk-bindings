@@ -9,15 +9,7 @@ GtkApplicationTest >> testRun [
 	| app run |
 
 	run := false.	
-	app := self newApplication.
-	app connectActivate: [
-		run := true.
-		self continue ]. 
-	app run.
-	
-	self wait.
-	self assert: run.
-	"time to let the process die"
-	100 milliSeconds wait.
-	self deny: app isRunning
+	self runApplicationWith: [ 
+		run := true ]. 
+	self assert: run
 ]

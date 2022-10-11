@@ -1,11 +1,11 @@
 "
 GtkComboBox — A widget used to choose from a list of items
 
-https://developer.gnome.org/gtk3/stable/GtkComboBox.html
+https://docs.gtk.org/gtk4/class.ComboBox.html
 "
 Class {
 	#name : #GtkComboBox,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin + GtkTCellLayout',
 	#classTraits : 'GtkTBin classTrait + GtkTCellLayout classTrait',
 	#instVars : [

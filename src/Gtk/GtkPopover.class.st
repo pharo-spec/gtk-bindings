@@ -2,11 +2,11 @@
 GtkPopover
 GtkPopover — Context dependent bubbles
 
-https://developer.gnome.org/gtk3/stable/GtkPopover.html
+https://docs.gtk.org/gtk4/class.Popover.html
 "
 Class {
 	#name : #GtkPopover,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#instVars : [

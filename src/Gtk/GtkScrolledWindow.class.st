@@ -1,11 +1,11 @@
 "
 I add scrollbars to my child widget (I accept only one)
 
-https://developer.gnome.org/gtk3/stable/GtkScrolledWindow.html
+https://docs.gtk.org/gtk4/class.ScrolledWindow.html
 "
 Class {
 	#name : #GtkScrolledWindow,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget-Container'
