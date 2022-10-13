@@ -1,6 +1,6 @@
 Class {
 	#name : #GtkApplicationWindow,
-	#superclass : #Gtk4Window,
+	#superclass : #GtkWindow,
 	#category : #Gtk4
 }
 

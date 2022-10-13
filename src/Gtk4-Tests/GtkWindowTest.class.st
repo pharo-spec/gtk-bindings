@@ -1,5 +1,5 @@
 Class {
-	#name : #Gtk4WindowTest,
+	#name : #GtkWindowTest,
 	#superclass : #GtkBaseTest,
 	#instVars : [
 		'window'
@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #running }
-Gtk4WindowTest >> tearDown [
+GtkWindowTest >> tearDown [
 
 	window ifNotNil: [ window close ].
 	super tearDown.
 ]
 
 { #category : #tests }
-Gtk4WindowTest >> testChild [
+GtkWindowTest >> testChild [
 
-	(window := Gtk4Window new) 
+	(window := GtkWindow new) 
 		child: (GtkLabel newLabel: 'Test');
 		present.
 
@@ -25,9 +25,9 @@ Gtk4WindowTest >> testChild [
 ]
 
 { #category : #tests }
-Gtk4WindowTest >> testPresent [
+GtkWindowTest >> testPresent [
 	"more like an smoke test, but well"
 
-	window := Gtk4Window new.
+	window := GtkWindow new.
 	window present
 ]

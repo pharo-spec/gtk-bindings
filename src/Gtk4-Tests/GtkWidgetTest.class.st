@@ -30,7 +30,7 @@ GtkWidgetTest >> runCase [
 GtkWidgetTest >> setUp [
 
 	super setUp.
-	window := Gtk4Window new.
+	window := GtkWindow new.
 	window present.
 	widget := self newWidget	
 ]

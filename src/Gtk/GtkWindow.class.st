@@ -8,7 +8,8 @@ Class {
 	#superclass : #GtkContainer,
 	#instVars : [
 		'acceleratorGroups',
-		'cursor'
+		'cursor',
+		'child'
 	],
 	#pools : [
 		'GtkWindowPosition',
@@ -126,6 +127,25 @@ GtkWindow >> center [
 		ifFalse: [ "self setPosition: GTK_WIN_POS_CENTER" ]"
 ]
 
+{ #category : #accessing }
+GtkWindow >> child [
+
+	^ child ifNil: [ child := self getChild ]
+]
+
+{ #category : #accessing }
+GtkWindow >> child: aWidget [
+
+	child := aWidget.
+	self setChild: aWidget
+]
+
+{ #category : #showing }
+GtkWindow >> close [
+
+	self ffiCall: #(void gtk_window_close (self))
+]
+
 { #category : #signaling }
 GtkWindow >> connectActivateFocus: aBlock [
 
@@ -157,6 +177,12 @@ GtkWindow >> defaultSize: aPoint [
 GtkWindow >> defaultSizeWidth: width height: height [
 
 	^ self ffiCall: #(void gtk_window_set_default_size (self, gint width, gint height))
+]
+
+{ #category : #private }
+GtkWindow >> getChild [
+
+	self ffiCall: #(GtkWidget *gtk_window_get_child (self))
 ]
 
 { #category : #private }
@@ -277,10 +303,10 @@ GtkWindow >> position [
 	^ (rootX signedLongAt: 1) @ (rootY signedLongAt: 1)
 ]
 
-{ #category : #accessing }
+{ #category : #showing }
 GtkWindow >> present [
 
-	self ffiCall: #(void gtk_window_present (self))
+	^ self ffiCall: #(void gtk_window_present (self))
 ]
 
 { #category : #accessing }
@@ -322,6 +348,12 @@ GtkWindow >> scaleFactor [
 	"See https://developer.gnome.org/gdk3/stable/gdk3-Windows.html#gdk-window-get-scale-factor"
 
 	^ self ffiCall: #(gint gdk_window_get_scale_factor (self))
+]
+
+{ #category : #private }
+GtkWindow >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_window_set_child (self, GtkWidget *aWidget))
 ]
 
 { #category : #private }
