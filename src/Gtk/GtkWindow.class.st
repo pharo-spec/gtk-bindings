@@ -346,10 +346,15 @@ GtkWindow >> show [
 
 { #category : #accessing }
 GtkWindow >> showAll [
-
 	"We have to do in this way to avoid the selection of the first element in a list"
-	self show.
-	self children do: #showAll
+
+	self 
+		deprecated: 'Removed in Gtk4' 
+		transformWith: 
+			   '`@receiver showAll' 
+			-> '`@receiver present'.
+				
+	self present
 ]
 
 { #category : #geometry }

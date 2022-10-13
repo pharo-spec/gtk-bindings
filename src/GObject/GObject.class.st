@@ -36,8 +36,7 @@ GObject class >> finalizeResourceData: handle [
 		ifFalse: [
 			GZombieAnnouncement emitTarget: self handle: handle ].
 	handle beNull.
-
-	'END' printToStdout
+	'FINALIZED' printToStdout
 ]
 
 { #category : #accessing }

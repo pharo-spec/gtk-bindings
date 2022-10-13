@@ -15,7 +15,7 @@ Class {
 	#pools : [
 		'GtkPositionType'
 	],
-	#category : #'Gtk-Widget-Toolbar'
+	#category : #'Gtk-Widget-Window'
 }
 
 { #category : #accessing }
@@ -101,6 +101,12 @@ GtkPopover >> beRelativeTo: aWidget [
 
 	self flag: #REMOVEME.
 	self error: 'Not anymore posible'
+]
+
+{ #category : #signaling }
+GtkPopover >> connectClosed: aBlock [
+
+	(GPopoverClosedCallback do: aBlock) connectTo: self
 ]
 
 { #category : #accessing }

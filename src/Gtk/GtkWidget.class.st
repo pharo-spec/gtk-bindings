@@ -10,7 +10,9 @@ Class {
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'data',
-		'deferActions'
+		'deferActions',
+		'eventControllers',
+		'actionGroups'
 	],
 	#pools : [
 		'GtkAccelFlags',
@@ -109,6 +111,14 @@ GtkWidget >> addClass: aString [
 ]
 
 { #category : #accessing }
+GtkWidget >> addController: controller [
+
+	eventControllers ifNil: [ eventControllers := #() ].
+	eventControllers := eventControllers copyWith: controller.
+	self basicAddController: controller 
+]
+
+{ #category : #accessing }
 GtkWidget >> addEvents: events [
 	
 	self ffiCall: #(void gtk_widget_add_events (self, gint events))
@@ -143,15 +153,24 @@ GtkWidget >> autoRelease [
 ]
 
 { #category : #private }
+GtkWidget >> basicAddController: controller [
+
+	self ffiCall: #(void gtk_widget_add_controller (self, GtkEventController* controller))
+]
+
+{ #category : #private }
 GtkWidget >> basicGrabDefault [
 
 	self ffiCall: #(void gtk_widget_grab_default (self))
 ]
 
-{ #category : #TOREMOVE }
-GtkWidget >> bindKeyCombination: aShortcut toAction: aBlock [
- 
-	self flag: #TODO.
+{ #category : #private }
+GtkWidget >> basicInsertActionGroup: name actions: group [
+
+	self ffiCall: #(void gtk_widget_insert_action_group (
+		self, 
+		char* name, 
+		"GActionGroup*"GObject *group))
 ]
 
 { #category : #drawing }
@@ -180,8 +199,7 @@ GtkWidget >> connectButtonPressEvent: aBlock [
 	"connects to button-press-event signal 
 	 aBlock needs to answer a boolean to stop or not event propagation"
 
-	^ (GButtonPressEventCallback do: aBlock) connectTo: self	
-
+	self deprecated: 'Use a gesture now'
 ]
 
 { #category : #signaling }
@@ -189,14 +207,13 @@ GtkWidget >> connectButtonReleaseEvent: aBlock [
 	"connects to button-release-event signal 
 	 aBlock needs to answer a boolean to stop or not event propagation"
 
-	^ (GButtonReleaseEventCallback do: aBlock) connectTo: self
-
+	self deprecated: 'Use a gesture now'
 ]
 
 { #category : #signaling }
 GtkWidget >> connectClicked: aBlock [
 
-	(GClickedCallback do: aBlock) connectTo: self
+	self deprecated: 'Use a gesture now'
 ]
 
 { #category : #signaling }
@@ -215,7 +232,7 @@ GtkWidget >> connectDestroy: aBlock [
 { #category : #signaling }
 GtkWidget >> connectDoubleClicked: aBlock [
 	
-	(GDoubleClickButtonPressEventCallback do: aBlock) connectTo: self
+	self deprecated: 'Use a gesture now'
 ]
 
 { #category : #signaling }
@@ -331,7 +348,7 @@ GtkWidget >> connectShow: aBlock [
 { #category : #signaling }
 GtkWidget >> connectSizeAllocate: aBlock [
 
-	(GSizeAllocateCallback do: aBlock) connectTo: self
+	self deprecated: 'This is not valid in Gtk4'
 ]
 
 { #category : #signaling }
@@ -378,7 +395,7 @@ GtkWidget >> data: anObject [
 	data := anObject
 ]
 
-{ #category : #'private deferring' }
+{ #category : #'private - deferring' }
 GtkWidget >> deferAction: aBlock [
 	"Deferred actions are needed because some settings (like #grabDefault) acquire sense once a 
 	 widget is inserted into a window. Hence, we need to 'defer' this action until that moment. 
@@ -440,12 +457,19 @@ GtkWidget >> events: events [
 	self ffiCall: #(void gtk_widget_set_events (self, gint events))
 ]
 
-{ #category : #'private deferring' }
+{ #category : #'private - deferring' }
 GtkWidget >> executeDeferredActions [
 
 	deferActions ifNil: [ ^ self ].
 	deferActions do: #value.
 	deferActions := nil
+]
+
+{ #category : #geometry }
+GtkWidget >> expand: aBoolean [
+
+	self hExpand: aBoolean.
+	self vExpand: aBoolean
 ]
 
 { #category : #'library path' }
@@ -462,6 +486,7 @@ GtkWidget >> fontMap: font_map [
 { #category : #accessing }
 GtkWidget >> gdkWindow [
 
+	self flag: #TOREMOVE.
 	^ self ffiCall: #(GdkWindow *gtk_widget_get_window (self))
 ]
 
@@ -666,6 +691,14 @@ GtkWidget >> hide [
 	self ffiCall: #(void gtk_widget_hide (self))
 ]
 
+{ #category : #accessing }
+GtkWidget >> insertActionGroup: name actions: group [
+
+	actionGroups ifNil: [ actionGroups := #() ].
+	actionGroups := actionGroups copyWith: group.
+	self basicInsertActionGroup: name actions: group
+]
+
 { #category : #testing }
 GtkWidget >> isBin [
 
@@ -710,6 +743,18 @@ GtkWidget >> isVExpand [
 { #category : #testing }
 GtkWidget >> isVisible [
 	^ self ffiCall: #(gboolean gtk_widget_is_visible (self))
+]
+
+{ #category : #accessing }
+GtkWidget >> layoutManager [
+
+	^ self ffiCall: #(GtkLayoutManager* gtk_widget_get_layout_manager (self))
+]
+
+{ #category : #accessing }
+GtkWidget >> layoutManager: layout_manager [
+
+	self ffiCall: #(void gtk_widget_set_layout_manager (self, GtkLayoutManager* layout_manager))
 ]
 
 { #category : #geometry }
@@ -772,24 +817,22 @@ GtkWidget >> marginTop: margin [
 	self ffiCall: #(void gtk_widget_set_margin_top (self, gint margin))
 ]
 
-{ #category : #accessing }
-GtkWidget >> overrideBackgroundColor: color [
-
-	^ self 
-		overrideBackgroundState: GTK_STATE_FLAG_NORMAL 
-		color: color asGdkRGBA
-]
-
-{ #category : #private }
-GtkWidget >> overrideBackgroundState: state color: color [
-
-	^ self ffiCall: #(void gtk_widget_override_background_color (self, GtkStateFlags state, const GdkRGBA *color))
-]
-
 { #category : #'accessing - fonts' }
 GtkWidget >> pangoContext [
 
 	^ self ffiCall: #(PangoContext *gtk_widget_get_pango_context (self))
+]
+
+{ #category : #accessing }
+GtkWidget >> parent [
+
+	^ self ffiCall: #(GtkWidget* gtk_widget_get_parent (self))
+]
+
+{ #category : #accessing }
+GtkWidget >> parent: parent [
+
+	self ffiCall: #(void gtk_widget_set_parent (self, GtkWidget* parent))
 ]
 
 { #category : #accessing }
@@ -941,7 +984,7 @@ GtkWidget >> show [
 { #category : #showing }
 GtkWidget >> showAll [
 
-	self ffiCall: #(void gtk_widget_show_all (self))
+	self deprecated: 'Removed in Gtk4'
 ]
 
 { #category : #geometry }
@@ -973,12 +1016,6 @@ GtkWidget >> sizeRequestWidth: width height: height [
 GtkWidget >> styleContext [
 	
 	^ self ffiCall: #(GtkStyleContext *gtk_widget_get_style_context (self))
-]
-
-{ #category : #TOREMOVE }
-GtkWidget >> takeKeyboardFocus [
-	
-	self flag: #TODO.
 ]
 
 { #category : #accessing }
@@ -1025,11 +1062,8 @@ GtkWidget >> translateCoordinatesTo: dest_widget x: src_x y: src_y toX: dest_x t
  		gint *dest_y))
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 GtkWidget >> unparent [
-	"This function is only for use in widget implementations. Should be called 
-	 by implementations of the remove method on GtkContainer, to dissociate a 
-	 child from the container."
 
 	^ self ffiCall: #(void gtk_widget_unparent (self))
 ]
@@ -1104,7 +1138,7 @@ GtkWidget >> width: aNumber [
 	self sizeRequest: aNumber @ self height
 ]
 
-{ #category : #'private deferring' }
+{ #category : #'private - deferring' }
 GtkWidget >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self

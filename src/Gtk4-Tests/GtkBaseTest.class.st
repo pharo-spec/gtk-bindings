@@ -10,12 +10,6 @@ GtkBaseTest class >> isAbstract [
 	^ super isAbstract or: [ self = GtkBaseTest ]
 ]
 
-{ #category : #private }
-GtkBaseTest >> defer: aBlock [
-
-	^ GRunLoop defer: aBlock
-]
-
 { #category : #'instance creation' }
 GtkBaseTest >> newApplication [
 
@@ -24,32 +18,25 @@ GtkBaseTest >> newApplication [
 
 { #category : #'instance creation' }
 GtkBaseTest >> runApplicationWith: aBlock [
-	| sem |
+	| sem error |
 
 	GEngine ensureRunning.
+	error := nil.
 	sem := Semaphore new.
 	self newApplication
 		connectActivate: [ 
-			aBlock 
+			[ 
+				aBlock 
+				on: Exception 
+				do: [ :e | error := e freeze ] ] 
 			ensure: [ sem signal ] ];
 		run.
-	sem wait
+	sem wait.
+	error ifNotNil: [ error debug ]
 ]
 
 { #category : #running }
 GtkBaseTest >> runCase [
 
-	super runCase
-]
-
-{ #category : #initialization }
-GtkBaseTest >> setUp [
-
-	super setUp
-]
-
-{ #category : #running }
-GtkBaseTest >> tearDown [
-
-	super tearDown
+	self runApplicationWith: [ super runCase ]
 ]

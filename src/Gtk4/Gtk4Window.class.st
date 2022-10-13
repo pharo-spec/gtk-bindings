@@ -1,6 +1,6 @@
 Class {
 	#name : #Gtk4Window,
-	#superclass : #GtkWidget,
+	#superclass : #GtkWindow,
 	#instVars : [
 		'child'
 	],

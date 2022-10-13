@@ -12,5 +12,5 @@ Class {
 { #category : #testing }
 GtkMenuShell class >> isDeprecated [
 
-	^ self
+	^ true
 ]

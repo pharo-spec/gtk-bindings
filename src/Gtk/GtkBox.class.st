@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkBox.html
 Class {
 	#name : #GtkBox,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
 	#pools : [
 		'GtkOrientation'
 	],
@@ -86,6 +88,13 @@ GtkBox >> basicRemove: child [
 GtkBox >> homogeneous: homogeneous [
 
 	self ffiCall: #(void gtk_box_set_homogeneous (self, gboolean homogeneous)) 
+]
+
+{ #category : #initialization }
+GtkBox >> initialize [
+
+	super initialize.
+	self initializeTContainer
 ]
 
 { #category : #testing }
