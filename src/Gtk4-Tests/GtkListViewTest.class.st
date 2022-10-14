@@ -1,7 +1,7 @@
 Class {
 	#name : #GtkListViewTest,
 	#superclass : #GtkWidgetTest,
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Widget'
 }
 
 { #category : #accessing }

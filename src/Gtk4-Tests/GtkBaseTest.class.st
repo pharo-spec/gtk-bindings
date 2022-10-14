@@ -1,7 +1,7 @@
 Class {
 	#name : #GtkBaseTest,
 	#superclass : #TestCase,
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Base'
 }
 
 { #category : #testing }

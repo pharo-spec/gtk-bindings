@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'window'
 	],
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Widget'
 }
 
 { #category : #running }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GtkComboBoxTextTest,
 	#superclass : #GtkComboBoxTest,
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Widget'
 }
 
 { #category : #accessing }

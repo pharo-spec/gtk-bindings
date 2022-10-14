@@ -1,3 +1,8 @@
+"
+A GSimpleAction is the obvious simple implementation of the GAction interface. This is the easiest way to create an action for purposes of adding it to a GSimpleActionGroup.
+
+https://docs.gtk.org/gio/class.SimpleAction.html
+"
 Class {
 	#name : #GSimpleAction,
 	#superclass : #GObject,
@@ -33,4 +38,10 @@ GSimpleAction >> enable: enabled [
 GSimpleAction >> isEnabled [
 
 	^ self gObjectGetBoolean: 'enabled'
+]
+
+{ #category : #accessing }
+GSimpleAction >> name [
+
+	^ self gObjectGetString: 'name'
 ]

@@ -1,7 +1,7 @@
 Class {
 	#name : #GtkStackSidebarTest,
 	#superclass : #GtkWidgetTest,
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Widget'
 }
 
 { #category : #tests }

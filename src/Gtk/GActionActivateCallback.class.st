@@ -1,3 +1,8 @@
+"
+Indicates that the action was just activated.
+
+https://docs.gtk.org/gio/signal.SimpleAction.activate.html
+"
 Class {
 	#name : #GActionActivateCallback,
 	#superclass : #GManagedSignalCallback,

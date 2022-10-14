@@ -1,7 +1,7 @@
 Class {
 	#name : #GMenuItemTest,
 	#superclass : #GtkBaseTest,
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Base'
 }
 
 { #category : #tests }

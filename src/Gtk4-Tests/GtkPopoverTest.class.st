@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtkWidgetTest,
 	#traits : 'GtkTBinTest',
 	#classTraits : 'GtkTBinTest classTrait',
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Widget'
 }
 
 { #category : #tests }

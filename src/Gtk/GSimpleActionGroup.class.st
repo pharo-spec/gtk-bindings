@@ -1,3 +1,8 @@
+"
+GSimpleActionGroup is a hash table filled with GAction objects, implementing the GActionGroup and GActionMap interfaces.
+
+https://docs.gtk.org/gio/class.SimpleActionGroup.html
+"
 Class {
 	#name : #GSimpleActionGroup,
 	#superclass : #GObject,

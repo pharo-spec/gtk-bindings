@@ -1,7 +1,10 @@
 Class {
 	#name : #GMenuTest,
 	#superclass : #GtkBaseTest,
-	#category : #'Gtk4-Tests'
+	#instVars : [
+		'menu'
+	],
+	#category : #'Gtk4-Tests-Base'
 }
 
 { #category : #'instance creation' }
@@ -10,16 +13,29 @@ GMenuTest >> newMenu [
 	^ GMenu new
 ]
 
-{ #category : #tests }
-GMenuTest >> testAppendLabelAction [
+{ #category : #initialization }
+GMenuTest >> setUp [
 
-	self newMenu
-		appendLabel: 'Test 1' action: 'action.test1';
-		appendLabel: 'Test 2' action: 'action.test2'
+	super setUp.
+	menu := self newMenu
 ]
 
 { #category : #tests }
-GMenuTest >> testNew [
+GMenuTest >> testAppendItem [
 
-	self deny: self newMenu getHandle isNull
+	menu
+		appendItem: (GMenuItem newLabel: 'Test1' action: 'action.test1');
+		appendItem: (GMenuItem newLabel: 'Test2' action: 'action.test2').
+		
+	self assert: menu numberOfItems equals: 2
+]
+
+{ #category : #tests }
+GMenuTest >> testAppendLabelAction [
+	
+	menu
+		appendLabel: 'Test 1' action: 'action.test1';
+		appendLabel: 'Test 2' action: 'action.test2'.
+		
+	self assert: menu numberOfItems equals: 2
 ]

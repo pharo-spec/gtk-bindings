@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gio/class.MenuItem.html
+"
 Class {
 	#name : #GMenuItem,
 	#superclass : #GObject,

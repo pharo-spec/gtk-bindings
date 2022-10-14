@@ -1,6 +1,6 @@
 Trait {
 	#name : #GtkTBinTest,
-	#category : #'Gtk4-Tests'
+	#category : #'Gtk4-Tests-Widget'
 }
 
 { #category : #accessing }
