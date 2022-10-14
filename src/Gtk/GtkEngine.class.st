@@ -36,13 +36,13 @@ GtkEngine class >> initialize [
 { #category : #testing }
 GtkEngine class >> isAvailable [
 
-	^ false "forced to false to use Gtk4Engine"
+	^ true
 ]
 
 { #category : #accessing }
 GtkEngine class >> requiredGtkVersion [
 		
-	^ '3.22.0'
+	^ '4.0.0'
 ]
 
 { #category : #'system startup' }
@@ -69,29 +69,8 @@ GtkEngine class >> startUp: resuming [
 
 { #category : #'system startup' }
 GtkEngine >> ensureRunLoop [
-	| runLoopClass |
-	
-	runLoopClass := GtkRunLoop bestStrategyClass.
-	(runLoop notNil 
-		and: [ runLoop class = runLoopClass ])
-		ifTrue: [ ^ runLoop ].
-		
-	^ runLoopClass new
-]
 
-{ #category : #private }
-GtkEngine >> initArgC: argc argV: argv [
-
-	^ self ffiCall: #(void gtk_init ("int *"void *argc, "char ***"void *argv))
-]
-
-{ #category : #private }
-GtkEngine >> initGtk3 [
-	"Initialize Gtk3"
-
-	self 
-		initArgC: ExternalAddress null 
-		argV: ExternalAddress null
+	^ Gtk4RunLoop new
 ]
 
 { #category : #accessing }
@@ -102,9 +81,8 @@ GtkEngine >> naturalRunner [
 
 { #category : #'private running' }
 GtkEngine >> start [ 
-	self isRunning ifTrue: [ self stop ].
 
-	self initGtk3.
+	self isRunning ifTrue: [ self stop ].
 	GApplicationStartAnnouncement emit.
 	initAction ifNotNil: [ initAction cull: self ].
 	runLoop start
@@ -112,6 +90,7 @@ GtkEngine >> start [
 
 { #category : #'private running' }
 GtkEngine >> stop [
+
 	self isRunning ifFalse: [ ^ self ].
 	runLoop stop
 ]

@@ -2,7 +2,9 @@ Class {
 	#name : #Gtk4RunLoop,
 	#superclass : #GRunLoop,
 	#instVars : [
-		'callerProcess'
+		'callerProcess',
+		'context',
+		'application'
 	],
 	#category : #Gtk4
 }
@@ -45,27 +47,49 @@ Gtk4RunLoop >> forceDefer: aBlock [
 	GIdle uniqueInstance idleAddFull: aBlock
 ]
 
-{ #category : #initialization }
-Gtk4RunLoop >> initialize [
-
-	super initialize.
-	running := true
-]
-
 { #category : #'private - installing' }
 Gtk4RunLoop >> installRunLoop [
 
-	"gtk4 does not needs this"
+	application := GtkApplication 
+		newId: 'org.pharo.Gtk4Application'
+		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
+	application register.
+	
+	self launchEventLoop
 ]
 
 { #category : #testing }
 Gtk4RunLoop >> isRunning [
 
-	^ true
+	^ running
+]
+
+{ #category : #'private - installing' }
+Gtk4RunLoop >> launchEventLoop [	
+
+	context := GMainContext default.
+	context acquire
+		ifFalse: [ self error: 'I cannot acquire the main context' ].	
+	
+	[ 
+		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance. 
+		[ running ] 
+		whileTrue: [ context iteration: true ].
+		context release.	
+		running := false
+	] 
+	forkAt: Processor lowIOPriority
+	named: 'Gtk4 Event loop'
+]
+
+{ #category : #accessing }
+Gtk4RunLoop >> naturalRunner [
+
+	^ TFMainThreadRunner uniqueInstance
 ]
 
 { #category : #'private - installing' }
 Gtk4RunLoop >> uninstallRunLoop [
 
-	"gtk4 does not needs this"
+	self forceDefer: [ running := false ]
 ]

@@ -21,12 +21,6 @@ GtkWidgetTest >> newWidget [
 ]
 
 { #category : #running }
-GtkWidgetTest >> runCase [
-
-	self runApplicationWith: [ super runCase ]
-]
-
-{ #category : #running }
 GtkWidgetTest >> setUp [
 
 	super setUp.

@@ -151,10 +151,8 @@ GEngine >> resourceManager [
 { #category : #running }
 GEngine >> run [
 	Current ifNotNil: [ Current stop ].
-	Current := nil.
-	self start.
 	Current := self.
-	
+	self start
 ]
 
 { #category : #accessing }

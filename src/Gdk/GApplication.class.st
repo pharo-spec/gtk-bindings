@@ -72,7 +72,7 @@ GApplication >> gRun [
 	^ self ffiCall: #(int g_application_run (self, int 0, NULL))
 ]
 
-{ #category : #'tools registry' }
+{ #category : #accessing }
 GApplication >> register [
 
 	^ self ffiCall: #(gboolean g_application_register (

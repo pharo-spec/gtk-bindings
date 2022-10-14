@@ -10,35 +10,10 @@ GtkBaseTest class >> isAbstract [
 	^ super isAbstract or: [ self = GtkBaseTest ]
 ]
 
-{ #category : #'instance creation' }
-GtkBaseTest >> newApplication [
-
-	^ GtkApplication 
-		newId: ('org.pharo.Gtk4TestCase-', UUID new asString36)
-		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE
-]
-
-{ #category : #'instance creation' }
-GtkBaseTest >> runApplicationWith: aBlock [
-	| sem error |
-
-	GEngine ensureRunning.
-	error := nil.
-	sem := Semaphore new.
-	self newApplication
-		connectActivate: [ 
-			[ 
-				aBlock 
-				on: Exception 
-				do: [ :e | error := e freeze ] ] 
-			ensure: [ sem signal ] ];
-		run.
-	sem wait.
-	error ifNotNil: [ error debug ]
-]
-
 { #category : #running }
 GtkBaseTest >> runCase [
 
-	self runApplicationWith: [ super runCase ]
+	GEngine ensureRunning.
+	GRunLoop defer: [ 
+		super runCase ]
 ]
