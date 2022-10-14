@@ -108,14 +108,14 @@ GtkWindow >> beep [
 { #category : #geometry }
 GtkWindow >> bounds [
 
-	^ self position extent: self size
+	^ self position extent: self defaultSize
 ]
 
 { #category : #geometry }
 GtkWindow >> bounds: aRectangle [
 
 	self moveTo: aRectangle origin.
-	self resize: aRectangle extent
+	self defaultSize: aRectangle extent
 ]
 
 { #category : #geometry }
@@ -152,6 +152,20 @@ GtkWindow >> connectActivateFocus: aBlock [
 	self connect: 'activate-focus' do: aBlock
 ]
 
+{ #category : #signaling }
+GtkWindow >> connectDefaultHeight: aBlock [
+	"aBlock receives an optional parameter (the GObject.ParamSpec* pspec)"
+
+	self connectNotifyProperty: 'default-height' do: aBlock
+]
+
+{ #category : #signaling }
+GtkWindow >> connectDefaultWidth: aBlock [
+	"aBlock receives an optional parameter (the GObject.ParamSpec* pspec)"
+
+	self connectNotifyProperty: 'default-width' do: aBlock
+]
+
 { #category : #accessing }
 GtkWindow >> cursor: aGdkCursor [
 
@@ -166,17 +180,29 @@ GtkWindow >> decorated: setting [
 ]
 
 { #category : #geometry }
+GtkWindow >> defaultSize [
+	| width height |
+	
+	width := FFIInt32 newBuffer.
+	height := FFIInt32 newBuffer.
+	
+	self getDefaultSizeWidth: width height: height. 
+	
+	^ (width signedLongAt: 1) @ (height signedLongAt: 1)
+]
+
+{ #category : #geometry }
 GtkWindow >> defaultSize: aPoint [
 
 	self 
-		defaultSizeWidth: aPoint x asInteger
+		setDefaultSizeWidth: aPoint x asInteger
 		height: aPoint y asInteger
 ]
 
-{ #category : #private }
-GtkWindow >> defaultSizeWidth: width height: height [
+{ #category : #accessing }
+GtkWindow >> extent [
 
-	^ self ffiCall: #(void gtk_window_set_default_size (self, gint width, gint height))
+	^ (self gObjectGetInteger: 'default-width')@(self gObjectGetInteger: 'default-height')
 ]
 
 { #category : #private }
@@ -186,15 +212,15 @@ GtkWindow >> getChild [
 ]
 
 { #category : #private }
-GtkWindow >> getPositionX: root_x y: root_y [
+GtkWindow >> getDefaultSizeWidth: width height: height [
 
-	^ self ffiCall: #(void gtk_window_get_position (self, gint *root_x, gint *root_y))
+	^ self ffiCall: #(void gtk_window_get_default_size (self, gint *width, gint *height))
 ]
 
 { #category : #private }
-GtkWindow >> getSizeWidth: width height: height [
+GtkWindow >> getPositionX: root_x y: root_y [
 
-	^ self ffiCall: #(void gtk_window_get_size (self, gint *width, gint *height))
+	^ self ffiCall: #(void gtk_window_get_position (self, gint *root_x, gint *root_y))
 ]
 
 { #category : #geometry }
@@ -282,7 +308,7 @@ GtkWindow >> moveTo: aPoint [
 { #category : #geometry }
 GtkWindow >> moveToCenter [ 
 
-	self moveTo: (self display primaryMonitor geometry extent - self size) // 2
+	self moveTo: (self display primaryMonitor geometry extent - self defaultSize) // 2
 ]
 
 { #category : #private }
@@ -334,13 +360,10 @@ GtkWindow >> resizable: resizable [
 GtkWindow >> resize: aPoint [
 
 	self 
-		resizeWidth: aPoint x asInteger
-		height: aPoint y asInteger
-]
+		deprecated: #Gtk4 
+		transformWith: '`@receiver resize: `@arg1' -> '`@receiver defaultSize: `@arg1'.
 
-{ #category : #private }
-GtkWindow >> resizeWidth: width height: height [
-	^ self ffiCall: #(void gtk_window_resize (self, gint width, gint height))
+	^ self defaultSize: aPoint		
 ]
 
 { #category : #geometry }
@@ -354,6 +377,12 @@ GtkWindow >> scaleFactor [
 GtkWindow >> setChild: aWidget [
 
 	self ffiCall: #(void gtk_window_set_child (self, GtkWidget *aWidget))
+]
+
+{ #category : #private }
+GtkWindow >> setDefaultSizeWidth: width height: height [
+
+	^ self ffiCall: #(void gtk_window_set_default_size (self, gint width, gint height))
 ]
 
 { #category : #private }
@@ -391,14 +420,12 @@ GtkWindow >> showAll [
 
 { #category : #geometry }
 GtkWindow >> size [
-	| width height |
 	
-	width := FFIInt32 newBuffer.
-	height := FFIInt32 newBuffer.
-	
-	self getSizeWidth: width height: height. 
-	
-	^ (width signedLongAt: 1) @ (height signedLongAt: 1)
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@receiver size' -> '`@receiver defaultSize'.
+		
+	^ self defaultSize
 ]
 
 { #category : #accessing }

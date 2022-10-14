@@ -34,8 +34,7 @@ GtkApplication class >> new [
 { #category : #'instance creation' }
 GtkApplication class >> newId: anId [
 
-	^ self newId: anId flags: 0
-
+	^ self newId: anId flags: G_APPLICATION_DEFAULT_FLAGS
 	
 ]
 

@@ -315,6 +315,12 @@ GtkWidget >> connectMotionNotify: aBlock [
 ]
 
 { #category : #signaling }
+GtkWidget >> connectNotifyProperty: property do: aBlock [
+
+	(GNotifyPropertyCallback property: property do: aBlock) connectTo: self
+]
+
+{ #category : #signaling }
 GtkWidget >> connectRealize: aBlock [
 
 	^ self 
