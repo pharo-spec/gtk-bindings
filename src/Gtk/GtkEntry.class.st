@@ -7,7 +7,8 @@ Class {
 	#name : #GtkEntry,
 	#superclass : #GtkWidget,
 	#instVars : [
-		'entryCompletion'
+		'entryCompletion',
+		'buffer'
 	],
 	#pools : [
 		'GtkInputPurpose'
@@ -139,6 +140,19 @@ GtkEntry >> beUrl [
 	self inputPurpose: GTK_INPUT_PURPOSE_URL
 ]
 
+{ #category : #accessing }
+GtkEntry >> buffer [
+
+	^ buffer ifNil: [ buffer := self getBuffer ]
+]
+
+{ #category : #accessing }
+GtkEntry >> buffer: aBuffer [
+
+	buffer := aBuffer.
+	self setBuffer: aBuffer
+]
+
 { #category : #signals }
 GtkEntry >> connectChanged: aBlock [
 
@@ -196,6 +210,12 @@ GtkEntry >> g_ucs4_to_utf8: aUCS4Character [
 GtkEntry >> g_utf8_to_ucs4: aString [
 
 	^ self ffiCall: #(gunichar g_utf8_get_char(String aString)) module: GLibLibrary
+]
+
+{ #category : #private }
+GtkEntry >> getBuffer [
+
+	^ self ffiCall: #(GtkEntryBuffer* gtk_entry_get_buffer (self))	
 ]
 
 { #category : #accessing }
@@ -289,6 +309,12 @@ GtkEntry >> selectFrom: start_pos to: end_pos [
 ]
 
 { #category : #private }
+GtkEntry >> setBuffer: aBuffer [
+
+	self ffiCall: #(void gtk_entry_set_buffer (GtkEntry* entry, GtkEntryBuffer* aBuffer))	
+]
+
+{ #category : #private }
 GtkEntry >> setCompletion: aGtkEntryCompletion [
 
 	^ self ffiCall: #(void gtk_entry_set_completion (self, GtkEntryCompletion *aGtkEntryCompletion))
@@ -303,13 +329,13 @@ GtkEntry >> setCursorPosition: position [
 { #category : #accessing }
 GtkEntry >> text [
 	
-	^ self basicText
+	^ self buffer text
 ]
 
 { #category : #accessing }
 GtkEntry >> text: text [
 	
-	self basicText: text
+	self buffer text: text
 ]
 
 { #category : #accessing }
