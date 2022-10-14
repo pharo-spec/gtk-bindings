@@ -4,6 +4,9 @@
 Class {
 	#name : #GApplication,
 	#superclass : #GObject,
+	#pools : [
+		'GApplicationFlags'
+	],
 	#category : #'Gdk-Base'
 }
 
@@ -22,7 +25,9 @@ GApplication class >> ffiLibraryName [
 { #category : #private }
 GApplication class >> gApplicationNew: application_id flags: flags [
 
-	^ self ffiCall: #(GApplication *g_application_new (const gchar *application_id, "GApplicationFlags"int flags))
+	^ self ffiCall: #(GApplication *g_application_new (
+		const gchar *application_id, 
+		GApplicationFlags flags))
 ]
 
 { #category : #private }
@@ -34,7 +39,7 @@ GApplication class >> gDefault [
 { #category : #'instance creation' }
 GApplication class >> new [ 
 
-	^ self newFlags: 0
+	^ self newFlags: G_APPLICATION_DEFAULT_FLAGS
 ]
 
 { #category : #'instance creation' }
@@ -46,7 +51,7 @@ GApplication class >> newFlags: flags [
 { #category : #'instance creation' }
 GApplication class >> newName: aName flags: flags [
 
-	^ (self gApplicationNew: aName flags: 0) initialize
+	^ (self gApplicationNew: aName flags: flags) initialize
 ]
 
 { #category : #signaling }
