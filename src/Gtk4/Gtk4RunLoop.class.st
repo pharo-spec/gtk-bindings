@@ -6,7 +6,7 @@ Class {
 		'context',
 		'application'
 	],
-	#category : #Gtk4
+	#category : #'Gtk4-Application'
 }
 
 { #category : #accessing }

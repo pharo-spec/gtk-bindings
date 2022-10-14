@@ -3,7 +3,7 @@ Class {
 	#superclass : #GBaseObject,
 	#traits : 'GLibTLibrary',
 	#classTraits : 'GLibTLibrary classTrait',
-	#category : #Gtk4
+	#category : #'Gtk4-Application'
 }
 
 { #category : #private }

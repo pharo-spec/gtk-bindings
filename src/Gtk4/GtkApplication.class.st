@@ -7,7 +7,7 @@ Class {
 		'applicationId',
 		'runProcess'
 	],
-	#category : #Gtk4
+	#category : #'Gtk4-Application'
 }
 
 { #category : #private }

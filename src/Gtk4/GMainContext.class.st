@@ -1,7 +1,7 @@
 Class {
 	#name : #GMainContext,
 	#superclass : #GBaseObject,
-	#category : #Gtk4
+	#category : #'Gtk4-Application'
 }
 
 { #category : #accessing }

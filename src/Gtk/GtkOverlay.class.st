@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkOverlay.html
 "
 Class {
 	#name : #GtkOverlay,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTContainer @ {#removeAllContainer->#removeAll. #cleanupAfterReplacingContainer->#cleanupAfterReplacing} + (GtkTBin @ {#cleanupAfterReplacingBin->#cleanupAfterReplacing})',
 	#classTraits : 'GtkTContainer classTrait + GtkTBin classTrait',
 	#category : #'Gtk-Widget-Container'

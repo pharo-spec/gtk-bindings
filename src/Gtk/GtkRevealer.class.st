@@ -6,7 +6,7 @@ https://developer.gnome.org/gtk3/stable/GtkRevealer.html
 "
 Class {
 	#name : #GtkRevealer,
-	#superclass : #GtkBin,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#category : #'Gtk-Widget-Container'

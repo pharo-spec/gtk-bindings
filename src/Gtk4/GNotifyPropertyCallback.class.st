@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'property'
 	],
-	#category : #Gtk4
+	#category : #'Gtk4-Application'
 }
 
 { #category : #'instance creation' }
