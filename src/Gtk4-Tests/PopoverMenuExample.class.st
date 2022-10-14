@@ -1,11 +1,18 @@
 Class {
-	#name : #ExamplePopover,
+	#name : #PopoverMenuExample,
 	#superclass : #Object,
 	#category : #'Gtk4-Tests-Example'
 }
 
-{ #category : #examples }
-ExamplePopover class >> addContentsTo: window [
+{ #category : #'instance creation' }
+PopoverMenuExample class >> open [
+	<script>
+
+	^ self new open
+]
+
+{ #category : #private }
+PopoverMenuExample >> addContentsTo: window [
 	| listView popoverMenu scrolledWindow widget actionGroup model |
 
 	widget := GtkBox newVertical.
@@ -42,30 +49,8 @@ ExamplePopover class >> addContentsTo: window [
 		yourself)
 ]
 
-{ #category : #examples }
-ExamplePopover class >> example [
-	| app sem window |
-	
-	GEngine ensureRunning.
-	
-	app := GtkApplication newId: 'org.pharo.TestGtk4'.
-	sem := Semaphore new.
-	app connectActivate: [ 
-		window := (GtkApplicationWindow newApplication: app).
-		window defaultSize: 600@400.
-		window title: 'Example list with context menu'.
-		self addContentsTo: window.
-		window present.
-		sem signal ]. 
-	app run.
-	sem wait.
-
-
-	"GRunLoop defer: [ window close ]."
-]
-
-{ #category : #examples }
-ExamplePopover class >> newListView [
+{ #category : #private }
+PopoverMenuExample >> newListView [
 	| store factory selectionModel |
 
 	store :=  GListDataStore new.
@@ -92,4 +77,23 @@ ExamplePopover class >> newListView [
 	^ GtkListView 
 		newFactory: factory
 		selectionModel: selectionModel
+]
+
+{ #category : #opening }
+PopoverMenuExample >> open [
+	| app sem window |
+	
+	GEngine ensureRunning.
+	
+	app := GtkApplication newId: 'org.pharo.TestGtk4'.
+	sem := Semaphore new.
+	app connectActivate: [ 
+		window := (GtkApplicationWindow newApplication: app).
+		window defaultSize: 600@400.
+		window title: 'Example list with context menu'.
+		self addContentsTo: window.
+		window present.
+		sem signal ]. 
+	app run.
+	sem wait
 ]
