@@ -766,13 +766,19 @@ GtkWidget >> layoutManager: layout_manager [
 { #category : #geometry }
 GtkWidget >> margin [
 
-	^ self gObjectGetInteger: 'margin'
+	self deprecated: 'Gtk4. Use margin* methods.'.
+
+	^ 0
 ]
 
 { #category : #geometry }
 GtkWidget >> margin: aNumber [
 
-	^ self gObjectSet: 'margin' toInteger: aNumber
+	self marginTop: aNumber.	
+	self marginStart: aNumber.
+	self marginBottom: aNumber.	
+	self marginEnd: aNumber
+	
 ]
 
 { #category : #geometry }
