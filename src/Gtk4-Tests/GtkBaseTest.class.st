@@ -13,7 +13,9 @@ GtkBaseTest class >> isAbstract [
 { #category : #'instance creation' }
 GtkBaseTest >> newApplication [
 
-	^ GtkApplication newId: ('org.pharo.Gtk4TestCase-', UUID new asString36)
+	^ GtkApplication 
+		newId: ('org.pharo.Gtk4TestCase-', UUID new asString36)
+		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE
 ]
 
 { #category : #'instance creation' }

@@ -1,12 +1,15 @@
 "
-GtkFixed
 GtkFixed — A container which allows you to position widgets at fixed coordinates
 
-https://developer.gnome.org/gtk3/stable/GtkFixed.html
+https://docs.gtk.org/gtk4/class.Fixed.html
+
+TODO: set_child_transform
 "
 Class {
 	#name : #GtkFixed,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -29,32 +32,54 @@ GtkFixed class >> new [
 	^ self gtkFixedNew initialize
 ]
 
-{ #category : #accessing }
-GtkFixed >> moveChild: aChild to: aPoint [
+{ #category : #private }
+GtkFixed >> basicRemove: child [
 
-	self moveChild: aChild toX: aPoint x toY: aPoint y.
+	self ffiCall: #(void gtk_fixed_remove (self, GtkWidget* child))
+]
+
+{ #category : #initialization }
+GtkFixed >> initialize [
+
+	super initialize.
+	self initializeTContainer
 ]
 
 { #category : #accessing }
+GtkFixed >> moveChild: aChild to: aPoint [
+
+	self 
+		moveChild: aChild 
+		toX: aPoint x 
+		toY: aPoint y
+]
+
+{ #category : #private }
 GtkFixed >> moveChild: aChild toX: x toY: y [
 
-	^ self ffiCall: #(void gtk_fixed_move (self,
-                GtkWidget *aChild,
-                gint x,
-                gint y))
+	^ self ffiCall: #(void gtk_fixed_move (
+		self,
+		GtkWidget *aChild,
+		gint x,
+		gint y))
 ]
 
 { #category : #accessing }
 GtkFixed >> putChild: aChild at: aPoint [
+
 	self keepWidget: aChild.
-	self putChild: aChild atX: aPoint x atY: aPoint y.
+	self 
+		putChild: aChild 
+		atX: aPoint x 
+		atY: aPoint y
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkFixed >> putChild: aChild atX: x atY: y [
 
-	^ self ffiCall: #(void gtk_fixed_put (self,
-                GtkWidget *aChild,
-                gint x,
-                gint y))
+	^ self ffiCall: #(void gtk_fixed_put (
+		self,
+		GtkWidget *aChild,
+		gint x,
+ 		gint y))
 ]

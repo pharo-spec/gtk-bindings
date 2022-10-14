@@ -11,7 +11,9 @@ GtkApplicationTest >> testRun [
 	GEngine ensureRunning.
 	sem := Semaphore new.
 	run := false.	
-	(app := GtkApplication newId: 'org.pharo.Gtk4TestCase') 
+	(app := GtkApplication 
+		newId: 'org.pharo.Gtk4TestCase' 
+		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE) 
 		connectActivate: [ 
 			run := true. 
 			sem signal ];

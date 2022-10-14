@@ -1,14 +1,10 @@
 Class {
 	#name : #GtkBoxTest,
 	#superclass : #GtkWidgetTest,
+	#traits : 'GtkTContainerTest',
+	#classTraits : 'GtkTContainerTest classTrait',
 	#category : #'Gtk4-Tests-Widget'
 }
-
-{ #category : #'instance creation' }
-GtkBoxTest >> newChildWidget [
-
-	^ GtkLabel newLabel: 'Test'
-]
 
 { #category : #'instance creation' }
 GtkBoxTest >> newWidget [

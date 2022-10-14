@@ -22,7 +22,7 @@ GtkApplication class >> gtk_application_new: application_id flags: flags [
 
 	self ffiCall: #(#GtkApplication *gtk_application_new ( 
 		const char* application_id, 
-		"GApplicationFlags"int flags))
+		GApplicationFlags flags))
 ]
 
 { #category : #'instance creation' }
