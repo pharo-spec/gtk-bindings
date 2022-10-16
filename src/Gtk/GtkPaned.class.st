@@ -1,11 +1,16 @@
 "
-I'm  a widget with two adjustable panes.
+A widget with two panes, arranged either horizontally or vertically.
 
-https://developer.gnome.org/gtk3/stable/GtkPaned.html
+https://docs.gtk.org/gtk4/class.Paned.html
 "
 Class {
 	#name : #GtkPaned,
 	#superclass : #GtkContainer,
+	#classTraits : 'GtkTContainer classTrait',
+	#instVars : [
+		'firstChild',
+		'secondChild'
+	],
 	#pools : [
 		'GtkOrientation'
 	],
@@ -63,7 +68,7 @@ GtkPaned >> pack1: child [
 { #category : #accessing }
 GtkPaned >> pack1: child resize: resize shrink: shrink [ 
 
-	self keepWidget: child.
+	firstChild := child.
 	self 
 		basicPack1: child 
 		resize: resize 
@@ -82,7 +87,7 @@ GtkPaned >> pack2: child [
 { #category : #accessing }
 GtkPaned >> pack2: child resize: resize shrink: shrink [ 
 
-	self keepWidget: child.
+	secondChild := child.
 	self 
 		basicPack2: child 
 		resize: resize 
