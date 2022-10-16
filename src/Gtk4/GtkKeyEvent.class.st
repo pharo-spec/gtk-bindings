@@ -145,7 +145,7 @@ GtkKeyEvent >> isKeyUp [
 { #category : #testing }
 GtkKeyEvent >> isModifier [
 
-	^ self state ~= 0
+	^ false
 ]
 
 { #category : #testing }

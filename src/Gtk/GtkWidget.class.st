@@ -493,7 +493,7 @@ GtkWidget >> delete [
 { #category : #accessing }
 GtkWidget >> destroy [
 	
-	^ self ffiCall: #(void gtk_widget_destroy (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #'private - events' }
@@ -578,10 +578,17 @@ GtkWidget >> fontMap: font_map [
 ]
 
 { #category : #accessing }
+GtkWidget >> gdkSurface [
+
+	^ self ffiCall: #(GdkSurface *gtk_native_get_surface (self))
+]
+
+{ #category : #accessing }
 GtkWidget >> gdkWindow [
 
-	self flag: #TOREMOVE.
-	^ self ffiCall: #(GdkWindow *gtk_widget_get_window (self))
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@receiver gdkWindow' -> '`@receiver gdkSurface'
 ]
 
 { #category : #private }
@@ -709,7 +716,7 @@ GtkWidget >> getTopLevel [
 	"I will get the window from GtkApplication (to keep identity), so I answer just the 
 	 ExternalAddress, skiping any other object creation."
 
-	^ self ffiCall: #("GtkWidget *"void *gtk_widget_get_toplevel (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

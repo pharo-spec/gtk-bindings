@@ -4,6 +4,14 @@ Class {
 	#category : #'GObject-Base'
 }
 
+{ #category : #'instance creation' }
+GEnumeration class >> fromInteger: anIntegerValue [
+	
+	^ (self itemAt: anIntegerValue)
+		ifNotNil: [ :theItem | self at: theItem ]
+		ifNil: [ self newValue: anIntegerValue ]
+]
+
 { #category : #private }
 GEnumeration class >> newValue: anInteger [
 	"Used for aritmetic"

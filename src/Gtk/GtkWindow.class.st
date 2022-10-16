@@ -34,6 +34,12 @@ GtkWindow class >> gType [
 	^ self ffiCall: #(gsize gtk_window_get_type())
 ]
 
+{ #category : #private }
+GtkWindow class >> listTopLevels [
+
+	^ self ffiCall: #(GList* gtk_window_list_toplevels (void))
+]
+
 { #category : #'instance creation' }
 GtkWindow class >> new [ 
 	^ (self windowNew: GTK_WINDOW_TOPLEVEL) initialize
@@ -206,6 +212,12 @@ GtkWindow >> defaultSize: aPoint [
 ]
 
 { #category : #accessing }
+GtkWindow >> destroy [
+
+	self ffiCall: #(void gtk_window_destroy (self))
+]
+
+{ #category : #accessing }
 GtkWindow >> extent [
 
 	^ (self gObjectGetInteger: 'default-width')@(self gObjectGetInteger: 'default-height')
@@ -250,7 +262,11 @@ GtkWindow >> hasTopLevelFocus [
 { #category : #private }
 GtkWindow >> iconify [
 
-	self ffiCall: #(void gtk_window_iconify (self))
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@receiver iconify' - '`@receiver minimize'.
+		
+	self minimize
 ]
 
 { #category : #initialization }
@@ -297,6 +313,12 @@ GtkWindow >> isResizable [
 GtkWindow >> maximize [
 
 	self ffiCall: #(void gtk_window_maximize (self))
+]
+
+{ #category : #private }
+GtkWindow >> minimize [
+
+	self ffiCall: #(void gtk_window_minimize (self))
 ]
 
 { #category : #private }

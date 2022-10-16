@@ -156,3 +156,9 @@ GdkWindowState class >> enumDecl [
 	#GDK_WINDOW_STATE_LEFT_RESIZABLE. 	1 << 16	
 	 }
 ]
+
+{ #category : #testing }
+GdkWindowState class >> isDeprecated [
+
+	^ true
+]
