@@ -12,7 +12,7 @@ Class {
 { #category : #accessing }
 Gtk4RunLoop >> callbackEnter [
 
-	TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance.
+	TFProcessLocalWorker worker: self naturalRunner.
 	super callbackEnter
 ]
 

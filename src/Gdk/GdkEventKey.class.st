@@ -34,7 +34,7 @@ Class {
 	#category : #'Gdk-Events'
 }
 
-{ #category : #'private compatibility' }
+{ #category : #'private - compatibility' }
 GdkEventKey class >> createInternalMap [
 
 	^ IdentityDictionary newFromPairs: { 
@@ -95,13 +95,13 @@ GdkEventKey class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'private compatibility' }
+{ #category : #'private - compatibility' }
 GdkEventKey class >> internalMap [
 
 	^ InternalMap ifNil: [ InternalMap := self createInternalMap ]
 ]
 
-{ #category : #'private compatibility' }
+{ #category : #'private - compatibility' }
 GdkEventKey class >> internalMapAt: aCode ifAbsentOrNil: aBlock [
 	
 	self internalMap
@@ -110,6 +110,12 @@ GdkEventKey class >> internalMapAt: aCode ifAbsentOrNil: aBlock [
 			value ifNotNil: [ ^ value ] ].
 		
 	^ aBlock value
+]
+
+{ #category : #utility }
+GdkEventKey class >> keyValToUnicode: keyval [
+
+	 ^ self ffiCall: #(guint32 gdk_keyval_to_unicode  (guint keyval))
 ]
 
 { #category : #private }
@@ -168,6 +174,12 @@ GdkEventKey class >> newType: aType value: keyVal shift: shiftBoolean meta: meta
 		keyval: keyVal;
 		state: state value;
 		yourself
+]
+
+{ #category : #utility }
+GdkEventKey class >> unicodeToKeyVal: wc [
+
+	^ self ffiCall: #(guint gdk_unicode_to_keyval  (guint32 wc))
 ]
 
 { #category : #compatibility }
@@ -327,12 +339,6 @@ GdkEventKey >> keySymbol [
 		ifFalse: [ self keyValue & (self state & self class modMask)  ] 
 ]
 
-{ #category : #utility }
-GdkEventKey >> keyValToUnicode: keyval [
-
-	 ^ self ffiCall: #(guint32 gdk_keyval_to_unicode  (guint keyval))
-]
-
 { #category : #accessing }
 GdkEventKey >> keyValue [
 
@@ -425,7 +431,7 @@ GdkEventKey >> stringOrNil [
 
 	| unicodeVal |
 	
-	unicodeVal := self keyValToUnicode: self keyval.
+	unicodeVal := self class keyValToUnicode: self keyval.
 	unicodeVal = 0 ifTrue: [ ^ nil ].
 	^ Unicode value: unicodeVal
 ]
@@ -468,12 +474,6 @@ GdkEventKey >> type [
 GdkEventKey >> type: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_TYPE put: anObject value
-]
-
-{ #category : #utility }
-GdkEventKey >> unicodeToKeyVal: wc [
-
-	^ self ffiCall: #(guint gdk_unicode_to_keyval  (guint32 wc))
 ]
 
 { #category : #compatibility }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GSetupCallback,
 	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk4-List'
+	#category : #'Gtk4-Event-Callbacks'
 }
 
 { #category : #signalling }

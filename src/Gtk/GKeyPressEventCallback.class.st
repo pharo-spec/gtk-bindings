@@ -19,6 +19,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GKeyPressEventCallback class >> isDeprecated [
+	
+	^ true
+]
+
 { #category : #signalling }
 GKeyPressEventCallback class >> signalName [
 

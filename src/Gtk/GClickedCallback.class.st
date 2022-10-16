@@ -13,6 +13,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GClickedCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GClickedCallback class >> signalName [
 

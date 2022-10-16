@@ -1,7 +1,12 @@
+"
+GtkGestureClick is a GtkGesture implementation for clicks.
+
+https://docs.gtk.org/gtk4/class.GestureClick.html
+"
 Class {
 	#name : #GtkGestureClick,
 	#superclass : #GtkGestureSingle,
-	#category : #'Gtk4-List'
+	#category : #'Gtk4-Event-Controllers'
 }
 
 { #category : #private }
@@ -16,11 +21,17 @@ GtkGestureClick class >> new [
 	^ self gtkNew initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #signaling }
 GtkGestureClick >> connectPressed: aBlock [
 	"aBlock arguments: 
 		- position (a Point)
 		- n_press"
 
 	(GPressedCallback do: aBlock) connectTo: self
+]
+
+{ #category : #testing }
+GtkGestureClick >> isClickGesture [
+
+	^ true
 ]

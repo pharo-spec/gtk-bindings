@@ -7,6 +7,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GButtonPressEventCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GButtonPressEventCallback class >> signalName [
 

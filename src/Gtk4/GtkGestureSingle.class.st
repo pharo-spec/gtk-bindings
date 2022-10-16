@@ -4,7 +4,7 @@ Class {
 	#pools : [
 		'GdkButtonType'
 	],
-	#category : #'Gtk4-List'
+	#category : #'Gtk4-Event-Controllers'
 }
 
 { #category : #accessing }

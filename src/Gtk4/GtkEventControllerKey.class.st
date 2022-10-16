@@ -1,0 +1,48 @@
+"
+GtkEventControllerKey is an event controller that provides access to key events.
+
+https://docs.gtk.org/gtk4/class.EventControllerKey.html
+"
+Class {
+	#name : #GtkEventControllerKey,
+	#superclass : #GtkEventController,
+	#category : #'Gtk4-Event-Controllers'
+}
+
+{ #category : #private }
+GtkEventControllerKey class >> gtkNew [
+
+	^ self ffiCall: #(GtkEventControllerKey* gtk_event_controller_key_new (void))
+]
+
+{ #category : #'instance creation' }
+GtkEventControllerKey class >> new [
+
+	^ self gtkNew initialize
+]
+
+{ #category : #signaling }
+GtkEventControllerKey >> connectKeyPressed: aBlock [
+	"aBlock receives: keyVal, keyCode, state"
+
+	(GKeyPressedCallback do: aBlock) connectTo: self 
+]
+
+{ #category : #signaling }
+GtkEventControllerKey >> connectKeyReleased: aBlock [
+
+	(GKeyReleasedCallback do: aBlock) connectTo: self 
+]
+
+{ #category : #signaling }
+GtkEventControllerKey >> connectModifiers: aBlock [
+	"aBlock receives: a state"
+
+	(GKeyModifiersCallback do: aBlock) connectTo: self 
+]
+
+{ #category : #testing }
+GtkEventControllerKey >> isKeyController [
+
+	^ true
+]

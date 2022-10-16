@@ -1,10 +1,30 @@
+"
+GtkEventController is the base class for event controllers.
+
+https://docs.gtk.org/gtk4/class.EventController.html
+"
 Class {
 	#name : #GtkEventController,
 	#superclass : #GObject,
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk4-List'
+	#category : #'Gtk4-Event-Controllers'
 }
+
+{ #category : #testing }
+GtkEventController >> isClickGesture [
+
+	^ false
+	
+]
+
+{ #category : #testing }
+GtkEventController >> isKeyController [
+
+	^ false
+
+	
+]
 
 { #category : #accessing }
 GtkEventController >> name [

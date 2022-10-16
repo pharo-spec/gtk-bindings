@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'property'
 	],
-	#category : #'Gtk4-Application'
+	#category : #'Gtk4-Event-Callbacks'
 }
 
 { #category : #'instance creation' }

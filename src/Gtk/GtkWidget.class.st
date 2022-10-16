@@ -110,18 +110,89 @@ GtkWidget >> addClass: aString [
 	self styleContext addClass: aString
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - events' }
+GtkWidget >> addClickEvent: aBlock [
+
+	self addClickGestureWith: [ :gesture |
+		gesture 
+			named: 'click';
+			beButtonPrimary;
+			connectPressed: aBlock ]
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addClickGestureWith: aBlock [
+	| gesture |
+	
+	"click gestures do not stack (they can be any kind, any button, etc.)"
+	gesture := GtkGestureClick new 
+		name: 'clicked';
+		yourself.
+	aBlock value: gesture.
+	self addController: gesture		
+]
+
+{ #category : #'private - events' }
 GtkWidget >> addController: controller [
 
 	eventControllers ifNil: [ eventControllers := #() ].
 	eventControllers := eventControllers copyWith: controller.
-	self basicAddController: controller 
+	self basicAddController: controller.
+	^ controller
 ]
 
 { #category : #accessing }
 GtkWidget >> addEvents: events [
 	
 	self ffiCall: #(void gtk_widget_add_events (self, gint events))
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addKeyEventControllerWith: aBlock [
+
+	"key event controllers stack (I can stack key pressed and key released events)"
+	aBlock value: (self 
+		detectController: [ :each | each isKeyController ]  
+		ifNone: [ self addController: GtkEventControllerKey new ])
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addKeyModifiersEvent: aBlock [
+	"aBlock receives a GdkModifierType"
+
+	self addKeyEventControllerWith: [ :keyController |
+		keyController
+			name: 'key-controller';
+			connectModifiers: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addKeyPressEvent: aBlock [
+	"aBlock receives a GtkKeyEvent (an inner object, not existing in Gtk4)"
+
+	self addKeyEventControllerWith: [ :keyController |
+		keyController
+			name: 'key-controller';
+			connectKeyPressed: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addKeyReleaseEvent: aBlock [
+
+	self addKeyEventControllerWith: [ :keyController |
+		keyController
+			name: 'key-controller';
+			connectKeyReleased: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addRightClickEvent: aBlock [
+
+	self addClickGestureWith: [ :gesture |
+		gesture 
+			named: 'right-click';
+			beButtonSecondary;
+			connectPressed: aBlock ]
 ]
 
 { #category : #accessing }
@@ -287,14 +358,14 @@ GtkWidget >> connectHide: aBlock [
 
 { #category : #signaling }
 GtkWidget >> connectKeyPressEvent: aBlock [
-
-	^ (GKeyPressEventCallback do: aBlock) connectTo: self
+ 
+	self deprecated: 'Gtk4: use a GtkEventControllerKey'
 ]
 
 { #category : #signaling }
 GtkWidget >> connectKeyReleaseEvent: aBlock [
 
-	^ (GKeyReleaseEventCallback do: aBlock) connectTo: self
+	self deprecated: 'Gtk4: use a GtkEventControllerKey'
 ]
 
 { #category : #signaling }
@@ -423,6 +494,23 @@ GtkWidget >> delete [
 GtkWidget >> destroy [
 	
 	^ self ffiCall: #(void gtk_widget_destroy (self))
+]
+
+{ #category : #'private - events' }
+GtkWidget >> detectController: detectBlock ifNone: noneBlock [
+
+	eventControllers ifNil: [ ^ noneBlock value ].
+	^ eventControllers 
+		detect: detectBlock
+		ifNone: noneBlock
+]
+
+{ #category : #'private - events' }
+GtkWidget >> detectControllerKind: aClass ifNone: aBlock [
+
+	^ self 
+		detectController: [ :each | each class = aClass ]
+		ifNone: aBlock
 ]
 
 { #category : #private }
