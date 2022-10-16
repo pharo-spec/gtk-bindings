@@ -24,6 +24,12 @@ GtkLayout class >> gtkNewLayoutWithHorizontalAdjustment: horizontalAdjustment wi
                 GtkAdjustment *verticalAdjustment))
 ]
 
+{ #category : #testing }
+GtkLayout class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkLayout class >> new [
 
