@@ -25,30 +25,37 @@ Gtk4RunLoop >> callerProcess [
 
 { #category : #accessing }
 Gtk4RunLoop >> defer: aBlock [
-	| sem result |
 
 	(self isRunning not 
 		or: [ self isInCallback ]) 
 		ifTrue: [ 
 			^ aBlock value ].
 
+	^ self forceDefer: aBlock	
+]
+
+{ #category : #accessing }
+Gtk4RunLoop >> forceDefer: aBlock [
+	| sem result exception |
+
 	callerProcess := Processor activeProcess.
 	sem := Semaphore new.
-	self forceDefer: [
-		result := aBlock ensure: [ sem signal ] ].
+	exception := nil.
+	GIdle uniqueInstance idleAddFull: [
+		result := [ 
+			aBlock 
+				on: Exception 
+				do: [ :e | 
+					exception := e freeze ] ] 
+			ensure: [
+				 sem signal ] ].
 	sem wait.
 	callerProcess := nil.
 
+	exception ifNotNil: [ 
+		exception defaultAction ].
+
 	^ result
-]
-
-{ #category : #deferring }
-Gtk4RunLoop >> forceDefer: aBlock [
-
-	GIdle uniqueInstance idleAddFull: [
-		aBlock
-		on: Error 
-		fork: [ :e | e debug ] ]
 ]
 
 { #category : #'private - installing' }
@@ -79,10 +86,11 @@ Gtk4RunLoop >> launchEventLoop [
 	
 	runProcess := [ 
 		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance. 
-		[ running ] 
-		whileTrue: [ context iteration: true ].
+		[ running ] whileTrue: [ 
+			context iteration: true ].
 		context release.	
-		running := false
+		running := false.
+		'RUNLOOP ENDED' printToStdout
 	] 
 	forkAt: Processor lowIOPriority
 	named: 'Gtk4 Event loop'
