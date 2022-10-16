@@ -5,7 +5,7 @@ https://developer.gnome.org/gtk3/stable/GtkWindow.html
 "
 Class {
 	#name : #GtkWindow,
-	#superclass : #GtkContainer,
+	#superclass : #GtkWidget,
 	#instVars : [
 		'acceleratorGroups',
 		'cursor',
