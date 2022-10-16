@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkNotebook.html
 Class {
 	#name : #GtkNotebook,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
 	#pools : [
 		'GtkOrientation'
 	],
@@ -32,7 +34,8 @@ GtkNotebook class >> notebookNew [
 { #category : #accessing }
 GtkNotebook >> append: aPage [
 
-	self add: aPage
+	self keepWidget: aPage.
+	self basicAdd: aPage
 ]
 
 { #category : #accessing }
@@ -80,10 +83,9 @@ GtkNotebook >> connectSwitchPage: aBlock [
 	"triggers when a page has been switched (by user or program).
 	 aBlock receives the index of the switched page"
 
-	self 
-		connect: 'switch-page' 
-		signature: #(void (void *notebook, void *page, guint page_num, gpointer user_data))
-		do: [ :notebook :page :page_num :user_data | aBlock value: (self children at: page_num + 1) ]
+	(GtkSwitchPageCallback 
+		do: [ :pageNum | aBlock value: (self children at: pageNum) ])
+		connectTo: self
 ]
 
 { #category : #accessing }
@@ -97,6 +99,13 @@ GtkNotebook >> currentPage: page_num [
 
 	^ self ffiCall: #(void gtk_notebook_set_current_page (self, gint page_num))
 	
+]
+
+{ #category : #initialization }
+GtkNotebook >> initialize [
+
+	super initialize.
+	self initializeTContainer
 ]
 
 { #category : #testing }
