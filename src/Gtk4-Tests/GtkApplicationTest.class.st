@@ -8,11 +8,8 @@ Class {
 GtkApplicationTest >> testRun [
 	| app run sem |
 
-	self skip.
-
 	"this cannot work with the engine running"
-	GEngine current isRunning 
-		ifTrue: [ GEngine current stop ].
+	GEngine ensureRunning stop.
 	
 	sem := Semaphore new.
 	run := false.	
