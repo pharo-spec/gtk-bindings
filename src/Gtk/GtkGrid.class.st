@@ -8,6 +8,8 @@ https://developer.gnome.org/gtk3/stable/GtkGrid.html
 Class {
 	#name : #GtkGrid,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -51,13 +53,20 @@ GtkGrid >> attach: child at: aPoint span: spanPoint [
 
 { #category : #private }
 GtkGrid >> attach: child left: left top: top width: width height: height [
+
 	self ffiCall: #(void gtk_grid_attach (
 		self, 
 		GtkWidget *child, 
-		gint left, 
-		gint top, 
-		gint width, 
-		gint height))
+		int left, 
+		int top, 
+		int width, 
+		int height))
+]
+
+{ #category : #private }
+GtkGrid >> basicRemove: child [
+
+	self ffiCall: #(void gtk_grid_remove (self, GtkWidget* child))
 ]
 
 { #category : #accessing }
@@ -76,6 +85,13 @@ GtkGrid >> columnSpacing [
 GtkGrid >> columnSpacing: spacing [
 
 	self ffiCall: #(void gtk_grid_set_column_spacing (self, guint spacing))
+]
+
+{ #category : #initialization }
+GtkGrid >> initialize [
+
+	super initialize.
+	self initializeTContainer
 ]
 
 { #category : #testing }
