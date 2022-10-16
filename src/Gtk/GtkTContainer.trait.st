@@ -25,15 +25,6 @@ GtkTContainer >> cleanupAfterReplacing [
 	children := Array new
 ]
 
-{ #category : #accessing }
-GtkTContainer >> destroy [
-	"Do not let gtk destroy container children. Instead, dereference them and let the regular
-	 GC/reference count to act."
-
-	self removeAll.
-	super destroy
-]
-
 { #category : #private }
 GtkTContainer >> findChildByHandle: anExternalAddress [
 	| address |
