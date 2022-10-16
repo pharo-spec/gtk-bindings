@@ -246,7 +246,9 @@ GtkWidget >> basicInsertActionGroup: name actions: group [
 
 { #category : #drawing }
 GtkWidget >> boundingBox [
-	^ self positionInTopLevel corner: self positionInTopLevel + self size
+
+	self deprecated: #Gtk4.
+	^ 0@0 corner: self size
 ]
 
 { #category : #private }
@@ -968,10 +970,9 @@ GtkWidget >> path [
 { #category : #drawing }
 GtkWidget >> positionInTopLevel [
 
-	self parentWindow ifNil: [ ^ 0@0 ].
-	^ self 
-		translateCoordinates: 0@0
-		to: self parentWindow
+	self deprecated: #Gtk4.
+	
+	^ 0@0
 ]
 
 { #category : #geometry }

@@ -830,7 +830,7 @@ GtkMorphView >> updatingWhile: aBlock [
 { #category : #'world simulation' }
 GtkMorphView >> viewBox [
 
-	^ self boundingBox
+	^ 0@0 extent: self size
 ]
 
 { #category : #'world simulation' }
