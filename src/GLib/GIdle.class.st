@@ -13,6 +13,12 @@ Class {
 }
 
 { #category : #private }
+GIdle >> addFunction: function [
+
+	deferring add: function
+]
+
+{ #category : #private }
 GIdle >> gIdleAddFull: aCallback [
 
 	self ffiCall: #(void g_idle_add_full(
@@ -26,19 +32,10 @@ GIdle >> gIdleAddFull: aCallback [
 GIdle >> idleAddFull: aBlock [
 
 	mutex critical: [ 
-		| cb |
-		
-		deferring add: ((cb := GSourceFunc new)
-			signature: #(guint (void *data))
-			block: [ :data | 
-				aBlock value. 
-				mutex critical: [ 
-					deferring 
-						remove: cb
-						ifAbsent: [ ('{1} not found while removing. Skipping.' format: { cb }) crTrace ] ].
-				0 ]).
-		
-		self gIdleAddFull: cb ]
+		| function |
+		function := self newFunctionWith: aBlock. 
+		self addFunction: function.
+		self gIdleAddFull: function ]
 ]
 
 { #category : #initialization }
@@ -47,6 +44,30 @@ GIdle >> initialize [
 	super initialize.
 	mutex := Mutex new.
 	deferring := IdentitySet new
+]
+
+{ #category : #private }
+GIdle >> newFunctionWith: aBlock [
+	| function |
+	
+	function := GSourceFunc new.
+	function
+	 	signature: #(guint (void *data))
+		block: [ :data | 
+			aBlock ensure: [ 
+				self removeFunction: function ]. 	
+			0 ].
+		
+	^ function
+]
+
+{ #category : #private }
+GIdle >> removeFunction: function [
+	
+	mutex critical: [ 
+		deferring 
+			remove: function
+			ifAbsent: [ ('{1} not found while removing. Skipping.' format: { function }) crTrace ] ].
 ]
 
 { #category : #accessing }
