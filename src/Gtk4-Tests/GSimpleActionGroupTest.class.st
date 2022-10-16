@@ -26,7 +26,6 @@ GSimpleActionGroupTest >> testRemove [
 	group remove: action1.
 	
 	self assert: (group lookup: 'test1') isNil
-
 ]
 
 { #category : #tests }
