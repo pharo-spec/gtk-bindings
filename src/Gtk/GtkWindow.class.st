@@ -153,6 +153,12 @@ GtkWindow >> connectActivateFocus: aBlock [
 ]
 
 { #category : #signaling }
+GtkWindow >> connectCloseRequest: aBlock [
+
+	(GtkCloseRequestCallback do: aBlock) connectTo: self
+]
+
+{ #category : #signaling }
 GtkWindow >> connectDefaultHeight: aBlock [
 	"aBlock receives an optional parameter (the GObject.ParamSpec* pspec)"
 
@@ -338,7 +344,7 @@ GtkWindow >> present [
 { #category : #accessing }
 GtkWindow >> propagateKeyEvent: event [
 
-	^ self ffiCall: #(gboolean gtk_window_propagate_key_event (self, GdkEventKey *event))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }

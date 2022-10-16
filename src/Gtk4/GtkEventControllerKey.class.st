@@ -41,6 +41,12 @@ GtkEventControllerKey >> connectModifiers: aBlock [
 	(GKeyModifiersCallback do: aBlock) connectTo: self 
 ]
 
+{ #category : #accessing }
+GtkEventControllerKey >> forwardTo: widget [
+
+	self ffiCall: #(gboolean gtk_event_controller_key_forward (self, GtkWidget* widget))
+]
+
 { #category : #testing }
 GtkEventControllerKey >> isKeyController [
 

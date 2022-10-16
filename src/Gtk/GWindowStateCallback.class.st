@@ -15,6 +15,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GWindowStateCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #signalling }
 GWindowStateCallback class >> signalName [
 

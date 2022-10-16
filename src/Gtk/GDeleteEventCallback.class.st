@@ -14,6 +14,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GDeleteEventCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GDeleteEventCallback class >> signalName [
 

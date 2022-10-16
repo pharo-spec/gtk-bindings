@@ -68,10 +68,11 @@ GtkKeyEventTest >> newFromKeyValue: aValue keyCode: aKeyCode [
 GtkKeyEventTest >> runCase [
 
 	TFProcessLocalWorker worker: TFSameThreadRunner uniqueInstance.
-	super runCase
+	[ super runCase ]
+	ensure: [ TFProcessLocalWorker worker: nil ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GtkKeyEventTest >> testAsKeyCombination [
 	| event km |
 	

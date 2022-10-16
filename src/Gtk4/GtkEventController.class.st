@@ -11,6 +11,30 @@ Class {
 	#category : #'Gtk4-Event-Controllers'
 }
 
+{ #category : #accessing }
+GtkEventController >> currentDevice [
+
+	^ self ffiCall: #(GdkDevice* gtk_event_controller_get_current_event_device (self))
+]
+
+{ #category : #accessing }
+GtkEventController >> currentEvent [
+
+	^ self ffiCall: #(GdkEvent* gtk_event_controller_get_current_event (self))
+]
+
+{ #category : #accessing }
+GtkEventController >> currentEventState [
+
+	^ self ffiCall: #(GdkModifierType gtk_event_controller_get_current_event_state (self))
+]
+
+{ #category : #accessing }
+GtkEventController >> currentEventTime [
+
+	^ self ffiCall: #(guint32 gtk_event_controller_get_current_event_time (self))
+]
+
 { #category : #testing }
 GtkEventController >> isClickGesture [
 

@@ -291,7 +291,7 @@ GtkWidget >> connectClicked: aBlock [
 GtkWidget >> connectDeleteEvent: aBlock [
 	"answers whether the widget can be deleted ot not"
 	
-	^ (GDeleteEventCallback do: aBlock) connectTo: self
+	self deprecated: #Gtk
 ]
 
 { #category : #signaling }
@@ -439,7 +439,7 @@ GtkWidget >> connectUnmap: aBlock [
 { #category : #signaling }
 GtkWidget >> connectWindowStateEvent: aBlock [
 
-	(GWindowStateCallback do: aBlock) connectTo: self	
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
