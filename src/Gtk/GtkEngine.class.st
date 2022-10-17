@@ -4,7 +4,8 @@ Class {
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
-		'initAction'
+		'initAction',
+		'application'
 	],
 	#category : #'Gtk-Base'
 }
@@ -67,10 +68,28 @@ GtkEngine class >> startUp: resuming [
 	Current startUp: resuming
 ]
 
+{ #category : #'private - running' }
+GtkEngine >> ensureApplication [
+
+	self hasValidApplication ifTrue: [ ^ self ].
+	
+	application := GtkApplication 
+		newId: 'org.pharo.Gtk4Application'
+		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
+	application register.
+]
+
 { #category : #'system startup' }
 GtkEngine >> ensureRunLoop [
 
 	^ Gtk4RunLoop new
+]
+
+{ #category : #'private - testing' }
+GtkEngine >> hasValidApplication [
+	
+	^ application notNil 
+		and: [ application isValidHandle ]
 ]
 
 { #category : #accessing }
@@ -79,16 +98,18 @@ GtkEngine >> naturalRunner [
 	^ runLoop naturalRunner
 ]
 
-{ #category : #'private running' }
+{ #category : #'private - running' }
 GtkEngine >> start [ 
 
 	self isRunning ifTrue: [ self stop ].
+	
+	self ensureApplication.
 	GApplicationStartAnnouncement emit.
 	initAction ifNotNil: [ initAction cull: self ].
 	runLoop start
 ]
 
-{ #category : #'private running' }
+{ #category : #'private - running' }
 GtkEngine >> stop [
 
 	self isRunning ifFalse: [ ^ self ].

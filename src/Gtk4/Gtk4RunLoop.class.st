@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'callerProcess',
 		'context',
-		'application',
 		'runProcess'
 	],
 	#category : #'Gtk4-Application'
@@ -45,10 +44,8 @@ Gtk4RunLoop >> forceDefer: aBlock [
 		result := [ 
 			aBlock 
 				on: Exception 
-				do: [ :e | 
-					exception := e freeze ] ] 
-			ensure: [
-				 sem signal ] ].
+				do: [ :e | exception := e freeze ] ] 
+			ensure: [ sem signal ] ].
 	sem wait.
 	callerProcess := nil.
 
@@ -60,25 +57,6 @@ Gtk4RunLoop >> forceDefer: aBlock [
 
 { #category : #'private - installing' }
 Gtk4RunLoop >> installRunLoop [
-
-	application := GtkApplication 
-		newId: 'org.pharo.Gtk4Application'
-		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
-	application register.
-	
-	self launchEventLoop
-]
-
-{ #category : #testing }
-Gtk4RunLoop >> isRunning [
-
-	^ running 
-		and: [ runProcess notNil 
-		and: [ runProcess isTerminated not ] ]
-]
-
-{ #category : #'private - installing' }
-Gtk4RunLoop >> launchEventLoop [	
 
 	context := GMainContext default.
 	context acquire
@@ -94,6 +72,14 @@ Gtk4RunLoop >> launchEventLoop [
 	] 
 	forkAt: Processor lowIOPriority
 	named: 'Gtk4 Event loop'
+]
+
+{ #category : #testing }
+Gtk4RunLoop >> isRunning [
+
+	^ running 
+		and: [ runProcess notNil 
+		and: [ runProcess isTerminated not ] ]
 ]
 
 { #category : #accessing }
