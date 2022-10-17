@@ -1,12 +1,16 @@
 "
-GtkHeaderBar
-GtkHeaderBar — A box with a centered child
+GtkHeaderBar is a widget for creating custom title bars for windows.
 
-https://developer.gnome.org/gtk3/stable/GtkHeaderBar.html
+https://docs.gtk.org/gtk4/class.HeaderBar.html
 "
 Class {
 	#name : #GtkHeaderBar,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
+	#instVars : [
+		'titleWidget'
+	],
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -30,127 +34,91 @@ GtkHeaderBar class >> new [
 ]
 
 { #category : #private }
-GtkHeaderBar >> basicSubtitle [
+GtkHeaderBar >> basicPackEnd: aWidget [
 
-	^ self ffiCall: #(String gtk_header_bar_get_subtitle (self))
+	^ self ffiCall: #(void gtk_header_bar_pack_end (self, GtkWidget *aWidget))
 ]
 
 { #category : #private }
-GtkHeaderBar >> basicSubtitle: utf8EncodedString [
+GtkHeaderBar >> basicPackStart: aWidget [
 
-	self ffiCall: #(void gtk_header_bar_set_subtitle (self, String utf8EncodedString))
+	^ self ffiCall: #(void gtk_header_bar_pack_start (self, GtkWidget *aWidget))
 ]
 
 { #category : #private }
-GtkHeaderBar >> basicTitle [
+GtkHeaderBar >> basicRemove: child [
 
-	^ self ffiCall: #(String gtk_header_bar_get_title (self))
+	self ffiCall: #(void gtk_header_bar_remove (self, GtkWidget* child))
+]
+
+{ #category : #accessing }
+GtkHeaderBar >> decorationLayout [
+
+	self ffiCall: #(const char* gtk_header_bar_get_decoration_layout (self))
+]
+
+{ #category : #accessing }
+GtkHeaderBar >> decorationLayout: layout [
+
+	self ffiCall: #(void gtk_header_bar_set_decoration_layout (self, const char* layout))
 ]
 
 { #category : #private }
-GtkHeaderBar >> basicTitle: utf8EncodedString [
+GtkHeaderBar >> getTitleWidget [
 
-	self ffiCall: #(void gtk_header_bar_set_title (self, String utf8EncodedString))
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> customTitleWidget [
-
-	^ self ffiCall: #(GtkWidget *gtk_header_bar_get_custom_title (self))
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> customTitleWidget: aWidget [
-
-	^ self ffiCall: #(void gtk_header_bar_set_custom_title (self, GtkWidget *aWidget))
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> doNotShowStandardWindowDecorations [
-
-	self showStandardWindowDecorations: false
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> doNotShowSubtitle [
-
-	^ self showSubtitle: false
+	^ self ffiCall: #(GtkWidget *gtk_header_bar_get_title_widget (self))
 ]
 
 { #category : #initialization }
 GtkHeaderBar >> initialize [
+
 	super initialize.
-	self showStandardWindowDecorations
+	self initializeTContainer
 ]
 
 { #category : #accessing }
 GtkHeaderBar >> packEnd: aWidget [
 
-	^ self ffiCall: #(void gtk_header_bar_pack_end (self, GtkWidget *aWidget))
+	self keepWidget: aWidget.
+	self basicPackEnd: aWidget
+	
 ]
 
 { #category : #accessing }
 GtkHeaderBar >> packStart: aWidget [
 
-	^ self ffiCall: #(void gtk_header_bar_pack_start (self, GtkWidget *aWidget))
+	self keepWidget: aWidget.
+	self basicPackStart: aWidget
+]
+
+{ #category : #private }
+GtkHeaderBar >> setTitleWidget: aWidget [
+
+	^ self ffiCall: #(void set_title_widget (self, GtkWidget *aWidget))
 ]
 
 { #category : #accessing }
-GtkHeaderBar >> showStandardWindowDecorations [
+GtkHeaderBar >> showTitleButtons: setting [
 
-	self showStandardWindowDecorations: true
+	self ffiCall: #(void gtk_header_bar_set_show_title_buttons (self, gboolean setting))
+
+]
+
+{ #category : #testing }
+GtkHeaderBar >> showsTitleButtons [
+
+	^ self ffiCall: #(gboolean gtk_header_bar_get_show_title_buttons (self))
 ]
 
 { #category : #accessing }
-GtkHeaderBar >> showStandardWindowDecorations: aBoolean [
+GtkHeaderBar >> titleWidget [
 
-	^ self ffiCall: #(void gtk_header_bar_set_show_close_button (self, gboolean aBoolean))
+	^ titleWidget ifNil: [ titleWidget := self getTitleWidget ]
 ]
 
 { #category : #accessing }
-GtkHeaderBar >> showSubtitle [
+GtkHeaderBar >> titleWidget: aWidget [
 
-	^ self showSubtitle: true
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> showSubtitle: aBoolean [
-
-	^ self ffiCall: #(void gtk_header_bar_set_has_subtitle(self, gboolean aBoolean))
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> showsStandardWindowDecorations [
-
-	^ self ffiCall: #(gboolean gtk_header_bar_set_show_close_button (self))
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> showsSubtitle [
-
-	^ self ffiCall: #(gboolean gtk_header_bar_get_has_subtitle(self))
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> subtitle [
-
-	^ self basicSubtitle
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> subtitle: aString [
-
-	^ self basicSubtitle: aString
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> title [
-
-	^ self basicTitle
-]
-
-{ #category : #accessing }
-GtkHeaderBar >> title: aString [
-
-	^ self basicTitle: aString
+	titleWidget := aWidget.
+	self setTitleWidget: aWidget
 ]
