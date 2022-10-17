@@ -21,8 +21,8 @@ GtkTContainer >> children [
 { #category : #private }
 GtkTContainer >> cleanupAfterReplacing [
 
-	children do: [ :aChild | aChild cleanupAfterReplacing ].
-	children := Array new
+	self children do: [ :aChild | aChild cleanupAfterReplacing ].
+	children := #()
 ]
 
 { #category : #private }
@@ -31,7 +31,7 @@ GtkTContainer >> findChildByHandle: anExternalAddress [
 
 	(anExternalAddress isNil or: [ anExternalAddress isNull ]) ifTrue: [ ^ nil ].
 	address := anExternalAddress asInteger.
-	^ children detect: [ :each | each getHandle asInteger = address ]
+	^ self children detect: [ :each | each getHandle asInteger = address ]
 ]
 
 { #category : #testing }

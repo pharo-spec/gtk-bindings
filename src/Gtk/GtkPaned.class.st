@@ -6,10 +6,11 @@ https://docs.gtk.org/gtk4/class.Paned.html
 Class {
 	#name : #GtkPaned,
 	#superclass : #GtkContainer,
+	#traits : 'GtkTContainer - {#removeAll. #remove:. #basicRemove:. #keepWidget:. #initializeTContainer}',
 	#classTraits : 'GtkTContainer classTrait',
 	#instVars : [
-		'firstChild',
-		'secondChild'
+		'endChild',
+		'startChild'
 	],
 	#pools : [
 		'GtkOrientation'
@@ -44,39 +45,103 @@ GtkPaned class >> panedNew: orientation [
 	^ self ffiCall: #(GtkPaned *gtk_paned_new (GtkOrientation orientation))
 ]
 
-{ #category : #private }
-GtkPaned >> basicPack1: child resize: resize shrink: shrink [ 
+{ #category : #accessing }
+GtkPaned >> children [ 
+	
+	children := OrderedCollection new.
+	startChild ifNotNil: [ children add: startChild ].
+	endChild ifNotNil: [ children add: endChild ].
+	^ children	
 
-	^ self ffiCall: #(void gtk_paned_pack1 (self, GtkWidget *child, gboolean resize, gboolean shrink))
 ]
 
-{ #category : #private }
-GtkPaned >> basicPack2: child resize: resize shrink: shrink [
- 
-	^ self ffiCall: #(void gtk_paned_pack2 (self, GtkWidget *child, gboolean resize, gboolean shrink))
+{ #category : #accessing }
+GtkPaned >> endChild: child [
+
+	endChild := child.
+	self setEndChild: child
+]
+
+{ #category : #accessing }
+GtkPaned >> endChild: child resize: resize shrink: shrink [ 
+
+	self endChild: child.
+	self endResize: resize.
+	self endShrink: shrink 
+]
+
+{ #category : #accessing }
+GtkPaned >> endResize: aBoolean [
+
+	self ffiCall: #(void gtk_paned_set_resize_end_child (self, gboolean aBoolean))
+]
+
+{ #category : #accessing }
+GtkPaned >> endShrink: aBoolean [
+
+	self ffiCall: #(void gtk_paned_set_shrink_end_child (self, gboolean aBoolean))
+]
+
+{ #category : #initialization }
+GtkPaned >> initialize [
+
+	super initialize
+]
+
+{ #category : #testing }
+GtkPaned >> isEndChildResize [
+
+	^ self ffiCall: #(gboolean gtk_paned_get_resize_end_child (self))
+]
+
+{ #category : #testing }
+GtkPaned >> isEndChildShrink [
+
+	^ self ffiCall: #(gboolean gtk_paned_get_shrink_end_child (self))
+]
+
+{ #category : #testing }
+GtkPaned >> isStartChildResize [
+
+	^ self ffiCall: #(gboolean gtk_paned_get_resize_start_child (self))
+]
+
+{ #category : #testing }
+GtkPaned >> isStartChildShrink [
+
+	^ self ffiCall: #(gboolean gtk_paned_get_shrink_start_child (self))
 ]
 
 { #category : #accessing }
 GtkPaned >> pack1: child [
 
-	^ self 
-		pack1: child 
-		resize: true 
-		shrink: true
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@receiver pack1: `@arg1' -> '`@receiver startChild: `@arg1'.
+	self startChild: child
 ]
 
 { #category : #accessing }
 GtkPaned >> pack1: child resize: resize shrink: shrink [ 
 
-	firstChild := child.
 	self 
-		basicPack1: child 
+		deprecated: #Gtk4 
+		transformWith: 
+			   '`@receiver pack1: `@arg1 resize: `@arg2 shrink: `@arg3' 
+			-> '`@receiver startChild: `@arg1 resize: `@arg2 shrink: `@arg3'.
+
+	^ self 
+		startChild: child 
 		resize: resize 
-		shrink: shrink 
+		shrink: shrink
 ]
 
 { #category : #accessing }
 GtkPaned >> pack2: child [
+
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@receiver pack2: `@arg1' -> '`@receiver endChild: `@arg1'.
 
 	^ self 
 		pack2: child 
@@ -87,11 +152,16 @@ GtkPaned >> pack2: child [
 { #category : #accessing }
 GtkPaned >> pack2: child resize: resize shrink: shrink [ 
 
-	secondChild := child.
 	self 
-		basicPack2: child 
+		deprecated: #Gtk4 
+		transformWith: 
+			   '`@receiver pack1: `@arg1 resize: `@arg2 shrink: `@arg3' 
+			-> '`@receiver startChild: `@arg1 resize: `@arg2 shrink: `@arg3'.
+
+	^ self 
+		endChild: child 
 		resize: resize 
-		shrink: shrink 
+		shrink: shrink
 ]
 
 { #category : #accessing }
@@ -104,6 +174,46 @@ GtkPaned >> position [
 GtkPaned >> position: position [
 
 	self ffiCall: #(void gtk_paned_set_position (self, gint position))
+]
+
+{ #category : #private }
+GtkPaned >> setEndChild: child [
+
+	self ffiCall: #(void gtk_paned_set_end_child (self, GtkWidget* child))
+]
+
+{ #category : #private }
+GtkPaned >> setStartChild: child [
+
+	self ffiCall: #(void gtk_paned_set_start_child (self, GtkWidget* child))
+]
+
+{ #category : #accessing }
+GtkPaned >> startChild: child [
+
+	startChild := child.
+	self setStartChild: child
+]
+
+{ #category : #accessing }
+GtkPaned >> startChild: child resize: resize shrink: shrink [ 
+
+	self startChild: child.
+	self startResize: resize.
+	self startShrink: shrink
+
+]
+
+{ #category : #accessing }
+GtkPaned >> startResize: aBoolean [
+
+	self ffiCall: #(void gtk_paned_set_resize_start_child (self, gboolean aBoolean))
+]
+
+{ #category : #accessing }
+GtkPaned >> startShrink: aBoolean [
+
+	self ffiCall: #(void gtk_paned_set_shrink_start_child (self, gboolean aBoolean))
 ]
 
 { #category : #accessing }
