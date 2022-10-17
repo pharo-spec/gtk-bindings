@@ -8,7 +8,8 @@ Class {
 	#superclass : #GtkWidget,
 	#instVars : [
 		'entryCompletion',
-		'buffer'
+		'buffer',
+		'extraMenu'
 	],
 	#pools : [
 		'GtkInputPurpose'
@@ -162,7 +163,8 @@ GtkEntry >> connectChanged: aBlock [
 { #category : #signals }
 GtkEntry >> connectPopulatePopup: aBlock [
 
-	^ (GPopulatePopupCallback do: aBlock) connectTo: self
+	"^ (GPopulatePopupCallback do: aBlock) connectTo: self"
+	self deprecated: 'Gtk4: use #extraMenu:'
 ]
 
 { #category : #private }
@@ -195,6 +197,13 @@ GtkEntry >> entryCompletion: anEntryCompletion [
 
 	entryCompletion := anEntryCompletion.
 	self setCompletion: anEntryCompletion	
+]
+
+{ #category : #accessing }
+GtkEntry >> extraMenu: aMenu [
+
+	extraMenu := aMenu.
+	self setExtraMenu: aMenu
 ]
 
 { #category : #private }
@@ -324,6 +333,12 @@ GtkEntry >> setCompletion: aGtkEntryCompletion [
 GtkEntry >> setCursorPosition: position [
 
 	^ self ffiCall: #(void gtk_editable_set_position (self, gint position))
+]
+
+{ #category : #private }
+GtkEntry >> setExtraMenu: aModel [
+
+	self ffiCall: #(void gtk_entry_set_extra_menu (self, GMenuModel* aModel))
 ]
 
 { #category : #accessing }

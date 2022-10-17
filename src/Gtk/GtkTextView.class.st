@@ -74,7 +74,8 @@ GtkTextView >> bottomMargin: bottom_margin [
 { #category : #signaling }
 GtkTextView >> connectPopulatePopup: aBlock [
 
-	^ (GPopulatePopupCallback do: aBlock) connectTo: self
+	"^ (GPopulatePopupCallback do: aBlock) connectTo: self"
+	self deprecated: 'Gtk4: use #extraMenu:'
 ]
 
 { #category : #accessing }
@@ -87,6 +88,12 @@ GtkTextView >> cursorVisible: setting [
 GtkTextView >> editable: setting [
 
 	self ffiCall: #(void gtk_text_view_set_editable (self, gboolean setting))
+]
+
+{ #category : #accessing }
+GtkTextView >> extraMenu: aMenuModel [
+
+	self setExtraMenu: aMenuModel
 ]
 
 { #category : #private }
@@ -241,6 +248,12 @@ GtkTextView >> scrollToMark: mark withinMargin: within_margin useAlign: use_alig
 GtkTextView >> setBuffer: buffer [
 
 	self ffiCall: #(void gtk_text_view_set_buffer (self, GtkTextBuffer *buffer))
+]
+
+{ #category : #private }
+GtkTextView >> setExtraMenu: aModel [
+
+	self ffiCall: #(void gtk_text_view_set_extra_menu (self, GMenuModel* aModel))
 ]
 
 { #category : #private }
