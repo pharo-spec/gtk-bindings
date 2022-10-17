@@ -47,6 +47,13 @@ GtkTContainer >> includes: aWidget [
 ]
 
 { #category : #initialization }
+GtkTContainer >> initialize [
+
+	super initialize.
+	self initializeTContainer
+]
+
+{ #category : #initialization }
 GtkTContainer >> initializeTContainer [
 
 	children := #()
