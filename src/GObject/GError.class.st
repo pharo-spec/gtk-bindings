@@ -56,10 +56,26 @@ GError >> domainString [
 	^ self gquarkToString: self domain
 ]
 
+{ #category : #freeing }
+GError >> free [
+	"Frees a GError and associated resources."
+
+	self g_error_free.
+	handle := nil.
+]
+
+{ #category : #freeing }
+GError >> g_error_free [
+	"Frees a GError and associated resources.
+	void g_error_free (GError* error)"
+
+	self ffiCall: #(void g_error_free(self) ) module: GLibLibrary.
+]
+
 { #category : #private }
 GError >> gquarkToString: quark [
 
-	^ self ffiCall: #(const gchar *g_quark_to_string (GQuark quark))
+	^ self ffiCall: #(const gchar *g_quark_to_string (GQuark quark)) module: GLibLibrary
 ]
 
 { #category : #testing }
@@ -88,5 +104,5 @@ GError >> message: anObject [
 GError >> messageString [
 
 	self message isNull ifTrue: [ ^ 'Unknown error.' ].
-	^ self message readStringUTF8
+	^ self message bytesFromCString
 ]
