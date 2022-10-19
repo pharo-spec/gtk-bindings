@@ -61,6 +61,12 @@ GBaseObject >> autoRelease [
 	self resourceManager addResource: self
 ]
 
+{ #category : #'external resource management' }
+GBaseObject >> dontAutoRelease [
+
+	self resourceManager removeResource: self
+]
+
 { #category : #accessing }
 GBaseObject >> engine [
 
@@ -111,5 +117,5 @@ GBaseObject >> isValidHandle [
 { #category : #accessing }
 GBaseObject >> resourceManager [
 	
-	^ GEngine current resourceManager
+	^ GExternalResourceManager uniqueInstance
 ]

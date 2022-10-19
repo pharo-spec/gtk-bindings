@@ -137,6 +137,10 @@ GtkWidget >> addController: controller [
 
 	eventControllers ifNil: [ eventControllers := #() ].
 	eventControllers := eventControllers copyWith: controller.
+	
+	"the widget will take control (see https://docs.gtk.org/gtk4/method.Widget.add_controller.html)"
+	controller dontAutoRelease.
+	
 	self basicAddController: controller.
 	^ controller
 ]
