@@ -22,7 +22,7 @@ GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: 
 	| gPidOut error result |
 
 	gPidOut := FFIInt32 newBuffer.
-	error := GError new.	
+	error := GErrorHolder new.	
 	
 	result := self 
 		gSpawnAsync: working_directory 
@@ -35,7 +35,7 @@ GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: 
 		error: error.
 
 	result ifFalse: [ 
-		self error: error messageString ].
+		self error: error value messageString ].
 	
 	^ self basicNew 
 		initializePid: (gPidOut signedLongAt: 1);
@@ -54,7 +54,7 @@ GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: 
  		"GSpawnChildSetupFunc "void *child_setup,
 		gpointer user_data,
 		"GPid *"void *child_pid_out,
-		"GError **"GError *error))
+		"GError **"GErrorHolder error))
 ]
 
 { #category : #private }
@@ -79,6 +79,15 @@ GIOProcess class >> gSpawnAsync: working_directory command: command arguments: a
 GIOProcess class >> spawn: command [
 
 	^ self spawn: command flags: G_SPAWN_DEFAULT
+]
+
+{ #category : #'instance creation' }
+GIOProcess class >> spawn: command arguments: anArray [
+
+	^ self 
+		spawn: command 
+		arguments: anArray
+		flags: G_SPAWN_DEFAULT
 ]
 
 { #category : #'instance creation' }

@@ -38,6 +38,31 @@ GIOChannel class >> newFromFileDescriptor: fd [
 		initialize
 ]
 
+{ #category : #'instance creation' }
+GIOChannel class >> newStderr [
+
+	^ self newFromFileDescriptor: 2 "STDERR_FILENO"
+]
+
+{ #category : #'instance creation' }
+GIOChannel class >> newStdin [
+
+	^ self newFromFileDescriptor: 0 "STDIN_FILENO"
+]
+
+{ #category : #'instance creation' }
+GIOChannel class >> newStdout [
+
+	^ self newFromFileDescriptor: 1 "STDOUT_FILENO"
+]
+
+{ #category : #accessing }
+GIOChannel >> close [
+
+	self ffiCall: #(void g_io_channel_close (self))
+
+]
+
 { #category : #accessing }
 GIOChannel >> flush [
 
@@ -108,7 +133,7 @@ GIOChannel >> readChars: buf count: count bytesRead: bytes_read error: error [
 GIOChannel >> readLine [
 	| buf read size pos error status |
 
-	error := GError new.
+	error := GErrorHolder new.
 	buf := ExternalAddress new.
 	read := FFISizeT newBuffer.
 	size := FFISizeT newBuffer.
@@ -118,8 +143,8 @@ GIOChannel >> readLine [
 		size: size 
 		terminator: pos 
 		error: error.
-	((status = G_IO_STATUS_ERROR) and: [ error isError ]) 
-		ifTrue: [ self error: error messageString ].
+	((status = G_IO_STATUS_ERROR) and: [ error value isError ]) 
+		ifTrue: [ self error: error value messageString ].
 
 	^ buf readStringUTF8
 ]
@@ -133,7 +158,7 @@ GIOChannel >> readLine: str_return size: length terminator: terminator_pos error
 		  "gchar **"void **str_return,
 		  "gsize *"void *length,
 		  "gsize *"void *terminator_pos,
-		  "GError **" GError *error))
+		  "GError **" GErrorHolder error))
 ]
 
 { #category : #accessing }

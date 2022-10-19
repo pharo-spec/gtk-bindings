@@ -20,7 +20,7 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
 	stdinFdOut := FFIInt32 newBuffer.
 	stdoutFdOut := FFIInt32 newBuffer.
 	stderrFdOut := FFIInt32 newBuffer.
-	error := GError new.
+	error := GErrorHolder new.
 	
 	result := self 
 		gSpawnAsyncWithPipes: working_directory 
@@ -35,7 +35,7 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
 		stderrPipeOut: stderrFdOut 
 		error: error.
 	result ifFalse: [ 
-		self error: error messageString ].
+		self error: error value messageString ].
 	
 	^ self basicNew 
 		initializePid: (gPidOut signedLongAt: 1)
@@ -60,7 +60,7 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
 		"gint *"void *stdin_pipe_out,
 		"gint *"void *stdout_pipe_out,
 		"gint *"void *stderr_pipe_out,
-		"GError **"GError *error))
+		"GError **"GErrorHolder error))
 ]
 
 { #category : #private }
