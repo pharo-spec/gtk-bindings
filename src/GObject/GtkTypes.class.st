@@ -5,6 +5,7 @@ Class {
 	#name : #GtkTypes,
 	#superclass : #SharedPool,
 	#classVars : [
+		'GErrorHolder',
 		'GPid',
 		'GQuark',
 		'GType',
@@ -58,8 +59,6 @@ GtkTypes class >> initialize [
 	gunichar := #guint32.
 	
 	GPid := #int.
-	
-	"Holders"
-	GErrorHolder := FFIExternalValueHolder ofType: GError.
-
+	gpointerHolder := FFIExternalValueHolder ofType: gpointer.
+	GErrorHolder := FFIExternalValueHolder ofType: GError
 ]

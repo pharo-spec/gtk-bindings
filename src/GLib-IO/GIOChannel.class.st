@@ -89,6 +89,24 @@ GIOChannel >> initialize [
 	self autoRelease
 ]
 
+{ #category : #'instance creation' }
+GIOChannel >> newListener: aName action: aBlock [
+	"
+	see `GIOChannelListener`
+	
+	e.g. 
+	listener := channel 
+		newListener: 'example' 
+		action: [ :aChannel | aChannel readLine crTrace ].
+	listener start.
+	"
+
+	^ GIOChannelListener 
+		newName: aName 
+		channel: self
+		action: aBlock
+]
+
 { #category : #accessing }
 GIOChannel >> read: aNumber [
 	| buf read error status |
