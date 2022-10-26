@@ -26,17 +26,13 @@ GObject class >> finalizeResourceData: handle [
 
 	(self isValidHandle: handle) ifFalse: [ ^ self ].
 
-	self printToStdout.
-	handle printToStdout.
-
 	(self instanceIsObject: handle) 
 		ifTrue: [ 
 			GFinalizeAnnouncement emitTarget: self handle: handle.
 			GRunLoop defer: [ self objectUnref: handle ] ]
 		ifFalse: [
 			GZombieAnnouncement emitTarget: self handle: handle ].
-	handle beNull.
-	'FINALIZED' printToStdout
+	handle beNull
 ]
 
 { #category : #accessing }
