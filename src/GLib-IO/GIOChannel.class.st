@@ -90,18 +90,18 @@ GIOChannel >> initialize [
 ]
 
 { #category : #'instance creation' }
-GIOChannel >> newListener: aName action: aBlock [
+GIOChannel >> newReadLineListener: aName action: aBlock [
 	"
 	see `GIOChannelListener`
 	
 	e.g. 
 	listener := channel 
-		newListener: 'example' 
-		action: [ :aChannel | aChannel readLine crTrace ].
+		newReadLineListener: 'example' 
+		action: [ :aLine | aLine crTrace ].
 	listener start.
 	"
 
-	^ GIOChannelListener 
+	^ GIOChannelReadLineListener 
 		newName: aName 
 		channel: self
 		action: aBlock
@@ -177,6 +177,31 @@ GIOChannel >> readLine: str_return size: length terminator: terminator_pos error
 		  "gsize *"void *length,
 		  "gsize *"void *terminator_pos,
 		  "GError **" GErrorHolder error))
+]
+
+{ #category : #accessing }
+GIOChannel >> readLineTo: aBlock [
+	"reads a line and class aBlock with it. 
+	 returns a GIOStatus (when is not ERROR)"
+	| buf read size pos error status |
+
+	error := GErrorHolder new.
+	buf := ExternalAddress new.
+	read := FFISizeT newBuffer.
+	size := FFISizeT newBuffer.
+	pos := FFISizeT newBuffer.
+	status := self 
+		readLine: buf 
+		size: size 
+		terminator: pos 
+		error: error.
+	((status = G_IO_STATUS_ERROR) and: [ error value isError ]) 
+		ifTrue: [ self error: error value messageString ].
+
+	buf readStringUTF8 
+		ifNotNil: [ :aString | aBlock value: aString ].	
+
+	^ status
 ]
 
 { #category : #accessing }
