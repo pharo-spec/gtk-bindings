@@ -58,20 +58,21 @@ Gtk4RunLoop >> forceDefer: aBlock [
 { #category : #'private - installing' }
 Gtk4RunLoop >> installRunLoop [
 
+	'Installing Gtk4 event loop' asBeaconSignal emit. 
+
 	context := GMainContext default.
 	context acquire
 		ifFalse: [ self error: 'I cannot acquire the main context' ].	
 	
-	runProcess := [ 
+	runProcess := [
 		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance. 
 		[ running ] whileTrue: [ 
 			context iteration: true ].
 		context release.	
-		running := false.
-		'RUNLOOP ENDED' printToStdout
+		'Gtk4 event loop ended' asBeaconSignal emit.
 	] 
 	forkAt: Processor lowIOPriority
-	named: 'Gtk4 Event loop'
+	named: 'Gtk4 event loop'
 ]
 
 { #category : #testing }
