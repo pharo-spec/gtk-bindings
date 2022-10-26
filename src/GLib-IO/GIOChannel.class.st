@@ -149,22 +149,9 @@ GIOChannel >> readChars: buf count: count bytesRead: bytes_read error: error [
 
 { #category : #accessing }
 GIOChannel >> readLine [
-	| buf read size pos error status |
 
-	error := GErrorHolder new.
-	buf := ExternalAddress new.
-	read := FFISizeT newBuffer.
-	size := FFISizeT newBuffer.
-	pos := FFISizeT newBuffer.
-	status := self 
-		readLine: buf 
-		size: size 
-		terminator: pos 
-		error: error.
-	((status = G_IO_STATUS_ERROR) and: [ error value isError ]) 
-		ifTrue: [ self error: error value messageString ].
-
-	^ buf readStringUTF8
+	self readLineTo: [ :aLine | ^ aLine ].
+	^ nil
 ]
 
 { #category : #'private - primitives' }
