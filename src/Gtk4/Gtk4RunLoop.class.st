@@ -50,7 +50,7 @@ Gtk4RunLoop >> forceDefer: aBlock [
 	callerProcess := nil.
 
 	exception ifNotNil: [ 
-		exception defaultAction ].
+		exception pass ].
 
 	^ result
 ]
