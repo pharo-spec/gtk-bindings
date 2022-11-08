@@ -1,3 +1,7 @@
+"
+Add ""one child behavior"" to classes.
+
+"
 Trait {
 	#name : #GtkTBin,
 	#instVars : [
