@@ -6,7 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkStackSwitcher.html
 "
 Class {
 	#name : #GtkStackSwitcher,
-	#superclass : #GtkBox,
+	#superclass : #GtkWidget,
+	#classTraits : 'GtkTBin classTrait',
 	#instVars : [
 		'stack'
 	],

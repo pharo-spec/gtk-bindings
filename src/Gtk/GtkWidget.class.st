@@ -115,7 +115,7 @@ GtkWidget >> addClickEvent: aBlock [
 
 	self addClickGestureWith: [ :gesture |
 		gesture 
-			named: 'click';
+			name: 'click';
 			beButtonPrimary;
 			connectPressed: aBlock ]
 ]
