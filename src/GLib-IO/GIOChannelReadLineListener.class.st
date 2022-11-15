@@ -80,13 +80,10 @@ GIOChannelReadLineListener >> start [
 
 	process := [
 		| status |
-		[ 'Channel read listener {1} started.' format: { self name } ] emit.
 		TFProcessLocalWorker worker: self worker.
 		[ status := self channel readLineTo: self action ]
-		doWhileTrue: [ status ~= G_IO_STATUS_EOF ].
-		[ 'Channel read listener {1} closed.' format: { self name } ] emit ]
+		doWhileTrue: [ status ~= G_IO_STATUS_EOF ] ]
 	forkNamed: ('Channel read listener: {1}' format: { self name })
-
 ]
 
 { #category : #starting }
