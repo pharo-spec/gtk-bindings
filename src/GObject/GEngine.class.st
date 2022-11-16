@@ -163,14 +163,15 @@ GEngine >> runLoop [
 
 { #category : #'system startup' }
 GEngine >> shutDown: quitting [
-	
+
+
+	quitting ifFalse: [ ^ self ].	
 	self isRunning ifFalse: [ ^ self ].
 
-	quitting ifTrue: [
-		"process shutdown *before* shutting down runloop, because actions may need 
-		 some gtk side actions"
-		runLoop defer: [ 
-			shutdownRegistry do: [ :each | each prepareToShutdown ] ] ].
+	"process shutdown *before* shutting down runloop, because actions may need 
+	 some gtk side actions"
+	runLoop defer: [ 
+		shutdownRegistry do: [ :each | each prepareToShutdown ] ].
 	runLoop stop
 ]
 
