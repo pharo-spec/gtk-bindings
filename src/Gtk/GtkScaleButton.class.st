@@ -11,13 +11,13 @@ Class {
 }
 
 { #category : #private }
-GtkScaleButton class >> basicNewWithIconSize: size min: min max: max step: step icons: icons [
+GtkScaleButton class >> basicNewWithIconMin: min max: max step: step icons: icons [
 
-	^ self ffiCall: #(GtkScaleButton *gtk_scale_button_new (GtkIconSize size,
-                      gdouble min,
-                      gdouble max,
-                      gdouble step,
-                      const gchar **icons))
+	^ self ffiCall: #(GtkScaleButton *gtk_scale_button_new (
+		gdouble min,
+		gdouble max,
+		gdouble step,
+		"const gchar **"void *icons))
 ]
 
 { #category : #private }
@@ -40,15 +40,22 @@ GtkScaleButton class >> gType [
 ]
 
 { #category : #'instance creation' }
-GtkScaleButton class >> newWithIconSize: size min: min max: max step: step icons: icons [
+GtkScaleButton class >> newWithMin: min max: max step: step icons: iconNamesOrNil [
+	| icons |
 
-	^ (self 
-		basicNewWithIconSize: size 
-		min: min asFloat 
-		max: max asFloat 
-		step: step asFloat 
-		icons: icons)
-		initialize
+	icons := iconNamesOrNil
+		ifNotNil: [ ExternalAddress arrayOfStringsFrom: iconNamesOrNil ]
+		ifNil: [ ExternalAddress null ].
+	^ [ 
+		(self 
+			basicNewWithIconMin: min asFloat 
+			max: max asFloat 
+			step: step asFloat 
+			icons: icons)
+			initialize ]
+		ensure: [ 
+			icons isNull 
+				ifFalse: [ icons freeArrayOfStrings ] ]
 ]
 
 { #category : #events }

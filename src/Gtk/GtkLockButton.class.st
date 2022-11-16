@@ -17,6 +17,13 @@ GtkLockButton class >> buttonNew [
 ]
 
 { #category : #private }
+GtkLockButton class >> buttonNew: permission [
+
+	^ self ffiCall: #(GtkLockButton *gtk_lock_button_new ("GPermission *"GObject *permission))
+
+]
+
+{ #category : #private }
 GtkLockButton class >> buttonNewWithLabel: utf8EncodedString [
 	
 	self shouldNotImplement
@@ -29,11 +36,16 @@ GtkLockButton class >> gType [
 	^ self ffiCall: #(gsize gtk_lock_button_get_type())
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
+GtkLockButton class >> new [
+
+	^ self newWithPermission: GObject null
+]
+
+{ #category : #'instance creation' }
 GtkLockButton class >> newWithPermission: permission [
 
-	^ self ffiCall: #(GtkLockButton *gtk_lock_button_new (GPermission *permission))
-
+	^ (self buttonNew: permission) initialize
 ]
 
 { #category : #accessing }

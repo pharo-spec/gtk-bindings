@@ -24,7 +24,7 @@ GtkVolumeButton class >> gType [
 ]
 
 { #category : #private }
-GtkVolumeButton class >> newWithIconSize: size min: min max: max step: step icons: icons [
+GtkVolumeButton class >> newWithMin: min max: max step: step icons: iconNamesOrNil [
 
 	self shouldNotImplement
 ]
