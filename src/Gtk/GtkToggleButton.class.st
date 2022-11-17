@@ -7,6 +7,8 @@ https://developer.gnome.org/gtk3/unstable/GtkToggleButton.html
 Class {
 	#name : #GtkToggleButton,
 	#superclass : #GtkButton,
+	#traits : 'GtkTToggleableButton',
+	#classTraits : 'GtkTToggleableButton classTrait',
 	#category : #'Gtk-Widget-Buttons'
 }
 
@@ -35,24 +37,6 @@ GtkToggleButton >> active: aBoolean [
 ]
 
 { #category : #accessing }
-GtkToggleButton >> beActive [
-
-	self active: true
-]
-
-{ #category : #accessing }
-GtkToggleButton >> beNonActive [
-
-	self active: false
-]
-
-{ #category : #signaling }
-GtkToggleButton >> connectToggled: aBlock [
-
-	(GToggledCallback do: aBlock) connectTo: self
-]
-
-{ #category : #accessing }
 GtkToggleButton >> doNotDrawIndicator [
 
 	^ self drawIndicator: false
@@ -68,12 +52,6 @@ GtkToggleButton >> drawIndicator [
 GtkToggleButton >> drawIndicator: aBoolean [
 
 	^ self ffiCall: #(void gtk_toggle_button_set_mode (self, gboolean aBoolean))
-]
-
-{ #category : #private }
-GtkToggleButton >> getActive [
-
-	^ self isActive
 ]
 
 { #category : #accessing }

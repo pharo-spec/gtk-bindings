@@ -6,7 +6,9 @@ https://developer.gnome.org/gtk3/unstable/GtkCheckButton.html
 "
 Class {
 	#name : #GtkCheckButton,
-	#superclass : #GtkToggleButton,
+	#superclass : #GtkButton,
+	#traits : 'GtkTToggleableButton',
+	#classTraits : 'GtkTToggleableButton classTrait',
 	#category : #'Gtk-Widget-Buttons'
 }
 
@@ -27,4 +29,46 @@ GtkCheckButton class >> gType [
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_check_button_get_type())
+]
+
+{ #category : #accessing }
+GtkCheckButton >> active: aBoolean [
+
+	^ self ffiCall: #(void gtk_check_button_set_active (self, gboolean aBoolean))
+]
+
+{ #category : #accessing }
+GtkCheckButton >> group: aCheckButton [
+
+	^ self ffiCall: #(void gtk_check_button_set_group (self, GtkCheckButton *aCheckButton))
+]
+
+{ #category : #private }
+GtkCheckButton >> gtkButtonGetLabel [
+
+	^ self ffiCall: #(gchar *gtk_check_button_get_label(self))
+]
+
+{ #category : #private }
+GtkCheckButton >> gtkButtonSetLabel: aString [
+
+	self ffiCall: #(void gtk_check_button_set_label(self, String aString))
+]
+
+{ #category : #accessing }
+GtkCheckButton >> inconsistent: aBoolean [
+
+	^ self ffiCall: #(void gtk_check_button_set_inconsistent (self, gboolean aBoolean))
+]
+
+{ #category : #testing }
+GtkCheckButton >> isActive [
+
+	^ self ffiCall: #(gboolean gtk_check_button_get_active (self))
+]
+
+{ #category : #testing }
+GtkCheckButton >> isInconsistent [
+
+	^ self ffiCall: #(gboolean gtk_check_button_get_inconsistent (self))
 ]

@@ -51,6 +51,12 @@ GtkRadioButton class >> gType [
 	^ self ffiCall: #(gsize gtk_radio_button_get_type())
 ]
 
+{ #category : #testing }
+GtkRadioButton class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkRadioButton class >> newInGroup: aGroup [
 
@@ -99,16 +105,4 @@ GtkRadioButton >> connectGroupChanged: aBlock [
 GtkRadioButton >> joinGroupOf: aRadioButton [
 
 	^ self ffiCall: #(void *gtk_radio_button_join_group (self, GtkRadioButton *aRadioButton))
-]
-
-{ #category : #accessing }
-GtkRadioButton >> radioGroup [
-
-	^ self ffiCall: #(GtkRadioButtonGroup *gtk_radio_button_get_group (self))
-]
-
-{ #category : #accessing }
-GtkRadioButton >> radioGroup: aRadioGroup [
-
-	^ self ffiCall: #(void *gtk_radio_button_get_group (self, GtkRadioButtonGroup *aRadioGroup))
 ]
