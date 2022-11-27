@@ -7,7 +7,8 @@ Class {
 	#name : #GtkPopoverMenu,
 	#superclass : #GtkPopover,
 	#instVars : [
-		'menuModel'
+		'menuModel',
+		'children'
 	],
 	#category : #'Gtk-Widget-Menu'
 }
@@ -38,10 +39,36 @@ GtkPopoverMenu class >> newFromModel: aModel [
 		yourself
 ]
 
+{ #category : #accessing }
+GtkPopoverMenu >> addChild: aWidget id: id [
+
+	"just keep it if we actually added it"
+	(self basicAddChild: aWidget id: id)
+		ifTrue: [ self keepWidget: aWidget ]
+	
+]
+
 { #category : #initialization }
 GtkPopoverMenu >> autoObjectUnref [
 
 	self autoRelease
+]
+
+{ #category : #private }
+GtkPopoverMenu >> basicAddChild: aWidget id: id [
+
+	^ self ffiCall: #(gboolean gtk_popover_menu_add_child (
+	self,
+	GtkWidget* aWidget,
+	const char* id))
+]
+
+{ #category : #private }
+GtkPopoverMenu >> basicRemoveChild: aWidget [
+
+	self ffiCall: #(gboolean gtk_popover_menu_remove_child (
+		self,
+		GtkWidget* aWidget))
 ]
 
 { #category : #private }
@@ -57,6 +84,13 @@ GtkPopoverMenu >> initializeModel: aModel [
 	menuModel := aModel
 ]
 
+{ #category : #private }
+GtkPopoverMenu >> keepWidget: widget [
+
+	children ifNil: [ children := #() ].
+	children := children copyWith: widget
+]
+
 { #category : #accessing }
 GtkPopoverMenu >> menuModel [
 
@@ -68,6 +102,13 @@ GtkPopoverMenu >> menuModel: aModel [
 
 	menuModel := aModel.
 	self setMenuModel: aModel
+]
+
+{ #category : #accessing }
+GtkPopoverMenu >> removeChild: aWidget [
+
+	children := children copyWithout: aWidget.
+	self basicRemoveChild: aWidget
 ]
 
 { #category : #private }

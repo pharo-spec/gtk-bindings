@@ -6,10 +6,10 @@ https://developer.gnome.org/gtk3/unstable/GtkMenuButton.html
 "
 Class {
 	#name : #GtkMenuButton,
-	#superclass : #GtkToggleButton,
+	#superclass : #GtkButton,
 	#instVars : [
 		'popover',
-		'popup'
+		'model'
 	],
 	#pools : [
 		'GtkArrowType'
@@ -38,33 +38,25 @@ GtkMenuButton class >> example [
 	(button := (GtkButton newLabel: 'Choose...'))
 		connectClicked: [ self inform: button label ].
 		
-	menu := GtkMenu new.
-	#('One' 'Two' 'Three') do: [ :each | | menuItem |
-		menuItem := GtkMenuItem newLabel: each.
-		menuItem connectActivate: [ button label: each ].
-		menu add: menuItem ].
-	menu showAll.
+	
+	"All entries will be disabled because there is no real action associated"
+	menu := GMenu new.
+	#('One' 'Two' 'Three') do: [ :each | 
+		menu 
+			appendLabel: each 
+			action: 'action.', each ].
 	
 	GtkWindow new
 		title: 'Menu Button Example';
 		add: (GtkBox newVertical
 			homogeneous: false; 
-			packStart: (GtkBox newHorizontal
+			append: (GtkBox newHorizontal
 				homogeneous: false;
-				packStart: button 
-					expand: false
-					fill: false
-					padding: 0;
-				packStart: (GtkMenuButton new
-						popup: menu;
-						yourself)
-					expand: false
-					fill: false
-					padding: 0;
+				append: button;
+				append: (GtkMenuButton new
+					menuModel: menu;
+					yourself);
 				yourself)
-			expand: false 
-			fill: false
-			padding: 0;
 			yourself);
 		showAll
 ]
@@ -113,29 +105,28 @@ GtkMenuButton >> bePopupDirectionUp [
 ]
 
 { #category : #private }
+GtkMenuButton >> getMenuModel [
+
+	^ self ffiCall: #(GMenuModel *gtk_menu_button_get_menu_model (self))
+]
+
+{ #category : #private }
 GtkMenuButton >> getPopover [
 
 	^ self ffiCall: #(GtkPopover *gtk_menu_button_get_popover (self))
 ]
 
-{ #category : #private }
-GtkMenuButton >> getPopup [
-
-	^ self ffiCall: #(GtkMenu *gtk_menu_button_get_popup (self))
-]
-
 { #category : #accessing }
 GtkMenuButton >> menuModel [
 
-	^ self ffiCall: #(GMenuModel *gtk_menu_button_get_menu_model (self))
+	^ model ifNil: [ model := self getMenuModel ]
 ]
 
 { #category : #accessing }
 GtkMenuButton >> menuModel: aMenuModel [
-	self halt: #doNotUse.
-	"We do not have menu models implemented.
-	Also, we should keep track of children"
-	self ffiCall: #(void gtk_menu_button_set_menu_model (self, GtkMenu *aMenuModel))
+
+	model := aMenuModel.
+	self setMenuModel: model
 ]
 
 { #category : #private }
@@ -160,14 +151,7 @@ GtkMenuButton >> popover: aPopover [
 { #category : #accessing }
 GtkMenuButton >> popup [
 
-	^ popup ifNil: [ popup := self getPopup ]
-]
-
-{ #category : #accessing }
-GtkMenuButton >> popup: aMenu [
-
-	popup := aMenu.
-	self setPopup: aMenu
+	^ self ffiCall: #(void gtk_menu_button_popup (self))
 ]
 
 { #category : #accessing }
@@ -183,15 +167,17 @@ GtkMenuButton >> popupDirection: direction [
 ]
 
 { #category : #private }
-GtkMenuButton >> setPopover: aPopover [
+GtkMenuButton >> setMenuModel: aMenuModel [
 
-	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkPopover *aPopover))
+	"We do not have menu models implemented.
+	Also, we should keep track of children"
+	self ffiCall: #(void gtk_menu_button_set_menu_model (self, GMenuModel *aMenuModel))
 ]
 
 { #category : #private }
-GtkMenuButton >> setPopup: aMenu [
+GtkMenuButton >> setPopover: aPopover [
 
-	self ffiCall: #(void gtk_menu_button_set_popup (self, GtkMenu *aMenu))
+	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkPopover *aPopover))
 ]
 
 { #category : #accessing }

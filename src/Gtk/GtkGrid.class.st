@@ -7,7 +7,7 @@ https://developer.gnome.org/gtk3/stable/GtkGrid.html
 "
 Class {
 	#name : #GtkGrid,
-	#superclass : #GtkContainer,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTContainer',
 	#classTraits : 'GtkTContainer classTrait',
 	#category : #'Gtk-Widget-Container'

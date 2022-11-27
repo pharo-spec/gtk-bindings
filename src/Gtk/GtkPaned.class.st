@@ -5,7 +5,7 @@ https://docs.gtk.org/gtk4/class.Paned.html
 "
 Class {
 	#name : #GtkPaned,
-	#superclass : #GtkContainer,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTContainer - {#removeAll. #remove:. #basicRemove:. #keepWidget:. #initializeTContainer}',
 	#classTraits : 'GtkTContainer classTrait',
 	#instVars : [

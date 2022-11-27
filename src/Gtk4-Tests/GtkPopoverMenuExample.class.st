@@ -13,7 +13,7 @@ GtkPopoverMenuExample class >> open [
 
 { #category : #private }
 GtkPopoverMenuExample >> addContentsTo: window [
-	| listView popoverMenu scrolledWindow widget actionGroup model |
+	| listView popoverMenu scrolledWindow widget actionGroup model item |
 
 	widget := GtkBox newVertical.
 	widget expand: true.
@@ -41,6 +41,11 @@ GtkPopoverMenuExample >> addContentsTo: window [
 			model := GMenu new 
 				appendLabel: 'Test 1' action: 'action.test1';
 				appendLabel: 'Test 2' action: 'action.test2';
+				appendItem: ((item := GMenuItem new) 
+					label: 'Test 3';
+					detailedAction: 'action.test3';
+					accel: '&lt;Control&gt;g';
+					yourself);
 				yourself.
 			popoverMenu
 				menuModel: model;

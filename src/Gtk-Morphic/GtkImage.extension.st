@@ -3,13 +3,11 @@ Extension { #name : #GtkImage }
 { #category : #'*Gtk-Morphic' }
 GtkImage class >> newForm: aForm [
 
-	^ self newMorph: aForm asMorph
+	^ self newPixbuf: aForm asGdkPixbuf
 ]
 
 { #category : #'*Gtk-Morphic' }
 GtkImage class >> newMorph: anImageMorph [
 
-	| surf |
-	surf := self surfaceFor: anImageMorph.
-	^ (self imageNewFromSurface: surf) initialize
+	^ self newPixbuf: anImageMorph asGdkPixbuf
 ]

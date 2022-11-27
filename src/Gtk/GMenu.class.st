@@ -19,31 +19,37 @@ GMenu class >> new [
 	^ self gNew initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GMenu >> appendItem: item [
 
 	^ self ffiCall: #(void g_menu_append_item (self, GMenuItem* item))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GMenu >> appendLabel: label action: detailed_action [
 
 	^ self ffiCall: #(void g_menu_append (self, const gchar* label, const gchar* detailed_action))
 ]
 
-{ #category : #'as yet unclassified' }
-GMenu >> appendLabel: label section: section [ 
+{ #category : #accessing }
+GMenu >> appendLabel: label section: section [
 
-	^ self ffiCall: #(void g_menu_append_section (self, const gchar* label, GMenuModel* section))
+	^ self ffiCall: #(void g_menu_append_item (self, gchar *label, GMenuModel *section))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GMenu >> appendLabel: label submenu: submenu [ 
 
 	^ self ffiCall: #(void g_menu_append_submenu (self, const gchar* label, GMenuModel* submenu))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+GMenu >> appendSection: section [
+
+	^ self ffiCall: #(void g_menu_append_item (self, NULL, GMenuModel *section))
+]
+
+{ #category : #accessing }
 GMenu >> insertAtPosition: position item: item [
 
 	^ self ffiCall: #(void g_menu_insert_item (
@@ -52,7 +58,7 @@ GMenu >> insertAtPosition: position item: item [
   		GMenuItem* item))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GMenu >> insertAtPosition: position label: label action: detailed_action [
 
 	^ self ffiCall: #(void g_menu_insert (
@@ -62,7 +68,7 @@ GMenu >> insertAtPosition: position label: label action: detailed_action [
   		const gchar* detailed_action))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GMenu >> insertAtPosition: position label: label section: section [ 
 
 	^ self ffiCall: #(void g_menu_insert_section (
@@ -72,7 +78,7 @@ GMenu >> insertAtPosition: position label: label section: section [
   		GMenuModel* section))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GMenu >> insertAtPosition: position label: label submenu: section [ 
 
 	^ self ffiCall: #(void g_menu_insert_submenu (

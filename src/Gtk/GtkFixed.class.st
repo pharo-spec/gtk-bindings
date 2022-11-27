@@ -7,7 +7,7 @@ TODO: set_child_transform
 "
 Class {
 	#name : #GtkFixed,
-	#superclass : #GtkContainer,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTContainer',
 	#classTraits : 'GtkTContainer classTrait',
 	#category : #'Gtk-Widget-Container'

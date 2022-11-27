@@ -22,6 +22,12 @@ GtkAccelLabel class >> gType [
 	^ self ffiCall: #(gsize gtk_accel_label_get_type())
 ]
 
+{ #category : #testing }
+GtkAccelLabel class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkAccelLabel class >> new [
 

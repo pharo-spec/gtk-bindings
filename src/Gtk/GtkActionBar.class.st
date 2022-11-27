@@ -1,11 +1,11 @@
 "
 GtkActionBar — A full width bar for presenting contextual actions
 
-https://developer.gnome.org/gtk3/stable/GtkActionBar.html
+https://docs.gtk.org/gtk4/class.ActionBar.html
 "
 Class {
 	#name : #GtkActionBar,
-	#superclass : #GtkContainer,
+	#superclass : #GtkWidget,
 	#traits : 'GtkTContainer',
 	#classTraits : 'GtkTContainer classTrait',
 	#instVars : [

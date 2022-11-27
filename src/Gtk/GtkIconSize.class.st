@@ -7,67 +7,40 @@ Class {
 	#name : #GtkIconSize,
 	#superclass : #GEnumeration,
 	#classVars : [
-		'GTK_ICON_SIZE_BUTTON',
-		'GTK_ICON_SIZE_DIALOG',
-		'GTK_ICON_SIZE_DND',
-		'GTK_ICON_SIZE_INVALID',
-		'GTK_ICON_SIZE_LARGE_TOOLBAR',
-		'GTK_ICON_SIZE_MENU',
-		'GTK_ICON_SIZE_SMALL_TOOLBAR'
+		'GTK_ICON_SIZE_INHERIT',
+		'GTK_ICON_SIZE_LARGE',
+		'GTK_ICON_SIZE_NORMAL'
 	],
 	#category : #'Gtk-Misc'
 }
 
 { #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_BUTTON [
+GtkIconSize class >> GTK_ICON_SIZE_INHERIT [
 	"This method was automatically generated"
-	^ GTK_ICON_SIZE_BUTTON
+	^ GTK_ICON_SIZE_INHERIT
 ]
 
 { #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_DIALOG [
+GtkIconSize class >> GTK_ICON_SIZE_LARGE [
 	"This method was automatically generated"
-	^ GTK_ICON_SIZE_DIALOG
+	^ GTK_ICON_SIZE_LARGE
 ]
 
 { #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_DND [
+GtkIconSize class >> GTK_ICON_SIZE_NORMAL [
 	"This method was automatically generated"
-	^ GTK_ICON_SIZE_DND
-]
-
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_INVALID [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_INVALID
-]
-
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_LARGE_TOOLBAR [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_LARGE_TOOLBAR
-]
-
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_MENU [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_MENU
-]
-
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_SMALL_TOOLBAR [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_SMALL_TOOLBAR
+	^ GTK_ICON_SIZE_NORMAL
 ]
 
 { #category : #'enum declaration' }
 GtkIconSize class >> enumDecl [
+	"
+	self initializeEnumeration.
+	self rebuildEnumAccessors"
+
 	^ #(
-	GTK_ICON_SIZE_INVALID 				0
-	GTK_ICON_SIZE_MENU 					1
-	GTK_ICON_SIZE_SMALL_TOOLBAR 		2
-	GTK_ICON_SIZE_LARGE_TOOLBAR 		3
-	GTK_ICON_SIZE_BUTTON 					4
-	GTK_ICON_SIZE_DND 						5
-	GTK_ICON_SIZE_DIALOG 					6)
+	GTK_ICON_SIZE_INHERIT 	0
+	GTK_ICON_SIZE_NORMAL 	 	1
+	GTK_ICON_SIZE_LARGE		2
+)
 ]

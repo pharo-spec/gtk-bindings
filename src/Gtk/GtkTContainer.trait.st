@@ -88,8 +88,6 @@ GtkTContainer >> isContainer [
 GtkTContainer >> keepWidget: widget [
 
 	children := children copyWith: widget
-
-
 ]
 
 { #category : #removing }
