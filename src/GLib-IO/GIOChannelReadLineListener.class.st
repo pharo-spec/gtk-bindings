@@ -15,7 +15,8 @@ Class {
 		'process',
 		'channel',
 		'name',
-		'action'
+		'action',
+		'announcer'
 	],
 	#pools : [
 		'GIOStatus'
@@ -37,6 +38,25 @@ GIOChannelReadLineListener class >> newName: aName channel: aChannel action: aBl
 GIOChannelReadLineListener >> action [
 
 	^ action
+]
+
+{ #category : #private }
+GIOChannelReadLineListener >> announce: anAnnouncement [
+
+	announcer ifNil: [ ^ self ].
+	announcer announce: anAnnouncement
+]
+
+{ #category : #private }
+GIOChannelReadLineListener >> announceTerminatedWithStatus: status [
+
+	self announce: (GIOChannelTerminatedAnnouncement newStatus: status)
+]
+
+{ #category : #accessing }
+GIOChannelReadLineListener >> announcer [
+
+	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
 { #category : #accessing }
@@ -82,7 +102,8 @@ GIOChannelReadLineListener >> start [
 		| status |
 		TFProcessLocalWorker worker: self worker.
 		[ status := self channel readLineTo: self action ]
-		doWhileTrue: [ status ~= G_IO_STATUS_EOF ] ]
+		doWhileTrue: [ status ~= G_IO_STATUS_EOF ].
+		self announceTerminatedWithStatus: status ]
 	forkNamed: ('Channel read listener: {1}' format: { self name })
 ]
 
