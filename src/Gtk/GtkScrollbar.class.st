@@ -5,7 +5,7 @@ GtkScrollbar — A Scrollbar
 https://developer.gnome.org/gtk3/stable/GtkScrollbar.html
 "
 Class {
-	#name : #GtkScrollBar,
+	#name : #GtkScrollbar,
 	#superclass : #GtkWidget,
 	#instVars : [
 		'adjustment'
@@ -13,17 +13,17 @@ Class {
 	#pools : [
 		'GtkOrientation'
 	],
-	#category : #'Gtk-Widget-ScrollBar'
+	#category : #'Gtk-Widget-Scrollbar'
 }
 
 { #category : #'instance creation - private' }
-GtkScrollBar class >> basicOrientation: orientation adjustment: adjustment [
+GtkScrollbar class >> basicOrientation: orientation adjustment: adjustment [
 
-	^ self ffiCall: #(GtkScrollBar *gtk_scrollbar_new  (GtkOrientation orientation, GtkAdjustment *adjustment))
+	^ self ffiCall: #(#GtkScrollbar *gtk_scrollbar_new  (GtkOrientation orientation, GtkAdjustment *adjustment))
 ]
 
 { #category : #examples }
-GtkScrollBar class >> example [ 
+GtkScrollbar class >> example [ 
 
 	<script>
 	
@@ -40,7 +40,7 @@ GtkScrollBar class >> example [
 	adjustment pinInMemory.
 	adjustment configureValue: 100 lower: 0 upper: 400 stepIncrement: 10 pageIncrement: 50 pageSize: 50.
 
-	sb := GtkScrollBar newVerticalAdjustment: adjustment.
+	sb := GtkScrollbar newVerticalAdjustment: adjustment.
 	
 	(GtkAdjustmentValueChangedCallback do: [ :anAdjustment | 
 		anAdjustment pinInMemory.
@@ -63,26 +63,26 @@ GtkScrollBar class >> example [
 ]
 
 { #category : #accessing }
-GtkScrollBar class >> gType [ 
+GtkScrollbar class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_scrollbar_get_type())
 ]
 
 { #category : #'instance creation' }
-GtkScrollBar class >> newHorizontalAdjustment: adjustment [
+GtkScrollbar class >> newHorizontalAdjustment: adjustment [
 
 	^ self orientation: GtkOrientation GTK_ORIENTATION_HORIZONTAL adjustment: adjustment
 ]
 
 { #category : #'instance creation' }
-GtkScrollBar class >> newVerticalAdjustment: adjustment [
+GtkScrollbar class >> newVerticalAdjustment: adjustment [
 
 	^ self orientation: GtkOrientation GTK_ORIENTATION_VERTICAL adjustment: adjustment
 ]
 
 { #category : #'instance creation - private' }
-GtkScrollBar class >> orientation: orientation adjustment: adjustment [
+GtkScrollbar class >> orientation: orientation adjustment: adjustment [
 
 	| widget |
 	
@@ -95,11 +95,11 @@ GtkScrollBar class >> orientation: orientation adjustment: adjustment [
 ]
 
 { #category : #accessing }
-GtkScrollBar >> adjustment [
+GtkScrollbar >> adjustment [
 	^ adjustment
 ]
 
 { #category : #accessing }
-GtkScrollBar >> adjustment: anObject [
+GtkScrollbar >> adjustment: anObject [
 	adjustment := anObject
 ]

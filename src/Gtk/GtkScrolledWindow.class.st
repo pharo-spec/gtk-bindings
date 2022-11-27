@@ -56,7 +56,7 @@ GtkScrolledWindow >> hAdjustment: adjustment [
 { #category : #accessing }
 GtkScrolledWindow >> hScrollBar [ 
 
-	^ self ffiCall: #(GtkScrollBar *gtk_scrolled_window_get_hscrollbar (self))
+	^ self ffiCall: #(#GtkScrollbar *gtk_scrolled_window_get_hscrollbar (self))
 ]
 
 { #category : #testing }
@@ -152,5 +152,5 @@ GtkScrolledWindow >> vAdjustment: adjustment [
 { #category : #accessing }
 GtkScrolledWindow >> vScrollBar [ 
 
-	^ self ffiCall: #(GtkScrollBar *gtk_scrolled_window_get_vscrollbar (self))
+	^ self ffiCall: #(#GtkScrollbar *gtk_scrolled_window_get_vscrollbar (self))
 ]

@@ -48,3 +48,10 @@ GtkToolbarStyle class >> enumDecl [
   	GTK_TOOLBAR_BOTH_HORIZ 	3	
 	)
 ]
+
+{ #category : #testing }
+GtkToolbarStyle class >> isDeprecated [
+
+	"apparently, we need to use a GtkBox with a style `toolbar`"
+	^ true
+]

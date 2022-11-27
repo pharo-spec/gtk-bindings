@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.ListItem.html
+"
 Class {
 	#name : #GtkListItem,
 	#superclass : #GObject,

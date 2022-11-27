@@ -29,6 +29,13 @@ GtkInfoBar class >> gtkInfoBarNew [
 	^ self ffiCall: #(GtkInfoBar *gtk_info_bar_new (void))
 ]
 
+{ #category : #testing }
+GtkInfoBar class >> isDeprecated [
+
+	"apparently, we now need to use a hand made widget (using a GtkRevealer as base)"
+	^ true 
+]
+
 { #category : #'instance creation' }
 GtkInfoBar class >> new [
 

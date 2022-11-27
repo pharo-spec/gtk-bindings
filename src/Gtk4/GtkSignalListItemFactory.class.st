@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.SignalListItemFactory.html
+"
 Class {
 	#name : #GtkSignalListItemFactory,
 	#superclass : #GtkListItemFactory,

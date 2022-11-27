@@ -1,14 +1,16 @@
 "
-GtkRevealer
 GtkRevealer — Hide and show with animation
 
-https://developer.gnome.org/gtk3/stable/GtkRevealer.html
+https://docs.gtk.org/gtk4/class.Revealer.html
 "
 Class {
 	#name : #GtkRevealer,
 	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
+	#pools : [
+		'GtkRevealerTransitionType'
+	],
 	#category : #'Gtk-Widget-Container'
 }
 
@@ -78,37 +80,37 @@ GtkRevealer >> setChild: aWidget [
 { #category : #accessing }
 GtkRevealer >> setCrossfadeTransition [
 
-	self transitionType: GtkRevealerTransitionType GTK_REVEALER_TRANSITION_TYPE_CROSSFADE
+	self transitionType: GTK_REVEALER_TRANSITION_TYPE_CROSSFADE
 ]
 
 { #category : #accessing }
 GtkRevealer >> setNoTransition [
 
-	self transitionType: GtkRevealerTransitionType GTK_REVEALER_TRANSITION_TYPE_NONE
+	self transitionType: GTK_REVEALER_TRANSITION_TYPE_NONE
 ]
 
 { #category : #accessing }
 GtkRevealer >> setSlideDownTransition [
 
-	self transitionType: GtkRevealerTransitionType GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN
+	self transitionType: GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN
 ]
 
 { #category : #accessing }
 GtkRevealer >> setSlideLeftTransition [
 
-	self transitionType: GtkRevealerTransitionType GTK_REVEALER_TRANSITION_TYPE_SLIDE_LEFT
+	self transitionType: GTK_REVEALER_TRANSITION_TYPE_SLIDE_LEFT
 ]
 
 { #category : #accessing }
 GtkRevealer >> setSlideRightTransition [
 
-	self transitionType: GtkRevealerTransitionType GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT
+	self transitionType: GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT
 ]
 
 { #category : #accessing }
 GtkRevealer >> setSlideUpTransition [
 
-	self transitionType: GtkRevealerTransitionType GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP
+	self transitionType: GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP
 ]
 
 { #category : #accessing }

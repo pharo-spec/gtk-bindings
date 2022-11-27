@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.ListItemFactory.html
+"
 Class {
 	#name : #GtkListItemFactory,
 	#superclass : #GObject,

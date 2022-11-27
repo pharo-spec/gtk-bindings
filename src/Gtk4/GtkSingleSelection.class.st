@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.SingleSelection.html
+"
 Class {
 	#name : #GtkSingleSelection,
 	#superclass : #GtkSelectionModel,

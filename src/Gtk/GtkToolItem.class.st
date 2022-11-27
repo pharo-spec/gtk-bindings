@@ -16,6 +16,13 @@ GtkToolItem class >> gType [
 	^ self ffiCall: #(gsize gtk_tool_item_get_type())
 ]
 
+{ #category : #testing }
+GtkToolItem class >> isDeprecated [
+
+	"apparently, we need to use a GtkBox with a style `toolbar`"
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkToolItem class >> new [
 	^ self toolItemNew initialize
