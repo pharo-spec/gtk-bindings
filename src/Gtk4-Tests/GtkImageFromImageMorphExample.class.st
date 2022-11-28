@@ -1,34 +1,31 @@
 Class {
-	#name : #GtkImageFromMorphExample,
+	#name : #GtkImageFromImageMorphExample,
 	#superclass : #Object,
 	#category : #'Gtk4-Tests-Example'
 }
 
 { #category : #'instance creation' }
-GtkImageFromMorphExample class >> open [
+GtkImageFromImageMorphExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
 { #category : #private }
-GtkImageFromMorphExample >> addContentsTo: window [
-	| widget morph image |
-
-	widget := GtkBox newVertical.
-	widget expand: true.
+GtkImageFromImageMorphExample >> addContentsTo: window [
+	| morph image |
 
 	morph :=  (self currentWorld submorphs 
 		detect: [ :each | each class = ImageMorph ]).
 	image :=  morph asGtkImage.
 	image expand: true.
-	widget append: image.
 	
-	window child: widget
+	window child: image
 ]
 
 { #category : #opening }
-GtkImageFromMorphExample >> open [
+GtkImageFromImageMorphExample >> open [
+	<script: 'self new open'>
 	| window |
 	
 	GEngine ensureRunning.

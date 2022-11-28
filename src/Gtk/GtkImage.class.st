@@ -28,6 +28,12 @@ GtkImage class >> gType [
 ]
 
 { #category : #private }
+GtkImage class >> imageNewFromPaintable: paintable [
+
+	^ self ffiCall: #(GtkImage *gtk_image_new_from_paintable (GdkPaintable *paintable))
+]
+
+{ #category : #private }
 GtkImage class >> imageNewFromPixbuf: pixbuf [ 
 
 	^ self ffiCall: #(GtkImage *gtk_image_new_from_pixbuf (GdkPixbuf *pixbuf))
@@ -46,9 +52,26 @@ GtkImage class >> newEmpty [
 ]
 
 { #category : #'instance creation' }
+GtkImage class >> newPaintable: aPaintable [ 
+
+	^ (self imageNewFromPaintable: aPaintable) initialize
+]
+
+{ #category : #'instance creation' }
 GtkImage class >> newPixbuf: aGdkPixbuf [ 
 
 	^ (self imageNewFromPixbuf: aGdkPixbuf) initialize
+]
+
+{ #category : #private }
+GtkImage class >> surfaceFor: anImageMorph [
+	| surface |
+
+	surface := AthensCairoSurface extent: anImageMorph extent.
+	surface drawDuring: [ :canvas |
+		anImageMorph drawOnAthensCanvas: canvas ].
+
+	^ surface
 ]
 
 { #category : #converting }

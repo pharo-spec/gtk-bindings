@@ -8,6 +8,17 @@ GtkImage class >> newForm: aForm [
 
 { #category : #'*Gtk-Morphic' }
 GtkImage class >> newMorph: anImageMorph [
+	| surface texture |
+	
+	surface := self surfaceFor: anImageMorph.
+	texture := surface asGdkTexture.
+	^ self newPaintable: texture
+]
 
-	^ self newPixbuf: anImageMorph asGdkPixbuf
+{ #category : #'*Gtk-Morphic' }
+GtkImage >> newMorph: anImageMorph [
+
+	| surf |
+	surf := self surfaceFor: anImageMorph.
+	^ (self imageNewFromSurface: surf) initialize
 ]
