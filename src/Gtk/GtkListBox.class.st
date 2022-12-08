@@ -5,7 +5,9 @@ https://developer.gnome.org/gtk3/stable/GtkListBox.html
 "
 Class {
 	#name : #GtkListBox,
-	#superclass : #GtkContainer,
+	#superclass : #GtkWidget,
+	#traits : 'GtkTContainer',
+	#classTraits : 'GtkTContainer classTrait',
 	#instVars : [
 		'listModel'
 	],
@@ -40,12 +42,32 @@ GtkListBox >> activateOnSingleClick: single [
 
 { #category : #accessing }
 GtkListBox >> add: aWidget [ 
-	^ super add: aWidget asListBoxRow
+
+	^ self append: aWidget asListBoxRow
+]
+
+{ #category : #accessing }
+GtkListBox >> append: child [
+
+	self keepWidget: child.
+	self basicAppend: child
+]
+
+{ #category : #private }
+GtkListBox >> basicAppend: child [
+
+	self ffiCall: #(void gtk_list_box_append (self, GtkWidget* child))
 ]
 
 { #category : #private }
 GtkListBox >> basicInsert: child at: position [
 	self ffiCall: #(void gtk_list_box_insert (self, GtkWidget *child, gint position))
+]
+
+{ #category : #private }
+GtkListBox >> basicRemove: child [
+
+	self ffiCall: #(void gtk_list_box_remove (self, GtkWidget* child))
 ]
 
 { #category : #configuring }
@@ -123,8 +145,8 @@ GtkListBox >> items [
 
 { #category : #accessing }
 GtkListBox >> prependWidget: aWidget [
-	self
-		ffiCall: #(void gtk_list_box_prepend #(self , GtkWidget * aWidget))
+
+	self ffiCall: #(void gtk_list_box_prepend #(self , GtkWidget * aWidget))
 ]
 
 { #category : #accessing }

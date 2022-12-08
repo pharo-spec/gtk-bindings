@@ -31,6 +31,12 @@ GtkSpinner class >> new [
 	^ self gtkSpinnerNew initialize
 ]
 
+{ #category : #testing }
+GtkSpinner >> isSpinning [
+
+	^ self ffiCall: #(gboolean gtk_spinner_get_spinning (self))
+]
+
 { #category : #accessing }
 GtkSpinner >> start [
 

@@ -62,7 +62,7 @@ GtkSwitch >> beNonActive [
 	self active: false
 ]
 
-{ #category : #accessing }
+{ #category : #signaling }
 GtkSwitch >> connectStateSet: aBlock [
 
 	^ self 
