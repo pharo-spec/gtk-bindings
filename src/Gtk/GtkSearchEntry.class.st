@@ -2,11 +2,13 @@
 GtkSearchEntry
 GtkSearchEntry — An entry which shows a search icon
 
-https://developer.gnome.org/gtk3/stable/GtkSearchEntry.html
+https://docs.gtk.org/gtk4/class.SearchEntry.html
 "
 Class {
 	#name : #GtkSearchEntry,
-	#superclass : #GtkEntry,
+	#superclass : #GtkWidget,
+	#traits : 'GtkTEditable',
+	#classTraits : 'GtkTEditable classTrait',
 	#category : #'Gtk-Widget-Input'
 }
 
@@ -53,8 +55,14 @@ GtkSearchEntry >> connectStopSearch: aBlock [
 	^ self connect: 'stop-search' do: aBlock
 ]
 
-{ #category : #events }
-GtkSearchEntry >> handleEvent: anEvent [
+{ #category : #accessing }
+GtkSearchEntry >> searchDelay [
 
-	^ self ffiCall: #(gboolean gtk_search_entry_handle_event (self, GdkEvent *event))
+	self ffiCall: #(guint gtk_search_entry_get_search_delay (self))
+]
+
+{ #category : #accessing }
+GtkSearchEntry >> searchDelay: delay [
+
+	self ffiCall: #(void gtk_search_entry_set_search_delay (self, guint delay))
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #GtkEntryTest,
+	#name : #GtkSpinButtonTest,
 	#superclass : #GtkWidgetTest,
 	#traits : 'GtkTEditableTest',
 	#classTraits : 'GtkTEditableTest classTrait',
@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : #accessing }
-GtkEntryTest >> widgetClass [
+GtkSpinButtonTest >> widgetClass [
 
-	^ GtkEntry
+	^ GtkSpinButton
 ]

@@ -1,8 +1,7 @@
 "
-Simplified version of GtkTreeView to display lists
-GtkTreeView — A widget for displaying both trees and lists
+DEPRECATED
 
-https://developer.gnome.org/gtk3/stable/GtkTreeView.html
+Use GtkListView
 "
 Class {
 	#name : #GtkTreeView,
@@ -28,6 +27,12 @@ GtkTreeView class >> gType [
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_tree_view_get_type())
+]
+
+{ #category : #testing }
+GtkTreeView class >> isDeprecated [
+
+	^ true
 ]
 
 { #category : #'instance creation' }

@@ -14,24 +14,6 @@ Class {
 	#category : #'Gtk-Misc'
 }
 
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_INHERIT [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_INHERIT
-]
-
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_LARGE [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_LARGE
-]
-
-{ #category : #'accessing enum' }
-GtkIconSize class >> GTK_ICON_SIZE_NORMAL [
-	"This method was automatically generated"
-	^ GTK_ICON_SIZE_NORMAL
-]
-
 { #category : #'enum declaration' }
 GtkIconSize class >> enumDecl [
 	"

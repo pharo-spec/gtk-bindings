@@ -12,7 +12,7 @@ Class {
 	#pools : [
 		'GType'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : #'Gtk-Widget-Tree-Store'
 }
 
 { #category : #private }

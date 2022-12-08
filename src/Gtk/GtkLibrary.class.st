@@ -75,5 +75,5 @@ GtkLibrary >> version [
 { #category : #'accessing platform' }
 GtkLibrary >> win32LibraryName [
 	
-	^ 'libgtk-3-0.dll'
+	^ 'libgtk-4-0.dll'
 ]

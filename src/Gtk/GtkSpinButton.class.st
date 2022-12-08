@@ -5,7 +5,9 @@ https://developer.gnome.org/gtk3/stable/GtkSpinButton.html
 "
 Class {
 	#name : #GtkSpinButton,
-	#superclass : #GtkEntry,
+	#superclass : #GtkWidget,
+	#traits : 'GtkTEditable',
+	#classTraits : 'GtkTEditable classTrait',
 	#pools : [
 		'GtkInputPurpose'
 	],

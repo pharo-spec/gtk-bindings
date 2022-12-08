@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkEntry.html
 Class {
 	#name : #GtkEntry,
 	#superclass : #GtkWidget,
+	#traits : 'GtkTEditable',
+	#classTraits : 'GtkTEditable classTrait',
 	#instVars : [
 		'entryCompletion',
 		'buffer',
