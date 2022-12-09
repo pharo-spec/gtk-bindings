@@ -261,7 +261,7 @@ GtkMorphicDrawingArea class >> newGridOf: aNumber with: aBlock [
 	^ gridMorph
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkMorphicDrawingArea >> cairoCreate: target [
 
 	^ self 
@@ -269,7 +269,7 @@ GtkMorphicDrawingArea >> cairoCreate: target [
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkMorphicDrawingArea >> cairoDestroy: cr [
 
 	^ self 
@@ -277,7 +277,7 @@ GtkMorphicDrawingArea >> cairoDestroy: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkMorphicDrawingArea >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth height: aHeight [
 
 	self 
@@ -298,8 +298,8 @@ GtkMorphicDrawingArea >> canDraw [
 { #category : #initialization }
 GtkMorphicDrawingArea >> connectToSignals [
 
-	self connectResize: [ :anExtent | self resizeIfEnabledTo: anExtent ].
-	self connectEvent: [ :event | self handleEvent: event ]
+	"self connectResize: [ :anExtent | self resizeIfEnabledTo: anExtent ]."
+	"self connectEvent: [ :event | self handleEvent: event ]"
 ]
 
 { #category : #private }
@@ -332,7 +332,7 @@ GtkMorphicDrawingArea >> eventHandler: aHandler [
 	eventHandler := aHandler
 ]
 
-{ #category : #'private events' }
+{ #category : #'private - events' }
 GtkMorphicDrawingArea >> handleEvent: event [
 
 	event isEventConfigure ifTrue: [ 
@@ -361,7 +361,17 @@ GtkMorphicDrawingArea >> invalidateRect: damageRect [
 	self subclassResponsibility
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'instance creation' }
+GtkMorphicDrawingArea >> newDrawFunction [
+
+	^ GCallback 
+		signature: #(void (void *widget, void *cr, int width, int height, gpointer user_data)) 
+		block: [ :widget :cr :width :height :user_data |
+			self resizeIfEnabledTo: (width@height).
+			self draw: cr ]
+]
+
+{ #category : #'private - primitives' }
 GtkMorphicDrawingArea >> paint: cr [
 
 	self 
@@ -377,14 +387,6 @@ GtkMorphicDrawingArea >> queueDraw [
 	super queueDraw
 ]
 
-{ #category : #accessing }
-GtkMorphicDrawingArea >> queueDrawArea: rect [
-
-	"(drawing or: [ drawQueued ]) ifTrue: [ ^ self ].
-	drawQueued := true."
-	super queueDrawArea: rect
-]
-
 { #category : #initialization }
 GtkMorphicDrawingArea >> registerToEvents [
 
@@ -397,7 +399,7 @@ GtkMorphicDrawingArea >> resizeIfEnabledTo: extent [
 	self subclassResponsibility
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface [
 
 	self 
@@ -407,7 +409,7 @@ GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface [
 		y: 0.0
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface x: x y: y [
 
 	self 
@@ -415,7 +417,7 @@ GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface x: x y: y [
 		module: CairoLibrary
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkMorphicDrawingArea >> updateSurface [
 
 	self subclassResponsibility

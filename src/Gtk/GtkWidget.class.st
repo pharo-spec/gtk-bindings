@@ -1024,17 +1024,6 @@ GtkWidget >> queueDraw [
 ]
 
 { #category : #accessing }
-GtkWidget >> queueDrawArea: rect [
-
-	^ GtkQueueDraw uniqueInstance 
-		queueDrawArea: self
-		x: rect left asInteger
-		y: rect top asInteger
-		width: rect width asInteger
-		height: rect height asInteger
-]
-
-{ #category : #accessing }
 GtkWidget >> queueResize [
 
 	^ self ffiCall: #(void gtk_widget_queue_resize (self))

@@ -31,16 +31,21 @@ GtkMorphView class >> drawingAreaNew [
 GtkMorphView class >> example1 [
 
 	GtkEngine ensureRunning.
-	
-	GtkWindow new 
-		resize: 500@500;
-		add: (GtkPaned newHorizontal
-			pack1: (GtkLabel newLabel: 'Label');
-			pack2: (GtkMorphView newMorph: (Morph new
-				addMorphBack: 'Test' asStringMorph;
-				yourself));
-			yourself);
-		showAll
+	GRunLoop defer: [ 
+		GtkWindow new
+			defaultSize: 500@500;
+			child: (GtkPaned newHorizontal
+				startChild: (GtkLabel newLabel: 'Label');
+				endChild: (self new
+					morph: (Morph new
+						vResizing: #spaceFill;
+						hResizing: #spaceFill;
+						addMorphBack: 'Test' asStringMorph;
+						yourself);
+					expand: true;
+					yourself);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -56,13 +61,14 @@ GtkMorphView class >> example2 [
 		send: #value:
 		to: [ :event | positionMorph contents: event position asString ].
 
-	GtkWindow new
-		title: 'Mouse-move test';
-		resize: 500@500;
-		add: (GtkBox newVertical 
-			packStart: (GtkMorphView newMorph: morph);
-			yourself);
-		showAll
+	GRunLoop defer: [  
+		GtkWindow new
+			title: 'Mouse-move test';
+			defaultSize: 500@500;
+			child: (GtkBox newVertical 
+				append: (GtkMorphView newMorph: morph);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -79,13 +85,14 @@ GtkMorphView class >> example3 [
 				on: #mouseEnter send: #value: to: [ :event | cell color: Color red ];
 				on: #mouseLeave send: #value: to: [ :event | cell color: Color blue ] ].
 
-	GtkWindow new
-		title: 'Example 3';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			packStart: (GtkMorphView newMorph: morph);
-			yourself);
-		showAll
+	GRunLoop defer: [ 
+		GtkWindow new
+			title: 'Example 3';
+			defaultSize: 500@500;
+			child: (GtkBox newVertical
+				append: (GtkMorphView newMorph: morph);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -109,14 +116,15 @@ GtkMorphView class >> example4 [
 				on: #mouseEnter send: #value: to: [ :event | cell color: Color red ];
 				on: #mouseLeave send: #value: to: [ :event | cell color: Color green ] ].
 
-	GtkWindow new
-		title: 'Example 4';
-		resize: 500@500;
-		add: (GtkPaned newVertical 
-			pack1: (GtkMorphView newMorph: morph1);
-			pack2: (GtkMorphView newMorph: morph2);
-			yourself);
-		showAll
+	GRunLoop defer: [ 
+		GtkWindow new
+			title: 'Example 4';
+			defaultSize: 500@500;
+			child: (GtkPaned newVertical 
+				startChild: (GtkMorphView newMorph: morph1);
+				endChild: (GtkMorphView newMorph: morph2);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -135,14 +143,15 @@ GtkMorphView class >> example5 [
 				actionBlock: [ inform addInfo: pos asString ];
 				yourself ].
 
-	GtkWindow new
-		title: 'Example 5';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkMorphView newMorph: morph);
-			yourself);
-		showAll
+	GRunLoop defer: [ 
+		GtkWindow new
+			title: 'Example 5';
+			defaultSize: 500@500;
+			child: (GtkBox newVertical
+				append: inform;
+				append: (GtkMorphView newMorph: morph);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -164,12 +173,12 @@ GtkMorphView class >> example6 [
 
 	GtkWindow new
 		title: 'PlugabbleButtonMorph Event Example';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkMorphView newMorph: morph);
+		defaultSize: 500@500;
+		child: (GtkBox newVertical
+			append: inform;
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -193,12 +202,12 @@ GtkMorphView class >> example7 [
 
 	GtkWindow new
 		title: 'SimpleButtonMorph Event Example';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkMorphView newMorph: morph);
+		defaultSize: 500@500;
+		child: (GtkBox newVertical
+			append: inform;
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -233,16 +242,34 @@ GtkMorphView class >> example8 [
 
 	GtkWindow new
 		title: 'SimpleButtonMorph Event Example';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkPaned newVertical
+		defaultSize: 500@500;
+		child: (GtkBox newVertical
+			append: inform;
+			append: (GtkPaned newVertical
 				position: 250;
 				add: (GtkMorphView newMorph: morph1);
 				add: (GtkMorphView newMorph: morph2);
 				yourself);
 			yourself);
-		showAll
+		present
+]
+
+{ #category : #examples }
+GtkMorphView class >> example9 [
+
+	GtkEngine ensureRunning.
+	GRunLoop defer: [ 
+		GtkWindow new
+			defaultSize: 500@500;
+			child: (self new
+				morph: (Morph new
+					vResizing: #spaceFill;
+					hResizing: #spaceFill;
+					addMorphBack: 'Test' asStringMorph;
+					yourself);
+				expand: true;
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -535,7 +562,7 @@ GtkMorphView >> invalidate: needQueue [
 GtkMorphView >> invalidateRect: damageRect [
 
 	damageRecorder recordInvalidRect: damageRect.
-	self queueDrawArea: damageRect
+	self queueDraw
 ]
 
 { #category : #'world simulation' }

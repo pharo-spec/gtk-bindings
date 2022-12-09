@@ -44,20 +44,9 @@ GtkBlockBasedDrawingArea >> boundingBox [
 ]
 
 { #category : #initialization }
-GtkBlockBasedDrawingArea >> connectDrawFunction [
-
-	drawFunction := GCallback 
-		signature: #(void (void *widget, void *cr, int width, int height, gpointer user_data)) 
-		block: [ :widget :cr :width :height :user_data | 
-			boundingBox := (0@0) corner: (width@height).
-			self draw: cr ].
-	self setDrawFunc: drawFunction
-]
-
-{ #category : #initialization }
 GtkBlockBasedDrawingArea >> connectToSignals [
 
-	self connectResize: [ :anExtent | (0@0) corner: anExtent ]
+	"self connectResize: [ :anExtent | (0@0) corner: anExtent ]"
 ]
 
 { #category : #drawing }
@@ -79,4 +68,14 @@ GtkBlockBasedDrawingArea >> drawOnAthensCanvas: aCanvas [
 		drawBlock 
 			cull: canvas 
 			cull: self boundingBox ]
+]
+
+{ #category : #initialization }
+GtkBlockBasedDrawingArea >> newDrawFunction [
+	
+	^ GCallback 
+		signature: #(void (void *widget, void *cr, int width, int height, gpointer user_data)) 
+		block: [ :widget :cr :width :height :user_data | 
+			boundingBox := (0@0) corner: (width@height).
+			self draw: cr ]
 ]

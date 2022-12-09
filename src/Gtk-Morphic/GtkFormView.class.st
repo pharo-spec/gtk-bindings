@@ -64,7 +64,7 @@ GtkFormView >> form: aForm [
 	self invalidate	
 ]
 
-{ #category : #'private events' }
+{ #category : #'private - events' }
 GtkFormView >> handleEvent: anEvent [
 
 	anEvent type = GdkEventType GDK_ENTER_NOTIFY 
@@ -83,7 +83,7 @@ GtkFormView >> invalidate [
 GtkFormView >> invalidateRect: damageRect [
 
 	self updateSurfaceRectangle: damageRect.
-	self queueDrawArea: damageRect
+	self queueDraw
 ]
 
 { #category : #private }
@@ -92,13 +92,13 @@ GtkFormView >> resizeIfEnabledTo: extent [
 	self world worldState worldRenderer checkForNewScreenSize
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkFormView >> updateSurface [
 
 	surface := GtkCairoSurface fromForm: form
 ]
 
-{ #category : #'private updating' }
+{ #category : #'private - updating' }
 GtkFormView >> updateSurfaceRectangle: aRect [
 	| origin newForm |
 	

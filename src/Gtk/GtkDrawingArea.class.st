@@ -59,10 +59,7 @@ GtkDrawingArea >> connectDraw: aBlock [
 { #category : #initialization }
 GtkDrawingArea >> connectDrawFunction [
 
-	drawFunction := GCallback 
-		signature: #(void (void *widget, void *cr, int width, int height, gpointer user_data)) 
-		block: [ :widget :cr :width :height :user_data | 
-			self draw: cr ].
+	drawFunction := self newDrawFunction.
 	self setDrawFunc: drawFunction
 ]
 
@@ -125,6 +122,12 @@ GtkDrawingArea >> initialize [
 	self registerToEvents.
 	self connectToSignals.
 	self connectDrawFunction
+]
+
+{ #category : #initialization }
+GtkDrawingArea >> newDrawFunction [
+	
+	^ self subclassResponsibility
 ]
 
 { #category : #initialization }
