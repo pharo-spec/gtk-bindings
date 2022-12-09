@@ -21,7 +21,7 @@ GtkBlockBasedDrawingArea class >> example [
 		GtkWindow new 
 			defaultSize: 500@500;
 			child: (self new
-				drawBlock: [ :aCanvas :bb | 
+				drawBlock: [ :aCanvas :boundingBox | 
 					| paint surface |
 					surface := aCanvas surface.
 					paint := surface 
@@ -29,10 +29,10 @@ GtkBlockBasedDrawingArea class >> example [
 							0->Color red. 
 							1->Color green } 
 						start: 0@0 
-						stop: bb extent.
+						stop: boundingBox extent.
 					surface clear.
 					aCanvas setPaint: paint.
-					aCanvas drawShape: (0@0 corner: bb extent) ];
+					aCanvas drawShape: (0@0 corner: boundingBox extent) ];
 				yourself);
 			present ]
 ]
