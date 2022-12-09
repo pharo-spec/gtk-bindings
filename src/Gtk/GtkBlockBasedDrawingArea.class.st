@@ -13,10 +13,45 @@ GtkBlockBasedDrawingArea class >> drawingAreaNew [
 	^ self ffiCall: #( GtkBlockBasedDrawingArea *gtk_drawing_area_new () )
 ]
 
+{ #category : #examples }
+GtkBlockBasedDrawingArea class >> example [
+
+	GtkEngine ensureRunning.
+	GRunLoop defer: [ 
+		GtkWindow new 
+			defaultSize: 500@500;
+			child: (self new
+				drawBlock: [ :aCanvas :bb | 
+					| paint surface |
+					surface := aCanvas surface.
+					paint := surface 
+						createLinearGradient: { 
+							0->Color red. 
+							1->Color green } 
+						start: 0@0 
+						stop: bb extent.
+					surface clear.
+					aCanvas setPaint: paint.
+					aCanvas drawShape: (0@0 corner: bb extent) ];
+				yourself);
+			present ]
+]
+
 { #category : #accessing }
 GtkBlockBasedDrawingArea >> boundingBox [ 
 
 	^ boundingBox ifNil: [ super boundingBox ]
+]
+
+{ #category : #initialization }
+GtkBlockBasedDrawingArea >> connectDrawFunction [
+
+	drawFunction := GCallback 
+		signature: #(void (void *widget, void *cr, int width, int height, gpointer user_data)) 
+		block: [ :widget :cr :width :height :user_data | 
+			boundingBox := (0@0) corner: (width@height).
+			self draw: cr ].
+	self setDrawFunc: drawFunction
 ]
 
 { #category : #initialization }
