@@ -16,7 +16,7 @@ GtkCairoSurface class >> extent: anExtent [
 
 	^ self platformClass
 		extent: anExtent 
-		format: CAIRO_FORMAT_RGB24
+		format: CAIRO_FORMAT_ARGB32
 ]
 
 { #category : #'instance creation' }
@@ -89,7 +89,7 @@ GtkCairoSurface class >> primImage: aFormat width: aWidth height: aHeight [
 
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkCairoSurface >> cairoCreate: target [
 
 	^ self 
@@ -97,7 +97,7 @@ GtkCairoSurface >> cairoCreate: target [
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkCairoSurface >> cairoDestroy: cr [
 
 	self 
@@ -105,7 +105,7 @@ GtkCairoSurface >> cairoDestroy: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkCairoSurface >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth height: aHeight [
 
 	self 
@@ -117,7 +117,7 @@ GtkCairoSurface >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth height:
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkCairoSurface >> cairoScale: cr x: sx y: sy [
 
 	self 
@@ -127,11 +127,17 @@ GtkCairoSurface >> cairoScale: cr x: sx y: sy [
 
 { #category : #private }
 GtkCairoSurface >> clipRectangleFrom: aCr [
-	| rect |
+	| x1 y1 x2 y2 |
 	
-	rect := GdkRectangle new.
-	self getClipRectangle: rect from: aCr.
-	^ rect asRectangle
+	x1 := FFIFloat64 newBuffer.
+	y1 := FFIFloat64 newBuffer.
+	x2 := FFIFloat64 newBuffer.
+	y2 := FFIFloat64 newBuffer.
+	
+	self getClipExtents: aCr x1: x1 y1: y1 x2: x2 y2: y2.
+	
+	^ ((x1 doubleAt: 1) asInteger@(y1 doubleAt: 1) asInteger) 
+		corner: ((x2 doubleAt: 1) asInteger@(y2 doubleAt: 1) asInteger)
 ]
 
 { #category : #copying }
@@ -146,7 +152,7 @@ GtkCairoSurface >> copyForm: aForm clippedBy: aRect at: aPoint [
 		self cairoDestroy: cr ]
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkCairoSurface >> fill: cr [
 
 	self 
@@ -182,17 +188,26 @@ GtkCairoSurface >> fillInto: cr [
 	self fill: cr
 ]
 
-{ #category : #'private primitives' }
-GtkCairoSurface >> getClipRectangle: rect from: cr [
-	
-	^ self 
-		ffiCall: #(gboolean gdk_cairo_get_clip_rectangle (
-			"cairo_t *"void *cr,
-  			GdkRectangle *rect))
-		module: GdkLibrary
+{ #category : #'private - primitives' }
+GtkCairoSurface >> getClipExtents: cr x1: x1 y1: y1 x2: x2 y2: y2 [
+
+	self 
+		ffiCall: #(void cairo_clip_extents (
+			void *cr, 
+			double *x1, 
+			double *y1, 
+			double *x2, 
+			double *y2))
+		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
+GtkCairoSurface >> getClipRectangle: rect from: cr [
+	
+	self deprecated: #Gtk4
+]
+
+{ #category : #'private - primitives' }
 GtkCairoSurface >> paint: cr [
 
 	self 
@@ -218,7 +233,7 @@ GtkCairoSurface >> scale: cr [
 	self cairoScale: cr x: 0.5 y: 0.5
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GtkCairoSurface >> setSourceSurfaceTo: cr surface: surface x: x y: y [
 
 	self 

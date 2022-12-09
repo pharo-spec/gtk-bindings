@@ -8,7 +8,8 @@ Class {
 	#superclass : #GtkWidget,
 	#instVars : [
 		'drawing',
-		'requestedSize'
+		'requestedSize',
+		'drawFunction'
 	],
 	#pools : [
 		'GdkEventMask',
@@ -38,13 +39,37 @@ GtkDrawingArea class >> new [
 { #category : #accessing }
 GtkDrawingArea >> appPaintable: app_paintable [
 
-	^ self ffiCall: #(void gtk_widget_set_app_paintable (self, gboolean app_paintable))
+	"This is gone in GTK4 with no direct replacement. 
+	 But for some usecases there are alternatives. 
+	 If you want to make the background transparent, you can set the 
+	 background color to, for example, rgba(255, 255, 255, 0) 
+	 using CSS instead."
+	
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }
 GtkDrawingArea >> connectDraw: aBlock [
 
-	^ (GDrawCallback do: aBlock) connectTo: self
+	self 
+		deprecated: #Gtk4
+		transformWith: '@receiver connectDraw: `aBlock' -> '@receiver drawFunction: `aBlock'
+]
+
+{ #category : #initialization }
+GtkDrawingArea >> connectDrawFunction [
+
+	drawFunction := GCallback 
+		signature: #(void (void *widget, void *cr, int width, int height, gpointer user_data)) 
+		block: [ :widget :cr :width :height :user_data | 
+			self draw: cr ].
+	self setDrawFunc: drawFunction
+]
+
+{ #category : #signaling }
+GtkDrawingArea >> connectResize: aBlock [
+
+	(GResizeCallback do: aBlock) connectTo: self
 ]
 
 { #category : #initialization }
@@ -96,10 +121,10 @@ GtkDrawingArea >> initialize [
 	super initialize.
 	self hExpand: true.
 	self vExpand: true.
-	self appPaintable: true.
+	"self appPaintable: true."
 	self registerToEvents.
 	self connectToSignals.
-	self connectDraw: [ :cr | self draw: cr ]
+	self connectDrawFunction
 ]
 
 { #category : #initialization }
@@ -107,12 +132,23 @@ GtkDrawingArea >> registerToAllEvents [
 	"call this method when you want to receive events of anykind. 
 	 you will need to connect to them and handle them after."
 
-	self events: GDK_ALL_EVENTS_MASK value
+self flag: #TODO.
+	"self events: GDK_ALL_EVENTS_MASK value"
 ]
 
 { #category : #initialization }
 GtkDrawingArea >> registerToEvents [
 
+]
+
+{ #category : #private }
+GtkDrawingArea >> setDrawFunc: draw_func [
+
+	self ffiCall: #(void gtk_drawing_area_set_draw_func (
+  		self,
+		"GtkDrawingAreaDrawFunc" GCallback draw_func,
+  		"gpointer user_data" NULL,
+  		"GDestroyNotify destroy" NULL))
 ]
 
 { #category : #private }

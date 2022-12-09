@@ -18,6 +18,19 @@ GtkFormView class >> drawingAreaNew [
 	^ self ffiCall: #(GtkFormView *gtk_drawing_area_new ())
 ]
 
+{ #category : #examples }
+GtkFormView class >> example [
+
+	GtkEngine ensureRunning.
+	GRunLoop defer: [ 
+		GtkWindow new 
+			defaultSize: 500@500;
+			child: (self new
+				form: (self currentWorld submorphs detect: [ :each | each class = ImageMorph ]) asForm;
+				yourself);
+			present ]
+]
+
 { #category : #private }
 GtkFormView >> canDraw [
 
@@ -33,10 +46,8 @@ GtkFormView >> currentExtent [
 { #category : #drawing }
 GtkFormView >> draw: aCr [
 	
-	surface ifNotNil: [ 
-		surface fillInto: aCr ].
-
-	^ false
+	surface ifNil: [ ^ self ]. 
+	surface fillInto: aCr
 ]
 
 { #category : #accessing }

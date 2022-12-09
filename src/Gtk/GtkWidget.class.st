@@ -139,16 +139,17 @@ GtkWidget >> addController: controller [
 	eventControllers := eventControllers copyWith: controller.
 	
 	"the widget will take control (see https://docs.gtk.org/gtk4/method.Widget.add_controller.html)"
-	controller dontAutoRelease.
+	controller doNotAutoRelease.
 	
 	self basicAddController: controller.
+	
 	^ controller
 ]
 
 { #category : #accessing }
 GtkWidget >> addEvents: events [
 	
-	self ffiCall: #(void gtk_widget_add_events (self, gint events))
+	self deprecated: #Gtk4
 ]
 
 { #category : #'private - events' }
@@ -227,7 +228,7 @@ GtkWidget >> autoRelease [
 	^ super autoRelease
 ]
 
-{ #category : #private }
+{ #category : #'private - events' }
 GtkWidget >> basicAddController: controller [
 
 	self ffiCall: #(void gtk_widget_add_controller (self, GtkEventController* controller))
@@ -431,7 +432,7 @@ GtkWidget >> connectShow: aBlock [
 { #category : #signaling }
 GtkWidget >> connectSizeAllocate: aBlock [
 
-	self deprecated: 'This is not valid in Gtk4'
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }
@@ -470,11 +471,13 @@ GtkWidget >> createPangoLayout: text [
 { #category : #accessing }
 GtkWidget >> data [
 	"Stores any kind of 'data' you want to keep associated to the widget"
+
 	^ data
 ]
 
 { #category : #accessing }
 GtkWidget >> data: anObject [
+
 	data := anObject
 ]
 
@@ -548,13 +551,13 @@ GtkWidget >> dragDestUnset [
 { #category : #accessing }
 GtkWidget >> events [
 	
-	self ffiCall: #(gint gtk_widget_get_events (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkWidget >> events: events [
 	
-	self ffiCall: #(void gtk_widget_set_events (self, gint events))
+	self deprecated: #Gtk4
 ]
 
 { #category : #'private - deferring' }
@@ -1077,8 +1080,7 @@ GtkWidget >> sensitive: sensitive [
 { #category : #accessing }
 GtkWidget >> setSizeRequestWidth: width height: height [
 	
-	self
-		ffiCall: #(void gtk_widget_set_size_request #(self , gint width , gint height))
+	self ffiCall: #(void gtk_widget_set_size_request #(self, gint width, gint height))
 ]
 
 { #category : #private }

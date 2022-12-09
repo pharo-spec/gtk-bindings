@@ -22,7 +22,7 @@ GtkBlockBasedDrawingArea >> boundingBox [
 { #category : #initialization }
 GtkBlockBasedDrawingArea >> connectToSignals [
 
-	self connectSizeAllocate: [ :aRect | boundingBox := aRect ]
+	self connectResize: [ :anExtent | (0@0) corner: anExtent ]
 ]
 
 { #category : #drawing }

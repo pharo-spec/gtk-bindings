@@ -1,4 +1,6 @@
 "
+DEPRECATED: Replacement to be defined.
+
 I am an utility to show GtkInfoBars.
 I wrap the functionality so users do not have to code it all the time.
 
@@ -35,6 +37,12 @@ GtkInfoArea class >> defaultRemoveTime [
 GtkInfoArea class >> defaultShowTime [
 
 	^ 5 seconds
+]
+
+{ #category : #testing }
+GtkInfoArea class >> isDeprecated [
+
+	^ true
 ]
 
 { #category : #'instance creation' }

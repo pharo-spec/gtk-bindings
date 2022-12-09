@@ -19,12 +19,12 @@ GtkMorphicDrawingArea class >> example1 [
 	GtkWindow new 
 		resize: 500@500;
 		add: (GtkPaned newHorizontal
-			pack1: (GtkLabel newLabel: 'Label');
-			pack2: (GtkMorphView newMorph: (Morph new
+			startChild: (GtkLabel newLabel: 'Label');
+			endChild: (GtkMorphView newMorph: (Morph new
 				addMorphBack: 'Test' asStringMorph;
 				yourself));
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -44,9 +44,9 @@ GtkMorphicDrawingArea class >> example2 [
 		title: 'Mouse-move test';
 		resize: 500@500;
 		add: (GtkBox newVertical 
-			packStart: (GtkMorphView newMorph: morph);
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -67,9 +67,9 @@ GtkMorphicDrawingArea class >> example3 [
 		title: 'Example 3';
 		resize: 500@500;
 		add: (GtkBox newVertical
-			packStart: (GtkMorphView newMorph: morph);
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -97,10 +97,10 @@ GtkMorphicDrawingArea class >> example4 [
 		title: 'Example 4';
 		resize: 500@500;
 		add: (GtkPaned newVertical 
-			pack1: (GtkMorphView newMorph: morph1);
-			pack2: (GtkMorphView newMorph: morph2);
+			startChild: (GtkMorphView newMorph: morph1);
+			endChild: (GtkMorphView newMorph: morph2);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -123,10 +123,10 @@ GtkMorphicDrawingArea class >> example5 [
 		title: 'Example 5';
 		resize: 500@500;
 		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkMorphView newMorph: morph);
+			append: inform;
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -150,10 +150,10 @@ GtkMorphicDrawingArea class >> example6 [
 		title: 'PlugabbleButtonMorph Event Example';
 		resize: 500@500;
 		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkMorphView newMorph: morph);
+			append: inform;
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -179,10 +179,10 @@ GtkMorphicDrawingArea class >> example7 [
 		title: 'SimpleButtonMorph Event Example';
 		resize: 500@500;
 		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkMorphView newMorph: morph);
+			append: inform;
+			append: (GtkMorphView newMorph: morph);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -219,14 +219,14 @@ GtkMorphicDrawingArea class >> example8 [
 		title: 'SimpleButtonMorph Event Example';
 		resize: 500@500;
 		add: (GtkBox newVertical
-			packStart: inform expand: false fill: false padding: 0;
-			packStart: (GtkPaned newVertical
+			append: inform;
+			append: (GtkPaned newVertical
 				position: 250;
-				add: (GtkMorphView newMorph: morph1);
-				add: (GtkMorphView newMorph: morph2);
+				startChild: (GtkMorphView newMorph: morph1);
+				endChild: (GtkMorphView newMorph: morph2);
 				yourself);
 			yourself);
-		showAll
+		present
 ]
 
 { #category : #examples }
@@ -298,7 +298,7 @@ GtkMorphicDrawingArea >> canDraw [
 { #category : #initialization }
 GtkMorphicDrawingArea >> connectToSignals [
 
-	self connectSizeAllocate: [ :aRect | self resizeIfEnabledTo: aRect extent ].
+	self connectResize: [ :anExtent | self resizeIfEnabledTo: anExtent ].
 	self connectEvent: [ :event | self handleEvent: event ]
 ]
 

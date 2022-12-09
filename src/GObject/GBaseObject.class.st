@@ -62,7 +62,7 @@ GBaseObject >> autoRelease [
 ]
 
 { #category : #'external resource management' }
-GBaseObject >> dontAutoRelease [
+GBaseObject >> doNotAutoRelease [
 
 	self resourceManager removeResource: self
 ]
