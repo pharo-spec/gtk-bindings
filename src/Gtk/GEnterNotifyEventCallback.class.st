@@ -31,7 +31,7 @@ GEnterNotifyEventCallback class >> signalName [
 GEnterNotifyEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
-		aBlock value: (GdkEventCrossing fromHandle: event) ]
+		aBlock value: (GdkCrossingEvent fromHandle: event) ]
 ]
 
 { #category : #accessing }

@@ -31,7 +31,7 @@ GMotionNotifyEventCallback class >> signalName [
 GMotionNotifyEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
-		aBlock value: (GdkEventMotion fromHandle: event) ]
+		aBlock value: (GdkMotionEvent fromHandle: event) ]
 ]
 
 { #category : #accessing }

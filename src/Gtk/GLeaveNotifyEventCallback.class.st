@@ -31,7 +31,7 @@ GLeaveNotifyEventCallback class >> signalName [
 GLeaveNotifyEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
-		aBlock value: (GdkEventCrossing fromHandle: event) ]
+		aBlock value: (GdkCrossingEvent fromHandle: event) ]
 ]
 
 { #category : #accessing }

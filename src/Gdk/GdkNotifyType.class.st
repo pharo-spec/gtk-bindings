@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gdk4/enum.NotifyType.html
+"
 Class {
 	#name : #GdkNotifyType,
 	#superclass : #GEnumeration,

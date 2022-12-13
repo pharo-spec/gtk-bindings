@@ -233,7 +233,7 @@ GtkKeyEvent >> symbol [
 { #category : #accessing }
 GtkKeyEvent >> unicodeValue [
 
-	^ unicodeValue ifNil: [ unicodeValue := GdkEventKey keyValToUnicode: self keyVal ]
+	^ unicodeValue ifNil: [ unicodeValue := GdkKeyEvent keyValToUnicode: self keyVal ]
 ]
 
 { #category : #compatibility }

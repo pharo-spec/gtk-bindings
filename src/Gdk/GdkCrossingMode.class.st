@@ -1,3 +1,8 @@
+"
+Specifies the crossing mode for enter and leave events.
+
+https://docs.gtk.org/gdk4/enum.CrossingMode.html
+"
 Class {
 	#name : #GdkCrossingMode,
 	#superclass : #GEnumeration,

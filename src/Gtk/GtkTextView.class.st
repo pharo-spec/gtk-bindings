@@ -136,7 +136,7 @@ GtkTextView >> getIterLocation: iter to: location [
 { #category : #accessing }
 GtkTextView >> imContextFilterKeypress: event [
 
-	^ self ffiCall: #(gboolean gtk_text_view_im_context_filter_keypress (self, GdkEventKey *event))
+	^ self ffiCall: #(gboolean gtk_text_view_im_context_filter_keypress (self, #GdkKeyEvent *event))
 ]
 
 { #category : #testing }

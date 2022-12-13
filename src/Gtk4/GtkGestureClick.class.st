@@ -15,12 +15,6 @@ GtkGestureClick class >> gtkNew [
 	^ self ffiCall: #(GtkGestureClick* gtk_gesture_click_new (void))
 ]
 
-{ #category : #'instance creation' }
-GtkGestureClick class >> new [
-
-	^ self gtkNew initialize
-]
-
 { #category : #signaling }
 GtkGestureClick >> connectPressed: aBlock [
 	"aBlock arguments: 

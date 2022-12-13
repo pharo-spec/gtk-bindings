@@ -127,7 +127,7 @@ GtkMorphicEventHandler >> doKeystroke: aString [
 { #category : #private }
 GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
-	(anEvent isEventKey
+	(anEvent isKeyEvent
 		and: [ anEvent isKeyPress
 		and: [ anEvent hasAnyModifier 
 		and: [ anEvent keyCharacter = $. ] ] ])
@@ -217,6 +217,12 @@ GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 ]
 
 { #category : #visiting }
+GtkMorphicEventHandler >> visitCrossingEvent: anEvent [
+
+	self flag: #TODO. "do something"
+]
+
+{ #category : #visiting }
 GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	| modifiers keyDownEvent |
 
@@ -256,14 +262,14 @@ GtkMorphicEventHandler >> visitKeyUpEvent: anEvent [
 { #category : #visiting }
 GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 
-	"Gtk will inform a double click AND a simple click. 
-	 This is of course better, but morphic is more low level than that and will interpret double 
-	 click from two single clicks. 
-	 In order to make the world work properly, I need to let morphic do its interpretation (even 
-	 if is worst)"
-	anEvent isDoubleClick ifTrue: [ ^ self ].
 	GRunLoop defer: [ self imContext reset ].
 	^ super visitMouseButtonPressEvent: anEvent
+]
+
+{ #category : #visiting }
+GtkMorphicEventHandler >> visitScrollEvent: anEvent [
+
+	self flag: #TODO. "do something"
 ]
 
 { #category : #visiting }

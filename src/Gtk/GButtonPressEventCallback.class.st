@@ -25,7 +25,7 @@ GButtonPressEventCallback >> do: aBlock [
 	self
 		signature: self signature
 		block: [ :widget :event :aData | 
-			aBlock cull: (GdkEventButton fromHandle: event) ]
+			aBlock cull: (GdkButtonEvent fromHandle: event) ]
 ]
 
 { #category : #accessing }

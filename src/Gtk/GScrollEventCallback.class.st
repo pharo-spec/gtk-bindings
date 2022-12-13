@@ -31,7 +31,7 @@ GScrollEventCallback class >> signalName [
 GScrollEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
-		aBlock value: (GdkEventScroll fromHandle: event) ]
+		aBlock value: (GdkScrollEvent fromHandle: event) ]
 ]
 
 { #category : #accessing }

@@ -135,7 +135,7 @@ GdkTEventState >> modifiers [
 	^ self
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : #compatibility }
 GdkTEventState >> state [
 
 	self shouldBeImplemented

@@ -54,7 +54,7 @@ GtkIMContext >> connectCommit: aBlock [
 { #category : #accessing }
 GtkIMContext >> filterKeypress: event [
 
-	^ self ffiCall: #(gboolean gtk_im_context_filter_keypress (self, GdkEventKey *event))
+	^ self ffiCall: #(gboolean gtk_im_context_filter_keypress (self, #GdkKeyEvent *event))
 ]
 
 { #category : #initialization }

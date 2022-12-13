@@ -15,12 +15,6 @@ GtkEventControllerKey class >> gtkNew [
 	^ self ffiCall: #(GtkEventControllerKey* gtk_event_controller_key_new (void))
 ]
 
-{ #category : #'instance creation' }
-GtkEventControllerKey class >> new [
-
-	^ self gtkNew initialize
-]
-
 { #category : #signaling }
 GtkEventControllerKey >> connectKeyPressed: aBlock [
 	"aBlock receives: keyVal, keyCode, state"

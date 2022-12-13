@@ -1,23 +1,23 @@
 Class {
-	#name : #GdkEventKeyRelease,
-	#superclass : #GdkEventKey,
+	#name : #GdkKeyReleaseEvent,
+	#superclass : #GdkKeyEvent,
 	#category : #'Gdk-Events'
 }
 
 { #category : #testing }
-GdkEventKeyRelease class >> isType: aType [ 
+GdkKeyReleaseEvent class >> isType: aType [ 
 
 	^ aType = GDK_KEY_RELEASE
 ]
 
 { #category : #visiting }
-GdkEventKeyRelease >> accept: aVisitor [
+GdkKeyReleaseEvent >> accept: aVisitor [
 
 	^ aVisitor visitKeyUpEvent: self
 ]
 
 { #category : #testing }
-GdkEventKeyRelease >> isKeyRelease [
+GdkKeyReleaseEvent >> isKeyRelease [
 
 	^ true
 ]

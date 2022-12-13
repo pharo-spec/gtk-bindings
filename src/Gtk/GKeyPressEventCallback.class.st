@@ -35,7 +35,7 @@ GKeyPressEventCallback class >> signalName [
 GKeyPressEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
-		aBlock value: (GdkEventKey fromHandle: event) ]
+		aBlock value: (GdkKeyEvent fromHandle: event) ]
 ]
 
 { #category : #accessing }

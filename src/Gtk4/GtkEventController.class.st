@@ -11,6 +11,18 @@ Class {
 	#category : #'Gtk4-Event-Controllers'
 }
 
+{ #category : #private }
+GtkEventController class >> gtkNew [
+
+	self subclassResponsibility
+]
+
+{ #category : #'instance creation' }
+GtkEventController class >> new [
+
+	^ self gtkNew initialize
+]
+
 { #category : #accessing }
 GtkEventController >> currentDevice [
 

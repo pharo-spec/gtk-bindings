@@ -7,9 +7,12 @@ https://developer.gnome.org/gdk3/stable/gdk3-Event-Structures.html#GdkEvent
 "
 Class {
 	#name : #GdkEvent,
-	#superclass : #GStructure,
+	#superclass : #GBaseObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#instVars : [
-		'wasHandled'
+		'wasHandled',
+		'type'
 	],
 	#pools : [
 		'GdkEventType'
@@ -18,9 +21,12 @@ Class {
 }
 
 { #category : #private }
-GdkEvent class >> eventFree: event [
+GdkEvent class >> classForType: type [
 
-	self ffiCall: #(void gdk_event_free ("GdkEvent *"void *event)) module: GdkLibrary
+	^ self allSubclasses
+		detect: [ :each | each isType: type ]
+		ifFound: [ :each | each ]
+		ifNone: [ GdkEvent ]
 ]
 
 { #category : #private }
@@ -29,16 +35,23 @@ GdkEvent class >> eventNew: type [
 	^ self ffiCall: #(GdkEvent *gdk_event_new (GdkEventType type))
 ]
 
-{ #category : #resources }
-GdkEvent class >> ffiLibrary [
-
-	^ GdkLibrary 
-]
-
 { #category : #finalization }
 GdkEvent class >> finalizeResourceData: aHandle [
 
-	self eventFree: aHandle
+	self unref: aHandle
+]
+
+{ #category : #accessing }
+GdkEvent class >> gType [ 
+	"This method was automatically generated"
+
+	^ self ffiCall: #(gsize gdk_event_get_type())
+]
+
+{ #category : #private }
+GdkEvent class >> getType: handle [
+
+	^ self ffiCall: #(GdkEventType gdk_event_get_event_type (void *handle))
 ]
 
 { #category : #testing }
@@ -51,18 +64,20 @@ GdkEvent class >> isType: aType [
 GdkEvent class >> newConcreteFromHandle: handle [
 	| type |
 	
-	"type is always the first element on every type"
-	type := GdkEventType fromInteger: (handle signedLongAt: 1).
-	^ self allSubclasses
-		detect: [ :each | each isType: type ]
-		ifFound: [ :each | each fromHandle: handle ]
-		ifNone: [ GdkEventAny fromHandle: handle ]
+	type := self getType: handle.
+	^ (self classForType: type) fromHandle: handle
 ]
 
 { #category : #'instance creation' }
 GdkEvent class >> newType: aType [
 
-	^ (self eventNew: aType) asConcreteType autoRelease
+	self deprecated: #Gtk4
+]
+
+{ #category : #private }
+GdkEvent class >> unref: handle [
+
+	self ffiCall: #(void gdk_event_unref ("GdkEvent *"void *handle))
 ]
 
 { #category : #visiting }
@@ -86,19 +101,49 @@ GdkEvent >> button [
 ]
 
 { #category : #accessing }
+GdkEvent >> device [
+
+	^ self ffiCall: #(GdkDevice *gdk_event_get_device (self))
+]
+
+{ #category : #accessing }
+GdkEvent >> display [
+
+	^ self ffiCall: #(GdkDisplay *gdk_event_get_display (self))
+]
+
+{ #category : #accessing }
 GdkEvent >> ffiLibrary [
 
 	^ GdkLibrary
 ]
 
-{ #category : #accessing }
-GdkEvent >> free [
+{ #category : #private }
+GdkEvent >> getPositionX: x y: y [ 
 
-	self ffiCall: #(void gdk_event_free (self))
+	^ self ffiCall: #(gboolean gdk_event_get_position (self, double* x, double* y))
+]
+
+{ #category : #private }
+GdkEvent >> getType [ 
+
+	^ self ffiCall: #(GdkEventType gdk_event_get_event_type (self))
 ]
 
 { #category : #testing }
 GdkEvent >> isAnyType [
+
+	^ self class = GdkEvent
+]
+
+{ #category : #testing }
+GdkEvent >> isButtonEvent [
+
+	^ false
+]
+
+{ #category : #testing }
+GdkEvent >> isCrossingEvent [
 
 	^ false
 ]
@@ -110,44 +155,81 @@ GdkEvent >> isDoubleClick [
 ]
 
 { #category : #testing }
-GdkEvent >> isEventButton [
+GdkEvent >> isKeyEvent [
 
 	^ false
 ]
 
 { #category : #testing }
-GdkEvent >> isEventConfigure [
+GdkEvent >> isMotionEvent [
 
 	^ false
 ]
 
 { #category : #testing }
-GdkEvent >> isEventKey [
+GdkEvent >> isPointerEmulated [
 
-	^ false
+	self ffiCall: #(gboolean gdk_event_get_pointer_emulated (self))
+
+]
+
+{ #category : #accessing }
+GdkEvent >> modifierState [
+
+	^ self ffiCall: #(GdkModifierType gdk_event_get_modifier_state (self))
+]
+
+{ #category : #accessing }
+GdkEvent >> position [
+	| x y |
+	
+	x := FFIFloat64 newBuffer.
+	y := FFIFloat64 newBuffer.	
+	self getPositionX: x y: y.
+	
+	^ (x doubleAt: 1) asInteger@(y doubleAt: 1) asInteger
+]
+
+{ #category : #accessing }
+GdkEvent >> ref [
+
+	self ffiCall: #(void gdk_event_ref (self))
+]
+
+{ #category : #accessing }
+GdkEvent >> seat [
+
+	^ self ffiCall: #(GdkSeat* gdk_event_get_seat (self))
+]
+
+{ #category : #accessing }
+GdkEvent >> surface [
+
+	^ self ffiCall: #(GdkSurface* gdk_event_get_surface (self))
+]
+
+{ #category : #accessing }
+GdkEvent >> time [
+
+	^ self ffiCall: #(guint32 gdk_event_get_time (self))
 ]
 
 { #category : #testing }
-GdkEvent >> isEventMotion [
+GdkEvent >> triggersContextMenu [
 
-	^ false
+	^ self ffiCall: #(gboolean gdk_event_triggers_context_menu (self))
 ]
 
-{ #category : #printing }
-GdkEvent >> printOn: aStream [ 
-	"Append to the argument, aStream, the names and values of all the record's variables."
-	aStream nextPutAll: self class name; nextPutAll: ' ( '; cr.
-	self class fieldSpec fieldNames do: [ :field |
-		aStream nextPutAll: field; nextPut: $:; space; tab.
-			(self perform: field ) printOn: aStream.
-			] separatedBy: [ aStream cr ].
-	aStream cr; nextPut: $)
-]
-
-{ #category : #'accessing structure variables' }
+{ #category : #accessing }
 GdkEvent >> type [
 
-	^ self subclassResponsibility
+	^ type ifNil: [ type := self getType ]
+]
+
+{ #category : #accessing }
+GdkEvent >> unref [
+
+	self ffiCall: #(void gdk_event_unref (self))
 ]
 
 { #category : #compatibility }
@@ -161,10 +243,4 @@ GdkEvent >> wasHandled [
 GdkEvent >> wasHandled: aBoolean [
 
 	^ wasHandled := aBoolean
-]
-
-{ #category : #'accessing structure variables' }
-GdkEvent >> window [
-
-	self subclassResponsibility
 ]

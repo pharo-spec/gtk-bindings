@@ -121,8 +121,8 @@ GtkMorphView class >> example4 [
 			title: 'Example 4';
 			defaultSize: 500@500;
 			child: (GtkPaned newVertical 
-				startChild: (GtkMorphView newMorph: morph1);
-				endChild: (GtkMorphView newMorph: morph2);
+				startChild: (self newMorph: morph1);
+				endChild: (self newMorph: morph2);
 				yourself);
 			present ]
 ]
@@ -133,14 +133,14 @@ GtkMorphView class >> example5 [
 
 	GtkEngine ensureRunning.
 
-	inform := GtkInfoArea new.
+	"inform := GtkInfoArea new."
 
 	morph  := self 
 		newGridOf: 5 
-		with: [ :pos | 
+		with: [ :pos |
 			PluggableButtonMorph new
 				label: pos asString;
-				actionBlock: [ inform addInfo: pos asString ];
+				actionBlock: [ "inform addInfo: pos asString" ];
 				yourself ].
 
 	GRunLoop defer: [ 
@@ -148,8 +148,8 @@ GtkMorphView class >> example5 [
 			title: 'Example 5';
 			defaultSize: 500@500;
 			child: (GtkBox newVertical
-				append: inform;
-				append: (GtkMorphView newMorph: morph);
+				"append: inform;"
+				append: (self newMorph: morph);
 				yourself);
 			present ]
 ]
@@ -447,7 +447,7 @@ GtkMorphView >> currentExtent [
 { #category : #'world simulation' }
 GtkMorphView >> defer: aBlock [
 
-	GRunLoop forceDefer: aBlock
+	GRunLoop defer: aBlock
 ]
 
 { #category : #drawing }

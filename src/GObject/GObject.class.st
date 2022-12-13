@@ -634,7 +634,6 @@ GObject >> gSignalHandlerUnblock: handler_id [
 GObject >> gType [
 
 	^ self class gType
-	
 ]
 
 { #category : #'private - primitives' }

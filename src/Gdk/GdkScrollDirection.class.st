@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gdk4/enum.ScrollDirection.html
+"
 Class {
 	#name : #GdkScrollDirection,
 	#superclass : #GEnumeration,

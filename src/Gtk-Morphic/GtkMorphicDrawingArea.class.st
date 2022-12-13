@@ -11,256 +11,6 @@ Class {
 	#category : #'Gtk-Morphic'
 }
 
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example1 [
-
-	GtkEngine ensureRunning.
-	
-	GtkWindow new 
-		resize: 500@500;
-		add: (GtkPaned newHorizontal
-			startChild: (GtkLabel newLabel: 'Label');
-			endChild: (GtkMorphView newMorph: (Morph new
-				addMorphBack: 'Test' asStringMorph;
-				yourself));
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example2 [
-	| morph positionMorph |
-	"show mouse events"
-	GtkEngine ensureRunning.
-
-	morph := Morph new.
-	morph addMorphBack: (positionMorph := StringMorph contents: '[Position]').
-	morph 
-		on: #mouseMove 
-		send: #value:
-		to: [ :event | positionMorph contents: event position asString ].
-
-	GtkWindow new
-		title: 'Mouse-move test';
-		resize: 500@500;
-		add: (GtkBox newVertical 
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example3 [
-	| morph |
-
-	GtkEngine ensureRunning.
-
-	morph  := self 
-		newGridOf: 10 
-		with: [ | cell |
-			(cell := Morph new)
-				color: Color blue;
-				on: #mouseEnter send: #value: to: [ :event | cell color: Color red ];
-				on: #mouseLeave send: #value: to: [ :event | cell color: Color blue ] ].
-
-	GtkWindow new
-		title: 'Example 3';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example4 [
-	| morph1 morph2 |
-
-	GtkEngine ensureRunning.
-
-	morph1 := self 
-		newGridOf: 10
-		with: [ | cell |
-			(cell := Morph new)
-				color: Color blue;
-				on: #mouseEnter send: #value: to: [ :event | cell color: Color red ];
-				on: #mouseLeave send: #value: to: [ :event | cell color: Color blue ] ].
-	morph2 := self 
-		newGridOf: 10 
-		with: [ | cell | 
-			(cell := Morph new)
-				color: Color green;
-				on: #mouseEnter send: #value: to: [ :event | cell color: Color red ];
-				on: #mouseLeave send: #value: to: [ :event | cell color: Color green ] ].
-
-	GtkWindow new
-		title: 'Example 4';
-		resize: 500@500;
-		add: (GtkPaned newVertical 
-			startChild: (GtkMorphView newMorph: morph1);
-			endChild: (GtkMorphView newMorph: morph2);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example5 [
-	| morph inform |
-
-	GtkEngine ensureRunning.
-
-	inform := GtkInfoArea new.
-
-	morph  := self 
-		newGridOf: 5 
-		with: [ :pos | 
-			PluggableButtonMorph new
-				label: pos asString;
-				actionBlock: [ inform addInfo: pos asString ];
-				yourself ].
-
-	GtkWindow new
-		title: 'Example 5';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			append: inform;
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example6 [
-	| morph inform |
-
-	GtkEngine ensureRunning.
-
-	inform := GtkInfoArea new.
-
-	morph  := self 
-		newGridOf: 5 
-		with: [ :pos | 
-			PluggableButtonMorph new
-				label: pos asString;
-				actionBlock: [ inform addInfo: pos asString ];
-				helpText: 'Button at ', pos asString;
-				yourself ].
-
-	GtkWindow new
-		title: 'PlugabbleButtonMorph Event Example';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			append: inform;
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example7 [
-	| morph inform |
-
-	GtkEngine ensureRunning.
-
-	inform := GtkInfoArea new.
-
-	morph  := self 
-		newGridOf: 5 
-		with: [ :pos | 
-			SimpleButtonMorph new
-				label: pos asString;
-				color: Color random;
-				target: [ inform addInfo: pos asString ];
-				actionSelector: #value;
-				helpText: 'Button at ', pos asString;
-				yourself ].
-
-	GtkWindow new
-		title: 'SimpleButtonMorph Event Example';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			append: inform;
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> example8 [
-	| morph1 morph2 inform |
-
-	GtkEngine ensureRunning.
-
-	inform := GtkInfoArea new.
-
-	morph1  := self 
-		newGridOf: 5 
-		with: [ :pos | 
-			SimpleButtonMorph new
-				label: pos asString;
-				color: Color random;
-				target: [ inform addInfo: pos asString ];
-				actionSelector: #value;
-				helpText: 'Button at ', pos asString;
-				yourself ].
-
-	morph2  := self 
-		newGridOf: 5 
-		with: [ :pos | 
-			SimpleButtonMorph new
-				label: pos asString;
-				color: Color random;
-				target: [ inform addInfo: pos asString ];
-				actionSelector: #value;
-				helpText: 'Button at ', pos asString;
-				yourself ].
-
-	GtkWindow new
-		title: 'SimpleButtonMorph Event Example';
-		resize: 500@500;
-		add: (GtkBox newVertical
-			append: inform;
-			append: (GtkPaned newVertical
-				position: 250;
-				startChild: (GtkMorphView newMorph: morph1);
-				endChild: (GtkMorphView newMorph: morph2);
-				yourself);
-			yourself);
-		present
-]
-
-{ #category : #examples }
-GtkMorphicDrawingArea class >> newGridOf: aNumber with: aBlock [
-	| gridMorph |
-
-	(gridMorph := Morph new)
-		color: Color transparent;
-		layoutPolicy: TableLayout new;
-		borderWidth: 10;
-		cellInset: 10;
-		listDirection: #topToBottom;
-		vResizing: #spaceFill; 
-		hResizing: #spaceFill.
-
-	1 to: aNumber do: [ :y | | row |
-		row := (Morph new color: Color transparent).
-		row
-			layoutPolicy: TableLayout new;
-			listDirection: #leftToRight;
-			cellInset: 10;
-			vResizing: #spaceFill; 
-			hResizing: #spaceFill.
-		1 to: aNumber do: [ :x | |  cell |
-			cell := aBlock cull: x@y.
-			cell
-				vResizing: #spaceFill; 
-				hResizing: #spaceFill. 
-			row addMorphBack: cell ].
-		gridMorph addMorphBack: row ].
-	
-	^ gridMorph
-]
-
 { #category : #'private - primitives' }
 GtkMorphicDrawingArea >> cairoCreate: target [
 
@@ -298,8 +48,9 @@ GtkMorphicDrawingArea >> canDraw [
 { #category : #initialization }
 GtkMorphicDrawingArea >> connectToSignals [
 
-	"self connectResize: [ :anExtent | self resizeIfEnabledTo: anExtent ]."
-	"self connectEvent: [ :event | self handleEvent: event ]"
+	self addController: (GtkEventControllerLegacy new 
+		connectEvent: [ :event | self handleEvent: event ];
+		yourself)
 ]
 
 { #category : #private }
@@ -335,10 +86,10 @@ GtkMorphicDrawingArea >> eventHandler: aHandler [
 { #category : #'private - events' }
 GtkMorphicDrawingArea >> handleEvent: event [
 
-	event isEventConfigure ifTrue: [ 
+	"event isEventConfigure ifTrue: [ 
 		event extent = self currentExtent ifFalse: [ 
 			self invalidate.
-			^ true ] ].
+			^ true ] ]."
 	^ eventHandler handleEvent: event
 ]
 
@@ -361,7 +112,7 @@ GtkMorphicDrawingArea >> invalidateRect: damageRect [
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : #initialization }
 GtkMorphicDrawingArea >> newDrawFunction [
 
 	^ GCallback 

@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #accessing }
+GtkGestureSingle >> beButtonAny [
+
+	self button: GDK_BUTTON_ANY
+]
+
+{ #category : #accessing }
 GtkGestureSingle >> beButtonMiddle [
 
 	self button: GDK_BUTTON_MIDDLE
