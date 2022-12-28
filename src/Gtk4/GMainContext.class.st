@@ -16,7 +16,7 @@ GMainContext class >> iteration: may_block [
 	^ self ffiCall: #(gboolean g_main_context_iteration (NULL, gboolean may_block))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #acccessing }
 GMainContext >> acquire [
 
 	self ffiCall: #(gboolean g_main_context_acquire (self))
@@ -34,7 +34,7 @@ GMainContext >> iteration: may_block [
 	^ self ffiCall: #(gboolean g_main_context_iteration (self, gboolean may_block))
 ]
 
-{ #category : #initialization }
+{ #category : #acccessing }
 GMainContext >> release [
 
 	self ffiCall: #(void g_main_context_release (self))
