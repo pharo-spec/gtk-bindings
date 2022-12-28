@@ -56,7 +56,9 @@ GIOChannelReadLineListener >> announceTerminatedWithStatus: status [
 { #category : #accessing }
 GIOChannelReadLineListener >> announcer [
 
-	^ announcer ifNil: [ announcer := Announcer new ]
+	announcer ifNil: [ announcer := Announcer new ].
+	"Do not register strong references"
+	^ announcer weak
 ]
 
 { #category : #accessing }
@@ -66,19 +68,28 @@ GIOChannelReadLineListener >> channel [
 ]
 
 { #category : #initialization }
+GIOChannelReadLineListener >> initialize [
+	
+	self class initializeSlots: self.
+	super initialize
+]
+
+{ #category : #initialization }
 GIOChannelReadLineListener >> initializeName: aName channel: aChannel action: aBlock [
 
 	self initialize.
 	name := aName.
-	channel := aChannel.
+	channel := aChannel shallowCopy.
 	action := aBlock
 ]
 
 { #category : #testing }
 GIOChannelReadLineListener >> isRunning [
 	
-	^ process notNil 
-		and: [ process isTerminated not ]
+	^ channel notNil 
+		and: [ channel isNull not 
+		and: [ process notNil 
+		and: [ process isTerminated not ] ] ]
 ]
 
 { #category : #accessing }
@@ -93,6 +104,12 @@ GIOChannelReadLineListener >> newWorker [
 	^ TFWorker named: ('channel_listener_{1}' format: { self name })
 ]
 
+{ #category : #private }
+GIOChannelReadLineListener >> readLineToAction [
+	
+	^ self channel readLineTo: self action
+]
+
 { #category : #starting }
 GIOChannelReadLineListener >> start [
 
@@ -101,7 +118,7 @@ GIOChannelReadLineListener >> start [
 	process := [
 		| status |
 		TFProcessLocalWorker worker: self worker.
-		[ status := self channel readLineTo: self action ]
+		[ status := self readLineToAction ]
 		doWhileTrue: [ status ~= G_IO_STATUS_EOF ].
 		self announceTerminatedWithStatus: status ]
 	forkNamed: ('Channel read listener: {1}' format: { self name })

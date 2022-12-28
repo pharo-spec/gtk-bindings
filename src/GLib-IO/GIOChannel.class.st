@@ -107,6 +107,30 @@ GIOChannel >> newReadLineListener: aName action: aBlock [
 		action: aBlock
 ]
 
+{ #category : #'instance creation' }
+GIOChannel >> newReadLineListener: aName receiver: anObject selector: aSelector [
+	"
+	see `GIOChannelListener`
+	
+	e.g. 
+	listener := channel 
+		newReadLineListener: 'example' 
+		action: [ :aLine | aLine crTrace ].
+	listener start.
+	
+	IMPORTANT: Passing a WeakMessageSend to ensure we do not hold a strong reference 
+	to a block inside a the listener process (otherwise, if runner is GCd without explicit 
+	cleanUp, there will be a leak) 
+	"
+
+	^ GIOChannelReadLineListener 
+		newName: aName 
+		channel: self
+		action: (WeakMessageSend 
+			receiver: anObject 
+			selector: aSelector)
+]
+
 { #category : #accessing }
 GIOChannel >> read: aNumber [
 	| buf read error status |
