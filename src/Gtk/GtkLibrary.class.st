@@ -63,6 +63,13 @@ GtkLibrary >> matchesVersion: aString [
 	^ match isNil or: [ match isNull ]
 ]
 
+{ #category : #'accessing platform' }
+GtkLibrary >> unix64LibraryName [ 
+
+	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
+	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
+]
+
 { #category : #accessing }
 GtkLibrary >> version [
 
@@ -75,5 +82,5 @@ GtkLibrary >> version [
 { #category : #'accessing platform' }
 GtkLibrary >> win32LibraryName [
 	
-	^ 'libgtk-4-0.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libgtk-4-0.dll'
 ]

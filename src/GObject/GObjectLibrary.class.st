@@ -49,12 +49,12 @@ GObjectLibrary >> runner [
 { #category : #'accessing platform' }
 GObjectLibrary >> unix64LibraryName [ 
 
-	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
+	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
+	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so'
 ]
 
 { #category : #'accessing platform' }
 GObjectLibrary >> win32LibraryName [
 
-	^ 'libgobject-2.0-0.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libgobject-2.0-0.dll'
 ]
