@@ -5,10 +5,10 @@ Class {
 	#name : #GtkTypes,
 	#superclass : #SharedPool,
 	#classVars : [
+		'GErrorHolder',
 		'GPid',
 		'GQuark',
 		'GType',
-		'gErrorHolder',
 		'gboolean',
 		'gchar',
 		'gdouble',
