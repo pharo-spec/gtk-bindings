@@ -17,7 +17,13 @@ GLibLibrary >> gSetPrgName: prgname [
 ]
 
 { #category : #'accessing - platform' }
+GLibLibrary >> unix64LibraryName [
+
+	^ FFIUnix64LibraryFinder findLibrary: 'libglib-2.0.so'
+]
+
+{ #category : #'accessing - platform' }
 GLibLibrary >> win32LibraryName [
 
-	^ 'libglib-2.0-0.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libglib-2.0-0.dll'
 ]

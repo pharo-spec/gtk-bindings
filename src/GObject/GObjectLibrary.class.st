@@ -43,16 +43,13 @@ GObjectLibrary >> runner [
 
 { #category : #'accessing platform' }
 GObjectLibrary >> unix64LibraryName [ 
-	"In linux and mac this is not really important, because once you load the main 
-	 library, you will find also the symbols on dependent librarues. 
-	 So I will point directly to the gtk3 library, just to simplify"
 
-	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-3.so' ]. 
-	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgtk-3.so' 'libgtk-3.so.0')
+	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
+	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so'
 ]
 
 { #category : #'accessing platform' }
 GObjectLibrary >> win32LibraryName [
 
-	^ 'libgobject-2.0-0.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libgobject-2.0-0.dll'
 ]
