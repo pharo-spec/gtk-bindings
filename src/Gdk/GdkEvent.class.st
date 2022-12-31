@@ -83,7 +83,7 @@ GdkEvent class >> unref: handle [
 { #category : #visiting }
 GdkEvent >> accept: aVisitor [
 	
-	^ self subclassResponsibility
+	^ aVisitor visitUnknownEvent: self
 ]
 
 { #category : #converting }

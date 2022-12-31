@@ -93,6 +93,12 @@ GtkMorphicDrawingArea >> handleEvent: event [
 	^ eventHandler handleEvent: event
 ]
 
+{ #category : #testing }
+GtkMorphicDrawingArea >> hasEventHandler [
+
+	^ eventHandler notNil
+]
+
 { #category : #initialization }
 GtkMorphicDrawingArea >> initialize [ 
 

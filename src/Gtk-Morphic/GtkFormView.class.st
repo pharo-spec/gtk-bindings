@@ -64,12 +64,18 @@ GtkFormView >> form: aForm [
 	self invalidate	
 ]
 
-{ #category : #'private - events' }
+{ #category : #events }
 GtkFormView >> handleEvent: anEvent [
 
-	anEvent type = GdkEventType GDK_ENTER_NOTIFY 
-		ifTrue: [ self grabFocus ].
+	self tryFocus: anEvent.  
+	self hasEventHandler ifFalse: [ ^ false ].
 	^ super handleEvent: anEvent
+]
+
+{ #category : #testing }
+GtkFormView >> hasWorld [
+
+	^ self hasEventHandler and: [ self world notNil ]
 ]
 
 { #category : #accessing }
@@ -89,7 +95,15 @@ GtkFormView >> invalidateRect: damageRect [
 { #category : #private }
 GtkFormView >> resizeIfEnabledTo: extent [
 
+	self hasWorld ifFalse: [ ^ self ].
 	self world worldState worldRenderer checkForNewScreenSize
+]
+
+{ #category : #events }
+GtkFormView >> tryFocus: anEvent [
+	
+	anEvent type = GdkEventType GDK_ENTER_NOTIFY ifFalse: [ ^ self ].
+	self grabFocus
 ]
 
 { #category : #'private - updating' }
