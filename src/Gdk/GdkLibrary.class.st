@@ -7,8 +7,10 @@ Class {
 { #category : #'accessing platform' }
 GdkLibrary >> unix64LibraryName [ 
 
-	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgdk-3.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgdk-3.so'
+	"It seems to come linked with libgtk-4 ? (in any case, I do not find it and it 
+	 does not really matters)"
+	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
+	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
 ]
 
 { #category : #'accessing platform' }

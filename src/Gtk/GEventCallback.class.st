@@ -36,5 +36,5 @@ GEventCallback >> do: aBlock [
 { #category : #accessing }
 GEventCallback >> signature [
 
-	^ #(gboolean (void *widget, void *event, void *user_data))
+	^ #(gboolean (void *widget, void *event, gpointer user_data))
 ]
