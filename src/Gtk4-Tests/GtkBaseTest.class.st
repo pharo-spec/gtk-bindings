@@ -19,7 +19,7 @@ GtkBaseTest >> ensureRemoteExecutionEnvitonmentOn: aClass [
 	RemoteExecutionEnvironment ifNotNil: [ ^ RemoteExecutionEnvironment ].
 
 	^ (RemoteExecutionEnvironment := aClass new)
-		id: 'GtkTestRunner';
+		id: 'GtkTestingRunner';
 		onRunnerActivated: [ :aRunner | 
 			aRunner runCommand: [
 				GEngine ensureRunning. 
