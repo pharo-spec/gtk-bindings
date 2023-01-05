@@ -142,7 +142,7 @@ GIOProcess >> initializePid: pidNum [
 
 	self initialize.
 	pid := pidNum. 
-	self watch: [ :status | self close ]
+	"self watch: [ :status | self close ]"
 ]
 
 { #category : #accessing }
@@ -153,6 +153,8 @@ GIOProcess >> pid [
 
 { #category : #accessing }
 GIOProcess >> watch: aBlock [ 
+	"If the process is spawned with other value than default, you may need to watch it to 
+	 properly close it (see g_spawn documentation and examples)."
 	| callback |
 
 	callback := GCallback 

@@ -53,6 +53,12 @@ GIOCondition class >> G_IO_PRI [
 	^ G_IO_PRI
 ]
 
+{ #category : #accessing }
+GIOCondition class >> all [
+
+	^ self newValue: 16rFF
+]
+
 { #category : #'enum declaration' }
 GIOCondition class >> enumDecl [
 	"

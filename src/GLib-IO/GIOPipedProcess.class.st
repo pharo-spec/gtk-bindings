@@ -122,9 +122,7 @@ GIOPipedProcess >> initializePid: pidNum in: stdinFd out: stdoutFd err: stderrFd
 	inFd := stdinFd. 
 	outFd := stdoutFd. 
 	errFd := stderrFd.
-	self watch: [ :status | 
-		status crTrace.
-		self close ]
+	"self watch: [ :status | self close ]"
 ]
 
 { #category : #'private - factory' }

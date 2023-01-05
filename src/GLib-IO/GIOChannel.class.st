@@ -226,7 +226,7 @@ GIOChannel >> watch: aCallback [
 
 	^ self 
 		watch: aCallback 
-		condition: (GIOCondition newValue: 16rFF) "everything"
+		condition: GIOCondition all
 ]
 
 { #category : #'accessing - watching' }
