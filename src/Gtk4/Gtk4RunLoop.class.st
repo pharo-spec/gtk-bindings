@@ -1,3 +1,6 @@
+"
+Event loop for Gtk4
+"
 Class {
 	#name : #Gtk4RunLoop,
 	#superclass : #GRunLoop,
@@ -50,7 +53,7 @@ Gtk4RunLoop >> forceDefer: aBlock [
 	callerProcess := nil.
 
 	exception ifNotNil: [ 
-		exception defaultAction ].
+		GtkDeferredError signalForException: exception ].
 
 	^ result
 ]
