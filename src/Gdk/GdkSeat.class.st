@@ -6,6 +6,8 @@ https://developer.gnome.org/gdk3/unstable/GdkSeat.html
 Class {
 	#name : #GdkSeat,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#category : #'Gdk-Base'
 }
 
@@ -15,12 +17,6 @@ GdkSeat class >> defaultForDisplay: aDisplay [
 	"do not send #initialize here because we do not need it (and keeping a reference 
 	 is useless since this is kept in Gtk3."
 	^ (self getDefaultSeat: aDisplay) "initialize"
-]
-
-{ #category : #'library path' }
-GdkSeat class >> ffiLibraryName [ 
-
-	^ GdkLibrary
 ]
 
 { #category : #accessing }
@@ -34,12 +30,6 @@ GdkSeat class >> gType [
 GdkSeat class >> getDefaultSeat: display [
 
 	^ self ffiCall: #(GdkSeat *gdk_display_get_default_seat (GdkDisplay *display))
-]
-
-{ #category : #'library path' }
-GdkSeat >> ffiLibraryName [ 
-
-	^ GdkLibrary
 ]
 
 { #category : #accessing }

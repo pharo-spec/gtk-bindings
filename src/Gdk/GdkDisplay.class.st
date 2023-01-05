@@ -7,6 +7,8 @@ https://developer.gnome.org/gdk3/stable/GdkDisplay.html
 Class {
 	#name : #GdkDisplay,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#category : #'Gdk-Base'
 }
 
@@ -16,12 +18,6 @@ GdkDisplay class >> default [
 	"do not send #initialize here because we do not need it (and keeping a reference 
 	 is useless since this is kept in Gtk3."
 	^ self getDefault "initialize" 
-]
-
-{ #category : #'library path' }
-GdkDisplay class >> ffiLibraryName [ 
-
-	^ GdkLibrary
 ]
 
 { #category : #'as yet unclassified' }
@@ -47,12 +43,6 @@ GdkDisplay class >> getDefault [
 GdkDisplay >> defaultSeat [ 
 
 	^ GdkSeat defaultForDisplay: self
-]
-
-{ #category : #'library path' }
-GdkDisplay >> ffiLibraryName [ 
-
-	^ self class ffiLibraryName
 ]
 
 { #category : #accessing }

@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkSettings.html
 Class {
 	#name : #GtkSettings,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

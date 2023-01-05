@@ -4,6 +4,8 @@
 Class {
 	#name : #GApplication,
 	#superclass : #GObject,
+	#traits : 'GLibTLibrary',
+	#classTraits : 'GLibTLibrary classTrait',
 	#pools : [
 		'GApplicationFlags'
 	],

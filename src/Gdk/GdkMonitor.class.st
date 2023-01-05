@@ -7,14 +7,10 @@ https://developer.gnome.org/gdk3/stable/GdkMonitor.html
 Class {
 	#name : #GdkMonitor,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#category : #'Gdk-Base'
 }
-
-{ #category : #'library path' }
-GdkMonitor class >> ffiLibraryName [
-
-	^ GdkLibrary
-]
 
 { #category : #accessing }
 GdkMonitor class >> gType [ 
@@ -51,12 +47,6 @@ GdkMonitor class >> primaryOn: aDisplay [
 	"do not send #initialize here because we do not need it (and keeping a reference 
 	 is useless since this is kept in Gtk3."
 	^ (self getPrimaryOn: aDisplay) "initialize"
-]
-
-{ #category : #'library path' }
-GdkMonitor >> ffiLibraryName [ 
-
-	^ self class ffiLibraryName
 ]
 
 { #category : #accessing }

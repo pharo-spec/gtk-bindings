@@ -4,6 +4,8 @@
 Class {
 	#name : #GNotification,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#category : #'Gdk-Base'
 }
 

@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/gtk3-Keyboard-Accelerators.html#GtkAccel
 Class {
 	#name : #GtkAccelGroup,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
 

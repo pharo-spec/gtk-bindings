@@ -6,6 +6,8 @@ https://docs.gtk.org/gio/class.SimpleActionGroup.html
 Class {
 	#name : #GSimpleActionGroup,
 	#superclass : #GObject,
+	#traits : 'GdkTLibrary',
+	#classTraits : 'GdkTLibrary classTrait',
 	#instVars : [
 		'actions'
 	],
