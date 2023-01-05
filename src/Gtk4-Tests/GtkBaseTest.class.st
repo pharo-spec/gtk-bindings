@@ -13,6 +13,13 @@ GtkBaseTest class >> isAbstract [
 	^ super isAbstract or: [ self = GtkBaseTest ]
 ]
 
+{ #category : #initialization }
+GtkBaseTest class >> resetTestEnvironment [
+	<script>
+
+	RemoteExecutionEnvironment := nil
+]
+
 { #category : #private }
 GtkBaseTest >> ensureRemoteExecutionEnvitonmentOn: aClass [
 		
