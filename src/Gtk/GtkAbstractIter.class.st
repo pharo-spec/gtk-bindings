@@ -166,7 +166,7 @@ GtkAbstractIter >> stringAt: index [
 	result := ByteArray new: Smalltalk wordSize.
 	result pointerAt: 1 put: ExternalAddress null. 
 	self getStringAtColumnIndex: index into: result.
-	^ (result pointerAt:1) readStringUTF8
+	^ (result pointerAt:1) utf8StringFromCString
 
 ]
 

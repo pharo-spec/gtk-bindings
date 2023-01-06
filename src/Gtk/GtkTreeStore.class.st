@@ -100,5 +100,5 @@ GtkTreeStore >> stringAt: iter column: columnNumber [
 	
 	buffer := ExternalAddress new.
 	self getString: buffer column: columnNumber iter: iter.
-	^ buffer readStringUTF8
+	^ buffer utf8StringFromCString
 ]

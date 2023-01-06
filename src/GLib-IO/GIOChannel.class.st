@@ -209,7 +209,7 @@ GIOChannel >> readLineTo: aBlock [
 	((status = G_IO_STATUS_ERROR) and: [ error value isError ]) 
 		ifTrue: [ self error: error value messageString ].
 
-	buf readStringUTF8 
+	buf utf8StringFromCString 
 		ifNotNil: [ :aString | aBlock value: aString ].	
 
 	^ status

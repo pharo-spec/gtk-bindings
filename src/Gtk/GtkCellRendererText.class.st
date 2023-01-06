@@ -39,8 +39,8 @@ GtkCellRendererText >> connectEdited: aBlock [
 		signature: #(void (void *renderer, void *path, void *new_text, gpointer data))  
 		do: [ :renderer :path :new_text :data |
 			aBlock 
-				value: path readStringUTF8 
-				value: new_text readStringUTF8 ]
+				value: path utf8StringFromCString 
+				value: new_text utf8StringFromCString ]
 ]
 
 { #category : #private }

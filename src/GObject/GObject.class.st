@@ -179,9 +179,8 @@ GObject class >> instance: handle isFundamentallyA: fundamental_type [
 { #category : #private }
 GObject class >> instanceIsObject: handle [
 		
-	^ self 
-		instance: handle 
-		isFundamentallyA: G_TYPE_OBJECT
+	^ GRunLoop defer: [ 
+		self instance: handle isFundamentallyA: G_TYPE_OBJECT ]
 ]
 
 { #category : #private }
@@ -571,7 +570,7 @@ GObject >> gObjectGetString: aName [
 	
 	buffer := ExternalAddress new.
 	self gObjectGet: aName intoAddress: buffer.
-	^ buffer readStringUTF8
+	^ buffer utf8StringFromCString
 ]
 
 { #category : #'private - primitives' }

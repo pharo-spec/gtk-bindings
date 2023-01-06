@@ -31,7 +31,7 @@ GtkIconTheme >> allContextNames [
 	gList := GList fromHandle: self listContexts.
 	gList do: [ :data |
 		data isNull ifFalse: [ 
-			result add: data readStringUTF8.
+			result add: data utf8StringFromCString.
 			data gFree ] ].
 	gList free.
 
@@ -53,7 +53,7 @@ GtkIconTheme >> allNames [
 	gList do: [ :data |
 		data isNull ifFalse: [
 			| name |
-			name := data readStringUTF8.
+			name := data utf8StringFromCString.
 			result add: name.
 			data gFree ] ].
 	gList free.
@@ -81,7 +81,7 @@ GtkIconTheme >> iconNamesInContext: aString [
 	gList := GList fromHandle: (self listIcons: aString).
 	gList do: [ :data |
 		data isNull ifFalse: [
-			result add: data readStringUTF8.
+			result add: data utf8StringFromCString.
 			data gFree ] ].
 	gList free.
 
