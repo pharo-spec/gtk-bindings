@@ -351,7 +351,7 @@ GtkEntry >> text [
 
 { #category : #accessing }
 GtkEntry >> text: text [
-	
+
 	self buffer text: text
 ]
 

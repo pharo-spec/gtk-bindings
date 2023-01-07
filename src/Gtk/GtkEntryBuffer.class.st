@@ -4,13 +4,15 @@ https://docs.gtk.org/gtk4/method.EntryBuffer.set_text.html
 Class {
 	#name : #GtkEntryBuffer,
 	#superclass : #GObject,
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-Input'
 }
 
 { #category : #accessing }
 GtkEntryBuffer >> text [
 
-	^ self ffiCall: #(const char* gtk_entry_buffer_get_text (self))
+	^ self ffiCall: #(char *gtk_entry_buffer_get_text (self))
 ]
 
 { #category : #accessing }
