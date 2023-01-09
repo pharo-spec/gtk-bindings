@@ -10,11 +10,11 @@ Class {
 	#category : #'Gtk-Morphic-UIManager'
 }
 
-{ #category : #private }
+{ #category : #initialization }
 GtkDebugSession >> initialize [
 
 	resumed := false.
-	super initialize.
+	super initialize
 ]
 
 { #category : #private }
