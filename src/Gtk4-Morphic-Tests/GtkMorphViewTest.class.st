@@ -7,7 +7,7 @@ Class {
 { #category : #'instance creation' }
 GtkMorphViewTest >> newWidget [
 
-	^ self widgetClass 
+	^ self widgetClass new 
 		morph: Morph new;
 		yourself
 ]
