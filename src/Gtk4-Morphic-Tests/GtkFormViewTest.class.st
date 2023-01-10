@@ -7,7 +7,7 @@ Class {
 { #category : #'instance creation' }
 GtkFormViewTest >> newWidget [
 
-	^ self widgetClass 
+	^ self widgetClass new
 		form: (Smalltalk ui icons iconNamed: #pharoBig);
 		yourself
 ]
