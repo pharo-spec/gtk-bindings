@@ -18,10 +18,10 @@ GtkDeferredError class >> signalForException: anError [
 		signal
 ]
 
-{ #category : #accessing }
+{ #category : #handling }
 GtkDeferredError >> defaultAction [
 
-	^ self exception debug
+	^ self exception defaultAction
 ]
 
 { #category : #accessing }
@@ -34,4 +34,10 @@ GtkDeferredError >> exception [
 GtkDeferredError >> exception: anObject [
 
 	exception := anObject
+]
+
+{ #category : #accessing }
+GtkDeferredError >> originException [
+
+	^ self exception originException
 ]
