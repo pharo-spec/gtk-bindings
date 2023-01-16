@@ -10,7 +10,6 @@ Class {
 	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
 		'keyValue',
-		'position',
 		'key'
 	],
 	#classVars : [

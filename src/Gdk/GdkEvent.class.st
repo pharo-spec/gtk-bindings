@@ -12,7 +12,8 @@ Class {
 	#classTraits : 'GdkTLibrary classTrait',
 	#instVars : [
 		'wasHandled',
-		'type'
+		'type',
+		'position'
 	],
 	#pools : [
 		'GdkEventType'
@@ -119,6 +120,17 @@ GdkEvent >> ffiLibrary [
 ]
 
 { #category : #private }
+GdkEvent >> getPosition [
+	| x y |
+
+	x := FFIFloat64 newBuffer.
+	y := FFIFloat64 newBuffer.
+	self getPositionX: x y: y.
+
+	^ (x doubleAt: 1) asInteger@(y doubleAt: 1) asInteger
+]
+
+{ #category : #private }
 GdkEvent >> getPositionX: x y: y [ 
 
 	^ self ffiCall: #(gboolean gdk_event_get_position (self, double* x, double* y))
@@ -181,13 +193,8 @@ GdkEvent >> modifierState [
 
 { #category : #accessing }
 GdkEvent >> position [
-	| x y |
-	
-	x := FFIFloat64 newBuffer.
-	y := FFIFloat64 newBuffer.	
-	self getPositionX: x y: y.
-	
-	^ (x doubleAt: 1) asInteger@(y doubleAt: 1) asInteger
+
+	^ position ifNil: [ position := self getPosition ]
 ]
 
 { #category : #accessing }
@@ -212,6 +219,14 @@ GdkEvent >> surface [
 GdkEvent >> time [
 
 	^ self ffiCall: #(guint32 gdk_event_get_time (self))
+]
+
+{ #category : #accessing }
+GdkEvent >> translatePositionFrom: srcWidget to: dstWidget [
+
+	position := srcWidget
+		translateCoordinates: self getPosition
+		to: dstWidget
 ]
 
 { #category : #testing }

@@ -85,11 +85,17 @@ GtkMorphicDrawingArea >> eventHandler: aHandler [
 
 { #category : #'private - events' }
 GtkMorphicDrawingArea >> handleEvent: event [
+	| root |
 
-	"event isEventConfigure ifTrue: [ 
-		event extent = self currentExtent ifFalse: [ 
+	"event isEventConfigure ifTrue: [
+		event extent = self currentExtent ifFalse: [
 			self invalidate.
 			^ true ] ]."
+	(root := self root) isNull ifFalse: [
+		event
+			translatePositionFrom: root
+			to: self ].
+
 	^ eventHandler handleEvent: event
 ]
 

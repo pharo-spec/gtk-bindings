@@ -473,8 +473,6 @@ GtkMorphView >> handleEvent: event [
 
 	self morph ifNil: [ ^ false ].
 	^ super handleEvent: event
-
-	
 ]
 
 { #category : #initialization }
@@ -645,6 +643,7 @@ GtkMorphView >> newSurfaceOfMorph: aMorph [
 	newSurface drawDuring: [ :canvas |
 		canvas pathTransform translateBy: aMorph position negated.
 		aMorph fullDrawOnAthensCanvas: canvas ].
+
 	^ newSurface
 ]
 
