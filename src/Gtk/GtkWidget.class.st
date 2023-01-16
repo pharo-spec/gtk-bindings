@@ -1046,6 +1046,17 @@ GtkWidget >> resourceData [
 	^ handle
 ]
 
+{ #category : #accessing }
+GtkWidget >> root [
+	| current next |
+
+	current := self.
+	[ (next := current parent) isNull ]
+	whileFalse: [ current := next ].
+
+	^ current
+]
+
 { #category : #geometry }
 GtkWidget >> scaleFactor [
 	"See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-get-scale-factor"
@@ -1135,34 +1146,33 @@ GtkWidget >> tooltipText: aString [
 
 { #category : #accessing }
 GtkWidget >> translateCoordinates: aPoint to: aWidget [
-	| result type xBuffer yBuffer |
-	
-	type := self class resolveType: 'gint'.
-	xBuffer := type newBuffer.
-	yBuffer := type newBuffer.
-	
-	result := self 
-		translateCoordinatesTo: aWidget 
-		x: aPoint x 
-		y: aPoint y 
-		toX: xBuffer 
+	| result xBuffer yBuffer |
+
+	xBuffer := FFIFloat64 newBuffer.
+	yBuffer := FFIFloat64 newBuffer.
+
+	result := self
+		translateCoordinatesTo: aWidget
+		x: aPoint x asFloat
+		y: aPoint y asFloat
+		toX: xBuffer
 		toY: yBuffer.
-	
-	^ result 
-		ifTrue: [ (xBuffer signedLongAt: 1) @ (yBuffer signedLongAt: 1) ]
+
+	^ result
+		ifTrue: [ (xBuffer doubleAt: 1) asInteger @ (yBuffer doubleAt: 1) asInteger ]
 		ifFalse: [ aPoint ]
 ]
 
 { #category : #accessing }
 GtkWidget >> translateCoordinatesTo: dest_widget x: src_x y: src_y toX: dest_x toY: dest_y [
-	
+
 	^ self ffiCall: #(gboolean gtk_widget_translate_coordinates (
 		self,
 		GtkWidget *dest_widget,
-		gint src_x,
-		gint src_y,
- 		gint *dest_x,
- 		gint *dest_y))
+		gdouble src_x,
+		gdouble src_y,
+ 		void *dest_x,
+ 		void *dest_y))
 ]
 
 { #category : #accessing }
