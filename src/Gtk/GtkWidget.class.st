@@ -627,12 +627,6 @@ GtkWidget >> fontMap: font_map [
 ]
 
 { #category : #accessing }
-GtkWidget >> gdkSurface [
-
-	^ self ffiCall: #(GdkSurface *gtk_native_get_surface (self))
-]
-
-{ #category : #accessing }
 GtkWidget >> gdkWindow [
 
 	self 
@@ -1088,13 +1082,8 @@ GtkWidget >> resourceData [
 
 { #category : #accessing }
 GtkWidget >> root [
-	| current next |
 
-	current := self.
-	[ (next := current parent) isNull ]
-	whileFalse: [ current := next ].
-
-	^ current
+	^ self ffiCall: #("GtkRoot "GtkWindow *gtk_widget_get_root (self))
 ]
 
 { #category : #geometry }
@@ -1173,6 +1162,12 @@ GtkWidget >> styleContext [
 ]
 
 { #category : #accessing }
+GtkWidget >> surface [
+
+	^ self ffiCall: #(GdkSurface *gtk_native_get_surface (self))
+]
+
+{ #category : #accessing }
 GtkWidget >> tooltipText [
 	
 	^ self ffiCall: #(String gtk_widget_get_tooltip_text (self))
@@ -1199,7 +1194,7 @@ GtkWidget >> translateCoordinates: aPoint to: aWidget [
 		toY: yBuffer.
 
 	^ result
-		ifTrue: [ (xBuffer doubleAt: 1) asInteger @ (yBuffer doubleAt: 1) asInteger ]
+		ifTrue: [ (xBuffer doubleAt: 1) @ (yBuffer doubleAt: 1) ]
 		ifFalse: [ aPoint ]
 ]
 

@@ -6,6 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkWindow.html
 Class {
 	#name : #GtkWindow,
 	#superclass : #GtkWidget,
+	#traits : 'GtkTRoot + GtkTNative',
+	#classTraits : 'GtkTRoot classTrait + GtkTNative classTrait',
 	#instVars : [
 		'acceleratorGroups',
 		'cursor',
