@@ -13,16 +13,16 @@ GKeyPressedCallback class >> signalName [
 	^ 'key-pressed'
 ]
 
-{ #category : #enumerating }
+{ #category : #accessing }
 GKeyPressedCallback >> do: aBlock [
 
-	self 
-		signature: self signature 
+	self
+		signature: self signature
 		block: [ :widget :keyval :keycode :state :user_data | | event |
 			"it should answer a boolean (processed)"
-			event := GtkKeyPressEvent 
-				newKeyVal: keyval 
-				keyCode: keycode 
+			event := GdkSimulatedKeyPressEvent
+				newKeyVal: keyval
+				keyCode: keycode
 				state: (GdkModifierType newValue: state).
 			aBlock value: event.
 			event wasHandled ]

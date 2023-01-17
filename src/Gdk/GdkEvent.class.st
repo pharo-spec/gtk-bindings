@@ -33,7 +33,7 @@ GdkEvent class >> classForType: type [
 { #category : #private }
 GdkEvent class >> eventNew: type [
 
-	^ self ffiCall: #(GdkEvent *gdk_event_new (GdkEventType type))
+	self deprecated: #Gtk4
 ]
 
 { #category : #finalization }
@@ -224,9 +224,9 @@ GdkEvent >> time [
 { #category : #accessing }
 GdkEvent >> translatePositionFrom: srcWidget to: dstWidget [
 
-	position := srcWidget
+	position := dstWidget
 		translateCoordinates: self getPosition
-		to: dstWidget
+		to: srcWidget
 ]
 
 { #category : #testing }

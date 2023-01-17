@@ -112,24 +112,14 @@ GtkWidget >> addClass: aString [
 
 { #category : #'accessing - events' }
 GtkWidget >> addClickEvent: aBlock [
+	"adds a click event.
+	 aBlock does not receives arguments"
 
-	self addClickGestureWith: [ :gesture |
-		gesture 
+	self addGestureClickWith: [ :gesture |
+		gesture
 			name: 'click';
 			beButtonPrimary;
 			connectPressed: aBlock ]
-]
-
-{ #category : #'private - events' }
-GtkWidget >> addClickGestureWith: aBlock [
-	| gesture |
-	
-	"click gestures do not stack (they can be any kind, any button, etc.)"
-	gesture := GtkGestureClick new 
-		name: 'clicked';
-		yourself.
-	aBlock value: gesture.
-	self addController: gesture		
 ]
 
 { #category : #'private - events' }
@@ -146,10 +136,40 @@ GtkWidget >> addController: controller [
 	^ controller
 ]
 
+{ #category : #'accessing - events' }
+GtkWidget >> addEnterEvent: aBlock [
+	"adds a mouse enter event.
+	 aBlock receives a `GdkSimulatedCrossingEnterEvent` as argument"
+
+	self addEventControllerMotionWith: [ :aController |
+		aController connectEnter: aBlock ]
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addEventControllerMotionWith: aBlock [
+
+	"key event controllers stack (I can stack key pressed and key released events)"
+	aBlock value: (self
+		detectController: [ :each | each isMotionController ]
+		ifNone: [ self addController: GtkEventControllerMotion new ])
+]
+
 { #category : #accessing }
 GtkWidget >> addEvents: events [
 	
 	self deprecated: #Gtk4
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addGestureClickWith: aBlock [
+	| gesture |
+
+	"click gestures do not stack (they can be any kind, any button, etc.)"
+	gesture := GtkGestureClick new
+		name: 'clicked';
+		yourself.
+	aBlock value: gesture.
+	self addController: gesture
 ]
 
 { #category : #'private - events' }
@@ -163,7 +183,7 @@ GtkWidget >> addKeyEventControllerWith: aBlock [
 
 { #category : #'accessing - events' }
 GtkWidget >> addKeyModifiersEvent: aBlock [
-	"aBlock receives a GdkModifierType"
+	"aBlock receives a `GdkModifierType`"
 
 	self addKeyEventControllerWith: [ :keyController |
 		keyController
@@ -173,7 +193,7 @@ GtkWidget >> addKeyModifiersEvent: aBlock [
 
 { #category : #'accessing - events' }
 GtkWidget >> addKeyPressEvent: aBlock [
-	"aBlock receives a GtkKeyEvent (an inner object, not existing in Gtk4)"
+	"aBlock receives a `GdkSimulatedKeyEvent`"
 
 	self addKeyEventControllerWith: [ :keyController |
 		keyController
@@ -183,6 +203,7 @@ GtkWidget >> addKeyPressEvent: aBlock [
 
 { #category : #'accessing - events' }
 GtkWidget >> addKeyReleaseEvent: aBlock [
+	"aBlock receives a `GdkSimulatedKeyEvent`"
 
 	self addKeyEventControllerWith: [ :keyController |
 		keyController
@@ -191,10 +212,30 @@ GtkWidget >> addKeyReleaseEvent: aBlock [
 ]
 
 { #category : #'accessing - events' }
-GtkWidget >> addRightClickEvent: aBlock [
+GtkWidget >> addLeaveEvent: aBlock [
+	"adds a mouse leave event.
+	 aBlock receives a `GdkSimulatedCrossingLeaveEvent` as argument"
 
-	self addClickGestureWith: [ :gesture |
-		gesture 
+	self addEventControllerMotionWith: [ :aController |
+		aController connectLeave: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addMotionEvent: aBlock [
+	"adds a mouse motion (move) event.
+	 aBlock receives a `GdkSimulatedMotionEvent` as argument"
+
+	self addEventControllerMotionWith: [ :aController |
+		aController connectMotion: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addRightClickEvent: aBlock [
+	"adds a click event.
+	 aBlock does not receives arguments"
+
+	self addGestureClickWith: [ :gesture |
+		gesture
 			named: 'right-click';
 			beButtonSecondary;
 			connectPressed: aBlock ]
@@ -330,7 +371,7 @@ GtkWidget >> connectEnterNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
 
-	^ (GEnterNotifyEventCallback do: aBlock) connectTo: self
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }
@@ -380,8 +421,7 @@ GtkWidget >> connectLeaveNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
 
-	^ (GLeaveNotifyEventCallback do: aBlock) connectTo: self
-
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }
@@ -389,7 +429,7 @@ GtkWidget >> connectMotionNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
 
-	^ (GMotionNotifyEventCallback do: aBlock) connectTo: self
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }

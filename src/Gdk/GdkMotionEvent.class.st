@@ -11,26 +11,6 @@ Class {
 	#category : #'Gdk-Events'
 }
 
-{ #category : #'field definition' }
-GdkMotionEvent class >> fieldsDesc [
-	"self rebuildFieldAccessors"
-
-	^ #(
-  GdkEventType type;
-  "GdkWindow *"void *window;
-  gint8 send_event;
-  guint32 time;
-  gdouble x;
-  gdouble y;
-  gdouble *axes;
-  guint state;
-  gint16 is_hint;
-  "GdkDevice *"void *device;
-  gdouble x_root;
-  gdouble y_root; 
-	)
-]
-
 { #category : #testing }
 GdkMotionEvent class >> isType: aType [
 

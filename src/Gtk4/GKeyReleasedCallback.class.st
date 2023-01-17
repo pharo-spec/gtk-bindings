@@ -13,15 +13,15 @@ GKeyReleasedCallback class >> signalName [
 	^ 'key-pressed'
 ]
 
-{ #category : #enumerating }
+{ #category : #accessing }
 GKeyReleasedCallback >> do: aBlock [
 
-	self 
-		signature: self signature 
-		block: [ :widget :keyval :keycode :state :user_data | 
-			aBlock value: (GtkKeyReleaseEvent 
-				newKeyVal: keyval 
-				keyCode: keycode 
+	self
+		signature: self signature
+		block: [ :widget :keyval :keycode :state :user_data |
+			aBlock value: (GdkSimulatedKeyReleaseEvent
+				newKeyVal: keyval
+				keyCode: keycode
 				state: (GdkModifierType newValue: state)) ]
 ]
 

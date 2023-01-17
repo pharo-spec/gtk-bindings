@@ -96,6 +96,8 @@ GtkMorphicDrawingArea >> handleEvent: event [
 			translatePositionFrom: root
 			to: self ].
 
+	event position asIntegerPoint crTrace.
+
 	^ eventHandler handleEvent: event
 ]
 

@@ -21,6 +21,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GEnterNotifyEventCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GEnterNotifyEventCallback class >> signalName [
 

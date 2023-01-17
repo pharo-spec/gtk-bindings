@@ -12,6 +12,16 @@ GtkFormViewTest >> newWidget [
 		yourself
 ]
 
+{ #category : #tests }
+GtkFormViewTest >> testPassing [
+]
+
+{ #category : #tests }
+GtkFormViewTest >> testWithFailure [
+
+	self assert: false
+]
+
 { #category : #accessing }
 GtkFormViewTest >> widgetClass [
 

@@ -1,45 +1,47 @@
+"
+Simulate a `GdkKeyEvent`
+"
 Class {
-	#name : #GtkKeyEvent,
-	#superclass : #Object,
+	#name : #GdkSimulatedKeyEvent,
+	#superclass : #GdkSimulatedEvent,
 	#traits : 'GdkTEventState',
 	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
 		'keyVal',
 		'keyCode',
 		'state',
-		'wasHandled',
 		'unicodeValue'
 	],
 	#pools : [
 		'GdkKeyCodes',
 		'GdkModifierType'
 	],
-	#category : #'Gtk4-Event-Callbacks'
+	#category : #'Gtk4-Event-Simulated'
 }
 
 { #category : #'instance creation' }
-GtkKeyEvent class >> newCharacter: aCharacter shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
+GdkSimulatedKeyEvent class >> newCharacter: aCharacter shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
-	^ self 
+	^ self
 		newKeyValue: aCharacter asciiValue
-		keyCode: (KeyboardKey fromCharacter: aCharacter) value 
-		shift: shiftBoolean 
-		meta: metaBoolean 
-		control: controlBoolean 
+		keyCode: (KeyboardKey fromCharacter: aCharacter) value
+		shift: shiftBoolean
+		meta: metaBoolean
+		control: controlBoolean
 		option: optionBoolean
 ]
 
 { #category : #'instance creation' }
-GtkKeyEvent class >> newKeyVal: keyVal keyCode: keyCode state: state [
+GdkSimulatedKeyEvent class >> newKeyVal: keyVal keyCode: keyCode state: state [
 
-	^ self basicNew  
-		initializeKeyVal: keyVal 
-		keyCode: keyCode 
-		state: state	
+	^ self basicNew
+		initializeKeyVal: keyVal
+		keyCode: keyCode
+		state: state
 ]
 
 { #category : #'instance creation' }
-GtkKeyEvent class >> newKeyValue: keyVal keyCode: keyCode shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
+GdkSimulatedKeyEvent class >> newKeyValue: keyVal keyCode: keyCode shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 	| state |
 
 	state := GdkModifierType newValue: 0.
@@ -47,162 +49,161 @@ GtkKeyEvent class >> newKeyValue: keyVal keyCode: keyCode shift: shiftBoolean me
 	metaBoolean ifTrue: [ state := state | GDK_META_MASK ].
 	controlBoolean ifTrue: [ state := state | GDK_CONTROL_MASK ].
 	optionBoolean ifTrue: [ state := state | GDK_MOD1_MASK "Mod1 = Alt, Option" ].
-	
-	^ self 
-		newKeyVal: keyVal 
-		keyCode: keyCode 
+
+	^ self
+		newKeyVal: keyVal
+		keyCode: keyCode
 		state: state
 ]
 
 { #category : #'instance creation' }
-GtkKeyEvent class >> newKeyValue: keyVal shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
+GdkSimulatedKeyEvent class >> newKeyValue: keyVal shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
-	^ self 
-		newKeyValue: keyVal 
+	^ self
+		newKeyValue: keyVal
 		keyCode: (KeyboardKey fromCharacter: (Character value: keyVal)) value
-		shift: shiftBoolean 
-		meta: metaBoolean 
-		control: controlBoolean 
+		shift: shiftBoolean
+		meta: metaBoolean
+		control: controlBoolean
 		option: optionBoolean
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> asKeyCombination [
+GdkSimulatedKeyEvent >> asKeyCombination [
 
 	^ KMKeyCombination fromEventKey: self
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> character [
+GdkSimulatedKeyEvent >> character [
 
 	^ self keyCharacter
 ]
 
 { #category : #testing }
-GtkKeyEvent >> hasModifier: aModifier [
+GdkSimulatedKeyEvent >> hasModifier: aModifier [
 
 	^ (self state & aModifier) = aModifier
 ]
 
 { #category : #initialization }
-GtkKeyEvent >> initialize [
-	
-	super initialize.
-	wasHandled := false
-]
-
-{ #category : #initialization }
-GtkKeyEvent >> initializeKeyVal: keyValNumber keyCode: keyCodeNumber state: stateNumber [
+GdkSimulatedKeyEvent >> initializeKeyVal: keyValNumber keyCode: keyCodeNumber state: stateNumber [
 
 	self initialize.
 	keyVal := keyValNumber.
 	keyCode := keyCodeNumber.
-	state := stateNumber	
+	state := stateNumber
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isEscape [
+GdkSimulatedKeyEvent >> isEscape [
 
 	^ self keyValue = KEY_Escape
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isKeyDown [
+GdkSimulatedKeyEvent >> isKeyDown [
 
 	^ self keyValue = KEY_Down
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isKeyLeft [
+GdkSimulatedKeyEvent >> isKeyEvent [
+
+	^ true
+]
+
+{ #category : #testing }
+GdkSimulatedKeyEvent >> isKeyLeft [
 
 	^ self keyValue = KEY_Left
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isKeyPress [
+GdkSimulatedKeyEvent >> isKeyPress [
 
 	^ false
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isKeyRelease [
+GdkSimulatedKeyEvent >> isKeyRelease [
 
 	^ false
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isKeyRight [
+GdkSimulatedKeyEvent >> isKeyRight [
 
 	^ self keyValue = KEY_Right
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isKeyUp [
+GdkSimulatedKeyEvent >> isKeyUp [
 
 	^ self keyValue = KEY_Up
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isModifier [
+GdkSimulatedKeyEvent >> isModifier [
 
 	^ false
 ]
 
 { #category : #testing }
-GtkKeyEvent >> isReturn [
+GdkSimulatedKeyEvent >> isReturn [
 
 	^ self keyValue = KEY_Return
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> key [ 
+GdkSimulatedKeyEvent >> key [
 
-	self keyValue <= 16rFF ifTrue: [ 
-		(KeyboardKey 
-			fromCharacter: self keyCharacter 
+	self keyValue <= 16rFF ifTrue: [
+		(KeyboardKey
+			fromCharacter: self keyCharacter
 			ifNone: [ nil ])
 			ifNotNil: [ :aKey | ^ aKey ] ].
-		
-	^ KeyboardKey 
+
+	^ KeyboardKey
 		atValue: self keyValue
 		ifAbsent: [ Smalltalk os keyForValue: self scanCode ]
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> keyCharacter [
+GdkSimulatedKeyEvent >> keyCharacter [
 
 	^ Unicode value: self unicodeValue
 ]
 
 { #category : #accessing }
-GtkKeyEvent >> keyCode [
+GdkSimulatedKeyEvent >> keyCode [
 
 	^ keyCode
 ]
 
 { #category : #accessing }
-GtkKeyEvent >> keyVal [
+GdkSimulatedKeyEvent >> keyVal [
 
 	^ keyVal
 ]
 
 { #category : #accessing }
-GtkKeyEvent >> keyValue [
+GdkSimulatedKeyEvent >> keyValue [
 
 	^ self keyVal
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> modifiedCharacter [
-	
+GdkSimulatedKeyEvent >> modifiedCharacter [
+
 	self flag: #TODO. "This I think is always `self character` ?"
 	self character ifNotNil: [ :c | ^ c ].
-	self symbol <= 16rFF ifTrue: [ ^ Unicode value: self symbol ]. 
+	self symbol <= 16rFF ifTrue: [ ^ Unicode value: self symbol ].
 	^ Unicode value: 0
 ]
 
 { #category : #printing }
-GtkKeyEvent >> printOn: stream [
+GdkSimulatedKeyEvent >> printOn: stream [
 
 	super printOn: stream.
 	stream << '('.
@@ -213,37 +214,25 @@ GtkKeyEvent >> printOn: stream [
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> scanCode [
-	
+GdkSimulatedKeyEvent >> scanCode [
+
 	^ self keyCode
 ]
 
 { #category : #accessing }
-GtkKeyEvent >> state [
+GdkSimulatedKeyEvent >> state [
 
 	^ state
 ]
 
 { #category : #compatibility }
-GtkKeyEvent >> symbol [
+GdkSimulatedKeyEvent >> symbol [
 
 	^ self keyValue
 ]
 
 { #category : #accessing }
-GtkKeyEvent >> unicodeValue [
+GdkSimulatedKeyEvent >> unicodeValue [
 
 	^ unicodeValue ifNil: [ unicodeValue := GdkKeyEvent keyValToUnicode: self keyVal ]
-]
-
-{ #category : #compatibility }
-GtkKeyEvent >> wasHandled [
-
-	^ wasHandled
-]
-
-{ #category : #compatibility }
-GtkKeyEvent >> wasHandled: aBoolean [
-
-	wasHandled := aBoolean
 ]

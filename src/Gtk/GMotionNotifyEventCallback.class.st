@@ -21,6 +21,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GMotionNotifyEventCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GMotionNotifyEventCallback class >> signalName [
 

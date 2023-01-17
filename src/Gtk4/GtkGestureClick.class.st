@@ -25,7 +25,7 @@ GtkGestureClick >> connectPressed: aBlock [
 ]
 
 { #category : #testing }
-GtkGestureClick >> isClickGesture [
+GtkGestureClick >> isGestureClick [
 
 	^ true
 ]

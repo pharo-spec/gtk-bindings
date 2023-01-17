@@ -21,6 +21,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GLeaveNotifyEventCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GLeaveNotifyEventCallback class >> signalName [
 

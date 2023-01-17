@@ -109,12 +109,10 @@ GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea:
 
 { #category : #initialization }
 GtkCellRendererLink >> addedToTreeView: aTreeView column: aColumn [
-	
+
 	treeView := aTreeView.
 	column := aColumn.
-	aTreeView connectMotionNotify: [ :event | 
-		self maybeSetCursor: event.
-		false ]
+	aTreeView addMotionEvent: [ :anEvent | self maybeSetCursor: anEvent position ]
 ]
 
 { #category : #private }
@@ -173,12 +171,12 @@ GtkCellRendererLink >> initialize [
 ]
 
 { #category : #'private - testing' }
-GtkCellRendererLink >> isEventInCell: event [
-		
-	treeView 
-		pathAtPosition: event position
-		then: [ :path :columnHandle :cell | 
-			^ columnHandle = column getHandle ]. 
+GtkCellRendererLink >> isEventInCell: aPoint [
+
+	treeView
+		pathAtPosition: aPoint
+		then: [ :path :columnHandle :cell |
+			^ columnHandle = column getHandle ].
 	^ false
 ]
 
@@ -194,9 +192,9 @@ GtkCellRendererLink >> linkPrototype [
 ]
 
 { #category : #initialization }
-GtkCellRendererLink >> maybeSetCursor: event [
-	
-	(self isEventInCell: event)
+GtkCellRendererLink >> maybeSetCursor: aPoint [
+
+	(self isEventInCell: aPoint)
 		ifTrue: [ treeView gdkWindow cursor: GdkCursor newHand ]
 		ifFalse: [ treeView gdkWindow cursor: GdkCursor null ]
 ]

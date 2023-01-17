@@ -24,9 +24,8 @@ GtkListView class >> gtkNewSelectionModel: model factory: factory [
 { #category : #'instance creation' }
 GtkListView class >> new [
 
-
-	^ self 
-		newFactory: GObject null 
+	^ self
+		newFactory: GObject null
 		selectionModel: GObject null
 ]
 

@@ -7,5 +7,5 @@ Class {
 { #category : #accessing }
 GtkKeyPressEventTest >> classToTest [
 
-	^ GtkKeyPressEvent
+	^ GdkSimulatedKeyPressEvent
 ]

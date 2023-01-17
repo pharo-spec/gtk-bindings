@@ -48,10 +48,9 @@ GtkEventController >> currentEventTime [
 ]
 
 { #category : #testing }
-GtkEventController >> isClickGesture [
+GtkEventController >> isGestureClick [
 
 	^ false
-	
 ]
 
 { #category : #testing }
@@ -60,6 +59,12 @@ GtkEventController >> isKeyController [
 	^ false
 
 	
+]
+
+{ #category : #testing }
+GtkEventController >> isMotionController [
+
+	^ false
 ]
 
 { #category : #accessing }

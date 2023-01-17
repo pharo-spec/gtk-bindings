@@ -10,5 +10,5 @@ Class {
 { #category : #accessing }
 GtkKeyReleaseEventTest >> classToTest [
 
-	^ GtkKeyReleaseEvent
+	^ GdkSimulatedKeyReleaseEvent
 ]

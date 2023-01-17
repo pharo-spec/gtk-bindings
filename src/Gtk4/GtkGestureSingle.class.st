@@ -1,3 +1,8 @@
+"
+GtkGestureSingle is a GtkGestures subclass optimized for singe-touch and mouse gestures.
+
+https://docs.gtk.org/gtk4/class.GestureSingle.html
+"
 Class {
 	#name : #GtkGestureSingle,
 	#superclass : #GtkGesture,
