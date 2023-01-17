@@ -49,38 +49,6 @@ GtkMorphView class >> example1 [
 ]
 
 { #category : #examples }
-GtkMorphView class >> example1x [
-
-	GtkEngine ensureRunning.
-	GRunLoop defer: [
-		GtkWindow new
-			defaultSize: 500@500;
-			child: (GtkBox newHorizontal
-				add: (self new
-					morph: (Morph new
-						vResizing: #spaceFill;
-						hResizing: #spaceFill;
-						addMorphBack: 'Test' asStringMorph;
-						yourself);
-					yourself);
-				yourself);
-			present ]
-]
-
-{ #category : #examples }
-GtkMorphView class >> example1y [
-
-	GtkEngine ensureRunning.
-	GRunLoop defer: [
-		GtkWindow new
-			defaultSize: 500@500;
-			child: (GtkListView new
-				addMotionEvent: [ :anEvent | anEvent position asIntegerPoint crTrace ];
-				yourself);
-			present ]
-]
-
-{ #category : #examples }
 GtkMorphView class >> example2 [
 	| morph positionMorph |
 	"show mouse events"

@@ -85,3 +85,30 @@ GdkSurface >> state [
 
 	^ self ffiCall: #(#GdkTopLevelState gdk_toplevel_get_state (self))
 ]
+
+{ #category : #accessing }
+GdkSurface >> translateCoordinates: aPoint to: destSurface [
+	| xBuffer yBuffer result |
+
+	xBuffer := FFIFloat64 newBuffer.
+	yBuffer := FFIFloat64 newBuffer.
+
+	xBuffer doubleAt: 1 put: aPoint x asFloat.
+	yBuffer doubleAt: 1 put: aPoint y asFloat.
+
+	result := self translateCoordinatesTo: destSurface x: xBuffer y: yBuffer.
+
+	^ result
+		ifTrue: [ (xBuffer doubleAt: 1) @ (yBuffer doubleAt: 1) ]
+		ifFalse: [ aPoint ]
+]
+
+{ #category : #private }
+GdkSurface >> translateCoordinatesTo: dest_surface x: x y: y [
+
+	^ self ffiCall: #(gboolean gtk_widget_translate_coordinates (
+		self,
+		GdkSurface *dest_surface,
+ 		void *x,
+ 		void *y))
+]

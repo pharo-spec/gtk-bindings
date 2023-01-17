@@ -11,9 +11,10 @@ Class {
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
 	#instVars : [
-		'wasHandled',
-		'type',
-		'position'
+		'#wasHandled',
+		'#type',
+		'#position',
+		'#positionWidget => WeakSlot'
 	],
 	#pools : [
 		'GdkEventType'
@@ -101,6 +102,27 @@ GdkEvent >> button [
 	^ 0
 ]
 
+{ #category : #private }
+GdkEvent >> calculatePosition [
+	"Since position in Gtk4 is relative to the surface (the window) and not in the widget
+	 subscribed the event, we need to calculate it. But we do it lazily because position
+	 is not always used, so there is no point on do the work until is demanded."
+
+	^ positionWidget
+		ifNotNil: [ self calculatePositionRelativeTo: positionWidget ]
+		ifNil: [ self getPosition ]
+]
+
+{ #category : #private }
+GdkEvent >> calculatePositionRelativeTo: aWidget [
+	| root |
+
+	root := aWidget root.
+	^ root
+		translateCoordinates: (self getPosition - root surfaceTransform)
+		to: aWidget
+]
+
 { #category : #accessing }
 GdkEvent >> device [
 
@@ -140,6 +162,13 @@ GdkEvent >> getPositionX: x y: y [
 GdkEvent >> getType [ 
 
 	^ self ffiCall: #(GdkEventType gdk_event_get_event_type (self))
+]
+
+{ #category : #initialization }
+GdkEvent >> initialize [
+
+	self class initializeSlots: self.
+	super initialize
 ]
 
 { #category : #testing }
@@ -194,7 +223,7 @@ GdkEvent >> modifierState [
 { #category : #accessing }
 GdkEvent >> position [
 
-	^ position ifNil: [ position := self getPosition ]
+	^ position ifNil: [ position := self calculatePosition ]
 ]
 
 { #category : #accessing }
@@ -219,14 +248,6 @@ GdkEvent >> surface [
 GdkEvent >> time [
 
 	^ self ffiCall: #(guint32 gdk_event_get_time (self))
-]
-
-{ #category : #accessing }
-GdkEvent >> translatePositionFrom: srcWidget to: dstWidget [
-
-	position := dstWidget
-		translateCoordinates: self getPosition
-		to: srcWidget
 ]
 
 { #category : #testing }
@@ -258,4 +279,11 @@ GdkEvent >> wasHandled [
 GdkEvent >> wasHandled: aBoolean [
 
 	^ wasHandled := aBoolean
+]
+
+{ #category : #accessing }
+GdkEvent >> withPositionRelativeTo: aWidget [
+
+	positionWidget := aWidget.
+	position := nil
 ]
