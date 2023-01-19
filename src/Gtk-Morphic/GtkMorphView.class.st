@@ -160,25 +160,26 @@ GtkMorphView class >> example6 [
 
 	GtkEngine ensureRunning.
 
-	inform := GtkInfoArea new.
+	"inform := GtkInfoArea new."
 
-	morph  := self 
-		newGridOf: 5 
-		with: [ :pos | 
+	morph  := self
+		newGridOf: 5
+		with: [ :pos |
 			PluggableButtonMorph new
 				label: pos asString;
-				actionBlock: [ inform addInfo: pos asString ];
+				actionBlock: [ "inform addInfo: pos asString" ];
 				helpText: 'Button at ', pos asString;
 				yourself ].
 
-	GtkWindow new
-		title: 'PlugabbleButtonMorph Event Example';
-		defaultSize: 500@500;
-		child: (GtkBox newVertical
-			append: inform;
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
+	GRunLoop defer: [
+		GtkWindow new
+			title: 'PlugabbleButtonMorph Event Example';
+			defaultSize: 500@500;
+			child: (GtkBox newVertical
+				"append: inform;"
+				append: (GtkMorphView newMorph: morph);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
@@ -187,71 +188,73 @@ GtkMorphView class >> example7 [
 
 	GtkEngine ensureRunning.
 
-	inform := GtkInfoArea new.
+	"inform := GtkInfoArea new."
 
-	morph  := self 
-		newGridOf: 5 
-		with: [ :pos | 
+	morph  := self
+		newGridOf: 5
+		with: [ :pos |
 			SimpleButtonMorph new
 				label: pos asString;
 				color: Color random;
-				target: [ inform addInfo: pos asString ];
+				target: [ "inform addInfo: pos asString" ];
 				actionSelector: #value;
 				helpText: 'Button at ', pos asString;
 				yourself ].
 
-	GtkWindow new
-		title: 'SimpleButtonMorph Event Example';
-		defaultSize: 500@500;
-		child: (GtkBox newVertical
-			append: inform;
-			append: (GtkMorphView newMorph: morph);
-			yourself);
-		present
+	GRunLoop defer: [
+		GtkWindow new
+			title: 'SimpleButtonMorph Event Example';
+			defaultSize: 500@500;
+			child: (GtkBox newVertical
+				"append: inform;"
+				append: (GtkMorphView newMorph: morph);
+				yourself);
+			present ]
 ]
 
 { #category : #examples }
 GtkMorphView class >> example8 [
-	| morph1 morph2 inform |
+	| morph1 morph2 "inform" |
 
 	GtkEngine ensureRunning.
 
-	inform := GtkInfoArea new.
+	"inform := GtkInfoArea new."
 
-	morph1  := self 
-		newGridOf: 5 
-		with: [ :pos | 
+	morph1  := self
+		newGridOf: 5
+		with: [ :pos |
 			SimpleButtonMorph new
 				label: pos asString;
 				color: Color random;
-				target: [ inform addInfo: pos asString ];
+				target: [ "inform addInfo: pos asString" ];
 				actionSelector: #value;
 				helpText: 'Button at ', pos asString;
 				yourself ].
 
-	morph2  := self 
-		newGridOf: 5 
-		with: [ :pos | 
+	morph2  := self
+		newGridOf: 5
+		with: [ :pos |
 			SimpleButtonMorph new
 				label: pos asString;
 				color: Color random;
-				target: [ inform addInfo: pos asString ];
+				target: [ "inform addInfo: pos asString" ];
 				actionSelector: #value;
 				helpText: 'Button at ', pos asString;
 				yourself ].
 
-	GtkWindow new
-		title: 'SimpleButtonMorph Event Example';
-		defaultSize: 500@500;
-		child: (GtkBox newVertical
-			append: inform;
-			append: (GtkPaned newVertical
-				position: 250;
-				add: (GtkMorphView newMorph: morph1);
-				add: (GtkMorphView newMorph: morph2);
+	GRunLoop defer: [
+		GtkWindow new
+			title: 'SimpleButtonMorph Event Example';
+			defaultSize: 500@500;
+			child: (GtkBox newVertical
+				"append: inform;"
+				append: (GtkPaned newVertical
+					position: 250;
+					startChild: (GtkMorphView newMorph: morph1);
+					endChild: (GtkMorphView newMorph: morph2);
+					yourself);
 				yourself);
-			yourself);
-		present
+			present ]
 ]
 
 { #category : #examples }

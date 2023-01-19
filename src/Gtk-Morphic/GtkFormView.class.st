@@ -22,11 +22,11 @@ GtkFormView class >> drawingAreaNew [
 GtkFormView class >> example [
 
 	GtkEngine ensureRunning.
-	GRunLoop defer: [ 
-		GtkWindow new 
+	GRunLoop defer: [
+		GtkWindow new
 			defaultSize: 500@500;
 			child: (self new
-				form: (self currentWorld submorphs detect: [ :each | each class = ImageMorph ]) asForm;
+				form: (Smalltalk ui icons iconNamed: #pharoBig);
 				yourself);
 			present ]
 ]
