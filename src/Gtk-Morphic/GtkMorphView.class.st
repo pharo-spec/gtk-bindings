@@ -815,14 +815,14 @@ GtkMorphView >> updateAllSurface [
 { #category : #'private - updating' }
 GtkMorphView >> updateSurface [
 	| rects |
-	
-	self flag: #TODO. "Do not use the nil HACK here (add a method to DamageRecorder to know if 
-	I need to redraw all instead)."
-	rects := damageRecorder invalidRectsFullBounds: nil.
-	damageRecorder reset.
-	rects first 
-		ifNotNil: [ self updateSurfaceRectangles: rects ]
-		ifNil: [ self updateAllSurface ]
+
+	damageRecorder hasInvalidRects
+		ifTrue: [
+			rects := damageRecorder invalidRects.
+			damageRecorder reset.
+			self updateSurfaceRectangles: rects ]
+		ifFalse: [
+			self updateAllSurface ]
 ]
 
 { #category : #'private - updating' }
