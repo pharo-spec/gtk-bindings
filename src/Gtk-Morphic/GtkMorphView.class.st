@@ -156,6 +156,7 @@ GtkMorphView class >> example5 [
 
 { #category : #examples }
 GtkMorphView class >> example6 [
+	"This is the same as example5, but buttons have a hover (a help text)."
 	| morph inform |
 
 	GtkEngine ensureRunning.
@@ -371,7 +372,6 @@ GtkMorphView >> addMorphInFrontOfLayer: aMorph [
 
 	layeredMorphs add: aMorph.
 	aMorph privateOwner: self.
-
 	self invalidateRect: aMorph fullBounds
 ]
 
@@ -728,11 +728,11 @@ GtkMorphView >> resizeIfEnabledTo: extent [
 		self morph extent: extent ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : #geometry }
 GtkMorphView >> sizeRequest: anExtent [
 
 	lastRequestedSize = anExtent ifTrue: [ ^ self ].
-	super sizeRequest: anExtent. 
+	super sizeRequest: anExtent.
 	lastRequestedSize := anExtent
 ]
 
@@ -771,10 +771,14 @@ GtkMorphView >> startStepping: aMorph at: scheduledTime selector: aSelector argu
 ]
 
 { #category : #'world simulation' }
+GtkMorphView >> startSteppingSubmorphsOf: aMorph [
+]
+
+{ #category : #'world simulation' }
 GtkMorphView >> stopStepping [
-	
+
 	steps ifNil: [ ^ self ].
-	
+
 	steps do: [ :each | each cancel ].
 	steps := nil
 ]
@@ -858,8 +862,10 @@ GtkMorphView >> updatingWhile: aBlock [
 
 { #category : #'world simulation' }
 GtkMorphView >> viewBox [
+	| boundingBox |
 
-	^ 0@0 extent: self size
+	boundingBox := self boundingBox.
+	^ boundingBox origin asIntegerPoint corner: boundingBox corner asIntegerPoint
 ]
 
 { #category : #'world simulation' }

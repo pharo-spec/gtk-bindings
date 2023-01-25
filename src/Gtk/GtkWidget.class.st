@@ -292,9 +292,10 @@ GtkWidget >> basicInsertActionGroup: name actions: group [
 
 { #category : #drawing }
 GtkWidget >> boundingBox [
+	| positionInTopLevel |
 
-	self deprecated: #Gtk4.
-	^ 0@0 corner: self size
+	positionInTopLevel := self positionInTopLevel.
+	^ positionInTopLevel corner: positionInTopLevel + self size
 ]
 
 { #category : #private }
@@ -1011,9 +1012,9 @@ GtkWidget >> path [
 { #category : #drawing }
 GtkWidget >> positionInTopLevel [
 
-	self deprecated: #Gtk4.
-	
-	^ 0@0
+	^ self
+		translateCoordinates: 0@0
+		to: self root
 ]
 
 { #category : #geometry }
