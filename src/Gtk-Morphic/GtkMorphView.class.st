@@ -645,7 +645,9 @@ GtkMorphView >> newSurfaceOfMorph: aMorph [
 	newSurface := AthensCairoSurface extent: aMorph extent.
 	newSurface drawDuring: [ :canvas |
 		canvas pathTransform translateBy: aMorph position negated.
-		aMorph fullDrawOnAthensCanvas: canvas ].
+		canvas
+			clipBy: aMorph bounds
+			during: [ aMorph fullDrawOnAthensCanvas: canvas ] ].
 
 	^ newSurface
 ]

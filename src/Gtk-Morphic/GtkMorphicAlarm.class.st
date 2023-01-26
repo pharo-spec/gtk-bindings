@@ -31,6 +31,12 @@ GtkMorphicAlarm >> schedule [
 		fork
 ]
 
+{ #category : #evaluating }
+GtkMorphicAlarm >> value: aTime [
+
+	^ GRunLoop defer: [ super value: aTime ]
+]
+
 { #category : #private }
 GtkMorphicAlarm >> waitUntilExecution [
 
