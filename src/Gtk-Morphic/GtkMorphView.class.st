@@ -259,24 +259,6 @@ GtkMorphView class >> example8 [
 ]
 
 { #category : #examples }
-GtkMorphView class >> example9 [
-
-	GtkEngine ensureRunning.
-	GRunLoop defer: [ 
-		GtkWindow new
-			defaultSize: 500@500;
-			child: (self new
-				morph: (Morph new
-					vResizing: #spaceFill;
-					hResizing: #spaceFill;
-					addMorphBack: 'Test' asStringMorph;
-					yourself);
-				expand: true;
-				yourself);
-			present ]
-]
-
-{ #category : #examples }
 GtkMorphView class >> newGridOf: aNumber with: aBlock [
 	| gridMorph |
 
