@@ -7,7 +7,8 @@ Class {
 	#name : #GtkButton,
 	#superclass : #GtkWidget,
 	#instVars : [
-		'image'
+		'image',
+		'child'
 	],
 	#pools : [
 		'GtkPositionType',
@@ -47,7 +48,7 @@ GtkButton class >> newLabel: aString [
 { #category : #accessing }
 GtkButton >> alwaysShowImage [
 
-	^ self alwaysShowImage: true
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -57,34 +58,51 @@ GtkButton >> alwaysShowImage: always_show [
 
 { #category : #accessing }
 GtkButton >> alwaysShowsImage [
-	^ self ffiCall: #(gboolean gtk_button_get_always_show_image (self))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> beImagePositionBottom [
-	self imagePosition: GTK_POS_BOTTOM
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> beImagePositionLeft [
-	self imagePosition: GTK_POS_LEFT
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> beImagePositionRight [
-	self imagePosition: GTK_POS_RIGHT
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> beImagePositionTop [
-	self imagePosition: GTK_POS_TOP
+
+	self deprecated: #Gtk4
+]
+
+{ #category : #accessing }
+GtkButton >> child [
+
+	^ child ifNil: [ child := self getChild ]
+]
+
+{ #category : #accessing }
+GtkButton >> child: aWidget [
+
+	child := aWidget.
+	self setChild: aWidget
 ]
 
 { #category : #simulating }
 GtkButton >> clicked [
 
-	self ffiCall: #(void gtk_button_clicked (self))
-
+	self deprecated: #Gtk4
 ]
 
 { #category : #style }
@@ -96,21 +114,21 @@ GtkButton >> font: aLogicalFont [
 ]
 
 { #category : #private }
+GtkButton >> getChild [
+
+	^ self ffiCall: #(GtkWidget* gtk_button_get_child (self))
+]
+
+{ #category : #private }
 GtkButton >> getImage [
 
 	^ self ffiCall: #(GtkImage *gtk_button_get_image (self))
 ]
 
 { #category : #private }
-GtkButton >> gtkButtonGetLabel [
+GtkButton >> getLabel [
 
 	^ self ffiCall: #(gchar *gtk_button_get_label(self))
-]
-
-{ #category : #private }
-GtkButton >> gtkButtonSetLabel: aString [
-
-	self ffiCall: #(void gtk_button_set_label(self, String aString))
 ]
 
 { #category : #accessing }
@@ -144,13 +162,13 @@ GtkButton >> isAlwaysShowImage [
 { #category : #accessing }
 GtkButton >> label [
 
-	^ self gtkButtonGetLabel
+	^ self getLabel
 ]
 
 { #category : #accessing }
 GtkButton >> label: aString [
 
-	^ self gtkButtonSetLabel: aString
+	^ self setLabel: aString
 ]
 
 { #category : #accessing }
@@ -166,9 +184,21 @@ GtkButton >> reliefStyle: relief [
 ]
 
 { #category : #private }
+GtkButton >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_button_set_child (self, GtkWidget *aWidget))
+]
+
+{ #category : #private }
 GtkButton >> setImage: anImage [
 
 	self ffiCall: #(void gtk_button_set_image (self, GtkWidget *anImage))
+]
+
+{ #category : #private }
+GtkButton >> setLabel: aString [
+
+	self ffiCall: #(void gtk_button_set_label(self, String aString))
 ]
 
 { #category : #accessing }

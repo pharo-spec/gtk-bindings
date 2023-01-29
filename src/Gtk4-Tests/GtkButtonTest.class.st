@@ -1,6 +1,6 @@
 Class {
 	#name : #GtkButtonTest,
-	#superclass : #GtkWidgetTest,
+	#superclass : #GtkBaseButtonTest,
 	#category : #'Gtk4-Tests-Widget'
 }
 

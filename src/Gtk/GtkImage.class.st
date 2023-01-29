@@ -28,6 +28,12 @@ GtkImage class >> gType [
 ]
 
 { #category : #private }
+GtkImage class >> imageNewFromIconName: icon_name [
+
+	self ffiCall: #(GtkImage *gtk_image_new_from_icon_name (const char* icon_name))
+]
+
+{ #category : #private }
 GtkImage class >> imageNewFromPaintable: paintable [
 
 	^ self ffiCall: #(GtkImage *gtk_image_new_from_paintable (GdkPaintable *paintable))
@@ -49,6 +55,12 @@ GtkImage class >> new [
 GtkImage class >> newEmpty [
 
 	^ self basicNewEmpty initialize
+]
+
+{ #category : #'instance creation' }
+GtkImage class >> newIconName: aString [
+
+	^ (self imageNewFromIconName: aString) initialize
 ]
 
 { #category : #'instance creation' }

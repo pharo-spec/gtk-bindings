@@ -105,6 +105,18 @@ GtkMenuButton >> bePopupDirectionUp [
 ]
 
 { #category : #private }
+GtkMenuButton >> getChild [
+
+	self ffiCall: #(GtkWidget *gtk_menu_button_get_child (self))
+]
+
+{ #category : #private }
+GtkMenuButton >> getLabel [
+
+	^ self ffiCall: #(const char* gtk_menu_button_get_label (self))
+]
+
+{ #category : #private }
 GtkMenuButton >> getMenuModel [
 
 	^ self ffiCall: #(GMenuModel *gtk_menu_button_get_menu_model (self))
@@ -164,6 +176,12 @@ GtkMenuButton >> popupDirection [
 GtkMenuButton >> popupDirection: direction [
 
 	^ self ffiCall: #(void gtk_menu_button_set_direction (self, GtkArrowType direction))
+]
+
+{ #category : #private }
+GtkMenuButton >> setLabel: label [
+
+	self ffiCall: #(void gtk_menu_button_set_label (self, const char* label))
 ]
 
 { #category : #private }

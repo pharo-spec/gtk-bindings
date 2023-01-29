@@ -37,22 +37,22 @@ GtkCheckButton >> active: aBoolean [
 	^ self ffiCall: #(void gtk_check_button_set_active (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
-GtkCheckButton >> group: aCheckButton [
+{ #category : #private }
+GtkCheckButton >> getChild [
 
-	^ self ffiCall: #(void gtk_check_button_set_group (self, GtkCheckButton *aCheckButton))
+	self ffiCall: #(GtkWidget *gtk_check_button_get_child (self))
 ]
 
 { #category : #private }
-GtkCheckButton >> gtkButtonGetLabel [
+GtkCheckButton >> getLabel [
 
 	^ self ffiCall: #(gchar *gtk_check_button_get_label(self))
 ]
 
-{ #category : #private }
-GtkCheckButton >> gtkButtonSetLabel: aString [
+{ #category : #accessing }
+GtkCheckButton >> group: aCheckButton [
 
-	self ffiCall: #(void gtk_check_button_set_label(self, String aString))
+	^ self ffiCall: #(void gtk_check_button_set_group (self, GtkCheckButton *aCheckButton))
 ]
 
 { #category : #accessing }
@@ -71,4 +71,16 @@ GtkCheckButton >> isActive [
 GtkCheckButton >> isInconsistent [
 
 	^ self ffiCall: #(gboolean gtk_check_button_get_inconsistent (self))
+]
+
+{ #category : #private }
+GtkCheckButton >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_check_button_set_child (self, GtkWidget *aWidget))
+]
+
+{ #category : #private }
+GtkCheckButton >> setLabel: aString [
+
+	self ffiCall: #(void gtk_check_button_set_label(self, String aString))
 ]
