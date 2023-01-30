@@ -221,22 +221,28 @@ GtkCellRendererLink >> onActivate: aBlock [
 GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellArea: cellRect flags: flags [
 	| layout context x y canvas attrs |
 
+	self flag: #TODO. "The usage of styleContext is now deprecated.
+	Thankfully, we will not need a cell renderer anymore (users will
+	be able to use a link directly)"
+
+	self deprecated: #Gtk4.
+
 	context := self linkPrototype styleContext.
-	layout := self linkPrototype createPangoLayout: text.	
+	layout := self linkPrototype createPangoLayout: text.
 	attrs := PangoAttrList new.
-	"for some reason, 'text-decoration-line' css property is not working, so I 
+	"for some reason, 'text-decoration-line' css property is not working, so I
 	 add the underline manually. "
 	attrs add: (PangoAttribute newUnderline: 1).
 	layout setAttributes: attrs.
 
-	x := self calculateXIn: cellRect layout: layout.	
-	y := cellRect y + self padding y.	
+	x := self calculateXIn: cellRect layout: layout.
+	y := cellRect y + self padding y.
 
 	layout width: -1.
 
 	canvas := AthensCairoCanvas fromHandle: cr.
 	canvas primSaveState.
-	canvas pushClipRect: cellRect. 
+	canvas pushClipRect: cellRect.
 	context renderLayout: layout cr: cr x: x y: y.
 	canvas primRestoreState
 ]

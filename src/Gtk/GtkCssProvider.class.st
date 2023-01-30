@@ -94,72 +94,75 @@ GtkCssProvider class >> newFromString: aString [
 ]
 
 { #category : #accessing }
+GtkCssProvider >> addForApplicationToDefaultDisplay [
+
+	self
+		addForDisplay: GdkDisplay default
+		priority: GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+]
+
+{ #category : #accessing }
 GtkCssProvider >> addForApplicationToDefaultScreen [
 
-	self 
-		addForScreen: GdkScreen default 
-		priority: GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+	self deprecated: #Gtk4
+]
+
+{ #category : #private }
+GtkCssProvider >> addForDisplay: display priority: priority [
+
+	self ffiCall: #(void gtk_style_context_add_provider_for_display (
+		GdkDisplay *display,
+		self,
+		guint priority))
 ]
 
 { #category : #private }
 GtkCssProvider >> addForScreen: screen priority: priority [
 
-	^ self ffiCall: #(void gtk_style_context_add_provider_for_screen(
-		GdkScreen *screen,
-		self,
-		guint priority))
+	self deprecated: #Gtk4
+]
+
+{ #category : #accessing }
+GtkCssProvider >> addForUserToDefaultDisplay [
+
+	self
+		addForDisplay: GdkDisplay default
+		priority: GTK_STYLE_PROVIDER_PRIORITY_USER
 ]
 
 { #category : #accessing }
 GtkCssProvider >> addForUserToDefaultScreen [
 
-	self 
-		addForScreen: GdkScreen default 
-		priority: GTK_STYLE_PROVIDER_PRIORITY_USER
+	self deprecated: #Gtk
 ]
 
-{ #category : #accessing }
-GtkCssProvider >> loadFromData: aString [
-	| errorHolder error |
-	
-	errorHolder := GErrorHolder new.
-	(self loadFromData: aString length: aString size error: errorHolder)
-		ifFalse: [ 
-			error := errorHolder value.
-			GtkError signal: error messageString ]
-]
+{ #category : #'accessing - loading' }
+GtkCssProvider >> loadFromData: data [
 
-{ #category : #private }
-GtkCssProvider >> loadFromData: data length: length error: error [
-	^ self ffiCall: #(gboolean gtk_css_provider_load_from_data (
+	^ self ffiCall: #(void gtk_css_provider_load_from_data (
 		self,
-		const gchar *data,
-		gssize length,
-		"GError **"GErrorHolder error))
+		gchar *data,
+		gssize -1))
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - loading' }
 GtkCssProvider >> loadFromPath: path [
-	| encodedPath errorHolder error |
-	
-	errorHolder := GErrorHolder new.
-	encodedPath := self class fileNameToUTF8: path.
-	(self loadFromPath: encodedPath error: errorHolder) 
-		ifFalse: [ 
-			error := errorHolder value.
-			GtkError signal: error messageString ]
-]
 
-{ #category : #private }
-GtkCssProvider >> loadFromPath: path error: error [
 	^ self ffiCall: #(gboolean gtk_css_provider_load_from_path (
-		self, 
-		const gchar *path,
-		"GError **"GErrorHolder error))
+		self,
+		const gchar *path))
 ]
 
-{ #category : #accessing }
-GtkCssProvider >> toString [ 
+{ #category : #'accessing - loading' }
+GtkCssProvider >> loadFromResource: resource_path [
+
+	^ self ffiCall: #(gboolean gtk_css_provider_load_from_resource (
+		self,
+		const gchar *resource_path))
+]
+
+{ #category : #converting }
+GtkCssProvider >> toString [
 
 	^ self ffiCall: #(char *gtk_css_provider_to_string (self))
 ]

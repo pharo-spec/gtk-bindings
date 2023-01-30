@@ -105,9 +105,9 @@ GtkWidget >> addAccelerator: aString group: anAccelGroup shortcut: aShortcut [
 ]
 
 { #category : #style }
-GtkWidget >> addClass: aString [
+GtkWidget >> addClass: css_class [
 
-	self styleContext addClass: aString
+	self ffiCall: #(void gtk_widget_add_css_class (self, const char* css_class))
 ]
 
 { #category : #'accessing - events' }
@@ -509,6 +509,12 @@ GtkWidget >> createPangoLayout: text [
 	^ self ffiCall: #(PangoLayout *gtk_widget_create_pango_layout ( self, const gchar* text ))
 ]
 
+{ #category : #style }
+GtkWidget >> cssName [
+
+	^ self ffiCall: #(const char* gtk_widget_get_css_name (self))
+]
+
 { #category : #accessing }
 GtkWidget >> data [
 	"Stores any kind of 'data' you want to keep associated to the widget"
@@ -654,6 +660,12 @@ GtkWidget >> getAllocation: allocation [
 
 	self ffiCall: #(void gtk_widget_get_allocation (self, GtkAllocation *allocation))
 	
+]
+
+{ #category : #private }
+GtkWidget >> getCSSClasses [
+
+	self ffiCall: #("char**"void *gtk_widget_get_css_classes (self))
 ]
 
 { #category : #geometry }
@@ -1071,9 +1083,9 @@ GtkWidget >> queueResizeNoRedraw [
 ]
 
 { #category : #style }
-GtkWidget >> removeClass: aString [
+GtkWidget >> removeClass: css_class [
 
-	self styleContext removeClass: aString
+	self ffiCall: #(void gtk_widget_remove_css_class (self, const char* css_class))
 ]
 
 { #category : #'external resource management' }

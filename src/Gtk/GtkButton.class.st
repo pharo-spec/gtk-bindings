@@ -106,11 +106,9 @@ GtkButton >> clicked [
 ]
 
 { #category : #style }
-GtkButton >> font: aLogicalFont [ 
-	| pangoFont |
-	
-	pangoFont := self styleContext fontNormal.
-	pangoFont familyName: aLogicalFont familyName.
+GtkButton >> font: aLogicalFont [
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

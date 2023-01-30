@@ -20,7 +20,7 @@ GdkDisplay class >> default [
 	^ self getDefault "initialize" 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GdkDisplay class >> forceRectangleToFitLimits: aRect [
 
 	^ self default primaryMonitor forceRectangleToFitLimits: aRect
