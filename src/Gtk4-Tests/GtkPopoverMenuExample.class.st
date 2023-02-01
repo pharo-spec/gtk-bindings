@@ -1,3 +1,6 @@
+"
+An example of a list with a popover menu.
+"
 Class {
 	#name : #GtkPopoverMenuExample,
 	#superclass : #Object,

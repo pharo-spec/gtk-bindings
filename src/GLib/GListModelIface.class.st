@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gio/iface.ListModel.html
+"
 Class {
 	#name : #GListModelIface,
 	#superclass : #GInterface,

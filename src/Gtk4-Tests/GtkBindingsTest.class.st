@@ -28,3 +28,26 @@ GtkBindingsTest >> testAllFFICallsAreExistingFunctions [
 		
 	self assert: notFound isEmpty
 ]
+
+{ #category : #tests }
+GtkBindingsTest >> testAllFFICallsInTraitsAreExistingFunctions [
+	"Verify all implemented functions actually exists (some functions/classes may not exist
+	 anymore from gtk3 to gtk4)"
+	| notFound |
+
+	notFound := OrderedCollection new.
+	{ GTClassStructure } do: [ :aClass |
+			(aClass classSide methods, aClass instanceSide methods) do: [ :aMethod |
+				aMethod  ast sendNodes
+					select: [ :each | each selector beginsWith: 'ffiCall:' ]
+					thenDo: [ :each | | function |
+						function := (FFIFunctionParser new
+							requestor: aClass;
+							parseNamedFunction: each arguments first value)
+							functionName.
+						[ ExternalAddress loadSymbol: function from: GObjectLibrary ]
+						on: PrimitiveFailed
+						do: [ :e | notFound add: function ] ] ] ].
+
+	self assert: notFound isEmpty
+]

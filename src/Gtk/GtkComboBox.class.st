@@ -35,6 +35,13 @@ GtkComboBox class >> gType [
 	^ self ffiCall: #(gsize gtk_combo_box_get_type())
 ]
 
+{ #category : #testing }
+GtkComboBox class >> isDeprecated [
+
+	#Gtk4.
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkComboBox class >> new [
 

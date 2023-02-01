@@ -28,8 +28,9 @@ GtkListItemFactory >> objectAtHandle: anAddress [
 { #category : #accessing }
 GtkListItemFactory >> storeObject: anObject [
 
-	storedObjects 
-		at: anObject getHandle 
+	storedObjects
+		at: anObject getHandle
 		put: anObject.
+
 	^ anObject
 ]

@@ -83,6 +83,12 @@ GValue >> getInt [
 ]
 
 { #category : #accessing }
+GValue >> getLong [
+
+	^ self ffiCall: #(long g_value_get_long (self))
+]
+
+{ #category : #accessing }
 GValue >> getObject [
 
 	^ self ffiCall: #(gpointer g_value_get_object (self))

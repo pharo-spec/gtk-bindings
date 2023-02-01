@@ -1,3 +1,6 @@
+"
+Implements a data store who's members live in image.
+"
 Class {
 	#name : #GListDataStore,
 	#superclass : #GListStore,
@@ -5,8 +8,8 @@ Class {
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
 		'items',
-		'objects',
-		'references'
+		'references',
+		'objects'
 	],
 	#category : #'GLib-Lists'
 }
@@ -48,8 +51,9 @@ GListDataStore class >> gDefineListModelInterface: iface [
 { #category : #'accessing - model' }
 GListDataStore >> get_item: position [
 
-	position >= items size 
+	position >= items size
 		ifTrue: [ ^ ExternalAddress null ].
+
 	^ (self get_object: position) getHandle
 ]
 
@@ -67,42 +71,30 @@ GListDataStore >> get_n_items [
 
 { #category : #'accessing - model' }
 GListDataStore >> get_object: position [
+	| mark |
 
-	position >= items size 
+	position >= items size
 		ifTrue: [ ^ GObject null ].
-	^ GListStoreMarkObject new
+
+	"I need to increment the ref count because the otherside will unref it
+	 (and I want to keep it)"
+	mark := self markAtPosition: position.
+	mark objectRef.
+
+	^ mark
 ]
 
 { #category : #accessing }
-GListDataStore >> holderAtHandle: anAddress [
+GListDataStore >> itemAt: aPosition [
 
-	^ references 
-		at: anAddress
-		ifAbsent: [ nil ]
-]
-
-{ #category : #accessing }
-GListDataStore >> holderAtPosition: position [
-	| holder  |
-
-	holder := objects at: position ifAbsent: [ nil ]. 
-	holder ifNotNil: [ ^ holder ].
-	
-	holder :=	 GListStoreMarkObject new
-		position: position;
-		yourself.
-
-	objects at: position put: holder.
-	references at: holder getHandle put: holder.
-
-	^ holder
+	aPosition = 0 ifTrue: [ ^ nil ].
+	^ self items at: aPosition
 ]
 
 { #category : #accessing }
 GListDataStore >> itemAtHandle: address [
 
-	^ (self holderAtHandle: address) 
-		ifNotNil: [ :holder | items at: (holder position + 1) ]
+	^ self itemAt: (self markAtHandle: address) position
 ]
 
 { #category : #accessing }
@@ -121,6 +113,31 @@ GListDataStore >> items: aSequenceableCollection [
 { #category : #'accessing - model' }
 GListDataStore >> items_changed: position removed: removed added: added [
 
+]
+
+{ #category : #private }
+GListDataStore >> markAtHandle: anAddress [
+
+	^ references
+		at: anAddress
+		ifAbsent: [ nil ]
+]
+
+{ #category : #private }
+GListDataStore >> markAtPosition: position [
+	| holder  |
+
+	holder := objects at: position ifAbsent: [ nil ].
+	holder ifNotNil: [ ^ holder ].
+
+	holder :=	 GListStoreMarkObject new
+		position: position;
+		yourself.
+
+	objects at: position put: holder.
+	references at: holder getHandle put: holder.
+
+	^ holder
 ]
 
 { #category : #private }

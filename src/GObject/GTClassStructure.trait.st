@@ -58,7 +58,7 @@ GTClassStructure >> gParamSpecFloatName: name nick: nick blurb: blurb minimum: m
 { #category : #'accessing - properties' }
 GTClassStructure >> gParamSpecIntName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
 
-	^ self 
+	^ self
 		ffiCall: #("GParamSpec *"GObject *g_param_spec_int (
   			const gchar* name,
   			const gchar* nick,
@@ -68,6 +68,21 @@ GTClassStructure >> gParamSpecIntName: name nick: nick blurb: blurb minimum: min
   			gint default_value,
   			GParamFlags flags))
 		module: GObjectLibrary
+]
+
+{ #category : #'accessing - properties' }
+GTClassStructure >> gParamSpecLongName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
+
+	^ self
+		ffiCall: #("GParamSpec *"GObject *g_param_spec_long (
+  			const gchar* name,
+  			const gchar* nick,
+  			const gchar* blurb,
+  			glong minimum,
+  			glong maximum,
+  			glong default_value,
+  			GParamFlags flags))
+		module: GtkLibrary
 ]
 
 { #category : #'accessing - properties' }
@@ -154,14 +169,14 @@ GTClassStructure >> installPropertyFloatId: index name: aName nick: aNickname bl
 { #category : #'accessing - properties' }
 GTClassStructure >> installPropertyIntId: index name: aName default: default flags: flags [
 
-	self 
-		installPropertyIntId: index 
-		name: aName 
+	self
+		installPropertyIntId: index
+		name: aName
 		nick: aName
 		blurb: aName
-		minimum: 0 
-		maximum: SmallInteger maxVal
-		default: default 
+		minimum: 0
+		maximum: 16rFFFF
+		default: default
 		flags: flags
 ]
 
@@ -191,6 +206,49 @@ GTClassStructure >> installPropertyIntId: index name: aName nick: aNickname blur
 			minimum: minimum 
 			maximum: maximum 
 			default: default 
+			flags: flags)
+]
+
+{ #category : #'accessing - properties' }
+GTClassStructure >> installPropertyLongId: index name: aName default: default flags: flags [
+
+	self
+		installPropertyLongId: index
+		name: aName
+		nick: aName
+		blurb: aName
+		minimum: 0
+		maximum: 16rFFFFFFFF
+		default: default
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GTClassStructure >> installPropertyLongId: index name: aName minimum: minimum maximum: maximum default: default flags: flags [
+
+	self
+		installPropertyLongId: index
+		name: aName
+		nick: aName
+		blurb: aName
+		minimum: minimum
+		maximum: maximum
+		default: default
+		flags: flags
+]
+
+{ #category : #'accessing - properties' }
+GTClassStructure >> installPropertyLongId: index name: aName nick: aNickname blurb: aBlurb minimum: minimum maximum: maximum default: default flags: flags [
+
+	self
+		gInstallPropertyId: index
+		spec: (self
+			gParamSpecLongName: aName
+			nick: aNickname
+			blurb: aBlurb
+			minimum: minimum
+			maximum: maximum
+			default: default
 			flags: flags)
 ]
 

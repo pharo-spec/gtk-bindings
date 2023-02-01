@@ -171,15 +171,15 @@ GClass >> addInterface: interfaceClass initialize: aBlock [
 GClass >> addInterfaceGType: interfaceType initialize: initCallback [
 	| info |
 
-	info := GInterfaceInfo new 
+	info := GInterfaceInfo new
 		interface_init: initCallback;
 		yourself.
-		
-	self 
-		gTypeAddInterfaceStaticType: type 
+
+	self
+		gTypeAddInterfaceStaticType: type
 		interfaceType: interfaceType
 		info: info.
-	"I need to verify the implemented interfaces includes the type I just addded to 
+	"I need to verify the implemented interfaces includes the type I just addded to
 	 be sure it was added (not all interfaces can be added to any class)"
 	(self gTypeInterfaces includes: interfaceType)
 		ifFalse: [ GClassError signal: 'Interface can not be added.' ]
@@ -344,10 +344,10 @@ GClass >> prepare: aBlock [
 { #category : #'private installing' }
 GClass >> registerType [
 	| utf8Name |
-	
+
 	utf8Name := name utf8Encoded copyWith: 0.
 	utf8Name pinInMemory.
-	^ self 
+	^ self
 		gTypeRegisterStaticSimpleParent: parent gType
 		name: (self gInternStaticStringFromByteArray: utf8Name)
 		classSize: parent gClassSize

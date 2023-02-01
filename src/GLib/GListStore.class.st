@@ -1,3 +1,6 @@
+"
+An abstract data store to be used on `GtkListView`, `GtkDropDown`, etc.
+"
 Class {
 	#name : #GListStore,
 	#superclass : #GObject,
