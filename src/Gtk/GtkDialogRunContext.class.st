@@ -17,6 +17,12 @@ Class {
 	#category : #'Gtk-Widget-Window'
 }
 
+{ #category : #testing }
+GtkDialogRunContext class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkDialogRunContext class >> new [
 

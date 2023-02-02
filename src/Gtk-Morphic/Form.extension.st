@@ -13,6 +13,12 @@ Form >> asGdkPixbuf [
 ]
 
 { #category : #'*Gtk-Morphic' }
+Form >> asGdkTexture [
+
+	^ self asAthensSurface asGdkTexture
+]
+
+{ #category : #'*Gtk-Morphic' }
 Form >> asGtkImage [
 
 	^ GtkImage newPixbuf: self asGdkPixbuf 

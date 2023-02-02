@@ -23,6 +23,12 @@ GtkBaseDialog class >> gType [
 	^ nil
 ]
 
+{ #category : #testing }
+GtkBaseDialog class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #private }
 GtkBaseDialog >> deferToAutoRelease [
 		

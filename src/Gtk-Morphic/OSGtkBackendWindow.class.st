@@ -127,15 +127,18 @@ OSGtkBackendWindow >> initializeCursorMap [
 OSGtkBackendWindow >> initializeWindowAttributes: attributes [
 
 	gtkWindow := GtkWindow new.
-	gtkWindow 
+	gtkWindow
+		beHideOnClose;
 		connectFocusOutEvent: [ self resetKeyboardFocus. false ];
 		connectFocusInEvent: [ self restoreKeyboardFocus. false ];
-		connectDeleteEvent: [ self quitSession. true ].
+		connectHide: [ 
+			gtkWindow objectUnref.
+			self quitSession ].
 
-	gtkWindow resize: attributes width @ attributes height.
-	attributes windowCentered 
+	gtkWindow defaultSize: attributes width @ attributes height.
+	"attributes windowCentered 
 		ifTrue: [ gtkWindow center ]
-		ifFalse: [ gtkWindow moveTo: attributes x @ attributes y ]
+		ifFalse: [ gtkWindow moveTo: attributes x @ attributes y ]"
 ]
 
 { #category : #testing }
@@ -171,7 +174,8 @@ OSGtkBackendWindow >> position [
 { #category : #accessing }
 OSGtkBackendWindow >> position: newPosition [
 
-	gtkWindow moveTo: newPosition
+	self deprecated: #Gtk4. "can't be done"
+
 	
 ]
 

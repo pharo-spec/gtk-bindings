@@ -70,6 +70,7 @@ GtkWindow class >> exampleModalWithTransient [
 
 { #category : #examples }
 GtkWindow class >> exampleModalWithTransientBlocking [
+	"how a dialog should run now (since GtkDialog is now deprecated)"
 	| mainWindow transientWindow sem |
 
 	GEngine ensureRunning.
@@ -147,8 +148,8 @@ GtkWindow >> addAcceleratorGroup: anAcceleratorGroup [
 
 { #category : #accessing }
 GtkWindow >> attachedTo: widget [
-	
-	self ffiCall: #(void gtk_window_set_attached_to (self, GtkWidget *widget))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #'external resource management' }
@@ -159,6 +160,12 @@ GtkWindow >> autoRelease [
 	 This will call the regular #finalize method from this object"
 	self flag: #TODO. "Verify this"
 	super autoRelease
+]
+
+{ #category : #private }
+GtkWindow >> basicPresent [
+
+	^ self ffiCall: #(void gtk_window_present (self))
 ]
 
 { #category : #accessing }
@@ -212,7 +219,7 @@ GtkWindow >> bounds [
 { #category : #geometry }
 GtkWindow >> bounds: aRectangle [
 
-	self moveTo: aRectangle origin.
+	"gtk4 does not really knows what to do with the position, we can just take the extent"
 	self defaultSize: aRectangle extent
 ]
 
@@ -220,9 +227,9 @@ GtkWindow >> bounds: aRectangle [
 GtkWindow >> center [
 	"Sets position as 'center' to be applied *before* window is opened."
 	
-	"self isVisible 
-		ifTrue: [ self moveTo: (self display primaryMonitor geometry extent - self size) // 2 ]
-		ifFalse: [ "self setPosition: GTK_WIN_POS_CENTER" ]"
+	"there is no way to do this"
+	self deprecated: #Gtk4. 
+	
 ]
 
 { #category : #accessing }
@@ -336,13 +343,13 @@ GtkWindow >> getPositionX: root_x y: root_y [
 { #category : #geometry }
 GtkWindow >> gravity [
 
-	^ self ffiCall: #(GdkGravity gtk_window_get_gravity (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
 GtkWindow >> gravity: gravity [
 
-	^ self ffiCall: #(void gtk_window_set_gravity (self, GdkGravity gravity))
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }
@@ -434,19 +441,22 @@ GtkWindow >> modal: modal [
 { #category : #geometry }
 GtkWindow >> moveTo: aPoint [
 
-	self moveX: aPoint x y: aPoint y
+	self deprecated: #Gtk4. "can't be done"
+
 ]
 
 { #category : #geometry }
 GtkWindow >> moveToCenter [ 
 
-	self moveTo: (self display primaryMonitor geometry extent - self defaultSize) // 2
+	self deprecated: #Gtk4. "can't be done"
+
 ]
 
 { #category : #private }
 GtkWindow >> moveX: x y: y [
 
-	^ self ffiCall: #(void gtk_window_move (self, gint x, gint y))
+	self deprecated: #Gtk4. "can't be done"
+
 ]
 
 { #category : #geometry }
@@ -464,7 +474,8 @@ GtkWindow >> position [
 { #category : #showing }
 GtkWindow >> present [
 
-	^ self ffiCall: #(void gtk_window_present (self))
+	self withAllChildrenDo: #executeDeferredActions.
+	self basicPresent
 ]
 
 { #category : #accessing }
@@ -521,20 +532,22 @@ GtkWindow >> setDefaultSizeWidth: width height: height [
 GtkWindow >> setPosition: position [
 	"This is how it will be positioned WHEN showing (not after)"
 
-	self ffiCall: #(void gtk_window_set_position ( self, GtkWindowPosition position ) )
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkWindow >> show [
-	| titleBar |
+	"| titleBar |
 	
 	self withAllChildrenDo: #executeDeferredActions.
-	self flag: #TODO. "All this checking is because current TFFI does not answers correctly nil when 
-	address answered is NULL. This will be fixed and this will not be necesary :)"
+	self flag: #TODO. ""All this checking is because current TFFI does not answers correctly nil when 
+	address answered is NULL. This will be fixed and this will not be necesary :)""
 	titleBar := self titleBar.
 	(titleBar notNil and: [ titleBar getHandle isNull not ]) 
-		ifTrue: [ titleBar showAll ].
-	super show
+		ifTrue: [ titleBar show ].
+	super show"
+	self deprecated: #Gtk4.
+	self present
 ]
 
 { #category : #accessing }

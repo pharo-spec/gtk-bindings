@@ -10,6 +10,12 @@ Class {
 	#category : #'Gtk-Widget-Window'
 }
 
+{ #category : #testing }
+GtkDelayedDestroyExecutor class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #finalization }
 GtkDelayedDestroyExecutor >> finalize [
 

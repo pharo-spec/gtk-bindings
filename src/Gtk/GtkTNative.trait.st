@@ -15,13 +15,13 @@ GtkTNative >> getSurfaceTransformX: x y: y [
   		void *y))
 ]
 
-{ #category : #api }
+{ #category : #accessing }
 GtkTNative >> surface [
 
 	^ self ffiCall: #(GdkSurface *gtk_native_get_surface (self))
 ]
 
-{ #category : #api }
+{ #category : #accessing }
 GtkTNative >> surfaceTransform [
 	| xBuffer yBuffer |
 

@@ -56,7 +56,6 @@ GtkScrollbar class >> example [
 			title: 'Layout';
 			defaultSize: 500@200;
 			add: box;
-			center;
 			data: lastAdjustmentValueHolder;
 			showAll.
 			

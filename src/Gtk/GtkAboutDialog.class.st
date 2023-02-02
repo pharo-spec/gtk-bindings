@@ -6,9 +6,30 @@ https://developer.gnome.org/gtk3/stable/GtkAboutDialog.html
 "
 Class {
 	#name : #GtkAboutDialog,
-	#superclass : #GtkSystemDialog,
+	#superclass : #GtkWindow,
+	#instVars : [
+		'logo'
+	],
 	#category : #'Gtk-Widget-Window'
 }
+
+{ #category : #examples }
+GtkAboutDialog class >> example [
+
+	GEngine ensureRunning.
+	GRunLoop defer: [ 
+		GtkAboutDialog new
+			beModal;
+			"logo: (Smalltalk ui icons iconNamed: #pharoBig) asGdkTexture;"
+			programName: 'Pharo';
+			version: '11.0.0';
+			websiteLabel: 'Pharo';
+			website: 'https:/pharo.org';
+			licence: 'MIT';
+			comments: String loremIpsum;
+			present
+		 ]
+]
 
 { #category : #private }
 GtkAboutDialog class >> gtkDialogNew [
@@ -149,6 +170,13 @@ GtkAboutDialog >> licence: aString [
 ]
 
 { #category : #accessing }
+GtkAboutDialog >> logo: aPaintable [
+
+	logo := aPaintable.
+	self setLogo: logo
+]
+
+{ #category : #accessing }
 GtkAboutDialog >> programName [
 
 	^ self basicProgramName
@@ -158,6 +186,14 @@ GtkAboutDialog >> programName [
 GtkAboutDialog >> programName: aString [
 
 	self basicProgramName: aString
+]
+
+{ #category : #accessing }
+GtkAboutDialog >> setLogo: aLogo [
+
+	self ffiCall: #(void gtk_about_dialog_set_logo (
+  		self,
+  		GdkPaintable* aLogo))
 ]
 
 { #category : #accessing }

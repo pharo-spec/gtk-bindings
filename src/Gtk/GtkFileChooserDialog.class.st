@@ -20,16 +20,17 @@ GtkFileChooserDialog class >> example [
 
 	GtkEngine ensureRunning.
 
-	dialog := self 
-		newOpenFileTitle: 'Export as...'
-		acceptLabel: 'Export'
-		cancelLabel: 'Cancel'. 
-	dialog showAll.
-	dialog run.
-
-	self inform: dialog filename.
-
-
+	GtkRunLoop defer: [ 
+		dialog := self 
+			newOpenFileTitle: 'Export as...'
+			acceptLabel: 'Export'
+			cancelLabel: 'Cancel' ].
+	
+	[
+		dialog run.
+		self inform: dialog filename ]
+	ensure: [
+		GRunLoop defer: [ dialog objectUnref ] ]
 ]
 
 { #category : #'instance creation' }

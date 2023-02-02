@@ -290,6 +290,18 @@ GtkWidget >> basicInsertActionGroup: name actions: group [
 		"GActionGroup*"GObject *group))
 ]
 
+{ #category : #accessing }
+GtkWidget >> beNotVisible [
+
+	self visible: false
+]
+
+{ #category : #accessing }
+GtkWidget >> beVisible [
+
+	self visible: true
+]
+
 { #category : #drawing }
 GtkWidget >> boundingBox [
 	| positionInTopLevel |
@@ -844,8 +856,12 @@ GtkWidget >> height: aNumber [
 
 { #category : #showing }
 GtkWidget >> hide [
-
-	self ffiCall: #(void gtk_widget_hide (self))
+	
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@received hide' -> '`@receiver beNotVisible'.
+		
+	self beNotVisible
 ]
 
 { #category : #accessing }
@@ -899,6 +915,7 @@ GtkWidget >> isVExpand [
 
 { #category : #testing }
 GtkWidget >> isVisible [
+
 	^ self ffiCall: #(gboolean gtk_widget_is_visible (self))
 ]
 
@@ -1134,7 +1151,11 @@ GtkWidget >> setTooltipText: text [
 { #category : #showing }
 GtkWidget >> show [
 
-	^ self ffiCall: #(void gtk_widget_show (self))
+	self 
+		deprecated: #Gtk4 
+		transformWith: '`@received show' -> '`@receiver beVisible'.
+	
+	self beVisible
 ]
 
 { #category : #showing }
@@ -1261,6 +1282,12 @@ GtkWidget >> vAlignStart [
 GtkWidget >> vExpand: expand [
 
 	self ffiCall: #(void gtk_widget_set_vexpand (self, gboolean expand))
+]
+
+{ #category : #accessing }
+GtkWidget >> visible: setting [
+
+	self ffiCall: #(void gtk_widget_set_visible (self, gboolean visible))
 ]
 
 { #category : #private }

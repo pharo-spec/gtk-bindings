@@ -7,9 +7,6 @@ https://developer.gnome.org/gtk3/stable/GtkDialog.html#GtkDialog.object-hierarch
 Class {
 	#name : #GtkSystemDialog,
 	#superclass : #GtkBaseDialog,
-	#instVars : [
-		'response'
-	],
 	#pools : [
 		'GtkFileChooserAction',
 		'GtkResponseType'
@@ -17,40 +14,15 @@ Class {
 	#category : #'Gtk-Widget-Window'
 }
 
-{ #category : #events }
-GtkSystemDialog >> connectResponse: aBlock [
-
-	self 
-		connect: 'response' 
-		signature: #(void (void *infobar, gint responseid, void *user_data))
-		do: [ :infobar :responseid :user_data | aBlock value: responseid ]
-]
-
-{ #category : #initialization }
-GtkSystemDialog >> initialize [ 
-
-	super initialize.
-	self center.
-	self connectResponse: [ :id | 
-		response := GtkResponseType fromInteger: id. 
-		self respond ]
-]
-
-{ #category : #testing }
-GtkSystemDialog >> isOk [ 
-
-	^ self response == GTK_RESPONSE_OK
-]
-
 { #category : #running }
-GtkSystemDialog >> response [
-
-	^ response
-]
-
-{ #category : #running }
-GtkSystemDialog >> run [ 
-
-	super run.
-	^ self response
+GtkSystemDialog >> run [
+	"IMPORTANT Execute this outside the runloop!"
+	| sem |
+	
+	sem := Semaphore new.
+	GRunLoop defer: [ 
+		self beHideOnClose.
+		self connectHide: [ sem signal ].
+		self present ].
+	sem wait.
 ]

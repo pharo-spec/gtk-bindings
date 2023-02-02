@@ -79,7 +79,6 @@ GtkMessageDialog >> initialize [
 
 	super initialize.
 	self title: self defaultTitle.
-	self center.
 	self resize: self defaultExtent.
 	self contentArea 
 		borderWidth: self defaultMargin;
