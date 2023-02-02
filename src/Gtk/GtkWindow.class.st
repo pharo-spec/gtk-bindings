@@ -261,6 +261,12 @@ GtkWindow >> hasTopLevelFocus [
 	^ self ffiCall: #(gboolean gtk_window_has_toplevel_focus (self))
 ]
 
+{ #category : #accessing }
+GtkWindow >> hideOnClose: setting [
+
+	self ffiCall: #(void gtk_window_set_hide_on_close (self, gboolean setting))
+]
+
 { #category : #private }
 GtkWindow >> iconify [
 
@@ -291,6 +297,12 @@ GtkWindow >> isActive [
 GtkWindow >> isDecorated [
 
 	^ self ffiCall: #(gboolean gtk_window_get_decorated (self))
+]
+
+{ #category : #testing }
+GtkWindow >> isHideOnClose [
+
+	^ self ffiCall: #(gboolean gtk_window_get_hide_on_close (self))
 ]
 
 { #category : #testing }
@@ -507,14 +519,15 @@ GtkWindow >> windowDestroyed [
 	"This process a destroy signal"
 
 	GWindowDestroyAnnouncement emitWidget: self.
-	"according to documentation: Signals that all holders of a reference to the widget should 
-	 release the reference that they hold. May result in finalization of the widget if all 
+
+	self unregister.
+
+	"according to documentation: Signals that all holders of a reference to the widget should
+	 release the reference that they hold. May result in finalization of the widget if all
 	 references are released.
-	 Seems to mean if I receive the destroy signal, window no longer exist (and I do not need 
-	 to re-trigger destroy on it."	
-	handle beNull.
-	
-	self unregister
+	 Seems to mean if I receive the destroy signal, window no longer exist (and I do not need
+	 to re-trigger destroy on it."
+	handle beNull
 ]
 
 { #category : #private }
