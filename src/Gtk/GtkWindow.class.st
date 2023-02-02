@@ -65,7 +65,37 @@ GtkWindow class >> exampleModalWithTransient [
 		transientWindow child: (GtkLabel newLabel: 'Transient').
 		transientWindow beModal.
 		transientWindow transientTo: mainWindow.
-		transientWindow show ]
+		transientWindow present ]
+]
+
+{ #category : #examples }
+GtkWindow class >> exampleModalWithTransientBlocking [
+	| mainWindow transientWindow sem |
+
+	GEngine ensureRunning.
+	GRunLoop defer: [
+		mainWindow := GtkWindow new.
+		mainWindow defaultSize: 600@400.
+		mainWindow title: 'Example Window'.
+		mainWindow child: (GtkLabel newLabel: 'Window').
+		mainWindow present ].
+
+	sem := Semaphore new.
+
+	GRunLoop defer: [
+		transientWindow := GtkWindow new.
+		transientWindow defaultSize: 300@200.
+		transientWindow title: 'Example Transient'.
+		transientWindow child: (GtkLabel newLabel: 'Transient').
+		transientWindow beModal.
+		transientWindow transientTo: mainWindow.
+		transientWindow beHideOnClose.
+		transientWindow connectHide: [ sem signal ].
+		transientWindow present ].
+
+	sem wait.
+	'OK' crTrace.
+	GRunLoop defer: [ transientWindow objectUnref ]
 ]
 
 { #category : #finalization }
@@ -138,6 +168,12 @@ GtkWindow >> beDecorated [
 ]
 
 { #category : #accessing }
+GtkWindow >> beHideOnClose [
+
+	self hideOnClose: true
+]
+
+{ #category : #accessing }
 GtkWindow >> beModal [
 
 	self modal: true
@@ -147,6 +183,12 @@ GtkWindow >> beModal [
 GtkWindow >> beNotDecorated [
 
 	self decorated: false
+]
+
+{ #category : #accessing }
+GtkWindow >> beNotHideOnClose [
+
+	self hideOnClose: false
 ]
 
 { #category : #accessing }
@@ -309,7 +351,7 @@ GtkWindow >> hasTopLevelFocus [
 	^ self ffiCall: #(gboolean gtk_window_has_toplevel_focus (self))
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 GtkWindow >> hideOnClose: setting [
 
 	self ffiCall: #(void gtk_window_set_hide_on_close (self, gboolean setting))
