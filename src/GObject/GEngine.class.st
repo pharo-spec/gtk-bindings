@@ -101,7 +101,7 @@ GEngine >> ensureRunLoop [
 GEngine >> initialize [
 
 	super initialize.
-	windowRegistry := Set new.
+	windowRegistry := IdentitySet new.
 	shutdownRegistry := Set new.
 	runLoop := self ensureRunLoop
 ]
@@ -175,8 +175,8 @@ GEngine >> shutDown: quitting [
 	runLoop stop
 ]
 
-{ #category : #'private running' }
-GEngine >> start [ 
+{ #category : #'private - running' }
+GEngine >> start [
 
 	self subclassResponsibility
 ]
@@ -190,9 +190,9 @@ GEngine >> startUp: resuming [
 	runLoop start
 ]
 
-{ #category : #'private running' }
+{ #category : #'private - running' }
 GEngine >> stop [
-	
+
 	self subclassResponsibility
 ]
 
