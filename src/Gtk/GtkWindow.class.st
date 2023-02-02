@@ -20,6 +20,54 @@ Class {
 	#category : #'Gtk-Widget-Window'
 }
 
+{ #category : #examples }
+GtkWindow class >> example [
+	| window |
+
+	GEngine ensureRunning.
+	GRunLoop defer: [
+		window := GtkWindow new.
+		window defaultSize: 600@400.
+		window title: 'Example Window'.
+		window child: (GtkLabel newLabel: 'Window').
+		window present ]
+]
+
+{ #category : #examples }
+GtkWindow class >> exampleModal [
+	| window |
+
+	GEngine ensureRunning.
+	GRunLoop defer: [
+		window := GtkWindow new.
+		window defaultSize: 600@400.
+		window title: 'Example Window'.
+		window child: (GtkLabel newLabel: 'Window').
+		window beModal.
+		window present ]
+]
+
+{ #category : #examples }
+GtkWindow class >> exampleModalWithTransient [
+	| mainWindow transientWindow |
+
+	GEngine ensureRunning.
+	GRunLoop defer: [
+		mainWindow := GtkWindow new.
+		mainWindow defaultSize: 600@400.
+		mainWindow title: 'Example Window'.
+		mainWindow child: (GtkLabel newLabel: 'Window').
+		mainWindow present.
+
+		transientWindow := GtkWindow new.
+		transientWindow defaultSize: 300@200.
+		transientWindow title: 'Example Transient'.
+		transientWindow child: (GtkLabel newLabel: 'Transient').
+		transientWindow beModal.
+		transientWindow transientTo: mainWindow.
+		transientWindow show ]
+]
+
 { #category : #finalization }
 GtkWindow class >> finalizeResourceData: aHandle [
 
