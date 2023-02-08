@@ -53,6 +53,14 @@ GtkApplication class >> objectRefSink: handle [
 	^ self ffiCall: #(void *g_object_ref_sink (void* handle))
 ]
 
+{ #category : #accessing }
+GtkApplication >> activeWindow [
+
+	^ self
+		gObjectGetHandle: 'active-window'
+		as: GtkWindow
+]
+
 { #category : #initialization }
 GtkApplication >> id: anId [ 
 

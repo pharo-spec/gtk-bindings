@@ -30,14 +30,15 @@ OSGtkBackendWindow >> bounds: newBounds [
 
 { #category : #accessing }
 OSGtkBackendWindow >> clipboardText [
-	
-	^ GtkClipboard forSelection waitForText withInternalLineEndings
+
+	^ GRunLoop defer: [ GdkClipboard primary readText withInternalLineEndings ]
 ]
 
 { #category : #accessing }
 OSGtkBackendWindow >> clipboardText: aString [
 
-	GtkClipboard forSelection text: (aString withLineEndings: OSPlatform current lineEnding)
+	GRunLoop defer: [
+		GdkClipboard primary text: (aString withLineEndings: OSPlatform current lineEnding) ]
 ]
 
 { #category : #accessing }

@@ -71,12 +71,13 @@ GtkEngine class >> startUp: resuming [
 { #category : #'private - running' }
 GtkEngine >> ensureApplication [
 
-	self hasValidApplication ifTrue: [ ^ self ].
-	
-	application := GtkApplication 
+	self hasValidApplication ifTrue: [ ^ application ].
+
+	application := GtkApplication
 		newId: 'org.pharo.Gtk4Application'
 		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
 	application register.
+	^ application
 ]
 
 { #category : #'system startup' }

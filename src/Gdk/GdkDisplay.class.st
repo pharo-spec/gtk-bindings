@@ -40,6 +40,12 @@ GdkDisplay class >> getDefault [
 ]
 
 { #category : #accessing }
+GdkDisplay >> clipboard [
+
+	^ self ffiCall: #(GdkClipboard* gdk_display_get_clipboard (self))
+]
+
+{ #category : #accessing }
 GdkDisplay >> defaultSeat [ 
 
 	^ GdkSeat defaultForDisplay: self
@@ -49,6 +55,12 @@ GdkDisplay >> defaultSeat [
 GdkDisplay >> monitorAt: aNumber [
 
 	^ GdkMonitor on: self number: aNumber
+]
+
+{ #category : #accessing }
+GdkDisplay >> primaryClipboard [
+
+	^ self ffiCall: #(GdkClipboard *gdk_display_get_primary_clipboard (self))
 ]
 
 { #category : #accessing }

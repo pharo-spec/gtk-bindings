@@ -94,7 +94,7 @@ GtkHeaderBar >> packStart: aWidget [
 { #category : #private }
 GtkHeaderBar >> setTitleWidget: aWidget [
 
-	^ self ffiCall: #(void set_title_widget (self, GtkWidget *aWidget))
+	^ self ffiCall: #(void gtk_header_bar_set_title_widget (self, GtkWidget *aWidget))
 ]
 
 { #category : #accessing }

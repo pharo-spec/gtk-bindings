@@ -46,16 +46,16 @@ GtkSourceBuffer class >> sourceBufferNew: table [
 { #category : #testing }
 GtkSourceBuffer >> canRedo [
 
-	^ self 
-		ffiCall: #(gboolean gtkgtk_source_buffer_can_redo(self))
+	^ self
+		ffiCall: #(gboolean gtk_source_buffer_can_redo(self))
 		module: GtkSourceViewLibrary
 ]
 
 { #category : #testing }
 GtkSourceBuffer >> canUndo [
 
-	^ self 
-		ffiCall: #(gboolean gtkgtk_source_buffer_can_undo(self))
+	^ self
+		ffiCall: #(gboolean gtk_source_buffer_can_undo(self))
 		module: GtkSourceViewLibrary
 ]
 

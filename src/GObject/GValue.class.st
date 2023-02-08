@@ -13,6 +13,9 @@ Class {
 		'OFFSET_DATA_2',
 		'OFFSET_G_TYPE'
 	],
+	#pools : [
+		'GType'
+	],
 	#category : #'GObject-Misc'
 }
 
@@ -26,6 +29,12 @@ GValue class >> fieldsDesc [
 	gpointer data_1;
 	gpointer data_2;	
 	 )
+]
+
+{ #category : #'instance creation' }
+GValue class >> newString [
+
+	^ self new initString
 ]
 
 { #category : #'accessing - structure variables' }
@@ -100,10 +109,16 @@ GValue >> getString [
 	^ self ffiCall: #(gchar* g_value_get_string  (self))
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 GValue >> init: g_type [
 
 	self ffiCall: #(void *g_value_init (self, gsize g_type))
+]
+
+{ #category : #initialization }
+GValue >> initString [
+
+	self init: G_TYPE_STRING
 ]
 
 { #category : #accessing }

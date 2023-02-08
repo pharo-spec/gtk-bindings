@@ -9,9 +9,9 @@ Class {
 	#traits : 'GtkTRoot + GtkTNative',
 	#classTraits : 'GtkTRoot classTrait + GtkTNative classTrait',
 	#instVars : [
-		'acceleratorGroups',
 		'cursor',
-		'child'
+		'child',
+		'defaultWidget'
 	],
 	#pools : [
 		'GtkWindowPosition',
@@ -141,9 +141,7 @@ GtkWindow class >> windowNew: type [
 { #category : #accessing }
 GtkWindow >> addAcceleratorGroup: anAcceleratorGroup [
 
-	acceleratorGroups ifNil: [ acceleratorGroups := Set new ].
-	acceleratorGroups add: anAcceleratorGroup.
-	self windowAddAccelGroup: anAcceleratorGroup
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -311,6 +309,13 @@ GtkWindow >> defaultSize: aPoint [
 ]
 
 { #category : #accessing }
+GtkWindow >> defaultWidget: aWidget [
+
+	defaultWidget := aWidget.
+	self setDefaultWidget: aWidget
+]
+
+{ #category : #accessing }
 GtkWindow >> destroy [
 
 	self ffiCall: #(void gtk_window_destroy (self))
@@ -337,7 +342,7 @@ GtkWindow >> getDefaultSizeWidth: width height: height [
 { #category : #private }
 GtkWindow >> getPositionX: root_x y: root_y [
 
-	^ self ffiCall: #(void gtk_window_get_position (self, gint *root_x, gint *root_y))
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
@@ -355,7 +360,7 @@ GtkWindow >> gravity: gravity [
 { #category : #testing }
 GtkWindow >> hasTopLevelFocus [
 
-	^ self ffiCall: #(gboolean gtk_window_has_toplevel_focus (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -461,14 +466,8 @@ GtkWindow >> moveX: x y: y [
 
 { #category : #geometry }
 GtkWindow >> position [
-	| rootX rootY |
-	
-	rootX := FFIInt32 newBuffer.
-	rootY := FFIInt32 newBuffer.
-	
-	self getPositionX: rootX y: rootY. 
-	
-	^ (rootX signedLongAt: 1) @ (rootY signedLongAt: 1)
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #showing }
@@ -487,10 +486,7 @@ GtkWindow >> propagateKeyEvent: event [
 { #category : #accessing }
 GtkWindow >> removeAcceleratorGroup: anAcceleratorGroup [
 
-	(acceleratorGroups includes: anAcceleratorGroup) ifFalse: [ ^ self ].
-	self windowRemoveAccelGroup: anAcceleratorGroup.
-	acceleratorGroups remove: anAcceleratorGroup
-	
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -526,6 +522,12 @@ GtkWindow >> setChild: aWidget [
 GtkWindow >> setDefaultSizeWidth: width height: height [
 
 	^ self ffiCall: #(void gtk_window_set_default_size (self, gint width, gint height))
+]
+
+{ #category : #private }
+GtkWindow >> setDefaultWidget: default_widget [
+
+	self ffiCall: #(void gtk_window_set_default_widget (self, GtkWidget* default_widget))
 ]
 
 { #category : #private }
@@ -614,7 +616,7 @@ GtkWindow >> unregister [
 { #category : #private }
 GtkWindow >> windowAddAccelGroup: accel_group [
 
-	^ self ffiCall: #(void gtk_window_add_accel_group (self, GtkAccelGroup *accel_group))
+	self deprecated: #Gtk4
 ]
 
 { #category : #finalization }
@@ -636,5 +638,5 @@ GtkWindow >> windowDestroyed [
 { #category : #private }
 GtkWindow >> windowRemoveAccelGroup: accel_group [
 
-	^ self ffiCall: #(void gtk_window_remove_accel_group (self, GtkAccelGroup *accel_group))
+	self deprecated: #Gtk4
 ]

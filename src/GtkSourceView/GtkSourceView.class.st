@@ -30,93 +30,103 @@ Class {
 GtkSourceView class >> example [
 
 	GtkEngine ensureRunning.
-	GtkWindow new
-		title: 'Source view example';
-		add: (GtkScrolledWindow newWidget: GtkSourceView new);
-		showAll
+	GRunLoop defer: [
+		GtkWindow new
+			defaultSize: 400@400;
+			title: 'Source view example';
+			child: (GtkScrolledWindow newWidget: GtkSourceView new);
+			present ]
 ]
 
 { #category : #example }
 GtkSourceView class >> example1 [
 	| sourceView |
-	
-	GtkEngine ensureRunning.
-	
-	sourceView := GtkSourceView new
-		showLineNumbers: true;
-		yourself.
 
-	GtkWindow new
-		title: 'Source view with line numbers';
-		add: (GtkScrolledWindow newWidget: sourceView);
-		showAll
+	GtkEngine ensureRunning.
+
+	GRunLoop defer: [
+
+		sourceView := GtkSourceView new
+			showLineNumbers: true;
+			yourself.
+
+		GtkWindow new
+			defaultSize: 400@400;
+			title: 'Source view with line numbers';
+			child: (GtkScrolledWindow newWidget: sourceView);
+			present ]
 ]
 
 { #category : #example }
 GtkSourceView class >> example2 [
 	| sourceView |
-	
-	GtkEngine ensureRunning.
-	
-	sourceView := GtkSourceView new
-		showLineNumbers: true;
-		highlightCurrentLine: true;
-		yourself.
 
-	GtkWindow new
-		title: 'Source view highlight current line';
-		add: (GtkScrolledWindow newWidget: sourceView);
-		showAll
+	GtkEngine ensureRunning.
+
+	GRunLoop defer: [
+
+		sourceView := GtkSourceView new
+			showLineNumbers: true;
+			highlightCurrentLine: true;
+			yourself.
+
+		GtkWindow new
+			defaultSize: 400@400;
+			title: 'Source view highlight current line';
+			child: (GtkScrolledWindow newWidget: sourceView);
+			present ]
 ]
 
 { #category : #example }
 GtkSourceView class >> example3 [
 	| sourceView |
-	
-	GtkEngine ensureRunning.
-	
-	sourceView := GtkSourceView new
-		showLineNumbers: true;
-		autoIndent: true;
-		showRightMargin: true;
-		yourself.
 
-	GtkWindow new
-		title: 'Source view auto indent';
-		add: (GtkScrolledWindow newWidget: sourceView);
-		showAll
+	GtkEngine ensureRunning.
+	GRunLoop defer: [
+
+		sourceView := GtkSourceView new
+			showLineNumbers: true;
+			autoIndent: true;
+			showRightMargin: true;
+			yourself.
+
+		GtkWindow new
+			defaultSize: 400@400;
+			title: 'Source view auto indent';
+			child: (GtkScrolledWindow newWidget: sourceView);
+			present ]
 ]
 
 { #category : #example }
 GtkSourceView class >> example4 [
 	| sourceView |
-	
-	GtkEngine ensureRunning.
-	
-	sourceView := GtkSourceView new
-		showLineNumbers: true;
-		autoIndent: true;
-		yourself.
-		
-	sourceView completion 
-		showHeaders: false;
-		showIcons: true;
-		addProvider: GtkPharoSourceCompletionProvider new.
 
-	GtkWindow new
-		title: 'Source view autocompletion';
-		resize: 600@400;
-		add: (GtkScrolledWindow newWidget: sourceView);
-		center;
-		showAll
+	GtkEngine ensureRunning.
+	GRunLoop defer: [
+
+		sourceView := GtkSourceView new
+			showLineNumbers: true;
+			autoIndent: true;
+			yourself.
+
+		sourceView completion
+			showHeaders: false;
+			showIcons: true;
+			addProvider: GtkPharoSourceCompletionProvider new.
+
+		GtkWindow new
+			title: 'Source view autocompletion';
+			defaultSize: 400@400;
+			child: (GtkScrolledWindow newWidget: sourceView);
+			present ]
 ]
 
 { #category : #example }
 GtkSourceView class >> example5 [
 	| sourceView1 sourceView2 |
-	
+
 	GtkEngine ensureRunning.
-	
+
 	sourceView1 := self new
 		beWrapWord;
 		showLineNumbers: true;
@@ -130,18 +140,17 @@ GtkSourceView class >> example5 [
 		autoIndent: true;
 		text: (String loremIpsum: 1000);
 		yourself.
-		
+
 	GtkWindow new
 		title: 'Source view double';
 		resize: 600@400;
 		add: (GtkScrolledWindow newWidget: (
-			GtkBox newHorizontal 
+			GtkBox newHorizontal
 				homogeneous: true;
 				packStart: sourceView1;
 				packStart: sourceView2;
 				yourself));
-		center;
-		showAll
+		present
 ]
 
 { #category : #accessing }

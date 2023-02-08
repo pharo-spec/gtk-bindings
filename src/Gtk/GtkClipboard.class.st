@@ -50,6 +50,12 @@ GtkClipboard class >> gtkClipboardGet: selection [
 	^ self ffiCall: #(GtkClipboard *gtk_clipboard_get ("GdkAtom"gpointer selection))
 ]
 
+{ #category : #testing }
+GtkClipboard class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GtkClipboard >> clear [
 	

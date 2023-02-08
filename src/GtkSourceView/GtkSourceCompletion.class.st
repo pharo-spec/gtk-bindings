@@ -16,23 +16,17 @@ Class {
 
 { #category : #accessing }
 GtkSourceCompletion >> addProvider: provider [
-	| ok errorHolder error |
-	
-	errorHolder := GErrorHolder new.
-	ok := self addProvider: provider error: errorHolder. 
-	error := errorHolder value.
-	ok ifFalse: [ 
-		GtkError signal: error messageString ].
+
+	self basicAddProvider: provider.
 	self keepProvider: provider
 ]
 
 { #category : #private }
-GtkSourceCompletion >> addProvider: provider error: error [
+GtkSourceCompletion >> basicAddProvider: provider [
 
-	^ self ffiCall: #(gboolean gtk_source_completion_add_provider (
+	^ self ffiCall: #(void gtk_source_completion_add_provider (
 		self,
- 		GObject *provider,
-   		"GError **"GErrorHolder error))
+ 		GObject *provider))
 ]
 
 { #category : #private }

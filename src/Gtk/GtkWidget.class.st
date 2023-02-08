@@ -17,6 +17,7 @@ Class {
 	#pools : [
 		'GtkAccelFlags',
 		'GtkAlign',
+		'GtkOrientation',
 		'GtkStateFlags'
 	],
 	#category : #'Gtk-Widget'
@@ -84,8 +85,8 @@ GtkWidget class >> gtkBindingSetByClass: object_class [
 
 { #category : #private }
 GtkWidget class >> widgetDestroy: widget [
-	"I get a handle here (a void *) so I need to remap the function"
-	self ffiCall: #(void gtk_widget_destroy ("GtkWidget *" void *widget))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -278,7 +279,7 @@ GtkWidget >> basicAddController: controller [
 { #category : #private }
 GtkWidget >> basicGrabDefault [
 
-	self ffiCall: #(void gtk_widget_grab_default (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -313,7 +314,7 @@ GtkWidget >> boundingBox [
 { #category : #private }
 GtkWidget >> canDefault: can_default [
 
-	self ffiCall: #(void gtk_widget_set_can_default (self, gboolean can_default))
+	self deprecated: #Gtk4 "this is set in the window now"
 ]
 
 { #category : #private }
@@ -324,6 +325,12 @@ GtkWidget >> canFocus: can_focus [
 
 { #category : #private }
 GtkWidget >> cleanupAfterReplacing [
+]
+
+{ #category : #accessing }
+GtkWidget >> clipboard [
+
+	^ self ffiCall: #(GdkClipboard *gtk_widget_get_clipboard (self))
 ]
 
 { #category : #signaling }
@@ -791,16 +798,13 @@ GtkWidget >> getTopLevel [
 GtkWidget >> getWindow [
 	"Returns the height that has currently been allocated to widget . This function is intended to be used when implementing handlers for the “draw” function."
 
-	^ self
-		ffiCall: #(GtkWindow *gtk_widget_get_window(self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkWidget >> grabDefault [
 
-	self canDefault: true.
-	self deferAction: [ 
-		self basicGrabDefault ]
+	self deprecated: #Gtk4. "Use GtkWindow>>defaultWidget:"
 ]
 
 { #category : #accessing }
@@ -997,6 +1001,27 @@ GtkWidget >> marginTop: margin [
 	self ffiCall: #(void gtk_widget_set_margin_top (self, gint margin))
 ]
 
+{ #category : #geometry }
+GtkWidget >> measure: orientation [
+
+	^ (GtkWidgetMeasure
+		newWidget: self
+		orientation: orientation)
+		measure
+]
+
+{ #category : #geometry }
+GtkWidget >> measureHorizontal [
+
+	^ self measure: GTK_ORIENTATION_HORIZONTAL
+]
+
+{ #category : #geometry }
+GtkWidget >> measureVertical [
+
+	^ self measure: GTK_ORIENTATION_VERTICAL
+]
+
 { #category : #'accessing - fonts' }
 GtkWidget >> pangoContext [
 
@@ -1027,15 +1052,8 @@ GtkWidget >> parentWindow [
 
 { #category : #accessing }
 GtkWidget >> path [
-	| length path pathReversed |
-	
-	length := ExternalAddress new.
-	path := ExternalAddress new.
-	pathReversed := ExternalAddress new.
-	
-	self widgetPathLength: length path: path reversed: pathReversed.
-	
-	^ path readString
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #drawing }
@@ -1096,7 +1114,7 @@ GtkWidget >> queueResize [
 { #category : #accessing }
 GtkWidget >> queueResizeNoRedraw [
 
-	^ self ffiCall: #(void gtk_widget_queue_resize_no_redraw (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #style }
@@ -1151,10 +1169,10 @@ GtkWidget >> setTooltipText: text [
 { #category : #showing }
 GtkWidget >> show [
 
-	self 
-		deprecated: #Gtk4 
-		transformWith: '`@received show' -> '`@receiver beVisible'.
-	
+	self
+		deprecated: #Gtk4
+		transformWith: '`@receiver show' -> '`@receiver beVisible'.
+
 	self beVisible
 ]
 
@@ -1285,7 +1303,7 @@ GtkWidget >> vExpand: expand [
 ]
 
 { #category : #accessing }
-GtkWidget >> visible: setting [
+GtkWidget >> visible: visible [
 
 	self ffiCall: #(void gtk_widget_set_visible (self, gboolean visible))
 ]
@@ -1304,7 +1322,8 @@ GtkWidget >> widgetAddAccelerator: accel_signal group: accel_group key: accel_ke
 
 { #category : #private }
 GtkWidget >> widgetPathLength: path_length path: path reversed: path_reversed [
-	^ self ffiCall: #(void gtk_widget_path (self, guint *path_length, gchar **path, gchar **path_reversed))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

@@ -11,13 +11,19 @@ GtkMorphicClipboard >> beDefault [
 ]
 
 { #category : #accessing }
+GtkMorphicClipboard >> clipboard [
+
+	^ GdkDisplay default primaryClipboard
+]
+
+{ #category : #accessing }
 GtkMorphicClipboard >> clipboardText [
 
-	^ GtkClipboard forSelection waitForText withInternalLineEndings
+	^ self clipboard readText withInternalLineEndings
 ]
 
 { #category : #accessing }
 GtkMorphicClipboard >> clipboardText: aString [
 
-	GtkClipboard forSelection text: (aString asString withLineEndings: OSPlatform current lineEnding)
+	self clipboard text: (aString asString withLineEndings: OSPlatform current lineEnding)
 ]

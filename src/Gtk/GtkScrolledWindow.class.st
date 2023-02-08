@@ -38,7 +38,7 @@ GtkScrolledWindow class >> scrolledWindowNewHAdjustment: hadjustment vAdjustment
 { #category : #accessing }
 GtkScrolledWindow >> captureButtonPress: capture_button_press [
 
-	self ffiCall: #(void gtk_scrolled_window_set_capture_button_press (self, gboolean capture_button_press))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -62,7 +62,7 @@ GtkScrolledWindow >> hScrollBar [
 { #category : #testing }
 GtkScrolledWindow >> isCaptureButtonPress [
 
-	self ffiCall: #(gboolean gtk_scrolled_window_get_capture_button_press (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }
