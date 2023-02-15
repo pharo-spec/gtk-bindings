@@ -690,76 +690,31 @@ GtkWidget >> getCSSClasses [
 { #category : #geometry }
 GtkWidget >> getPreferredHeightTo: dest_minimum_height naturalTo: dest_natural_height [
 
-	"Retrieves a widget’s initial minimum and natural height.
-
-This call is specific to width-for-height requests.
-
-The returned request will be modified by the GtkWidgetClass::adjust_size_request virtual method and by any GtkSizeGroups that have been applied. That is, the returned request is the one that should be used for layout, not necessarily the one returned by the widget itself."
-
-	self ffiCall: #(void gtk_widget_get_preferred_height (
-		self, 
-		gint *dest_minimum_height,
-		gint *dest_natural_height))
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
 GtkWidget >> getPreferredMinimalHeight [
-		
-	| result type minimumHeightBuffer naturalHeightBuffer |
-	
-	type := self class resolveType: 'gint'.
-	minimumHeightBuffer := type newBuffer.
-	naturalHeightBuffer := type newBuffer.
-	
-	result := self 
-		getPreferredHeightTo: minimumHeightBuffer naturalTo: naturalHeightBuffer.
-	
-	^ minimumHeightBuffer signedLongAt: 1
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
 GtkWidget >> getPreferredMinimalWidth [
-		
-	| result type minimumWidthBuffer naturalWidthBuffer |
-	
-	type := self class resolveType: 'gint'.
-	minimumWidthBuffer := type newBuffer.
-	naturalWidthBuffer := type newBuffer.
-	
-	result := self 
-		getPreferredWidthTo: minimumWidthBuffer naturalTo: naturalWidthBuffer.
-	
-	^ minimumWidthBuffer signedLongAt: 1
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
 GtkWidget >> getPreferredNaturalHeight [
-		
-	| result type minimumHeightBuffer naturalHeightBuffer |
-	
-	type := self class resolveType: 'gint'.
-	minimumHeightBuffer := type newBuffer.
-	naturalHeightBuffer := type newBuffer.
-	
-	result := self 
-		getPreferredHeightTo: minimumHeightBuffer naturalTo: naturalHeightBuffer.
-	
-	^ naturalHeightBuffer signedLongAt: 1
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
 GtkWidget >> getPreferredNaturalWidth [
-		
-	| result type minimumWidthBuffer naturalWidthBuffer |
-	
-	type := self class resolveType: 'gint'.
-	minimumWidthBuffer := type newBuffer.
-	naturalWidthBuffer := type newBuffer.
-	
-	result := self 
-		getPreferredWidthTo: minimumWidthBuffer naturalTo: naturalWidthBuffer.
-	
-	^ naturalWidthBuffer signedLongAt: 1
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #geometry }
@@ -774,16 +729,7 @@ GtkWidget >> getPreferredSizeMin: minimum_size natural: natural_size [
 { #category : #geometry }
 GtkWidget >> getPreferredWidthTo: dest_minimum_width naturalTo: dest_natural_width [
 
-	"Retrieves a widget’s initial minimum and natural width.
-
-This call is specific to height-for-width requests.
-
-The returned request will be modified by the GtkWidgetClass::adjust_size_request virtual method and by any GtkSizeGroups that have been applied. That is, the returned request is the one that should be used for layout, not necessarily the one returned by the widget itself."
-
-	self ffiCall: #(void gtk_widget_get_preferred_width(
-		self, 
-		gint *dest_minimum_width,
-		gint *dest_natural_width))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -1088,15 +1034,6 @@ GtkWidget >> preferredSizeNatural [
 		natural: natural.
 	
 	^ natural width @ natural height
-]
-
-{ #category : #geometry }
-GtkWidget >> privGetPreferredWidth [
-
-	self ffiCall: #(void gtk_widget_get_preferred_width (
-		self, 
-		gint *minimum_width,
-		gint natural_width))
 ]
 
 { #category : #accessing }

@@ -72,17 +72,6 @@ GtkEntry >> basicPlaceHolderText: text [
 	self ffiCall: #(void gtk_entry_set_placeholder_text (self, String text))
 ]
 
-{ #category : #private }
-GtkEntry >> basicText [
-	^ self ffiCall: #(String gtk_entry_get_text (self))
-]
-
-{ #category : #private }
-GtkEntry >> basicText: text [
-	
-	self ffiCall: #(void gtk_entry_set_text (self, String text))
-]
-
 { #category : #accessing }
 GtkEntry >> beAlphabetic [
 

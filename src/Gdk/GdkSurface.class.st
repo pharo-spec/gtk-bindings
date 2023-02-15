@@ -13,10 +13,10 @@ GdkSurface class >> ffiLibraryName [
 ]
 
 { #category : #accessing }
-GdkSurface class >> gType [ 
+GdkSurface class >> gType [
 	"This method was automatically generated"
 
-	^ self ffiCall: #(gsize gdk_window_get_type())
+	^ self ffiCall: #(gsize gdk_surface_get_type())
 ]
 
 { #category : #accessing }

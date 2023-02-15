@@ -7,7 +7,6 @@ Class {
 	#name : #GtkButton,
 	#superclass : #GtkWidget,
 	#instVars : [
-		'image',
 		'child'
 	],
 	#pools : [
@@ -120,7 +119,7 @@ GtkButton >> getChild [
 { #category : #private }
 GtkButton >> getImage [
 
-	^ self ffiCall: #(GtkImage *gtk_button_get_image (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -132,29 +131,31 @@ GtkButton >> getLabel [
 { #category : #accessing }
 GtkButton >> image [
 
-	^ image ifNil: [ image := self getImage ]
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> image: anImage [
 
-	image := anImage.
-	self setImage: anImage
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> imagePosition [
-	^ self ffiCall: #(GtkPositionType gtk_button_get_image_position (self))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> imagePosition: position [
-	^ self ffiCall: #(void gtk_button_set_image_position (self, GtkPositionType position))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }
 GtkButton >> isAlwaysShowImage [
-	^ self ffiCall: #(void gtk_button_get_always_show_image (self))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -172,13 +173,13 @@ GtkButton >> label: aString [
 { #category : #accessing }
 GtkButton >> reliefStyle [
 
-	^ self ffiCall: #(GtkReliefStyle gtk_button_get_relief (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkButton >> reliefStyle: relief [
 
-	^ self ffiCall: #(void gtk_button_set_relief (self, GtkReliefStyle relief))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -190,7 +191,7 @@ GtkButton >> setChild: aWidget [
 { #category : #private }
 GtkButton >> setImage: anImage [
 
-	self ffiCall: #(void gtk_button_set_image (self, GtkWidget *anImage))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

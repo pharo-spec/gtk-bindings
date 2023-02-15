@@ -55,6 +55,12 @@ GtkTreeStore class >> init: iface [
 	^ self ffiCall: #(void gtk_tree_store_tree_model_init (GtkTreeModelIface *iface))
 ]
 
+{ #category : #testing }
+GtkTreeStore class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #iterating }
 GtkTreeStore >> appendNew [
 	

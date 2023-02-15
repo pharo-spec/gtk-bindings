@@ -4,12 +4,6 @@ Class {
 	#category : #'Gtk4-Tests-Widget'
 }
 
-{ #category : #tests }
-GtkButtonTest >> testMeasureVertical [
-
-	super testMeasureVertical
-]
-
 { #category : #accessing }
 GtkButtonTest >> widgetClass [
 
