@@ -9,9 +9,6 @@ Class {
 	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
-	#instVars : [
-		'defaultWidget'
-	],
 	#pools : [
 		'GtkPositionType'
 	],
@@ -28,7 +25,7 @@ GtkPopover class >> gType [
 { #category : #private }
 GtkPopover class >> gtkPopoverNewRelativeTo: relative_to model: model [
 
-	^ self ffiCall: #(GtkPopover *gtk_popover_new_from_model (GtkWidget *relative_to, "GMenuModel *"GObject *model))
+	self deprecated: #Gtk4
 ]
 
 { #category : #'instance creation' }
@@ -40,7 +37,7 @@ GtkPopover class >> new [
 { #category : #'instance creation' }
 GtkPopover class >> newFromModel: model [
 
-	^ (self gtkPopoverNewRelativeTo: GtkWidget null model: model) initialize
+	self deprecated: #Gtk4
 ]
 
 { #category : #'instance creation' }
@@ -52,7 +49,7 @@ GtkPopover class >> newRelativeTo: aWidget [
 { #category : #'instance creation' }
 GtkPopover class >> newRelativeTo: aWidget model: model [
 
-	^ (self gtkPopoverNewRelativeTo: aWidget model: model) initialize
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -112,20 +109,19 @@ GtkPopover >> connectClosed: aBlock [
 { #category : #accessing }
 GtkPopover >> defaultWidget [
 
-	^ defaultWidget ifNil: [ defaultWidget := self getDefaultWidget ]
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkPopover >> defaultWidget: aWidget [
 
-	defaultWidget := aWidget.
-	self setDefaultWidget: aWidget
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkPopover >> getDefaultWidget [
 
-	^ self ffiCall: #(GtkWidget *gtk_popover_get_default_widget (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }

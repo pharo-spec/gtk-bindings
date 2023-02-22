@@ -8,7 +8,6 @@ Class {
 	#name : #GtkMenuButton,
 	#superclass : #GtkButton,
 	#instVars : [
-		'popover',
 		'model'
 	],
 	#pools : [
@@ -150,14 +149,13 @@ GtkMenuButton >> menuPopup: aMenu widgetGravity: widgetGavity menuGravity: menuG
 { #category : #accessing }
 GtkMenuButton >> popover [
 
-	^ popover ifNil: [ popover := self getPopover ]
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkMenuButton >> popover: aPopover [
 
-	popover := aPopover.
-	self setPopover: aPopover
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -201,13 +199,13 @@ GtkMenuButton >> setPopover: aPopover [
 { #category : #accessing }
 GtkMenuButton >> usePopover: aBoolean [
 
-	^ self ffiCall: #(void gtk_menu_button_set_use_popover (self, gboolean aBoolean))
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }
 GtkMenuButton >> usesPopover [
 
-	^ self ffiCall: #(gboolean gtk_menu_button_get_use_popover (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
