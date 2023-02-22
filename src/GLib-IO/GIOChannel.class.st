@@ -160,6 +160,19 @@ GIOChannel >> read: buf count: count bytesRead: bytes_read [
 	))
 ]
 
+{ #category : #accessing }
+GIOChannel >> readAllLines [
+	| status lines |
+
+	lines := OrderedCollection new.
+	[
+		status := self readLineTo: [ :aLine | lines add: aLine ]
+	]
+	doWhileFalse: [ status = G_IO_STATUS_EOF ].
+
+	^ lines
+]
+
 { #category : #'private - primitives' }
 GIOChannel >> readChars: buf count: count bytesRead: bytes_read error: error [
 
@@ -192,7 +205,7 @@ GIOChannel >> readLine: str_return size: length terminator: terminator_pos error
 
 { #category : #accessing }
 GIOChannel >> readLineTo: aBlock [
-	"reads a line and class aBlock with it. 
+	"reads a line and class aBlock with it.
 	 returns a GIOStatus (when is not ERROR)"
 	| buf read size pos error status |
 
@@ -201,16 +214,17 @@ GIOChannel >> readLineTo: aBlock [
 	read := FFISizeT newBuffer.
 	size := FFISizeT newBuffer.
 	pos := FFISizeT newBuffer.
-	status := self 
-		readLine: buf 
-		size: size 
-		terminator: pos 
+	status := self
+		readLine: buf
+		size: size
+		terminator: pos
 		error: error.
-	((status = G_IO_STATUS_ERROR) and: [ error value isError ]) 
+	((status = G_IO_STATUS_ERROR) and: [ error value isError ])
 		ifTrue: [ self error: error value messageString ].
 
-	buf utf8StringFromCString 
-		ifNotNil: [ :aString | aBlock value: aString ].	
+	buf utf8StringFromCString
+		ifNotNil: [ :aString | aBlock value: aString ].
+	buf gFree.
 
 	^ status
 ]
