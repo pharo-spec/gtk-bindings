@@ -32,8 +32,14 @@ GdkScreen class >> getDefault [
 	^ self ffiCall: #(GdkScreen *gdk_screen_get_default ())
 ]
 
+{ #category : #testing }
+GdkScreen class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'as yet unclassified' }
 GdkScreen >> resolution [
 
-	^ self ffiCall: #(gdouble gdk_screen_get_resolution ( self ))
+	self deprecated: #Gtk4
 ]

@@ -23,7 +23,7 @@ GdkDisplay class >> default [
 { #category : #accessing }
 GdkDisplay class >> forceRectangleToFitLimits: aRect [
 
-	^ self default primaryMonitor forceRectangleToFitLimits: aRect
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -54,7 +54,13 @@ GdkDisplay >> defaultSeat [
 { #category : #accessing }
 GdkDisplay >> monitorAt: aNumber [
 
-	^ GdkMonitor on: self number: aNumber
+	self deprecated: #Gtk4
+]
+
+{ #category : #accessing }
+GdkDisplay >> monitors [
+
+	^ self ffiCall: #(GListModel *gdk_display_get_monitors (self))
 ]
 
 { #category : #accessing }
@@ -66,5 +72,5 @@ GdkDisplay >> primaryClipboard [
 { #category : #accessing }
 GdkDisplay >> primaryMonitor [
 
-	^ GdkMonitor primaryOn: self
+	self deprecated: #Gtk4
 ]

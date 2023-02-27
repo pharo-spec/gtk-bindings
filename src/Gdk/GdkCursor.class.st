@@ -17,21 +17,21 @@ GdkCursor class >> cursorNewFromName: aName display: display [
 		const gchar *aName))
 ]
 
-{ #category : #private }
-GdkCursor class >> cursorNewFromSurface: surface display: display x: x y: y [
-
-	^ self ffiCall: #(GdkCursor * gdk_cursor_new_from_surface (
-		GdkDisplay *display,
-		"cairo_surface_t *"void *surface,
-		gdouble x,
- 		gdouble y))
-]
-
 { #category : #accessing }
 GdkCursor class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_cursor_get_type())
+]
+
+{ #category : #private }
+GdkCursor class >> gdkNewFromTexture: texture x: hotspot_x y: hotspot_y fallback: fallback [
+
+	self ffiCall: #(GdkCursor* gdk_cursor_new_from_texture (
+		GdkTexture* texture,
+		int hotspot_x,
+		int hotspot_y,
+		GdkCursor* fallback))
 ]
 
 { #category : #'instance creation' }
@@ -50,13 +50,13 @@ GdkCursor class >> newFromName: aName [
 ]
 
 { #category : #'instance creation' }
-GdkCursor class >> newFromSurface: aSurface [
+GdkCursor class >> newFromTexture: aGdkTexture [
 
-	^ (self 
-		cursorNewFromSurface: aSurface getHandle
-		display: GdkDisplay default 
-		x: 0.0
-		y: 0.0)
+	^ (self
+		gdkNewFromTexture: aGdkTexture
+			x: 0
+			y: 0
+			fallback: GdkCursor null)
 		initialize
 ]
 

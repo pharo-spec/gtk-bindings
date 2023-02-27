@@ -22,31 +22,25 @@ GdkMonitor class >> gType [
 { #category : #private }
 GdkMonitor class >> getOn: display number: monitor_num [
 
-	^ self ffiCall: #(GdkMonitor *gdk_display_get_monitor (
-		GdkDisplay *display,
-  		int monitor_num))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GdkMonitor class >> getPrimaryOn: display [
 
-	^ self ffiCall: #(GdkMonitor *gdk_display_get_primary_monitor (GdkDisplay *display))
+	self deprecated: #Gtk4
 ]
 
 { #category : #'instance creation' }
-GdkMonitor class >> on: aDisplay number: aNumber [ 
+GdkMonitor class >> on: aDisplay number: aNumber [
 
-	"do not send #initialize here because we do not need it (and keeping a reference 
-	 is useless since this is kept in Gtk3."
-	^ (self getOn: aDisplay number: aNumber) "initialize"
+	self deprecated: #Gtk4
 ]
 
 { #category : #'instance creation' }
-GdkMonitor class >> primaryOn: aDisplay [ 
+GdkMonitor class >> primaryOn: aDisplay [
 
-	"do not send #initialize here because we do not need it (and keeping a reference 
-	 is useless since this is kept in Gtk3."
-	^ (self getPrimaryOn: aDisplay) "initialize"
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
