@@ -87,17 +87,34 @@ GtkImage class >> surfaceFor: anImageMorph [
 ]
 
 { #category : #converting }
-GtkImage >> asGdkPixbuf [
-	"this will only work if the image it self is creared from a pixbuf. 
+GtkImage >> asGdkPaintable [
+	"this will only work if the image it self is creared from a pixbuf.
 	 Most of the time you are better going through GdkPixbuf creation methods."
 	| type |
 
 	type := self imageType.
-	type == GTK_IMAGE_PIXBUF ifTrue: [ 
-		^ self getPixbuf ].
-	type == GTK_IMAGE_ICON_NAME ifTrue: [ 
+	type == GTK_IMAGE_ICON_NAME ifTrue: [
+		^ GtkIconPaintable newFromIconName: self iconName size: self iconSize ].
+	(type == GTK_IMAGE_EMPTY or: [ type == GTK_IMAGE_PAINTABLE ]) ifTrue: [
+		^ self getPaintable ].
+
+	^ nil
+]
+
+{ #category : #converting }
+GtkImage >> asGdkPixbuf [
+	"this will only work if the image it self is creared from a pixbuf.
+	 Most of the time you are better going through GdkPixbuf creation methods."
+	| type |
+
+	type := self imageType.
+	type == GTK_IMAGE_ICON_NAME ifTrue: [
 		^ GdkPixbuf newFromIconName: self iconName size: self iconSize ].
-	
+	(type == GTK_IMAGE_EMPTY or: [ type == GTK_IMAGE_PAINTABLE ]) ifTrue: [
+		"this comes from gtk3 times. Most probably, best way is to refactor the
+		 app to not use this."
+		self halt ].
+
 	^ nil
 ]
 
@@ -122,9 +139,15 @@ GtkImage >> getIconName: icon_name size: size [
 ]
 
 { #category : #private }
+GtkImage >> getPaintable [
+
+	^ self ffiCall: #(GdkPaintable *gtk_image_get_paintable())
+]
+
+{ #category : #private }
 GtkImage >> getPixbuf [
 
-	^ self ffiCall: #(GdkPixbuf* gtk_image_get_pixbuf (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

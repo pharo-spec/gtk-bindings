@@ -7,14 +7,6 @@ Class {
 	#category : #'GtkSourceView-Base'
 }
 
-{ #category : #accessing }
-GtkSourceStyleScheme class >> gType [ 
-
-	^ self 
-		ffiCall: #(gsize gtk_source_style_scheme_get_type())
-		module: GtkSourceViewLibrary
-]
-
 { #category : #'instance creation' }
 GtkSourceStyleScheme class >> new [
 

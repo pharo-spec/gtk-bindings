@@ -25,17 +25,17 @@ Class {
 
 { #category : #accessing }
 GtkWidget class >> bindingSet [
-	"Binding set gives access to the bindings of a class. 
-	 It is possible to use it to override the default keybindings defined. 
-	 For example, this is how you map a context menu popup to <meta+t>: 
-	
+	"Binding set gives access to the bindings of a class.
+	 It is possible to use it to override the default keybindings defined.
+	 For example, this is how you map a context menu popup to <meta+t>:
+
 	 GtkTextView bindingSet
-	 	addSignal: $t asciiValue 
+	 	addSignal: $t asciiValue
 	 	modifiers: GdkModifierType GDK_META_MASK
 	 	signal: 'popup-menu'.
 	"
 
-	^ self gtkBindingSetByClass: self gClass
+	self deprecated: #Gtk4
 ]
 
 { #category : #'library path' }
@@ -80,7 +80,7 @@ GtkWidget class >> gType [
 { #category : #private }
 GtkWidget class >> gtkBindingSetByClass: object_class [
 
-	^ self ffiCall: #(GtkBindingSet *gtk_binding_set_by_class (gpointer object_class))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -91,18 +91,8 @@ GtkWidget class >> widgetDestroy: widget [
 
 { #category : #accessing }
 GtkWidget >> addAccelerator: aString group: anAccelGroup shortcut: aShortcut [
-	| charValue modifiers |
 
-	charValue := aShortcut platformCharacter asciiValue.
-	modifiers := aShortcut platformModifier asGdkModifierType.
-		
-	self 
-		widgetAddAccelerator: aString 
-		group: anAccelGroup 
-		key: charValue
-		modifiers: modifiers
-		accelFlags: GTK_ACCEL_VISIBLE
-		
+	self deprecated: #Gtk4
 ]
 
 { #category : #style }
@@ -240,6 +230,22 @@ GtkWidget >> addRightClickEvent: aBlock [
 			named: 'right-click';
 			beButtonSecondary;
 			connectPressed: aBlock ]
+]
+
+{ #category : #accessing }
+GtkWidget >> addShortcut: aShortcut [
+
+	self addShortcutControllerWith: [ :aController |
+		aController addShortcut: aShortcut ]
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addShortcutControllerWith: aBlock [
+
+	"shortcut controllers stack"
+	aBlock value: (self
+		detectController: [ :each | each isShortcutController ]
+		ifNone: [ self addController: GtkShortcutController new ])
 ]
 
 { #category : #accessing }
@@ -596,22 +602,14 @@ GtkWidget >> display [
 
 { #category : #private }
 GtkWidget >> dragDestSetFlags: flags targetsTypes: targets targetsAmount: n_targets actions: actions [
-"Sets a widget as a potential drop destination, and adds default behaviors.
 
-The default behaviors listed in flags have an effect similar to installing default handlers for the widget’s drag-and-drop signals (“drag-motion”, “drag-drop”, ...). They all exist for convenience. When passing GTK_DEST_DEFAULT_ALL for instance it is sufficient to connect to the widget’s “drag-data-received” signal to get primitive, but consistent drag-and-drop support.
-
-Things become more complicated when you try to preview the dragged data, as described in the documentation for “drag-motion”. The default behaviors described by flags make some assumptions, that can conflict with your own signal handlers. For instance GTK_DEST_DEFAULT_DROP causes invokations of gdk_drag_status() in the context of “drag-motion”, and invokations of gtk_drag_finish() in “drag-data-received”. Especially the later is dramatic, when your own “drag-motion” handler calls gtk_drag_get_data() to inspect the dragged data.
-
-There’s no way to set a default action here, you can use the “drag-motion” callback for that. Here’s an example which selects the action to use depending on whether the control key is pressed or not:"
-	^ self
-		ffiCall:
-			#(void gtk_drag_dest_set #(self , GtkDestDefaults flags , const GtkTargetEntry * targets , gint n_targets , GdkDragAction actions))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkWidget >> dragDestUnset [
-	"Clears information about a drop destination set with gtk_drag_dest_set(). The widget will no longer receive notification of drags."
-	^ self ffiCall: #(void gtk_drag_dest_unset #(self))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -1248,13 +1246,7 @@ GtkWidget >> visible: visible [
 { #category : #private }
 GtkWidget >> widgetAddAccelerator: accel_signal group: accel_group key: accel_key modifiers: accel_mods accelFlags: accel_flags [
 
-	^ self ffiCall: #(void gtk_widget_add_accelerator (
-		self,
- 		const gchar *accel_signal,
-		GtkAccelGroup *accel_group,
-		guint accel_key,
-		GdkModifierType accel_mods,
-		GtkAccelFlags accel_flags))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

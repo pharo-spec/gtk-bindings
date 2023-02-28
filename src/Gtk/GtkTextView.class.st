@@ -99,13 +99,13 @@ GtkTextView >> extraMenu: aMenuModel [
 { #category : #private }
 GtkTextView >> gdkWindowOfType: win [
 
-	^ self ffiCall: #(GdkWindow *gtk_text_view_get_window (self, GtkTextWindowType win))	
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkTextView >> gdkWindowText [
 
-	^ self gdkWindowOfType: GTK_TEXT_WINDOW_TEXT
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }

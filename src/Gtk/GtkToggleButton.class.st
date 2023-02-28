@@ -39,25 +39,25 @@ GtkToggleButton >> active: aBoolean [
 { #category : #accessing }
 GtkToggleButton >> doNotDrawIndicator [
 
-	^ self drawIndicator: false
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkToggleButton >> drawIndicator [
 
-	^ self drawIndicator: true
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkToggleButton >> drawIndicator: aBoolean [
 
-	^ self ffiCall: #(void gtk_toggle_button_set_mode (self, gboolean aBoolean))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkToggleButton >> inconsistent: aBoolean [
 
-	^ self ffiCall: #(void gtk_toggle_button_set_inconsistent (self, gboolean aBoolean))
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }
@@ -69,11 +69,11 @@ GtkToggleButton >> isActive [
 { #category : #testing }
 GtkToggleButton >> isDrawingIndicator [
 
-	^ self ffiCall: #(gboolean gtk_toggle_button_get_mode (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #testing }
 GtkToggleButton >> isInconsistent [
 
-	^ self ffiCall: #(gboolean gtk_toggle_button_get_inconsistent (self))
+	self deprecated: #Gtk4
 ]

@@ -14,11 +14,3 @@ GtkImage class >> newMorph: anImageMorph [
 	texture := surface asGdkTexture.
 	^ self newPaintable: texture
 ]
-
-{ #category : #'*Gtk-Morphic' }
-GtkImage >> newMorph: anImageMorph [
-
-	| surf |
-	surf := self surfaceFor: anImageMorph.
-	^ (self imageNewFromSurface: surf) initialize
-]

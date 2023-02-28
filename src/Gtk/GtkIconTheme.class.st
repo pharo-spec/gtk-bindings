@@ -8,34 +8,35 @@ Class {
 	#superclass : #GObject,
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
+	#pools : [
+		'GtkIconLookupFlags',
+		'GtkTextDirection'
+	],
 	#category : #'Gtk-Widget-Display'
 }
 
 { #category : #'instance creation' }
 GtkIconTheme class >> default [
 
-	^ self getDefault
+	^ self newForDisplay: GdkDisplay default
 ]
 
 { #category : #private }
-GtkIconTheme class >> getDefault [
+GtkIconTheme class >> getForDisplay: display [
 
-	^ self ffiCall: #(GtkIconTheme *gtk_icon_theme_get_default ())
+	^ self ffiCall: #(GtkIconTheme* gtk_icon_theme_get_for_display (GdkDisplay* display))
+]
+
+{ #category : #'instance creation' }
+GtkIconTheme class >> newForDisplay: aDisplay [
+
+	^ (self getForDisplay: aDisplay) initialize
 ]
 
 { #category : #accessing }
 GtkIconTheme >> allContextNames [
-	| gList result |
-	
-	result := OrderedCollection new.
-	gList := GList fromHandle: self listContexts.
-	gList do: [ :data |
-		data isNull ifFalse: [ 
-			result add: data utf8StringFromCString.
-			data gFree ] ].
-	gList free.
 
-	^ result
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -46,96 +47,140 @@ GtkIconTheme >> allIcons [
 
 { #category : #accessing }
 GtkIconTheme >> allNames [
-	| gList result |
-	
-	result := OrderedCollection new: 1000.
-	gList := GList fromHandle: self listAllIcons.
-	gList do: [ :data |
-		data isNull ifFalse: [
-			| name |
-			name := data utf8StringFromCString.
-			result add: name.
-			data gFree ] ].
-	gList free.
+	| names namesAddress |
 
-	^ result
+	namesAddress := self getIconNames.
+	"a huge buffer, since this is always a huge list"
+	names := Array new: 20000 streamContents: [ :stream |
+		(namesAddress
+			readArrayOf: FFIOop new
+  			until: [ :each | each isNull ])
+			do: [ :each |
+				stream nextPut: each utf8StringFromCString.
+				each gFree ] ].
+	namesAddress gFree.
+
+	^ names
 ]
 
 { #category : #accessing }
 GtkIconTheme >> allNamesByContext [
-	| namesByContext |
-	
-	namesByContext := Dictionary new.
-	self allContextNames do: [ :each |
-		namesByContext 
-			at: each 
-			put: (self iconNamesInContext: each) ].
-	^ namesByContext
+
+	self deprecated: #Gtk4
+]
+
+{ #category : #private }
+GtkIconTheme >> getIconNames [
+
+	^ self ffiCall: #("char **"void *gtk_icon_theme_get_icon_names (self))
+]
+
+{ #category : #private }
+GtkIconTheme >> getIconSizes: icon_name [
+
+	^ self ffiCall: #("int*"void * gtk_icon_theme_get_icon_sizes (self, char* icon_name))
+]
+
+{ #category : #private }
+GtkIconTheme >> getThemeName [
+
+	^ self ffiCall: #(void* gtk_icon_theme_get_theme_name (self))
+]
+
+{ #category : #testing }
+GtkIconTheme >> hasIcon: icon_name [
+
+	^ self ffiCall: #(gboolean gtk_icon_theme_has_icon (self, char* icon_name))
 ]
 
 { #category : #accessing }
 GtkIconTheme >> iconNamesInContext: aString [
-	| gList result |
-	
-	result := OrderedCollection new: 1000.
-	gList := GList fromHandle: (self listIcons: aString).
-	gList do: [ :data |
-		data isNull ifFalse: [
-			result add: data utf8StringFromCString.
-			data gFree ] ].
-	gList free.
 
-	^ result
+	self deprecated: #Gtk4
+]
+
+{ #category : #accessing }
+GtkIconTheme >> iconSizesOf: aName [
+	| sizes sizesAddress |
+
+	sizesAddress := self getIconSizes: aName.
+	sizes := Array streamContents: [ :stream |
+		(sizesAddress
+			readArrayOf: FFIInt32 new
+  			until: [ :each | each isZero ])
+			do: [ :each | stream nextPut: each ] ].
+	sizesAddress gFree.
+
+	^ sizes
 ]
 
 { #category : #accessing }
 GtkIconTheme >> iconsInContext: aName [
 
-	^ (self iconNamesInContext: aName) collect: [ :each | GtkImage newIconForButtonNamed: each ]
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkIconTheme >> listAllIcons [
 
-	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_icons (self, NULL))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
-GtkIconTheme >> listContexts [ 
+GtkIconTheme >> listContexts [
 
-	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_contexts (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkIconTheme >> listIcons: context [
 
-	^ self ffiCall: #("GList *"void *gtk_icon_theme_list_icons (self, const gchar *context))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
-GtkIconTheme >> loadIconName: iconName size: iconSize [ 
-	| pixbuf errorHolder error |		
+GtkIconTheme >> loadIconName: iconName size: iconSize [
 
-	errorHolder := GErrorHolder new.
-	pixbuf := self 
-		loadIconName: iconName 
-		size: iconSize 
-		flags: 0
-		error: errorHolder.
-	error := errorHolder value.
-	error isOk ifFalse: [ 
-		GtkError signal: error messageString ].	
-	pixbuf initialize.
-	^ pixbuf
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
-GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [ 
+GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [
 
-	self ffiCall: #(GdkPixbuf *gtk_icon_theme_load_icon(
-		self, 
-		const gchar *icon_name,
-		gint size,
-		"GtkIconLookupFlags"gint flags,
-		"GError **"GErrorHolder error))
+	self deprecated: #Gtk4
+]
+
+{ #category : #accessing }
+GtkIconTheme >> lookupIconName: icon_name size: size [
+
+	^ self
+		lookupIconName: icon_name
+		size: size
+		scale: 1
+		direction: GTK_TEXT_DIR_NONE
+		flags: GTK_ICON_LOOKUP_FORCE_REGULAR
+]
+
+{ #category : #accessing }
+GtkIconTheme >> lookupIconName: icon_name size: size scale: scale direction: direction flags: flags [
+
+	self ffiCall: #(GtkIconPaintable* gtk_icon_theme_lookup_icon (
+  		self,
+		const char* icon_name,
+		"const char** fallbacks" NULL,
+		int size,
+		int scale,
+		GtkTextDirection direction,
+		GtkIconLookupFlags flags))
+]
+
+{ #category : #accessing }
+GtkIconTheme >> name [
+	| name nameAddress |
+
+	nameAddress := self getThemeName.
+	name := nameAddress utf8StringFromCString.
+	nameAddress gFree.
+
+	^ name
 ]

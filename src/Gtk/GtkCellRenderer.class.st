@@ -37,6 +37,12 @@ GtkCellRenderer class >> gType [
 	^ self ffiCall: #(gsize gtk_cell_renderer_get_type())
 ]
 
+{ #category : #testing }
+GtkCellRenderer class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkCellRenderer class >> new [
 	

@@ -44,3 +44,15 @@ GtkCClosureExpression >> initializeCallback: aCallback [
 	self initialize.
 	callback := aCallback
 ]
+
+{ #category : #accessing }
+GtkCClosureExpression >> keyval [
+
+	^ self ffiCall: #(guint gtk_keyval_trigger_get_keyval (self))
+]
+
+{ #category : #accessing }
+GtkCClosureExpression >> modifiers [
+
+	^ self ffiCall: #(GdkModifierType gtk_keyval_trigger_get_modifiers (self))
+]

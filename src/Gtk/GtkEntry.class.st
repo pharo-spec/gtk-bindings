@@ -221,7 +221,7 @@ GtkEntry >> getBuffer [
 { #category : #accessing }
 GtkEntry >> imContextFilterKeypress: event [
 
-	^ self ffiCall: #(gboolean gtk_entry_im_context_filter_keypress (self, #GdkKeyEvent *event))
+	^ self ffiCall: #(gboolean gtk_entry_im_context_filter_keypress (self, GdkKeyEvent *event))
 ]
 
 { #category : #accessing }

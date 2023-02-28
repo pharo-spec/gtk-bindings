@@ -67,6 +67,12 @@ GtkEventController >> isMotionController [
 	^ false
 ]
 
+{ #category : #testing }
+GtkEventController >> isShortcutController [
+
+	^ false
+]
+
 { #category : #accessing }
 GtkEventController >> name [
 

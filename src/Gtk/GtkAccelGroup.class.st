@@ -24,6 +24,12 @@ GtkAccelGroup class >> gType [
 	^ self ffiCall: #(gsize gtk_accel_group_get_type())
 ]
 
+{ #category : #testing }
+GtkAccelGroup class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkAccelGroup class >> new [
 

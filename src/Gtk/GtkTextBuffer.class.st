@@ -101,6 +101,18 @@ GtkTextBuffer >> beginUserAction [
 	self ffiCall: #(void gtk_text_buffer_begin_user_action (self))
 ]
 
+{ #category : #testing }
+GtkTextBuffer >> canRedo [
+
+	^ self ffiCall: #(gboolean gtk_text_buffer_get_can_redo(self))
+]
+
+{ #category : #testing }
+GtkTextBuffer >> canUndo [
+
+	^ self ffiCall: #(gboolean gtk_text_buffer_get_can_undo(self))
+]
+
 { #category : #accessing }
 GtkTextBuffer >> charCount [
 
@@ -184,6 +196,18 @@ GtkTextBuffer >> deleteStart: start end: end [
 	^ self ffiCall: #(void gtk_text_buffer_delete (self, GtkTextIter *start, GtkTextIter *end))
 ]
 
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> disableUndo [
+
+	self undoEnabled: false
+]
+
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> enableUndo [
+
+	self undoEnabled: true
+]
+
 { #category : #private }
 GtkTextBuffer >> endIter [ 
 	| end |
@@ -231,6 +255,12 @@ GtkTextBuffer >> getSelectionBoundsStart: start end: end [
 		self,
 		GtkTextIter *start,
 		GtkTextIter *end))
+]
+
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> infiniteUndoLevels [
+
+	self maxUndoLevels: 0
 ]
 
 { #category : #initialization }
@@ -295,6 +325,12 @@ GtkTextBuffer >> insertTextAtCursor: text [
 	^ self ffiCall: #(void gtk_text_buffer_insert_at_cursor (self, const gchar *text, -1))
 ]
 
+{ #category : #testing }
+GtkTextBuffer >> isUndoEnabled [
+
+	^ self ffiCall: #(gboolean gtk_text_buffer_get_enable_undo (self))
+]
+
 { #category : #accessing }
 GtkTextBuffer >> iterAtLine: lineNumber [
 	| iter |
@@ -357,6 +393,21 @@ GtkTextBuffer >> markNamed: aName [
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_get_mark (self, const gchar *aName))
 ]
 
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> maxUndoLevels [
+
+	self ffiCall: #(guint gtk_text_buffer_get_max_undo_levels (self))
+]
+
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> maxUndoLevels: max_undo_levels [
+
+	^ self
+		ffiCall: #(void gtk_text_buffer_set_max_undo_levels (
+			self,
+   			gint max_undo_levels))
+]
+
 { #category : #'accessing - mark' }
 GtkTextBuffer >> moveMark: mark to: where [
 
@@ -379,12 +430,16 @@ GtkTextBuffer >> placeCursor: where [
 	self ffiCall: #(void gtk_text_buffer_place_cursor (self, const GtkTextIter *where))
 ]
 
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> redo [
+
+	^ self ffiCall: #(void gtk_text_buffer_redo (self))
+]
+
 { #category : #private }
 GtkTextBuffer >> registerSerializeTagSet [
 
-	^ self ffiCall: #(void *gtk_text_buffer_register_serialize_tagset (self, NULL))
-	
-	
+	self deprecated: #Gtk4
 ]
 
 { #category : #'accessing - tags' }
@@ -513,41 +568,14 @@ GtkTextBuffer >> selectionIteratorsDo: aBlock ifNone: noneBlock [
 
 { #category : #serializing }
 GtkTextBuffer >> serialize [
-	| format lengthBuffer result serializedSize serializedBuffer |
 
-	format := self registerSerializeTagSet.
-
-	lengthBuffer := FFISizeT newBuffer. 
-	result := self 
-		serializeFormat: format
-		start: self startIter
-		end: self endIter
-		length: lengthBuffer.
-	serializedSize := lengthBuffer signedLongAt: 1.
-	serializedSize = 0 ifTrue: [ ^ nil ].
-		
-	serializedBuffer := ByteArray new: serializedSize.
-	LibC 
-		memCopy: result 
-		to: serializedBuffer 
-		size: serializedSize.
-	
-	self gFree: result.
-
-	^ serializedBuffer
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkTextBuffer >> serializeFormat: format start: start end: end length: length [
 
-	self ffiCall: #(void *gtk_text_buffer_serialize (
-  		self,
-  		self,
-  		"GdkAtom"void *format,
-  		GtkTextIter* start,
-  		GtkTextIter* end,
-  		"gsize *"void *length
-		))
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -624,6 +652,18 @@ GtkTextBuffer >> textStart: start end: end includeHiddenChars: include_hidden_ch
       const GtkTextIter *start,
       const GtkTextIter *end,
       gboolean include_hidden_chars))
+]
+
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> undo [
+
+	^ self ffiCall: #(void gtk_text_buffer_undo (self))
+]
+
+{ #category : #'accessing - undo/redo' }
+GtkTextBuffer >> undoEnabled: enable_undo [
+
+	self ffiCall: #(void gtk_text_buffer_set_enable_undo (self, gboolean enable_undo))
 ]
 
 { #category : #accessing }

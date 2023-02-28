@@ -43,22 +43,6 @@ GtkSourceBuffer class >> sourceBufferNew: table [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
-GtkSourceBuffer >> canRedo [
-
-	^ self
-		ffiCall: #(gboolean gtk_source_buffer_can_redo(self))
-		module: GtkSourceViewLibrary
-]
-
-{ #category : #testing }
-GtkSourceBuffer >> canUndo [
-
-	^ self
-		ffiCall: #(gboolean gtk_source_buffer_can_undo(self))
-		module: GtkSourceViewLibrary
-]
-
 { #category : #accessing }
 GtkSourceBuffer >> createSourceMarkNamed: name category: category where: where [
 
@@ -69,12 +53,6 @@ GtkSourceBuffer >> createSourceMarkNamed: name category: category where: where [
 			const gchar *category,
 			const GtkTextIter *where)) 
 		module: GtkSourceViewLibrary
-]
-
-{ #category : #accessing }
-GtkSourceBuffer >> disableUndo [
-
-	self maxUndoLevels: 0
 ]
 
 { #category : #private }
@@ -109,13 +87,6 @@ GtkSourceBuffer >> implicitTrailingNewline: implicit_trailing_newline [
 			self,
 			gboolean implicit_trailing_newline))
 		module: GtkSourceViewLibrary
-]
-
-{ #category : #accessing }
-GtkSourceBuffer >> infiniteUndoLevels [
-
-	self maxUndoLevels: -1
-		
 ]
 
 { #category : #testing }
@@ -155,28 +126,10 @@ GtkSourceBuffer >> language: aLanguage [
 	self setLanguage: (language ifNil: [ GObject null ])
 ]
 
-{ #category : #accessing }
-GtkSourceBuffer >> maxUndoLevels: max_undo_levels [
-
-	^ self 
-		ffiCall: #(void gtk_source_buffer_set_max_undo_levels (
-			self,
-   			gint max_undo_levels))
-		module: GtkSourceViewLibrary
-]
-
 { #category : #private }
 GtkSourceBuffer >> newSearchContext [
 
 	^ GtkSourceSearchContext newBuffer: self
-]
-
-{ #category : #accessing }
-GtkSourceBuffer >> redo [
-
-	^ self 
-		ffiCall: #(void gtk_source_buffer_redo (self))
-		module: GtkSourceViewLibrary
 ]
 
 { #category : #accessing }
@@ -208,13 +161,5 @@ GtkSourceBuffer >> styleScheme: scheme [
 
 	self 
 		ffiCall: #(void gtk_source_buffer_set_style_scheme (self, GtkSourceStyleScheme *scheme))
-		module: GtkSourceViewLibrary
-]
-
-{ #category : #accessing }
-GtkSourceBuffer >> undo [
-
-	^ self 
-		ffiCall: #(void gtk_source_buffer_undo (self))
 		module: GtkSourceViewLibrary
 ]

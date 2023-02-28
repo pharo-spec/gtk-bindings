@@ -70,7 +70,7 @@ GtkMenuButton class >> gType [
 { #category : #accessing }
 GtkMenuButton >> alignMenuWithWidget: aWidget [
 
-	^ self ffiCall: #(void gtk_menu_button_set_align_widget (self, GtkWidget *aWidget))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -143,7 +143,7 @@ GtkMenuButton >> menuModel: aMenuModel [
 { #category : #private }
 GtkMenuButton >> menuPopup: aMenu widgetGravity: widgetGavity menuGravity: menuGravity [
 
-	^ self ffiCall: #(void gtk_menu_popup_at_widget (GtkMenu *aMenu, self, GdkGravity widgetGavity, GdkGravity menuGravity, NULL))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -211,5 +211,5 @@ GtkMenuButton >> usesPopover [
 { #category : #accessing }
 GtkMenuButton >> widgetAlignedWithMenu [
 
-	^ self ffiCall: #(GtkWidget *gtk_menu_button_get_align_widget (self))
+	self deprecated: #Gtk4
 ]

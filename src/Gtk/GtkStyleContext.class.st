@@ -57,7 +57,7 @@ GtkStyleContext >> addProvider: provider priority: priority [
 { #category : #accessing }
 GtkStyleContext >> fontNormal [
 
-	^ self getFont: GTK_STATE_FLAG_NORMAL
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -72,18 +72,14 @@ GtkStyleContext >> getActiveRGBAColor [
 
 { #category : #private }
 GtkStyleContext >> getBackgroundColor: color state: state [
-	
-	^ self ffiCall: #(void *gtk_style_context_get_background_color  (self, GtkStateFlags state, GdkRGBA *color))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkStyleContext >> getBackgroundRGBAColor [
-	| color state |
-	
-	color := GdkRGBA new.
-	state := GTK_STATE_FLAG_NORMAL.
-	self getBackgroundColor: color state: state.
-	^ color
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
@@ -94,20 +90,20 @@ GtkStyleContext >> getColor: color state: state [
 
 { #category : #private }
 GtkStyleContext >> getFont: state [
-	
-	^ self ffiCall: #(PangoFontDescription *gtk_style_context_get_font (self, GtkStateFlags state))
+
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
 GtkStyleContext >> getPangoAttributes [
 
-	^ self getPangoAttributesCSStyle: self lookupCSSStyle
+	self deprecated: #Gtk4
 ]
 
 { #category : #private }
 GtkStyleContext >> getPangoAttributesCSStyle: style [
 
-	^ self ffiCall: #(PangoAttrList *gtk_css_style_get_pango_attributes (void *style))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }
@@ -133,7 +129,7 @@ GtkStyleContext >> getSelectedRGBAColor [
 { #category : #private }
 GtkStyleContext >> lookupCSSStyle [
 
-	^ self ffiCall: #(void *gtk_style_context_lookup_style (self))
+	self deprecated: #Gtk4
 ]
 
 { #category : #accessing }

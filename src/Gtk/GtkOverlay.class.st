@@ -102,7 +102,7 @@ GtkOverlay >> setChild: aWidget [
 { #category : #accessing }
 GtkOverlay >> setOverlayPassThrougth: boolean child: aChild [
 
-	^ self ffiCall: #(void gtk_overlay_set_overlay_pass_through (self, GtkWidget *aChild, gboolean boolean))
+	self deprecated: #Gtk4
 ]
 
 { #category : #'private - deferring' }
