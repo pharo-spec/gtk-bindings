@@ -3,19 +3,24 @@ This is a completion provider for Pharo Source.
 It implements a GtkSourceCompletionProviderIface (see gDefine: and gDefineCompletionProviderInterface: interface)
 It uses CompletionContext to provide useful completions in editors.
 
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/iface.CompletionProvider.html
 "
 Class {
 	#name : #GtkPharoSourceCompletionProvider,
 	#superclass : #GObject,
+	#traits : 'GtkSourceViewTLibrary + GTClass',
+	#classTraits : 'GtkSourceViewTLibrary classTrait + GTClass classTrait',
 	#instVars : [
 		'completionEngine',
-		'iconsCache'
+		'iconsCache',
+		'lastResults'
 	],
 	#classVars : [
 		'Separators'
 	],
 	#pools : [
-		'GtkSourceCompletionActivation'
+		'GtkSourceCompletionActivation',
+		'GtkSourceCompletionColumn'
 	],
 	#category : #'GtkSourceView-Completion-Pharo'
 }
@@ -38,42 +43,66 @@ GtkPharoSourceCompletionProvider class >> gDefine: gClass [
 GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: interface [
 
 	interface
-		get_name: (GCallback
-			signature: #(gchar *(void *provider)) 
-			block: [ :provider | (self gInstance: provider) name ]);
-		get_icon: (GCallback
-			signature: #(void *(void *provider)) 
-			block: [ :provider | ExternalAddress null ]);
-		get_priority: (GCallback 
-			signature: #(gint (void *provider)) 
-			block: [ :provider | 1 ]);
-		get_activation: (GCallback 
-			signature: #(uint32 (void *provider)) 
-			block: [ :provider | (self gInstance: provider) activation ]);
-		get_interactive_delay: (GCallback 
-			signature: #(gint (void *provider)) 
-			block: [ :provider | -1 ]);
-		"match: (GCallback 
-			signature: #(gboolean (void *provider, void *context))
-			block: [ :provider :context | 
-				(self gInstance: provider) match: (GtkSourceCompletionContext fromHandle: context) ]);"
-		get_start_iter: (GCallback 
-			signature: #(gboolean (void *provider, void *context, void *proposal, void *iter))
-			block: [ :provider :context :proposal :iter | 
+		connect: #get_title 
+			signature: #(char* (void *provider)) 
+			to: [ :provider | 
+				(self gInstance: provider) get_title ];
+		connect: #get_priority
+			signature: #(int (void *provider, void *context))
+			to: [ :provider :context | 
+				(self gInstance: provider) get_priority: context ];
+		connect: #is_trigger 
+			signature: #(gboolean (void *provider, void *iter, gunichar ch)) 
+			to: [ :provider :iter :ch | 
+				(self gInstance: provider) is_trigger: iter character: ch ];	
+		connect: #key_activates 
+			signature: #(gboolean (void *provider, void *context, void *proposal, guint keyval)) 
+			to: [ :provider :context :proposal :keyval | 
 				(self gInstance: provider) 
-					startIterContext: (GtkSourceCompletionContext fromHandle: context)
-					proposal: (GtkSourceCompletionItem fromHandle: proposal)
-					iter: (GtkTextIter fromHandle: iter) ]);
-		populate: (GCallback
-			signature: #(void (void *provider, void *context))
-			block: [ :provider :context | 
-				(self gInstance: provider) populate: (GtkSourceCompletionContext fromHandle: context) ]);
-		activate_proposal: (GCallback 
-			signature: #(gboolean (void *provider, void *proposal, void *iter))
-			block: [ :provider :proposal :iter |
+					key_activates: context 
+					proposal: proposal 
+					keyval: keyval ];	
+		connect: #populate
+			signature: #(void *(void *provider, void *context, void *error))
+			to: [ :provider :context :error | 
+				(self gInstance: provider) populate: context ];	
+		connect: #populate_async 
+			signature: #(void (void *provider, void *context, void *cancellable, void *callback, gpointer user_data))
+			to: [ :provider :context :cancellable :callback :user_data | 
 				(self gInstance: provider) 
-					activateProposal: (GtkSourceCompletionItem fromHandle: proposal)
-					iter: (GtkTextIter fromHandle: iter) ])
+					populateAsync: (GtkSourceCompletionContext fromHandleUnreferenced: context)
+					cancellable: cancellable
+					callback: callback ];	
+		connect: #populate_finish
+			signature: #(void *(void *provider, void *result, void *error))
+			to: [ :provider :result :error | 
+				(self gInstance: provider) 
+					populateFinish: result ] ;	
+		connect: #refilter
+			signature: #(void (void *provider, void *context, void *model))
+			to: [ :provider :context :model | 
+				(self gInstance: provider) 
+					refilter: (GtkSourceCompletionContext fromHandleUnreferenced: context) 
+					model: model ];	
+		connect: #display
+			signature: #(void (void *provider, void *context, void *proposal, void *cell))
+			to: [ :provider :context :proposal :cell | 
+				(self gInstance: provider) 
+					display: (GtkSourceCompletionContext fromHandleUnreferenced: context) 
+					proposal: proposal 
+					cell: cell ];	
+		connect: #activate
+			signature: #(void (void *provider, void *context, void *proposal))
+			to: [ :provider :context :proposal | 
+				(self gInstance: provider) 
+					activate: context 
+					proposal: proposal ];	
+		connect: #list_alternates 
+			signature: #(void *(void *provider, void *context, void *proposal)) 
+			to: [ :provider :context :proposal |
+				(self gInstance: provider) 
+					list_alternates: context 
+					proposal: proposal ]
 ]
 
 { #category : #'class initialization' }
@@ -94,27 +123,17 @@ GtkPharoSourceCompletionProvider class >> separators [
 	^ Separators ifNil: [ Separators := Character separators, Character specialCharacters ]
 ]
 
-{ #category : #accessing }
-GtkPharoSourceCompletionProvider >> activateProposal: proposal iter: iter [
-	| word textToInsert |
-
-	word := self currentWord: iter in: iter buffer.
-	word ifNil: [ ^ false ].
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> activate: context proposal: proposalHandle [
+	| proposal |
 	
-	self flag: #TODO. "Decide if we add a space at the end is a decision that can be configurable"
-	textToInsert := (proposal label allButFirst: word size) copyWith: Character space.
-	iter buffer insertTextAtCursor: textToInsert.
- 
-	^ true
+	proposal := lastResults itemByHandle: proposalHandle ifNone: [ nil ].
+	proposal ifNil: [ ^ self ].
+
+	proposal typedText printToStdout
 ]
 
-{ #category : #accessing }
-GtkPharoSourceCompletionProvider >> activation [
-
-	^ GTK_SOURCE_COMPLETION_ACTIVATION_INTERACTIVE value
-]
-
-{ #category : #private }
+{ #category : #TOREMOVE }
 GtkPharoSourceCompletionProvider >> cleanWord: aString [
 	"remove cascade and end of sentence"
 
@@ -131,7 +150,7 @@ GtkPharoSourceCompletionProvider >> completionEngine: anObject [
 	completionEngine := anObject
 ]
 
-{ #category : #private }
+{ #category : #TOREMOVE }
 GtkPharoSourceCompletionProvider >> completionEntriesFor: iter [
 	| completionContext word textBuffer |
 
@@ -150,6 +169,22 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: iter [
 ]
 
 { #category : #private }
+GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: textBuffer [
+	| completionContext |
+
+	word ifNil: [ ^ #() ].
+
+	completionContext := GtkCompletionContext
+		engine: self completionEngine
+		class: self completionEngine completionClass
+		source: textBuffer text
+		position: textBuffer cursorPosition.
+	completionContext narrowWith: word.
+
+	^ completionContext entries
+]
+
+{ #category : #TOREMOVE }
 GtkPharoSourceCompletionProvider >> currentWord: iter in: textBuffer [
 	| start line |
 		
@@ -167,7 +202,34 @@ GtkPharoSourceCompletionProvider >> currentWord: iter in: textBuffer [
 	^ self cleanWord: line substrings last
 ]
 
-{ #category : #private }
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> display: context proposal: proposalHandle cell: cellHandle [
+	| cell |
+	
+	cell := GtkSourceCompletionCell fromHandleUnreferenced: cellHandle.
+	(cell column = GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT) ifTrue: [ 
+		cell text: (lastResults 
+			itemByHandle: proposalHandle
+			ifFound: [ :aProposal | aProposal typedText ]
+			ifNone: [ 'Unknown' ]).
+		^ self	 ].
+		
+	cell text: nil
+]
+
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> get_priority: context [
+
+	^ 1
+]
+
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> get_title [
+
+	^ 'Pharo'
+]
+
+{ #category : #TOREMOVE }
 GtkPharoSourceCompletionProvider >> iconAt: icon ifAbsentPut: aBlock [ 
 
 	iconsCache ifNil: [ iconsCache := IdentityDictionary new ].
@@ -176,72 +238,77 @@ GtkPharoSourceCompletionProvider >> iconAt: icon ifAbsentPut: aBlock [
 		ifAbsentPut: aBlock
 ]
 
-{ #category : #accessing }
-GtkPharoSourceCompletionProvider >> match: context [
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> is_trigger: iter character: ch [
 
-	self flag: 'This is actually not used. Is here for documentation only'.
-	^ true
+	^ false
 ]
 
-{ #category : #accessing }
-GtkPharoSourceCompletionProvider >> name [
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> key_activates: context proposal: proposal keyval: keyval [
 
-	^ 'Pharo'
+	^ false
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> list_alternates: context proposal: proposal [
+
+	'ALTERNATES' printToStdout.
+	^ ExternalAddress null
+]
+
+{ #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> populate: context [
-	| proposals iter entries items |
-	
-	iter := context iter.
 
-	entries := iter 
-		ifNotNil: [ self completionEntriesFor: iter ]
-		ifNil: [ #() ].
-
-	proposals := entries 
-		ifNotEmpty: [ 
-			"I need to first collect items and later transfer them to the GList because th list 
-			 will keep just the handles and that can provoque a premature GC of the proposal (since 
-			 is marked for autoUnref), and the items needs to survive until after addProposals is 
-			 called."
-			items := entries collect: [ :each | self toItem: each ].
-			GList newFromCollection: items ]
-		ifEmpty: [
-			GList new ].
-	
-	context 
-		addProposals: proposals
-		provider: self 
-		finished: true.
-	
-	"Free proposals"
-	proposals isNull ifFalse: [ proposals free ]
+	'POPULATE' printToStdout.
+	^ lastResults getHandle
 ]
 
-{ #category : #accessing }
-GtkPharoSourceCompletionProvider >> priority [
-
-	^ 1
-]
-
-{ #category : #accessing }
-GtkPharoSourceCompletionProvider >> startIterContext: context proposal: proposal iter: iter [
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancellable callback: callback [
 	| word |
+	
+	word := context word.
+	[  
+		5 milliSeconds wait.
+		GRunLoop defer: [ 
+			context 
+				proposalsForProvider: self 
+				results: self results ] 
+	] fork
+]
 
-	(iter isNil or: [ iter isNull ]) ifTrue: [ ^ false ].
-	"I cannot use 'context iter' to get this value because apparently the function does 
-	 a kid of merge, more than fill it completely, and the source completion needs both: what 
-	 will be assigned and what is already there :("
-	(context getIter: iter) ifFalse: [ ^ false ].
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> populateFinish: result [
 
-	word := self currentWord: iter in: iter buffer.
-	word ifNil: [ ^ false ].
+	'FINISH' printToStdout.
+	^ lastResults getHandle
+]
 
-	^ true
+{ #category : #'accessing - model' }
+GtkPharoSourceCompletionProvider >> refilter: context model: model [
+
+	'Refilter' printToStdout.
+	context word printToStdout
 ]
 
 { #category : #private }
+GtkPharoSourceCompletionProvider >> results [
+
+	"keep last restults served"
+	^ lastResults := GRunLoop defer: [
+			(GListObjectStore newType: GtkPharoSourceCompletionProposal gType) 
+				items: (Smalltalk allClassesAndTraits 
+					select: [ :each | each name beginsWith: 'Ob' ]
+					thenCollect: [ :each | 
+						(GtkPharoSourceCompletionProposal newTypedText: each name)
+							objectRef;
+							yourself ]);
+				objectRef;
+				yourself ]
+]
+
+{ #category : #TOREMOVE }
 GtkPharoSourceCompletionProvider >> toItem: aCompletionEntry [
 	| item |
 

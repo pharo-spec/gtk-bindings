@@ -27,6 +27,12 @@ GTClass classSide >> gInstanceSafe: handle [
 	^ self gClass safeFindInstance: handle
 ]
 
+{ #category : #accessing }
+GTClass classSide >> gType [
+
+	^ (GClass gDefinitionAt: self) type
+]
+
 { #category : #'instance creation' }
 GTClass classSide >> new [
 

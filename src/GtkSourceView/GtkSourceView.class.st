@@ -45,7 +45,6 @@ GtkSourceView class >> example1 [
 	GtkEngine ensureRunning.
 
 	GRunLoop defer: [
-
 		sourceView := GtkSourceView new
 			showLineNumbers: true;
 			yourself.
@@ -112,45 +111,49 @@ GtkSourceView class >> example4 [
 		sourceView completion
 			showHeaders: false;
 			showIcons: true;
-			addProvider: GtkPharoSourceCompletionProvider new.
+			pageSize: 10;
+			addProvider: (GtkPharoSourceCompletionProvider new
+				objectRef;
+				yourself).
 
 		GtkWindow new
 			title: 'Source view autocompletion';
 			defaultSize: 400@400;
 			child: (GtkScrolledWindow newWidget: sourceView);
-			present ]
+			present 
+	
+	]
 ]
 
 { #category : #example }
 GtkSourceView class >> example5 [
 	| sourceView1 sourceView2 |
 
-	GtkEngine ensureRunning.
+	GEngine ensureRunning.
+	GRunLoop defer: [
+		sourceView1 := self new
+			beWrapWord;
+			showLineNumbers: true;
+			autoIndent: true;
+			text: (String loremIpsum: 2000);
+			yourself.
 
-	sourceView1 := self new
-		beWrapWord;
-		showLineNumbers: true;
-		autoIndent: true;
-		text: (String loremIpsum: 2000);
-		yourself.
+		sourceView2 := self new
+			beWrapWord;
+			showLineNumbers: true;
+			autoIndent: true;
+			text: (String loremIpsum: 1000);
+			yourself.
 
-	sourceView2 := self new
-		beWrapWord;
-		showLineNumbers: true;
-		autoIndent: true;
-		text: (String loremIpsum: 1000);
-		yourself.
-
-	GtkWindow new
-		title: 'Source view double';
-		resize: 600@400;
-		add: (GtkScrolledWindow newWidget: (
-			GtkBox newHorizontal
-				homogeneous: true;
-				packStart: sourceView1;
-				packStart: sourceView2;
-				yourself));
-		present
+		GtkWindow new
+			title: 'Source view double';
+			defaultSize: 600 @ 400;
+			child: (GtkScrolledWindow newWidget: (GtkBox newHorizontal
+			  homogeneous: true;
+			  append: sourceView1;
+			  append: sourceView2;
+			  yourself));
+			present ]
 ]
 
 { #category : #accessing }

@@ -8,17 +8,29 @@ Class {
 	#superclass : #GObject,
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
+	#instVars : [
+		'buffer',
+		'completion'
+	],
 	#category : #'GtkSourceView-Completion'
 }
 
 { #category : #accessing }
-GtkSourceCompletionContext >> addProposals: proposals provider: provider finished: finished [
+GtkSourceCompletionContext >> activation [
 
-	self ffiCall: #(void gtk_source_completion_context_add_proposals (
-		self,
-		"GtkSourceCompletionProvider *"GObject *provider,
- 		GList *proposals,
- 		gboolean finished))
+	^ self ffiCall: #(GtkSourceCompletionActivation gtk_source_completion_context_get_activation (self))
+]
+
+{ #category : #accessing }
+GtkSourceCompletionContext >> buffer [ 
+
+	^ buffer ifNil: [ buffer := self getBuffer ]
+]
+
+{ #category : #accessing }
+GtkSourceCompletionContext >> completion [
+	
+	^ completion ifNil: [ completion := self getCompletion ]
 ]
 
 { #category : #'library path' }
@@ -27,22 +39,49 @@ GtkSourceCompletionContext >> ffiLibraryName [
 	^ GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
-GtkSourceCompletionContext >> getIter: iter [
-	"Some times is needed to access directly this (otherwise it should be private).
-	 See senders to check it."
-	
-	^ self ffiCall: #(gboolean gtk_source_completion_context_get_iter(
-		self,
- 		GtkTextIter *iter))
+{ #category : #private }
+GtkSourceCompletionContext >> getBuffer [
+
+	^ self ffiCall: #(GtkSourceBuffer *gtk_source_completion_context_get_buffer (self))
+]
+
+{ #category : #private }
+GtkSourceCompletionContext >> getCompletion [
+
+	^ self ffiCall: #(GtkSourceCompletion* gtk_source_completion_context_get_completion (self))
+]
+
+{ #category : #testing }
+GtkSourceCompletionContext >> isBusy [
+
+	^ self ffiCall: #(gboolean gtk_source_completion_context_get_busy (self))
+]
+
+{ #category : #testing }
+GtkSourceCompletionContext >> isEmpty [
+
+	^ self ffiCall: #(gboolean gtk_source_completion_context_get_empty (self))
 ]
 
 { #category : #accessing }
-GtkSourceCompletionContext >> iter [
-	| iter |
-	
-	iter := GtkTextIter new.
-	^ (self getIter: iter) 
-		ifTrue: [ iter ]
-		ifFalse: [ nil ]
+GtkSourceCompletionContext >> proposalsForProvider: provider [
+
+	^ self ffiCall: #(GListModel *gtk_source_completion_context_get_proposals_for_provider (
+  		self,
+  		"GtkSourceCompletionProvider"GObject* provider))
+]
+
+{ #category : #accessing }
+GtkSourceCompletionContext >> proposalsForProvider: provider results: results [
+
+	^ self ffiCall: #(void gtk_source_completion_context_set_proposals_for_provider (
+  		self,
+  		"GtkSourceCompletionProvider"GObject* provider,
+  		GListModel* results))
+]
+
+{ #category : #accessing }
+GtkSourceCompletionContext >> word [
+
+	^ self ffiCall: #(char* gtk_source_completion_context_get_word (self))
 ]

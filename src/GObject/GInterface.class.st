@@ -33,6 +33,24 @@ GInterface class >> initialize [
 	OFFSET_G_IFACE := 1
 ]
 
+{ #category : #convenience }
+GInterface >> connect: aProperty signature: aSignature to: aBlock [
+	
+	self
+		perform: aProperty asMutator 
+		with: (GCallback 
+			signature: aSignature
+			block: aBlock)
+]
+
+{ #category : #convenience }
+GInterface >> connectToNull: aProperty [
+	
+	self
+		perform: aProperty asMutator 
+		with: GCallback null
+]
+
 { #category : #'accessing structure variables' }
 GInterface >> g_iface [
 	"This method was automatically generated"

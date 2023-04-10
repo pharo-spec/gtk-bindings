@@ -2,34 +2,30 @@ Class {
 	#name : #GtkSourceCompletionProviderIface,
 	#superclass : #GInterface,
 	#instVars : [
-		'activate_proposal',
-		'get_activation',
-		'get_gicon',
-		'get_icon',
-		'get_icon_name',
-		'get_info_widget',
-		'get_interactive_delay',
-		'get_name',
+		'activate',
+		'display',
 		'get_priority',
-		'get_start_iter',
-		'match',
+		'get_title',
+		'is_trigger',
+		'key_activates',
+		'list_alternates',
 		'populate',
-		'update_info'
+		'populate_async',
+		'populate_finish',
+		'refilter'
 	],
 	#classVars : [
-		'OFFSET_ACTIVATE_PROPOSAL',
-		'OFFSET_GET_ACTIVATION',
-		'OFFSET_GET_GICON',
-		'OFFSET_GET_ICON',
-		'OFFSET_GET_ICON_NAME',
-		'OFFSET_GET_INFO_WIDGET',
-		'OFFSET_GET_INTERACTIVE_DELAY',
-		'OFFSET_GET_NAME',
+		'OFFSET_ACTIVATE',
+		'OFFSET_DISPLAY',
 		'OFFSET_GET_PRIORITY',
-		'OFFSET_GET_START_ITER',
-		'OFFSET_MATCH',
+		'OFFSET_GET_TITLE',
+		'OFFSET_IS_TRIGGER',
+		'OFFSET_KEY_ACTIVATES',
+		'OFFSET_LIST_ALTERNATES',
 		'OFFSET_POPULATE',
-		'OFFSET_UPDATE_INFO'
+		'OFFSET_POPULATE_ASYNC',
+		'OFFSET_POPULATE_FINISH',
+		'OFFSET_REFILTER'
 	],
 	#category : #'GtkSourceView-Completion'
 }
@@ -39,19 +35,17 @@ GtkSourceCompletionProviderIface class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 	
 	^ super fieldsDesc, #(
-	GCallback get_name;
-	GCallback get_icon;
-	GCallback get_icon_name;
-	GCallback get_gicon;
-	GCallback populate;
-	GCallback match;
-	GCallback get_activation;
-	GCallback get_info_widget;
-	GCallback update_info;
-	GCallback get_start_iter;
-	GCallback activate_proposal;
-	GCallback get_interactive_delay;
+	GCallback get_title;
 	GCallback get_priority;
+	GCallback is_trigger;
+	GCallback key_activates;
+	GCallback populate;
+	GCallback populate_async;
+	GCallback populate_finish;
+	GCallback refilter;
+	GCallback display;
+	GCallback activate;
+	GCallback list_alternates;
 	)
 ]
 
@@ -69,230 +63,189 @@ GtkSourceCompletionProviderIface class >> rebuildFieldAccessors [
 	"Prevent rebuild"
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> activate_proposal [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> activate [
 	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_ACTIVATE_PROPOSAL) asInteger)
+	^GCallback forAddress: ((handle pointerAt: OFFSET_ACTIVATE) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> activate_proposal: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> activate: aCallback [
 	"This method was automatically generated"
-	activate_proposal := anObject.
-	handle 
-		pointerAt: OFFSET_ACTIVATE_PROPOSAL
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+	activate := aCallback.
+	handle
+		pointerAt: OFFSET_ACTIVATE
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_activation [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> display [
 	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_ACTIVATION) asInteger)
+	^GCallback forAddress: ((handle pointerAt: OFFSET_DISPLAY) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_activation: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> display: aCallback [
 	"This method was automatically generated"
-	get_activation := anObject.
-	handle 
-		pointerAt: OFFSET_GET_ACTIVATION
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+	display := aCallback.
+	handle
+		pointerAt: OFFSET_DISPLAY
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_gicon [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_GICON) asInteger)
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_gicon: anObject [
-	"This method was automatically generated"
-	get_gicon := anObject.
-	handle 
-		pointerAt: OFFSET_GET_GICON
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_icon [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_ICON) asInteger)
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_icon: anObject [
-	"This method was automatically generated"
-	get_icon := anObject.
-	handle 
-		pointerAt: OFFSET_GET_ICON
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_icon_name [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_ICON_NAME) asInteger)
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_icon_name: anObject [
-	"This method was automatically generated"
-	get_icon_name := anObject.
-	handle 
-		pointerAt: OFFSET_GET_ICON_NAME
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_info_widget [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_INFO_WIDGET) asInteger)
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_info_widget: anObject [
-	"This method was automatically generated"
-	get_info_widget := anObject.
-	handle 
-		pointerAt: OFFSET_GET_INFO_WIDGET
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_interactive_delay [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_INTERACTIVE_DELAY) asInteger)
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_interactive_delay: anObject [
-	"This method was automatically generated"
-	
-	get_interactive_delay := anObject.
-	handle 
-		pointerAt: OFFSET_GET_INTERACTIVE_DELAY
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_name [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_NAME) asInteger)
-]
-
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_name: anObject [
-	"This method was automatically generated"
-	
-	get_name := anObject.
-	handle 
-		pointerAt: OFFSET_GET_NAME
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : #'accessing structure variables' }
+{ #category : #'accessing - structure variables' }
 GtkSourceCompletionProviderIface >> get_priority [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_PRIORITY) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_priority: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> get_priority: aCallback [
 	"This method was automatically generated"
-	
-	get_priority := anObject.
-	handle 
+	get_priority := aCallback.
+	handle
 		pointerAt: OFFSET_GET_PRIORITY
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_start_iter [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> get_title [
 	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_START_ITER) asInteger)
+	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_TITLE) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> get_start_iter: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> get_title: aCallback [
 	"This method was automatically generated"
-	
-	get_start_iter := anObject.
-	handle 
-		pointerAt: OFFSET_GET_START_ITER
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+	get_title := aCallback.
+	handle
+		pointerAt: OFFSET_GET_TITLE
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> match [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> is_trigger [
 	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_MATCH) asInteger)
+	^GCallback forAddress: ((handle pointerAt: OFFSET_IS_TRIGGER) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> match: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> is_trigger: aCallback [
 	"This method was automatically generated"
-	
-	match := anObject.
-	handle 
-		pointerAt: OFFSET_MATCH
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+	is_trigger := aCallback.
+	handle
+		pointerAt: OFFSET_IS_TRIGGER
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> key_activates [
+	"This method was automatically generated"
+	^GCallback forAddress: ((handle pointerAt: OFFSET_KEY_ACTIVATES) asInteger)
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> key_activates: aCallback [
+	"This method was automatically generated"
+	key_activates := aCallback.
+	handle
+		pointerAt: OFFSET_KEY_ACTIVATES
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
+			ifNil: [ ExternalAddress null ])
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> list_alternates [
+	"This method was automatically generated"
+	^GCallback forAddress: ((handle pointerAt: OFFSET_LIST_ALTERNATES) asInteger)
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> list_alternates: aCallback [
+	"This method was automatically generated"
+	list_alternates := aCallback.
+	handle
+		pointerAt: OFFSET_LIST_ALTERNATES
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
+			ifNil: [ ExternalAddress null ])
+]
+
+{ #category : #'accessing - structure variables' }
 GtkSourceCompletionProviderIface >> populate [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_POPULATE) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> populate: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> populate: aCallback [
 	"This method was automatically generated"
-	
-	populate := anObject.
-	handle 
+	populate := aCallback.
+	handle
 		pointerAt: OFFSET_POPULATE
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> update_info [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> populate_async [
 	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_UPDATE_INFO) asInteger)
+	^GCallback forAddress: ((handle pointerAt: OFFSET_POPULATE_ASYNC) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
-GtkSourceCompletionProviderIface >> update_info: anObject [
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> populate_async: aCallback [
 	"This method was automatically generated"
-	
-	update_info := anObject.
-	handle 
-		pointerAt: OFFSET_UPDATE_INFO
-		put: (anObject 
-			ifNotNil: [ anObject thunk asExternalAddress ]
+	populate_async := aCallback.
+	handle
+		pointerAt: OFFSET_POPULATE_ASYNC
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
+			ifNil: [ ExternalAddress null ])
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> populate_finish [
+	"This method was automatically generated"
+	^GCallback forAddress: ((handle pointerAt: OFFSET_POPULATE_FINISH) asInteger)
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> populate_finish: aCallback [
+	"This method was automatically generated"
+	populate_finish := aCallback.
+	handle
+		pointerAt: OFFSET_POPULATE_FINISH
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
+			ifNil: [ ExternalAddress null ])
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> refilter [
+	"This method was automatically generated"
+	^GCallback forAddress: ((handle pointerAt: OFFSET_REFILTER) asInteger)
+]
+
+{ #category : #'accessing - structure variables' }
+GtkSourceCompletionProviderIface >> refilter: aCallback [
+	"This method was automatically generated"
+	refilter := aCallback.
+	handle
+		pointerAt: OFFSET_REFILTER
+		put: (aCallback
+			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
 ]

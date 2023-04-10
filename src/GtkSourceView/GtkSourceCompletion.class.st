@@ -57,6 +57,20 @@ GtkSourceCompletion >> keepProvider: provider [
 ]
 
 { #category : #accessing }
+GtkSourceCompletion >> pageSize [
+
+	^ self ffiCall: #(guint gtk_source_completion_get_page_size (self))
+]
+
+{ #category : #accessing }
+GtkSourceCompletion >> pageSize: page_size [
+
+	self ffiCall: #(void gtk_source_completion_set_page_size (
+  		self,
+  		guint page_size))
+]
+
+{ #category : #accessing }
 GtkSourceCompletion >> showHeaders: aBoolean [ 
 
 	self 

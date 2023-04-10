@@ -22,6 +22,12 @@ GtkBaseStore class >> gType [
 	^ nil
 ]
 
+{ #category : #testing }
+GtkBaseStore class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #'instance creation' }
 GtkBaseStore class >> newColumnTypes: columnTypes [
 	| columnTypesExternalArray longSize |

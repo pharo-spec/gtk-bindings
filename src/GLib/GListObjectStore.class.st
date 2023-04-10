@@ -1,21 +1,21 @@
 "
-Implements a data store who's members live in image.
+An implementation of `GListStore`/GListModel that receives generic `GObject`. 
+Use `GListObjectStore class>>#newType:` to explicit the type of objects that will be returned (needed in some Gtk components)
 "
 Class {
-	#name : #GListDataStore,
+	#name : #GListObjectStore,
 	#superclass : #GListStore,
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
 		'items',
-		'references',
-		'objects'
+		'type'
 	],
 	#category : #'GLib-Lists'
 }
 
 { #category : #'class initialization' }
-GListDataStore class >> gDefine: gClass [
+GListObjectStore class >> gDefine: gClass [
 
 	gClass 
 		parent: GListStore;
@@ -24,7 +24,7 @@ GListDataStore class >> gDefine: gClass [
 ]
 
 { #category : #'class initialization' }
-GListDataStore class >> gDefineListModelInterface: iface [
+GListObjectStore class >> gDefineListModelInterface: iface [
 
 	iface 
 		connect: #get_item_type 
@@ -48,8 +48,16 @@ GListDataStore class >> gDefineListModelInterface: iface [
 					added: added ]
 ]
 
+{ #category : #'instance creation' }
+GListObjectStore class >> newType: gType [
+
+	^ self new
+		type: gType;
+		yourself
+]
+
 { #category : #'accessing - model' }
-GListDataStore >> get_item: position [
+GListObjectStore >> get_item: position [
 
 	position >= items size
 		ifTrue: [ ^ ExternalAddress null ].
@@ -58,93 +66,82 @@ GListDataStore >> get_item: position [
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_item_type [
+GListObjectStore >> get_item_type [
 
-	^ GType G_TYPE_OBJECT
+	^ type ifNil: [ GType G_TYPE_OBJECT ]
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_n_items [
+GListObjectStore >> get_n_items [
 	
 	^ items size
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_object: position [
-	| mark |
+GListObjectStore >> get_object: position [
 
 	position >= items size
 		ifTrue: [ ^ GObject null ].
 
-	"I need to increment the ref count because the otherside will unref it
-	 (and I want to keep it)"
-	mark := self markAtPosition: position.
-	mark objectRef.
-
-	^ mark
+	"Apparently, it is required to increment the ref each time because it is expected 
+	 the user will take control"
+	^ (self itemAt: position + 1)
+		objectRef;
+		yourself
 ]
 
 { #category : #accessing }
-GListDataStore >> itemAt: aPosition [
+GListObjectStore >> itemAt: aPosition [
 
 	aPosition = 0 ifTrue: [ ^ nil ].
-	aPosition > self get_n_items ifTrue: [ ^ nil ].
+	aPosition > self items size ifTrue: [ ^ nil ].
 
 	^ self items at: aPosition
 ]
 
 { #category : #accessing }
-GListDataStore >> itemAtHandle: address [
+GListObjectStore >> itemByHandle: aHandle ifFound: foundBlock ifNone: noneBlock [
 
-	^ self itemAt: (self markAtHandle: address) position
+	^ self items 
+		detect: [ :each | each getHandle = aHandle ]
+		ifFound: foundBlock 
+		ifNone: noneBlock		
 ]
 
 { #category : #accessing }
-GListDataStore >> items [
+GListObjectStore >> itemByHandle: aHandle ifNone: noneBlock [
+
+	^ self items 
+		detect: [ :each | each getHandle = aHandle ]
+		ifNone: noneBlock		
+]
+
+{ #category : #accessing }
+GListObjectStore >> items [
 
 	^ items
 ]
 
 { #category : #accessing }
-GListDataStore >> items: aSequenceableCollection [
+GListObjectStore >> items: aSequenceableCollection [
+	"aSequenceableCollection contains GObject"
 
 	items := aSequenceableCollection.
 	self reset
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> items_changed: position removed: removed added: added [
+GListObjectStore >> items_changed: position removed: removed added: added [
 
 ]
 
 { #category : #private }
-GListDataStore >> markAtHandle: anAddress [
+GListObjectStore >> reset [
 
-	^ references
-		at: anAddress
-		ifAbsent: [ nil ]
 ]
 
-{ #category : #private }
-GListDataStore >> markAtPosition: position [
-	| holder  |
+{ #category : #initialization }
+GListObjectStore >> type: aType [
 
-	holder := objects at: position ifAbsent: [ nil ].
-	holder ifNotNil: [ ^ holder ].
-
-	holder :=	 GListStoreMarkObject new
-		position: position;
-		yourself.
-
-	objects at: position put: holder.
-	references at: holder getHandle put: holder.
-
-	^ holder
-]
-
-{ #category : #private }
-GListDataStore >> reset [
-
-	objects := IdentityDictionary new.
-	references := Dictionary new
+	type := aType
 ]
