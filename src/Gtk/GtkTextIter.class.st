@@ -285,6 +285,12 @@ GtkTextIter >> forwardToLineEnd [
 	^ self ffiCall: #(gboolean gtk_text_iter_forward_to_line_end (self))
 ]
 
+{ #category : #accessing }
+GtkTextIter >> forwardWordEnd [
+
+	^ self ffiCall: #(gboolean gtk_text_iter_forward_word_end (self))
+]
+
 { #category : #private }
 GtkTextIter >> getBuffer [
 

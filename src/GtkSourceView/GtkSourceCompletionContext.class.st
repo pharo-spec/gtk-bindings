@@ -40,6 +40,15 @@ GtkSourceCompletionContext >> ffiLibraryName [
 ]
 
 { #category : #private }
+GtkSourceCompletionContext >> getBoundsBegin: begin end: end [
+
+	self ffiCall: #(gboolean gtk_source_completion_context_get_bounds (
+		self,
+  		GtkTextIter *begin,
+  		GtkTextIter *end))
+]
+
+{ #category : #private }
 GtkSourceCompletionContext >> getBuffer [
 
 	^ self ffiCall: #(GtkSourceBuffer *gtk_source_completion_context_get_buffer (self))
@@ -78,6 +87,18 @@ GtkSourceCompletionContext >> proposalsForProvider: provider results: results [
   		self,
   		"GtkSourceCompletionProvider"GObject* provider,
   		GListModel* results))
+]
+
+{ #category : #accessing }
+GtkSourceCompletionContext >> withBoundsDo: aBlock [
+	| begin end result |
+
+	begin := GtkTextIter new.
+	end := GtkTextIter new.
+	result := self getBoundsBegin: begin end: end.
+	result ifFalse: [ ^ self ].
+	
+	aBlock value: begin value: end
 ]
 
 { #category : #accessing }

@@ -13,7 +13,8 @@ Class {
 	#instVars : [
 		'completionEngine',
 		'iconsCache',
-		'lastResults'
+		'lastResults',
+		'scheduler'
 	],
 	#classVars : [
 		'Separators'
@@ -95,7 +96,7 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 			signature: #(void (void *provider, void *context, void *proposal))
 			to: [ :provider :context :proposal | 
 				(self gInstance: provider) 
-					activate: context 
+					activate: (GtkSourceCompletionContext fromHandleUnreferenced: context) 
 					proposal: proposal ];	
 		connect: #list_alternates 
 			signature: #(void *(void *provider, void *context, void *proposal)) 
@@ -130,7 +131,15 @@ GtkPharoSourceCompletionProvider >> activate: context proposal: proposalHandle [
 	proposal := lastResults itemByHandle: proposalHandle ifNone: [ nil ].
 	proposal ifNil: [ ^ self ].
 
-	proposal typedText printToStdout
+	context withBoundsDo: [ :begin :end |
+		| textBuffer |
+		
+		textBuffer := begin buffer.
+		"wordEnd := end copyIntoImage.
+		wordEnd forwardWordEnd."
+		textBuffer 
+			deleteStart: begin end: end;
+			insertIter: begin text: proposal typedText asString ]
 ]
 
 { #category : #TOREMOVE }
@@ -238,6 +247,21 @@ GtkPharoSourceCompletionProvider >> iconAt: icon ifAbsentPut: aBlock [
 		ifAbsentPut: aBlock
 ]
 
+{ #category : #initialization }
+GtkPharoSourceCompletionProvider >> initialize [
+
+	super initialize.
+	self initializeScheduler
+]
+
+{ #category : #initialization }
+GtkPharoSourceCompletionProvider >> initializeScheduler [
+
+	scheduler := TKTWorkerPool new
+		poolMaxSize: 1;
+		start
+]
+
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> is_trigger: iter character: ch [
 
@@ -269,13 +293,11 @@ GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancella
 	| word |
 	
 	word := context word.
-	[  
-		5 milliSeconds wait.
+	self schedule: [
 		GRunLoop defer: [ 
 			context 
 				proposalsForProvider: self 
-				results: self results ] 
-	] fork
+				results: self results ] ]
 ]
 
 { #category : #'accessing - model' }
@@ -306,6 +328,12 @@ GtkPharoSourceCompletionProvider >> results [
 							yourself ]);
 				objectRef;
 				yourself ]
+]
+
+{ #category : #private }
+GtkPharoSourceCompletionProvider >> schedule: aBlock [ 
+
+	scheduler schedule: aBlock
 ]
 
 { #category : #TOREMOVE }
