@@ -10,8 +10,8 @@ Concrete types are defined in `GListStore` hierarchy.
 Class {
 	#name : #GListModel,
 	#superclass : #GObject,
-	#traits : 'GdkTLibrary + GTListModel',
-	#classTraits : 'GdkTLibrary classTrait + GTListModel classTrait',
+	#traits : 'GLibTLibrary + GTListModel',
+	#classTraits : 'GLibTLibrary classTrait + GTListModel classTrait',
 	#category : #'GLib-Lists'
 }
 
