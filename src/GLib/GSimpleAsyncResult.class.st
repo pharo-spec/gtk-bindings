@@ -4,8 +4,8 @@ https://docs.gtk.org/gio/class.SimpleAsyncResult.html
 Class {
 	#name : #GSimpleAsyncResult,
 	#superclass : #GObject,
-	#traits : 'GtkTLibrary',
-	#classTraits : 'GtkTLibrary classTrait',
+	#traits : 'GLibTLibrary',
+	#classTraits : 'GLibTLibrary classTrait',
 	#instVars : [
 		'gObject',
 		'callback'
