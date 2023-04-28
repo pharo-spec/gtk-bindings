@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #private }
-GSimpleAsyncResult class >> gNew: source_object callback: callback [ 
+GSimpleAsyncResult class >> gNew: source_object callback: callback [
 
 	self ffiCall: #(GSimpleAsyncResult* g_simple_async_result_new (
 		GObject* source_object,
