@@ -18,9 +18,9 @@ GSimpleAsyncResult class >> gNew: source_object callback: callback [
 
 	self ffiCall: #(GSimpleAsyncResult* g_simple_async_result_new (
 		GObject* source_object,
-		"GAsyncReadyCallback"GCallback callback,
-		"gpointer user_data"NULL,
-		"gpointer source_tag"NULL))
+		GCallback callback,
+		NULL,
+		NULL))
 ]
 
 { #category : #private }
@@ -28,9 +28,9 @@ GSimpleAsyncResult class >> gNew: source_object callbackHandle: anAddress [
 
 	self ffiCall: #(GSimpleAsyncResult* g_simple_async_result_new (
 		GObject *source_object,
-		"GAsyncReadyCallback"void *anAddress,
-		"gpointer user_data"NULL,
-		"gpointer source_tag"NULL))
+		void *anAddress,
+		NULL,
+		NULL))
 ]
 
 { #category : #'instance creation' }
