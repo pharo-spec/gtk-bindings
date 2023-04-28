@@ -4,8 +4,8 @@ https://docs.gtk.org/gio/class.SimpleAsyncResult.html
 Class {
 	#name : #GSimpleAsyncResult,
 	#superclass : #GObject,
-	#traits : 'GLibTLibrary',
-	#classTraits : 'GLibTLibrary classTrait',
+	#traits : 'GtkTLibrary',
+	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'gObject',
 		'callback'
@@ -24,7 +24,7 @@ GSimpleAsyncResult class >> gNew: source_object callback: callback [
 ]
 
 { #category : #private }
-GSimpleAsyncResult class >> gNew: source_object callbackHandle: anAddress [ 
+GSimpleAsyncResult class >> gNew: source_object callbackHandle: anAddress [
 
 	self ffiCall: #(GSimpleAsyncResult* g_simple_async_result_new (
 		GObject *source_object,

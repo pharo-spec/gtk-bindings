@@ -7,7 +7,7 @@ Class {
 	#traits : 'GtkSourceViewTLibrary + GTClass',
 	#classTraits : 'GtkSourceViewTLibrary classTrait + GTClass classTrait',
 	#instVars : [
-		'typedText'
+		'entry'
 	],
 	#category : #'GtkSourceView-Completion-Pharo'
 }
@@ -31,25 +31,33 @@ GtkPharoSourceCompletionProposal class >> gDefineCompletionProposalInterface: in
 ]
 
 { #category : #'instance creation' }
-GtkPharoSourceCompletionProposal class >> newTypedText: aString [
+GtkPharoSourceCompletionProposal class >> newEntry: anEntry [
 
-	^ self new typedText: aString
+	^ self new
+		entry: anEntry;
+		yourself
+]
+
+{ #category : #accessing }
+GtkPharoSourceCompletionProposal >> entry [
+
+	^ entry
+]
+
+{ #category : #private }
+GtkPharoSourceCompletionProposal >> entry: anEntry [
+	
+	entry := anEntry
 ]
 
 { #category : #'accessing - structure variables' }
 GtkPharoSourceCompletionProposal >> get_typed_text [
 
-	^ typedText
+	^ self typedText
 ]
 
 { #category : #accessing }
 GtkPharoSourceCompletionProposal >> typedText [
 
-	^ typedText
-]
-
-{ #category : #accessing }
-GtkPharoSourceCompletionProposal >> typedText: aString [
-
-	typedText := aString
+	^ self entry contents asString
 ]

@@ -93,6 +93,12 @@ GtkTextIter >> buffer [
 	^ buffer ifNil: [ buffer := self getBuffer ]
 ]
 
+{ #category : #accessing }
+GtkTextIter >> char [
+
+	^ Character value: self getChar
+]
+
 { #category : #'accessing structure variables' }
 GtkTextIter >> dummy1 [
 	"This method was automatically generated"
@@ -261,6 +267,18 @@ GtkTextIter >> dummy9: anObject [
 	handle pointerAt: OFFSET_DUMMY9 put: anObject getHandle.
 ]
 
+{ #category : #testing }
+GtkTextIter >> endsLine [
+
+	^ self ffiCall: #(gboolean gtk_text_iter_ends_line (self))
+]
+
+{ #category : #testing }
+GtkTextIter >> endsWord [
+
+	^ self ffiCall: #(gboolean gtk_text_iter_ends_word (self))
+]
+
 { #category : #accessing }
 GtkTextIter >> forwardChar [
 
@@ -297,6 +315,12 @@ GtkTextIter >> getBuffer [
 	^ self ffiCall: #(GtkTextBuffer *gtk_text_iter_get_buffer (self))
 ]
 
+{ #category : #private }
+GtkTextIter >> getChar [
+
+	^ self ffiCall: #(gunichar gtk_text_iter_get_char (self))
+]
+
 { #category : #accessing }
 GtkTextIter >> line [
 
@@ -319,6 +343,12 @@ GtkTextIter >> lineOffset: char_on_line [
 GtkTextIter >> offset [ 
 	
 	^ self ffiCall: #(gint gtk_text_iter_get_offset (self))
+]
+
+{ #category : #accessing }
+GtkTextIter >> sliceTo: end [
+
+	^ self ffiCall: #(char* gtk_text_iter_get_slice (self, GtkTextIter* end))
 ]
 
 { #category : #accessing }

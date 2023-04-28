@@ -14,7 +14,9 @@ Class {
 		'completionEngine',
 		'iconsCache',
 		'lastResults',
-		'scheduler'
+		'scheduler',
+		'lastAsyncResult',
+		'lastResultTask'
 	],
 	#classVars : [
 		'Separators'
@@ -25,6 +27,19 @@ Class {
 	],
 	#category : #'GtkSourceView-Completion-Pharo'
 }
+
+{ #category : #private }
+GtkPharoSourceCompletionProvider class >> defaultCompletionEngine [
+	"A simple completion engine that provides a scripting completion engine (to be 
+	 used if no completion engine is provided)"
+	
+	^ GtkCodeCompletionEngine new 
+		scripting: true;
+		doItRequestor: nil;
+		doItContext: nil;
+		completionClass: UndefinedObject;
+		yourself
+]
 
 { #category : #'class initialization' }
 GtkPharoSourceCompletionProvider class >> gClass [
@@ -73,7 +88,8 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 				(self gInstance: provider) 
 					populateAsync: (GtkSourceCompletionContext fromHandleUnreferenced: context)
 					cancellable: cancellable
-					callback: callback ];	
+					callback: callback
+					data: user_data ];	
 		connect: #populate_finish
 			signature: #(void *(void *provider, void *result, void *error))
 			to: [ :provider :result :error | 
@@ -126,20 +142,23 @@ GtkPharoSourceCompletionProvider class >> separators [
 
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> activate: context proposal: proposalHandle [
-	| proposal |
+	| proposal word |
 	
 	proposal := lastResults itemByHandle: proposalHandle ifNone: [ nil ].
 	proposal ifNil: [ ^ self ].
 
+	word := proposal typedText asString.
 	context withBoundsDo: [ :begin :end |
-		| textBuffer |
-		
-		textBuffer := begin buffer.
-		"wordEnd := end copyIntoImage.
-		wordEnd forwardWordEnd."
-		textBuffer 
-			deleteStart: begin end: end;
-			insertIter: begin text: proposal typedText asString ]
+		self insertWord: word begin: begin end: end ]
+]
+
+{ #category : #TOREMOVE }
+GtkPharoSourceCompletionProvider >> asyncCallbackFunctionFrom: callbackHandle [
+
+	^ GExternalFunction 
+		newAddress: callbackHandle
+		signature: #(void (void *source, void *result, gpointer user_data))
+		library: self ffiLibrary
 ]
 
 { #category : #TOREMOVE }
@@ -151,12 +170,14 @@ GtkPharoSourceCompletionProvider >> cleanWord: aString [
 
 { #category : #accessing }
 GtkPharoSourceCompletionProvider >> completionEngine [
-	^ completionEngine
+
+	^ completionEngine ifNil: [ completionEngine := self class defaultCompletionEngine ]
 ]
 
 { #category : #accessing }
-GtkPharoSourceCompletionProvider >> completionEngine: anObject [
-	completionEngine := anObject
+GtkPharoSourceCompletionProvider >> completionEngine: aCompletionEngine [
+
+	completionEngine := aCompletionEngine
 ]
 
 { #category : #TOREMOVE }
@@ -177,7 +198,7 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: iter [
 	^ completionContext entries
 ]
 
-{ #category : #private }
+{ #category : #TOREMOVE }
 GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: textBuffer [
 	| completionContext |
 
@@ -188,6 +209,22 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: textBuffer [
 		class: self completionEngine completionClass
 		source: textBuffer text
 		position: textBuffer cursorPosition.
+	completionContext narrowWith: word.
+
+	^ completionContext entries
+]
+
+{ #category : #'private - populate' }
+GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: aString position: aPosition [
+	| completionContext |
+
+	(word isNil or: [ word size < 2 ]) ifTrue: [ ^ #() ].
+
+	completionContext := GtkCompletionContext
+		engine: self completionEngine
+		class: self completionEngine completionClass
+		source: aString
+		position: aPosition.
 	completionContext narrowWith: word.
 
 	^ completionContext entries
@@ -262,72 +299,144 @@ GtkPharoSourceCompletionProvider >> initializeScheduler [
 		start
 ]
 
+{ #category : #private }
+GtkPharoSourceCompletionProvider >> insertWord: word begin: begin end: end [
+	| textBuffer endWord endMark |
+	
+	endMark := nil.
+	textBuffer := begin buffer.
+
+	(end endsLine not 
+		and: [ end char isSeparator not 
+		and: [ end endsWord not ] ])
+		ifTrue: [
+			| text |
+			endWord := end copyInMemory.
+			endWord forwardWordEnd ifTrue: [ 
+				text := end sliceTo: endWord.
+				(word endsWith: text) ifTrue: [
+					endMark := textBuffer 
+						createMarkNamed: nil 
+						where: end 
+						leftGravity: false ] ] ].
+	
+	textBuffer userActionDuring: [
+		textBuffer   
+			deleteStart: begin end: end;
+			insertIter: begin text: word ].
+		
+	endMark ifNotNil: [ 
+		| pos |
+		pos := textBuffer iterAtMark: endMark.
+		textBuffer selectRangeInsert: pos bound: pos.
+		textBuffer deleteMark: endMark ].
+]
+
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> is_trigger: iter character: ch [
 
+'trigger' printToStdout.
 	^ false
 ]
 
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> key_activates: context proposal: proposal keyval: keyval [
 
+'activates' printToStdout.
 	^ false
 ]
 
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> list_alternates: context proposal: proposal [
 
-	'ALTERNATES' printToStdout.
 	^ ExternalAddress null
+]
+
+{ #category : #'private - populate' }
+GtkPharoSourceCompletionProvider >> newResultsFor: word in: aString position: aPosition [
+	
+	self flag: #TODO. "I do not autorelease because control will be in the other side. 
+	 BUT I NEED RO CHECK THAT"
+
+	^ (GListObjectStore newType: GtkPharoSourceCompletionProposal gType) 
+		objectRef;
+		items: ((self completionEntriesFor: word in: aString position: aPosition) 
+			collect: [ :each |
+				(GtkPharoSourceCompletionProposal newEntry: each)
+					objectRef;
+					yourself ]);
+		yourself
 ]
 
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> populate: context [
 
-	'POPULATE' printToStdout.
-	^ lastResults getHandle
+	self error: 'should not arrive here'. 
+	^ ExternalAddress null
+]
+
+{ #category : #TOREMOVE }
+GtkPharoSourceCompletionProvider >> populateAsync: context [
+	| word text position |
+	
+	word := context word.
+	"word size < 2 ifTrue: [ ^ self ]."
+	
+	"text := context buffer text.
+	position := context buffer cursorPosition.
+	self schedule: [
+		GRunLoop defer: [
+			lastResults := self newResultsFor: word in: text position: position.
+			lastResults isEmpty ifFalse: [
+				context proposalsForProvider: self results: lastResults ] ] ]"
 ]
 
 { #category : #'accessing - model' }
-GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancellable callback: callback [
-	| word |
+GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancellable callback: callback data: data [
+	| word text position "function" |
 	
 	word := context word.
-	self schedule: [
-		GRunLoop defer: [ 
-			context 
-				proposalsForProvider: self 
-				results: self results ] ]
+	text := context buffer text.
+	position := context buffer cursorPosition.
+
+	lastResultTask := GTask 
+		newSource: self
+		cancellableHandle: cancellable
+		readyCallbackHandle: callback 
+		data: data.
+
+	lastResults := self newResultsFor: word in: text position: position.
+	"returning the pointer will trigger an immediate call to the 
+	 callback providing the result."
+	lastResultTask returnPointer: lastResults getHandle
 ]
 
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> populateFinish: result [
 
 	'FINISH' printToStdout.
-	^ lastResults getHandle
+	"this will take ownership, hence it needs to be referenced (otherwise, it will crash)"
+	^ lastResults 
+		objectRef;
+		getHandle
 ]
 
 { #category : #'accessing - model' }
-GtkPharoSourceCompletionProvider >> refilter: context model: model [
+GtkPharoSourceCompletionProvider >> refilter: context model: modelHandle [ 
+	| word text position |
 
-	'Refilter' printToStdout.
-	context word printToStdout
-]
+	lastResults getHandle = modelHandle ifFalse: [ 
+		'ERROR' printToStdout.
+		^ self ].
 
-{ #category : #private }
-GtkPharoSourceCompletionProvider >> results [
+	lastResultTask := nil.
 
-	"keep last restults served"
-	^ lastResults := GRunLoop defer: [
-			(GListObjectStore newType: GtkPharoSourceCompletionProposal gType) 
-				items: (Smalltalk allClassesAndTraits 
-					select: [ :each | each name beginsWith: 'Ob' ]
-					thenCollect: [ :each | 
-						(GtkPharoSourceCompletionProposal newTypedText: each name)
-							objectRef;
-							yourself ]);
-				objectRef;
-				yourself ]
+	word := context word.
+	text := context buffer text.
+	position := context buffer cursorPosition.
+	lastResults := self newResultsFor: word in: text position: position.
+	lastResults isEmpty ifFalse: [
+		context proposalsForProvider: self results: lastResults ]
 ]
 
 { #category : #private }

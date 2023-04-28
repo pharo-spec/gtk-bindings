@@ -33,6 +33,13 @@ GtkSourceCompletionContext >> completion [
 	^ completion ifNil: [ completion := self getCompletion ]
 ]
 
+{ #category : #accessing }
+GtkSourceCompletionContext >> empty: aBoolean [
+
+	self gObjectSet: 'empty' toBoolean: aBoolean
+	
+]
+
 { #category : #'library path' }
 GtkSourceCompletionContext >> ffiLibraryName [
 

@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'token'
 	],
-	#category : #'GtkSourceView-Completion'
+	#category : #'GtkSourceView-Completion-Pharo'
 }
 
 { #category : #accessing }

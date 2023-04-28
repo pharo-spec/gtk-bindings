@@ -8,7 +8,7 @@ Class {
 	#superclass : #GObject,
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Completion'
+	#category : #'GtkSourceView-TOREMOVE'
 }
 
 { #category : #private }

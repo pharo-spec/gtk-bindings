@@ -1,3 +1,6 @@
+"
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/iface.CompletionProposal.html
+"
 Class {
 	#name : #GtkSourceCompletionProviderIface,
 	#superclass : #GInterface,

@@ -647,10 +647,16 @@ GObject >> gSignalHandlerUnblock: handler_id [
 		module: GObjectLibrary
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - type' }
 GObject >> gType [
 
 	^ self class gType
+]
+
+{ #category : #'accessing - type' }
+GObject >> gTypeName [
+
+	^ self gTypeName: self gType
 ]
 
 { #category : #'private - primitives' }
@@ -778,12 +784,6 @@ GObject >> signal: signalName connect: callback data: aData flags: connectFlags 
 		gpointer 	aData,
 		uint64 variable,
 		uint64 connectFlags ) ) module: GObjectLibrary
-]
-
-{ #category : #accessing }
-GObject >> typeName [
-
-	^ self gTypeName: self gType
 ]
 
 { #category : #'accessing - referencing' }

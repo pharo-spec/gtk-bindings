@@ -28,7 +28,7 @@ GListObjectStore class >> gDefineListModelInterface: iface [
 
 	iface 
 		connect: #get_item_type 
-			signature:  #(GType (void *list)) 
+			signature:  #(gsize (void *list)) 
 			to: [ :list | (self gInstance: list) get_item_type ];
 		connect: #get_n_items 
 			signature: #(guint (void *list))  
@@ -59,6 +59,8 @@ GListObjectStore class >> newType: gType [
 { #category : #'accessing - model' }
 GListObjectStore >> get_item: position [
 
+	position printToStdout.
+
 	position >= items size
 		ifTrue: [ ^ ExternalAddress null ].
 
@@ -80,7 +82,7 @@ GListObjectStore >> get_n_items [
 { #category : #'accessing - model' }
 GListObjectStore >> get_object: position [
 
-	position >= items size
+	position > items size
 		ifTrue: [ ^ GObject null ].
 
 	"Apparently, it is required to increment the ref each time because it is expected 
@@ -88,6 +90,12 @@ GListObjectStore >> get_object: position [
 	^ (self itemAt: position + 1)
 		objectRef;
 		yourself
+]
+
+{ #category : #testing }
+GListObjectStore >> isEmpty [
+
+	^ self items isEmptyOrNil
 ]
 
 { #category : #accessing }

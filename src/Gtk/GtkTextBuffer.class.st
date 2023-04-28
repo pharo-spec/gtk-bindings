@@ -190,6 +190,12 @@ GtkTextBuffer >> deleteAll [
 		end: self endIter
 ]
 
+{ #category : #'accessing - mark' }
+GtkTextBuffer >> deleteMark: mark [
+
+	self ffiCall: #(void gtk_text_buffer_delete_mark (self, GtkTextMark* mark))
+]
+
 { #category : #private }
 GtkTextBuffer >> deleteStart: start end: end [
 
@@ -231,21 +237,21 @@ GtkTextBuffer >> endUserAction [
 ]
 
 { #category : #private }
-GtkTextBuffer >> getIter: iter atAtMark: mark [
-
-	self ffiCall: #(void gtk_text_buffer_get_iter_at_mark (
-		self,
-		GtkTextIter *iter,
-		GtkTextMark *mark))
-]
-
-{ #category : #private }
 GtkTextBuffer >> getIter: iter atLine: line_number [ 
 
 	self ffiCall: #(void gtk_text_buffer_get_iter_at_line (
 		self,
 		GtkTextIter *iter, 
 		gint line_number))
+]
+
+{ #category : #private }
+GtkTextBuffer >> getIter: iter atMark: mark [
+
+	self ffiCall: #(void gtk_text_buffer_get_iter_at_mark (
+		self,
+		GtkTextIter *iter,
+		GtkTextMark *mark))
 ]
 
 { #category : #private }
@@ -345,7 +351,7 @@ GtkTextBuffer >> iterAtMark: aMark [
 	| iter |
 	
 	iter := GtkTextIter new.
-	self getIter: iter atAtMark: aMark.
+	self getIter: iter atMark: aMark.
 	^ iter
 ]
 

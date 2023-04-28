@@ -1,3 +1,6 @@
+"
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/enum.CompletionColumn.html
+"
 Class {
 	#name : #GtkSourceCompletionColumn,
 	#superclass : #GEnumeration,

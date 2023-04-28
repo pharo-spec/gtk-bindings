@@ -112,9 +112,7 @@ GtkSourceView class >> example4 [
 			showHeaders: false;
 			showIcons: true;
 			pageSize: 10;
-			addProvider: (GtkPharoSourceCompletionProvider new
-				objectRef;
-				yourself).
+			addProvider: GtkPharoSourceCompletionProvider new.
 
 		GtkWindow new
 			title: 'Source view autocompletion';
