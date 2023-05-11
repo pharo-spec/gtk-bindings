@@ -14,7 +14,6 @@ Class {
 		'completionEngine',
 		'iconsCache',
 		'lastResults',
-		'scheduler',
 		'lastAsyncResult',
 		'lastResultTask'
 	],
@@ -60,7 +59,7 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 
 	interface
 		connect: #get_title 
-			signature: #(char* (void *provider)) 
+			signature: #(void* (void *provider)) 
 			to: [ :provider | 
 				(self gInstance: provider) get_title ];
 		connect: #get_priority
@@ -94,7 +93,7 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 			signature: #(void *(void *provider, void *result, void *error))
 			to: [ :provider :result :error | 
 				(self gInstance: provider) 
-					populateFinish: result ] ;	
+					populateFinish: result error: error ] ;	
 		connect: #refilter
 			signature: #(void (void *provider, void *context, void *model))
 			to: [ :provider :context :model | 
@@ -251,7 +250,7 @@ GtkPharoSourceCompletionProvider >> currentWord: iter in: textBuffer [
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> display: context proposal: proposalHandle cell: cellHandle [
 	| cell |
-	
+
 	cell := GtkSourceCompletionCell fromHandleUnreferenced: cellHandle.
 	(cell column = GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT) ifTrue: [ 
 		cell text: (lastResults 
@@ -259,6 +258,9 @@ GtkPharoSourceCompletionProvider >> display: context proposal: proposalHandle ce
 			ifFound: [ :aProposal | aProposal typedText ]
 			ifNone: [ 'Unknown' ]).
 		^ self	 ].
+	"(cell column = GTK_SOURCE_COMPLETION_COLUMN_ICON) ifTrue: [  
+		cell iconName: 'completion-word-symbolic'.
+		^ self ]."
 		
 	cell text: nil
 ]
@@ -272,7 +274,7 @@ GtkPharoSourceCompletionProvider >> get_priority: context [
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> get_title [
 
-	^ 'Pharo'
+	^ ExternalAddress null  "GLibLibrary uniqueInstance gstrdup: 'Pharo'"
 ]
 
 { #category : #TOREMOVE }
@@ -282,21 +284,6 @@ GtkPharoSourceCompletionProvider >> iconAt: icon ifAbsentPut: aBlock [
 	^ iconsCache 
 		at: icon 
 		ifAbsentPut: aBlock
-]
-
-{ #category : #initialization }
-GtkPharoSourceCompletionProvider >> initialize [
-
-	super initialize.
-	self initializeScheduler
-]
-
-{ #category : #initialization }
-GtkPharoSourceCompletionProvider >> initializeScheduler [
-
-	scheduler := TKTWorkerPool new
-		poolMaxSize: 1;
-		start
 ]
 
 { #category : #private }
@@ -412,18 +399,17 @@ GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancella
 ]
 
 { #category : #'accessing - model' }
-GtkPharoSourceCompletionProvider >> populateFinish: result [
+GtkPharoSourceCompletionProvider >> populateFinish: result error: error [
 
-	'FINISH' printToStdout.
 	"this will take ownership, hence it needs to be referenced (otherwise, it will crash)"
-	^ lastResults 
-		objectRef;
-		getHandle
+	^ (GTask fromHandleUnreferenced: result) propagatePointer: error
 ]
 
 { #category : #'accessing - model' }
 GtkPharoSourceCompletionProvider >> refilter: context model: modelHandle [ 
 	| word text position |
+
+'refilter' printToStdout.
 
 	lastResults getHandle = modelHandle ifFalse: [ 
 		'ERROR' printToStdout.
@@ -435,14 +421,7 @@ GtkPharoSourceCompletionProvider >> refilter: context model: modelHandle [
 	text := context buffer text.
 	position := context buffer cursorPosition.
 	lastResults := self newResultsFor: word in: text position: position.
-	lastResults isEmpty ifFalse: [
-		context proposalsForProvider: self results: lastResults ]
-]
-
-{ #category : #private }
-GtkPharoSourceCompletionProvider >> schedule: aBlock [ 
-
-	scheduler schedule: aBlock
+	context proposalsForProvider: self results: lastResults
 ]
 
 { #category : #TOREMOVE }

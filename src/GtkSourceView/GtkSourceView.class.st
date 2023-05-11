@@ -109,7 +109,7 @@ GtkSourceView class >> example4 [
 			yourself.
 
 		sourceView completion
-			showHeaders: false;
+			"showHeaders: false;"
 			showIcons: true;
 			pageSize: 10;
 			addProvider: GtkPharoSourceCompletionProvider new.

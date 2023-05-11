@@ -16,6 +16,15 @@ GLibLibrary >> gSetPrgName: prgname [
 	^ self ffiCall: #(void g_set_prgname (const gchar *prgname))
 ]
 
+{ #category : #'accessing - functions' }
+GLibLibrary >> gstrdup: str [
+	"since answering a char* will take control of the pointer and we do not 
+	 want that, I answer a pointer. User will take control and need to free 
+	 the pointer."
+
+	^ self ffiCall: #(void* g_strdup (const gchar* str))
+]
+
 { #category : #'accessing - platform' }
 GLibLibrary >> unix64LibraryName [
 

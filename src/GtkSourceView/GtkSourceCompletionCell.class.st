@@ -25,6 +25,14 @@ GtkSourceCompletionCell >> getWidget [
 ]
 
 { #category : #accessing }
+GtkSourceCompletionCell >> iconName: aName [
+
+	self ffiCall: #(void gtk_source_completion_cell_set_icon_name (
+  		self,
+  		const char* aName))
+]
+
+{ #category : #accessing }
 GtkSourceCompletionCell >> markup: markup [
 
 	self ffiCall: #(void gtk_source_completion_cell_set_markup (

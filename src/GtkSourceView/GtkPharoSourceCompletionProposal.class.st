@@ -7,7 +7,8 @@ Class {
 	#traits : 'GtkSourceViewTLibrary + GTClass',
 	#classTraits : 'GtkSourceViewTLibrary classTrait + GTClass classTrait',
 	#instVars : [
-		'entry'
+		'entry',
+		'typedText'
 	],
 	#category : #'GtkSourceView-Completion-Pharo'
 }
@@ -26,7 +27,7 @@ GtkPharoSourceCompletionProposal class >> gDefineCompletionProposalInterface: in
 
 	interface 
 		connect: #get_typed_text
-		signature: #(char *(void *proposal))
+		signature: #(void *(void *proposal))
 		to: [ :proposal | (self gInstance: proposal) get_typed_text ]
 ]
 
@@ -53,11 +54,12 @@ GtkPharoSourceCompletionProposal >> entry: anEntry [
 { #category : #'accessing - structure variables' }
 GtkPharoSourceCompletionProposal >> get_typed_text [
 
-	^ self typedText
+	^ GLibLibrary uniqueInstance gstrdup: self typedText
 ]
 
 { #category : #accessing }
 GtkPharoSourceCompletionProposal >> typedText [
 
-	^ self entry contents asString
+	^ typedText ifNil: [ 
+		typedText := self entry contents asString ]
 ]

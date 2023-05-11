@@ -83,6 +83,12 @@ GTask class >> newSource: source_object cancellableHandle: cancellable readyCall
 ]
 
 { #category : #accessing }
+GTask >> propagatePointer: error [
+
+	^ self ffiCall: #(gpointer g_task_propagate_pointer (self, "GError**"void *error))
+]
+
+{ #category : #accessing }
 GTask >> returnBoolean: result [
 
 	self ffiCall: #(void g_task_return_boolean (self, gboolean result))
