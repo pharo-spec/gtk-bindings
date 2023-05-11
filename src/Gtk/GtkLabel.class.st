@@ -79,6 +79,12 @@ GtkLabel >> initialize [
 	self vAlignCenter
 ]
 
+{ #category : #testing }
+GtkLabel >> isWrap [
+
+	^ self ffiCall: #(gboolean gtk_label_get_line_wrap (self))
+]
+
 { #category : #accessing }
 GtkLabel >> justify: jtype [ 
 	self ffiCall: #(void gtk_label_set_justify (self, GtkJustification jtype))
@@ -136,4 +142,10 @@ GtkLabel >> useUnderline [
 GtkLabel >> useUnderline: setting [
 
 	self ffiCall: #(void gtk_label_set_use_underline (self, gboolean setting))
+]
+
+{ #category : #accessing }
+GtkLabel >> wrap: wrap [
+
+	self ffiCall: #(void gtk_label_set_line_wrap (self, gboolean wrap))
 ]
