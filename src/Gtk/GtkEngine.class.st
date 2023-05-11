@@ -106,8 +106,15 @@ GtkEngine >> start [
 	
 	self ensureApplication.
 	GApplicationStartAnnouncement emit.
+	self startEngineSupports.
 	initAction ifNotNil: [ initAction cull: self ].
 	runLoop start
+]
+
+{ #category : #'private - running' }
+GtkEngine >> startEngineSupports [
+	
+	GtkEngineSupport allAvailable do: [ :each | each start ]
 ]
 
 { #category : #'private - running' }

@@ -13,6 +13,12 @@ GtkSourceViewLibrary >> calloutAPIClass [
 	^ TFCalloutAPI
 ]
 
+{ #category : #'private - initialization' }
+GtkSourceViewLibrary >> init [
+
+	^ self ffiCall: #(void gtk_source_init ())
+]
+
 { #category : #testing }
 GtkSourceViewLibrary >> isAvailable [
 	self flag: #TODO.	"Find a way to do this just once"
