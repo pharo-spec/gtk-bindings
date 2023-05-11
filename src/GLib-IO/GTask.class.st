@@ -4,9 +4,9 @@ https://docs.gtk.org/gio/class.Task.html
 Class {
 	#name : #GTask,
 	#superclass : #GObject,
-	#traits : 'GtkTLibrary',
-	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'GLib-IO'
+	#traits : 'GLibIOTLibrary',
+	#classTraits : 'GLibIOTLibrary classTrait',
+	#category : #'GLib-IO-Task'
 }
 
 { #category : #private }

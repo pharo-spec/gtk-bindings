@@ -7,7 +7,7 @@ Class {
 		'G_IO_ERROR_NONE',
 		'G_IO_ERROR_UNKNOWN'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'accessing enum' }

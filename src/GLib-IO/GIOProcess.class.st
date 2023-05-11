@@ -14,7 +14,7 @@ Class {
 		'GSpawnFlags',
 		'GtkTypes'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #private }

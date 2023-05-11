@@ -53,7 +53,7 @@ Class {
 		'G_SPAWN_ERROR_TOO_BIG',
 		'G_SPAWN_ERROR_TXTBUSY'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'accessing enum' }

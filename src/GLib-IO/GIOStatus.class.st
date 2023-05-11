@@ -12,7 +12,7 @@ Class {
 		'G_IO_STATUS_ERROR',
 		'G_IO_STATUS_NORMAL'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'accessing enum' }

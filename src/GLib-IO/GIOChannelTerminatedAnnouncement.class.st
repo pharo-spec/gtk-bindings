@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'status'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'instance creation' }

@@ -14,7 +14,7 @@ Class {
 		'G_IO_OUT',
 		'G_IO_PRI'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'accessing enum' }

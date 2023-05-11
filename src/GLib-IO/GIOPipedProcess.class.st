@@ -9,7 +9,7 @@ Class {
 		'inFd',
 		'outFd'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #private }

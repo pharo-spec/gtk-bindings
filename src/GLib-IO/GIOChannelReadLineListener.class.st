@@ -21,7 +21,7 @@ Class {
 	#pools : [
 		'GIOStatus'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'instance creation' }

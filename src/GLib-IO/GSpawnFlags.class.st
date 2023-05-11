@@ -21,7 +21,7 @@ Class {
 		'G_SPAWN_STDIN_FROM_DEV_NULL',
 		'G_SPAWN_STDOUT_TO_DEV_NULL'
 	],
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Process'
 }
 
 { #category : #'accessing enum' }
