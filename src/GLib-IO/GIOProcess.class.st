@@ -4,8 +4,8 @@ An object to wrap the output of a GSpawn
 Class {
 	#name : #GIOProcess,
 	#superclass : #Object,
-	#traits : 'GLibTLibrary',
-	#classTraits : 'GLibTLibrary classTrait',
+	#traits : 'GLibIOTLibrary',
+	#classTraits : 'GLibIOTLibrary classTrait',
 	#instVars : [
 		'pid',
 		'callbacks'

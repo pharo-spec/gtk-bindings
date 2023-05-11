@@ -1,7 +1,7 @@
 Class {
 	#name : #GLibIOLibrary,
 	#superclass : #GObjectLibrary,
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Base'
 }
 
 { #category : #'accessing platform' }

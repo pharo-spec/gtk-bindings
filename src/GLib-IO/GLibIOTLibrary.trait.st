@@ -1,6 +1,6 @@
 Trait {
 	#name : #GLibIOTLibrary,
-	#category : #'GLib-IO'
+	#category : #'GLib-IO-Base'
 }
 
 { #category : #'library path' }
