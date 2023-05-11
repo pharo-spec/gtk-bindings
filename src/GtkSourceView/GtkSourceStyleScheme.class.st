@@ -4,7 +4,7 @@ https://developer.gnome.org/gtksourceview/stable/GtkSourceStyleScheme.html
 Class {
 	#name : #GtkSourceStyleScheme,
 	#superclass : #GObject,
-	#category : #'GtkSourceView-Base'
+	#category : #'GtkSourceView-Style'
 }
 
 { #category : #'instance creation' }

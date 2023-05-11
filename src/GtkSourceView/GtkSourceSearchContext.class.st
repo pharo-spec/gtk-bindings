@@ -11,7 +11,7 @@ Class {
 		'buffer',
 		'lastForwardCallback'
 	],
-	#category : #'GtkSourceView-Base'
+	#category : #'GtkSourceView-Search'
 }
 
 { #category : #private }

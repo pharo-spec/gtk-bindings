@@ -6,7 +6,7 @@ Class {
 	#superclass : #GObject,
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Base'
+	#category : #'GtkSourceView-Style'
 }
 
 { #category : #'instance creation' }
