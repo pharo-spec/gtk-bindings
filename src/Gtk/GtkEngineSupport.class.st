@@ -13,7 +13,7 @@ GtkEngineSupport class >> allAvailable [
 	
 	^ self allSubclasses 
 		select: [ :each | each isAvailable ]
-		thenDo: [ :each | each new ]
+		thenCollect: [ :each | each new ]
 ]
 
 { #category : #testing }
