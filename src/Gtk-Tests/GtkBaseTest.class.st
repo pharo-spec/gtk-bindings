@@ -21,25 +21,26 @@ GtkBaseTest class >> resetTestEnvironment [
 ]
 
 { #category : #private }
-GtkBaseTest >> ensureRemoteExecutionEnvironmentOn: aClass [
+GtkBaseTest >> ensureRemoteExecutionEnvironment [
 		
 	^ RemoteExecutionEnvironment ifNil: [
-		RemoteExecutionEnvironment := self newRemoteExecutionEnronmentWith: aClass ]
+		RemoteExecutionEnvironment := self newRemoteExecutionEnronment ]
 ]
 
 { #category : #running }
 GtkBaseTest >> executionEnvironment [
 
 	"verify if class exists to not force a dependence"
-	^ (self class environment classNamed: #RmRunnerExecutionEnvironment)
-		ifNotNil: [ :aClass | self ensureRemoteExecutionEnvironmentOn: aClass ]
-		ifNil: [ CurrentExecutionEnvironment value ]
+	
+	^ self useRemoteExecutionEnvironment
+		ifTrue: [ self ensureRemoteExecutionEnvironment ]
+		ifFalse: [ super executionEnvironment ]
 ]
 
 { #category : #private }
-GtkBaseTest >> newRemoteExecutionEnronmentWith: aClass [
+GtkBaseTest >> newRemoteExecutionEnronment [
 
-	^ aClass new
+	^ (self class environment at: #RmRunnerExecutionEnvironment) new
 		runnerId: 'GtkTestRunner';
 		onRunnerActivated: [ :aRunner | 
 			aRunner runCommand: [
@@ -60,4 +61,11 @@ GtkBaseTest >> runCase [
 GtkBaseTest >> runCaseManaged [
 
 	self executionEnvironment runTestCase: self
+]
+
+{ #category : #private }
+GtkBaseTest >> useRemoteExecutionEnvironment [
+	
+	"^ (self class environment classNamed: #RmRunnerExecutionEnvironment)"
+	^ false
 ]
