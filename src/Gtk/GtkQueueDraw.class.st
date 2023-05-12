@@ -5,7 +5,7 @@ I am a special class made to queue draws (in theory, this can be made outside th
 Class {
 	#name : #GtkQueueDraw,
 	#superclass : #GtkLibrary,
-	#category : #'Gtk-Base'
+	#category : #'Gtk-Library'
 }
 
 { #category : #private }

@@ -1,6 +1,6 @@
 Trait {
 	#name : #GtkTLibrary,
-	#category : #'Gtk-Base'
+	#category : #'Gtk-Library'
 }
 
 { #category : #'library path' }

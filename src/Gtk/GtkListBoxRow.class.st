@@ -8,7 +8,7 @@ Class {
 	#superclass : #GtkWidget,
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
-	#category : #'Gtk-Widget'
+	#category : #'Gtk-Widget-List'
 }
 
 { #category : #accessing }

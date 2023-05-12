@@ -1,7 +1,7 @@
 Class {
 	#name : #GLibLibrary,
 	#superclass : #GObjectLibrary,
-	#category : #'GLib-Base'
+	#category : #'GLib-Library'
 }
 
 { #category : #'private - primitives' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #GdkLibrary,
 	#superclass : #GObjectLibrary,
-	#category : #'Gdk-Base'
+	#category : #'Gdk-Library'
 }
 
 { #category : #'accessing platform' }

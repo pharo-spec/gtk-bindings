@@ -18,7 +18,7 @@ Class {
 		'G_APPLICATION_REPLACE',
 		'G_APPLICATION_SEND_ENVIRONMENT'
 	],
-	#category : #'Gdk-Base'
+	#category : #'Gdk-Application'
 }
 
 { #category : #'accessing enum' }

@@ -9,7 +9,7 @@ Class {
 	#pools : [
 		'GApplicationFlags'
 	],
-	#category : #'Gdk-Base'
+	#category : #'Gdk-Application'
 }
 
 { #category : #'instance creation' }

@@ -2,7 +2,7 @@ Trait {
 	#name : #GLibTLibrary,
 	#traits : 'TEmpty',
 	#classTraits : 'TEmpty classTrait',
-	#category : #'GLib-Base'
+	#category : #'GLib-Library'
 }
 
 { #category : #'library path' }

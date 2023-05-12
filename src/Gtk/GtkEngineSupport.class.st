@@ -5,7 +5,7 @@ This is useful for initialization of packages that may or not be included (see c
 Class {
 	#name : #GtkEngineSupport,
 	#superclass : #Object,
-	#category : #'Gtk-Base'
+	#category : #'Gtk-Application'
 }
 
 { #category : #accessing }

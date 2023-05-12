@@ -1,3 +1,6 @@
+"
+An engine that keeps also a GtkApplication
+"
 Class {
 	#name : #GtkEngine,
 	#superclass : #GEngine,
@@ -7,7 +10,7 @@ Class {
 		'initAction',
 		'application'
 	],
-	#category : #'Gtk-Base'
+	#category : #'Gtk-Application'
 }
 
 { #category : #accessing }
@@ -83,7 +86,7 @@ GtkEngine >> ensureApplication [
 { #category : #'system startup' }
 GtkEngine >> ensureRunLoop [
 
-	^ Gtk4RunLoop new
+	^ GtkRunLoop new
 ]
 
 { #category : #'private - testing' }

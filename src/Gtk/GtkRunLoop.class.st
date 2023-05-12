@@ -1,81 +1,99 @@
 "
-I'm a base run loop for gtk applications.
-I define the base behaviour of a run loop: 
-
-- start/stop 
-- event processing
-
-I also can handle deferred actions to be executed when the process allows it. This is specially useful to keep safeness of execution when the execution control is on gtk side (see GtkMainRunLoop)
+Event loop for Gtk4
 "
 Class {
 	#name : #GtkRunLoop,
 	#superclass : #GRunLoop,
-	#traits : 'GtkTLibrary',
-	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Base'
+	#instVars : [
+		'callerProcess',
+		'context',
+		'runProcess'
+	],
+	#category : #'Gtk-Application'
 }
 
 { #category : #accessing }
-GtkRunLoop class >> activateDeferVerification [
-	<script>
+GtkRunLoop >> callbackEnter [
 
-	TFCalloutAPI activateTraceWith: [ :sender |
-		 self current isDeferring ifFalse: [ 
-			(({ GRunLoop. GtkRunLoop } includes: sender methodClass) 
-				or: [ (sender methodClass name beginsWith: 'Gtk') not ]) 
-				ifFalse: [ Stdio stdout << sender printString; crlf  ] ] ]
+	TFProcessLocalWorker worker: self naturalRunner.
+	super callbackEnter
 ]
 
 { #category : #accessing }
-GtkRunLoop class >> activateDeferVerification2 [
-	<script>
+GtkRunLoop >> callerProcess [
 
-	TFCalloutAPI activateTraceWith: [ :sender |
-		 "self current isDeferring ifFalse: [" 
-			(({ GRunLoop. GtkRunLoop } includes: sender methodClass) 
-				or: [ (sender methodClass name beginsWith: 'Gtk') not ]) 
-				ifFalse: [ Stdio stdout << sender printString; crlf  ] ] "]"
+	^ callerProcess
 ]
 
 { #category : #accessing }
-GtkRunLoop class >> bestStrategyClass [
+GtkRunLoop >> defer: aBlock [
 
-	^ Smalltalk vm isRunningInWorkerThread 
-		ifTrue: [ GtkMainRunLoop ]
-		ifFalse: [ GtkPollingRunLoop ]
+	(self isRunning not 
+		or: [ self isInCallback ]) 
+		ifTrue: [ 
+			^ aBlock value ].
+
+	^ self forceDefer: aBlock	
 ]
 
 { #category : #accessing }
-GtkRunLoop class >> deactivateDeferVerification [
-	<script>
-
-	TFCalloutAPI resetTrace
-]
-
-{ #category : #private }
-GtkRunLoop class >> defaultRunLoopClass [
-
-	^ GtkPollingRunLoop
-]
-
-{ #category : #accessing }
-GtkRunLoop class >> install [
-
-	self = GtkRunLoop ifTrue: [ 
-		self error: 'I''m an abstract class. You need to install one of my subclasses.' ].
-	^ super install
-]
-
-{ #category : #accessing }
-GtkRunLoop class >> uniqueInstance [
-	
-	self = GtkRunLoop 
-		ifTrue: [ self error: 'I''m an abstract class. Use one of my children.' ].
-	^ super uniqueInstance
-]
-
-{ #category : #deferring }
 GtkRunLoop >> forceDefer: aBlock [
+	| sem result exception |
 
-	GIdle uniqueInstance idleAddFull: aBlock
+	callerProcess := Processor activeProcess.
+	sem := Semaphore new.
+	exception := nil.
+	GIdle uniqueInstance idleAddFull: [
+		result := [ 
+			aBlock 
+				on: Exception 
+				do: [ :e | exception := e freeze ] ] 
+			ensure: [ sem signal ] ].
+	sem wait.
+	callerProcess := nil.
+
+	exception ifNotNil: [ 
+		GtkDeferredError signalForException: exception ].
+
+	^ result
+]
+
+{ #category : #'private - installing' }
+GtkRunLoop >> installRunLoop [
+
+	'Installing Gtk4 event loop' asBeaconSignal emit. 
+
+	context := GMainContext default.
+	context acquire
+		ifFalse: [ self error: 'I cannot acquire the main context' ].	
+	
+	runProcess := [
+		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance. 
+		[ running ] whileTrue: [ 
+			context iteration: true ].
+		context release.	
+		'Gtk4 event loop ended' asBeaconSignal emit.
+	] 
+	forkAt: Processor lowIOPriority
+	named: 'Gtk4 event loop'
+]
+
+{ #category : #testing }
+GtkRunLoop >> isRunning [
+
+	^ running 
+		and: [ runProcess notNil 
+		and: [ runProcess isTerminated not ] ]
+]
+
+{ #category : #accessing }
+GtkRunLoop >> naturalRunner [
+
+	^ TFMainThreadRunner uniqueInstance
+]
+
+{ #category : #'private - installing' }
+GtkRunLoop >> uninstallRunLoop [
+
+	self forceDefer: [ running := false ]
 ]

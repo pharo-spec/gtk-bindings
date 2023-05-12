@@ -2,7 +2,7 @@ Trait {
 	#name : #GdkTLibrary,
 	#traits : 'TEmpty',
 	#classTraits : 'TEmpty classTrait',
-	#category : #'Gdk-Base'
+	#category : #'Gdk-Library'
 }
 
 { #category : #'library path' }

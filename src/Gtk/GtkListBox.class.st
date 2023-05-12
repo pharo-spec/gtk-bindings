@@ -14,7 +14,7 @@ Class {
 	#pools : [
 		'GtkSelectionMode'
 	],
-	#category : #'Gtk-Widget'
+	#category : #'Gtk-Widget-List'
 }
 
 { #category : #accessing }

@@ -1,3 +1,9 @@
+"
+The entry point for any Gtk application. 
+A GEngine sets up all required elements to make everything run: 
+- it handles the event loop
+- it keeps open windows
+"
 Class {
 	#name : #GEngine,
 	#superclass : #Object,
