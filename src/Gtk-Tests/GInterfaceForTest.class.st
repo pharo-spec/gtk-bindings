@@ -12,7 +12,7 @@ Class {
 		'OFFSET_SET_ACTION_NAME',
 		'OFFSET_SET_ACTION_TARGET_VALUE'
 	],
-	#category : #'Gtk-Tests'
+	#category : #'Gtk-Tests-ClassBuilder'
 }
 
 { #category : #'field definition' }

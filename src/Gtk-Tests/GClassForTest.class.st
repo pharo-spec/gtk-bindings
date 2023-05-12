@@ -7,7 +7,7 @@ Class {
 	#classInstVars : [
 		'initialized'
 	],
-	#category : #'Gtk-Tests'
+	#category : #'Gtk-Tests-ClassBuilder'
 }
 
 { #category : #accessing }
