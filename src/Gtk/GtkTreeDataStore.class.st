@@ -614,7 +614,7 @@ GtkTreeDataStore >> registerForFinalize [
 	 and stamp is a single number that will be collected along with it"
 	self finalizationRegistry
 		add: self
-		executor: (GtkTreeDataStoreExecutor new 
+		finalizer: (GtkTreeDataStoreExecutor new 
 			holder: (holder := Array with: nil);
 			yourself)	
 ]
