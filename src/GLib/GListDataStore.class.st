@@ -51,7 +51,7 @@ GListDataStore class >> gDefineListModelInterface: iface [
 { #category : #'accessing - model' }
 GListDataStore >> get_item: position [
 
-	position >= items size
+	position >= self items size
 		ifTrue: [ ^ ExternalAddress null ].
 
 	^ (self get_object: position) getHandle
@@ -66,14 +66,14 @@ GListDataStore >> get_item_type [
 { #category : #'accessing - model' }
 GListDataStore >> get_n_items [
 	
-	^ items size
+	^ self items size
 ]
 
 { #category : #'accessing - model' }
 GListDataStore >> get_object: position [
 	| mark |
 
-	position >= items size
+	position >= self items size
 		ifTrue: [ ^ GObject null ].
 
 	"I need to increment the ref count because the otherside will unref it
