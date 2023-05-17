@@ -6,7 +6,7 @@ Class {
 	#superclass : #GObject,
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Widget-List'
+	#category : #'Gtk-Widget-ListView'
 }
 
 { #category : #accessing }

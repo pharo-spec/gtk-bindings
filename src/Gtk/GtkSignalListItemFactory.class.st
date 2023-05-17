@@ -4,7 +4,7 @@ https://docs.gtk.org/gtk4/class.SignalListItemFactory.html
 Class {
 	#name : #GtkSignalListItemFactory,
 	#superclass : #GtkListItemFactory,
-	#category : #'Gtk-Widget-List'
+	#category : #'Gtk-Widget-ListView'
 }
 
 { #category : #private }

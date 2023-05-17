@@ -1,21 +1,17 @@
-"
-Implements a data store who's members live in image.
-"
 Class {
-	#name : #GListDataStore,
+	#name : #GListReferenceStore,
 	#superclass : #GListStore,
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
 		'items',
-		'references',
 		'objects'
 	],
 	#category : #'GLib-Lists'
 }
 
 { #category : #'class initialization' }
-GListDataStore class >> gDefine: gClass [
+GListReferenceStore class >> gDefine: gClass [
 
 	gClass 
 		parent: GListStore;
@@ -24,7 +20,7 @@ GListDataStore class >> gDefine: gClass [
 ]
 
 { #category : #'class initialization' }
-GListDataStore class >> gDefineListModelInterface: iface [
+GListReferenceStore class >> gDefineListModelInterface: iface [
 
 	iface 
 		connect: #get_item_type 
@@ -49,7 +45,7 @@ GListDataStore class >> gDefineListModelInterface: iface [
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_item: position [
+GListReferenceStore >> get_item: position [
 
 	position >= self items size
 		ifTrue: [ ^ ExternalAddress null ].
@@ -58,19 +54,19 @@ GListDataStore >> get_item: position [
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_item_type [
+GListReferenceStore >> get_item_type [
 
-	^ GListStoreMarkObject gType
+	^ GObject gType
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_n_items [
+GListReferenceStore >> get_n_items [
 	
 	^ self items size
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> get_object: position [
+GListReferenceStore >> get_object: position [
 	| mark |
 
 	position >= self items size
@@ -85,7 +81,7 @@ GListDataStore >> get_object: position [
 ]
 
 { #category : #accessing }
-GListDataStore >> itemAt: aPosition [
+GListReferenceStore >> itemAt: aPosition [
 
 	aPosition = 0 ifTrue: [ ^ nil ].
 	aPosition > self get_n_items ifTrue: [ ^ nil ].
@@ -94,57 +90,50 @@ GListDataStore >> itemAt: aPosition [
 ]
 
 { #category : #accessing }
-GListDataStore >> itemAtHandle: address [
+GListReferenceStore >> itemAtHandle: address [
 
-	^ self itemAt: (self markAtHandle: address) position
+	^ self itemAt: ((GObject fromHandleUnreferenced: address) dataAt: 'position') asInteger + 1
 ]
 
 { #category : #accessing }
-GListDataStore >> items [
+GListReferenceStore >> items [
 
 	^ items
 ]
 
 { #category : #accessing }
-GListDataStore >> items: aSequenceableCollection [
+GListReferenceStore >> items: aSequenceableCollection [
 
 	items := aSequenceableCollection.
 	self reset
 ]
 
 { #category : #'accessing - model' }
-GListDataStore >> items_changed: position removed: removed added: added [
+GListReferenceStore >> items_changed: position removed: removed added: added [
 
 ]
 
 { #category : #private }
-GListDataStore >> markAtHandle: anAddress [
-
-	^ references
-		at: anAddress
-		ifAbsent: [ nil ]
-]
-
-{ #category : #private }
-GListDataStore >> markAtPosition: position [
+GListReferenceStore >> markAtPosition: position [
 	| holder  |
 
 	holder := objects at: position ifAbsent: [ nil ].
 	holder ifNotNil: [ ^ holder ].
 
-	holder :=	 GListStoreMarkObject new
-		position: position;
+	holder :=	 (GObject basicNew 
+			setHandle: (GObject gObjectNew: GObject gType);
+			initialize;
+			yourself)
+		dataAt: 'position' put: (ExternalAddress fromAddress: position);
 		yourself.
 
 	objects at: position put: holder.
-	references at: holder getHandle put: holder.
 
 	^ holder
 ]
 
 { #category : #private }
-GListDataStore >> reset [
+GListReferenceStore >> reset [
 
-	objects := IdentityDictionary new.
-	references := Dictionary new
+	objects := IdentityDictionary new
 ]

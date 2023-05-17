@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'storedObjects'
 	],
-	#category : #'Gtk-Widget-List'
+	#category : #'Gtk-Widget-ListView'
 }
 
 { #category : #initialization }

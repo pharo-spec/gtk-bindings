@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'model'
 	],
-	#category : #'Gtk-Widget-List'
+	#category : #'Gtk-Widget-ListView'
 }
 
 { #category : #private }

@@ -8,7 +8,7 @@ Class {
 		'factory',
 		'selectionModel'
 	],
-	#category : #'Gtk-Widget-List'
+	#category : #'Gtk-Widget-ListView'
 }
 
 { #category : #private }

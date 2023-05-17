@@ -16,12 +16,6 @@ Class {
 }
 
 { #category : #accessing }
-GListStoreMarkObject class >> gType [
-
-	^ self gClass type
-]
-
-{ #category : #accessing }
 GListStoreMarkObject >> position [
 
 	^ position ifNil: [ 0 ]
