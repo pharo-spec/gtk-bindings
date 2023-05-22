@@ -105,6 +105,12 @@ GtkButton >> clicked [
 	self deprecated: #Gtk4
 ]
 
+{ #category : #signaling }
+GtkButton >> connectClicked: aBlock [
+
+	(GClickedCallback do: aBlock) connectTo: self
+]
+
 { #category : #style }
 GtkButton >> font: aLogicalFont [
 
