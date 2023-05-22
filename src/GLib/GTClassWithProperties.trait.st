@@ -1,3 +1,7 @@
+"
+Adds class methods needed to define a class in gtk side.
+The class will contain also properties (accessible also on gtk side).
+"
 Trait {
 	#name : #GTClassWithProperties,
 	#traits : 'GTClass',

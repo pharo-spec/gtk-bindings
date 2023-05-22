@@ -1,3 +1,7 @@
+"
+Adds class methods needed to define a class in gtk side.
+
+"
 Trait {
 	#name : #GTClass,
 	#category : #'GLib-Lists'
