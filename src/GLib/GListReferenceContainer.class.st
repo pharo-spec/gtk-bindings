@@ -29,7 +29,6 @@ GListReferenceContainer >> autoRelease [
 { #category : #finalization }
 GListReferenceContainer >> finalize [
 
-'OK' crTrace.
 	GRunLoop defer: [ self freeReferences ]
 ]
 
