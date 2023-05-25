@@ -99,15 +99,6 @@ GtkWindow class >> exampleModalWithTransientBlocking [
 	GRunLoop defer: [ transientWindow objectUnref ]
 ]
 
-{ #category : #finalization }
-GtkWindow class >> finalizeResourceData: aHandle [
-
-	(self isValidHandle: aHandle) ifFalse: [ ^ self ].
-	GFinalizeAnnouncement emitTarget: self handle: aHandle.
-	"self widgetDestroy: aHandle."
-	aHandle beNull
-]
-
 { #category : #accessing }
 GtkWindow class >> gType [ 
 	"This method was automatically generated"
@@ -325,6 +316,15 @@ GtkWindow >> destroy [
 GtkWindow >> extent [
 
 	^ (self gObjectGetInteger: 'default-width')@(self gObjectGetInteger: 'default-height')
+]
+
+{ #category : #finalization }
+GtkWindow >> finalize [
+
+	self isValidHandle ifFalse: [ ^ self ].
+	GFinalizeAnnouncement emitTarget: self handle: handle.
+	"self widgetDestroy: aHandle."
+	handle beNull
 ]
 
 { #category : #private }

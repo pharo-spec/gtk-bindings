@@ -8,3 +8,12 @@ Class {
 	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Widget-ListView'
 }
+
+{ #category : #accessing }
+GtkSelectionModel >> unselectAll [
+
+	self ffiCall: #(gboolean gtk_selection_model_unselect_all (self))
+
+
+
+]

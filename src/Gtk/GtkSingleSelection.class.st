@@ -25,22 +25,21 @@ GtkSingleSelection class >> new [
 { #category : #'instance creation' }
 GtkSingleSelection class >> newModel: aModel [
 
-	^ (self gtkNew: aModel) 
-		initializeModel: aModel;
+	^ self new
+		model: aModel;
 		yourself
+]
+
+{ #category : #private }
+GtkSingleSelection >> cleanModel [
+
+	self ffiCall: #(void gtk_single_selection_set_model (self, NULL))
 ]
 
 { #category : #private }
 GtkSingleSelection >> getModel [
 
 	^ self ffiCall: #("GListModel*"GObject *gtk_single_selection_get_model (self))
-]
-
-{ #category : #initialization }
-GtkSingleSelection >> initializeModel: aModel [
-
-	self initialize.
-	model := aModel
 ]
 
 { #category : #accessing }
@@ -53,7 +52,23 @@ GtkSingleSelection >> model [
 GtkSingleSelection >> model: aModel [
 
 	model := aModel.
-	self setModel: aModel
+	self setModel: aModel.
+	"Ensure we do not finalize because we have transmitted the control to the next place."
+	aModel doNotAutoRelease
+]
+
+{ #category : #accessing }
+GtkSingleSelection >> select: position [
+
+	self ffiCall: #(void gtk_single_selection_set_selected (self, guint position))
+
+]
+
+{ #category : #accessing }
+GtkSingleSelection >> selected [
+
+	self ffiCall: #(guint gtk_single_selection_get_selected (self))
+
 ]
 
 { #category : #private }

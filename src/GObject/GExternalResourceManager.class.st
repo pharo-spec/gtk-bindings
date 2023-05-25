@@ -5,12 +5,18 @@ Class {
 }
 
 { #category : #'external resource management' }
-GExternalResourceManager >> addResource: anObject data: resourceData [
+GExternalResourceManager >> addResource: anObject [
 	
 	(self includesObjectWithHandle: anObject getHandle) ifTrue: [ ^ self ].
-	^ super
-		addResource: anObject 
-		data: resourceData
+	registry add: anObject
+]
+
+{ #category : #'external resource management' }
+GExternalResourceManager >> addResource: anObject data: resourceData [
+	
+	self flag: #REMOVEME.
+	self error: 'Should not arrive here'.
+	self addResource: anObject
 ]
 
 { #category : #testing }

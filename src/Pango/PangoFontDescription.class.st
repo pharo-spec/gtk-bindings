@@ -12,12 +12,6 @@ Class {
 	#category : #'Pango-Base'
 }
 
-{ #category : #finalization }
-PangoFontDescription class >> finalizeResourceData: handle [
-	handle isNull ifTrue: [ ^ self ].
-	^ self pango_font_description_free: handle
-]
-
 { #category : #initialization }
 PangoFontDescription class >> initialize [
 
@@ -34,11 +28,6 @@ PangoFontDescription class >> new [
 PangoFontDescription class >> newFromString: aString [
 
 	^ (self pango_font_description_from_string: aString) initialize
-]
-
-{ #category : #private }
-PangoFontDescription class >> pango_font_description_free: desc [
-	self ffiCall: #(void pango_font_description_free (void *desc))
 ]
 
 { #category : #private }
@@ -63,6 +52,15 @@ PangoFontDescription >> familyName: family [
 	^ self ffiCall: #(void pango_font_description_set_family(self, String family))
 ]
 
+{ #category : #finalization }
+PangoFontDescription >> finalize [
+
+	handle isNull ifTrue: [ ^ self ].
+	GRunLoop defer: [  
+		self free.
+		handle beNull ]
+]
+
 { #category : #accessing }
 PangoFontDescription >> fontSize [
 
@@ -73,6 +71,12 @@ PangoFontDescription >> fontSize [
 PangoFontDescription >> fontSize: size [
 
 	self setSize: size * PANGO_SCALE
+]
+
+{ #category : #private }
+PangoFontDescription >> free [
+
+	self ffiCall: #(void pango_font_description_free (self))
 ]
 
 { #category : #private }

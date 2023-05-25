@@ -7,15 +7,16 @@ Class {
 }
 
 { #category : #finalization }
-PangoAttrIterator class >> attrIteratorDestroy: handle [
+PangoAttrIterator >> destroy [
 	
-	self ffiCall: #( void pango_attr_iterator_destroy ( void* handle ) )
+	self ffiCall: #( void pango_attr_iterator_destroy ( self ) )
 ]
 
 { #category : #finalization }
-PangoAttrIterator class >> finalizeResourceData: handle [
+PangoAttrIterator >> finalize [
 
 	handle isNull ifTrue: [ ^ self ].
-	self attrIteratorDestroy: handle.
-	handle beNull
+	GRunLoop defer: [ 
+		self destroy.
+		handle beNull ]
 ]

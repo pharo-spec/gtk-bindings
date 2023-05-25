@@ -24,15 +24,8 @@ GObject class >> finalize: handle [
 GObject class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
-	(self isValidHandle: handle) ifFalse: [ ^ self ].
-
-	(self instanceIsObject: handle) 
-		ifTrue: [ 
-			GFinalizeAnnouncement emitTarget: self handle: handle.
-			GRunLoop defer: [ self objectUnref: handle ] ]
-		ifFalse: [
-			GZombieAnnouncement emitTarget: self handle: handle ].
-	handle beNull
+	self flag: #REMOVEME.
+	self error: 'Should not arrive here.'
 ]
 
 { #category : #accessing }
@@ -224,6 +217,9 @@ GObject class >> resolveType: aType [
 
 { #category : #initialization }
 GObject >> autoObjectUnref [
+	"by default, gobjects will be marked for autorelease, to ensure we do not leak them.
+	 but some special kind of gobjects (like gtkwidgets) may want to override this and cancel 
+	 the autorelease mechanism."
 	
 	self autoRelease
 ]
@@ -489,6 +485,21 @@ GObject >> ensureObjectRefAndAutoRelease [
 	self isMarkedForAutoRelease ifTrue: [ ^ self ].
 	self objectRef.
 	self autoRelease
+]
+
+{ #category : #finalization }
+GObject >> finalize [
+	"when marking for autoRelease, g-objects needs to be freed in a particular way."
+
+	self isValidHandle ifFalse: [ ^ self ].
+	GRunLoop defer: [ 
+		self isObject 
+			ifTrue: [ 
+				GFinalizeAnnouncement emitTarget: self handle: handle.
+				self objectUnref ]
+			ifFalse: [
+				GZombieAnnouncement emitTarget: self handle: handle ].
+		handle beNull ]
 ]
 
 { #category : #'private - primitives' }

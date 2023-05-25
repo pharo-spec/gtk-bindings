@@ -43,15 +43,6 @@ GtkWidget class >> ffiLibraryName [
 	^ GtkLibrary
 ]
 
-{ #category : #finalization }
-GtkWidget class >> finalizeResourceData: aHandle [
-
-	super finalizeResourceData: aHandle
-	"(self isValidHandle: aHandle) ifFalse: [ ^ self ].
-	GtkFinalizeSignal emitTarget: self handle: aHandle.
-	self widgetDestroy: aHandle"
-]
-
 { #category : #'instance creation' }
 GtkWidget class >> fromHandle: handle [
 	^ (self basicNew setHandle: handle) initialize
@@ -265,8 +256,9 @@ GtkWidget >> asListBoxRow [
 
 { #category : #initialization }
 GtkWidget >> autoObjectUnref [
-
-	"do not unref"
+	"do not unref widgets because freeing the window that contains them will do it already.
+	 there are however some cases where one may need to take control, in which case one may 
+	 override this method and restore its function (see overrides as examples)"
 ]
 
 { #category : #'external resource management' }
@@ -1056,11 +1048,6 @@ GtkWidget >> queueResizeNoRedraw [
 GtkWidget >> removeClass: css_class [
 
 	self ffiCall: #(void gtk_widget_remove_css_class (self, const char* css_class))
-]
-
-{ #category : #'external resource management' }
-GtkWidget >> resourceData [
-	^ handle
 ]
 
 { #category : #accessing }

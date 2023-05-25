@@ -6,19 +6,20 @@ https://docs.gtk.org/Pango/struct.AttrList.html
 Class {
 	#name : #PangoAttrList,
 	#superclass : #PangoObject,
+	#instVars : [
+		'empty'
+	],
 	#category : #'Pango-Base'
 }
 
-{ #category : #finalization }
-PangoAttrList class >> finalizeResourceData: handle [
+{ #category : #'instance creation' }
+PangoAttrList class >> new [ 
 
-	handle isNull ifTrue: [ ^ self ].
-	self pango_attr_list_unref: handle.
-	handle beNull
+	^ self newUnowned autoRelease
 ]
 
 { #category : #'instance creation' }
-PangoAttrList class >> new [ 
+PangoAttrList class >> newUnowned [
 
 	^ self pango_attr_list_new initialize
 ]
@@ -29,28 +30,32 @@ PangoAttrList class >> pango_attr_list_new [
 	^ self ffiCall: #(PangoAttrList *pango_attr_list_new ())
 ]
 
-{ #category : #private }
-PangoAttrList class >> pango_attr_list_unref: list [
-
-	self ffiCall: #(void pango_attr_list_unref (void* list))
-]
-
-{ #category : #adding }
+{ #category : #accessing }
 PangoAttrList >> add: attr [
 
 	self add: attr from: 0 to: 16rFFFF
 ]
 
-{ #category : #adding }
+{ #category : #accessing }
 PangoAttrList >> add: attr from: startIndex to: endIndex [
 
 	attr
 		start_index: startIndex;
 		end_index: endIndex.
-	self insert: attr
+	self insert: attr.
+	empty := false
 ]
 
-{ #category : #accessing }
+{ #category : #finalization }
+PangoAttrList >> finalize [
+
+	handle isNull ifTrue: [ ^ self ].
+	GRunLoop defer: [ 
+		self unref.
+		handle beNull ]
+]
+
+{ #category : #private }
 PangoAttrList >> getIterator [
 
 	^ self ffiCall: #( PangoAttrIterator* pango_attr_list_get_iterator ( self ) )
@@ -60,13 +65,19 @@ PangoAttrList >> getIterator [
 PangoAttrList >> initialize [
 
 	super initialize.
-	self autoRelease
+	empty := true
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 PangoAttrList >> insert: attr [
 
 	self ffiCall: #(void pango_attr_list_insert ( self, PangoAttribute* attr))
+]
+
+{ #category : #testing }
+PangoAttrList >> isEmpty [
+
+	^ empty
 ]
 
 { #category : #accessing }
@@ -84,4 +95,10 @@ PangoAttrList >> to_string [
 		char*
 		pango_attr_list_to_string (
 		  PangoAttrList* list ))
+]
+
+{ #category : #private }
+PangoAttrList >> unref [
+
+	self ffiCall: #(void pango_attr_list_unref (self))
 ]

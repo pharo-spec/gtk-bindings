@@ -14,11 +14,6 @@ PangoLayout class >> finalizeResourceData: handle [
 	^ self g_object_unref: handle
 ]
 
-{ #category : #private }
-PangoLayout class >> g_object_unref: handle [
-	^ self ffiCall: #( void g_object_unref (void *handle)) module: PangoLibrary
-]
-
 { #category : #'instance creation' }
 PangoLayout class >> newCanvas: aCanvas [
 	^ self pango_cairo_create_layout: aCanvas
@@ -59,6 +54,15 @@ PangoLayout >> attributes [
 PangoLayout >> baseline [
 
 	^ self ffiCall: #( int pango_layout_get_baseline ( self ) )
+]
+
+{ #category : #finalization }
+PangoLayout >> finalize [
+
+	handle isNull ifTrue: [ ^ self ].
+	GRunLoop defer: [ 
+		self unref.
+		handle beNull ]
 ]
 
 { #category : #accessing }
@@ -168,6 +172,12 @@ PangoLayout >> size [
 { #category : #accessing }
 PangoLayout >> text: text [
 	self ffiCall: #(void pango_layout_set_text (self, const char *text, -1))
+]
+
+{ #category : #private }
+PangoLayout >> unref [
+
+	^ self ffiCall: #( void g_object_unref (self)) module: PangoLibrary
 ]
 
 { #category : #accessing }

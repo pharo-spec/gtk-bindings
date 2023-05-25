@@ -10,14 +10,12 @@ Class {
 }
 
 { #category : #finalization }
-PangoContext class >> finalizeResourceData: handle [
-	handle isNull ifTrue: [ ^ self ].
-	^ self g_object_unref: handle
-]
+PangoContext >> finalize [
 
-{ #category : #private }
-PangoContext class >> g_object_unref: handle [
-	^ self ffiCall: #( void g_object_unref (void *handle)) module: PangoLibrary
+	handle isNull ifTrue: [ ^ self ].
+	GRunLoop defer: [  
+		self unref.
+		handle beNull ]
 ]
 
 { #category : #accessing }
@@ -107,4 +105,10 @@ PangoContext >> loadFontDescription: desc [
 PangoContext >> metrics [
 
 	^ self getMetricsFontDescription: self fontDescription language: self language
+]
+
+{ #category : #private }
+PangoContext >> unref [
+	
+	self ffiCall: #( void g_object_unref (void *handle)) module: PangoLibrary
 ]

@@ -84,3 +84,9 @@ GtkEventController >> name: aName [
 
 	self ffiCall: #(void gtk_event_controller_set_name (self,const char* aName))
 ]
+
+{ #category : #accessing }
+GtkEventController >> reset [
+
+	self ffiCall: #(void gtk_event_controller_reset (self))
+]

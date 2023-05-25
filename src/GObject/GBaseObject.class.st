@@ -94,6 +94,11 @@ GBaseObject >> ffiLibrary [
 	^ theClass ffiLibraryName asFFILibrary
 ]
 
+{ #category : #finalization }
+GBaseObject >> finalize [
+
+]
+
 { #category : #comparing }
 GBaseObject >> hash [
 

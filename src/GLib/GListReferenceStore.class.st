@@ -1,3 +1,7 @@
+"
+Implements a datastore that use instances if `GObject` as reference, setting the data (using `GObject>>#dataAt:put:` with the position of the item element.
+This feels more lightway than the mechanism used with GListDataStore, that uses a specially created object.
+"
 Class {
 	#name : #GListReferenceStore,
 	#superclass : #GListStore,
@@ -5,7 +9,7 @@ Class {
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
 		'items',
-		'objects'
+		'references'
 	],
 	#category : #'GLib-Lists'
 }
@@ -44,6 +48,12 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 					added: added ]
 ]
 
+{ #category : #finalization }
+GListReferenceStore >> finalize [
+
+	super finalize
+]
+
 { #category : #'accessing - model' }
 GListReferenceStore >> get_item: position [
 
@@ -74,10 +84,17 @@ GListReferenceStore >> get_object: position [
 
 	"I need to increment the ref count because the otherside will unref it
 	 (and I want to keep it)"
-	mark := self markAtPosition: position.
+	mark := references referenceAt: position.
 	mark objectRef.
 
 	^ mark
+]
+
+{ #category : #initialization }
+GListReferenceStore >> initialize [
+
+	super initialize.
+	references := GListReferenceContainer new autoRelease.
 ]
 
 { #category : #accessing }
@@ -114,26 +131,7 @@ GListReferenceStore >> items_changed: position removed: removed added: added [
 ]
 
 { #category : #private }
-GListReferenceStore >> markAtPosition: position [
-	| holder  |
-
-	holder := objects at: position ifAbsent: [ nil ].
-	holder ifNotNil: [ ^ holder ].
-
-	holder :=	 (GObject basicNew 
-			setHandle: (GObject gObjectNew: GObject gType);
-			initialize;
-			yourself)
-		dataAt: 'position' put: (ExternalAddress fromAddress: position);
-		yourself.
-
-	objects at: position put: holder.
-
-	^ holder
-]
-
-{ #category : #private }
 GListReferenceStore >> reset [
 
-	objects := IdentityDictionary new
+	references reset
 ]
