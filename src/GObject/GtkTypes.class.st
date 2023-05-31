@@ -26,6 +26,7 @@ Class {
 		'guint',
 		'guint16',
 		'guint32',
+		'guint64',
 		'guint8',
 		'gulong',
 		'gunichar'
@@ -49,6 +50,7 @@ GtkTypes class >> initialize [
 	guint16 := #uint16.
 	guint := #uint.
 	guint32 := #uint32.
+	guint64 := #uint64.
 	gfloat := #float.
 	gdouble := #double.
 	GQuark := #guint32.

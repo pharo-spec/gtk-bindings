@@ -80,6 +80,21 @@ GtkWidget class >> widgetDestroy: widget [
 	self deprecated: #Gtk4
 ]
 
+{ #category : #'accessing - actions' }
+GtkWidget >> activateAction: name [ 
+
+	^ self activateAction: name variant: GVariant null
+]
+
+{ #category : #'accessing - actions' }
+GtkWidget >> activateAction: name variant: args [ 
+
+	^ self ffiCall: #(gboolean gtk_widget_activate_action_variant (
+	self,
+	const char* name,
+	GVariant* args))
+]
+
 { #category : #accessing }
 GtkWidget >> addAccelerator: aString group: anAccelGroup shortcut: aShortcut [
 

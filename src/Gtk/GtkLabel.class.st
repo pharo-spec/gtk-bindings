@@ -147,5 +147,5 @@ GtkLabel >> useUnderline: setting [
 { #category : #accessing }
 GtkLabel >> wrap: wrap [
 
-	self ffiCall: #(void gtk_label_set_line_wrap (self, gboolean wrap))
+	self ffiCall: #(void gtk_label_set_wrap (self, gboolean wrap))
 ]

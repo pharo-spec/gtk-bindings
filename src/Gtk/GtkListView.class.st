@@ -58,10 +58,31 @@ GtkListView >> autoObjectUnref [
 	self autoRelease
 ]
 
+{ #category : #accessing }
+GtkListView >> autoSelect: autoselect [
+
+	self ffiCall: #(void gtk_single_selection_set_autoselect (self, gboolean autoselect))
+]
+
 { #category : #private }
 GtkListView >> clearModel [
 
 	self ffiCall: #(void gtk_list_view_set_model (self, NULL))
+]
+
+{ #category : #signaling }
+GtkListView >> connectRowActivated: aBlock [
+	"aBlock receives one argument: position"
+
+	(GListViewRowActivatedCallback do: aBlock) connectTo: self
+]
+
+{ #category : #accessing }
+GtkListView >> enableRubberband: enable_rubberband [
+
+	self ffiCall: #(void gtk_list_view_set_enable_rubberband (
+		self,
+  		gboolean enable_rubberband))
 ]
 
 { #category : #accessing }
@@ -115,9 +136,36 @@ GtkListView >> initializeFactory: aFactory selectionModel: aSelectionModel [
 ]
 
 { #category : #testing }
+GtkListView >> isAutoSelect [
+
+	^ self ffiCall: #(gboolean gtk_single_selection_get_autoselect (self))
+]
+
+{ #category : #testing }
+GtkListView >> isEnableRubberband [
+
+	^ self ffiCall: #(gboolean gtk_list_view_get_enable_rubberband (self))
+]
+
+{ #category : #testing }
+GtkListView >> isShowSeparators [
+
+	^ self ffiCall: #(gboolean gtk_list_view_get_show_separators (self))
+]
+
+{ #category : #testing }
 GtkListView >> isSingleClickActivate [
 
 	^ self ffiCall: #(gboolean gtk_list_view_get_single_click_activate (self))
+]
+
+{ #category : #accessing }
+GtkListView >> scrollToPosition: index [
+
+	self flag: #WORAROUND. "There will be an api for this, but is not yet there."
+	self 
+		activateAction: 'list.scroll-to-item' 
+		variant: (GVariant newUint32: index - 1)
 ]
 
 { #category : #accessing }
@@ -153,6 +201,12 @@ GtkListView >> setModel: model [
 	self ffiCall: #(void gtk_list_view_set_model (
 		self,
   		GtkSelectionModel* model))
+]
+
+{ #category : #accessing }
+GtkListView >> showSeparators: show_separators [
+
+	self ffiCall: #(void gtk_list_view_set_show_separators (self,  gboolean show_separators))
 ]
 
 { #category : #accessing }
