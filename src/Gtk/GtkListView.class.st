@@ -6,7 +6,8 @@ Class {
 	#superclass : #GtkWidget,
 	#instVars : [
 		'factory',
-		'selectionModel'
+		'selectionModel',
+		'headerFactory'
 	],
 	#category : #'Gtk-Widget-ListView'
 }
@@ -120,9 +121,28 @@ GtkListView >> getFactory [
 ]
 
 { #category : #private }
+GtkListView >> getHeaderFactory [
+
+	^ self ffiCall: #(GtkListItemFactory* gtk_list_view_get_header_factory (self))
+]
+
+{ #category : #private }
 GtkListView >> getModel [
 
 	^ self ffiCall: #(GtkSelectionModel* gtk_list_view_get_model (self))
+]
+
+{ #category : #accessing }
+GtkListView >> headerFactory [
+
+	^ headerFactory ifNil: [ headerFactory := self getHeaderFactory ]
+]
+
+{ #category : #accessing }
+GtkListView >> headerFactory: aFactory [
+
+	headerFactory := aFactory.
+	self setHeaderFactory: aFactory
 ]
 
 { #category : #initialization }
@@ -191,6 +211,14 @@ GtkListView >> selectionModel: aModel [
 GtkListView >> setFactory: aFactory [
 
 	^ self ffiCall: #(void gtk_list_view_set_factory (
+		self,
+  		GtkListItemFactory* aFactory))
+]
+
+{ #category : #private }
+GtkListView >> setHeaderFactory: aFactory [
+
+	^ self ffiCall: #(void gtk_list_view_set_header_factory (
 		self,
   		GtkListItemFactory* aFactory))
 ]

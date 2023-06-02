@@ -23,12 +23,22 @@ GtkSignalListItemFactory class >> new [
 GtkSignalListItemFactory >> connectBind: aBlock [
 	"aBlock receives one argument: a GtkListItem"
 
-	(GBindCallback do: aBlock) connectTo: self
+	(GBindCallback do: aBlock) 
+		itemClass: self itemClass;
+		connectTo: self
 ]
 
 { #category : #signaling }
 GtkSignalListItemFactory >> connectSetup: aBlock [
 	"aBlock receives one argument: a GtkListItem"
 
-	(GSetupCallback do: aBlock) connectTo: self
+	(GSetupCallback do: aBlock) 
+		itemClass: self itemClass;
+		connectTo: self
+]
+
+{ #category : #private }
+GtkSignalListItemFactory >> itemClass [
+
+	^ GtkListItem
 ]

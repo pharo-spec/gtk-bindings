@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/struct.Bitset.html
+"
 Class {
 	#name : #GtkBitset,
 	#superclass : #GBaseObject,

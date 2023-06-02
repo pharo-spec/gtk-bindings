@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/struct.BitsetIter.html
+"
 Class {
 	#name : #GtkBitsetIter,
 	#superclass : #GStructure,
