@@ -13,6 +13,12 @@ GtkSingleSelection class >> gtkNew: model [
 	^ self ffiCall: #(GtkSingleSelection *gtk_single_selection_new ("GListModel*"GObject *model))
 ]
 
+{ #category : #accessing }
+GtkSingleSelection >> autoSelect: autoselect [
+
+	self ffiCall: #(void gtk_single_selection_set_autoselect (self, gboolean autoselect))
+]
+
 { #category : #private }
 GtkSingleSelection >> basicSelect: position [
 
@@ -31,6 +37,12 @@ GtkSingleSelection >> basicSelected [
 GtkSingleSelection >> getModel [
 
 	^ self ffiCall: #("GListModel*"GObject *gtk_single_selection_get_model (self))
+]
+
+{ #category : #testing }
+GtkSingleSelection >> isAutoSelect [
+
+	^ self ffiCall: #(gboolean gtk_single_selection_get_autoselect (self))
 ]
 
 { #category : #accessing }

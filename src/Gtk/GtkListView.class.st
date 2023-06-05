@@ -3,7 +3,7 @@ https://docs.gtk.org/gtk4/class.ListView.html
 "
 Class {
 	#name : #GtkListView,
-	#superclass : #GtkWidget,
+	#superclass : #GtkListBase,
 	#instVars : [
 		'factory',
 		'selectionModel',
@@ -57,12 +57,6 @@ GtkListView >> autoObjectUnref [
 	
 	self objectRef.
 	self autoRelease
-]
-
-{ #category : #accessing }
-GtkListView >> autoSelect: autoselect [
-
-	self ffiCall: #(void gtk_single_selection_set_autoselect (self, gboolean autoselect))
 ]
 
 { #category : #private }
@@ -153,12 +147,6 @@ GtkListView >> initializeFactory: aFactory selectionModel: aSelectionModel [
 	aSelectionModel getHandle isNull
 		ifFalse: [ selectionModel := aSelectionModel ].
 	self initialize
-]
-
-{ #category : #testing }
-GtkListView >> isAutoSelect [
-
-	^ self ffiCall: #(gboolean gtk_single_selection_get_autoselect (self))
 ]
 
 { #category : #testing }
