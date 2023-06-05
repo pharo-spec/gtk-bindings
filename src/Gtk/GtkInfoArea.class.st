@@ -116,7 +116,7 @@ GtkInfoArea >> addWidget: aWidget type: aSelector [
 	infoBar connectHide: [ 
 		self remove: infoBar.
 		infoBar destroy ].
-	infoBar connectResponse: [ :id | infoBar hide ].
+	infoBar connectResponse: [ :id | infoBar beNotVisible ].
 
 	self setupFadeOut: infoBar.
 	
@@ -144,7 +144,7 @@ GtkInfoArea >> setupFadeOut: infoBar [
 
 	[ 
 		self showTime wait.
-		GRunLoop defer: [ infoBar hide ].
+		GRunLoop defer: [ infoBar beNotVisible ].
 		self removeTime wait.
 		GRunLoop defer: [ infoBar destroy ] ] 
 	asTask schedule: TKTNewProcessTaskRunner new
