@@ -37,24 +37,20 @@ GtkPopoverMenuExample >> addContentsTo: window [
 		yourself).
 	widget insertActionGroup: 'action' actions: actionGroup.
 
-	widget addController: (GtkGestureClick new 
-		name: 'clicked';
-		beButtonSecondary;
-		connectPressed: [ :pos |
-			model := GMenu new 
-				appendLabel: 'Test 1' action: 'action.test1';
-				appendLabel: 'Test 2' action: 'action.test2';
-				appendItem: ((item := GMenuItem new) 
-					label: 'Test 3';
-					detailedAction: 'action.test3';
-					accel: '&lt;Control&gt;g';
-					yourself);
-				yourself.
-			popoverMenu
-				menuModel: model;
-				pointingTo: (pos extent: 1@1);
-				popup ];
-		yourself)
+	widget addRightClickEvent: [ :position | 
+		model := GMenu new 
+			appendLabel: 'Test 1' action: 'action.test1';
+			appendLabel: 'Test 2' action: 'action.test2';
+			appendItem: ((item := GMenuItem new) 
+				label: 'Test 3';
+				detailedAction: 'action.test3';
+				accel: '&lt;Control&gt;g';
+				yourself);
+			yourself.
+		popoverMenu
+			menuModel: model;
+			pointingTo: (position extent: 1@1);
+			popup ]
 ]
 
 { #category : #private }
@@ -82,9 +78,10 @@ GtkPopoverMenuExample >> newListView [
 
 	selectionModel := GtkSingleSelection newModel: store.
 
-	^ GtkListView 
-		newFactory: factory
-		selectionModel: selectionModel
+	^ GtkListView new
+		factory: factory;
+		selectionModel: selectionModel;
+		yourself
 ]
 
 { #category : #opening }

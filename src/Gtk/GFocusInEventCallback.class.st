@@ -17,6 +17,12 @@ Class {
 	#category : #'Gtk-Callbacks'
 }
 
+{ #category : #testing }
+GFocusInEventCallback class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
 GFocusInEventCallback class >> signalName [
 

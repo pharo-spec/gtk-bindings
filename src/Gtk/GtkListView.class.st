@@ -13,39 +13,17 @@ Class {
 }
 
 { #category : #private }
-GtkListView class >> gtkNewSelectionModel: model factory: factory [
+GtkListView class >> gtkNew [
 
 
-	^ self ffiCall: #(GtkListView *gtk_list_view_new (
-		GtkSelectionModel *model, 
-		GtkListItemFactory *factory))
+	^ self ffiCall: #(GtkListView *gtk_list_view_new (NULL, NULL))
 	
 ]
 
 { #category : #'instance creation' }
 GtkListView class >> new [
 
-	^ self
-		newFactory: GObject null
-		selectionModel: GObject null
-]
-
-{ #category : #'instance creation' }
-GtkListView class >> newFactory: factory [
-
-	^ self 
-		newFactory: factory 
-		selectionModel: GObject null
-]
-
-{ #category : #'instance creation' }
-GtkListView class >> newFactory: aFactory selectionModel: aSelectionModel [
-
-	^ (self gtkNewSelectionModel: aSelectionModel factory: aFactory) 
-		initializeFactory: aFactory selectionModel: aSelectionModel;
-		yourself
-
-	
+	^ self gtkNew initialize
 ]
 
 { #category : #initialization }
@@ -137,16 +115,6 @@ GtkListView >> headerFactory: aFactory [
 
 	headerFactory := aFactory.
 	self setHeaderFactory: aFactory
-]
-
-{ #category : #initialization }
-GtkListView >> initializeFactory: aFactory selectionModel: aSelectionModel [
-
-	aFactory getHandle isNull 
-		ifFalse: [ factory := aFactory ].
-	aSelectionModel getHandle isNull
-		ifFalse: [ selectionModel := aSelectionModel ].
-	self initialize
 ]
 
 { #category : #testing }

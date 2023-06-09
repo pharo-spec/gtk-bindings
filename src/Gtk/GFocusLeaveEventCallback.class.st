@@ -1,8 +1,9 @@
 "
 https://docs.gtk.org/gtk4/signal.EventControllerMotion.leave.html
+https://docs.gtk.org/gtk4/signal.EventControllerFocus.leave.html
 "
 Class {
-	#name : #GLeaveEventCallback,
+	#name : #GFocusLeaveEventCallback,
 	#superclass : #GManagedSignalCallback,
 	#pools : [
 		'GtkTypes'
@@ -11,20 +12,20 @@ Class {
 }
 
 { #category : #signalling }
-GLeaveEventCallback class >> signalName [
+GFocusLeaveEventCallback class >> signalName [
 
 	^ 'leave'
 ]
 
 { #category : #accessing }
-GLeaveEventCallback >> do: aBlock [
+GFocusLeaveEventCallback >> do: aBlock [
 
 	super do: [ :widget :user_data |
 		aBlock value: GdkSimulatedCrossingLeaveEvent new ]
 ]
 
 { #category : #accessing }
-GLeaveEventCallback >> signature [
+GFocusLeaveEventCallback >> signature [
 
 	^ #(void (void *widget, gpointer user_data))
 ]

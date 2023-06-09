@@ -48,6 +48,12 @@ GtkEventController >> currentEventTime [
 ]
 
 { #category : #testing }
+GtkEventController >> isFocusController [
+
+	^ false
+]
+
+{ #category : #testing }
 GtkEventController >> isGestureClick [
 
 	^ false

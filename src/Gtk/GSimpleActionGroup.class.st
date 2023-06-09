@@ -6,8 +6,8 @@ https://docs.gtk.org/gio/class.SimpleActionGroup.html
 Class {
 	#name : #GSimpleActionGroup,
 	#superclass : #GObject,
-	#traits : 'GdkTLibrary',
-	#classTraits : 'GdkTLibrary classTrait',
+	#traits : 'GdkTLibrary + GTActionGroup',
+	#classTraits : 'GdkTLibrary classTrait + GTActionGroup classTrait',
 	#instVars : [
 		'actions'
 	],
@@ -49,7 +49,8 @@ GSimpleActionGroup >> initialize [
 GSimpleActionGroup >> insert: anAction [
 
 	self keepAction: anAction.
-	self basicInsert: anAction
+	self basicInsert: anAction.
+	anAction doNotAutoRelease
 ]
 
 { #category : #private }

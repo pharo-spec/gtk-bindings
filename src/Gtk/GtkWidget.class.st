@@ -124,11 +124,11 @@ GtkWidget >> addController: controller [
 
 	eventControllers ifNil: [ eventControllers := #() ].
 	eventControllers := eventControllers copyWith: controller.
+		
+	self basicAddController: controller.
 	
 	"the widget will take control (see https://docs.gtk.org/gtk4/method.Widget.add_controller.html)"
 	controller doNotAutoRelease.
-	
-	self basicAddController: controller.
 	
 	^ controller
 ]
@@ -140,6 +140,15 @@ GtkWidget >> addEnterEvent: aBlock [
 
 	self addEventControllerMotionWith: [ :aController |
 		aController connectEnter: aBlock ]
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addEventControllerFocusWith: aBlock [
+
+	"focus controllers stack (I can stack focus enter and focus leave)"
+	aBlock value: (self
+		detectController: [ :each | each isFocusController ]
+		ifNone: [ self addController: GtkEventControllerFocus new ])
 ]
 
 { #category : #'private - events' }
@@ -155,6 +164,24 @@ GtkWidget >> addEventControllerMotionWith: aBlock [
 GtkWidget >> addEvents: events [
 	
 	self deprecated: #Gtk4
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addFocusEnterEvent: aBlock [
+	"adds a focus enter event.
+	 aBlock receives zero arguments"
+
+	self addEventControllerFocusWith: [ :aController |
+		aController connectEnter: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addFocusLeaveEvent: aBlock [
+	"adds a focus leave event.
+	 aBlock receives zero arguments"
+
+	self addEventControllerFocusWith: [ :aController |
+		aController connectLeave: aBlock ]
 ]
 
 { #category : #'private - events' }
@@ -233,7 +260,7 @@ GtkWidget >> addRightClickEvent: aBlock [
 
 	self addGestureClickWith: [ :gesture |
 		gesture
-			named: 'right-click';
+			name: 'right-click';
 			beButtonSecondary;
 			connectPressed: aBlock ]
 ]
@@ -421,14 +448,16 @@ GtkWidget >> connectEventAfter: aBlock [
 
 { #category : #signaling }
 GtkWidget >> connectFocusInEvent: aBlock [
+	"we use a controller now"
 	
-	(GFocusInEventCallback do: aBlock) connectTo: self
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }
 GtkWidget >> connectFocusOutEvent: aBlock [
+	"we use a controller now"
 
-	(GFocusOutEventCallback do: aBlock) connectTo: self
+	self deprecated: #Gtk4
 ]
 
 { #category : #signaling }
@@ -824,7 +853,10 @@ GtkWidget >> insertActionGroup: name actions: group [
 
 	actionGroups ifNil: [ actionGroups := #() ].
 	actionGroups := actionGroups copyWith: group.
-	self basicInsertActionGroup: name actions: group
+	self 
+		basicInsertActionGroup: name 
+		actions: group.
+	group doNotAutoRelease
 ]
 
 { #category : #testing }

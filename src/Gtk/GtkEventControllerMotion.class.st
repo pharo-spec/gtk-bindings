@@ -18,13 +18,13 @@ GtkEventControllerMotion class >> gtkNew [
 { #category : #signaling }
 GtkEventControllerMotion >> connectEnter: aBlock [
 
-	(GEnterEventCallback do: aBlock) connectTo: self
+	(GFocusEnterEventCallback do: aBlock) connectTo: self
 ]
 
 { #category : #signaling }
 GtkEventControllerMotion >> connectLeave: aBlock [
 
-	(GLeaveEventCallback do: aBlock) connectTo: self
+	(GFocusLeaveEventCallback do: aBlock) connectTo: self
 ]
 
 { #category : #signaling }

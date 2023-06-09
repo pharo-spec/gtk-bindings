@@ -6,8 +6,8 @@ https://docs.gtk.org/gio/class.SimpleAction.html
 Class {
 	#name : #GSimpleAction,
 	#superclass : #GObject,
-	#traits : 'GdkTLibrary',
-	#classTraits : 'GdkTLibrary classTrait',
+	#traits : 'GdkTLibrary + GTAction',
+	#classTraits : 'GdkTLibrary classTrait + GTAction classTrait',
 	#category : #'Gtk-Widget-Menu'
 }
 
@@ -40,10 +40,4 @@ GSimpleAction >> enable: enabled [
 GSimpleAction >> isEnabled [
 
 	^ self gObjectGetBoolean: 'enabled'
-]
-
-{ #category : #accessing }
-GSimpleAction >> name [
-
-	^ self gObjectGetString: 'name'
 ]

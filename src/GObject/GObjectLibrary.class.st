@@ -4,16 +4,33 @@ Class {
 	#instVars : [
 		'runner'
 	],
+	#classVars : [
+		'Debug'
+	],
 	#pools : [
 		'GtkTypes'
 	],
 	#category : #'GObject-Base'
 }
 
-{ #category : #testing }
-GObjectLibrary class >> isDebug [
+{ #category : #accessing }
+GObjectLibrary class >> beForDebug [
+	<script>
 	
-	^ GMacLibraryFinder isDebug
+	Debug := true
+]
+
+{ #category : #accessing }
+GObjectLibrary class >> beForProduction [
+	<script>
+
+	Debug := false
+]
+
+{ #category : #testing }
+GObjectLibrary class >> isDebug [ 
+
+	^ Debug ifNil: [ Debug := false ]
 ]
 
 { #category : #accessing }

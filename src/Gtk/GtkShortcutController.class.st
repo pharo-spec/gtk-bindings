@@ -9,6 +9,9 @@ Class {
 	#instVars : [
 		'shortcuts'
 	],
+	#pools : [
+		'GtkShortcutScope'
+	],
 	#category : #'Gtk-Event-Controllers'
 }
 
@@ -37,6 +40,24 @@ GtkShortcutController >> basicRemoveShortcut: shortcut [
 	self ffiCall: #(void gtk_shortcut_controller_remove_shortcut (self, GtkShortcut* shortcut))
 ]
 
+{ #category : #accessing }
+GtkShortcutController >> beGlobal [
+
+	self scope: GTK_SHORTCUT_SCOPE_GLOBAL
+]
+
+{ #category : #accessing }
+GtkShortcutController >> beLocal [
+
+	self scope: GTK_SHORTCUT_SCOPE_LOCAL 
+]
+
+{ #category : #accessing }
+GtkShortcutController >> beManaged [
+
+	self scope: GTK_SHORTCUT_SCOPE_MANAGED
+]
+
 { #category : #testing }
 GtkShortcutController >> isShortcutController [
 
@@ -62,6 +83,18 @@ GtkShortcutController >> removeShortcut: aShortcut [
 
 	self shortcuts remove: aShortcut.
 	self basicRemoveShortcut: aShortcut
+]
+
+{ #category : #accessing }
+GtkShortcutController >> scope [
+
+	^ self ffiCall: #(GtkShortcutScope gtk_shortcut_controller_get_scope (self))
+]
+
+{ #category : #accessing }
+GtkShortcutController >> scope: scope [
+
+	self ffiCall: #(void gtk_shortcut_controller_set_scope (self, GtkShortcutScope scope))
 ]
 
 { #category : #accessing }

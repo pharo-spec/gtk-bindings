@@ -1,8 +1,9 @@
 "
 https://docs.gtk.org/gtk4/signal.EventControllerMotion.enter.html
+https://docs.gtk.org/gtk4/signal.EventControllerFocus.leave.html
 "
 Class {
-	#name : #GEnterEventCallback,
+	#name : #GFocusEnterEventCallback,
 	#superclass : #GManagedSignalCallback,
 	#pools : [
 		'GtkTypes'
@@ -11,20 +12,20 @@ Class {
 }
 
 { #category : #signalling }
-GEnterEventCallback class >> signalName [
+GFocusEnterEventCallback class >> signalName [
 
 	^ 'enter'
 ]
 
 { #category : #accessing }
-GEnterEventCallback >> do: aBlock [
+GFocusEnterEventCallback >> do: aBlock [
 
 	super do: [ :widget :user_data |
 		aBlock value: GdkSimulatedCrossingEnterEvent new ]
 ]
 
 { #category : #accessing }
-GEnterEventCallback >> signature [
+GFocusEnterEventCallback >> signature [
 
 	^ #(void (void *widget, gpointer user_data))
 ]

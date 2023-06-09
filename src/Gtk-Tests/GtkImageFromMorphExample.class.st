@@ -29,6 +29,7 @@ GtkImageFromMorphExample >> addContentsTo: window [
 
 { #category : #opening }
 GtkImageFromMorphExample >> open [
+	<script: 'self new open'>
 	| window |
 	
 	GEngine ensureRunning.

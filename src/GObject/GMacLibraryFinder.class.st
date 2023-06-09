@@ -1,30 +1,13 @@
 Class {
 	#name : #GMacLibraryFinder,
 	#superclass : #FFIMacLibraryFinder,
-	#classVars : [
-		'Debug'
-	],
 	#category : #'GObject-Base'
 }
-
-{ #category : #accessing }
-GMacLibraryFinder class >> beForDebug [
-	<script>
-	
-	Debug := true
-]
-
-{ #category : #accessing }
-GMacLibraryFinder class >> beForProduction [
-	<script>
-
-	Debug := false
-]
 
 { #category : #testing }
 GMacLibraryFinder class >> isDebug [ 
 
-	^ Debug ifNil: [ Debug := false ]
+	^ GObjectLibrary isDebug
 ]
 
 { #category : #accessing }
