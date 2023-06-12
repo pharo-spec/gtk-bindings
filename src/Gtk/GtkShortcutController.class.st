@@ -25,7 +25,8 @@ GtkShortcutController class >> gtkNew [
 GtkShortcutController >> addShortcut: aShortcut [
 
 	self shortcuts add: aShortcut.
-	self basicAddShortcut: aShortcut
+	self basicAddShortcut: aShortcut.
+	aShortcut doNotAutoRelease
 ]
 
 { #category : #private }
@@ -56,6 +57,24 @@ GtkShortcutController >> beLocal [
 GtkShortcutController >> beManaged [
 
 	self scope: GTK_SHORTCUT_SCOPE_MANAGED
+]
+
+{ #category : #testing }
+GtkShortcutController >> isGlobal [
+
+	^ self scope = GTK_SHORTCUT_SCOPE_GLOBAL
+]
+
+{ #category : #testing }
+GtkShortcutController >> isLocal [
+
+	^ self scope = GTK_SHORTCUT_SCOPE_LOCAL
+]
+
+{ #category : #testing }
+GtkShortcutController >> isManaged [
+
+	^ self scope = GTK_SHORTCUT_SCOPE_MANAGED
 ]
 
 { #category : #testing }

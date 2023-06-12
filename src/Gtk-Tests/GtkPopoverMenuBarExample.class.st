@@ -1,65 +1,71 @@
-"
-An example of a list with a popover menu.
-"
 Class {
-	#name : #GtkPopoverMenuExample,
+	#name : #GtkPopoverMenuBarExample,
 	#superclass : #Object,
 	#category : #'Gtk-Tests-Examples'
 }
 
 { #category : #'instance creation' }
-GtkPopoverMenuExample class >> open [
+GtkPopoverMenuBarExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
 { #category : #private }
-GtkPopoverMenuExample >> addContentsTo: window [
-	| listView popoverMenu scrolledWindow box actionGroup model testAction |
+GtkPopoverMenuBarExample >> addContentsTo: window [
+	"installing shortcuts is complicated in gtk4 :)
+	 1. you need an action (see testAction).
+	 2. you need to install the action (as an action group, see actionGroup)
+	 3. you need to install the shortcut (see addGlobalShortcut:)
+	 4. finally, you need to install the actionGroup. 
+	 To make the actions enabled (by default, you can always disable them by code) 
+	 AND THE SHORTCUTS VISIBLE, shortcuts need to be installed in the same widget subtree 
+	 as the action (but not necesarily in the same widget, e.g. a GtkBox can have the aciton 
+	 and an inner listView can have the shortcut). 
+	  "
+	| listView menuBar scrolledWindow box actionGroup model testAction |
 
 	box := GtkBox newVertical.
 	box expand: true.
+
+	menuBar := GtkPopoverMenuBar new.
+
+	testAction := (GSimpleAction newName: 'test1')
+		connectActivate: [ 'TEST1' crTrace ];
+		yourself.
+
+	"apparently, adding a global shortcut to the window (GtkWindow) object 
+	 creates a problem and a crash, hence, I need to install them into an 
+	 inner element always :("
+	box addGlobalShortcut: (GtkShortcut 
+		newKeyCombination: $x ctrl 
+		actionName: 'action.test1').
+		
+	model := GMenu new
+		appendLabel: 'Menu' submenu: (GMenu new 
+			appendLabel: 'Test 1' actionName: 'action.test1';
+			appendLabel: 'Test 2' actionName: 'action.test2';
+			yourself);
+		yourself.
+		
+	menuBar menuModel: model.
+	menuBar expand: false.
+	box append: menuBar.
 
 	listView := self newListView.
 	scrolledWindow := GtkScrolledWindow newWidget: listView.
 	scrolledWindow expand: true.
 	box append: scrolledWindow.
 
-	testAction := (GSimpleAction newName: 'test1')
-		connectActivate: [ listView selectionModel selected crTrace ];
-		yourself.
-		
-	"apparently, adding a global shortcut to the window (GtkWindow) object 
-	 creates a problem and a crash, hence, I need to install them into an 
-	 inner element always :("
-	box addGlobalShortcut: (GtkShortcut 
-		newKeyCombination: $p ctrl
-		actionName: 'action.test1').
-
-	model := GMenu new 
-		appendLabel: 'Test 1' actionName: 'action.test1';
-		appendLabel: 'Test 2' actionName: 'action.test2';
-		yourself.
-
-	popoverMenu := GtkPopoverMenu new.
-	popoverMenu parent: listView.
-	popoverMenu menuModel: model.
-
-	window child: box.
-
 	actionGroup := GSimpleActionGroup new.
 	actionGroup insert: testAction.
 	box insertActionGroup: 'action' actions: actionGroup.
-
-	box addRightClickEvent: [ :position | 
-		popoverMenu
-			pointingTo: (position extent: 1@1);
-			popup ]
+	
+	window child: box
 ]
 
 { #category : #private }
-GtkPopoverMenuExample >> newListView [
+GtkPopoverMenuBarExample >> newListView [
 	| store factory selectionModel |
 
 	store :=  GListReferenceStore new.
@@ -90,7 +96,7 @@ GtkPopoverMenuExample >> newListView [
 ]
 
 { #category : #opening }
-GtkPopoverMenuExample >> open [
+GtkPopoverMenuBarExample >> open [
 	<script: 'self new open'>
 	| window |
 

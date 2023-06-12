@@ -121,7 +121,7 @@ GListReferenceStore >> items [
 { #category : #accessing }
 GListReferenceStore >> items: aSequenceableCollection [
 
-	items := aSequenceableCollection.
+	items := aSequenceableCollection copy.
 	self reset
 ]
 

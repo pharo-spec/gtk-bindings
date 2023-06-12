@@ -22,14 +22,49 @@ GtkShortcut class >> gtkNew [
 { #category : #'instance creation' }
 GtkShortcut class >> new [
 
-	^ self gtkNew
+	^ self gtkNew initialize
+]
+
+{ #category : #'instance creation' }
+GtkShortcut class >> newKeyCombination: aKeyCombination action: anAction [
+
+	^ self 
+		newTrigger: (GtkKeyvalTrigger newKeyCombination: aKeyCombination) 
+		action: anAction
+]
+
+{ #category : #'instance creation' }
+GtkShortcut class >> newKeyCombination: aKeyCombination actionName: aName [
+
+	^ self 
+		newTrigger: (GtkKeyvalTrigger newKeyCombination: aKeyCombination) 
+		action: (GtkNamedAction newName: aName)
+]
+
+{ #category : #'instance creation' }
+GtkShortcut class >> newKeyCombination: aKeyCombination do: aBlock [
+
+	^ self 
+		newKeyCombination: aKeyCombination 
+		action: (GtkCallbackAction newAction: aBlock)
+
+]
+
+{ #category : #'instance creation' }
+GtkShortcut class >> newTrigger: aTrigger action: anAction [
+
+	^ self new 
+		trigger: aTrigger;
+		action: anAction;
+		yourself
 ]
 
 { #category : #accessing }
 GtkShortcut >> action: anAction [
 
 	action := anAction.
-	self setAction: anAction
+	self setAction: anAction.
+	action doNotAutoRelease
 ]
 
 { #category : #'private - primitives' }
@@ -48,5 +83,6 @@ GtkShortcut >> setTrigger: aTrigger [
 GtkShortcut >> trigger: aTrigger [
 
 	trigger := aTrigger.
-	self setTrigger: aTrigger
+	self setTrigger: aTrigger.
+	trigger doNotAutoRelease
 ]

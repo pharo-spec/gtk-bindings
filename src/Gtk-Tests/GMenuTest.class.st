@@ -34,8 +34,8 @@ GMenuTest >> testAppendItem [
 GMenuTest >> testAppendLabelAction [
 	
 	menu
-		appendLabel: 'Test 1' action: 'action.test1';
-		appendLabel: 'Test 2' action: 'action.test2'.
+		appendLabel: 'Test 1' actionName: 'action.test1';
+		appendLabel: 'Test 2' actionName: 'action.test2'.
 		
 	self assert: menu numberOfItems equals: 2
 ]

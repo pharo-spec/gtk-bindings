@@ -101,7 +101,8 @@ GtkPopoverMenu >> menuModel [
 GtkPopoverMenu >> menuModel: aModel [
 
 	menuModel := aModel.
-	self setMenuModel: aModel
+	self setMenuModel: menuModel.
+	menuModel doNotAutoRelease
 ]
 
 { #category : #accessing }

@@ -90,7 +90,7 @@ GtkTContainer >> keepWidget: widget [
 	children := children copyWith: widget
 ]
 
-{ #category : #removing }
+{ #category : #accessing }
 GtkTContainer >> remove: widget [
 	"remove widgets will also destroy them (since it will not be referenced, unless you 
 	 took a reference explicitly, which we are not doing now). 

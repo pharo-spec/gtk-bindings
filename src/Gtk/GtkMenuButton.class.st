@@ -43,7 +43,7 @@ GtkMenuButton class >> example [
 	#('One' 'Two' 'Three') do: [ :each | 
 		menu 
 			appendLabel: each 
-			action: 'action.', each ].
+			actionName: 'action.', each ].
 	
 	GtkWindow new
 		title: 'Menu Button Example';
@@ -137,7 +137,8 @@ GtkMenuButton >> menuModel [
 GtkMenuButton >> menuModel: aMenuModel [
 
 	model := aMenuModel.
-	self setMenuModel: model
+	self setMenuModel: model.
+	model doNotAutoRelease
 ]
 
 { #category : #private }

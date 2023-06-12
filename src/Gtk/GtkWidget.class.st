@@ -189,11 +189,28 @@ GtkWidget >> addGestureClickWith: aBlock [
 	| gesture |
 
 	"click gestures do not stack (they can be any kind, any button, etc.)"
-	gesture := GtkGestureClick new
-		name: 'clicked';
-		yourself.
+	gesture := GtkGestureClick new.
 	aBlock value: gesture.
 	self addController: gesture
+]
+
+{ #category : #accessing }
+GtkWidget >> addGlobalShortcut: aShortcut [
+
+	self addGlobalShortcutControllerWith: [ :aController |
+		aController addShortcut: aShortcut ]
+]
+
+{ #category : #'private - events' }
+GtkWidget >> addGlobalShortcutControllerWith: aBlock [
+
+	"shortcut controllers stack (but just if same level)"
+	aBlock value: (self
+		detectController: [ :each | each isShortcutController and: [ each isGlobal ] ]
+		ifNone: [ 
+			self addController: (GtkShortcutController new 
+				beGlobal; 
+				yourself) ])
 ]
 
 { #category : #'private - events' }
@@ -277,8 +294,11 @@ GtkWidget >> addShortcutControllerWith: aBlock [
 
 	"shortcut controllers stack"
 	aBlock value: (self
-		detectController: [ :each | each isShortcutController ]
-		ifNone: [ self addController: GtkShortcutController new ])
+		detectController: [ :each | each isShortcutController and: [ each isLocal ] ]
+		ifNone: [ 
+			self addController: (GtkShortcutController new
+				beLocal;
+				yourself) ])
 ]
 
 { #category : #accessing }
