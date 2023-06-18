@@ -172,7 +172,7 @@ GtkTreeView >> columns [
 { #category : #signals }
 GtkTreeView >> connectRowActivated: aBlock [ 
 	
-	^ (GRowActivatedCallback do: aBlock) connectTo: self
+	^ (GTreeViewRowActivatedCallback do: aBlock) connectTo: self
 ]
 
 { #category : #signals }

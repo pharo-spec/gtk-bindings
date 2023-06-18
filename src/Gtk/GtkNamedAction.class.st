@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.NamedAction.html
+"
 Class {
 	#name : #GtkNamedAction,
 	#superclass : #GtkShortcutAction,

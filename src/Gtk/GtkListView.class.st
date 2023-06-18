@@ -5,8 +5,6 @@ Class {
 	#name : #GtkListView,
 	#superclass : #GtkListBase,
 	#instVars : [
-		'factory',
-		'selectionModel',
 		'headerFactory'
 	],
 	#category : #'Gtk-Widget-ListView'
@@ -18,12 +16,6 @@ GtkListView class >> gtkNew [
 
 	^ self ffiCall: #(GtkListView *gtk_list_view_new (NULL, NULL))
 	
-]
-
-{ #category : #'instance creation' }
-GtkListView class >> new [
-
-	^ self gtkNew initialize
 ]
 
 { #category : #initialization }
@@ -43,47 +35,12 @@ GtkListView >> clearModel [
 	self ffiCall: #(void gtk_list_view_set_model (self, NULL))
 ]
 
-{ #category : #signaling }
-GtkListView >> connectRowActivated: aBlock [
-	"aBlock receives one argument: position"
-
-	(GListViewRowActivatedCallback do: aBlock) connectTo: self
-]
-
 { #category : #accessing }
 GtkListView >> enableRubberband: enable_rubberband [
 
 	self ffiCall: #(void gtk_list_view_set_enable_rubberband (
 		self,
   		gboolean enable_rubberband))
-]
-
-{ #category : #accessing }
-GtkListView >> factory [
-
-	^ factory ifNil: [ factory := self getFactory ]
-]
-
-{ #category : #accessing }
-GtkListView >> factory: aFactory [
-
-	factory := aFactory.
-	self setFactory: aFactory
-]
-
-{ #category : #finalization }
-GtkListView >> finalize [
-	"Clean up the model before release to avoid an attempt to cleanup of an object that will 
-	 probably no longer exist in image-side (we will do the cleanup ourselves, see for example 
-	 finalize method on GListReferenceStore (a GtkSelectionModel contains a store)"	
-	
-	selectionModel ifNotNil: [ 
-		selectionModel cleanModel ].
-	super finalize.
-	"self getHandle printToStdout."
-	"GRunLoop defer: [
-		self clearModel.
-		super finalize ]"
 ]
 
 { #category : #private }
@@ -142,25 +99,6 @@ GtkListView >> scrollToPosition: index [
 	self 
 		activateAction: 'list.scroll-to-item' 
 		variant: (GVariant newUint32: index - 1)
-]
-
-{ #category : #accessing }
-GtkListView >> selectionModel [
-
-	^ selectionModel ifNil: [ selectionModel := self getModel ]
-]
-
-{ #category : #accessing }
-GtkListView >> selectionModel: aModel [
-
-	selectionModel ifNotNil: [
-		selectionModel cleanModel ].
-
-	selectionModel := aModel.
-	self setModel: aModel.
-	"apparently, we do not need to autorelease as setting the model will clear any existing 
-	 model (and it will be destroyed along with the list view when it is disposed)"
-	aModel doNotAutoRelease
 ]
 
 { #category : #private }

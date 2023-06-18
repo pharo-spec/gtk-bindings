@@ -25,6 +25,12 @@ GtkPopoverMenu class >> gtkNewFromModel: model [
 	^ self ffiCall: #(GtkPopoverMenu *gtk_popover_menu_new_from_model (GMenuModel* model))
 ]
 
+{ #category : #private }
+GtkPopoverMenu class >> gtkNewFromModelFull: model flags: flags [
+
+	^ self ffiCall: #(GtkPopoverMenu *gtk_popover_menu_new_from_model_full (GMenuModel* model, guint flags))
+]
+
 { #category : #'instance creation' }
 GtkPopoverMenu class >> new [
 
@@ -35,6 +41,14 @@ GtkPopoverMenu class >> new [
 GtkPopoverMenu class >> newFromModel: aModel [
 
 	^ (self gtkNewFromModel: aModel) 
+		initializeModel: aModel;
+		yourself
+]
+
+{ #category : #'instance creation' }
+GtkPopoverMenu class >> newFromModelFull: aModel [
+
+	^ (self gtkNewFromModelFull: aModel flags: 1) 
 		initializeModel: aModel;
 		yourself
 ]
@@ -51,7 +65,7 @@ GtkPopoverMenu >> addChild: aWidget id: id [
 { #category : #initialization }
 GtkPopoverMenu >> autoObjectUnref [
 
-	self autoRelease
+	"self autoRelease"
 ]
 
 { #category : #private }
@@ -71,6 +85,13 @@ GtkPopoverMenu >> basicRemoveChild: aWidget [
 		GtkWidget* aWidget))
 ]
 
+{ #category : #finalization }
+GtkPopoverMenu >> finalize [
+
+	self unparent.
+	super finalize
+]
+
 { #category : #private }
 GtkPopoverMenu >> getMenuModel [
 
@@ -78,10 +99,18 @@ GtkPopoverMenu >> getMenuModel [
 ]
 
 { #category : #initialization }
+GtkPopoverMenu >> initialize [
+
+	super initialize.
+	"self objectRef"
+]
+
+{ #category : #initialization }
 GtkPopoverMenu >> initializeModel: aModel [
 
 	self initialize.	
-	menuModel := aModel
+	menuModel := aModel.
+	menuModel doNotAutoRelease
 ]
 
 { #category : #private }

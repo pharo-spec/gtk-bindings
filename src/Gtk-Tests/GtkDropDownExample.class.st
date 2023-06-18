@@ -31,7 +31,7 @@ GtkDropDownExample >> addContentsTo: window [
 GtkDropDownExample >> newDropDown [
 	| store factory model |
 
-	store :=  GListDataStore new.
+	store :=  GListReferenceStore new.
 	store items: Smalltalk allClassesAndTraits.
 
 	factory := GtkSignalListItemFactory new.

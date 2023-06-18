@@ -52,7 +52,7 @@ GtkPopoverMenuExample >> addContentsTo: window [
 	actionGroup insert: testAction.
 	box insertActionGroup: 'action' actions: actionGroup.
 
-	box addRightClickEvent: [ :position | 
+	listView addRightClickEvent: [ :position | 
 		popoverMenu
 			pointingTo: (position extent: 1@1);
 			popup ]
