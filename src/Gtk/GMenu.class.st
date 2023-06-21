@@ -63,7 +63,7 @@ GMenu >> basicAppendItem: item [
 { #category : #private }
 GMenu >> basicAppendLabel: label section: section [
 
-	self ffiCall: #(void g_menu_append_item (self, gchar *label, GMenuModel *section))
+	self ffiCall: #(void g_menu_append_section (self, gchar *label, GMenuModel *section))
 ]
 
 { #category : #private }
