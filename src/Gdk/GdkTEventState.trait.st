@@ -13,6 +13,12 @@ GdkTEventState >> alt [
 	^ self hasAltModifier
 ]
 
+{ #category : #compatibility }
+GdkTEventState >> any [
+
+	^ self hasAltModifier | self hasControlModifier | self hasSuperModifier
+]
+
 { #category : #testing }
 GdkTEventState >> hasAltModifier [
 
