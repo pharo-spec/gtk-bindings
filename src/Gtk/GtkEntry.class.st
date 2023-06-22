@@ -146,6 +146,12 @@ GtkEntry >> buffer: aBuffer [
 ]
 
 { #category : #signals }
+GtkEntry >> connectActivate: aBlock [
+
+	(GActivateCallback do: aBlock) connectTo: self
+]
+
+{ #category : #signals }
 GtkEntry >> connectChanged: aBlock [
 
 	(GChangedCallback do: aBlock) connectTo: self
@@ -199,11 +205,11 @@ GtkEntry >> extraMenu: aMenu [
 
 { #category : #private }
 GtkEntry >> g_ucs4_to_utf8: aUCS4Character [
-
-	| buffer read |
-	buffer := ByteArray new: 4.
-	read := self convertGunichar: aUCS4Character toUtf8InBuffer: buffer.
-	^ buffer copyFrom: 1 to: read.
+	| charBuffer read |
+	
+	charBuffer := ByteArray new: 4.
+	read := self convertGunichar: aUCS4Character toUtf8InBuffer: charBuffer.
+	^ charBuffer copyFrom: 1 to: read.
 ]
 
 { #category : #private }
@@ -216,6 +222,12 @@ GtkEntry >> g_utf8_to_ucs4: aString [
 GtkEntry >> getBuffer [
 
 	^ self ffiCall: #(GtkEntryBuffer* gtk_entry_get_buffer (self))	
+]
+
+{ #category : #accessing }
+GtkEntry >> grabFocusWithoutSelecting [
+
+	self ffiCall: #(void gtk_entry_grab_focus_without_selecting (self))
 ]
 
 { #category : #accessing }
@@ -294,18 +306,6 @@ GtkEntry >> progress [
 GtkEntry >> progress: fraction [
 
 	^ self ffiCall: #(void gtk_entry_set_progress_fraction (self, gdouble fraction))
-]
-
-{ #category : #selection }
-GtkEntry >> selectAll [
-
-	self selectFrom: 0 to: -1
-]
-
-{ #category : #selection }
-GtkEntry >> selectFrom: start_pos to: end_pos [
-
-	^ self ffiCall: #(void gtk_editable_select_region (self, gint start_pos, gint end_pos))
 ]
 
 { #category : #private }

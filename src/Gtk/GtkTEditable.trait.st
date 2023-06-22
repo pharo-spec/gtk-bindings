@@ -6,6 +6,12 @@ Trait {
 	#category : #'Gtk-Widget-Input'
 }
 
+{ #category : #selection }
+GtkTEditable >> deleteSelection [
+
+	self ffiCall: #(void gtk_editable_delete_selection (self))
+]
+
 { #category : #private }
 GtkTEditable >> editable: is_editable [
 
@@ -17,6 +23,24 @@ GtkTEditable >> isEditable [
 
 	^ self ffiCall: #(gboolean gtk_editable_get_editable (self))
 
+]
+
+{ #category : #accessing }
+GtkTEditable >> position: position [
+
+	self ffiCall: #(void gtk_editable_set_position (self, gint position))
+]
+
+{ #category : #selection }
+GtkTEditable >> selectAll [
+
+	self selectFrom: 0 to: -1
+]
+
+{ #category : #selection }
+GtkTEditable >> selectFrom: start_pos to: end_pos [
+
+	^ self ffiCall: #(void gtk_editable_select_region (self, gint start_pos, gint end_pos))
 ]
 
 { #category : #accessing }
