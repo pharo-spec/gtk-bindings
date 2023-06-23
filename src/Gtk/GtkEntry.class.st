@@ -200,7 +200,8 @@ GtkEntry >> entryCompletion: anEntryCompletion [
 GtkEntry >> extraMenu: aMenu [
 
 	extraMenu := aMenu.
-	self setExtraMenu: aMenu
+	self setExtraMenu: aMenu.
+	extraMenu doNotAutoRelease
 ]
 
 { #category : #private }
