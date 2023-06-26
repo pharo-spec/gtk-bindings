@@ -76,6 +76,13 @@ GSimpleActionGroup >> remove: anAction [
 ]
 
 { #category : #accessing }
+GSimpleActionGroup >> removeAll [
+
+	actions copy 
+		do: [ :each | self remove: each ]
+]
+
+{ #category : #accessing }
 GSimpleActionGroup >> removeNamed: aName [
 
 	self remove: (self lookup: aName)

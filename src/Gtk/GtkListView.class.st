@@ -98,7 +98,7 @@ GtkListView >> scrollToPosition: index [
 	self flag: #WORAROUND. "There will be an api for this, but is not yet there."
 	self 
 		activateAction: 'list.scroll-to-item' 
-		variant: (GVariant newUint32: index - 1)
+		arguments: (GVariant newUint32: index - 1)
 ]
 
 { #category : #private }

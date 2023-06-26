@@ -81,13 +81,21 @@ GtkWidget class >> widgetDestroy: widget [
 ]
 
 { #category : #'accessing - actions' }
-GtkWidget >> activateAction: name [ 
+GtkWidget >> actionGroups [
 
-	^ self activateAction: name variant: GVariant null
+	^ actionGroups ifNil: [ #() ]
 ]
 
 { #category : #'accessing - actions' }
-GtkWidget >> activateAction: name variant: args [ 
+GtkWidget >> activateAction: name [ 
+
+	^ self 
+		activateAction: name 
+		arguments: GVariant null
+]
+
+{ #category : #'accessing - actions' }
+GtkWidget >> activateAction: name arguments: args [ 
 
 	^ self ffiCall: #(gboolean gtk_widget_activate_action_variant (
 	self,
@@ -194,7 +202,7 @@ GtkWidget >> addGestureClickWith: aBlock [
 	self addController: gesture
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - shortcuts' }
 GtkWidget >> addGlobalShortcut: aShortcut [
 
 	self addGlobalShortcutControllerWith: [ :aController |
@@ -282,7 +290,7 @@ GtkWidget >> addRightClickEvent: aBlock [
 			connectPressed: aBlock ]
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - shortcuts' }
 GtkWidget >> addShortcut: aShortcut [
 
 	self addShortcutControllerWith: [ :aController |
@@ -349,6 +357,12 @@ GtkWidget >> basicInsertActionGroup: name actions: group [
 		self, 
 		char* name, 
 		"GActionGroup*"GObject *group))
+]
+
+{ #category : #'private - events' }
+GtkWidget >> basicRemoveController: controller [
+
+	self ffiCall: #(void gtk_widget_remove_controller (self, GtkEventController* controller))
 ]
 
 { #category : #accessing }
@@ -868,7 +882,7 @@ GtkWidget >> hide [
 	self beNotVisible
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - actions' }
 GtkWidget >> insertActionGroup: name actions: group [
 
 	actionGroups ifNil: [ actionGroups := #() ].
@@ -1111,10 +1125,49 @@ GtkWidget >> queueResizeNoRedraw [
 	self deprecated: #Gtk4
 ]
 
+{ #category : #'accessing - actions' }
+GtkWidget >> removeAllActions [
+
+	self actionGroups 
+		do: [ :each | each removeAll ]
+]
+
+{ #category : #'accessing - shortcuts' }
+GtkWidget >> removeAllShortcuts [
+
+	(eventControllers 
+		select: [ :each | each isShortcutController ])
+		do: [ :each | self removeController: each ]
+]
+
 { #category : #style }
 GtkWidget >> removeClass: css_class [
 
 	self ffiCall: #(void gtk_widget_remove_css_class (self, const char* css_class))
+]
+
+{ #category : #'private - events' }
+GtkWidget >> removeController: controller [
+
+	eventControllers := eventControllers copyWithout: controller.
+		
+	self basicRemoveController: controller.
+	
+	^ controller
+]
+
+{ #category : #'accessing - shortcuts' }
+GtkWidget >> removeGlobalShortcut: aShortcut [
+
+	self addGlobalShortcutControllerWith: [ :aController |
+		aController removeShortcut: aShortcut ]
+]
+
+{ #category : #'accessing - shortcuts' }
+GtkWidget >> removeShortcut: aShortcut [
+
+	self addShortcutControllerWith: [ :aController |
+		aController removeShortcut: aShortcut ]
 ]
 
 { #category : #accessing }
