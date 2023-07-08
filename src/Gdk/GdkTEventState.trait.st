@@ -19,6 +19,12 @@ GdkTEventState >> any [
 	^ self hasAltModifier | self hasControlModifier | self hasSuperModifier
 ]
 
+{ #category : #compatibility }
+GdkTEventState >> anyModifierKeyPressed [
+
+	^ self any
+]
+
 { #category : #testing }
 GdkTEventState >> hasAltModifier [
 
