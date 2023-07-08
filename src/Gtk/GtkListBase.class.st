@@ -46,7 +46,8 @@ GtkListBase >> factory [
 GtkListBase >> factory: aFactory [
 
 	factory := aFactory.
-	self setFactory: aFactory
+	self setFactory: aFactory.
+	factory doNotAutoRelease
 ]
 
 { #category : #finalization }

@@ -71,7 +71,8 @@ GtkListView >> headerFactory [
 GtkListView >> headerFactory: aFactory [
 
 	headerFactory := aFactory.
-	self setHeaderFactory: aFactory
+	self setHeaderFactory: aFactory.
+	factory doNotAutoRelease
 ]
 
 { #category : #testing }
