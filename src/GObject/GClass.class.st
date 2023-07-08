@@ -50,8 +50,18 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
+	#classInstVars : [
+		'mutex'
+	],
 	#category : #'GObject-ClassBuilder'
 }
+
+{ #category : #private }
+GClass class >> critical: aBlock [
+
+	mutex ifNil: [ mutex := Mutex new ].
+	^ mutex critical: aBlock
+]
 
 { #category : #'library path' }
 GClass class >> ffiLibraryName [
@@ -74,12 +84,20 @@ GClass class >> gClassAt: aClass ifAbsent: aBlock [
 ]
 
 { #category : #private }
+GClass class >> gClassAt: aClass ifPresent: aBlock [
+
+	^ self gClasses
+		at: aClass 
+		ifPresent: aBlock
+]
+
+{ #category : #private }
 GClass class >> gClassAt: aClass put: gClass [
 	
 	^ self gClasses at: aClass put: gClass
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 GClass class >> gClasses [
 
 	^ GClasses ifNil: [ GClasses := IdentityDictionary new ]
@@ -92,11 +110,12 @@ GClass class >> gDefinitionAt: aClass [
 	 the #gDefine: hook method."
 	| gClass |
 
-	gClass := self gClassAt: aClass ifAbsent: [ nil ].
-	gClass ifNil: [
-		gClass := self 
-			install: aClass 
-			with: [ :c | aClass gDefine: c ] ].
+	self critical: [ 
+		gClass := self gClassAt: aClass ifAbsent: [ nil ].
+		gClass ifNil: [
+			gClass := self 
+				install: aClass 
+				with: [ :c | aClass gDefine: c ] ] ].
 	
 	^ gClass
 ]
@@ -167,7 +186,7 @@ GClass >> addInterface: interfaceClass initialize: aBlock [
 				aBlock value: interface ])
 ]
 
-{ #category : #'private installing' }
+{ #category : #'private - installing' }
 GClass >> addInterfaceGType: interfaceType initialize: initCallback [
 	| info |
 
@@ -207,13 +226,13 @@ GClass >> findInstance: handle [
 	^ instances at: handle asInteger
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GClass >> gObjectNew: object_type [
 
 	^ GObject gObjectNew: object_type
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GClass >> gTypeAddInterfaceStaticType: instance_type interfaceType: interface_type info: info [
 
 	^ self ffiCall: #(void g_type_add_interface_static (
@@ -232,13 +251,13 @@ GClass >> gTypeInterfaces [
 		until: [ :each | each isZero ]
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GClass >> gTypeInterfaces: object_type [
 
 	^ self ffiCall: #(gsize *g_type_interfaces (gsize object_type, NULL))
 ]
 
-{ #category : #'private primitives' }
+{ #category : #'private - primitives' }
 GClass >> gTypeRegisterStaticSimpleParent: parent_type name: type_name classSize: class_size classInit: class_init instanceSize: instance_size instanceInit: instance_init flags: flags [
 
 	^ self ffiCall: #(GType g_type_register_static_simple (
@@ -341,7 +360,7 @@ GClass >> prepare: aBlock [
 	aBlock value: self
 ]
 
-{ #category : #'private installing' }
+{ #category : #'private - installing' }
 GClass >> registerType [
 	| utf8Name |
 

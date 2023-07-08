@@ -4,6 +4,13 @@ Class {
 	#category : #'GLib-IO-Base'
 }
 
+{ #category : #'as yet unclassified' }
+GLibIOLibrary >> gTypeFromName: aString [
+
+	self ffiCall: #(gsize g_type_from_name (const gchar *aString))
+
+]
+
 { #category : #'accessing platform' }
 GLibIOLibrary >> unix64LibraryName [
 

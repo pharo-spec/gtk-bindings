@@ -96,6 +96,17 @@ GtkEngine >> hasValidApplication [
 		and: [ application isValidHandle ]
 ]
 
+{ #category : #'private - running' }
+GtkEngine >> installGClasses [
+	
+	TFProcessLocalWorker 
+		use: TFMainThreadRunner uniqueInstance
+		during: [ 
+			(GTClass users flatCollect: #withAllSubclasses) 
+				reject: #isTrait
+				thenDo: [ :each | each gInstall ] ]
+]
+
 { #category : #accessing }
 GtkEngine >> naturalRunner [
 
@@ -109,6 +120,7 @@ GtkEngine >> start [
 	
 	self ensureApplication.
 	GApplicationStartAnnouncement emit.
+	self installGClasses.
 	self startEngineSupports.
 	initAction ifNotNil: [ initAction cull: self ].
 	runLoop start

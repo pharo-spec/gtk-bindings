@@ -6,7 +6,7 @@ Trait {
 	#name : #GTClassWithProperties,
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
-	#category : #'GLib-Lists'
+	#category : #'GObject-ClassBuilder'
 }
 
 { #category : #'class initialization' }

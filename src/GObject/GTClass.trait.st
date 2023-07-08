@@ -4,7 +4,7 @@ Adds class methods needed to define a class in gtk side.
 "
 Trait {
 	#name : #GTClass,
-	#category : #'GLib-Lists'
+	#category : #'GObject-ClassBuilder'
 }
 
 { #category : #'class initialization' }
@@ -17,6 +17,12 @@ GTClass classSide >> gClass [
 GTClass classSide >> gDefine: gClass [
 
 	gClass parent: self superclass
+]
+
+{ #category : #'class initialization' }
+GTClass classSide >> gInstall [
+
+	GClass gDefinitionAt: self
 ]
 
 { #category : #'class initialization' }
