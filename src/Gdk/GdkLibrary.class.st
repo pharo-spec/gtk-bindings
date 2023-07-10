@@ -8,7 +8,7 @@ Class {
 GdkLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgdk-3.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgdk-3.so'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgdk-3.so' 'libgdk-3.so.0')
 ]
 
 { #category : #'accessing platform' }
