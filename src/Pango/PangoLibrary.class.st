@@ -34,7 +34,7 @@ PangoLibrary >> unix32LibraryName [
 { #category : #'accessing platform' }
 PangoLibrary >> unix64LibraryName [ 
 
-	^ FFIUnix64LibraryFinder findLibrary: 'libpango-1.0.so'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libpango-1.0.so' 'libpango-1.0.so.0')
 ]
 
 { #category : #'accessing platform' }

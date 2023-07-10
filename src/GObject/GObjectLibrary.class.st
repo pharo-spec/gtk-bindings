@@ -45,7 +45,7 @@ GObjectLibrary >> runner [
 GObjectLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgobject-2.0.so' 'libgobject-2.0.so.0')
 ]
 
 { #category : #'accessing platform' }

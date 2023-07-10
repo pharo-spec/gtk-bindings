@@ -19,7 +19,7 @@ GLibLibrary >> gSetPrgName: prgname [
 { #category : #'accessing - platform' }
 GLibLibrary >> unix64LibraryName [
 
-	^ FFIUnix64LibraryFinder findLibrary: 'libglib-2.0.so'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libglib-2.0.so' 'libglib-2.0.so.0')
 ]
 
 { #category : #'accessing - platform' }
