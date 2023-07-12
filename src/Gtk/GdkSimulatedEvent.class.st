@@ -26,6 +26,12 @@ GdkSimulatedEvent >> initialize [
 ]
 
 { #category : #testing }
+GdkSimulatedEvent >> isButtonEvent [
+
+	^ false
+]
+
+{ #category : #testing }
 GdkSimulatedEvent >> isCrossingEvent [
 
 	^ false

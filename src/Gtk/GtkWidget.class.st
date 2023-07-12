@@ -109,6 +109,30 @@ GtkWidget >> addAccelerator: aString group: anAccelGroup shortcut: aShortcut [
 	self deprecated: #Gtk4
 ]
 
+{ #category : #'accessing - events' }
+GtkWidget >> addButtonPressEvent: aBlock [
+	"adds a button press event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture
+			name: 'press';
+			beButtonAny;
+			connectPressed: aBlock ]
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addButtonReleaseEvent: aBlock [
+	"adds a button release event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture
+			name: 'release';
+			beButtonAny;
+			connectReleased: aBlock ]
+]
+
 { #category : #style }
 GtkWidget >> addClass: css_class [
 
@@ -139,6 +163,20 @@ GtkWidget >> addController: controller [
 	controller doNotAutoRelease.
 	
 	^ controller
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addDoubleClickEvent: aBlock [
+	"adds a doible click event.
+	 aBlock does not receives arguments."
+
+	self addGestureClickWith: [ :gesture |
+		gesture
+			name: 'click';
+			beButtonPrimary;
+			connectPressed: [ :event | 
+				event numberPress = 2 
+					ifTrue: [ aBlock cull: event ] ] ]
 ]
 
 { #category : #'accessing - events' }
@@ -281,7 +319,7 @@ GtkWidget >> addMotionEvent: aBlock [
 { #category : #'accessing - events' }
 GtkWidget >> addRightClickEvent: aBlock [
 	"adds a click event.
-	 aBlock does not receives arguments"
+	 aBlock does receives an event argument"
 
 	self addGestureClickWith: [ :gesture |
 		gesture

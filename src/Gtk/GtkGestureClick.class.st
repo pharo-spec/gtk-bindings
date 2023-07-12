@@ -21,7 +21,16 @@ GtkGestureClick >> connectPressed: aBlock [
 		- position (a Point)
 		- n_press"
 
-	(GPressedCallback do: aBlock) connectTo: self
+	(GButtonPressedCallback do: aBlock) connectTo: self
+]
+
+{ #category : #signaling }
+GtkGestureClick >> connectReleased: aBlock [
+	"aBlock arguments: 
+		- position (a Point)
+		- n_press"
+
+	(GButtonReleasedCallback do: aBlock) connectTo: self
 ]
 
 { #category : #testing }
