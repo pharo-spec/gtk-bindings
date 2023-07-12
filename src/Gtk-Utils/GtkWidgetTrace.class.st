@@ -39,7 +39,7 @@ GtkWidgetTrace >> inspectionInfo [
 		items: {  
 			'Class' -> self widgetClass name.
 			'Address' -> self handle printString.
-			'isAlive' -> self isAlive.
+			"'isAlive' -> self isAlive." "Sometimes there is a problem knowing if object is alive"
 			'Instances' -> self instances size.
 			'Referece Count' -> self referenceCount.
 			};

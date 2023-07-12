@@ -698,7 +698,7 @@ GObject >> initialize [
 { #category : #'private - debugging' }
 GObject >> installDebugSignals [
 	"emit signals to debug"
-	
+
 	GCreateAnnouncement emitWidget: self.
 	GDestroyAnnouncement installFor: self
 ]

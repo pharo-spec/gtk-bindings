@@ -151,7 +151,7 @@ GtkLeakFinder >> logZombieSignal: aSignal [
 { #category : #registering }
 GtkLeakFinder >> nextPut: aSignal [
 
-	(aSignal respondsTo: #logsIn:) ifFalse: [ ^ self ].
+	(aSignal respondsTo: #logIn:) ifFalse: [ ^ self ].
 	aSignal logIn: self
 ]
 
@@ -194,7 +194,7 @@ GtkLeakFinder >> signals [
 GtkLeakFinder >> start [
 
 	self ensureLoggingSignals.
-	super start
+	self startFor: GSignalBaseAnnouncement
 ]
 
 { #category : #accessing }

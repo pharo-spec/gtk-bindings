@@ -49,7 +49,7 @@ GDestroyAnnouncement >> handle: anObject [
 	handle := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GDestroyAnnouncement >> logIn: aLogger [
 
 	^ aLogger logDestroySignal: self

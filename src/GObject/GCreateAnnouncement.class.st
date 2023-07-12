@@ -7,7 +7,7 @@ Class {
 	#category : #'GObject-Signal'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GCreateAnnouncement >> logIn: aLogger [
 
 	^ aLogger logCreateSignal: self

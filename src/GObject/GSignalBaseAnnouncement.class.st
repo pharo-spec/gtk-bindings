@@ -87,7 +87,7 @@ GSignalBaseAnnouncement >> isFiltered [
 	^ self class activeFilter isFiltered: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GSignalBaseAnnouncement >> logIn: aLogger [
 
 	"Do nothing"

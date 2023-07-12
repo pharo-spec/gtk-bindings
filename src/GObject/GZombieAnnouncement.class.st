@@ -7,7 +7,7 @@ Class {
 	#category : #'GObject-Signal'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 GZombieAnnouncement >> logIn: aLogger [
 
 	^ aLogger logZombieSignal: self
