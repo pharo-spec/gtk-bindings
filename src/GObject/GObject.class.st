@@ -224,6 +224,12 @@ GObject >> autoObjectUnref [
 	self autoRelease
 ]
 
+{ #category : #'accessing - referencing' }
+GObject >> autoReleaseWhenDisposedByGtk [
+
+	GEngine current registerObjectDispose: self
+]
+
 { #category : #'private - signaling' }
 GObject >> basicConnectSignal: callback [
 	| id |
@@ -500,6 +506,10 @@ GObject >> finalize [
 			ifFalse: [
 				GZombieAnnouncement emitTarget: self handle: handle ].
 		handle beNull ]
+]
+
+{ #category : #finalization }
+GObject >> finalizedOnGtk [
 ]
 
 { #category : #'private - primitives' }
@@ -802,6 +812,14 @@ GObject >> weakRef: notify [
 
 	^ self 
 		ffiCall: #(void g_object_weak_ref (self, GCallback notify, NULL)) 
+		module: GObjectLibrary
+]
+
+{ #category : #'accessing - referencing' }
+GObject >> weakRef: notify data: data [
+
+	^ self 
+		ffiCall: #(void g_object_weak_ref (self, GCallback notify, gpointer data)) 
 		module: GObjectLibrary
 ]
 

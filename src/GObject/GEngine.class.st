@@ -10,7 +10,9 @@ Class {
 	#instVars : [
 		'runLoop',
 		'windowRegistry',
-		'shutdownRegistry'
+		'shutdownRegistry',
+		'disposeRegistry',
+		'disposeCallback'
 	],
 	#classVars : [
 		'Current'
@@ -97,6 +99,26 @@ GEngine class >> startUp: resuming [
 	Current startUp: resuming
 ]
 
+{ #category : #'private - dispose' }
+GEngine >> disposeCallback [
+
+	^ disposeCallback ifNil: [ 
+		disposeCallback := GCallback
+			signature: #(void (void *data, void *object)) 
+			block: [ :data :object | self disposeObject: data ] ]
+]
+
+{ #category : #'private - dispose' }
+GEngine >> disposeObject: aHandle [
+	| gObject |
+
+	gObject := disposeRegistry at: aHandle ifAbsent: [ nil ].
+	gObject ifNil: [ ^ self ].
+	
+	[ gObject finalizedOnGtk ]
+	ensure: [ disposeRegistry removeKey: aHandle ]
+]
+
 { #category : #'system startup' }
 GEngine >> ensureRunLoop [
 
@@ -109,6 +131,7 @@ GEngine >> initialize [
 	super initialize.
 	windowRegistry := IdentitySet new.
 	shutdownRegistry := Set new.
+	disposeRegistry := WeakValueDictionary new.
 	runLoop := self ensureRunLoop
 ]
 
@@ -128,6 +151,15 @@ GEngine >> isWindowRegistered: aWindow [
 GEngine >> naturalRunner [
 
 	^ self subclassResponsibility
+]
+
+{ #category : #registry }
+GEngine >> registerObjectDispose: aGObject [
+
+	disposeRegistry at: aGObject getHandle put: aGObject.
+	aGObject 
+		weakRef: self disposeCallback
+		data: aGObject getHandle
 ]
 
 { #category : #registry }
