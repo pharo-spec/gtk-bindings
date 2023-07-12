@@ -32,7 +32,14 @@ Class {
 	#category : #'Gtk-Utils'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
+GtkLeakFinder class >> reset [
+	<script>
+
+	self instance reset
+]
+
+{ #category : #accessing }
 GtkLeakFinder class >> startTraceLeaks [
 	<script>
 
@@ -44,7 +51,7 @@ GtkLeakFinder class >> startTraceLeaks [
 	self instance inspect
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GtkLeakFinder class >> stopTraceLeaks [
 	<script>
 
@@ -144,6 +151,7 @@ GtkLeakFinder >> logZombieSignal: aSignal [
 { #category : #registering }
 GtkLeakFinder >> nextPut: aSignal [
 
+	(aSignal respondsTo: #logsIn:) ifFalse: [ ^ self ].
 	aSignal logIn: self
 ]
 
