@@ -429,7 +429,13 @@ GtkWidget >> canDefault: can_default [
 	self deprecated: #Gtk4 "this is set in the window now"
 ]
 
-{ #category : #private }
+{ #category : #'accessing - focus' }
+GtkWidget >> canFocus [
+
+	^ self ffiCall: #(gboolean gtk_widget_get_can_focus (self))
+]
+
+{ #category : #'accessing - focus' }
 GtkWidget >> canFocus: can_focus [
 
 	^ self ffiCall: #(void gtk_widget_set_can_focus (self, gboolean can_focus))
@@ -752,6 +758,20 @@ GtkWidget >> ffiLibraryName [
 	^ self class ffiLibraryName
 ]
 
+{ #category : #'accessing - focus' }
+GtkWidget >> focusOnClick: focus_on_click [
+
+	self ffiCall: #(void gtk_widget_set_focus_on_click (
+		self,
+		gboolean focus_on_click))
+]
+
+{ #category : #'accessing - focus' }
+GtkWidget >> focusable: focusable [
+
+	self ffiCall: #(void gtk_widget_set_focusable (self, gboolean focusable))
+]
+
 { #category : #'accessing - fonts' }
 GtkWidget >> fontMap: font_map [
 
@@ -859,9 +879,10 @@ GtkWidget >> grabDefault [
 	self deprecated: #Gtk4. "Use GtkWindow>>defaultWidget:"
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - focus' }
 GtkWidget >> grabFocus [
-	self ffiCall: #(void gtk_widget_grab_focus (self))
+
+	^ self ffiCall: #(gboolean gtk_widget_grab_focus (self))
 ]
 
 { #category : #geometry }
@@ -951,6 +972,18 @@ GtkWidget >> isContainer [
 { #category : #testing }
 GtkWidget >> isFocus [
 	^ self ffiCall: #(gboolean gtk_widget_is_focus (self))
+]
+
+{ #category : #testing }
+GtkWidget >> isFocusOnClick [
+
+	^ self ffiCall: #(gboolean gtk_widget_get_focus_on_click (self))
+]
+
+{ #category : #testing }
+GtkWidget >> isFocusable [
+
+	^ self ffiCall: #(gboolean gtk_widget_get_focusable (self))
 ]
 
 { #category : #testing }
