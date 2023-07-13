@@ -49,9 +49,9 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 ]
 
 { #category : #finalization }
-GListReferenceStore >> finalize [
+GListReferenceStore >> finalizedOnGtk [
 
-	super finalize
+	references freeReferences
 ]
 
 { #category : #'accessing - model' }
@@ -83,18 +83,19 @@ GListReferenceStore >> get_object: position [
 		ifTrue: [ ^ GObject null ].
 
 	"I need to increment the ref count because the otherside will unref it
-	 (and I want to keep it)"
+	 (and I want to keep it). But just it is not just created."
 	mark := references referenceAt: position.
-	mark objectRef.
-
-	^ mark
+	mark wasCreated 
+		ifFalse: [ mark object objectRef ].
+	
+	^ mark object
 ]
 
 { #category : #initialization }
 GListReferenceStore >> initialize [
 
 	super initialize.
-	references := GListReferenceContainer new autoRelease.
+	references := GListReferenceContainer new
 ]
 
 { #category : #accessing }
@@ -132,6 +133,6 @@ GListReferenceStore >> items_changed: position removed: removed added: added [
 
 { #category : #private }
 GListReferenceStore >> reset [
-
+	
 	references reset
 ]

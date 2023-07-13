@@ -6,6 +6,7 @@ Class {
 	#name : #GListReferenceContainer,
 	#superclass : #Object,
 	#instVars : [
+		'mutex',
 		'objects'
 	],
 	#classVars : [
@@ -35,40 +36,50 @@ GListReferenceContainer >> finalize [
 { #category : #finalization }
 GListReferenceContainer >> freeReferences [
 
-	objects valuesDo: [ :each |
-		each objectUnref.
-		each getHandle beNull ]
+	mutex critical: [
+		objects keysAndValuesDo: [ :position :object | 
+			object objectUnref ] ]
 ]
 
 { #category : #initialization }
 GListReferenceContainer >> initialize [
 
 	super initialize.
-	objects := IdentityDictionary new
+	mutex := Mutex new.
+	self resetObjects
 ]
 
 { #category : #accessing }
 GListReferenceContainer >> referenceAt: position [
 	| holder |
-	
-	holder := objects at: position ifAbsent: [ nil ].
-	holder ifNotNil: [ ^ holder ].
 
-	"do not autorelease"
-	holder :=	 (GObject basicNew 
+	mutex critical: [ 	
+		holder := objects at: position ifAbsent: [ nil ].
+		holder ifNotNil: [ ^ GListReferenceMark newObject: holder created: false ].
+
+		"do not autorelease"
+		holder :=	 GObject basicNew 
 			setHandle: (GObject gObjectNew: GObject gType);
-			yourself)
-		dataAt: 'position' put: (ExternalAddress fromAddress: position);
-		yourself.
+			installDebugSignals;
+			dataAt: 'position' put: (ExternalAddress fromAddress: position);
+			yourself.
 
-	objects at: position put: holder.
+		objects at: position put: holder ].
 
-	^ holder
+	^  GListReferenceMark newObject: holder created: true
 ]
 
 { #category : #initialization }
 GListReferenceContainer >> reset [
 
-	GRunLoop defer: [ self freeReferences ].
-	objects removeAll
+	GRunLoop defer: [ 
+		self freeReferences.
+		self resetObjects ]
+]
+
+{ #category : #initialization }
+GListReferenceContainer >> resetObjects [
+
+	mutex critical: [ 
+		objects := IdentityDictionary new ]
 ]

@@ -949,7 +949,8 @@ GtkWidget >> insertActionGroup: name actions: group [
 	self 
 		basicInsertActionGroup: name 
 		actions: group.
-	group doNotAutoRelease
+	group doNotAutoRelease.
+	group objectUnref
 ]
 
 { #category : #testing }

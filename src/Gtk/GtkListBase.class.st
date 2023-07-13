@@ -47,22 +47,9 @@ GtkListBase >> factory: aFactory [
 
 	factory := aFactory.
 	self setFactory: aFactory.
-	factory doNotAutoRelease
-]
-
-{ #category : #finalization }
-GtkListBase >> finalize [
-	"Clean up the model before release to avoid an attempt to cleanup of an object that will 
-	 probably no longer exist in image-side (we will do the cleanup ourselves, see for example 
-	 finalize method on GListReferenceStore (a GtkSelectionModel contains a store)"	
-	
-	selectionModel ifNotNil: [ 
-		selectionModel cleanModel ].
-	super finalize.
-	"self getHandle printToStdout."
-	"GRunLoop defer: [
-		self clearModel.
-		super finalize ]"
+	factory doNotAutoRelease.
+	factory autoReleaseWhenDisposedByGtk.
+	factory objectUnref
 ]
 
 { #category : #private }
@@ -86,14 +73,13 @@ GtkListBase >> selectionModel [
 { #category : #accessing }
 GtkListBase >> selectionModel: aModel [
 
-	selectionModel ifNotNil: [
-		selectionModel cleanModel ].
+	"selectionModel ifNotNil: [
+		selectionModel cleanModel ]."
 
 	selectionModel := aModel.
-	self setModel: aModel.
-	"apparently, we do not need to autorelease as setting the model will clear any existing 
-	 model (and it will be destroyed along with the list view when it is disposed)"
-	aModel doNotAutoRelease
+	self setModel: selectionModel.
+	selectionModel doNotAutoRelease.
+	selectionModel objectUnref
 ]
 
 { #category : #private }
