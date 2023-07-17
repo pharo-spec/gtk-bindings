@@ -48,6 +48,12 @@ GtkDrawingArea >> appPaintable: app_paintable [
 	self deprecated: #Gtk4
 ]
 
+{ #category : #drawing }
+GtkDrawingArea >> basicDraw: cr [
+	
+	self subclassResponsibility
+]
+
 { #category : #signaling }
 GtkDrawingArea >> connectDraw: aBlock [
 
@@ -76,16 +82,11 @@ GtkDrawingArea >> connectToSignals [
 { #category : #drawing }
 GtkDrawingArea >> draw: cr [
 
-	[ self drawOnAthensCanvas: (AthensCairoCanvas fromHandle: cr) ]
+	[ self basicDraw: cr ]
 	on: Error 
 	fork: [ :e | e debug ].
 	
 	^ true
-]
-
-{ #category : #drawing }
-GtkDrawingArea >> drawOnAthensCanvas: aCanvas [
-	self subclassResponsibility
 ]
 
 { #category : #private }

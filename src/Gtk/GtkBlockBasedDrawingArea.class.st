@@ -37,6 +37,14 @@ GtkBlockBasedDrawingArea class >> example [
 			present ]
 ]
 
+{ #category : #drawing }
+GtkBlockBasedDrawingArea >> basicDraw: cr [
+	
+	drawBlock 
+		value: cr
+		value: self boundingBox
+]
+
 { #category : #accessing }
 GtkBlockBasedDrawingArea >> boundingBox [ 
 
@@ -59,15 +67,6 @@ GtkBlockBasedDrawingArea >> drawBlock [
 GtkBlockBasedDrawingArea >> drawBlock: aBlock [
 
 	drawBlock := aBlock
-]
-
-{ #category : #drawing }
-GtkBlockBasedDrawingArea >> drawOnAthensCanvas: aCanvas [
-
-	aCanvas surface drawDuring: [ :canvas | 
-		drawBlock 
-			cull: canvas 
-			cull: self boundingBox ]
 ]
 
 { #category : #initialization }

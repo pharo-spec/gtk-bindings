@@ -11,6 +11,12 @@ Class {
 	#category : #'Gtk-Morphic'
 }
 
+{ #category : #drawing }
+GtkMorphicDrawingArea >> basicDraw: cr [
+
+	"do nothing"
+]
+
 { #category : #'private - primitives' }
 GtkMorphicDrawingArea >> cairoCreate: target [
 
@@ -63,12 +69,6 @@ GtkMorphicDrawingArea >> currentExtent [
 GtkMorphicDrawingArea >> draw: cr [
 
 	self subclassResponsibility
-]
-
-{ #category : #drawing }
-GtkMorphicDrawingArea >> drawOnAthensCanvas: aCanvas [
-	
-	"do nothing"
 ]
 
 { #category : #private }
