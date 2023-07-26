@@ -29,7 +29,7 @@ GtkDropDownExample >> addContentsTo: window [
 
 { #category : #private }
 GtkDropDownExample >> newDropDown [
-	| store factory model |
+	| store factory |
 
 	store :=  GListReferenceStore new.
 	store items: Smalltalk allClassesAndTraits.
@@ -37,7 +37,7 @@ GtkDropDownExample >> newDropDown [
 	factory := GtkSignalListItemFactory new.
 	factory connectSetup: [ :listItem |
 		listItem child: (factory storeObject: (GtkBox newHorizontal
-			spacing: 10;
+			spacing: 5;
 			append: GtkImage new;
 			append: GtkLabel new;
 			yourself)) ].
@@ -50,11 +50,9 @@ GtkDropDownExample >> newDropDown [
 		box children second
 			label: item name ].
 
-	model := GtkSingleSelection newModel: store.
-
 	^ GtkDropDown new
 		listFactory: factory;
-		model: model;
+		model: store;
 		expression: (GtkCClosureExpression newStringCallback: [ :handle |
 			(store itemAtHandle: handle) ifNotNil: #name ]);
 		yourself
