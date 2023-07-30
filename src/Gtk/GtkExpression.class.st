@@ -12,3 +12,9 @@ Class {
 	#classTraits : 'GtkTLibrary classTrait',
 	#category : #'Gtk-Misc'
 }
+
+{ #category : #'accessing - referencing' }
+GtkExpression >> objectUnref [
+
+	self ffiCall: #(void gtk_expression_unref (self))
+]

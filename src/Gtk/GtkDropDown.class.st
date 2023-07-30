@@ -33,25 +33,64 @@ GtkDropDown class >> newListFactory: aFactory Model: aModel [
 		yourself
 ]
 
+{ #category : #signaling }
+GtkDropDown >> connectSelectedItem: aBlock [
+
+	self 
+		connect: 'notify::selected-item' 
+		signature: #(void (void *widget)) 
+		do: [ :widget | aBlock value ]
+]
+
 { #category : #accessing }
 GtkDropDown >> expression: anExpression [
 
 	expression := anExpression.
-	self setExpression: anExpression
+	self setExpression: anExpression.
+	expression objectUnref
+]
+
+{ #category : #private }
+GtkDropDown >> getModel [
+
+	^ self ffiCall: #(GListModel* gtk_drop_down_get_model (self))
 ]
 
 { #category : #accessing }
 GtkDropDown >> listFactory: factory [
 
 	listFactory := factory.
-	self setListFactory: factory
+	self setListFactory: factory.
+	factory doNotAutoRelease.
+	factory autoReleaseWhenDisposedByGtk.
+	factory objectUnref
+]
+
+{ #category : #accessing }
+GtkDropDown >> model [
+
+	^ model ifNil: [ model := self getModel ]
 ]
 
 { #category : #accessing }
 GtkDropDown >> model: aModel [
 
 	model := aModel.
-	self setModel: aModel
+	self setModel: aModel.
+	"model doNotAutoRelease.
+	model objectUnref"
+]
+
+{ #category : #accessing }
+GtkDropDown >> select: position [
+
+	self ffiCall: #(void gtk_drop_down_set_selected (self, guint position))
+]
+
+{ #category : #accessing }
+GtkDropDown >> selected [
+
+	^ self ffiCall: #(guint gtk_drop_down_get_selected (self))
 ]
 
 { #category : #initialization }
@@ -71,5 +110,5 @@ GtkDropDown >> setListFactory: aFactory [
 { #category : #private }
 GtkDropDown >> setModel: aModel [
 
-	^ self ffiCall: #(void gtk_drop_down_set_model (self, "GListModel"GListStore *aModel))
+	^ self ffiCall: #(void gtk_drop_down_set_model (self, GListModel *aModel))
 ]
