@@ -77,8 +77,8 @@ GtkDropDown >> model: aModel [
 
 	model := aModel.
 	self setModel: aModel.
-	"model doNotAutoRelease.
-	model objectUnref"
+	model doNotAutoRelease.
+	model objectUnref
 ]
 
 { #category : #accessing }
@@ -111,4 +111,10 @@ GtkDropDown >> setListFactory: aFactory [
 GtkDropDown >> setModel: aModel [
 
 	^ self ffiCall: #(void gtk_drop_down_set_model (self, GListModel *aModel))
+]
+
+{ #category : #accessing }
+GtkDropDown >> unselectAll [
+
+	self select: "GTK_INVALID_LIST_POSITION"16rFFFFFFFF
 ]
