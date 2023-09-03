@@ -15,7 +15,9 @@ GtkSingleSelection class >> gtkNew: model [
 
 { #category : #accessing }
 GtkSingleSelection >> autoSelect: autoselect [
-
+	"this will mark the autoselect of the model. 
+	 Notice that for it to have effect, it needs to be set BEFORE the model"
+	
 	self ffiCall: #(void gtk_single_selection_set_autoselect (self, gboolean autoselect))
 ]
 
@@ -31,6 +33,12 @@ GtkSingleSelection >> basicSelected [
 
 	self ffiCall: #(guint gtk_single_selection_get_selected (self))
 
+]
+
+{ #category : #accessing }
+GtkSingleSelection >> canUnselect: can_unselect [
+
+	self ffiCall: #(void gtk_single_selection_set_can_unselect ( self, gboolean can_unselect))
 ]
 
 { #category : #private }
