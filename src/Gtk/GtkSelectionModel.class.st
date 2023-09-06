@@ -105,11 +105,11 @@ GtkSelectionModel >> model [
 GtkSelectionModel >> model: aModel [
 
 	model := aModel.
-	self setModel: aModel.
+	self setModel: model.
 	"Ensure we do not finalize because we have transmitted the control to the next place."
-	aModel doNotAutoRelease.
-	aModel autoReleaseWhenDisposedByGtk.
-	aModel objectUnref
+	model doNotAutoRelease.
+	model autoReleaseWhenDisposedByGtk.
+	model objectUnref
 ]
 
 { #category : #accessing }

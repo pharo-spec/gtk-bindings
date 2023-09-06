@@ -18,17 +18,6 @@ GtkListView class >> gtkNew [
 	
 ]
 
-{ #category : #initialization }
-GtkListView >> autoObjectUnref [
-	"I need to do a clean up before this object is disposed. For that reason, unlike a 
-	 regular widget (which is freed along with the window), I increment the reference count 
-	 and mark the object for autorelease. This will ensure the `finalize` method is called 
-	 and the clean up can be done."
-	
-	self objectRef.
-	self autoRelease
-]
-
 { #category : #private }
 GtkListView >> clearModel [
 
@@ -72,7 +61,9 @@ GtkListView >> headerFactory: aFactory [
 
 	headerFactory := aFactory.
 	self setHeaderFactory: aFactory.
-	factory doNotAutoRelease
+	factory doNotAutoRelease.
+	factory autoReleaseWhenDisposedByGtk.
+	factory objectUnref	
 ]
 
 { #category : #testing }
