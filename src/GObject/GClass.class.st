@@ -42,7 +42,8 @@ Class {
 		'targetClass',
 		'instances',
 		'interfaces',
-		'interfaceStructures'
+		'interfaceStructures',
+		'mutex'
 	],
 	#classVars : [
 		'GClasses'
@@ -108,16 +109,15 @@ GClass class >> gDefinitionAt: aClass [
 	"Answers a GClass definition of aClass. 
 	 if the definition does not yet exits, it tries to install a new definition by calling
 	 the #gDefine: hook method."
-	| gClass |
 
-	self critical: [ 
+	^ self critical: [ 
+		| gClass |
 		gClass := self gClassAt: aClass ifAbsent: [ nil ].
 		gClass ifNil: [
 			gClass := self 
 				install: aClass 
-				with: [ :c | aClass gDefine: c ] ] ].
-	
-	^ gClass
+				with: [ :c | aClass gDefine: c ] ].
+		gClass ]
 ]
 
 { #category : #'class initialization' }
@@ -223,7 +223,8 @@ GClass >> ffiLibraryName [
 { #category : #private }
 GClass >> findInstance: handle [
 
-	^ instances at: handle asInteger
+	^ mutex critical: [ 
+		instances at: handle asInteger ]
 ]
 
 { #category : #'private - primitives' }
@@ -274,6 +275,7 @@ GClass >> gTypeRegisterStaticSimpleParent: parent_type name: type_name classSize
 GClass >> initialize [
 
 	super initialize.
+	mutex := Mutex new.
 	instances := WeakIdentityValueDictionary new.
 	interfaces := OrderedDictionary new.
 	interfaceStructures := Set new.
@@ -337,7 +339,8 @@ GClass >> new [
 
 	handle := self gObjectNew: self type.
 	instance := targetClass basicNew setHandle: handle.
-	instances at: handle asInteger put: instance.
+	mutex critical: [ 
+		instances at: handle asInteger put: instance ].
 	instance initialize.
 	^ instance
 ]
@@ -379,7 +382,10 @@ GClass >> registerType [
 { #category : #private }
 GClass >> safeFindInstance: handle [
 
-	^ instances at: handle asInteger ifAbsent: [ nil ]
+	^ mutex critical: [ 
+		instances 
+			at: handle asInteger 
+			ifAbsent: [ nil ] ]
 ]
 
 { #category : #accessing }
