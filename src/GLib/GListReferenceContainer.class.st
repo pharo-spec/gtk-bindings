@@ -38,6 +38,7 @@ GListReferenceContainer >> freeReferences [
 
 	mutex critical: [
 		objects keysAndValuesDo: [ :position :object | 
+			(object referenceCount -> object getHandle printString) printToStdout.
 			object objectUnref ] ]
 ]
 
@@ -49,24 +50,21 @@ GListReferenceContainer >> initialize [
 	self resetObjects
 ]
 
+{ #category : #'private - factory' }
+GListReferenceContainer >> newHolderForPosition: position [
+	
+	^ GObject basicNew 
+		setHandle: (GObject gObjectNew: GObject gType);
+		installDebugSignals;
+		dataAt: 'position' put: (ExternalAddress fromAddress: position);
+		yourself
+]
+
 { #category : #accessing }
 GListReferenceContainer >> referenceAt: position [
-	| holder |
 
-	mutex critical: [ 	
-		holder := objects at: position ifAbsent: [ nil ].
-		holder ifNotNil: [ ^ GListReferenceMark newObject: holder created: false ].
-
-		"do not autorelease"
-		holder :=	 GObject basicNew 
-			setHandle: (GObject gObjectNew: GObject gType);
-			installDebugSignals;
-			dataAt: 'position' put: (ExternalAddress fromAddress: position);
-			yourself.
-
-		objects at: position put: holder ].
-
-	^  GListReferenceMark newObject: holder created: true
+	^ mutex critical: [ 	
+		self safeReferenceAt: position ]
 ]
 
 { #category : #initialization }
@@ -82,4 +80,18 @@ GListReferenceContainer >> resetObjects [
 
 	mutex critical: [ 
 		objects := IdentityDictionary new ]
+]
+
+{ #category : #accessing }
+GListReferenceContainer >> safeReferenceAt: position [
+	| holder created |
+	
+	created := false.
+	holder := objects 
+		at: position 
+		ifAbsentPut: [ 
+			created := true.
+			self newHolderForPosition: position ].
+	
+	^ GListReferenceMark newObject: holder created: created
 ]
