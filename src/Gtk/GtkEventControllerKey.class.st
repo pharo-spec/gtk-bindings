@@ -17,13 +17,14 @@ GtkEventControllerKey class >> gtkNew [
 
 { #category : #signaling }
 GtkEventControllerKey >> connectKeyPressed: aBlock [
-	"aBlock receives: keyVal, keyCode, state"
+	"aBlock receives a GdkSimulatedKeyPressEvent"
 
 	(GKeyPressedCallback do: aBlock) connectTo: self 
 ]
 
 { #category : #signaling }
 GtkEventControllerKey >> connectKeyReleased: aBlock [
+	"aBlock receives a GdkSimulatedKeyPressEvent"
 
 	(GKeyReleasedCallback do: aBlock) connectTo: self 
 ]
