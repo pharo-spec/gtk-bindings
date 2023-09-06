@@ -343,7 +343,7 @@ GtkPharoSourceCompletionProvider >> list_alternates: context proposal: proposal 
 GtkPharoSourceCompletionProvider >> newResultsFor: word in: aString position: aPosition [
 	
 	self flag: #TODO. "I do not autorelease because control will be in the other side. 
-	 BUT I NEED RO CHECK THAT"
+	 BUT I NEED TO CHECK THAT"
 
 	^ (GListObjectStore newType: GtkPharoSourceCompletionProposal gType) 
 		objectRef;
