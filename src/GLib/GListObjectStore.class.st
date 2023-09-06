@@ -59,8 +59,6 @@ GListObjectStore class >> newType: gType [
 { #category : #'accessing - model' }
 GListObjectStore >> get_item: position [
 
-	position printToStdout.
-
 	position >= items size
 		ifTrue: [ ^ ExternalAddress null ].
 

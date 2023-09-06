@@ -38,7 +38,6 @@ GListReferenceContainer >> freeReferences [
 
 	mutex critical: [
 		objects keysAndValuesDo: [ :position :object | 
-			(object referenceCount -> object getHandle printString) printToStdout.
 			object objectUnref ] ]
 ]
 
