@@ -44,6 +44,10 @@ GtkTextTag >> asTextAttributeList [
 	
 ]
 
+{ #category : #initialization }
+GtkTextTag >> autoObjectUnref [
+]
+
 { #category : #accessing }
 GtkTextTag >> background [
 

@@ -49,6 +49,10 @@ GtkTextTagTable >> addAll: aListOfTags [
 	aListOfTags do: [ :each | self add: each ]
 ]
 
+{ #category : #initialization }
+GtkTextTagTable >> autoObjectUnref [
+]
+
 { #category : #adding }
 GtkTextTagTable >> basicAdd: tag [
 

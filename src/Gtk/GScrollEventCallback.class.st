@@ -30,12 +30,15 @@ GScrollEventCallback class >> signalName [
 { #category : #accessing }
 GScrollEventCallback >> do: aBlock [
 
-	super do: [ :widget :event :aData |
-		aBlock value: (GdkScrollEvent fromHandle: event) ]
+	super do: [ :widget :dx :dy :user_data |
+		aBlock value: (GdkSimulatedScrollEvent new 
+			dx: dx;
+			dy: dy;
+			yourself) ]
 ]
 
 { #category : #accessing }
 GScrollEventCallback >> signature [
 
-	^ #(gboolean (void *widget, void* event, void *aData))
+	^ #(gboolean (void *widget, gdouble dx, gdouble dy, void *user_data))
 ]

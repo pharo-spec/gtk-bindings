@@ -206,6 +206,16 @@ GtkWidget >> addEventControllerMotionWith: aBlock [
 		ifNone: [ self addController: GtkEventControllerMotion new ])
 ]
 
+{ #category : #'private - events' }
+GtkWidget >> addEventControllerScrollWith: aBlock [
+	| gesture |
+
+	"scroll event controllers do not stack"
+	gesture := GtkEventControllerScroll new.
+	aBlock value: gesture.
+	self addController: gesture
+]
+
 { #category : #accessing }
 GtkWidget >> addEvents: events [
 	
@@ -257,6 +267,17 @@ GtkWidget >> addGlobalShortcutControllerWith: aBlock [
 			self addController: (GtkShortcutController new 
 				beGlobal; 
 				yourself) ])
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addHorizontalScrollEvent: aBlock [
+	"connects to scroll signal.
+	 aBlock needs to answer a boolean to stop or not event propagation"
+
+	self addEventControllerScrollWith: [ :controller |
+		controller 
+			beHorizontal;
+			connectScroll: aBlock ]
 ]
 
 { #category : #'private - events' }
@@ -345,6 +366,17 @@ GtkWidget >> addShortcutControllerWith: aBlock [
 			self addController: (GtkShortcutController new
 				beLocal;
 				yourself) ])
+]
+
+{ #category : #'accessing - events' }
+GtkWidget >> addVerticalScrollEvent: aBlock [
+	"connects to scroll signal.
+	 aBlock needs to answer a boolean to stop or not event propagation"
+
+	self addEventControllerScrollWith: [ :controller |
+		controller 
+			beVertical;
+			connectScroll: aBlock ]
 ]
 
 { #category : #accessing }
@@ -600,7 +632,7 @@ GtkWidget >> connectScroll: aBlock [
 	"connects to scroll_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
 
-	^ (GScrollEventCallback do: aBlock) connectTo: self
+	self deprecated: #Gtk4
 
 ]
 

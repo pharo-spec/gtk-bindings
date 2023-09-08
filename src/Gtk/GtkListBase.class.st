@@ -46,7 +46,7 @@ GtkListBase >> factory [
 GtkListBase >> factory: aFactory [
 
 	factory := aFactory.
-	self setFactory: aFactory.
+	self setFactory: factory.
 	factory doNotAutoRelease.
 	factory autoReleaseWhenDisposedByGtk.
 	factory objectUnref
