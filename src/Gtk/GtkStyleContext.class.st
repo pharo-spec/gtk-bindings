@@ -1,3 +1,9 @@
+"
+https://docs.gtk.org/gtk4/class.StyleContext.html
+
+WARNING: This class is deprecated and will be removed in Gtk5. 
+DO NOT USE OR BE PREPARED TO SUFFER :)
+"
 Class {
 	#name : #GtkStyleContext,
 	#superclass : #GObject,

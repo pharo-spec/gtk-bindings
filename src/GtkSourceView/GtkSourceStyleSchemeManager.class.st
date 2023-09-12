@@ -46,23 +46,24 @@ GtkSourceStyleSchemeManager >> getSchemeIds [
 ]
 
 { #category : #accessing }
-GtkSourceStyleSchemeManager >> schemeIds [ 
+GtkSourceStyleSchemeManager >> schemeIds [
 	| ids |
 
 	ids := self getSchemeIds asExternalAddress.
 	(ids isNil or: [ ids isNull ]) ifTrue: [ ^ #() ].
 
-	^ (ids 
-		readArrayOf: (GObject resolveType: #gpointer) 
-		until: [ :each | each isNull ])
-		collect: [ :each | each readStringUTF8 ]
+	^ (ids
+		   readArrayOf: (GObject resolveType: #gpointer)
+		   until: [ :each | each isNull ]) 
+		collect: [ :each |
+		  each utf8StringFromCString ]
 ]
 
 { #category : #accessing }
 GtkSourceStyleSchemeManager >> schemeWithId: id [ 
 
 	^ self 
-		ffiCall: #(GtkSourceLanguage *gtk_source_style_scheme_manager_get_scheme(
+		ffiCall: #(GtkSourceStyleScheme *gtk_source_style_scheme_manager_get_scheme(
 			self,
 			const gchar *id))
 		module: GtkSourceViewLibrary
