@@ -483,6 +483,21 @@ GtkWidget >> clipboard [
 	^ self ffiCall: #(GdkClipboard *gtk_widget_get_clipboard (self))
 ]
 
+{ #category : #accessing }
+GtkWidget >> color [
+
+	^ self colorRGBA asColor
+]
+
+{ #category : #accessing }
+GtkWidget >> colorRGBA [
+	| colorRGBA |
+	
+	colorRGBA := GdkRGBA new.
+	self getColorRGBAInto: colorRGBA.
+	^ colorRGBA
+]
+
 { #category : #signaling }
 GtkWidget >> connectButtonPressEvent: aBlock [
 	"connects to button-press-event signal 
@@ -843,6 +858,12 @@ GtkWidget >> getAllocation: allocation [
 GtkWidget >> getCSSClasses [
 
 	self ffiCall: #("char**"void *gtk_widget_get_css_classes (self))
+]
+
+{ #category : #private }
+GtkWidget >> getColorRGBAInto: color [
+
+	^ self ffiCall: #(void gtk_widget_get_color (self, GdkRGBA* color))
 ]
 
 { #category : #geometry }
@@ -1356,6 +1377,7 @@ GtkWidget >> sizeRequestWidth: width height: height [
 { #category : #style }
 GtkWidget >> styleContext [
 	
+	self deprecated: #Gtk4.
 	^ self ffiCall: #(GtkStyleContext *gtk_widget_get_style_context (self))
 ]
 
