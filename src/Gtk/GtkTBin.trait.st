@@ -13,9 +13,9 @@ Trait {
 { #category : #'instance creation' }
 GtkTBin classSide >> newWidget: aWidget [
 
-	^ self new 
-		child: aWidget;
-		yourself
+	^ self new
+		  child: aWidget;
+		  yourself
 ]
 
 { #category : #private }
