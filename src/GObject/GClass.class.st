@@ -335,14 +335,14 @@ GClass >> name: aString [
 
 { #category : #'instance creation' }
 GClass >> new [ 
-	| handle instance |
 
-	handle := self gObjectNew: self type.
-	instance := targetClass basicNew setHandle: handle.
-	mutex critical: [ 
-		instances at: handle asInteger put: instance ].
-	instance initialize.
-	^ instance
+	^ mutex critical: [
+		| handle instance |
+		handle := self gObjectNew: self type.
+		instance := targetClass basicNew setHandle: handle.
+		instances at: handle asInteger put: instance.
+		instance initialize. 
+		instance ]
 ]
 
 { #category : #accessing }
@@ -366,6 +366,8 @@ GClass >> prepare: aBlock [
 { #category : #'private - installing' }
 GClass >> registerType [
 	| utf8Name |
+
+	self validateInstallPreconditions.
 
 	utf8Name := name utf8Encoded copyWith: 0.
 	utf8Name pinInMemory.
@@ -408,4 +410,25 @@ GClass >> type [
 GClass >> typeName [
 
 	^ self ffiCall: #(gchar *g_type_name (gsize type))
+]
+
+{ #category : #'private - installing' }
+GClass >> validateInstallPreconditions [
+	| selectors |
+
+	selectors := parent class selectors.
+	#(gType gClassSize gSize) 
+		reject: [ :each | selectors includes: each ]
+		thenDo: [ :each |  
+			self warn: ('{1}: No {2} class>>#{3}. This may lead into a crash!' 
+				format: { 
+					name. 
+					parent name. 
+					each }) ]
+]
+
+{ #category : #private }
+GClass >> warn: aString [
+
+	('WARNING: ', aString) crTrace
 ]
