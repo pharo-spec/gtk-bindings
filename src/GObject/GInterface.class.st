@@ -5,6 +5,8 @@ My children needs to define #fieldsDesc but they can use the fieldsDesc implemen
 Class {
 	#name : #GInterface,
 	#superclass : #GStructure,
+	#traits : 'GTConnectCallback',
+	#classTraits : 'GTConnectCallback classTrait',
 	#classVars : [
 		'OFFSET_G_IFACE'
 	],
@@ -31,24 +33,6 @@ GInterface class >> initialize [
 
 	"Offset is always 1"
 	OFFSET_G_IFACE := 1
-]
-
-{ #category : #convenience }
-GInterface >> connect: aProperty signature: aSignature to: aBlock [
-	
-	self
-		perform: aProperty asMutator 
-		with: (GCallback 
-			signature: aSignature
-			block: aBlock)
-]
-
-{ #category : #convenience }
-GInterface >> connectToNull: aProperty [
-	
-	self
-		perform: aProperty asMutator 
-		with: GCallback null
 ]
 
 { #category : #'accessing structure variables' }
