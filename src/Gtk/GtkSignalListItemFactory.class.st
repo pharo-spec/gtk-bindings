@@ -46,6 +46,14 @@ GtkSignalListItemFactory >> connectUnbind: aBlock [
 		connectTo: self
 ]
 
+{ #category : #finalization }
+GtkSignalListItemFactory >> finalize [
+
+	GRunLoop defer: [
+		self disconnectAll.
+		super finalize ]
+]
+
 { #category : #private }
 GtkSignalListItemFactory >> itemClass [
 
