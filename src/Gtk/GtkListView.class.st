@@ -60,10 +60,8 @@ GtkListView >> headerFactory [
 GtkListView >> headerFactory: aFactory [
 
 	headerFactory := aFactory.
-	self setHeaderFactory: aFactory.
-	factory doNotAutoRelease.
-	factory autoReleaseWhenDisposedByGtk.
-	factory objectUnref	
+	self setHeaderFactory: headerFactory.
+	headerFactory ensureAutoRelease
 ]
 
 { #category : #testing }
