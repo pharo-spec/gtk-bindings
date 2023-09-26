@@ -103,7 +103,7 @@ GtkEngine >> installGClasses [
 		use: TFMainThreadRunner uniqueInstance
 		during: [ 
 			(GTClass users flatCollect: #withAllSubclasses) 
-				reject: #isTrait
+				reject: [ :each | each isTrait or: [ each isAbstract ] ]
 				thenDo: [ :each | each gInstall ] ]
 ]
 
