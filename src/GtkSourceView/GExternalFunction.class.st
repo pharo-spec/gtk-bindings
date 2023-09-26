@@ -62,3 +62,15 @@ GExternalFunction >> parseSignature: aSignature [
 		parameterTypes: (functionSpec arguments collect: #tfExternalTypeWithArity)
 		returnType: functionSpec returnType tfExternalTypeWithArity
 ]
+
+{ #category : #invoking }
+GExternalFunction >> withAddress: anAddress invokeWithArguments: aCollection [
+
+	function address: anAddress.
+	^ [
+			ffiLibrary runner
+				invokeFunction: function 
+				withArguments: aCollection ]
+		ensure: [ 
+			function address: nil ]
+]
