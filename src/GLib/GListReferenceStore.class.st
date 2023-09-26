@@ -50,6 +50,14 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 ]
 
 { #category : #finalization }
+GListReferenceStore >> finalize [
+
+	GRunLoop defer: [ 
+		references freeReferences.
+		super finalize ]
+]
+
+{ #category : #finalization }
 GListReferenceStore >> finalizedOnGtk [
 
 	references freeReferences

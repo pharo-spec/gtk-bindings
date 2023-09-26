@@ -37,8 +37,15 @@ GListReferenceContainer >> finalize [
 GListReferenceContainer >> freeReferences [
 
 	mutex critical: [
-		objects keysAndValuesDo: [ :position :object | 
-			object objectUnref ] ]
+		objects 
+			keysAndValuesDo: [ :position :object | 
+				(object notNil 
+					and: [ object getHandle notNil
+					and: [ object getHandle isNull not ] ])
+						ifTrue: [ 
+							object objectUnref.
+							object getHandle beNull ] ];
+			removeAll ]
 ]
 
 { #category : #initialization }
