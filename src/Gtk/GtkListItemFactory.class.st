@@ -12,6 +12,26 @@ Class {
 	#category : #'Gtk-Widget-ListView'
 }
 
+{ #category : #accessing }
+GtkListItemFactory class >> gClassSize [
+	"this object structure: is in GtkListItemFactoryClass"
+	^ GtkListItemFactoryClass structureSize 
+]
+
+{ #category : #accessing }
+GtkListItemFactory class >> gSize [
+	"the object has same size as a GObject, it seems"
+
+	^ super gSize
+]
+
+{ #category : #accessing }
+GtkListItemFactory class >> gType [ 
+	"This method was automatically generated"
+
+	^ self ffiCall: #(gsize gtk_list_item_factory_get_type())
+]
+
 { #category : #initialization }
 GtkListItemFactory >> initialize [
 
