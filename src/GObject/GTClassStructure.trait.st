@@ -1,5 +1,11 @@
+"
+A structure used to define classes.
+Sometimes, when extending a gtk class, we need to map its parent structure, in order to redefine methods/functions or add properties.
+"
 Trait {
 	#name : #GTClassStructure,
+	#traits : 'GTConnectCallback',
+	#classTraits : 'GTConnectCallback classTrait',
 	#category : #'GObject-ClassBuilder'
 }
 
