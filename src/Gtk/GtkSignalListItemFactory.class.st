@@ -37,6 +37,15 @@ GtkSignalListItemFactory >> connectSetup: aBlock [
 		connectTo: self
 ]
 
+{ #category : #signaling }
+GtkSignalListItemFactory >> connectUnbind: aBlock [
+	"aBlock receives one argument: a GtkListItem"
+
+	(GUnbindCallback do: aBlock) 
+		itemClass: self itemClass;
+		connectTo: self
+]
+
 { #category : #private }
 GtkSignalListItemFactory >> itemClass [
 
