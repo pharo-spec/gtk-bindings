@@ -472,6 +472,16 @@ GObject >> emitSignalByName: detailed_signal handled: buffer [
 ]
 
 { #category : #'accessing - referencing' }
+GObject >> ensureAutoRelease [
+	"Verifies if instance is already marked for autoRelease and in case contrary does it.
+	 This method DOES NOT increases reference count. 
+	 In case you need that, you can see `GObject>>#ensureObjectRefAndAutoRelease`"
+
+	self isMarkedForAutoRelease ifTrue: [ ^ self ].
+	self autoRelease
+]
+
+{ #category : #'accessing - referencing' }
 GObject >> ensureObjectRefAndAutoRelease [
 	"If it is already marked for release means the object reference is also already incresed. 
 	 We skip that condition to ensure we do not have more 'objectRef' than those we want 

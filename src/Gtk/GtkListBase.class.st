@@ -45,11 +45,9 @@ GtkListBase >> factory [
 { #category : #accessing }
 GtkListBase >> factory: aFactory [
 
+	self setFactory: aFactory.
 	factory := aFactory.
-	self setFactory: factory.
-	factory doNotAutoRelease.
-	factory autoReleaseWhenDisposedByGtk.
-	factory objectUnref
+	factory ensureAutoRelease
 ]
 
 { #category : #private }
@@ -73,13 +71,9 @@ GtkListBase >> selectionModel [
 { #category : #accessing }
 GtkListBase >> selectionModel: aModel [
 
-	"selectionModel ifNotNil: [
-		selectionModel cleanModel ]."
-
 	selectionModel := aModel.
 	self setModel: selectionModel.
-	selectionModel doNotAutoRelease.
-	selectionModel objectUnref
+	selectionModel ensureAutoRelease
 ]
 
 { #category : #private }
