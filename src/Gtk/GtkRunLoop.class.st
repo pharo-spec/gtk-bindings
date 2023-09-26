@@ -25,18 +25,16 @@ GtkRunLoop >> callerProcess [
 	^ callerProcess
 ]
 
-{ #category : #accessing }
+{ #category : #deferring }
 GtkRunLoop >> defer: aBlock [
 
-	(self isRunning not 
-		or: [ self isInCallback ]) 
-		ifTrue: [ 
-			^ aBlock value ].
+	self isInCallback
+		ifTrue: [ ^ aBlock value ].
 
 	^ self forceDefer: aBlock	
 ]
 
-{ #category : #accessing }
+{ #category : #deferring }
 GtkRunLoop >> forceDefer: aBlock [
 	| sem result exception |
 
