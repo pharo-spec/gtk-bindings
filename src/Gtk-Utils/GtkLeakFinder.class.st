@@ -197,6 +197,13 @@ GtkLeakFinder >> start [
 	self startFor: GSignalBaseAnnouncement
 ]
 
+{ #category : #registering }
+GtkLeakFinder >> stop [
+	
+	super stop.
+	GSignalBaseAnnouncement resetFilters
+]
+
 { #category : #accessing }
 GtkLeakFinder >> zombies [
 
