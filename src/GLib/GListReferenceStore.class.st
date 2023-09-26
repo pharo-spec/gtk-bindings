@@ -43,10 +43,11 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 		connect: #items_changed 
 			signature: #(void (void *list, guint position, guint removed, guint added)) 
 			to: [ :list :position :removed :added |
-				(self gInstance: list)
-					items_changed: position 
-					removed: removed 
-					added: added ]
+				(self gInstanceSafe: list) ifNotNil: [ :instance | 
+					instance
+						items_changed: position 
+						removed: removed 
+						added: added ] ]
 ]
 
 { #category : #finalization }
