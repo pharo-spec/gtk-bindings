@@ -64,6 +64,7 @@ GSignalBaseAnnouncement class >> isFiltered [
 
 { #category : #private }
 GSignalBaseAnnouncement class >> resetFilters [
+	<script>
 
 	ActiveFilter := GAnnouncementFilterAll new
 ]

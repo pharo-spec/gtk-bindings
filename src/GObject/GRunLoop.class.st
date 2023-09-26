@@ -137,6 +137,8 @@ GRunLoop >> start [
 	self isRunning ifTrue: [ ^ self ].
 	
 	session := Smalltalk session. 
+	"I need to declare the event loop running before install it because otherwise
+	 the forked process will finish before we do anything ;)"
 	running := true.
 	self installRunLoop
 ]
