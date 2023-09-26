@@ -1,5 +1,5 @@
 "
-e.g. https://docs.gtk.org/gtk4/signal.SignalListItemFactory.setup.html
+https://docs.gtk.org/gtk4/signal.SignalListItemFactory.setup.html
 "
 Class {
 	#name : #GSetupCallback,
