@@ -107,7 +107,6 @@ GtkSpinButton >> adjustment: adjustment [
 { #category : #accessing }
 GtkSpinButton >> beNumber [ 
 
-	super beNumber.
 	self numeric: true
 ]
 
@@ -121,6 +120,15 @@ GtkSpinButton >> climbRate [
 GtkSpinButton >> climbRate: rate [
 
 	^ self gObjectSet: 'climb-rate' toDouble: rate asFloat
+]
+
+{ #category : #signaling }
+GtkSpinButton >> connectValueChanged: aBlock [
+
+	^ self 
+		connect: 'value-changed'
+		signature: #(void (void *widget, void *aData))  
+ 		do: [ :widget :aData | aBlock value ] 
 ]
 
 { #category : #accessing }
