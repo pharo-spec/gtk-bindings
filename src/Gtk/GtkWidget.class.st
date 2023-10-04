@@ -83,7 +83,7 @@ GtkWidget class >> widgetDestroy: widget [
 { #category : #'accessing - actions' }
 GtkWidget >> actionGroups [
 
-	^ actionGroups ifNil: [ #() ]
+	^ actionGroups ifNil: [ SmallDictionary new ]
 ]
 
 { #category : #'accessing - actions' }
@@ -997,8 +997,8 @@ GtkWidget >> hide [
 { #category : #'accessing - actions' }
 GtkWidget >> insertActionGroup: name actions: group [
 
-	actionGroups ifNil: [ actionGroups := #() ].
-	actionGroups := actionGroups copyWith: group.
+	actionGroups ifNil: [ actionGroups := SmallDictionary new ].
+	actionGroups at: name put: group.
 	self 
 		basicInsertActionGroup: name 
 		actions: group.
@@ -1254,7 +1254,7 @@ GtkWidget >> queueResizeNoRedraw [
 GtkWidget >> removeAllActions [
 
 	self actionGroups 
-		do: [ :each | each removeAll ]
+		valuesDo: [ :each | each removeAll ]
 ]
 
 { #category : #'accessing - shortcuts' }
