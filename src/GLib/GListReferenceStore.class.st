@@ -53,6 +53,7 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 { #category : #finalization }
 GListReferenceStore >> finalize [
 
+	self isValidHandle ifFalse: [ ^ self ].
 	GRunLoop defer: [ 
 		references freeReferences.
 		super finalize ]

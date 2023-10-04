@@ -88,6 +88,7 @@ GtkPopoverMenu >> basicRemoveChild: aWidget [
 { #category : #finalization }
 GtkPopoverMenu >> finalize [
 
+	self isValidHandle ifFalse: [ ^ self ].
 	self unparent.
 	super finalize
 ]
