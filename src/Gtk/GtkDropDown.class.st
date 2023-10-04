@@ -61,9 +61,7 @@ GtkDropDown >> listFactory: factory [
 
 	listFactory := factory.
 	self setListFactory: factory.
-	factory doNotAutoRelease.
-	factory autoReleaseWhenDisposedByGtk.
-	factory objectUnref
+	factory ensureAutoRelease
 ]
 
 { #category : #accessing }
