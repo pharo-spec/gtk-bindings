@@ -39,3 +39,9 @@ GMainContext >> release [
 
 	self ffiCall: #(void g_main_context_release (self))
 ]
+
+{ #category : #acccessing }
+GMainContext >> wakeup [
+
+	self ffiCall: #(void g_main_context_wakeup (self))
+]
