@@ -2,15 +2,17 @@
 https://docs.gtk.org/gtk4/class.CallbackAction.html
 "
 Class {
-	#name : #GtkCallbackAction,
-	#superclass : #GtkShortcutAction,
+	#name : 'GtkCallbackAction',
+	#superclass : 'GtkShortcutAction',
 	#instVars : [
 		'callback'
 	],
-	#category : #'Gtk-Shortcut'
+	#category : 'Gtk-Shortcut',
+	#package : 'Gtk',
+	#tag : 'Shortcut'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCallbackAction class >> gtkNewCallback: callback [
 
 	^ self ffiCall: #(GtkCallbackAction gtk_callback_action_new (
@@ -19,7 +21,7 @@ GtkCallbackAction class >> gtkNewCallback: callback [
   	NULL))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCallbackAction class >> newAction: aBlock [
 
 	^ self newCallback: (GCallback
@@ -27,7 +29,7 @@ GtkCallbackAction class >> newAction: aBlock [
 		block: [ :widget :args :user_data |  aBlock cull: args ])
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCallbackAction class >> newCallback: aCallback [
 
 	^ (self gtkNewCallback: aCallback)
@@ -35,7 +37,7 @@ GtkCallbackAction class >> newCallback: aCallback [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkCallbackAction >> initializeCallback: aCallback [
 
 	callback := aCallback.

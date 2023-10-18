@@ -1,16 +1,18 @@
 Class {
-	#name : #GSelectionChangedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GSelectionChangedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSelectionChangedCallback class >> signalName [
 
 	^ 'selection-changed'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSelectionChangedCallback >> do: aBlock [ 
 
 	^ super do: [ :widget :position :n_items :user_data |
@@ -20,7 +22,7 @@ GSelectionChangedCallback >> do: aBlock [
 			value: n_items ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSelectionChangedCallback >> signature [
 
 	^ #(void (void* widget, guint position, guint n_items, gpointer user_data))

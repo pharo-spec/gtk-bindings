@@ -1,23 +1,25 @@
 Class {
-	#name : #GtkApplication,
-	#superclass : #GApplication,
+	#name : 'GtkApplication',
+	#superclass : 'GApplication',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'applicationId',
 		'runProcess'
 	],
-	#category : #'Gtk-Application'
+	#category : 'Gtk-Application',
+	#package : 'Gtk',
+	#tag : 'Application'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkApplication class >> finalize: handle [
 
 	self objectRefSink: handle.
 	^ super finalize: handle
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkApplication class >> gtk_application_new: application_id flags: flags [
 
 	self ffiCall: #(#GtkApplication *gtk_application_new ( 
@@ -25,20 +27,20 @@ GtkApplication class >> gtk_application_new: application_id flags: flags [
 		GApplicationFlags flags))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkApplication class >> new [ 
 
 	^ self error: 'Use #newId:flags:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkApplication class >> newId: anId [
 
 	^ self newId: anId flags: G_APPLICATION_DEFAULT_FLAGS
 	
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkApplication class >> newId: anId flags: flags [
 
 	^ (self gtk_application_new: anId flags: flags) 
@@ -47,13 +49,13 @@ GtkApplication class >> newId: anId flags: flags [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkApplication class >> objectRefSink: handle [
 
 	^ self ffiCall: #(void *g_object_ref_sink (void* handle))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkApplication >> activeWindow [
 
 	^ self
@@ -61,20 +63,20 @@ GtkApplication >> activeWindow [
 		as: GtkWindow
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkApplication >> id: anId [ 
 
 	applicationId := anId
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkApplication >> isRunning [
 
 	^ runProcess notNil 
 		and: [ runProcess isTerminated not ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkApplication >> run [
 	
 	runProcess := [

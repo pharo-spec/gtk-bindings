@@ -4,48 +4,50 @@ GSimpleActionGroup is a hash table filled with GAction objects, implementing the
 https://docs.gtk.org/gio/class.SimpleActionGroup.html
 "
 Class {
-	#name : #GSimpleActionGroup,
-	#superclass : #GObject,
+	#name : 'GSimpleActionGroup',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary + GTActionGroup',
 	#classTraits : 'GdkTLibrary classTrait + GTActionGroup classTrait',
 	#instVars : [
 		'actions'
 	],
-	#category : #'Gtk-Widget-Menu'
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleActionGroup class >> gNew [
 
 	^ self ffiCall: #(GSimpleActionGroup* g_simple_action_group_new (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GSimpleActionGroup class >> new [
 
 	^ self gNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleActionGroup >> basicInsert: action [
 
 	self ffiCall: #(void g_simple_action_group_insert (self, "GAction"GObject* action))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleActionGroup >> basicRemove: action_name [
 
 	^ self ffiCall: #(void g_simple_action_group_remove (self, const gchar* action_name))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GSimpleActionGroup >> initialize [
 
 	super initialize.
 	actions := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSimpleActionGroup >> insert: anAction [
 
 	self keepAction: anAction.
@@ -54,13 +56,13 @@ GSimpleActionGroup >> insert: anAction [
 	anAction objectUnref
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleActionGroup >> keepAction: anAction [
 
 	actions add: anAction
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSimpleActionGroup >> lookup: action_name [
 	"No need to go through the lookup of gtk4"
 
@@ -69,21 +71,21 @@ GSimpleActionGroup >> lookup: action_name [
 		ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSimpleActionGroup >> remove: anAction [
 
 	self basicRemove: anAction name.
 	actions remove: anAction
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSimpleActionGroup >> removeAll [
 
 	actions copy 
 		do: [ :each | self remove: each ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSimpleActionGroup >> removeNamed: aName [
 
 	self remove: (self lookup: aName)

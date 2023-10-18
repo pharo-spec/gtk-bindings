@@ -2,37 +2,39 @@
 https://docs.gtk.org/gio/class.Menu.html
 "
 Class {
-	#name : #GMenu,
-	#superclass : #GMenuModel,
-	#category : #'Gtk-Widget-Menu'
+	#name : 'GMenu',
+	#superclass : 'GMenuModel',
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu class >> gNew [
 
 	self ffiCall: #(GMenu* g_menu_new (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GMenu class >> new [
 
 	^ self gNew initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> appendItem: item [
 
 	self basicAppendItem: item.
 	item doNotAutoRelease
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> appendLabel: label actionName: detailed_action [
 
 	^ self ffiCall: #(void g_menu_append (self, const gchar* label, const gchar* detailed_action))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> appendLabel: label section: section [
 
 	self basicAppendLabel: label section: section.
@@ -40,45 +42,45 @@ GMenu >> appendLabel: label section: section [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> appendLabel: label submenu: submenu [ 
 
 	self basicAppendLabel: label submenu: submenu.
 	submenu doNotAutoRelease
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> appendSection: section [
 
 	self basicAppendSection: section.
 	section doNotAutoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicAppendItem: item [
 	
 	self ffiCall: #(void g_menu_append_item (self, GMenuItem* item))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicAppendLabel: label section: section [
 
 	self ffiCall: #(void g_menu_append_section (self, gchar *label, GMenuModel *section))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicAppendLabel: label submenu: submenu [ 
 
 	self ffiCall: #(void g_menu_append_submenu (self, const gchar* label, GMenuModel* submenu))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicAppendSection: section [
 
 	self ffiCall: #(void g_menu_append_item (self, NULL, GMenuModel *section))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicInsertAtPosition: position item: item [
 
 	self ffiCall: #(void g_menu_insert_item (
@@ -87,7 +89,7 @@ GMenu >> basicInsertAtPosition: position item: item [
   		GMenuItem* item))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicInsertAtPosition: position label: label section: section [ 
 
 	self ffiCall: #(void g_menu_insert_section (
@@ -97,7 +99,7 @@ GMenu >> basicInsertAtPosition: position label: label section: section [
   		GMenuModel* section))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMenu >> basicInsertAtPosition: position label: label submenu: submenu [ 
 
 	self ffiCall: #(void g_menu_insert_submenu (
@@ -107,7 +109,7 @@ GMenu >> basicInsertAtPosition: position label: label submenu: submenu [
   		GMenuModel* submenu))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> insertAtPosition: position item: item [
 
 	self basicInsertAtPosition: position item: item.
@@ -115,7 +117,7 @@ GMenu >> insertAtPosition: position item: item [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> insertAtPosition: position label: label action: detailed_action [
 
 	^ self ffiCall: #(void g_menu_insert (
@@ -125,7 +127,7 @@ GMenu >> insertAtPosition: position label: label action: detailed_action [
   		const gchar* detailed_action))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> insertAtPosition: position label: label section: section [ 
 
 	self basicInsertAtPosition: position label: label section: section.
@@ -133,7 +135,7 @@ GMenu >> insertAtPosition: position label: label section: section [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMenu >> insertAtPosition: position label: label submenu: submenu [ 
 
 	self basicInsertAtPosition: position label: label submenu: submenu.

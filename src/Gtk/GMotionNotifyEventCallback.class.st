@@ -13,34 +13,36 @@ This signal will be sent to the grab widget if there is one.
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-motion-notify-event
 "
 Class {
-	#name : #GMotionNotifyEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GMotionNotifyEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GMotionNotifyEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMotionNotifyEventCallback class >> signalName [
 
 	^ 'motion-notify-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMotionNotifyEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
 		aBlock value: (GdkMotionEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMotionNotifyEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

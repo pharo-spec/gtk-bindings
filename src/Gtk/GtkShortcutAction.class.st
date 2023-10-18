@@ -2,9 +2,11 @@
 https://docs.gtk.org/gtk4/class.ShortcutAction.html
 "
 Class {
-	#name : #GtkShortcutAction,
-	#superclass : #GBaseObject,
+	#name : 'GtkShortcutAction',
+	#superclass : 'GBaseObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Shortcut'
+	#category : 'Gtk-Shortcut',
+	#package : 'Gtk',
+	#tag : 'Shortcut'
 }

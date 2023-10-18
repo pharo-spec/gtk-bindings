@@ -4,12 +4,14 @@ A function used for checking whether a row in model matches a search key string 
 https://developer.gnome.org/gtk3/stable/GtkTreeView.html#GtkTreeViewSearchEqualFunc
 "
 Class {
-	#name : #GtkTreeViewSearchEqualFunc,
-	#superclass : #GCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GtkTreeViewSearchEqualFunc',
+	#superclass : 'GCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtkTreeViewSearchEqualFunc class >> do: aBlock [
 
 	^ self 

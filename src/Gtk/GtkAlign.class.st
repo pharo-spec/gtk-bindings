@@ -4,8 +4,8 @@ I control how a widget deals with extra space in a single (x or y) dimension.
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkAlign
 "
 Class {
-	#name : #GtkAlign,
-	#superclass : #GEnumeration,
+	#name : 'GtkAlign',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_ALIGN_BASELINE',
 		'GTK_ALIGN_CENTER',
@@ -13,40 +13,42 @@ Class {
 		'GTK_ALIGN_FILL',
 		'GTK_ALIGN_START'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAlign class >> GTK_ALIGN_BASELINE [
 	"This method was automatically generated"
 	^ GTK_ALIGN_BASELINE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAlign class >> GTK_ALIGN_CENTER [
 	"This method was automatically generated"
 	^ GTK_ALIGN_CENTER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAlign class >> GTK_ALIGN_END [
 	"This method was automatically generated"
 	^ GTK_ALIGN_END
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAlign class >> GTK_ALIGN_FILL [
 	"This method was automatically generated"
 	^ GTK_ALIGN_FILL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAlign class >> GTK_ALIGN_START [
 	"This method was automatically generated"
 	^ GTK_ALIGN_START
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkAlign class >> enumDecl [
 	^ #(
 	GTK_ALIGN_FILL 			0

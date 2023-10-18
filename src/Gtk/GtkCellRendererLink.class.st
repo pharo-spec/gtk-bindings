@@ -1,6 +1,6 @@
 Class {
-	#name : #GtkCellRendererLink,
-	#superclass : #GtkCellRendererCustom,
+	#name : 'GtkCellRendererLink',
+	#superclass : 'GtkCellRendererCustom',
 	#instVars : [
 		'text',
 		'linkPrototype',
@@ -14,16 +14,18 @@ Class {
 	#pools : [
 		'GParamFlags'
 	],
-	#category : #'Gtk-Widget-CellRenderers'
+	#category : 'Gtk-Widget-CellRenderers',
+	#package : 'Gtk',
+	#tag : 'Widget-CellRenderers'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtkCellRendererLink class >> defaultMinimalWidth [
 
 	^ 80
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererLink class >> gInitializeClass: aDefinition [
 
 	super gInitializeClass: aDefinition.
@@ -33,7 +35,7 @@ GtkCellRendererLink class >> gInitializeClass: aDefinition [
 	aDefinition setAccessibleType: self gtkBooleanCellAccessibleGetType
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererLink class >> gInitializeClassActivate: aDefinition [
 
 	aDefinition activate: (GCallback 
@@ -55,7 +57,7 @@ GtkCellRendererLink class >> gInitializeClassActivate: aDefinition [
 				flags: flags ])	
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererLink class >> gInitializeClassGetPreferredWidth: aDefinition [
 
 	aDefinition get_preferred_width: (GCallback 
@@ -71,7 +73,7 @@ GtkCellRendererLink class >> gInitializeClassGetPreferredWidth: aDefinition [
 				natural: natural ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
 
 	aDefinition
@@ -95,7 +97,7 @@ GtkCellRendererLink class >> gInitializeClassInstallPropertiesOn: aDefinition [
 		flags: G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY
 ]
 
-{ #category : #activating }
+{ #category : 'activating' }
 GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea: bgRect cellArea: cellRect flags: flags [
 
 	activateAction ifNotNil: [ 
@@ -107,7 +109,7 @@ GtkCellRendererLink >> activate: event widget: widget path: path backgroundArea:
 	^ false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkCellRendererLink >> addedToTreeView: aTreeView column: aColumn [
 
 	treeView := aTreeView.
@@ -115,7 +117,7 @@ GtkCellRendererLink >> addedToTreeView: aTreeView column: aColumn [
 	aTreeView addMotionEvent: [ :anEvent | self maybeSetCursor: anEvent position ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererLink >> calculateXIn: cellRect layout: layout [
 	
 	self xalign < 0.5 ifTrue: [ ^ cellRect x + self padding x ].
@@ -125,7 +127,7 @@ GtkCellRendererLink >> calculateXIn: cellRect layout: layout [
 	self error: 'Should not arrive here'
 ]
 
-{ #category : #'accessing - geometry' }
+{ #category : 'accessing - geometry' }
 GtkCellRendererLink >> getPreferredWidth: widget minimum: minimumSize natural: naturalSize [
 	| layout textWidth |
 		
@@ -143,7 +145,7 @@ GtkCellRendererLink >> getPreferredWidth: widget minimum: minimumSize natural: n
 		naturalSize signedLongAt: 1 put: textWidth ceiling ]
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GtkCellRendererLink >> getProperty: id inValue: gValue [
 
 	id = 1 ifTrue: [ gValue setString: text ].
@@ -151,7 +153,7 @@ GtkCellRendererLink >> getProperty: id inValue: gValue [
 	id = 3 ifTrue: [ gValue setBoolean: active ]
 ]
 
-{ #category : #'accessing - geometry' }
+{ #category : 'accessing - geometry' }
 GtkCellRendererLink >> getSize: widget rectangle: rect xOffset: xOffset yOffset: yOffset width: width height: height [ 
 
 	xOffset isNull ifFalse: [ xOffset signedLongAt: 1 put: 2 ].
@@ -160,7 +162,7 @@ GtkCellRendererLink >> getSize: widget rectangle: rect xOffset: xOffset yOffset:
 	height isNull ifFalse: [ height signedLongAt: 1 put: 20 ].	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkCellRendererLink >> initialize [
 
 	super initialize. 
@@ -170,7 +172,7 @@ GtkCellRendererLink >> initialize [
 	xalign := 0.0
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtkCellRendererLink >> isEventInCell: aPoint [
 
 	treeView
@@ -180,7 +182,7 @@ GtkCellRendererLink >> isEventInCell: aPoint [
 	^ false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererLink >> linkPrototype [
 	
 	^ linkPrototype ifNil: [ 
@@ -191,7 +193,7 @@ GtkCellRendererLink >> linkPrototype [
 			yourself ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkCellRendererLink >> maybeSetCursor: aPoint [
 
 	(self isEventInCell: aPoint)
@@ -199,25 +201,25 @@ GtkCellRendererLink >> maybeSetCursor: aPoint [
 		ifFalse: [ treeView gdkWindow cursor: GdkCursor null ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererLink >> minimalWidth [
 
 	^ minimalWidth ifNil: [ self class defaultMinimalWidth ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererLink >> minimalWidth: aNumber [
 
 	minimalWidth := aNumber
 ]
 
-{ #category : #activating }
+{ #category : 'activating' }
 GtkCellRendererLink >> onActivate: aBlock [
 
 	activateAction := aBlock
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellArea: cellRect flags: flags [
 	| layout context x y canvas attrs |
 
@@ -247,7 +249,7 @@ GtkCellRendererLink >> renderCr: cr widget: widget backgroundArea: bgRect cellAr
 	canvas primRestoreState
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GtkCellRendererLink >> setProperty: id toValue: gValue [
 
 	id = 1 ifTrue: [ text := gValue getString ].
@@ -255,7 +257,7 @@ GtkCellRendererLink >> setProperty: id toValue: gValue [
 	id = 3 ifTrue: [ active := gValue getBoolean ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererLink >> xalign [
 
 	^ xalign

@@ -1,13 +1,15 @@
 Class {
-	#name : #GSecondaryButtonPressEventCallback,
-	#superclass : #GButtonPressEventCallback,
+	#name : 'GSecondaryButtonPressEventCallback',
+	#superclass : 'GButtonPressEventCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSecondaryButtonPressEventCallback >> do: aBlock [
 
 	super do: [ :event |

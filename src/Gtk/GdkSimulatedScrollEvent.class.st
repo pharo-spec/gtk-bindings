@@ -1,44 +1,46 @@
 Class {
-	#name : #GdkSimulatedScrollEvent,
-	#superclass : #GdkSimulatedEvent,
+	#name : 'GdkSimulatedScrollEvent',
+	#superclass : 'GdkSimulatedEvent',
 	#instVars : [
 		'dx',
 		'dy'
 	],
-	#category : #'Gtk-Events-Simulated'
+	#category : 'Gtk-Events-Simulated',
+	#package : 'Gtk',
+	#tag : 'Events-Simulated'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkSimulatedScrollEvent >> accept: aVisitor [
 
 	aVisitor visitScrollEvent: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedScrollEvent >> deltas [
 
 	^ dx @ dy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedScrollEvent >> dx [
 
 	^ dx
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedScrollEvent >> dx: anObject [
 
 	dx := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedScrollEvent >> dy [
 
 	^ dy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedScrollEvent >> dy: anObject [
 
 	dy := anObject

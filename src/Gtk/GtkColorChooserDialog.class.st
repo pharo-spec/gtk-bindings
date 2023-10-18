@@ -1,13 +1,15 @@
 Class {
-	#name : #GtkColorChooserDialog,
-	#superclass : #GtkSystemDialog,
+	#name : 'GtkColorChooserDialog',
+	#superclass : 'GtkSystemDialog',
 	#pools : [
 		'GtkOrientation'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkColorChooserDialog class >> dialogNew: title parent: parent [
 
 	self ffiCall: #(GtkColorChooserDialog *gtk_color_chooser_dialog_new (
@@ -15,19 +17,19 @@ GtkColorChooserDialog class >> dialogNew: title parent: parent [
 	  GtkWindow *parent))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkColorChooserDialog class >> newTitle: aString [
 
 	^ self newTitle: aString parent: GObject null
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkColorChooserDialog class >> newTitle: aString parent: parent [
 
 	^ (self dialogNew: aString parent: parent) initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkColorChooserDialog >> addHorizontalPalette: colors lineSize: line [
 
 	self 
@@ -36,7 +38,7 @@ GtkColorChooserDialog >> addHorizontalPalette: colors lineSize: line [
 		lineSize: line
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkColorChooserDialog >> addPalette: colors orientation: orientation line: colors_per_line numColors: n_colors [
 
 	self ffiCall: #(void gtk_color_chooser_add_palette (
@@ -48,7 +50,7 @@ GtkColorChooserDialog >> addPalette: colors orientation: orientation line: color
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkColorChooserDialog >> addPalette: colors orientation: orientation lineSize: line [
 	| colorsArray |
 
@@ -63,7 +65,7 @@ GtkColorChooserDialog >> addPalette: colors orientation: orientation lineSize: l
 		numColors: colors size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkColorChooserDialog >> addVerticalPalette: colors lineSize: line [
 
 	self 
@@ -72,19 +74,19 @@ GtkColorChooserDialog >> addVerticalPalette: colors lineSize: line [
 		lineSize: line
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkColorChooserDialog >> color [
 
 	^ self colorRGBA asColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkColorChooserDialog >> color: aColor [
 
 	self colorRGBA: aColor asGdkRGBA
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkColorChooserDialog >> colorRGBA [
 	| rgba |
 	
@@ -93,13 +95,13 @@ GtkColorChooserDialog >> colorRGBA [
 	^ rgba
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkColorChooserDialog >> colorRGBA: rgba [
 
 	self setRGBA: rgba
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkColorChooserDialog >> getRGBA: color [
 
 	self ffiCall: #(void gtk_color_chooser_get_rgba (
@@ -107,7 +109,7 @@ GtkColorChooserDialog >> getRGBA: color [
   		const GdkRGBA* color))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkColorChooserDialog >> setRGBA: color [
 
 	self ffiCall: #(void gtk_color_chooser_set_rgba (

@@ -5,24 +5,26 @@ A base class for data store columns.
 Used as part of a *class:GtkTreeDataStore*, a column will set a cell value by transforming the model object and pass its result.
 "
 Class {
-	#name : #GtkTreeDataColumn,
-	#superclass : #Object,
+	#name : 'GtkTreeDataColumn',
+	#superclass : 'Object',
 	#instVars : [
 		'column',
 		'tag',
 		'evaluation',
 		'store'
 	],
-	#category : #'Gtk-Widget-Tree-Store'
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTreeDataColumn class >> evaluated: aBlock [ 
 
 	^ self new evaluated: aBlock
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTreeDataColumn class >> on: aTableColumn [
 
 	^ self new 
@@ -31,19 +33,19 @@ GtkTreeDataColumn class >> on: aTableColumn [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> column [
 
 	^ column
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> column: aTableColumn [
 
 	column := aTableColumn
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> evaluated: aValuable [
 	"Define the transformation applied to the DataStore model object.
 	[[[language=Smalltalk
@@ -53,20 +55,20 @@ GtkTreeDataColumn >> evaluated: aValuable [
 	evaluation := aValuable
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> gType [
 	"Answer the GType of the column."
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataColumn >> readObject: anObject [ 
 
 	^ evaluation cull: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> setValueOf: item path: path to: gValue [
 	"Set the result of ==evaluation== transformation into ==gValue==. 
 	 When the gValue arrives, it is already initialised to receive the correct gType."
@@ -74,23 +76,23 @@ GtkTreeDataColumn >> setValueOf: item path: path to: gValue [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> store [
 	^ store
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> store: anObject [
 	store := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> tag [
 
 	^ tag
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataColumn >> tag: anObject [
 
 	tag := anObject

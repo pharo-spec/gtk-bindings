@@ -2,15 +2,17 @@
 https://docs.gtk.org/gtk4/class.ListView.html
 "
 Class {
-	#name : #GtkListView,
-	#superclass : #GtkListBase,
+	#name : 'GtkListView',
+	#superclass : 'GtkListBase',
 	#instVars : [
 		'headerFactory'
 	],
-	#category : #'Gtk-Widget-ListView'
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView class >> gtkNew [
 
 
@@ -18,13 +20,13 @@ GtkListView class >> gtkNew [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> clearModel [
 
 	self ffiCall: #(void gtk_list_view_set_model (self, NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListView >> enableRubberband: enable_rubberband [
 
 	self ffiCall: #(void gtk_list_view_set_enable_rubberband (
@@ -32,31 +34,31 @@ GtkListView >> enableRubberband: enable_rubberband [
   		gboolean enable_rubberband))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> getFactory [
 
 	^ self ffiCall: #(GtkListItemFactory* gtk_list_view_get_factory (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> getHeaderFactory [
 
 	^ self ffiCall: #(GtkListItemFactory* gtk_list_view_get_header_factory (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> getModel [
 
 	^ self ffiCall: #(GtkSelectionModel* gtk_list_view_get_model (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListView >> headerFactory [
 
 	^ headerFactory ifNil: [ headerFactory := self getHeaderFactory ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListView >> headerFactory: aFactory [
 
 	headerFactory := aFactory.
@@ -64,25 +66,25 @@ GtkListView >> headerFactory: aFactory [
 	headerFactory ensureAutoRelease
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkListView >> isEnableRubberband [
 
 	^ self ffiCall: #(gboolean gtk_list_view_get_enable_rubberband (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkListView >> isShowSeparators [
 
 	^ self ffiCall: #(gboolean gtk_list_view_get_show_separators (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkListView >> isSingleClickActivate [
 
 	^ self ffiCall: #(gboolean gtk_list_view_get_single_click_activate (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListView >> scrollToPosition: index [
 
 	self flag: #WORAROUND. "There will be an api for this, but is not yet there."
@@ -91,7 +93,7 @@ GtkListView >> scrollToPosition: index [
 		arguments: (GVariant newUint32: index - 1)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> setFactory: aFactory [
 
 	^ self ffiCall: #(void gtk_list_view_set_factory (
@@ -99,7 +101,7 @@ GtkListView >> setFactory: aFactory [
   		GtkListItemFactory* aFactory))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> setHeaderFactory: aFactory [
 
 	^ self ffiCall: #(void gtk_list_view_set_header_factory (
@@ -107,7 +109,7 @@ GtkListView >> setHeaderFactory: aFactory [
   		GtkListItemFactory* aFactory))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListView >> setModel: model [
 
 	self ffiCall: #(void gtk_list_view_set_model (
@@ -115,13 +117,13 @@ GtkListView >> setModel: model [
   		GtkSelectionModel* model))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListView >> showSeparators: show_separators [
 
 	self ffiCall: #(void gtk_list_view_set_show_separators (self,  gboolean show_separators))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListView >> singleClickActivate: single_click_activate [
 
 	self ffiCall: #(void gtk_list_view_set_single_click_activate (

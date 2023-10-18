@@ -1,12 +1,12 @@
-Extension { #name : #CairoLibrary }
+Extension { #name : 'CairoLibrary' }
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 CairoLibrary >> calloutAPIClass [ 
 
 	^ TFCalloutAPI
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 CairoLibrary >> runner [
 	
 	^ TFSameThreadRunner uniqueInstance

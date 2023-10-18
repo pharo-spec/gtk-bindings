@@ -9,12 +9,14 @@ Signals that all holders of a reference to the widget should release the referen
 This signal is not suitable for saving widget state.
 "
 Class {
-	#name : #GDestroyCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GDestroyCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDestroyCallback class >> signalName [
 
 	^ 'destroy'

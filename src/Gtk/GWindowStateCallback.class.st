@@ -10,31 +10,33 @@ To receive this signal the GdkWindow associated to the widget needs to enable th
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-window-state-event
 "
 Class {
-	#name : #GWindowStateCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GWindowStateCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GWindowStateCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GWindowStateCallback class >> signalName [
 
 	^ 'window-state-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GWindowStateCallback >> do: aBlock [
 
 	super do: [ :widget :event :user_data | 
 		aBlock value: (GdkEvent newConcreteFromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GWindowStateCallback >> signature [
 
 	^ #(void (void *widget, void *event, void *user_data))

@@ -4,17 +4,19 @@ I'm a representation of an adjustable bounded value.
 https://developer.gnome.org/gtk3/stable/GtkAdjustment.html
 "
 Class {
-	#name : #GtkAdjustment,
-	#superclass : #GInitiallyUnowned,
+	#name : 'GtkAdjustment',
+	#superclass : 'GInitiallyUnowned',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAdjustment class >> adjustementValue: value lower: lower upper: upper stepIncrement: step_increment pageIncrement: page_increment pageSize: page_size [
 
 	^ self ffiCall: #(GtkAdjustment *gtk_adjustment_new (
@@ -26,14 +28,14 @@ GtkAdjustment class >> adjustementValue: value lower: lower upper: upper stepInc
 		gdouble page_size))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_adjustment_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAdjustment class >> newDefault [ 
 	
 	^ self 
@@ -45,7 +47,7 @@ GtkAdjustment class >> newDefault [
 		pageSize: 0
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAdjustment class >> newValue: value lower: lower upper: upper stepIncrement: step_increment pageIncrement: page_increment pageSize: page_size [
 
 	^ (self 
@@ -58,7 +60,7 @@ GtkAdjustment class >> newValue: value lower: lower upper: upper stepIncrement: 
 		initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> configureValue: value lower: lower upper: upper stepIncrement: step_increment pageIncrement: page_increment pageSize: page_size [
 
 	^ self ffiCall: #(void gtk_adjustment_configure (self,
@@ -70,43 +72,43 @@ GtkAdjustment >> configureValue: value lower: lower upper: upper stepIncrement: 
 		gdouble page_size))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> lower [
 
 	^ self ffiCall: #(gdouble gtk_adjustment_get_lower (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> maxValue [
 
 	^ self upper - self pageSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> pageIncrement [
 
 	^ self ffiCall: #(gdouble gtk_adjustment_get_page_increment (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> pageSize [
 
 	^ self ffiCall: #(gdouble gtk_adjustment_get_page_size (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> upper [
 
 	^ self ffiCall: #(gdouble gtk_adjustment_get_upper (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> value [ 
 
 	^ self ffiCall: #(gdouble gtk_adjustment_get_value (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustment >> value: value [
 
 	self ffiCall: #(void gtk_adjustment_set_value (self, gdouble value))

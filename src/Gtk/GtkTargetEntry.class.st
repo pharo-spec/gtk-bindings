@@ -5,8 +5,8 @@ A GtkTargetEntry structure represents a single type of data than can be supplied
 
 "
 Class {
-	#name : #GtkTargetEntry,
-	#superclass : #GStructure,
+	#name : 'GtkTargetEntry',
+	#superclass : 'GStructure',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#classVars : [
@@ -14,10 +14,12 @@ Class {
 		'OFFSET_INFO',
 		'OFFSET_TARGET'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkTargetEntry class >> fieldsDesc [  
 	^ #(
 	 gchar *target;
@@ -26,7 +28,7 @@ GtkTargetEntry class >> fieldsDesc [
 )
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkTargetEntry class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
@@ -34,13 +36,13 @@ GtkTargetEntry class >> finalizeResourceData: handle [
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTargetEntry class >> gtkTargetEntryFree: handle [
 	
 	self ffiCall: #(void gtk_target_entry_free (void *handle))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTargetEntry class >> gtkTargetEntryNew: target flags: flags info: info [
 
 	^ self ffiCall: #(GtkTargetEntry *gtk_target_entry_new (
@@ -49,25 +51,25 @@ GtkTargetEntry class >> gtkTargetEntryNew: target flags: flags info: info [
 		guint info))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTargetEntry class >> newTarget: targetString flags: flagsNumber info: infoNumber [
 	
 	^ (self gtkTargetEntryNew: targetString flags: flagsNumber info: infoNumber) initialize
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTargetEntry >> flags [
 	"This method was automatically generated"
 	^handle unsignedLongAt: OFFSET_FLAGS
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTargetEntry >> flags: anObject [
 	"This method was automatically generated"
 	handle unsignedLongAt: OFFSET_FLAGS put: anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTargetEntry >> free [ 
 	
 	"Free the handle pointed to by the receiver"
@@ -76,25 +78,25 @@ GtkTargetEntry >> free [
 	handle := nil.	
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTargetEntry >> info [
 	"This method was automatically generated"
 	^handle unsignedLongAt: OFFSET_INFO
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTargetEntry >> info: anObject [
 	"This method was automatically generated"
 	handle unsignedLongAt: OFFSET_INFO put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTargetEntry >> target [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_TARGET) type: ExternalType char asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTargetEntry >> target: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_TARGET put: anObject getHandle.

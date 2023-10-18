@@ -5,32 +5,34 @@ GtkLayout — Infinite scrollable area containing child widgets and/or custom dr
 https://developer.gnome.org/gtk3/stable/GtkLayout.html
 "
 Class {
-	#name : #GtkLayout,
-	#superclass : #GtkContainer,
-	#category : #'Gtk-Widget-Container'
+	#name : 'GtkLayout',
+	#superclass : 'GtkContainer',
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLayout class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_layout_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLayout class >> gtkNewLayoutWithHorizontalAdjustment: horizontalAdjustment withVerticalAdjustment: verticalAdjustment [ 
 
 	^ self ffiCall: #(GtkLayout *gtk_layout_new (GtkAdjustment *horizontalAdjustment,
                 GtkAdjustment *verticalAdjustment))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkLayout class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkLayout class >> new [
 
 	^ self
@@ -38,7 +40,7 @@ GtkLayout class >> new [
 		withVerticalAdjustment: (GtkAdjustment newDefault)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkLayout class >> withHorizontalAdjustment: horizontalAdjustment withVerticalAdjustment: verticalAdjustment [
 
 	^ (self
@@ -48,13 +50,13 @@ GtkLayout class >> withHorizontalAdjustment: horizontalAdjustment withVerticalAd
 			
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLayout >> moveChild: aChild to: aPoint [
 
 	self moveChild: aChild toX: aPoint x toY: aPoint y.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLayout >> moveChild: aChild toX: x toY: y [
 
 	^ self ffiCall: #(void gtk_layout_move (self,
@@ -63,13 +65,13 @@ GtkLayout >> moveChild: aChild toX: x toY: y [
                 gint y))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLayout >> putChild: aChild at: aPoint [
 	self keepWidget: aChild.
 	self putChild: aChild atX: aPoint x atY: aPoint y.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLayout >> putChild: aChild atX: x atY: y [
 
 	^ self ffiCall: #(void gtk_layout_put (self,

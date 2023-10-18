@@ -5,8 +5,8 @@ WARNING: This class is deprecated and will be removed in Gtk5.
 DO NOT USE OR BE PREPARED TO SUFFER :)
 "
 Class {
-	#name : #GtkStyleContext,
-	#superclass : #GObject,
+	#name : 'GtkStyleContext',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#classVars : [
@@ -19,17 +19,19 @@ Class {
 	#pools : [
 		'GtkStateFlags'
 	],
-	#category : #'Gtk-Styles'
+	#category : 'Gtk-Styles',
+	#package : 'Gtk',
+	#tag : 'Styles'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_style_context_get_type())
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkStyleContext class >> initialize [ 
 
 	GTK_STYLE_PROVIDER_PRIORITY_FALLBACK := 1.
@@ -39,19 +41,19 @@ GtkStyleContext class >> initialize [
 	GTK_STYLE_PROVIDER_PRIORITY_USER := 800
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> addClass: class_name [
 
 	^ self ffiCall: #(void gtk_style_context_add_class (self, const gchar *class_name))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> addProvider: aProvider [
 
 	self addProvider: aProvider priority: GTK_STYLE_PROVIDER_PRIORITY_USER
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> addProvider: provider priority: priority [
 
 	self ffiCall: #(void gtk_style_context_add_provider (
@@ -60,13 +62,13 @@ GtkStyleContext >> addProvider: provider priority: priority [
  		guint priority))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> fontNormal [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> getActiveRGBAColor [
 	| color state |
 	
@@ -76,43 +78,43 @@ GtkStyleContext >> getActiveRGBAColor [
 	^ color
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStyleContext >> getBackgroundColor: color state: state [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> getBackgroundRGBAColor [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStyleContext >> getColor: color state: state [
 	
 	^ self ffiCall: #(void gtk_style_context_get_color  (self, GtkStateFlags state, GdkRGBA *color))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStyleContext >> getFont: state [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> getPangoAttributes [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStyleContext >> getPangoAttributesCSStyle: style [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> getRGBAColor [
 	| color state |
 	
@@ -122,7 +124,7 @@ GtkStyleContext >> getRGBAColor [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> getSelectedRGBAColor [
 	| color state |
 	
@@ -132,13 +134,13 @@ GtkStyleContext >> getSelectedRGBAColor [
 	^ color
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStyleContext >> lookupCSSStyle [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> lookupColor: aName [
 	| color result |
 	
@@ -149,7 +151,7 @@ GtkStyleContext >> lookupColor: aName [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStyleContext >> lookupColor: color_name into: color [ 
 
 	^ self ffiCall: #(gboolean gtk_style_context_lookup_color (
@@ -158,13 +160,13 @@ GtkStyleContext >> lookupColor: color_name into: color [
 		GdkRGBA *color))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> removeClass: class_name [
 
 	^ self ffiCall: #(void gtk_style_context_remove_class (self, const gchar *class_name))
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 GtkStyleContext >> renderLayout: layout cr: cr x: x y: y [
 
 	self ffiCall: #(void gtk_render_layout (
@@ -175,13 +177,13 @@ GtkStyleContext >> renderLayout: layout cr: cr x: x y: y [
 		PangoLayout     *layout))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> restore [
 
 	^ self ffiCall: #(void gtk_style_context_restore (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStyleContext >> save [
 
 	^ self ffiCall: #(void gtk_style_context_save (self))

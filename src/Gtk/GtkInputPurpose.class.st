@@ -7,8 +7,8 @@ This enumeration may be extended in the future; input methods should interpret u
 https://developer.gnome.org/gtk3/stable/GtkEntry.html#GtkInputPurpose
 "
 Class {
-	#name : #GtkInputPurpose,
-	#superclass : #GEnumeration,
+	#name : 'GtkInputPurpose',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_INPUT_PURPOSE_ALPHA',
 		'GTK_INPUT_PURPOSE_DIGITS',
@@ -21,70 +21,72 @@ Class {
 		'GTK_INPUT_PURPOSE_PIN',
 		'GTK_INPUT_PURPOSE_URL'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_ALPHA [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_ALPHA
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_DIGITS [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_DIGITS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_EMAIL [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_EMAIL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_FREE_FORM [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_FREE_FORM
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_NAME [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_NAME
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_NUMBER [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_NUMBER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_PASSWORD [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_PASSWORD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_PHONE [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_PHONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_PIN [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_PIN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkInputPurpose class >> GTK_INPUT_PURPOSE_URL [
 	"This method was automatically generated"
 	^ GTK_INPUT_PURPOSE_URL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkInputPurpose class >> enumDecl [
 
 	^ #(

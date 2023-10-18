@@ -1,19 +1,21 @@
 Class {
-	#name : #GButtonReleaseEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GButtonReleaseEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonReleaseEventCallback class >> signalName [
 
 	^ 'button-release-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonReleaseEventCallback >> do: aBlock [
 	
 	self
@@ -22,7 +24,7 @@ GButtonReleaseEventCallback >> do: aBlock [
 			aBlock cull: (GdkButtonEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonReleaseEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

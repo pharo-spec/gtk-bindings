@@ -1,12 +1,12 @@
-Extension { #name : #AthensCairoCanvas }
+Extension { #name : 'AthensCairoCanvas' }
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoCanvas class >> fromHandle: aHandle [
 	^ self basicNew 
 		fromHandle: aHandle
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoCanvas >> fromHandle: aHandle [
 	
 	handle := aHandle.
@@ -22,13 +22,13 @@ AthensCairoCanvas >> fromHandle: aHandle [
 	self initializeWithSurface: surface
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoCanvas >> getMatrix: matrix [
 
 	^ self ffiCall: #(void cairo_get_matrix (self, AthensCairoMatrix *matrix))
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoCanvas >> getTarget [
 	"Answer the surface for this canvas. 
 	 NOT INITIALISED in image (it just sets the handle)"
@@ -36,7 +36,7 @@ AthensCairoCanvas >> getTarget [
 	^ self ffiCall: #(cairo_surface_t *cairo_get_target (self))
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoCanvas >> matrix [ 
 	| matrix |
 	

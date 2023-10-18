@@ -2,29 +2,31 @@
 https://docs.gtk.org/gtk4/class.DropDown.html
 "
 Class {
-	#name : #GtkDropDown,
-	#superclass : #GtkWidget,
+	#name : 'GtkDropDown',
+	#superclass : 'GtkWidget',
 	#instVars : [
 		'listFactory',
 		'model',
 		'expression'
 	],
-	#category : #'Gtk-Widget-Input'
+	#category : 'Gtk-Widget-Input',
+	#package : 'Gtk',
+	#tag : 'Widget-Input'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDropDown class >> gtkNew [
 
 	^ self ffiCall: #(GtkDropDown *gtk_drop_down_new (NULL, NULL))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDropDown class >> new [
 
 	^ self gtkNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDropDown class >> newListFactory: aFactory Model: aModel [
 
 	^ self new
@@ -33,7 +35,7 @@ GtkDropDown class >> newListFactory: aFactory Model: aModel [
 		yourself
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkDropDown >> connectSelectedItem: aBlock [
 
 	self 
@@ -42,7 +44,7 @@ GtkDropDown >> connectSelectedItem: aBlock [
 		do: [ :widget | aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> expression: anExpression [
 
 	expression := anExpression.
@@ -50,13 +52,13 @@ GtkDropDown >> expression: anExpression [
 	expression objectUnref
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDropDown >> getModel [
 
 	^ self ffiCall: #(GListModel* gtk_drop_down_get_model (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> listFactory: factory [
 
 	listFactory := factory.
@@ -64,13 +66,13 @@ GtkDropDown >> listFactory: factory [
 	factory ensureAutoRelease
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> model [
 
 	^ model ifNil: [ model := self getModel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> model: aModel [
 
 	model := aModel.
@@ -79,25 +81,25 @@ GtkDropDown >> model: aModel [
 	model objectUnref
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> select: position [
 
 	self ffiCall: #(void gtk_drop_down_set_selected (self, guint position))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> selected [
 
 	^ self ffiCall: #(guint gtk_drop_down_get_selected (self))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDropDown >> setExpression: anExpression [
 
 	self ffiCall: #(void gtk_drop_down_set_expression (self, GtkExpression* anExpression))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDropDown >> setListFactory: aFactory [
 
 	self ffiCall: #(void gtk_drop_down_set_list_factory (
@@ -105,13 +107,13 @@ GtkDropDown >> setListFactory: aFactory [
   		GtkListItemFactory *aFactory))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDropDown >> setModel: aModel [
 
 	^ self ffiCall: #(void gtk_drop_down_set_model (self, GListModel *aModel))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDown >> unselectAll [
 
 	self select: "GTK_INVALID_LIST_POSITION"16rFFFFFFFF

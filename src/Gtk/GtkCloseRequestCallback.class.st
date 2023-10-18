@@ -4,18 +4,20 @@ Emitted when the user clicks on the close button of the window.
 https://docs.gtk.org/gtk4/signal.Window.close-request.html
 "
 Class {
-	#name : #GtkCloseRequestCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Event-Callbacks'
+	#name : 'GtkCloseRequestCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GtkCloseRequestCallback class >> signalName [
 
 	^ 'close-request'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtkCloseRequestCallback >> do: aBlock [
 
 	self 
@@ -23,7 +25,7 @@ GtkCloseRequestCallback >> do: aBlock [
 		block: [ : window :user_data | aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCloseRequestCallback >> signature [
 
 	^ #(gboolean (void* window, gpointer user_data))

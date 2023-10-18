@@ -1,24 +1,26 @@
 Trait {
-	#name : #GtkTContainer,
+	#name : 'GtkTContainer',
 	#instVars : [
 		'children'
 	],
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTContainer >> basicRemove: child [
 
 	self shouldBeImplemented
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTContainer >> children [ 
 
 	^ children
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTContainer >> cleanupAfterReplacing [
 
 	self children do: [ :aChild | aChild cleanupAfterReplacing ].
@@ -26,7 +28,7 @@ GtkTContainer >> cleanupAfterReplacing [
 	children := #()
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTContainer >> findChildByHandle: anExternalAddress [
 	| address |
 
@@ -35,32 +37,32 @@ GtkTContainer >> findChildByHandle: anExternalAddress [
 	^ self children detect: [ :each | each getHandle asInteger = address ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTContainer >> hasChildren [
 
 	^ self children notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTContainer >> includes: aWidget [
 
 	^ self children includes: aWidget
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTContainer >> initialize [
 
 	super initialize.
 	self initializeTContainer
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTContainer >> initializeTContainer [
 
 	children := #()
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 GtkTContainer >> inspectionWidgets [
 	<inspectorPresentationOrder: 10 title: 'Widgets'>
 
@@ -73,25 +75,25 @@ GtkTContainer >> inspectionWidgets [
 		yourself
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 GtkTContainer >> inspectionWidgetsContext: aContext [ 
 	
 	aContext active: self hasChildren
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTContainer >> isContainer [
 
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTContainer >> keepWidget: widget [
 
 	children := children copyWith: widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTContainer >> remove: widget [
 	"remove widgets will also destroy them (since it will not be referenced, unless you 
 	 took a reference explicitly, which we are not doing now). 
@@ -101,7 +103,7 @@ GtkTContainer >> remove: widget [
 	children := children copyWithout: widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTContainer >> removeAll [
 	"remove widgets will also destroy them (since it will not be referenced, unless you 
 	 took a reference explicitly, which we are not doing now). 
@@ -111,7 +113,7 @@ GtkTContainer >> removeAll [
 	children := #()
 ]
 
-{ #category : #'private - deferring' }
+{ #category : 'private - deferring' }
 GtkTContainer >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self.

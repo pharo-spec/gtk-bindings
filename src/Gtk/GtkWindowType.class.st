@@ -4,28 +4,30 @@ A GtkWindow can be one of these types. Most things you’d consider a “window�
 https://developer.gnome.org/gtk3/stable/GtkWindow.html#GtkWindowType
 "
 Class {
-	#name : #GtkWindowType,
-	#superclass : #GEnumeration,
+	#name : 'GtkWindowType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_WINDOW_POPUP',
 		'GTK_WINDOW_TOPLEVEL'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowType class >> GTK_WINDOW_POPUP [
 	"This method was automatically generated"
 	^ GTK_WINDOW_POPUP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowType class >> GTK_WINDOW_TOPLEVEL [
 	"This method was automatically generated"
 	^ GTK_WINDOW_TOPLEVEL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkWindowType class >> enumDecl [
 	^ #(
 	GTK_WINDOW_TOPLEVEL 0

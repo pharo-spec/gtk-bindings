@@ -1,19 +1,21 @@
 Class {
-	#name : #GtkBlockBasedDrawingArea,
-	#superclass : #GtkDrawingArea,
+	#name : 'GtkBlockBasedDrawingArea',
+	#superclass : 'GtkDrawingArea',
 	#instVars : [
 		'drawBlock',
 		'boundingBox'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBlockBasedDrawingArea class >> drawingAreaNew [
 	^ self ffiCall: #( GtkBlockBasedDrawingArea *gtk_drawing_area_new () )
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkBlockBasedDrawingArea class >> example [
 
 	GtkEngine ensureRunning.
@@ -37,7 +39,7 @@ GtkBlockBasedDrawingArea class >> example [
 			present ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkBlockBasedDrawingArea >> basicDraw: cr [
 	
 	drawBlock 
@@ -45,31 +47,31 @@ GtkBlockBasedDrawingArea >> basicDraw: cr [
 		value: self boundingBox
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBlockBasedDrawingArea >> boundingBox [ 
 
 	^ boundingBox ifNil: [ super boundingBox ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBlockBasedDrawingArea >> connectToSignals [
 
 	"self connectResize: [ :anExtent | (0@0) corner: anExtent ]"
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkBlockBasedDrawingArea >> drawBlock [
 
 	^ drawBlock
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkBlockBasedDrawingArea >> drawBlock: aBlock [
 
 	drawBlock := aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBlockBasedDrawingArea >> newDrawFunction [
 	
 	^ GCallback 

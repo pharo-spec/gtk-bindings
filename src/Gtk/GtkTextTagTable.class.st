@@ -4,8 +4,8 @@ GtkTextTagTable — Collection of tags that can be used together
 https://developer.gnome.org/gtk3/stable/GtkTextTagTable.html
 "
 Class {
-	#name : #GtkTextTagTable,
-	#superclass : #GObject,
+	#name : 'GtkTextTagTable',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -14,59 +14,61 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTagTable class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_text_tag_table_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTextTagTable class >> new [ 
 
 	^ self textTagTableNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextTagTable class >> textTagTableNew [ 
 
 	^ self ffiCall: #(GtkTextTagTable *gtk_text_tag_table_new (void))
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtkTextTagTable >> add: tag [
 
 	tags add: tag.
 	self basicAdd: tag
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtkTextTagTable >> addAll: aListOfTags [
 
 	aListOfTags do: [ :each | self add: each ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTextTagTable >> autoObjectUnref [
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtkTextTagTable >> basicAdd: tag [
 
 	^ self ffiCall: #(gboolean gtk_text_tag_table_add (self, GtkTextTag *tag))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTextTagTable >> initialize [
 
 	super initialize.
 	tags := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTagTable >> size [
 
 	^ self ffiCall: #(gint gtk_text_tag_table_get_size (self))

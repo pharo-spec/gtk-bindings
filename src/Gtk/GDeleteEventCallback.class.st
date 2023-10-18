@@ -9,24 +9,26 @@ user_function (GtkWidget *widget,
 The ::delete-event signal is emitted if a user requests that a toplevel window is closed. The default handler for this signal destroys the window. Connecting gtk_widget_hide_on_delete() to this signal will cause the window to be hidden instead, so that it can later be shown again without reconstructing it.
 "
 Class {
-	#name : #GDeleteEventCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GDeleteEventCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GDeleteEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDeleteEventCallback class >> signalName [
 
 	^ 'delete-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDeleteEventCallback >> do: aBlock [
 	
 	self
@@ -35,7 +37,7 @@ GDeleteEventCallback >> do: aBlock [
 			aBlock cull: (GdkEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDeleteEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void *event, void *user_data))

@@ -13,24 +13,26 @@ Returns
 
 "
 Class {
-	#name : #GFocusOutEventCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GFocusOutEventCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GFocusOutEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GFocusOutEventCallback class >> signalName [
 
 	^ 'focus-out-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GFocusOutEventCallback >> do: aBlock [
 	
 	self
@@ -39,7 +41,7 @@ GFocusOutEventCallback >> do: aBlock [
 			aBlock cull: (GdkEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GFocusOutEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void *event, void *user_data))

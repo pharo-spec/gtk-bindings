@@ -4,33 +4,35 @@ My children define some specific-purpose dialogs.
 
 "
 Class {
-	#name : #GtkMessageDialog,
-	#superclass : #GtkDialogWindow,
+	#name : 'GtkMessageDialog',
+	#superclass : 'GtkDialogWindow',
 	#instVars : [
 		'messageLabel'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog class >> defaultExtent [
 
 	^ 400@100
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog class >> defaultMargin [
 
 	^ 10
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog class >> defaultTitle [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkMessageDialog class >> newMessage: aString [
 
 	^ self new 
@@ -38,43 +40,43 @@ GtkMessageDialog class >> newMessage: aString [
 		yourself 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkMessageDialog class >> runMessage: aString [
 
 	^ (self newMessage: aString) showAll; run 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMessageDialog class >> windowNew: type [ 
 
 	^ self ffiCall: #( GtkMessageDialog *gtk_window_new ( GtkWindowType type ) )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMessageDialog >> addButtons [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog >> defaultExtent [
 
 	^ self class defaultExtent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog >> defaultMargin [
 
 	^ self class defaultMargin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog >> defaultTitle [
 
 	^ self class defaultTitle
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMessageDialog >> initialize [
 
 	super initialize.
@@ -85,20 +87,20 @@ GtkMessageDialog >> initialize [
 		packStart: (messageLabel := GtkLabel new)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMessageDialog >> message: aString [ 
 
 	messageLabel text: aString
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMessageDialog >> prepareButtons [
 	
 	buttonBox removeAll.
 	self addButtons
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkMessageDialog >> run [ 
 
 	self prepareButtons.

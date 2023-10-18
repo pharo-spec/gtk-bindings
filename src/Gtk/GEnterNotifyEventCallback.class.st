@@ -13,34 +13,36 @@ This signal will be sent to the grab widget if there is one.
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-enter-notify-event
 "
 Class {
-	#name : #GEnterNotifyEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GEnterNotifyEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GEnterNotifyEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEnterNotifyEventCallback class >> signalName [
 
 	^ 'enter-notify-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEnterNotifyEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
 		aBlock value: (GdkCrossingEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEnterNotifyEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

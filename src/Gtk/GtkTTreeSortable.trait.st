@@ -5,14 +5,16 @@ GtkTreeSortable — The interface for sortable models used by GtkTreeView
 https://developer.gnome.org/gtk3/stable/GtkTreeSortable.html
 "
 Trait {
-	#name : #GtkTTreeSortable,
+	#name : 'GtkTTreeSortable',
 	#instVars : [
 		'functionsByColumn'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTTreeSortable >> compare: aBlock store: model a: a b: b [
 	| store |
 				
@@ -26,19 +28,19 @@ GtkTTreeSortable >> compare: aBlock store: model a: a b: b [
 			yourself)
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkTTreeSortable >> connectSortColumnChanged: aBlock [
 
 	self connect: 'sort-column-changed' do: aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTTreeSortable >> initializeTTreeSortable [
 
 	functionsByColumn := SmallDictionary new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTTreeSortable >> setSortFunc: sort_func columnId: sort_column_id [
 
 	self ffiCall: #(void gtk_tree_sortable_set_sort_func (
@@ -49,7 +51,7 @@ GtkTTreeSortable >> setSortFunc: sort_func columnId: sort_column_id [
 		NULL))
 ]
 
-{ #category : #sorting }
+{ #category : 'sorting' }
 GtkTTreeSortable >> sortBy: aBlock columnId: id [
 
 	self 
@@ -64,7 +66,7 @@ GtkTTreeSortable >> sortBy: aBlock columnId: id [
 		columnId: id
 ]
 
-{ #category : #sorting }
+{ #category : 'sorting' }
 GtkTTreeSortable >> sortColumnId: sort_column_id orderType: order [
 
 	^ self ffiCall: #(void gtk_tree_sortable_set_sort_column_id (
@@ -73,7 +75,7 @@ GtkTTreeSortable >> sortColumnId: sort_column_id orderType: order [
 		"GtkSortType"gint order))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTTreeSortable >> sortFunc: aFunction columnId: id [
 
 	functionsByColumn at: id put: aFunction.

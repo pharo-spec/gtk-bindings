@@ -4,8 +4,8 @@ I store attributed text for display in a GtkTextView.
 https://developer.gnome.org/gtk3/stable/GtkTextBuffer.html
 "
 Class {
-	#name : #GtkTextBuffer,
-	#superclass : #GObject,
+	#name : 'GtkTextBuffer',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -14,29 +14,31 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_text_buffer_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTextBuffer class >> newTable: table [ 
 
 	^ (self textBufferNew: table) initializeTable: table
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer class >> textBufferNew: table [
 
 	^ self ffiCall: #(GtkTextBuffer *gtk_text_buffer_new (GtkTextTagTable *table))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> appendMarkup: aString [
 
 	self 
@@ -44,7 +46,7 @@ GtkTextBuffer >> appendMarkup: aString [
 		text: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> appendText: aString [
 
 	self 
@@ -52,7 +54,7 @@ GtkTextBuffer >> appendText: aString [
 		text: aString
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> applyTag: aTag start: start end: end [
 	| startIter endIter |
 	
@@ -63,7 +65,7 @@ GtkTextBuffer >> applyTag: aTag start: start end: end [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> applyTag: tag startIter: start endIter: end [
 
 	self ffiCall: #(void gtk_text_buffer_apply_tag (
@@ -73,7 +75,7 @@ GtkTextBuffer >> applyTag: tag startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> applyTagByName: aName start: start end: end [
 	| startIter endIter |
 	
@@ -85,7 +87,7 @@ GtkTextBuffer >> applyTagByName: aName start: start end: end [
 		endIter: endIter
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> applyTagByName: name startIter: start endIter: end [
 
 	self ffiCall: #(void gtk_text_buffer_apply_tag_by_name (
@@ -95,37 +97,37 @@ GtkTextBuffer >> applyTagByName: name startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> beginUserAction [
 	
 	self ffiCall: #(void gtk_text_buffer_begin_user_action (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTextBuffer >> canRedo [
 
 	^ self ffiCall: #(gboolean gtk_text_buffer_get_can_redo(self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTextBuffer >> canUndo [
 
 	^ self ffiCall: #(gboolean gtk_text_buffer_get_can_undo(self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> charCount [
 
 	^ self ffiCall: #(gint gtk_text_buffer_get_char_count (self))
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTextBuffer >> connectChanged: aBlock [ 
 
 	(GChangedCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTextBuffer >> connectMarkSet: aBlock [
 
 	self 
@@ -137,13 +139,13 @@ GtkTextBuffer >> connectMarkSet: aBlock [
 				value: (GtkTextMark fromHandle: mark) ]	
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> createAnonymousTag [
 
 	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, NULL, NULL))
 ]
 
-{ #category : #'accessing - mark' }
+{ #category : 'accessing - mark' }
 GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravity [
 
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_create_mark (
@@ -153,19 +155,19 @@ GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravi
 			gboolean left_gravity))
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> createTag: tag_name [
 
 	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, gchar *tag_name, NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> cursorPosition [
 
 	^ self gObjectGetInteger: 'cursor-position'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> cursorPosition: index [
 	| indexIter |
 
@@ -173,7 +175,7 @@ GtkTextBuffer >> cursorPosition: index [
 	self placeCursor: indexIter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> cursorPositionAtLine [
 	| iter |
 	
@@ -182,7 +184,7 @@ GtkTextBuffer >> cursorPositionAtLine [
 	^ (iter lineOffset + 1) @ (iter line + 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> deleteAll [ 
 
 	self 
@@ -190,31 +192,31 @@ GtkTextBuffer >> deleteAll [
 		end: self endIter
 ]
 
-{ #category : #'accessing - mark' }
+{ #category : 'accessing - mark' }
 GtkTextBuffer >> deleteMark: mark [
 
 	self ffiCall: #(void gtk_text_buffer_delete_mark (self, GtkTextMark* mark))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> deleteStart: start end: end [
 
 	^ self ffiCall: #(void gtk_text_buffer_delete (self, GtkTextIter *start, GtkTextIter *end))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> disableUndo [
 
 	self undoEnabled: false
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> enableUndo [
 
 	self undoEnabled: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> endIter [ 
 	| end |
 
@@ -224,19 +226,19 @@ GtkTextBuffer >> endIter [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> endIter: iter [
 
 	self ffiCall: #(void gtk_text_buffer_get_end_iter (self, GtkTextIter *iter))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> endUserAction [
 	
 	self ffiCall: #(void gtk_text_buffer_end_user_action (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> getIter: iter atLine: line_number [ 
 
 	self ffiCall: #(void gtk_text_buffer_get_iter_at_line (
@@ -245,7 +247,7 @@ GtkTextBuffer >> getIter: iter atLine: line_number [
 		gint line_number))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> getIter: iter atMark: mark [
 
 	self ffiCall: #(void gtk_text_buffer_get_iter_at_mark (
@@ -254,7 +256,7 @@ GtkTextBuffer >> getIter: iter atMark: mark [
 		GtkTextMark *mark))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> getSelectionBoundsStart: start end: end [ 
 
 	^ self ffiCall: #(gboolean gtk_text_buffer_get_selection_bounds (
@@ -263,20 +265,20 @@ GtkTextBuffer >> getSelectionBoundsStart: start end: end [
 		GtkTextIter *end))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> infiniteUndoLevels [
 
 	self maxUndoLevels: 0
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTextBuffer >> initializeTable: aTagTable [
 
 	tagTable := aTagTable.
 	self initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> insertIter: iter text: text [
 
 	^ self ffiCall: #(void gtk_text_buffer_insert (self,
@@ -285,13 +287,13 @@ GtkTextBuffer >> insertIter: iter text: text [
                         gint -1))
 ]
 
-{ #category : #'accessing - mark' }
+{ #category : 'accessing - mark' }
 GtkTextBuffer >> insertMark [
 
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_get_insert (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> insertMarkup: aString [
 
 	self 
@@ -299,7 +301,7 @@ GtkTextBuffer >> insertMarkup: aString [
 		text: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> insertMarkupIter: iter text: text [
 
 	^ self ffiCall: #(void gtk_text_buffer_insert_markup (
@@ -309,7 +311,7 @@ GtkTextBuffer >> insertMarkupIter: iter text: text [
 		gint -1))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> insertText: aString [
 
 	self 
@@ -317,7 +319,7 @@ GtkTextBuffer >> insertText: aString [
 		text: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> insertText: aString at: offset [
 
 	self 
@@ -325,19 +327,19 @@ GtkTextBuffer >> insertText: aString at: offset [
 		text: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> insertTextAtCursor: text [
 
 	^ self ffiCall: #(void gtk_text_buffer_insert_at_cursor (self, const gchar *text, -1))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTextBuffer >> isUndoEnabled [
 
 	^ self ffiCall: #(gboolean gtk_text_buffer_get_enable_undo (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> iterAtLine: lineNumber [
 	| iter |
 	
@@ -346,7 +348,7 @@ GtkTextBuffer >> iterAtLine: lineNumber [
 	^ iter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> iterAtMark: aMark [
 	| iter |
 	
@@ -355,7 +357,7 @@ GtkTextBuffer >> iterAtMark: aMark [
 	^ iter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> iterAtOffset: offset [
 	| iter |
 	
@@ -365,7 +367,7 @@ GtkTextBuffer >> iterAtOffset: offset [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> lineAt: offset [
 	| start end |
 	
@@ -381,31 +383,31 @@ GtkTextBuffer >> lineAt: offset [
 		includeHiddenChars: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> lineAtCursorPosition [
 	
 	^ self lineAt: self cursorPosition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> lineCount [
 
 	^ self ffiCall: #(gint gtk_text_buffer_get_line_count (self))
 ]
 
-{ #category : #'accessing - mark' }
+{ #category : 'accessing - mark' }
 GtkTextBuffer >> markNamed: aName [
 
 	^ self ffiCall: #(GtkTextMark *gtk_text_buffer_get_mark (self, const gchar *aName))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> maxUndoLevels [
 
 	self ffiCall: #(guint gtk_text_buffer_get_max_undo_levels (self))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> maxUndoLevels: max_undo_levels [
 
 	^ self
@@ -414,7 +416,7 @@ GtkTextBuffer >> maxUndoLevels: max_undo_levels [
    			gint max_undo_levels))
 ]
 
-{ #category : #'accessing - mark' }
+{ #category : 'accessing - mark' }
 GtkTextBuffer >> moveMark: mark to: where [
 
 	^ self ffiCall: #(void gtk_text_buffer_move_mark (
@@ -423,32 +425,32 @@ GtkTextBuffer >> moveMark: mark to: where [
 		const GtkTextIter *where))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> offsetIter: iter pos: char_offset [
 	
 	^ self ffiCall: #(void gtk_text_buffer_get_iter_at_offset (self, GtkTextIter *iter, gint char_offset))
 	
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> placeCursor: where [
 
 	self ffiCall: #(void gtk_text_buffer_place_cursor (self, const GtkTextIter *where))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> redo [
 
 	^ self ffiCall: #(void gtk_text_buffer_redo (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> registerSerializeTagSet [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> removeAllTags [ 
 
 	self 
@@ -456,7 +458,7 @@ GtkTextBuffer >> removeAllTags [
 		endIter: self endIter
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> removeAllTagsStartIter: start endIter: end [
 
 	self ffiCall: #(void gtk_text_buffer_remove_all_tags (
@@ -465,7 +467,7 @@ GtkTextBuffer >> removeAllTagsStartIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> removeTag: aTag [ 
 	
 	self 
@@ -474,7 +476,7 @@ GtkTextBuffer >> removeTag: aTag [
 		endIter: self endIter
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> removeTag: tag startIter: start endIter: end [
 
 	self ffiCall: #(void gtk_text_buffer_remove_tag (
@@ -484,7 +486,7 @@ GtkTextBuffer >> removeTag: tag startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> removeTagByName: aTag [
 
 	self 
@@ -493,7 +495,7 @@ GtkTextBuffer >> removeTagByName: aTag [
 		endIter: self endIter
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> removeTagByName: name startIter: start endIter: end [
 
 	self ffiCall: #(void gtk_text_buffer_remove_tag_by_name (
@@ -503,7 +505,7 @@ GtkTextBuffer >> removeTagByName: name startIter: start endIter: end [
 		const GtkTextIter *end))
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> selectAll [
 
 	self 
@@ -511,7 +513,7 @@ GtkTextBuffer >> selectAll [
 		bound: self endIter
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> selectFrom: start to: end [
 	| startIter endIter |
 
@@ -523,7 +525,7 @@ GtkTextBuffer >> selectFrom: start to: end [
 	self selectRangeInsert: startIter bound: endIter
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> selectLineAt: offset [
 	| start end |
 	
@@ -536,13 +538,13 @@ GtkTextBuffer >> selectLineAt: offset [
 	self selectRangeInsert: start bound: end
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> selectLineAtCursor [
 
 	self selectLineAt: self cursorPosition
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> selectRangeInsert: ins bound: bound [
 
 	self ffiCall: #(void gtk_text_buffer_select_range (
@@ -551,7 +553,7 @@ GtkTextBuffer >> selectRangeInsert: ins bound: bound [
 		const GtkTextIter *bound))
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> selection [ 
 	"answer an interval of current selection"
 
@@ -560,7 +562,7 @@ GtkTextBuffer >> selection [
 		ifNone: [ nil ]
 ]
 
-{ #category : #'accessing - selection' }
+{ #category : 'accessing - selection' }
 GtkTextBuffer >> selectionIteratorsDo: aBlock ifNone: noneBlock [
 	"answer an interval of current selection"
 	| start end |
@@ -572,19 +574,19 @@ GtkTextBuffer >> selectionIteratorsDo: aBlock ifNone: noneBlock [
 		ifFalse: noneBlock	
 ]
 
-{ #category : #serializing }
+{ #category : 'serializing' }
 GtkTextBuffer >> serialize [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> serializeFormat: format start: start end: end length: length [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> startIter [ 
 	| start |
 
@@ -595,13 +597,13 @@ GtkTextBuffer >> startIter [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> startIter: iter [
 
 	self ffiCall: #(void gtk_text_buffer_get_start_iter (self, GtkTextIter *iter))
 ]
 
-{ #category : #'accessing - tags' }
+{ #category : 'accessing - tags' }
 GtkTextBuffer >> tagsWithRange [
 	"Answer a collection with all tags in text buffer and their ranges. 
 	 Useful for serializing purposes"
@@ -623,7 +625,7 @@ GtkTextBuffer >> tagsWithRange [
 	^ tagsWithRange values
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> text [
 
 	^ self 
@@ -632,13 +634,13 @@ GtkTextBuffer >> text [
 		includeHiddenChars: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> text: text [
 
 	self ffiCall: #(void gtk_text_buffer_set_text (self, String text, "gint len" -1))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> textFrom: start to: end [
 	| startIter endIter |
 
@@ -650,7 +652,7 @@ GtkTextBuffer >> textFrom: start to: end [
 		includeHiddenChars: false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextBuffer >> textStart: start end: end includeHiddenChars: include_hidden_chars [ 
 
 	self ffiCall: #(String gtk_text_buffer_get_text (
@@ -660,19 +662,19 @@ GtkTextBuffer >> textStart: start end: end includeHiddenChars: include_hidden_ch
       gboolean include_hidden_chars))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> undo [
 
 	^ self ffiCall: #(void gtk_text_buffer_undo (self))
 ]
 
-{ #category : #'accessing - undo/redo' }
+{ #category : 'accessing - undo/redo' }
 GtkTextBuffer >> undoEnabled: enable_undo [
 
 	self ffiCall: #(void gtk_text_buffer_set_enable_undo (self, gboolean enable_undo))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextBuffer >> userActionDuring: aBlock [ 
 
 	self beginUserAction.

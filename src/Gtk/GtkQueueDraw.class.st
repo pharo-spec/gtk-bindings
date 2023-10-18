@@ -3,18 +3,20 @@ I am a special class made to queue draws (in theory, this can be made outside th
 
 "
 Class {
-	#name : #GtkQueueDraw,
-	#superclass : #GtkLibrary,
-	#category : #'Gtk-Library'
+	#name : 'GtkQueueDraw',
+	#superclass : 'GtkLibrary',
+	#category : 'Gtk-Library',
+	#package : 'Gtk',
+	#tag : 'Library'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkQueueDraw >> queueDraw: widget [
 
 	^ self ffiCall: #(void gtk_widget_queue_draw (GtkWidget *widget))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkQueueDraw >> queueDrawArea: widget x: x y: y width: width height: height [
 
 	self ffiCall: #(void gtk_widget_queue_draw_area (
@@ -25,7 +27,7 @@ GtkQueueDraw >> queueDrawArea: widget x: x y: y width: width height: height [
 		gint height))
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GtkQueueDraw >> runner [
 
 	^ TFSameThreadRunner uniqueInstance

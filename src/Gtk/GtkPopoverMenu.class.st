@@ -4,40 +4,42 @@ GtkPopoverMenu — Popovers to use as menus
 https://developer.gnome.org/gtk3/stable/GtkPopoverMenu.html
 "
 Class {
-	#name : #GtkPopoverMenu,
-	#superclass : #GtkPopover,
+	#name : 'GtkPopoverMenu',
+	#superclass : 'GtkPopover',
 	#instVars : [
 		'menuModel',
 		'children'
 	],
-	#category : #'Gtk-Widget-Menu'
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu class >> gtkNew [
 
 	^ self ffiCall: #(GtkPopoverMenu *gtk_popover_menu_new_from_model (NULL))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu class >> gtkNewFromModel: model [
 
 	^ self ffiCall: #(GtkPopoverMenu *gtk_popover_menu_new_from_model (GMenuModel* model))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu class >> gtkNewFromModelFull: model flags: flags [
 
 	^ self ffiCall: #(GtkPopoverMenu *gtk_popover_menu_new_from_model_full (GMenuModel* model, guint flags))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPopoverMenu class >> new [
 
 	^ self gtkNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPopoverMenu class >> newFromModel: aModel [
 
 	^ (self gtkNewFromModel: aModel) 
@@ -45,7 +47,7 @@ GtkPopoverMenu class >> newFromModel: aModel [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPopoverMenu class >> newFromModelFull: aModel [
 
 	^ (self gtkNewFromModelFull: aModel flags: 1) 
@@ -53,7 +55,7 @@ GtkPopoverMenu class >> newFromModelFull: aModel [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverMenu >> addChild: aWidget id: id [
 
 	"just keep it if we actually added it"
@@ -62,13 +64,13 @@ GtkPopoverMenu >> addChild: aWidget id: id [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkPopoverMenu >> autoObjectUnref [
 
 	"self autoRelease"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu >> basicAddChild: aWidget id: id [
 
 	^ self ffiCall: #(gboolean gtk_popover_menu_add_child (
@@ -77,7 +79,7 @@ GtkPopoverMenu >> basicAddChild: aWidget id: id [
 	const char* id))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu >> basicRemoveChild: aWidget [
 
 	self ffiCall: #(gboolean gtk_popover_menu_remove_child (
@@ -85,7 +87,7 @@ GtkPopoverMenu >> basicRemoveChild: aWidget [
 		GtkWidget* aWidget))
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkPopoverMenu >> finalize [
 
 	self isValidHandle ifFalse: [ ^ self ].
@@ -93,20 +95,20 @@ GtkPopoverMenu >> finalize [
 	super finalize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu >> getMenuModel [
 
 	^ self ffiCall: #(GMenuModel* gtk_popover_menu_get_menu_model (self))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkPopoverMenu >> initialize [
 
 	super initialize.
 	"self objectRef"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkPopoverMenu >> initializeModel: aModel [
 
 	self initialize.	
@@ -114,20 +116,20 @@ GtkPopoverMenu >> initializeModel: aModel [
 	menuModel doNotAutoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu >> keepWidget: widget [
 
 	children ifNil: [ children := #() ].
 	children := children copyWith: widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverMenu >> menuModel [
 
 	^ menuModel ifNil: [ menuModel := self getMenuModel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverMenu >> menuModel: aModel [
 
 	menuModel := aModel.
@@ -135,14 +137,14 @@ GtkPopoverMenu >> menuModel: aModel [
 	menuModel doNotAutoRelease
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverMenu >> removeChild: aWidget [
 
 	children := children copyWithout: aWidget.
 	self basicRemoveChild: aWidget
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenu >> setMenuModel: model [
 
 	self ffiCall: #(void gtk_popover_menu_set_menu_model (self, GMenuModel* model))

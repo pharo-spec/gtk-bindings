@@ -1,6 +1,6 @@
-Extension { #name : #AthensCairoSurface }
+Extension { #name : 'AthensCairoSurface' }
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoSurface >> asGdkTexture [
 	| bytes |
 
@@ -15,7 +15,7 @@ AthensCairoSurface >> asGdkTexture [
 			bytes unref ]
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoSurface >> directDrawDuring: aBlock [
 	"You may draw on receiver only when inside a block and only using provided canvas object.
 	This ensures releasing system resources used after finishing drawing"
@@ -29,7 +29,7 @@ AthensCairoSurface >> directDrawDuring: aBlock [
 		currentCanvas := nil ].
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoSurface >> fromCanvas: aCanvas [
 
 	session := Smalltalk session.
@@ -42,7 +42,7 @@ AthensCairoSurface >> fromCanvas: aCanvas [
 		yourself
 ]
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 AthensCairoSurface >> getHandle [
 
 	^ handle

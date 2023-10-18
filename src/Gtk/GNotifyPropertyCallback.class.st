@@ -2,15 +2,17 @@
 https://docs.gtk.org/gobject/signal.Object.notify.html
 "
 Class {
-	#name : #GNotifyPropertyCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GNotifyPropertyCallback',
+	#superclass : 'GManagedSignalCallback',
 	#instVars : [
 		'property'
 	],
-	#category : #'Gtk-Event-Callbacks'
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GNotifyPropertyCallback class >> property: aName do: aBlock [
 
 	^ self new 
@@ -19,13 +21,13 @@ GNotifyPropertyCallback class >> property: aName do: aBlock [
 		yourself
 ]
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GNotifyPropertyCallback class >> signalName [
 
 	^ nil
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GNotifyPropertyCallback >> do: aBlock [
 
 	self 
@@ -33,25 +35,25 @@ GNotifyPropertyCallback >> do: aBlock [
 		block: [ :widget :spec :user_data | aBlock cull: spec  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GNotifyPropertyCallback >> property [
 
 	^ property
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GNotifyPropertyCallback >> property: anObject [
 
 	property := anObject
 ]
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GNotifyPropertyCallback >> signalName [
 
 	^ 'notify::{1}' format: { self property }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GNotifyPropertyCallback >> signature [
 
 	^ #(void (void *widget, void *spec, gpointer user_data))

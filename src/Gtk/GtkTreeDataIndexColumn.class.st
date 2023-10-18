@@ -4,12 +4,14 @@ The index will be the first element of the path, hence this property will just w
 This column will ignore evaluation block (as it does not needs it)
 "
 Class {
-	#name : #GtkTreeDataIndexColumn,
-	#superclass : #GtkTreeDataIntegerColumn,
-	#category : #'Gtk-Widget-Tree-Store'
+	#name : 'GtkTreeDataIndexColumn',
+	#superclass : 'GtkTreeDataIntegerColumn',
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataIndexColumn >> setValueOf: item path: path to: gValue [
 
 	gValue setInt: path toArray first

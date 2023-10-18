@@ -4,8 +4,8 @@ I'm a widget for custom user interface elements.
 https://developer.gnome.org/gtk3/stable/GtkDrawingArea.html
 "
 Class {
-	#name : #GtkDrawingArea,
-	#superclass : #GtkWidget,
+	#name : 'GtkDrawingArea',
+	#superclass : 'GtkWidget',
 	#instVars : [
 		'drawing',
 		'requestedSize',
@@ -15,28 +15,30 @@ Class {
 		'GdkEventMask',
 		'GdkEventType'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDrawingArea class >> drawingAreaNew [
 
 	^ self ffiCall: #(GtkDrawingArea *gtk_drawing_area_new ())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDrawingArea class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_drawing_area_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDrawingArea class >> new [
 	^ self drawingAreaNew initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDrawingArea >> appPaintable: app_paintable [
 
 	"This is gone in GTK4 with no direct replacement. 
@@ -48,13 +50,13 @@ GtkDrawingArea >> appPaintable: app_paintable [
 	self deprecated: #Gtk4
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkDrawingArea >> basicDraw: cr [
 	
 	self subclassResponsibility
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkDrawingArea >> connectDraw: aBlock [
 
 	self 
@@ -62,24 +64,24 @@ GtkDrawingArea >> connectDraw: aBlock [
 		transformWith: '@receiver connectDraw: `aBlock' -> '@receiver drawFunction: `aBlock'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDrawingArea >> connectDrawFunction [
 
 	drawFunction := self newDrawFunction.
 	self setDrawFunc: drawFunction
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkDrawingArea >> connectResize: aBlock [
 
 	(GResizeCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDrawingArea >> connectToSignals [
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkDrawingArea >> draw: cr [
 
 	[ self basicDraw: cr ]
@@ -89,13 +91,13 @@ GtkDrawingArea >> draw: cr [
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDrawingArea >> extent: aPoint [
 	requestedSize := aPoint.
 	self setSizeRequestWidth: aPoint x height: aPoint y
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDrawingArea >> getSizeRequest [
 	| width height |
 	
@@ -107,13 +109,13 @@ GtkDrawingArea >> getSizeRequest [
 	^ (width signedLongAt: 1) @ (height signedLongAt: 1)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDrawingArea >> getSizeRequestWidth: width height: height [
 	self
 		ffiCall: #(void gtk_widget_get_size_request #(self , gint width , gint height)).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDrawingArea >> initialize [
 
 	super initialize.
@@ -125,13 +127,13 @@ GtkDrawingArea >> initialize [
 	self connectDrawFunction
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDrawingArea >> newDrawFunction [
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDrawingArea >> registerToAllEvents [
 	"call this method when you want to receive events of anykind. 
 	 you will need to connect to them and handle them after."
@@ -140,12 +142,12 @@ self flag: #TODO.
 	"self events: GDK_ALL_EVENTS_MASK value"
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDrawingArea >> registerToEvents [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDrawingArea >> setDrawFunc: draw_func [
 
 	self ffiCall: #(void gtk_drawing_area_set_draw_func (
@@ -155,7 +157,7 @@ GtkDrawingArea >> setDrawFunc: draw_func [
   		"GDestroyNotify destroy" NULL))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDrawingArea >> setSizeRequestWidth: width height: height [
 	
 	self

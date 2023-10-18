@@ -1,13 +1,15 @@
 Class {
-	#name : #GDoubleClickButtonPressEventCallback,
-	#superclass : #GButtonPressEventCallback,
+	#name : 'GDoubleClickButtonPressEventCallback',
+	#superclass : 'GButtonPressEventCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDoubleClickButtonPressEventCallback >> do: aBlock [
 	self flag: #TODO. "According to #irc, the correct way to deal with a double click 
 	 is with a GtkGestureMultipress, but this works and I do not have time to go deeper."

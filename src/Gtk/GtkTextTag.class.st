@@ -4,33 +4,35 @@ GtkTextTag — A tag that can be applied to text in a GtkTextBuffer
 https://developer.gnome.org/gtk3/stable/GtkTextTag.html
 "
 Class {
-	#name : #GtkTextTag,
-	#superclass : #GObject,
+	#name : 'GtkTextTag',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_text_tag_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTextTag class >> newName: aString [
 
 	^ (self textTagNew: aString) initialize 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextTag class >> textTagNew: aName [
 
 	^ self ffiCall: #(GtkTextTag *gtk_text_tag_new (const gchar *aName))
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkTextTag >> asTextAttributeList [
 	| list |
 
@@ -44,41 +46,41 @@ GtkTextTag >> asTextAttributeList [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTextTag >> autoObjectUnref [
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> background [
 
 	^ Color fromHexString: (self gObjectGetString: 'background')
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> background: aColor [
 
 	self gObjectSet: 'background' toString: '#', aColor asHexString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> beBold [
 
 	self gObjectSet: 'weight' toInteger: 800
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> beItalic [
 
 	self gObjectSet: 'style' toInteger: 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> beStrikeThrough [
 
 	self gObjectSet: 'strikethrough' toBoolean: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> beUnderlined [
 
 	"does not seem to have any effect"
@@ -87,7 +89,7 @@ GtkTextTag >> beUnderlined [
 	self gObjectSet: 'underline-set' toBoolean: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> fontFamily: family size: size weight: weight [ 
 	self gObjectSet: 'family' toString: family.
 	self gObjectSet: 'size-set' toBoolean: true.
@@ -95,25 +97,25 @@ GtkTextTag >> fontFamily: family size: size weight: weight [
 	self gObjectSet: 'weight' toInteger: weight
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> foreground [
 
 	^ Color fromHexString: (self gObjectGetString: 'foreground')
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> foreground: aColor [
 
 	self gObjectSet: 'foreground' toString: '#', aColor asHexString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> foregroundRGBA [
 
 	^ self gObjectGetHandle: 'foreground-rgba' as: GdkRGBA
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> indent: anInteger [ 
 
 	"indent space is hard coded to 50 pixels. Should be calculated"
@@ -121,13 +123,13 @@ GtkTextTag >> indent: anInteger [
 	self gObjectSet: 'indent' toInteger: anInteger * 50
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTextTag >> isForegroundSet [
 
 	^ self gObjectGetBoolean: 'foreground-set'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextTag >> name [
 
 	^ self gObjectGetString: 'name'

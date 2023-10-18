@@ -13,34 +13,36 @@ This signal will be sent to the grab widget if there is one.
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-leave-notify-event
 "
 Class {
-	#name : #GLeaveNotifyEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GLeaveNotifyEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GLeaveNotifyEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GLeaveNotifyEventCallback class >> signalName [
 
 	^ 'leave-notify-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GLeaveNotifyEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
 		aBlock value: (GdkCrossingEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GLeaveNotifyEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

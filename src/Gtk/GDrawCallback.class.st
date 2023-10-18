@@ -11,28 +11,30 @@ Signal handlers connected to this signal can modify the cairo context passed as 
 The signal handler will get a cr with a clip region already set to the widget's dirty region, i.e. to the area that needs repainting. Complicated widgets that want to avoid redrawing themselves completely can get the full extents of the clip region with gdk_cairo_get_clip_rectangle(), or they can get a finer-grained representation of the dirty region with cairo_copy_clip_rectangle_list().
 "
 Class {
-	#name : #GDrawCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GDrawCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDrawCallback class >> signalName [
 
 	^ 'draw'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDrawCallback >> do: aBlock [
 
 	^ super do: [ :widget :cr :payload |
 		aBlock value: cr  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDrawCallback >> signature [
 
 	^ #(gboolean (void *widget, void *cr, void *payload))

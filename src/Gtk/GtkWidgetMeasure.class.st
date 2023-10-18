@@ -2,8 +2,8 @@
 An object to get the measure of a widget.
 "
 Class {
-	#name : #GtkWidgetMeasure,
-	#superclass : #Object,
+	#name : 'GtkWidgetMeasure',
+	#superclass : 'Object',
 	#instVars : [
 		'orientation',
 		'forSize',
@@ -13,16 +13,18 @@ Class {
 		'minimumBaseline',
 		'naturalBaseline'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkWidgetMeasure class >> new [
 
 	self error: 'Use #newWidget:orientation:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkWidgetMeasure class >> newWidget: aWidget orientation: anOrientation [
 
 	^ self basicNew
@@ -30,26 +32,26 @@ GtkWidgetMeasure class >> newWidget: aWidget orientation: anOrientation [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> forSize [
 
 	^ forSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> forSize: aNumber [
 
 	forSize := aNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkWidgetMeasure >> initialize [
 
 	super initialize.
 	forSize := -1
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkWidgetMeasure >> initializeWidget: aWidget orientation: anOrientation [
 
 	self initialize.
@@ -57,7 +59,7 @@ GtkWidgetMeasure >> initializeWidget: aWidget orientation: anOrientation [
 	orientation := anOrientation
 ]
 
-{ #category : #execute }
+{ #category : 'execute' }
 GtkWidgetMeasure >> measure [
 	| minimumBuffer naturalBuffer minimumBaselineBuffer naturalBaselineBuffer |
 
@@ -78,7 +80,7 @@ GtkWidgetMeasure >> measure [
 	naturalBaseline := naturalBaselineBuffer signedLongAt: 1
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidgetMeasure >> measureMinimum: minimumHandle natural: naturalHandle minimumBaseline: minimumBaselineHandle naturalBaseline: naturalBaselineHandle [
 
 	self
@@ -94,37 +96,37 @@ GtkWidgetMeasure >> measureMinimum: minimumHandle natural: naturalHandle minimum
 		module: GtkLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> minimum [
 
 	^ minimum
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> minimumBaseline [
 
 	^ minimumBaseline
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> natural [
 
 	^ natural
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> naturalBaseline [
 
 	^ naturalBaseline
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> orientation [
 
 	^ orientation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetMeasure >> widget [
 
 	^ widget

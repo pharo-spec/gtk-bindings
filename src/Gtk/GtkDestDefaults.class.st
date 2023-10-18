@@ -24,42 +24,44 @@ https://code.woboq.org/gtk/gtk/gtk/gtkdragdest.h.html
  */
 "
 Class {
-	#name : #GtkDestDefaults,
-	#superclass : #GEnumeration,
+	#name : 'GtkDestDefaults',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_DEST_DEFAULT_ALL',
 		'GTK_DEST_DEFAULT_DROP',
 		'GTK_DEST_DEFAULT_HIGHLIGHT',
 		'GTK_DEST_DEFAULT_MOTION'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkDestDefaults class >> GTK_DEST_DEFAULT_ALL [
 	"This method was automatically generated"
 	^ GTK_DEST_DEFAULT_ALL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkDestDefaults class >> GTK_DEST_DEFAULT_DROP [
 	"This method was automatically generated"
 	^ GTK_DEST_DEFAULT_DROP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkDestDefaults class >> GTK_DEST_DEFAULT_HIGHLIGHT [
 	"This method was automatically generated"
 	^ GTK_DEST_DEFAULT_HIGHLIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkDestDefaults class >> GTK_DEST_DEFAULT_MOTION [
 	"This method was automatically generated"
 	^ GTK_DEST_DEFAULT_MOTION
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkDestDefaults class >> enumDecl [
 	^ {
   #GTK_DEST_DEFAULT_MOTION    . 1 << 0.

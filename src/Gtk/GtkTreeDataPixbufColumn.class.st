@@ -4,18 +4,20 @@
 A data column that provides a pixbuf (see *class:GdkPixbuf*).
 "
 Class {
-	#name : #GtkTreeDataPixbufColumn,
-	#superclass : #GtkTreeDataColumn,
-	#category : #'Gtk-Widget-Tree-Store'
+	#name : 'GtkTreeDataPixbufColumn',
+	#superclass : 'GtkTreeDataColumn',
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataPixbufColumn >> gType [
 
 	^ GType G_TYPE_OBJECT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataPixbufColumn >> setValueOf: item path: path to: gValue [
 	| image |
 

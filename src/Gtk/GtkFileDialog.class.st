@@ -4,16 +4,18 @@ A GtkFileDialog object collects the arguments that are needed to present a file 
 https://docs.gtk.org/gtk4/class.FileDialog.html
 "
 Class {
-	#name : #GtkFileDialog,
-	#superclass : #GtkStandardDialog,
+	#name : 'GtkFileDialog',
+	#superclass : 'GtkStandardDialog',
 	#instVars : [
 		'parent',
 		'callback'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkFileDialog class >> exampleSave [
 
 	GEngine ensureRunning.
@@ -21,31 +23,31 @@ GtkFileDialog class >> exampleSave [
 		GtkFileDialog new save ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFileDialog class >> gtkNew [
 
 	^ self ffiCall: #(GtkFileDialog *gtk_file_dialog_new (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileDialog class >> new [
 
 	^ self gtkNew initialize
 ]
 
-{ #category : #'accessing - building' }
+{ #category : 'accessing - building' }
 GtkFileDialog >> callback: aCallback [
 	
 	callback := aCallback
 ]
 
-{ #category : #'accessing - building' }
+{ #category : 'accessing - building' }
 GtkFileDialog >> parent: aParent [
 	
 	parent := aParent
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 GtkFileDialog >> save [
 
 	self 
@@ -54,7 +56,7 @@ GtkFileDialog >> save [
 		callback: (callback ifNil: [ GObject null ])
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFileDialog >> saveParent: aParent cancellable: aCancellable callback: aCallback [
 
 	self ffiCall: #(void gtk_file_dialog_save (

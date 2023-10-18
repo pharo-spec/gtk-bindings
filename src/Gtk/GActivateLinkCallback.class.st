@@ -10,18 +10,20 @@ user_function (GtkLinkButton *button,
 The ::activate-link signal is emitted each time the GtkLinkButton has been clicked.
 "
 Class {
-	#name : #GActivateLinkCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GActivateLinkCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActivateLinkCallback class >> signalName [
 
 	^ 'activate-link'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActivateLinkCallback >> do: aBlock [
 
 	self 
@@ -29,7 +31,7 @@ GActivateLinkCallback >> do: aBlock [
 		block: [ :widget :user_data | aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActivateLinkCallback >> signature [
 
 	^ #(gboolean (void *widget, gpointer user_data))

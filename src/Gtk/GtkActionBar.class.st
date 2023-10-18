@@ -4,67 +4,69 @@ GtkActionBar — A full width bar for presenting contextual actions
 https://docs.gtk.org/gtk4/class.ActionBar.html
 "
 Class {
-	#name : #GtkActionBar,
-	#superclass : #GtkWidget,
+	#name : 'GtkActionBar',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkTContainer',
 	#classTraits : 'GtkTContainer classTrait',
 	#instVars : [
 		'centerWidget'
 	],
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkActionBar class >> actionBarNew [
 
 	^ self ffiCall: #(GtkActionBar *gtk_action_bar_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkActionBar class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_action_bar_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkActionBar class >> new [
 
 	^ self actionBarNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkActionBar >> basicPackEnd: child [
 
 	^ self ffiCall: #(void gtk_action_bar_pack_end (self, GtkWidget *child))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkActionBar >> basicPackStart: child [
 
 	^ self ffiCall: #(void gtk_action_bar_pack_start (self, GtkWidget *child))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkActionBar >> basicRemove: child [
 
 	self ffiCall: #(void gtk_action_bar_remove (self, GtkWidget* child))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkActionBar >> centerWidget [
 	
 	^ centerWidget ifNil: [ centerWidget := self getCenterWidget ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkActionBar >> centerWidget: center_widget [
 
 	centerWidget := center_widget.
 	self setCenterWidget: center_widget
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkActionBar >> getCenterWidget [
 	"It will answer a generic widget, you need to 'cast' it to what it really is. 
 	 Default is GtkBox (TO VERIFY)"
@@ -72,14 +74,14 @@ GtkActionBar >> getCenterWidget [
 	^ self ffiCall: #(GtkWidget *gtk_action_bar_get_center_widget (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkActionBar >> isRevealed [
 
 	^ self ffiCall: #(gboolean gtk_action_bar_get_revealed (self))
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkActionBar >> packEnd: child [ 
 
 	self keepWidget: child.
@@ -88,7 +90,7 @@ GtkActionBar >> packEnd: child [
 	^ child
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkActionBar >> packStart: child [ 
 
 	self keepWidget: child.
@@ -97,7 +99,7 @@ GtkActionBar >> packStart: child [
 	^ child
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkActionBar >> setCenterWidget: center_widget [
 
 	^ self ffiCall: #(void gtk_action_bar_set_center_widget (

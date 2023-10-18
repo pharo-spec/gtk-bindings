@@ -1,33 +1,35 @@
 Class {
-	#name : #GtkTextDirection,
-	#superclass : #GEnumeration,
+	#name : 'GtkTextDirection',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_TEXT_DIR_LTR',
 		'GTK_TEXT_DIR_NONE',
 		'GTK_TEXT_DIR_RTL'
 	],
-	#category : #'Gtk-Widget-Display'
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextDirection class >> GTK_TEXT_DIR_LTR [
 	"This method was automatically generated"
 	^ GTK_TEXT_DIR_LTR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextDirection class >> GTK_TEXT_DIR_NONE [
 	"This method was automatically generated"
 	^ GTK_TEXT_DIR_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextDirection class >> GTK_TEXT_DIR_RTL [
 	"This method was automatically generated"
 	^ GTK_TEXT_DIR_RTL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkTextDirection class >> enumDecl [
 	"
 	self initializeEnumeration.

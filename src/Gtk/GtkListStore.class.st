@@ -5,12 +5,14 @@ GtkListStore — A list-like data structure that can be used with the GtkTreeVie
 https://developer.gnome.org/gtk3/stable/GtkListStore.html#gtk-list-store-new
 "
 Class {
-	#name : #GtkListStore,
-	#superclass : #GtkBaseStore,
-	#category : #'Gtk-Widget-List'
+	#name : 'GtkListStore',
+	#superclass : 'GtkBaseStore',
+	#category : 'Gtk-Widget-List',
+	#package : 'Gtk',
+	#tag : 'Widget-List'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListStore class >> basicNewWithNumberOfColumns: aNumber andTypes: anExternalArray [
 
 	^ self 
@@ -18,20 +20,20 @@ GtkListStore class >> basicNewWithNumberOfColumns: aNumber andTypes: anExternalA
 		andTypes: anExternalArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListStore class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_list_store_get_type())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListStore class >> gtkListStoreNewWithNumberOfColums: numberoOfColumns andTypes: types [
 
 	^ self ffiCall: #(GtkListStore *gtk_list_store_newv (gint numberoOfColumns, void *types))
 ]
 
-{ #category : #iterating }
+{ #category : 'iterating' }
 GtkListStore >> appendNew [
 	
 	^ (GtkListIter on: self) appendNew

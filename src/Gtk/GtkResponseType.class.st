@@ -4,8 +4,8 @@ Predefined values for use as response ids in gtk_dialog_add_button(). All predef
 https://developer.gnome.org/gtk3/stable/GtkDialog.html#GtkResponseType
 "
 Class {
-	#name : #GtkResponseType,
-	#superclass : #GEnumeration,
+	#name : 'GtkResponseType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_RESPONSE_ACCEPT',
 		'GTK_RESPONSE_APPLY',
@@ -19,76 +19,78 @@ Class {
 		'GTK_RESPONSE_REJECT',
 		'GTK_RESPONSE_YES'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_ACCEPT [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_ACCEPT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_APPLY [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_APPLY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_CANCEL [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_CANCEL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_CLOSE [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_CLOSE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_DELETE_EVENT [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_DELETE_EVENT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_HELP [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_HELP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_NO [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_NO
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_NONE [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_OK [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_OK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_REJECT [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_REJECT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkResponseType class >> GTK_RESPONSE_YES [
 	"This method was automatically generated"
 	^ GTK_RESPONSE_YES
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkResponseType class >> enumDecl [
 	"self initializeEnumeration"
 

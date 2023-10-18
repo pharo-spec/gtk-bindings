@@ -1,33 +1,35 @@
 Trait {
-	#name : #GtkTToggleableButton,
-	#category : #'Gtk-Widget-Buttons'
+	#name : 'GtkTToggleableButton',
+	#category : 'Gtk-Widget-Buttons',
+	#package : 'Gtk',
+	#tag : 'Widget-Buttons'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTToggleableButton >> active: aBoolean [
 
 	self shouldBeImplemented
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTToggleableButton >> beActive [
 
 	self active: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTToggleableButton >> beNonActive [
 
 	self active: false
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkTToggleableButton >> connectActivate: aBlock [
 
 	(GActivateCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkTToggleableButton >> connectToggled: aBlock [
 
 	(GToggledCallback do: aBlock) connectTo: self

@@ -5,15 +5,17 @@ GtkAboutDialog — Display information about an application
 https://developer.gnome.org/gtk3/stable/GtkAboutDialog.html
 "
 Class {
-	#name : #GtkAboutDialog,
-	#superclass : #GtkWindow,
+	#name : 'GtkAboutDialog',
+	#superclass : 'GtkWindow',
 	#instVars : [
 		'logo'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkAboutDialog class >> example [
 
 	GEngine ensureRunning.
@@ -31,164 +33,164 @@ GtkAboutDialog class >> example [
 		 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog class >> gtkDialogNew [
 
 	^ self ffiCall: #(GtkAboutDialog *gtk_about_dialog_new (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAboutDialog class >> new [
 
 	^ self gtkDialogNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicComments [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_comments (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicComments: utf8EncodedString [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_comments (self, String utf8EncodedString))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicCopyright [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_copyright (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicCopyright: utf8EncodedString [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_copyright (self, String utf8EncodedString))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicLicence [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_license (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicLicence: utf8EncodedString [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_license (self, String utf8EncodedString))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicProgramName [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_program_name (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicProgramName: utf8EncodedProgramName [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_program_name (self, String utf8EncodedProgramName))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicVersion [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_version (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicVersion: utf8EncodedVersion [
 
 	^ self ffiCall: #(void gtk_about_dialog_get_version (self, String utf8EncodedVersion))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicWebsite [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_website (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicWebsite: utf8EncodedVersion [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_website (self, String utf8EncodedVersion))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicWebsiteLabel [
 
 	^ self ffiCall: #(String gtk_about_dialog_get_website_label (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAboutDialog >> basicWebsiteLabel: utf8EncodedVersion [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_website_label (self, String utf8EncodedVersion))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> comments [
 
 	^ self basicComments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> comments: aString [
 
 	self basicComments: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> copyright [
 
 	^ self basicCopyright
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> copyright: aString [
 
 	self basicCopyright: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> doNotWrapLicence [
 	
 	^ self wrapLicence: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> licence [
 
 	^ self basicLicence
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> licence: aString [
 
 	self basicLicence: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> logo: aPaintable [
 
 	logo := aPaintable.
 	self setLogo: logo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> programName [
 
 	^ self basicProgramName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> programName: aString [
 
 	self basicProgramName: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> setLogo: aLogo [
 
 	self ffiCall: #(void gtk_about_dialog_set_logo (
@@ -196,55 +198,55 @@ GtkAboutDialog >> setLogo: aLogo [
   		GdkPaintable* aLogo))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> version [
 
 	^ self basicVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> version: aString [
 
 	self basicVersion: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> website [
 
 	^ self basicWebsite
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> website: aString [
 
 	self basicWebsite: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> websiteLabel [
 
 	^ self basicWebsiteLabel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> websiteLabel: aString [
 
 	self basicWebsiteLabel: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> wrapLicence [
 	
 	^ self wrapLicence: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> wrapLicence: aBoolean [
 
 	^ self ffiCall: #(void gtk_about_dialog_set_wrap_license (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAboutDialog >> wrapsLicence [
 
 	^ self ffiCall: #(gboolean gtk_about_dialog_get_wrap_license (self))

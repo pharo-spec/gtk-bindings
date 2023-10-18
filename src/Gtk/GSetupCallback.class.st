@@ -2,21 +2,23 @@
 https://docs.gtk.org/gtk4/signal.SignalListItemFactory.setup.html
 "
 Class {
-	#name : #GSetupCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GSetupCallback',
+	#superclass : 'GManagedSignalCallback',
 	#instVars : [
 		'itemClass'
 	],
-	#category : #'Gtk-Event-Callbacks'
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GSetupCallback class >> signalName [
 
 	^ 'setup'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GSetupCallback >> do: aBlock [
 
 	self 
@@ -25,19 +27,19 @@ GSetupCallback >> do: aBlock [
 			aBlock value: (self itemClass fromHandleUnreferenced: object) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSetupCallback >> itemClass [
 	
 	^ itemClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSetupCallback >> itemClass: aClass [
 	
 	itemClass := aClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSetupCallback >> signature [
 
 	^ #(void (void *factory, void *object, gpointer user_data))

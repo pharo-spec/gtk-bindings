@@ -5,42 +5,44 @@ Describes a type of line wrapping.
 https://developer.gnome.org/gtk3/stable/GtkTextView.html#GtkWrapMode
 "
 Class {
-	#name : #GtkWrapMode,
-	#superclass : #GEnumeration,
+	#name : 'GtkWrapMode',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_WRAP_CHAR',
 		'GTK_WRAP_NONE',
 		'GTK_WRAP_WORD',
 		'GTK_WRAP_WORD_CHAR'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWrapMode class >> GTK_WRAP_CHAR [
 	"This method was automatically generated"
 	^ GTK_WRAP_CHAR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWrapMode class >> GTK_WRAP_NONE [
 	"This method was automatically generated"
 	^ GTK_WRAP_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWrapMode class >> GTK_WRAP_WORD [
 	"This method was automatically generated"
 	^ GTK_WRAP_WORD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWrapMode class >> GTK_WRAP_WORD_CHAR [
 	"This method was automatically generated"
 	^ GTK_WRAP_WORD_CHAR
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkWrapMode class >> enumDecl [
 
 	^ #(

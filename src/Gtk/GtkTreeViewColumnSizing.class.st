@@ -13,35 +13,37 @@ GTK_TREE_VIEW_COLUMN_FIXED
 Columns are a fixed numbers of pixels wide.
 "
 Class {
-	#name : #GtkTreeViewColumnSizing,
-	#superclass : #GEnumeration,
+	#name : 'GtkTreeViewColumnSizing',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_TREE_VIEW_COLUMN_AUTOSIZE',
 		'GTK_TREE_VIEW_COLUMN_FIXED',
 		'GTK_TREE_VIEW_COLUMN_GROW_ONLY'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTreeViewColumnSizing class >> GTK_TREE_VIEW_COLUMN_AUTOSIZE [
 	"This method was automatically generated"
 	^ GTK_TREE_VIEW_COLUMN_AUTOSIZE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTreeViewColumnSizing class >> GTK_TREE_VIEW_COLUMN_FIXED [
 	"This method was automatically generated"
 	^ GTK_TREE_VIEW_COLUMN_FIXED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTreeViewColumnSizing class >> GTK_TREE_VIEW_COLUMN_GROW_ONLY [
 	"This method was automatically generated"
 	^ GTK_TREE_VIEW_COLUMN_GROW_ONLY
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkTreeViewColumnSizing class >> enumDecl [
 	"self initializeEnumeration"
 

@@ -5,16 +5,18 @@ System dialogs are the ones that are in the hierachy of GtkDialog:
 https://developer.gnome.org/gtk3/stable/GtkDialog.html#GtkDialog.object-hierarchy
 "
 Class {
-	#name : #GtkSystemDialog,
-	#superclass : #GtkBaseDialog,
+	#name : 'GtkSystemDialog',
+	#superclass : 'GtkBaseDialog',
 	#pools : [
 		'GtkFileChooserAction',
 		'GtkResponseType'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 GtkSystemDialog >> run [
 	"IMPORTANT Execute this outside the runloop!"
 	| sem |

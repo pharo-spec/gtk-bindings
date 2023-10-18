@@ -2,18 +2,20 @@
 https://docs.gtk.org/gtk4/class.KeyvalTrigger.html
 "
 Class {
-	#name : #GtkKeyvalTrigger,
-	#superclass : #GtkShortcutTrigger,
-	#category : #'Gtk-Shortcut'
+	#name : 'GtkKeyvalTrigger',
+	#superclass : 'GtkShortcutTrigger',
+	#category : 'Gtk-Shortcut',
+	#package : 'Gtk',
+	#tag : 'Shortcut'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkKeyvalTrigger class >> gtkNewKeyval: keyval modifiers: modifiers [
 
 	^ self ffiCall: #(GtkKeyvalTrigger *gtk_keyval_trigger_new (guint keyval, GdkModifierType modifiers))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkKeyvalTrigger class >> newKeyCombination: aKeyCombination [
 	| charValue modifiers |
 
@@ -24,7 +26,7 @@ GtkKeyvalTrigger class >> newKeyCombination: aKeyCombination [
 		modifiers: modifiers
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkKeyvalTrigger class >> newKeyval: keyval modifiers: modifiers [
 
 	^ (self gtkNewKeyval: keyval modifiers: modifiers) initialize

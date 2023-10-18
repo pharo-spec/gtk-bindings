@@ -8,18 +8,20 @@ user_function (GtkToggleButton *togglebutton,
 Should be connected if you wish to perform an action whenever the GtkToggleButton's state is changed.
 "
 Class {
-	#name : #GToggledCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GToggledCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GToggledCallback class >> signalName [
 
 	^ 'toggled'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GToggledCallback >> do: aBlock [
 
 	self 

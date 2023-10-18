@@ -6,46 +6,48 @@ https://docs.gtk.org/gtk4/class.Fixed.html
 TODO: set_child_transform
 "
 Class {
-	#name : #GtkFixed,
-	#superclass : #GtkWidget,
+	#name : 'GtkFixed',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkTContainer',
 	#classTraits : 'GtkTContainer classTrait',
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFixed class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_fixed_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFixed class >> gtkFixedNew [
 
 	^ self ffiCall: #(GtkFixed *gtk_fixed_new ())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFixed class >> new [
 
 	^ self gtkFixedNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFixed >> basicRemove: child [
 
 	self ffiCall: #(void gtk_fixed_remove (self, GtkWidget* child))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkFixed >> initialize [
 
 	super initialize.
 	self initializeTContainer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFixed >> moveChild: aChild to: aPoint [
 
 	self 
@@ -54,7 +56,7 @@ GtkFixed >> moveChild: aChild to: aPoint [
 		toY: aPoint y
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFixed >> moveChild: aChild toX: x toY: y [
 
 	^ self ffiCall: #(void gtk_fixed_move (
@@ -64,7 +66,7 @@ GtkFixed >> moveChild: aChild toX: x toY: y [
 		gint y))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFixed >> putChild: aChild at: aPoint [
 
 	self keepWidget: aChild.
@@ -74,7 +76,7 @@ GtkFixed >> putChild: aChild at: aPoint [
 		atY: aPoint y
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFixed >> putChild: aChild atX: x atY: y [
 
 	^ self ffiCall: #(void gtk_fixed_put (

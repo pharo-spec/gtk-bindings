@@ -1,6 +1,6 @@
 Class {
-	#name : #GtkCellRendererCustom,
-	#superclass : #GtkCellRenderer,
+	#name : 'GtkCellRendererCustom',
+	#superclass : 'GtkCellRenderer',
 	#instVars : [
 		'padding'
 	],
@@ -10,22 +10,24 @@ Class {
 	#classInstVars : [
 		'gtkCellRendererStructure'
 	],
-	#category : #'Gtk-Widget-CellRenderers'
+	#category : 'Gtk-Widget-CellRenderers',
+	#package : 'Gtk',
+	#tag : 'Widget-CellRenderers'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererCustom class >> cellRendererNew [
 
 	self error: 'Should not arrive here'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererCustom class >> gClass [
 
 	^ GClass gClassAt: self
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gDefine: gClass [
 
 	gClass 
@@ -34,7 +36,7 @@ GtkCellRendererCustom class >> gDefine: gClass [
 			self gInitializeClass: (GtkCellRendererClass fromHandle: gClassHandle) ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInitializeClass: aDefinition [
 
 	gtkCellRendererStructure:= aDefinition.
@@ -44,7 +46,7 @@ GtkCellRendererCustom class >> gInitializeClass: aDefinition [
 	self gInitializeClassInstallPropertiesOn: aDefinition
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInitializeClassGetProperty: aDefinition [
 		
 	aDefinition parent_class get_property: (GCallback 
@@ -59,7 +61,7 @@ GtkCellRendererCustom class >> gInitializeClassGetProperty: aDefinition [
 				inValue: (GValue fromHandle: value) ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInitializeClassGetSize: aDefinition [
 	"not used for the moment"
 
@@ -82,12 +84,12 @@ GtkCellRendererCustom class >> gInitializeClassGetSize: aDefinition [
 					height: height ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInitializeClassInstallPropertiesOn: aDefinition [
 	"override to add custom properties"
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInitializeClassRender: aDefinition [
 
 	aDefinition render: (GCallback 
@@ -107,7 +109,7 @@ GtkCellRendererCustom class >> gInitializeClassRender: aDefinition [
 				flags: flags ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInitializeClassSetProperty: aDefinition [
 
 	aDefinition parent_class set_property: (GCallback 
@@ -122,35 +124,35 @@ GtkCellRendererCustom class >> gInitializeClassSetProperty: aDefinition [
 				toValue: (GValue fromHandle: value) ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCellRendererCustom class >> gInstance: handle [
 
 	^ self gClass findInstance: handle
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererCustom class >> gtkBooleanCellAccessibleGetType [
 
 	^ self ffiCall: #(gsize #gtk_boolean_cell_accessible_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCellRendererCustom class >> new [
 
 	^ (GClass gDefinitionAt: self) new
 ]
 
-{ #category : #'accessing - geometry' }
+{ #category : 'accessing - geometry' }
 GtkCellRendererCustom >> getPreferredWidth: widget minimum: minimumSize natural: naturalSize [
 	"override this to calculate width and set them in buffers"
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GtkCellRendererCustom >> getProperty: id inValue: gValue [
 	"override this to get a property value"
 ]
 
-{ #category : #'accessing - geometry' }
+{ #category : 'accessing - geometry' }
 GtkCellRendererCustom >> getSize: widget 
 	rectangle: rect 
 	xOffset: xOffsetBuffer 
@@ -160,7 +162,7 @@ GtkCellRendererCustom >> getSize: widget
 	"override this to calculate size and set them in buffers"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererCustom >> mode: aGtkCellRendererMode [
 
 	self 
@@ -168,25 +170,25 @@ GtkCellRendererCustom >> mode: aGtkCellRendererMode [
 		toInteger: aGtkCellRendererMode value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererCustom >> padding [
 
 	^ padding ifNil: [ padding := super padding ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererCustom >> padding: aPoint [
 
 	padding := nil.
 	super padding: aPoint
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 GtkCellRendererCustom >> renderCr: cr widget: widget backgroundArea: bgRect cellArea: cellRect flags: flags [
 	"override this to draw your custom cell"
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GtkCellRendererCustom >> setProperty: id toValue: gValue [
 	"override this to set your property value"
 ]

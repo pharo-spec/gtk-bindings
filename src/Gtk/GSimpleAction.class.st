@@ -4,39 +4,41 @@ A GSimpleAction is the obvious simple implementation of the GAction interface. T
 https://docs.gtk.org/gio/class.SimpleAction.html
 "
 Class {
-	#name : #GSimpleAction,
-	#superclass : #GObject,
+	#name : 'GSimpleAction',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary + GTAction',
 	#classTraits : 'GdkTLibrary classTrait + GTAction classTrait',
-	#category : #'Gtk-Widget-Menu'
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleAction class >> gNew: aName [
 
 	^ self ffiCall: #(GSimpleAction* g_simple_action_new (gchar* aName, NULL))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GSimpleAction class >> newName: aName [ 
 
 	^ (self gNew: aName) initialize
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GSimpleAction >> connectActivate: aBlock [
 	"aBlock receives NO arguments"
 
 	(GActionActivateCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSimpleAction >> enable: enabled [
 
 	self ffiCall: #(void g_simple_action_set_enabled (self, gboolean enabled))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GSimpleAction >> isEnabled [
 
 	^ self gObjectGetBoolean: 'enabled'

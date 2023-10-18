@@ -2,18 +2,20 @@
 Simulate a `GdkKeyReleaseEvent`
 "
 Class {
-	#name : #GdkSimulatedKeyReleaseEvent,
-	#superclass : #GdkSimulatedKeyEvent,
-	#category : #'Gtk-Events-Simulated'
+	#name : 'GdkSimulatedKeyReleaseEvent',
+	#superclass : 'GdkSimulatedKeyEvent',
+	#category : 'Gtk-Events-Simulated',
+	#package : 'Gtk',
+	#tag : 'Events-Simulated'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkSimulatedKeyReleaseEvent >> accept: aVisitor [
 
 	^ aVisitor visitKeyUpEvent: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyReleaseEvent >> isKeyRelease [
 
 	^ true

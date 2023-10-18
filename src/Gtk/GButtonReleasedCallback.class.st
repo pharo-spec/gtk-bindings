@@ -4,18 +4,20 @@ Emitted when a button or touch is released.
 https://docs.gtk.org/gtk4/signal.GestureClick.released.html
 "
 Class {
-	#name : #GButtonReleasedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Event-Callbacks'
+	#name : 'GButtonReleasedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GButtonReleasedCallback class >> signalName [
 
 	^ 'released'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GButtonReleasedCallback >> do: aBlock [ 
 
 	super do: [ :gesture :n_press :x :y :user_data |
@@ -24,7 +26,7 @@ GButtonReleasedCallback >> do: aBlock [
 			numberPress: n_press) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonReleasedCallback >> signature [
 
 	^ #(void (void *gesture, gint n_press, gdouble x, gdouble y, gpointer user_data))

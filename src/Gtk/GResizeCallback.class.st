@@ -2,28 +2,30 @@
 https://docs.gtk.org/gtk4/signal.DrawingArea.resize.html
 "
 Class {
-	#name : #GResizeCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GResizeCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GResizeCallback class >> signalName [
 
 	^ 'draw'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GResizeCallback >> do: aBlock [
 
 	^ super do: [ :widget :width :height :user_data |
 		aBlock value: width@height ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GResizeCallback >> signature [
 
 	^ #(void (void *widget, gint width, gint height, gpointer user_data))

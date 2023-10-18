@@ -5,16 +5,18 @@ https://developer.gnome.org/gtk3/stable/GtkFileChooserDialog.html
 
 "
 Class {
-	#name : #GtkFileChooserDialog,
-	#superclass : #GtkSystemDialog,
+	#name : 'GtkFileChooserDialog',
+	#superclass : 'GtkSystemDialog',
 	#pools : [
 		'GtkFileChooserAction',
 		'GtkResponseType'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkFileChooserDialog class >> example [
 	| dialog |
 
@@ -33,13 +35,13 @@ GtkFileChooserDialog class >> example [
 		GRunLoop defer: [ dialog objectUnref ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newOpenDirectoryTitle: aString [
 
 	^ self newOpenDirectoryTitle: aString acceptLabel: 'Open' cancelLabel: 'Cancel' 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newOpenDirectoryTitle: aString acceptLabel: acceptString cancelLabel: cancelString [
 
 	^ (self 
@@ -50,13 +52,13 @@ GtkFileChooserDialog class >> newOpenDirectoryTitle: aString acceptLabel: accept
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newOpenFileTitle: aString [
 
 	^ self newOpenFileTitle: aString acceptLabel: 'Open' cancelLabel: 'Cancel' 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newOpenFileTitle: aString acceptLabel: acceptString cancelLabel: cancelString [
 
 	^ (self 
@@ -67,13 +69,13 @@ GtkFileChooserDialog class >> newOpenFileTitle: aString acceptLabel: acceptStrin
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newSaveFileTitle: aString [
 
 	^ self newSaveFileTitle: aString acceptLabel: 'Save' cancelLabel: 'Cancel' 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newSaveFileTitle: aString acceptLabel: acceptString cancelLabel: cancelString [
 
 	^ (self 
@@ -84,7 +86,7 @@ GtkFileChooserDialog class >> newSaveFileTitle: aString acceptLabel: acceptStrin
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkFileChooserDialog class >> newTitle: title action: action acceptLabel: acceptString cancelLabel: cancelString [
 
 	^ (self 
@@ -97,7 +99,7 @@ GtkFileChooserDialog class >> newTitle: title action: action acceptLabel: accept
 		initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFileChooserDialog class >> newTitle: title action: action firstButtonText: first_button_text firstButtonId: first_button_id [
 
 	self ffiCall: #(GtkFileChooserDialog *gtk_file_chooser_dialog_new (
@@ -109,7 +111,7 @@ GtkFileChooserDialog class >> newTitle: title action: action firstButtonText: fi
 		NULL))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFileChooserDialog class >> newTitle: title action: action firstButtonText: first_button_text firstButtonId: first_button_id secondButtonText: second_button_text secondButtonId: second_button_id [
 
 	self ffiCall: #(GtkFileChooserDialog *gtk_file_chooser_dialog_new (
@@ -123,7 +125,7 @@ GtkFileChooserDialog class >> newTitle: title action: action firstButtonText: fi
 		NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> addBooleanChoice: title [
 	| id |
 
@@ -138,7 +140,7 @@ GtkFileChooserDialog >> addBooleanChoice: title [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> addChoice: title options: anArrayOfStrings [
 	| id options labels free |
 
@@ -163,7 +165,7 @@ GtkFileChooserDialog >> addChoice: title options: anArrayOfStrings [
 	^ id
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFileChooserDialog >> addChoiceId: id title: label options: options labels: option_labels [
 	
 	self ffiCall: #(void gtk_file_chooser_add_choice (
@@ -174,55 +176,55 @@ GtkFileChooserDialog >> addChoiceId: id title: label options: options labels: op
 		"const char **"void *option_labels))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> choiceAt: id [
 
 	self ffiCall: #(const char *gtk_file_chooser_get_choice (self, const char *id))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> choiceAt: id option: index [ 
 
 	self setChoice: id option: index asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> currentFolder [
 
 	^ self ffiCall: #(gchar *gtk_file_chooser_get_current_folder (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> currentFolder: filename [
 
 	^ self ffiCall: #(gboolean gtk_file_chooser_set_current_folder (self, const gchar *filename))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> currentName [
 
 	^ self ffiCall: #(gchar *gtk_file_chooser_get_current_name (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> currentName: name [
 
 	^ self ffiCall: #(void gtk_file_chooser_set_current_name (self, const gchar *name))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> filename [ 
 
 	self ffiCall: #(gchar *gtk_file_chooser_get_filename (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> filename: filename [
 "The file must exist. For a new filename use currentFilename:"
 	self ffiCall: #(gboolean *gtk_file_chooser_set_filename (self, const gchar *filename))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFileChooserDialog >> overrideConfirmation: do_overwrite_confirmation [
 
 	self ffiCall: #(void gtk_file_chooser_set_do_overwrite_confirmation (
@@ -230,7 +232,7 @@ GtkFileChooserDialog >> overrideConfirmation: do_overwrite_confirmation [
 		gboolean do_overwrite_confirmation))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFileChooserDialog >> setChoice: id option: option [
 
 	^ self ffiCall: #(void gtk_file_chooser_set_choice (

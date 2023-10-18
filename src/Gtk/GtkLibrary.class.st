@@ -1,37 +1,39 @@
 Class {
-	#name : #GtkLibrary,
-	#superclass : #GObjectLibrary,
+	#name : 'GtkLibrary',
+	#superclass : 'GObjectLibrary',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Library'
+	#category : 'Gtk-Library',
+	#package : 'Gtk',
+	#tag : 'Library'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLibrary >> getMajorVersion [
 
 	^ self ffiCall: #(guint gtk_get_major_version (void))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLibrary >> getMicroVersion [
 
 	^ self ffiCall: #(guint gtk_get_micro_version (void))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLibrary >> getMinorVersion [
 
 	^ self ffiCall: #(guint gtk_get_minor_version (void))
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GtkLibrary >> macLibraryName [
 
 	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLibrary >> matchVersion: aString ifTrue: trueBlock ifFalse: falseBlock [ 
 	
 	^ (self matchesVersion: aString) 
@@ -39,7 +41,7 @@ GtkLibrary >> matchVersion: aString ifTrue: trueBlock ifFalse: falseBlock [
 		ifFalse: falseBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLibrary >> matchVersionMajor: required_major minor: required_minor micro: required_micro [ 
 	
 	"I use void * to prevent the FFI backend to free the string"
@@ -49,7 +51,7 @@ GtkLibrary >> matchVersionMajor: required_major minor: required_minor micro: req
 		guint required_micro))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkLibrary >> matchesVersion: aString [
 	| version match |
 	
@@ -63,14 +65,14 @@ GtkLibrary >> matchesVersion: aString [
 	^ match isNil or: [ match isNull ]
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GtkLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
 	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLibrary >> version [
 
 	^ '{1}.{2}.{3}' format: { 
@@ -79,7 +81,7 @@ GtkLibrary >> version [
 		self getMicroVersion }
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GtkLibrary >> win32LibraryName [
 	
 	^ FFIWindowsLibraryFinder findLibrary: 'libgtk-4-0.dll'

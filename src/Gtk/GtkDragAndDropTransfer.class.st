@@ -2,8 +2,8 @@
 An util to allow drag&drop transfers without passing through gtk (so I can keep objects).
 "
 Class {
-	#name : #GtkDragAndDropTransfer,
-	#superclass : #Object,
+	#name : 'GtkDragAndDropTransfer',
+	#superclass : 'Object',
 	#instVars : [
 		'#owner => WeakSlot',
 		'#passenger => WeakSlot'
@@ -11,53 +11,55 @@ Class {
 	#classVars : [
 		'#Current'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer class >> get [
 
 	^ Current
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer class >> reset [
 
 	Current := nil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDragAndDropTransfer >> initialize [
 	
 	self class initializeSlots: self.
 	super initialize.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer >> owner [
 
 	^ owner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer >> owner: anObject [
 
 	owner := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer >> passenger [
 
 	^ passenger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer >> passenger: anObject [
 
 	passenger := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDragAndDropTransfer >> set [
 
 	Current := self

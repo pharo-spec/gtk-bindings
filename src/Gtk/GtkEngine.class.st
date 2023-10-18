@@ -2,23 +2,25 @@
 An engine that keeps also a GtkApplication
 "
 Class {
-	#name : #GtkEngine,
-	#superclass : #GEngine,
+	#name : 'GtkEngine',
+	#superclass : 'GEngine',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'initAction',
 		'application'
 	],
-	#category : #'Gtk-Application'
+	#category : 'Gtk-Application',
+	#package : 'Gtk',
+	#tag : 'Application'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkEngine class >> current [
 	^ Current
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkEngine class >> ensureVersion [
 	"Ensure the minimal version is installed"
 	| version |
@@ -31,25 +33,25 @@ GtkEngine class >> ensureVersion [
 				version }) ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkEngine class >> initialize [
 
 	SessionManager default registerSystemClassNamed: self name
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkEngine class >> isAvailable [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkEngine class >> requiredGtkVersion [
 		
 	^ '4.0.0'
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GtkEngine class >> shutDown: quitting [
 	"ensure Gtk3 is stop when shutting down"
 
@@ -59,7 +61,7 @@ GtkEngine class >> shutDown: quitting [
 	 they will be closed/will crash/will put you in a world of suffering."
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GtkEngine class >> startUp: resuming [
 	
 	resuming ifTrue: [ 
@@ -71,7 +73,7 @@ GtkEngine class >> startUp: resuming [
 	Current startUp: resuming
 ]
 
-{ #category : #'private - running' }
+{ #category : 'private - running' }
 GtkEngine >> ensureApplication [
 
 	self hasValidApplication ifTrue: [ ^ application ].
@@ -83,20 +85,20 @@ GtkEngine >> ensureApplication [
 	^ application
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GtkEngine >> ensureRunLoop [
 
 	^ GtkRunLoop new
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtkEngine >> hasValidApplication [
 	
 	^ application notNil 
 		and: [ application isValidHandle ]
 ]
 
-{ #category : #'private - running' }
+{ #category : 'private - running' }
 GtkEngine >> installGClasses [
 	
 	TFProcessLocalWorker 
@@ -107,13 +109,13 @@ GtkEngine >> installGClasses [
 				thenDo: [ :each | each gInstall ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkEngine >> naturalRunner [
 
 	^ runLoop naturalRunner
 ]
 
-{ #category : #'private - running' }
+{ #category : 'private - running' }
 GtkEngine >> start [ 
 
 	self isRunning ifTrue: [ self stop ].
@@ -126,20 +128,20 @@ GtkEngine >> start [
 	runLoop start
 ]
 
-{ #category : #'private - running' }
+{ #category : 'private - running' }
 GtkEngine >> startEngineSupports [
 	
 	GtkEngineSupport allAvailable do: [ :each | each start ]
 ]
 
-{ #category : #'private - running' }
+{ #category : 'private - running' }
 GtkEngine >> stop [
 
 	self isRunning ifFalse: [ ^ self ].
 	runLoop stop
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkEngine >> whenInitializedDo: aBlock [
 
 	initAction := aBlock

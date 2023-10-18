@@ -12,12 +12,14 @@
  * members.
 "
 Class {
-	#name : #GtkTreeIter,
-	#superclass : #GtkAbstractIter,
-	#category : #'Gtk-Widget-Tree'
+	#name : 'GtkTreeIter',
+	#superclass : 'GtkAbstractIter',
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeIter >> appendNew [
 	| iterator |
 
@@ -27,7 +29,7 @@ GtkTreeIter >> appendNew [
 	^ iterator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeIter >> appendNewRoot [
 
 	^ self 
@@ -35,27 +37,27 @@ GtkTreeIter >> appendNewRoot [
 		parent: nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> atColumnIndex: index setBoolean: aValue [
 	"Just a convenience method to avoid adding an extra zero to all Strings"
 
 	 self ffiCall: #(void gtk_tree_store_set (GtkTreeStore *store, self, uint index, gboolean aValue, -1))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> atColumnIndex: index setString: aValue [
 	"Just a convenience method to avoid adding an extra zero to all Strings"
 
 	 self ffiCall: #(void gtk_tree_store_set (GtkTreeStore *store, self, uint index, String aValue, -1))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> atColumnIndex: index setValue: aValue [
 
 	 self ffiCall: #(void gtk_tree_store_set (GtkTreeStore *store, self, uint index, void* aValue, -1))
 ]
 
-{ #category : #iterating }
+{ #category : 'iterating' }
 GtkTreeIter >> childrenDo: aBlock [ 
 	| child more |
 
@@ -67,7 +69,7 @@ GtkTreeIter >> childrenDo: aBlock [
 	
 ]
 
-{ #category : #'private iterating' }
+{ #category : 'private iterating' }
 GtkTreeIter >> firstChild [
 	| childIter |
 
@@ -77,13 +79,13 @@ GtkTreeIter >> firstChild [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> free [
 
 	^ self ffiCall: #(void gtk_tree_iter_free ( self ))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> getStringAtColumnIndex: index into: aValue [
 
 	 self ffiCall: #(void gtk_tree_model_get (
@@ -94,7 +96,7 @@ GtkTreeIter >> getStringAtColumnIndex: index into: aValue [
 		-1))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> gtkTreeModelIterChildrenOf: parent into: iter [
 
 	^ self ffiCall: #(gboolean gtk_tree_model_iter_children (
@@ -103,7 +105,7 @@ GtkTreeIter >> gtkTreeModelIterChildrenOf: parent into: iter [
  		GtkTreeIter *parent))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeIter >> gtkTreeStoreAppend: iter parent: parent [
 
 	^ self ffiCall: #(void gtk_tree_store_append (
@@ -112,7 +114,7 @@ GtkTreeIter >> gtkTreeStoreAppend: iter parent: parent [
 		GtkTreeIter* parent))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeIter >> hasChildren [
 
 	^ self ffiCall: #(gboolean gtk_tree_model_iter_has_child (
@@ -120,19 +122,19 @@ GtkTreeIter >> hasChildren [
  		self))
 ]
 
-{ #category : #'private iterating' }
+{ #category : 'private iterating' }
 GtkTreeIter >> next [ 
 
 	^ self ffiCall: #(gboolean gtk_tree_model_iter_next (GtkTreeStore *store, self))
 ]
 
-{ #category : #'private iterating' }
+{ #category : 'private iterating' }
 GtkTreeIter >> previous [
 
 	^ self ffiCall: #(gboolean gtk_tree_model_iter_previous (GtkTreeStore *store, self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeIter >> setValues: aValueArray [
 
 	^ self ffiCall: #(void gtk_tree_store_set_valist (
@@ -141,19 +143,19 @@ GtkTreeIter >> setValues: aValueArray [
 		void *aValueArray))
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> stamp [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_STAMP
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> stamp: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_STAMP put: anObject
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkTreeIter >> toPath [
 
 	^ self ffiCall: #(GtkTreePath *gtk_tree_model_get_path (
@@ -161,43 +163,43 @@ GtkTreeIter >> toPath [
 		self))
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkTreeIter >> toPathArray [
 
 	^ self toPath toArray
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> user_data [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_USER_DATA) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> user_data2 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_USER_DATA2) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> user_data2: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_USER_DATA2 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> user_data3 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_USER_DATA3) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> user_data3: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_USER_DATA3 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTreeIter >> user_data: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_USER_DATA put: anObject getHandle.

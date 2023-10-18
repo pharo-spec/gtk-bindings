@@ -2,14 +2,16 @@
 https://docs.gtk.org/gio/class.MenuModel.html
 "
 Class {
-	#name : #GMenuModel,
-	#superclass : #GObject,
+	#name : 'GMenuModel',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gtk-Widget-Menu'
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GMenuModel >> numberOfItems [
 
 	^ self ffiCall: #(gint g_menu_model_get_n_items (self))

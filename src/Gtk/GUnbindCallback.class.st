@@ -4,21 +4,23 @@ Emitted when an object has been unbound from its item, for example when a listit
 https://docs.gtk.org/gtk4/signal.SignalListItemFactory.unbind.html
 "
 Class {
-	#name : #GUnbindCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GUnbindCallback',
+	#superclass : 'GManagedSignalCallback',
 	#instVars : [
 		'itemClass'
 	],
-	#category : #'Gtk-Event-Callbacks'
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GUnbindCallback class >> signalName [
 
 	^ 'bind'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GUnbindCallback >> do: aBlock [
 
 	self 
@@ -27,19 +29,19 @@ GUnbindCallback >> do: aBlock [
 			aBlock value: (self itemClass fromHandleUnreferenced: object) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GUnbindCallback >> itemClass [
 	
 	^ itemClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GUnbindCallback >> itemClass: aClass [
 	
 	itemClass := aClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GUnbindCallback >> signature [
 
 	^ #(void (void *factory, void *object, gpointer user_data))

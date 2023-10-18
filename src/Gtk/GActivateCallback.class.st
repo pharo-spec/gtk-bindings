@@ -8,18 +8,20 @@ user_function (GtkMenuItem *menuitem,
 Emitted when the item is activated.
 "
 Class {
-	#name : #GActivateCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GActivateCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActivateCallback class >> signalName [
 
 	^ 'activate'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActivateCallback >> do: aBlock [
 
 	self 

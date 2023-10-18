@@ -5,49 +5,51 @@ GtkLinkButton — Create buttons bound to a URL
 https://developer.gnome.org/gtk3/unstable/GtkLinkButton.html
 "
 Class {
-	#name : #GtkLinkButton,
-	#superclass : #GtkButton,
-	#category : #'Gtk-Widget-Buttons'
+	#name : 'GtkLinkButton',
+	#superclass : 'GtkButton',
+	#category : 'Gtk-Widget-Buttons',
+	#package : 'Gtk',
+	#tag : 'Widget-Buttons'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLinkButton class >> buttonNew [
 	
 	self shouldNotImplement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLinkButton class >> buttonNewWithLabel: utf8EncodedString [
 	
 	self shouldNotImplement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLinkButton class >> buttonNewWithUri: utf8EncodedUrl [
 	
 	^ self ffiCall: #(GtkLinkButton *gtk_link_button_new (String utf8EncodedUrl))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLinkButton class >> buttonNewWithUri: utf8EncodedUrl withLabel: utf8EncodedString [
 	
 	^ self ffiCall: #(GtkLinkButton *gtk_link_button_new_with_label (String utf8EncodedUrl, String utf8EncodedString))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLinkButton class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_link_button_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkLinkButton class >> newWithUri: aString [
 
 	^ (self buttonNewWithUri: aString) initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkLinkButton class >> newWithUri: aString withLabel: aLabel [
 
 	^ (self 
@@ -56,7 +58,7 @@ GtkLinkButton class >> newWithUri: aString withLabel: aLabel [
 		initialize
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkLinkButton >> connectActivateLink: aBlock [
 	"aBlock receives zero arguments
 	 aBlock needs to return a Boolean"
@@ -64,37 +66,37 @@ GtkLinkButton >> connectActivateLink: aBlock [
 	(GActivateLinkCallback do: aBlock) connectTo: self 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLinkButton >> gtkLinkButtonGetUri [
 
 	^ self ffiCall: #(gchar *gtk_link_button_get_uri (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLinkButton >> gtkLinkButtonSetUri: utf8EncodedUri [
 
 	^ self ffiCall: #(void gtk_link_button_set_uri (self, String utf8EncodedUri))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLinkButton >> isVisited [
 
 	^ self ffiCall: #(gboolean gtk_link_button_get_visited (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLinkButton >> uri [
 
 	^ self gtkLinkButtonGetUri
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLinkButton >> uri: aString [
 
 	^ self gtkLinkButtonSetUri: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLinkButton >> visited: aBoolean [
 
 	^ self ffiCall: #(void gtk_link_button_set_visited (self, gboolean visited))

@@ -4,28 +4,30 @@ A helper to finalize (dispose) cached elements from *class:GtkTreeDataStore*
 See *method:GtkTreeStore#registerForFinalize*
 "
 Class {
-	#name : #GtkTreeDataStoreExecutor,
-	#superclass : #Object,
+	#name : 'GtkTreeDataStoreExecutor',
+	#superclass : 'Object',
 	#instVars : [
 		'holder'
 	],
-	#category : #'Gtk-Widget-Tree-Store'
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkTreeDataStoreExecutor >> finalize [
 
 	holder first ifNotNil: [ :h |
 		h do: [ :each | each ifNotNil: [ each free ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStoreExecutor >> holder [
 
 	^ holder first
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStoreExecutor >> holder: anArray [
 
 	holder := WeakArray with: anArray

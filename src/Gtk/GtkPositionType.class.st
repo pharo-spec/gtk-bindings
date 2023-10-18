@@ -3,42 +3,44 @@ Describes which edge of a widget a certain feature is positioned at, e.g. the ta
 
 "
 Class {
-	#name : #GtkPositionType,
-	#superclass : #GEnumeration,
+	#name : 'GtkPositionType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_POS_BOTTOM',
 		'GTK_POS_LEFT',
 		'GTK_POS_RIGHT',
 		'GTK_POS_TOP'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkPositionType class >> GTK_POS_BOTTOM [
 	"This method was automatically generated"
 	^ GTK_POS_BOTTOM
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkPositionType class >> GTK_POS_LEFT [
 	"This method was automatically generated"
 	^ GTK_POS_LEFT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkPositionType class >> GTK_POS_RIGHT [
 	"This method was automatically generated"
 	^ GTK_POS_RIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkPositionType class >> GTK_POS_TOP [
 	"This method was automatically generated"
 	^ GTK_POS_TOP
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkPositionType class >> enumDecl [
 	^ #(
 	GTK_POS_LEFT 	0

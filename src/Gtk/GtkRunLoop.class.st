@@ -2,30 +2,32 @@
 Event loop for Gtk4
 "
 Class {
-	#name : #GtkRunLoop,
-	#superclass : #GRunLoop,
+	#name : 'GtkRunLoop',
+	#superclass : 'GRunLoop',
 	#instVars : [
 		'callerProcess',
 		'context',
 		'runProcess'
 	],
-	#category : #'Gtk-Application'
+	#category : 'Gtk-Application',
+	#package : 'Gtk',
+	#tag : 'Application'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkRunLoop >> callbackEnter [
 
 	TFProcessLocalWorker worker: self naturalRunner.
 	super callbackEnter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkRunLoop >> callerProcess [
 
 	^ callerProcess
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GtkRunLoop >> defer: aBlock [
 
 	self isInCallback
@@ -34,7 +36,7 @@ GtkRunLoop >> defer: aBlock [
 	^ self forceDefer: aBlock	
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GtkRunLoop >> forceDefer: aBlock [
 	| sem result exception |
 
@@ -56,7 +58,7 @@ GtkRunLoop >> forceDefer: aBlock [
 	^ result
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GtkRunLoop >> installRunLoop [
 
 	'Installing Gtk4 event loop' asBeaconSignal emit. 
@@ -76,7 +78,7 @@ GtkRunLoop >> installRunLoop [
 	named: 'Gtk4 event loop'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkRunLoop >> isRunning [
 
 	^ running 
@@ -84,13 +86,13 @@ GtkRunLoop >> isRunning [
 		and: [ runProcess isTerminated not ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkRunLoop >> naturalRunner [
 
 	^ TFMainThreadRunner uniqueInstance
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GtkRunLoop >> uninstallRunLoop [
 
 	self forceDefer: [ running := false ]

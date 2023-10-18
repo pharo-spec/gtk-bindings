@@ -4,8 +4,8 @@ Window placement can be influenced using this enumeration. Note that using GTK_W
 https://developer.gnome.org/gtk3/stable/GtkWindow.html#GtkWindowPosition
 "
 Class {
-	#name : #GtkWindowPosition,
-	#superclass : #GEnumeration,
+	#name : 'GtkWindowPosition',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_WIN_POS_CENTER',
 		'GTK_WIN_POS_CENTER_ALWAYS',
@@ -13,40 +13,42 @@ Class {
 		'GTK_WIN_POS_MOUSE',
 		'GTK_WIN_POS_NONE'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowPosition class >> GTK_WIN_POS_CENTER [
 	"This method was automatically generated"
 	^ GTK_WIN_POS_CENTER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowPosition class >> GTK_WIN_POS_CENTER_ALWAYS [
 	"This method was automatically generated"
 	^ GTK_WIN_POS_CENTER_ALWAYS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowPosition class >> GTK_WIN_POS_CENTER_ON_PARENT [
 	"This method was automatically generated"
 	^ GTK_WIN_POS_CENTER_ON_PARENT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowPosition class >> GTK_WIN_POS_MOUSE [
 	"This method was automatically generated"
 	^ GTK_WIN_POS_MOUSE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkWindowPosition class >> GTK_WIN_POS_NONE [
 	"This method was automatically generated"
 	^ GTK_WIN_POS_NONE
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkWindowPosition class >> enumDecl [
 	^ #(
 	GTK_WIN_POS_NONE 					0

@@ -5,8 +5,8 @@ A set of bit-flags to indicate which events a window is to receive. Most of thes
 https://developer.gnome.org/gdk3/stable/gdk3-Events.html#GdkEventMask
 "
 Class {
-	#name : #GdkEventMask,
-	#superclass : #GEnumeration,
+	#name : 'GdkEventMask',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_ALL_EVENTS_MASK',
 		'GDK_BUTTON1_MOTION_MASK',
@@ -31,142 +31,144 @@ Class {
 		'GDK_SUBSTRUCTURE_MASK',
 		'GDK_VISIBILITY_NOTIFY_MASK'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_ALL_EVENTS_MASK [
 	"This method was automatically generated"
 	^ GDK_ALL_EVENTS_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_BUTTON1_MOTION_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON1_MOTION_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_BUTTON2_MOTION_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON2_MOTION_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_BUTTON3_MOTION_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON3_MOTION_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_BUTTON_MOTION_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON_MOTION_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_BUTTON_PRESS_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON_PRESS_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_BUTTON_RELEASE_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON_RELEASE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_ENTER_NOTIFY_MASK [
 	"This method was automatically generated"
 	^ GDK_ENTER_NOTIFY_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_EXPOSURE_MASK [
 	"This method was automatically generated"
 	^ GDK_EXPOSURE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_FOCUS_CHANGE_MASK [
 	"This method was automatically generated"
 	^ GDK_FOCUS_CHANGE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_KEY_PRESS_MASK [
 	"This method was automatically generated"
 	^ GDK_KEY_PRESS_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_KEY_RELEASE_MASK [
 	"This method was automatically generated"
 	^ GDK_KEY_RELEASE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_LEAVE_NOTIFY_MASK [
 	"This method was automatically generated"
 	^ GDK_LEAVE_NOTIFY_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_POINTER_MOTION_HINT_MASK [
 	"This method was automatically generated"
 	^ GDK_POINTER_MOTION_HINT_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_POINTER_MOTION_MASK [
 	"This method was automatically generated"
 	^ GDK_POINTER_MOTION_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_PROPERTY_CHANGE_MASK [
 	"This method was automatically generated"
 	^ GDK_PROPERTY_CHANGE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_PROXIMITY_IN_MASK [
 	"This method was automatically generated"
 	^ GDK_PROXIMITY_IN_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_PROXIMITY_OUT_MASK [
 	"This method was automatically generated"
 	^ GDK_PROXIMITY_OUT_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_SCROLL_MASK [
 	"This method was automatically generated"
 	^ GDK_SCROLL_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_STRUCTURE_MASK [
 	"This method was automatically generated"
 	^ GDK_STRUCTURE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_SUBSTRUCTURE_MASK [
 	"This method was automatically generated"
 	^ GDK_SUBSTRUCTURE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventMask class >> GDK_VISIBILITY_NOTIFY_MASK [
 	"This method was automatically generated"
 	^ GDK_VISIBILITY_NOTIFY_MASK
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkEventMask class >> enumDecl [
 
 	^ { 

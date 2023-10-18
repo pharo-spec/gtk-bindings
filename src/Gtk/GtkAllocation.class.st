@@ -8,60 +8,62 @@ typedef 	GdkRectangle	   GtkAllocation;
 
 "
 Class {
-	#name : #GtkAllocation,
-	#superclass : #GdkRectangle,
-	#category : #'Gtk-Misc'
+	#name : 'GtkAllocation',
+	#superclass : 'GdkRectangle',
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkAllocation >> asRectangle [
 
 	^ self x@self y extent: self width@self height
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> height [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_HEIGHT
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> height: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_HEIGHT put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> width [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_WIDTH
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> width: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_WIDTH put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> x [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_X
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> x: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_X put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> y [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_Y
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAllocation >> y: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_Y put: anObject

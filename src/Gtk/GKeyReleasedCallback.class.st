@@ -2,18 +2,20 @@
 https://docs.gtk.org/gtk4/signal.EventControllerKey.key-released.html
 "
 Class {
-	#name : #GKeyReleasedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Event-Callbacks'
+	#name : 'GKeyReleasedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GKeyReleasedCallback class >> signalName [
 
 	^ 'key-pressed'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyReleasedCallback >> do: aBlock [
 
 	self
@@ -25,7 +27,7 @@ GKeyReleasedCallback >> do: aBlock [
 				state: (GdkModifierType newValue: state)) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyReleasedCallback >> signature [
 
 	^ #(void (

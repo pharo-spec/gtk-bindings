@@ -4,37 +4,39 @@ GtkAccelLabel — A label which displays an accelerator key on the right of the 
 https://developer.gnome.org/gtk3/stable/GtkAccelLabel.html
 "
 Class {
-	#name : #GtkAccelLabel,
-	#superclass : #GtkLabel,
-	#category : #'Gtk-Widget-Display'
+	#name : 'GtkAccelLabel',
+	#superclass : 'GtkLabel',
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAccelLabel class >> accelLabelNew: string [
 
 	^ self ffiCall: #(GtkAccelLabel* gtk_accel_label_new (String string))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAccelLabel class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_accel_label_get_type())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkAccelLabel class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAccelLabel class >> new [
 
 	self error: 'Use #newLabel:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAccelLabel class >> newAccelerator: aShortcut [
 
 	^ (self newLabel: (self shortcutToString: aShortcut))
@@ -42,19 +44,19 @@ GtkAccelLabel class >> newAccelerator: aShortcut [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAccelLabel class >> newLabel: aString [
 
 	^ (self accelLabelNew: aString) initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAccelLabel class >> shortcutToString: aShortcut [
 	
 	^ KMShortcutPrinter toString: aShortcut
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAccelLabel >> accelLabelSetAccelKey: accelerator_key modifiers: accelerator_mods [
 	
 	self ffiCall: #(void gtk_accel_label_set_accel (
@@ -63,7 +65,7 @@ GtkAccelLabel >> accelLabelSetAccelKey: accelerator_key modifiers: accelerator_m
 		GdkModifierType accelerator_mods))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAccelLabel >> accelerator: aShortcut [
 	| charValue modifiers |
 
@@ -75,7 +77,7 @@ GtkAccelLabel >> accelerator: aShortcut [
 		modifiers: modifiers
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAccelLabel >> widget: accel_widget [
 
 	self ffiCall: #(void gtk_accel_label_set_accel_widget (self, GtkWidget *accel_widget))

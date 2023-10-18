@@ -1,6 +1,6 @@
-Extension { #name : #FFIExternalResourceManager }
+Extension { #name : 'FFIExternalResourceManager' }
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 FFIExternalResourceManager class >> removeResource: anObject [
 	^ self uniqueInstance removeResource: anObject
 ]

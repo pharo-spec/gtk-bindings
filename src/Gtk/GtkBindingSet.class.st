@@ -4,14 +4,16 @@ A binding set maintains a list of activatable key bindings. A single binding set
 https://developer.gnome.org/gtk3/unstable/gtk3-Bindings.html#GtkBindingSet
 "
 Class {
-	#name : #GtkBindingSet,
-	#superclass : #GBaseObject,
+	#name : 'GtkBindingSet',
+	#superclass : 'GBaseObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtkBindingSet >> addSignal: keyval modifiers: modifiers signal: signal_name [
 
 	self ffiCall: #(void gtk_binding_entry_add_signal (

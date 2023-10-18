@@ -1,14 +1,16 @@
 Class {
-	#name : #GdkSimulatedButtonEvent,
-	#superclass : #GdkSimulatedEvent,
+	#name : 'GdkSimulatedButtonEvent',
+	#superclass : 'GdkSimulatedEvent',
 	#instVars : [
 		'position',
 		'numberPress'
 	],
-	#category : #'Gtk-Events-Simulated'
+	#category : 'Gtk-Events-Simulated',
+	#package : 'Gtk',
+	#tag : 'Events-Simulated'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkSimulatedButtonEvent class >> newPosition: aPoint numberPress: aNumber [
 
 	^ self new 
@@ -17,37 +19,37 @@ GdkSimulatedButtonEvent class >> newPosition: aPoint numberPress: aNumber [
 		yourself
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkSimulatedButtonEvent >> accept: aVisitor [
 
 	^ aVisitor visitMouseButtonPressEvent: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedButtonEvent >> isButtonEvent [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedButtonEvent >> numberPress [
 
 	^ numberPress
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedButtonEvent >> numberPress: aNumber [
 
 	numberPress := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedButtonEvent >> position [
 
 	^ position
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedButtonEvent >> position: aPoint [
 
 	position := aPoint

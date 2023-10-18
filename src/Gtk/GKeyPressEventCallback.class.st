@@ -11,34 +11,36 @@ To receive this signal, the GdkWindow associated to the widget needs to enable t
 This signal will be sent to the grab widget if there is one.
 "
 Class {
-	#name : #GKeyPressEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GKeyPressEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GKeyPressEventCallback class >> isDeprecated [
 	
 	^ true
 ]
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GKeyPressEventCallback class >> signalName [
 
 	^ 'key-press-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyPressEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
 		aBlock value: (GdkKeyEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyPressEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

@@ -5,8 +5,8 @@ The type of message being displayed in the dialog.
 https://developer.gnome.org/gtk3/stable/GtkMessageDialog.html#GtkMessageType
 "
 Class {
-	#name : #GtkMessageType,
-	#superclass : #GEnumeration,
+	#name : 'GtkMessageType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_MESSAGE_ERROR',
 		'GTK_MESSAGE_INFO',
@@ -14,40 +14,42 @@ Class {
 		'GTK_MESSAGE_QUESTION',
 		'GTK_MESSAGE_WARNING'
 	],
-	#category : #'Gtk-Widget-Display'
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkMessageType class >> GTK_MESSAGE_ERROR [
 	"This method was automatically generated"
 	^ GTK_MESSAGE_ERROR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkMessageType class >> GTK_MESSAGE_INFO [
 	"This method was automatically generated"
 	^ GTK_MESSAGE_INFO
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkMessageType class >> GTK_MESSAGE_OTHER [
 	"This method was automatically generated"
 	^ GTK_MESSAGE_OTHER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkMessageType class >> GTK_MESSAGE_QUESTION [
 	"This method was automatically generated"
 	^ GTK_MESSAGE_QUESTION
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkMessageType class >> GTK_MESSAGE_WARNING [
 	"This method was automatically generated"
 	^ GTK_MESSAGE_WARNING
 ]
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkMessageType class >> enumDecl [
 
 	^ #(

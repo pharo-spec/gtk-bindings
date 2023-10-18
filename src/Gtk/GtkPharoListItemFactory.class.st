@@ -3,8 +3,8 @@ A base to pharo-side based item factories.
 This is an abstract class and users will need to answer to implement: `setup:`, `bind:`, `unbind:` and `teardown:` methods. 
 "
 Class {
-	#name : #GtkPharoListItemFactory,
-	#superclass : #GtkListItemFactory,
+	#name : 'GtkPharoListItemFactory',
+	#superclass : 'GtkListItemFactory',
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
@@ -14,10 +14,12 @@ Class {
 	#classInstVars : [
 		'gtkListItemFactoryDefinition'
 	],
-	#category : #'Gtk-Widget-ListView'
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoListItemFactory class >> gDefine: gClass [
 
 	gClass 
@@ -26,7 +28,7 @@ GtkPharoListItemFactory class >> gDefine: gClass [
 			self gInitializeClass: (GtkListItemFactoryClass fromHandle: gClassHandle) ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoListItemFactory class >> gInitializeClass: aDefinition [
 	
 	"I need to keep it (otherwise callbacks will not be collected)."
@@ -59,19 +61,19 @@ GtkPharoListItemFactory class >> gInitializeClass: aDefinition [
 						data: data ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkPharoListItemFactory class >> isAbstract [
 
 	^ self = GtkPharoListItemFactory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoListItemFactory >> bind: item [
 
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoListItemFactory >> execFunction: func with: arguments [
 
 	^ self function 
@@ -79,19 +81,19 @@ GtkPharoListItemFactory >> execFunction: func with: arguments [
 		invokeWithArguments: arguments
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoListItemFactory >> function [
 
 	^ function ifNil: [ function := self newFunction ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoListItemFactory >> listItemClass [
 
 	^ GtkListItem
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoListItemFactory >> newFunction [
 
 	^ GExternalFunction 
@@ -100,13 +102,13 @@ GtkPharoListItemFactory >> newFunction [
 		library: self ffiLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoListItemFactory >> setup: item [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing - functions' }
+{ #category : 'accessing - functions' }
 GtkPharoListItemFactory >> setup: itemHandle bind: shouldBind func: func data: data [
 	| listItem |
 
@@ -118,13 +120,13 @@ GtkPharoListItemFactory >> setup: itemHandle bind: shouldBind func: func data: d
 		self bind: listItem ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoListItemFactory >> teardown: item [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing - functions' }
+{ #category : 'accessing - functions' }
 GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 	| listItem |
 
@@ -135,19 +137,19 @@ GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 		self execFunction: func with: { item. data } ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoListItemFactory >> toListItem: item [
 
 	^ self listItemClass fromHandleUnreferenced: item
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoListItemFactory >> unbind: item [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing - functions' }
+{ #category : 'accessing - functions' }
 GtkPharoListItemFactory >> update: itemHandle unbind: shouldUnbind bind: shouldBind func: func data: data [
 	| listItem |
 

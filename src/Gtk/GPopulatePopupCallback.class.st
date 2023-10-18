@@ -12,28 +12,30 @@ If “populate-all” is TRUE, this signal will also be emitted to populate touc
 The signal handler should not make assumptions about the type of widget , but check whether popup is a GtkMenu or GtkToolbar or another kind of container.
 "
 Class {
-	#name : #GPopulatePopupCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GPopulatePopupCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GPopulatePopupCallback class >> signalName [
 
 	^ 'populate-popup'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GPopulatePopupCallback >> do: aBlock [ 
 
 	^ super do: [ :text :popup :user_data | 
 		aBlock value: (GtkMenu fromHandle: popup) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GPopulatePopupCallback >> signature [
 
 	^ #(void (void *text_view, void *popup, gpointer *user_data))

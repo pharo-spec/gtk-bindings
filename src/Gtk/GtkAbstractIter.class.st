@@ -1,6 +1,6 @@
 Class {
-	#name : #GtkAbstractIter,
-	#superclass : #GStructure,
+	#name : 'GtkAbstractIter',
+	#superclass : 'GStructure',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -15,10 +15,12 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkAbstractIter class >> fieldsDesc [
 	"self compileFields"
 	^ #(
@@ -28,19 +30,19 @@ GtkAbstractIter class >> fieldsDesc [
 		gpointer user_data3;)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAbstractIter class >> on: aStore [
 
 	^ self new store: aStore
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> appendNew [
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> at: index put: aValue [
 
 	self 
@@ -48,7 +50,7 @@ GtkAbstractIter >> at: index put: aValue [
 		setValue: aValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> at: index putBoolean: aValue [
 
 	self 
@@ -56,7 +58,7 @@ GtkAbstractIter >> at: index putBoolean: aValue [
 		setBoolean: aValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> at: index putObject: aGBaseObject [
 
 	self 
@@ -64,7 +66,7 @@ GtkAbstractIter >> at: index putObject: aGBaseObject [
 		setValue: aGBaseObject getHandle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> at: index putString: aValue [
 
 	self 
@@ -72,25 +74,25 @@ GtkAbstractIter >> at: index putString: aValue [
 		setString: aValue
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAbstractIter >> atColumnIndex: index setBoolean: aValue [
 
 	 self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAbstractIter >> atColumnIndex: index setString: aValue [
 
 	 self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAbstractIter >> atColumnIndex: index setValue: aValue [
 
 	 self subclassResponsibility
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtkAbstractIter >> copyInMemory [
 	
 	^ super copyInMemory
@@ -98,7 +100,7 @@ GtkAbstractIter >> copyInMemory [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> gdkPixbufAt: index [ 
 
 	| result |
@@ -110,18 +112,18 @@ GtkAbstractIter >> gdkPixbufAt: index [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAbstractIter >> getStringAtColumnIndex: index into: aValue [
 
 	 self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> gtkImageAt: anInteger [ 
 	self shouldBeImplemented.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> reset [ 
 
 	self stamp: 0.
@@ -131,35 +133,35 @@ GtkAbstractIter >> reset [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> setValues: aValueArray [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> stamp [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_STAMP
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> stamp: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_STAMP put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> store [
 	^ store
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> store: anObject [
 	store := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAbstractIter >> stringAt: index [
 	| result |
 
@@ -170,37 +172,37 @@ GtkAbstractIter >> stringAt: index [
 
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> user_data [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_USER_DATA) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> user_data2 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_USER_DATA2) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> user_data2: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_USER_DATA2 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> user_data3 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_USER_DATA3) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> user_data3: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_USER_DATA3 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkAbstractIter >> user_data: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_USER_DATA put: anObject getHandle.

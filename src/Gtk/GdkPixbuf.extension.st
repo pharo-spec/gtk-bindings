@@ -1,6 +1,6 @@
-Extension { #name : #GdkPixbuf }
+Extension { #name : 'GdkPixbuf' }
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 GdkPixbuf class >> newFromIconName: iconName size: size [
 
 	self deprecated: #Gtk4

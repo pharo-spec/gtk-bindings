@@ -4,8 +4,8 @@ Describes a widget state. Widget states are used to match the widget against CSS
 https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkStateFlags
 "
 Class {
-	#name : #GtkStateFlags,
-	#superclass : #GEnumeration,
+	#name : 'GtkStateFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_STATE_FLAG_ACTIVE',
 		'GTK_STATE_FLAG_BACKDROP',
@@ -22,94 +22,96 @@ Class {
 		'GTK_STATE_FLAG_SELECTED',
 		'GTK_STATE_FLAG_VISITED'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_ACTIVE [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_ACTIVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_BACKDROP [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_BACKDROP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_CHECKED [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_CHECKED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_DIR_LTR [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_DIR_LTR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_DIR_RTL [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_DIR_RTL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_DROP_ACTIVE [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_DROP_ACTIVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_FOCUSED [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_FOCUSED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_INCONSISTENT [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_INCONSISTENT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_INSENSITIVE [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_INSENSITIVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_LINK [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_LINK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_NORMAL [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_NORMAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_PRELIGHT [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_PRELIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_SELECTED [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_SELECTED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateFlags class >> GTK_STATE_FLAG_VISITED [
 	"This method was automatically generated"
 	^ GTK_STATE_FLAG_VISITED
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkStateFlags class >> enumDecl [
 	^ {
   #GTK_STATE_FLAG_NORMAL.  			0.

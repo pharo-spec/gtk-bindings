@@ -2,21 +2,23 @@
 e.g. https://docs.gtk.org/gtk4/signal.SignalListItemFactory.bind.html
 "
 Class {
-	#name : #GBindCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GBindCallback',
+	#superclass : 'GManagedSignalCallback',
 	#instVars : [
 		'itemClass'
 	],
-	#category : #'Gtk-Event-Callbacks'
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GBindCallback class >> signalName [
 
 	^ 'bind'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GBindCallback >> do: aBlock [
 
 	self 
@@ -25,19 +27,19 @@ GBindCallback >> do: aBlock [
 			aBlock value: (self itemClass fromHandleUnreferenced: object) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBindCallback >> itemClass [
 	
 	^ itemClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBindCallback >> itemClass: aClass [
 	
 	itemClass := aClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBindCallback >> signature [
 
 	^ #(void (void *factory, void *object, gpointer user_data))

@@ -1,26 +1,28 @@
 Class {
-	#name : #GtkTreeModelFlags,
-	#superclass : #GEnumeration,
+	#name : 'GtkTreeModelFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_TREE_MODEL_ITERS_PERSIST',
 		'GTK_TREE_MODEL_LIST_ONLY'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTreeModelFlags class >> GTK_TREE_MODEL_ITERS_PERSIST [
 	"This method was automatically generated"
 	^ GTK_TREE_MODEL_ITERS_PERSIST
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTreeModelFlags class >> GTK_TREE_MODEL_LIST_ONLY [
 	"This method was automatically generated"
 	^ GTK_TREE_MODEL_LIST_ONLY
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkTreeModelFlags class >> enumDecl [
 	"self initializeEnumeration"
 

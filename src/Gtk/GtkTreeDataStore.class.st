@@ -16,8 +16,8 @@ gtkTreeView connectDestroy: [
 ]]]
 "
 Class {
-	#name : #GtkTreeDataStore,
-	#superclass : #GtkTreeStore,
+	#name : 'GtkTreeDataStore',
+	#superclass : 'GtkTreeStore',
 	#instVars : [
 		'owner',
 		'roots',
@@ -37,16 +37,18 @@ Class {
 		'GType',
 		'GtkTreeModelFlags'
 	],
-	#category : #'Gtk-Widget-Tree-Store'
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore class >> gClass [
 
 	^ GClass gClassAt: self
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTreeDataStore class >> gDefine: gClass [
 
 	gClass 
@@ -59,7 +61,7 @@ GtkTreeDataStore class >> gDefine: gClass [
 			initialize: [ :interface | self gDefineTreeDragDestInterface: interface ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTreeDataStore class >> gDefineTreeDragDestInterface: iface [
 
 	iface drag_data_received: (GCallback 
@@ -76,7 +78,7 @@ GtkTreeDataStore class >> gDefineTreeDragDestInterface: iface [
 				data: (GtkSelectionData fromHandle: selection_data) ]).
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTreeDataStore class >> gDefineTreeDragSouceInterface: iface [
 
 	iface row_draggable: (GCallback 
@@ -96,7 +98,7 @@ GtkTreeDataStore class >> gDefineTreeDragSouceInterface: iface [
 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 
 	iface get_flags: (GCallback 
@@ -167,106 +169,106 @@ GtkTreeDataStore class >> gDefineTreeStoreInterface: iface [
 				iter: (GtkTreeIter fromHandle: iter) ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTreeDataStore class >> gInstance: handle [
 
 	^ self gClass findInstance: handle
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTreeDataStore class >> gInstanceSafe: handle [
 
 	^ self gClass safeFindInstance: handle
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTreeDataStore class >> new [
 
 	^ (GClass gDefinitionAt: self) new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore class >> sortResortThreashold [
 	"More than this, sort will reset model (other than reorder rows)"
 
 	^ 1000
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> acceptDrop: aBlock [
 
 	acceptDrop := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> addColumn: aColumn [
 
 	aColumn store: self.
 	columns add: aColumn
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> assertNotNull: anObject ifFail: aBlock [ 
 
 	(anObject isNil or: [ anObject getHandle isNull ]) ifTrue: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> basicRoots [
 
 	^ roots
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> beList [
 
 	isList := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> children: aBlock [
 
 	childrenBlock := aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> childrenFor: element [
 
 	childrenBlock ifNil: [ ^ #() ].
 	^ childrenBlock value: element
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> columns [
 
 	^ columns
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> columns: aCollection [
 
 	columns := aCollection
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeDataStore >> dragEnabled [
 
 	^ dragEnabled
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> dragEnabled: aBoolean [
 
 	dragEnabled := aBoolean
 ]
 
-{ #category : #'accessing drag source' }
+{ #category : 'accessing drag source' }
 GtkTreeDataStore >> drag_data_delete: path [
 
 	^ false
 ]
 
-{ #category : #'accessing drag source' }
+{ #category : 'accessing drag source' }
 GtkTreeDataStore >> drag_data_get: path data: selectionData [
 	| item |
 
@@ -282,7 +284,7 @@ GtkTreeDataStore >> drag_data_get: path data: selectionData [
 	^ true
 ]
 
-{ #category : #'accessing drag dest' }
+{ #category : 'accessing drag dest' }
 GtkTreeDataStore >> drag_data_received: path data: selectionData [
 
 	selectionData target = (GdkAtom internStaticString: 'GTK_TREE_MODEL_ROW')
@@ -294,25 +296,25 @@ GtkTreeDataStore >> drag_data_received: path data: selectionData [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeDataStore >> dropEnabled [
 
 	^ dropEnabled
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> dropEnabled: aBoolean [
 
 	dropEnabled := aBoolean
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> getColumnType: index [
 
 	^ (columns at: (index + 1)) gType
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> getFlags [
 	"GTK_TREE_MODEL_LIST_ONLY in case of a simple list (which is not the case in the experiment)"
 	| flags |
@@ -323,7 +325,7 @@ GtkTreeDataStore >> getFlags [
 	^ flags
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> getIter: path iter: iter [
 	| wrappedItem |
 
@@ -339,13 +341,13 @@ GtkTreeDataStore >> getIter: path iter: iter [
 	^ true
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> getNColumns [
 
 	^ columns size
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> getPath: iter [
 	| path |
 
@@ -357,7 +359,7 @@ GtkTreeDataStore >> getPath: iter [
 	^ path copy getHandle
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> getValue: iter column: columnNumber value: gValue [
 	| path wrappedItem column |
 
@@ -377,7 +379,7 @@ GtkTreeDataStore >> getValue: iter column: columnNumber value: gValue [
 		to: gValue
 ]
 
-{ #category : #'private cache' }
+{ #category : 'private cache' }
 GtkTreeDataStore >> imageAt: anObject ifAbsentPut: aBlock [
 
 	^ images 
@@ -385,7 +387,7 @@ GtkTreeDataStore >> imageAt: anObject ifAbsentPut: aBlock [
 		ifAbsentPut: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> indexOf: aTableColumn [
 	"Answer the 'pure' column (the one that does not defines an attribute)"
 
@@ -394,7 +396,7 @@ GtkTreeDataStore >> indexOf: aTableColumn [
 			and: [ aColumn tag isNil ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> indexOf: aTableColumn tag: anObject [
 	"Answer the 'pure' column (the one that does not defines an attribute)"
 
@@ -403,7 +405,7 @@ GtkTreeDataStore >> indexOf: aTableColumn tag: anObject [
 			and: [ aColumn tag = anObject ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> indexOfColumnSuchAs: aBlock [
 
 	columns withIndexDo: [ :each :index |
@@ -413,7 +415,7 @@ GtkTreeDataStore >> indexOfColumnSuchAs: aBlock [
 	^ nil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTreeDataStore >> initialize [
 
 	super initialize.
@@ -428,7 +430,7 @@ GtkTreeDataStore >> initialize [
 	self registerForFinalize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> itemAtPath: pathArray [
 	| wrappedItem |	
 
@@ -440,7 +442,7 @@ GtkTreeDataStore >> itemAtPath: pathArray [
 	^ wrappedItem ifNotNil: [ wrappedItem item ]
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> iterChildren: parent iter: iter [
 	| path wrappedItem child |
 
@@ -464,7 +466,7 @@ GtkTreeDataStore >> iterChildren: parent iter: iter [
 	^ true
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> iterHasChild: iter [
 	| wrappedItem path |
 
@@ -479,7 +481,7 @@ GtkTreeDataStore >> iterHasChild: iter [
 	^ wrappedItem hasChildren
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> iterNChildren: iter [
 	| wrappedItem path |
 
@@ -495,7 +497,7 @@ GtkTreeDataStore >> iterNChildren: iter [
 	^ wrappedItem numberOfChildren
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> iterNext: iter [
 	| path wrappedItem |
 
@@ -519,7 +521,7 @@ GtkTreeDataStore >> iterNext: iter [
 	^ true
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> iterNthChild: parent number: n iter: iter [
 	| path childNumber wrappedItem wrappedChild |
 
@@ -547,7 +549,7 @@ GtkTreeDataStore >> iterNthChild: parent number: n iter: iter [
 	^ true
 ]
 
-{ #category : #'accessing store' }
+{ #category : 'accessing store' }
 GtkTreeDataStore >> iterParent: child iter: iter [
 	| path wrappedItem |
 
@@ -577,25 +579,25 @@ GtkTreeDataStore >> iterParent: child iter: iter [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> owner [
 
 	^ owner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> owner: aTreeView [
 
 	owner := aTreeView
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> pathFromIter: iter [
 
 	^ GtkTreePath fromHandle: iter user_data
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> prepareToDisconnect [
 	"When destroying a model, Gtk will try to iterate all root elements on it. 
 	 In case of large lists this may be an expensive task.
@@ -607,7 +609,7 @@ GtkTreeDataStore >> prepareToDisconnect [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTreeDataStore >> registerForFinalize [
 	
 	"I use 'stamp' and not self because I do not want the shallow copy of an external store, 
@@ -619,27 +621,27 @@ GtkTreeDataStore >> registerForFinalize [
 			yourself)	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> resetWrappedRoots [
 
 	wrappedRoots := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> retrieveChildrenIfNeeded: aWrappedItem [
 
 	aWrappedItem needsChildren ifFalse: [ ^ self ].
 	aWrappedItem wrapChildren: (self childrenFor: aWrappedItem item)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> roots [
 
 	sortedRoots ifNotNil: [ ^ sortedRoots ].
 	^ self basicRoots
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataStore >> roots: aCollection [
 
 	sortedRoots := nil.
@@ -647,19 +649,19 @@ GtkTreeDataStore >> roots: aCollection [
 	self resetWrappedRoots
 ]
 
-{ #category : #'accessing drag source' }
+{ #category : 'accessing drag source' }
 GtkTreeDataStore >> row_draggable: path [
 
 	^ self dragEnabled
 ]
 
-{ #category : #'accessing drag dest' }
+{ #category : 'accessing drag dest' }
 GtkTreeDataStore >> row_drop_possible: path data: selectionData [
 
 	^ self dropEnabled
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> rowsReorderedPath: path iter: iter newOrders: new_order [
 
 	self ffiCall: #(void gtk_tree_model_rows_reordered (
@@ -669,7 +671,7 @@ GtkTreeDataStore >> rowsReorderedPath: path iter: iter newOrders: new_order [
 		gint *new_order))
 ]
 
-{ #category : #sorting }
+{ #category : 'sorting' }
 GtkTreeDataStore >> sortWith: aSortFunction [
 	| newOrders |
 
@@ -691,7 +693,7 @@ GtkTreeDataStore >> sortWith: aSortFunction [
 		newOrders: newOrders
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> wrappedItemAt: index of: anArray then: path [
 	"dives into elements of tree to find the one that corresponds to path"
 	| wrappedItem |
@@ -709,7 +711,7 @@ GtkTreeDataStore >> wrappedItemAt: index of: anArray then: path [
 			wrappedItem ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> wrappedItemAtPath: path [
 	| pathArray |
 
@@ -721,13 +723,13 @@ GtkTreeDataStore >> wrappedItemAtPath: path [
 		then: pathArray allButFirst
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> wrappedItemAtPath: path ifAbsent: aBlock [
 	
 	^ (self wrappedItemAtPath: path) ifNil: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeDataStore >> wrappedRoots [
 		
 	^ wrappedRoots ifNil: [ 

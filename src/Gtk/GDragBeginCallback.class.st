@@ -13,18 +13,20 @@ The ::drag-begin signal is emitted on the drag source when a drag is started. A 
 Note that some widgets set up a drag icon in the default handler of this signal, so you may have to use g_signal_connect_after() to override what the default handler did.
 "
 Class {
-	#name : #GDragBeginCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GDragBeginCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GDragBeginCallback class >> signalName [
 
 	^ 'drag-begin'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GDragBeginCallback >> do: aBlock [
 
 	^ super do: [ :widget :context :user_data |
@@ -33,7 +35,7 @@ GDragBeginCallback >> do: aBlock [
 			value: user_data ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDragBeginCallback >> signature [
 
 	^ #(void ("GtkWidget *"void *widget, "GdkDragContext *"void *context, gpointer user_data))

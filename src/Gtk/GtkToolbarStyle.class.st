@@ -4,42 +4,44 @@ Used to customize the appearance of a GtkToolbar. Note that setting the toolbar 
 https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkToolbarStyle
 "
 Class {
-	#name : #GtkToolbarStyle,
-	#superclass : #GEnumeration,
+	#name : 'GtkToolbarStyle',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_TOOLBAR_BOTH',
 		'GTK_TOOLBAR_BOTH_HORIZ',
 		'GTK_TOOLBAR_ICONS',
 		'GTK_TOOLBAR_TEXT'
 	],
-	#category : #'Gtk-Widget-Toolbar'
+	#category : 'Gtk-Widget-Toolbar',
+	#package : 'Gtk',
+	#tag : 'Widget-Toolbar'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkToolbarStyle class >> GTK_TOOLBAR_BOTH [
 	"This method was automatically generated"
 	^ GTK_TOOLBAR_BOTH
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkToolbarStyle class >> GTK_TOOLBAR_BOTH_HORIZ [
 	"This method was automatically generated"
 	^ GTK_TOOLBAR_BOTH_HORIZ
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkToolbarStyle class >> GTK_TOOLBAR_ICONS [
 	"This method was automatically generated"
 	^ GTK_TOOLBAR_ICONS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkToolbarStyle class >> GTK_TOOLBAR_TEXT [
 	"This method was automatically generated"
 	^ GTK_TOOLBAR_TEXT
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkToolbarStyle class >> enumDecl [
 	^ #(
 	GTK_TOOLBAR_ICONS 	0
@@ -49,7 +51,7 @@ GtkToolbarStyle class >> enumDecl [
 	)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkToolbarStyle class >> isDeprecated [
 
 	"apparently, we need to use a GtkBox with a style `toolbar`"

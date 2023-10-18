@@ -4,8 +4,8 @@ DEPRECATED
 Use GtkListView
 "
 Class {
-	#name : #GtkTreeView,
-	#superclass : #GtkContainer,
+	#name : 'GtkTreeView',
+	#superclass : 'GtkContainer',
 	#traits : 'GtkTScrollable',
 	#classTraits : 'GtkTScrollable classTrait',
 	#instVars : [
@@ -19,60 +19,62 @@ Class {
 		'GdkModifierType',
 		'GtkTargetFlags'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_tree_view_get_type())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTreeView class >> new [
 
 	^ self treeViewNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView class >> treeViewNew [
 
 	^ self ffiCall: #(#GtkTreeView *gtk_tree_view_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> activateOnSingleClick: single [
 
 	self ffiCall: #(void gtk_tree_view_set_activate_on_single_click (self, gboolean single))
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 GtkTreeView >> activateRow: path column: column [ 
 
 	self ffiCall: #(void gtk_tree_view_row_activated(self, GtkTreePath *path, GtkTreeViewColumn *column))
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> addExpanderColumn [
 
 	self ffiCall: #(void gtk_tree_view_set_expander_column(self, 0))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> allSelected [ 
 
 	^ self selection allSelected 
 ]
 
-{ #category : #columns }
+{ #category : 'columns' }
 GtkTreeView >> appendColumn: column [
 	
 	columns add: column.
@@ -80,7 +82,7 @@ GtkTreeView >> appendColumn: column [
 	column addedToTreeView: self
 ]
 
-{ #category : #'convenience columns' }
+{ #category : 'convenience columns' }
 GtkTreeView >> appendPixbufColumn: columnIndex [
 	| renderer |
 
@@ -92,13 +94,13 @@ GtkTreeView >> appendPixbufColumn: columnIndex [
 			renderer: renderer)
 ]
 
-{ #category : #'convenience columns' }
+{ #category : 'convenience columns' }
 GtkTreeView >> appendTextColumn [
 
 	self appendTextColumn: 0
 ]
 
-{ #category : #'convenience columns' }
+{ #category : 'convenience columns' }
 GtkTreeView >> appendTextColumn: columnIndex [
 	| renderer |
 
@@ -108,35 +110,35 @@ GtkTreeView >> appendTextColumn: columnIndex [
 		addAttribute: 'text' column: columnIndex renderer: renderer)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> autosize [
 
 	self ffiCall: #(void gtk_tree_view_columns_autosize (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> basicAppendColumn: column [
 
 	self ffiCall: #(gint gtk_tree_view_append_column (self, GtkTreeViewColumn *column))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> basicRemoveColumn: column [ 
 	
 	self ffiCall: #(gint gtk_tree_view_remove_column (self, GtkTreeViewColumn *column))
 ]
 
-{ #category : #configuring }
+{ #category : 'configuring' }
 GtkTreeView >> beMultipleSelectionMode [
 	self selection mode: GtkSelectionMode GTK_SELECTION_MULTIPLE
 ]
 
-{ #category : #configuring }
+{ #category : 'configuring' }
 GtkTreeView >> beSingleSelectionMode [
 	self selection mode: GtkSelectionMode GTK_SELECTION_SINGLE
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> cleanupAfterReplacing [
 
 	self model roots: #() .
@@ -146,36 +148,36 @@ GtkTreeView >> cleanupAfterReplacing [
 	listStore := nil.
 ]
 
-{ #category : #expanding }
+{ #category : 'expanding' }
 GtkTreeView >> collapseAll [
 
 	self ffiCall: #(void gtk_tree_view_collapse_all (self))
 ]
 
-{ #category : #expanding }
+{ #category : 'expanding' }
 GtkTreeView >> collapseToPath: pathArray [
 
 	self doCollapseRow: (GtkTreePath newFromArray: pathArray) autoRelease 
 ]
 
-{ #category : #columns }
+{ #category : 'columns' }
 GtkTreeView >> columnAt: index [
 	
 	^ columns at: index
 ]
 
-{ #category : #columns }
+{ #category : 'columns' }
 GtkTreeView >> columns [
 	^ columns
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTreeView >> connectRowActivated: aBlock [ 
 	
 	^ (GTreeViewRowActivatedCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTreeView >> connectRowExpanded: aBlock [
 
 	self 
@@ -187,13 +189,13 @@ GtkTreeView >> connectRowExpanded: aBlock [
 			aBlock cull: iter cull: path  ]
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTreeView >> connectSelectionChanged: aBlock [
 
 	^ self selection connectChanged: aBlock
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTreeView >> connectTestExpandRow: aBlock [
 	"You need to answer false to allow expansion (yes, this is weird)"
 
@@ -206,26 +208,26 @@ GtkTreeView >> connectTestExpandRow: aBlock [
 			aBlock cull: iter cull: path ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> doCollapseRow: path [ 
 	
 	self ffiCall: #(gboolean gtk_tree_view_collapse_row (self, GtkTreePath *path))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> doExpandToPath: path [ 
 	
 	self ffiCall: #(void gtk_tree_view_expand_to_path (self, GtkTreePath *path))
 ]
 
-{ #category : #'drag and drop' }
+{ #category : 'drag and drop' }
 GtkTreeView >> enableModelDragDestDefault [ 
 	"A convenience method that will enable the 'default way' of receive drops"
 
 	self enableModelDragDestDefaultTarget: 'GTK_TREE_MODEL_ROW'
 ]
 
-{ #category : #'drag and drop' }
+{ #category : 'drag and drop' }
 GtkTreeView >> enableModelDragDestDefaultTarget: aString [
 	"A convenience method that will enable the 'default way' of receive drops"
 	| target |
@@ -242,7 +244,7 @@ GtkTreeView >> enableModelDragDestDefaultTarget: aString [
 	ensure: [ target free ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> enableModelDragDestTargets: targets numTargets: n_targets actions: actions [
 
 	self ffiCall: #(void gtk_tree_view_enable_model_drag_dest (
@@ -252,14 +254,14 @@ GtkTreeView >> enableModelDragDestTargets: targets numTargets: n_targets actions
 		GdkDragAction actions))
 ]
 
-{ #category : #'drag and drop' }
+{ #category : 'drag and drop' }
 GtkTreeView >> enableModelDragSourceDefault [
 	"A convenience method that will enable the 'default way' of allowing drags"
 
 	self enableModelDragSourceDefaultTarget: 'GTK_TREE_MODEL_ROW'
 ]
 
-{ #category : #'drag and drop' }
+{ #category : 'drag and drop' }
 GtkTreeView >> enableModelDragSourceDefaultTarget: aString [
 	"A convenience method that will enable the 'default way' of allowing drags"
 	| target |
@@ -279,7 +281,7 @@ GtkTreeView >> enableModelDragSourceDefaultTarget: aString [
 	self connectDragEnd: [ :context :user_data | GtkDragAndDropTransfer reset ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> enableModelDragSourceMask: start_button_mask targets: targets numTargets: n_targets actions: actions [
 
 	self ffiCall: #(void gtk_tree_view_enable_model_drag_source(
@@ -290,50 +292,50 @@ GtkTreeView >> enableModelDragSourceMask: start_button_mask targets: targets num
 		GdkDragAction actions))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> enableSearch: enable_search [
 
 	self ffiCall: #(void gtk_tree_view_set_enable_search (self, gboolean enable_search))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> enableTreeLines [
 
 	self enableTreeLines: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> enableTreeLines: enabled [
 
 	self ffiCall: #(void gtk_tree_view_set_enable_tree_lines (self,
                                      gboolean enabled))
 ]
 
-{ #category : #expanding }
+{ #category : 'expanding' }
 GtkTreeView >> expandAll [
 
 	self ffiCall: #(void gtk_tree_view_expand_all (self))
 ]
 
-{ #category : #expanding }
+{ #category : 'expanding' }
 GtkTreeView >> expandToPath: pathArray [
 
 	self doExpandToPath: (GtkTreePath newFromArray: pathArray) autoRelease 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> fixedHeightMode: enable [
 
 	^ self ffiCall: #(void gtk_tree_view_set_fixed_height_mode (self, gboolean enable))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> getModel [
 
 	^ self ffiCall: #(GtkListStore *gtk_tree_view_get_model (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> getPathAtPosX: x y: y path: path column: column cellX: cell_x cellY: cell_y [
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_path_at_pos (
@@ -346,43 +348,43 @@ GtkTreeView >> getPathAtPosX: x y: y path: path column: column cellX: cell_x cel
 		"gint *"void *cell_y))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> getSelection [ 
 
 	^ self ffiCall: #(GtkTreeSelection *gtk_tree_view_get_selection (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> headersClickable [
 
 	self headersClickable: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> headersClickable: setting [
 
 	self ffiCall: #(void gtk_tree_view_set_headers_clickable (self, gboolean setting))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> headersVisible: aBoolean [
 
 	self gObjectSet: 'headers-visible' toBoolean: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> hoverExpand: expand [
 
 	self ffiCall: #(void gtk_tree_view_set_hover_expand (self, gboolean expand))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> hoverSelection: hover [
 
 	self ffiCall: #(void gtk_tree_view_set_hover_selection (self, gboolean hover))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTreeView >> initialize [
 
 	super initialize.
@@ -391,31 +393,31 @@ GtkTreeView >> initialize [
 	self hExpand: true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isActivateOnSingleClick [
 	
 	^ self ffiCall: #(gboolean gtk_tree_view_get_activate_on_single_click (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isEnableSearch [
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_enable_search (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isFixedHeightMode [
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_fixed_height_mode (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isHeadersClickable [
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_headers_clickable (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isHeadersVisible [
 	| buffer |
 	
@@ -425,38 +427,38 @@ GtkTreeView >> isHeadersVisible [
 	^ buffer booleanAt: 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isHoverExpand [ 
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_hover_expand (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isHoverSelection [ 
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_hover_selection (self))
 ]
 
-{ #category : #selection }
+{ #category : 'selection' }
 GtkTreeView >> isMultipleSelection [ 
 	
 	^ self selection mode = GtkSelectionMode GTK_SELECTION_MULTIPLE
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeView >> isShowExpander [
 
 	^ self ffiCall: #(gboolean gtk_tree_view_get_show_expanders (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> model [
 
 	^ listStore ifNil: [ 
 		listStore := self getModel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> model: aListStore [
 
 	listStore ifNotNil: [ 
@@ -466,7 +468,7 @@ GtkTreeView >> model: aListStore [
 	self setModel: aListStore
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> pathAtPosition: aPoint then: aBlock [
 	"gets the path, the column and the cell pointed by aPoint  which is a mouse position"
 	| result pathHandle columnHandle xBuffer yBuffer |
@@ -492,20 +494,20 @@ GtkTreeView >> pathAtPosition: aPoint then: aBlock [
 	^ result
 ]
 
-{ #category : #columns }
+{ #category : 'columns' }
 GtkTreeView >> removeAllColumns [
 	
 	columns copy do: [ :aColumn | self removeColumn: aColumn ]
 ]
 
-{ #category : #columns }
+{ #category : 'columns' }
 GtkTreeView >> removeColumn: aGtkTreeViewColumn [
 	
 	columns remove: aGtkTreeViewColumn.
 	self basicRemoveColumn: aGtkTreeViewColumn
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> scrollToCellPath: path column: column useAlign: use_align rowAlign: row_align colAlign: col_align [
 
 	self ffiCall: #(void gtk_tree_view_scroll_to_cell (
@@ -517,7 +519,7 @@ GtkTreeView >> scrollToCellPath: path column: column useAlign: use_align rowAlig
 		gfloat col_align))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> scrollToPath: path [
 	"Possible values: 
 	 	0.0 -> align on top. 
@@ -530,7 +532,7 @@ GtkTreeView >> scrollToPath: path [
 		colAlign: 0.0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> scrollToPath: path useAlign: use_align rowAlign: row_align colAlign: col_align [
 
 	self ffiCall: #(void gtk_tree_view_scroll_to_cell (
@@ -542,32 +544,32 @@ GtkTreeView >> scrollToPath: path useAlign: use_align rowAlign: row_align colAli
 		gfloat col_align))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> searchEntry [
 
 	^ self ffiCall: #(GtkEntry *gtk_tree_view_get_search_entry (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> searchFunction: aBlock [
 
 	searchFunction := GtkTreeViewSearchEqualFunc do: aBlock.
 	self setSearchEqualFunc: searchFunction
 ]
 
-{ #category : #selection }
+{ #category : 'selection' }
 GtkTreeView >> selectIndex: anInteger [ 
 	
 	self selection selectPath: { anInteger }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> selectPath: pathArray [ 
 
 	self selection selectPath: pathArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> selected [
 
 	^ self allSelected 
@@ -575,31 +577,31 @@ GtkTreeView >> selected [
 		ifEmpty: [ nil ]
 ]
 
-{ #category : #selection }
+{ #category : 'selection' }
 GtkTreeView >> selectedIndexes [
 
 	^ self selection allSelected flattened
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> selection [ 
 
 	^ selection ifNil: [ selection := self getSelection ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> setExpanderColumn: aColumn [
 
 	self ffiCall: #(void gtk_tree_view_set_expander_column(self, GtkTreeViewColumn *aColumn))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> setModel: aListStore [
 
 	^ self ffiCall: #(void gtk_tree_view_set_model (self, GtkTreeStore *aListStore))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeView >> setSearchEqualFunc: search_equal_func [
 
 	self ffiCall: #(void gtk_tree_view_set_search_equal_func (
@@ -609,7 +611,7 @@ GtkTreeView >> setSearchEqualFunc: search_equal_func [
  		NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeView >> showExpander: enabled [
 
 	self ffiCall: #(void gtk_tree_view_set_show_expanders (self, gboolean enabled))

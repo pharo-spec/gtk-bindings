@@ -2,35 +2,37 @@
 https://people.gnome.org/~ryanl/gtk/html/gtk3-Standard-Enumerations.html#GtkAccelFlags
 "
 Class {
-	#name : #GtkAccelFlags,
-	#superclass : #GEnumeration,
+	#name : 'GtkAccelFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_ACCEL_LOCKED',
 		'GTK_ACCEL_MASK',
 		'GTK_ACCEL_VISIBLE'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAccelFlags class >> GTK_ACCEL_LOCKED [
 	"This method was automatically generated"
 	^ GTK_ACCEL_LOCKED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAccelFlags class >> GTK_ACCEL_MASK [
 	"This method was automatically generated"
 	^ GTK_ACCEL_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkAccelFlags class >> GTK_ACCEL_VISIBLE [
 	"This method was automatically generated"
 	^ GTK_ACCEL_VISIBLE
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkAccelFlags class >> enumDecl [
 	
 	^ #(

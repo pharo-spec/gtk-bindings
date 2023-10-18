@@ -2,47 +2,49 @@
 https://docs.gtk.org/gtk4/class.ListBase.html
 "
 Class {
-	#name : #GtkListBase,
-	#superclass : #GtkWidget,
+	#name : 'GtkListBase',
+	#superclass : 'GtkWidget',
 	#instVars : [
 		'factory',
 		'selectionModel'
 	],
-	#category : #'Gtk-Widget-ListView'
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBase class >> gtkNew [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkListBase class >> new [
 
 	^ self gtkNew initialize
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkListBase >> connectRowActivated: aBlock [
 	"aBlock receives one argument: position"
 
 	(GRowActivatedCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBase >> enableRubberband: enable [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBase >> factory [
 
 	^ factory ifNil: [ factory := self getFactory ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBase >> factory: aFactory [
 
 	self setFactory: aFactory.
@@ -50,25 +52,25 @@ GtkListBase >> factory: aFactory [
 	factory ensureAutoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBase >> getFactory [
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBase >> getModel [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBase >> selectionModel [
 
 	^ selectionModel ifNil: [ selectionModel := self getModel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBase >> selectionModel: aModel [
 
 	selectionModel := aModel.
@@ -76,19 +78,19 @@ GtkListBase >> selectionModel: aModel [
 	selectionModel ensureAutoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBase >> setFactory: aFactory [
 	
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBase >> setModel: aModel [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBase >> singleClickActivate: single_click_activate [
 
 	self subclassResponsibility

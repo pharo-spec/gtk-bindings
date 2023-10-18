@@ -1,16 +1,18 @@
 Class {
-	#name : #GtkApplicationWindow,
-	#superclass : #GtkWindow,
-	#category : #'Gtk-Widget-Window'
+	#name : 'GtkApplicationWindow',
+	#superclass : 'GtkWindow',
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkApplicationWindow class >> gtkNew: application [
 
 	^ self ffiCall: #(#GtkApplicationWindow *gtk_application_window_new (#GtkApplication *application))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkApplicationWindow class >> newApplication: aGtkApplication [
 
 	^ (self gtkNew: aGtkApplication) initialize

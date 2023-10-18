@@ -6,14 +6,16 @@ https://docs.gtk.org/gtk4/class.Expression.html
 
 "
 Class {
-	#name : #GtkExpression,
-	#superclass : #GBaseObject,
+	#name : 'GtkExpression',
+	#superclass : 'GBaseObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing - referencing' }
+{ #category : 'accessing - referencing' }
 GtkExpression >> objectUnref [
 
 	self ffiCall: #(void gtk_expression_unref (self))

@@ -4,8 +4,8 @@ Used to reference the parts of GtkTextView.
 https://developer-old.gnome.org/gtk3/stable/GtkTextView.html#GtkTextWindowType
 "
 Class {
-	#name : #GtkTextWindowType,
-	#superclass : #GEnumeration,
+	#name : 'GtkTextWindowType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_TEXT_WINDOW_BOTTOM',
 		'GTK_TEXT_WINDOW_LEFT',
@@ -15,52 +15,54 @@ Class {
 		'GTK_TEXT_WINDOW_TOP',
 		'GTK_TEXT_WINDOW_WIDGET'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_BOTTOM [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_BOTTOM
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_LEFT [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_LEFT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_PRIVATE [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_PRIVATE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_RIGHT [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_RIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_TEXT [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_TEXT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_TOP [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_TOP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTextWindowType class >> GTK_TEXT_WINDOW_WIDGET [
 	"This method was automatically generated"
 	^ GTK_TEXT_WINDOW_WIDGET
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkTextWindowType class >> enumDecl [
 
 	^ #(

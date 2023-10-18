@@ -2,8 +2,8 @@
 https://developer.gnome.org/gtk3/stable/gtk3-GtkTreeView-drag-and-drop.html#GtkTreeDragDestIface
 "
 Class {
-	#name : #GtkTreeDragDestIface,
-	#superclass : #GInterface,
+	#name : 'GtkTreeDragDestIface',
+	#superclass : 'GInterface',
 	#instVars : [
 		'drag_data_received',
 		'row_drop_possible'
@@ -12,10 +12,12 @@ Class {
 		'OFFSET_DRAG_DATA_RECEIVED',
 		'OFFSET_ROW_DROP_POSSIBLE'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkTreeDragDestIface class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 	
@@ -25,7 +27,7 @@ GtkTreeDragDestIface class >> fieldsDesc [
 )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDragDestIface class >> gType [ 
 	"This method was automatically generated"
 
@@ -34,13 +36,13 @@ GtkTreeDragDestIface class >> gType [
 		module: GtkLibrary
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkTreeDragDestIface >> drag_data_received [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_DRAG_DATA_RECEIVED) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkTreeDragDestIface >> drag_data_received: aCallback [
 	"This method was automatically generated"
 	
@@ -52,13 +54,13 @@ GtkTreeDragDestIface >> drag_data_received: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkTreeDragDestIface >> row_drop_possible [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_ROW_DROP_POSSIBLE) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkTreeDragDestIface >> row_drop_possible: aCallback [
 	"This method was automatically generated"
 	

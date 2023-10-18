@@ -5,30 +5,32 @@ GtkSwitch — A “light switch” style toggle
 https://developer.gnome.org/gtk3/unstable/GtkSwitch.html
 "
 Class {
-	#name : #GtkSwitch,
-	#superclass : #GtkWidget,
-	#category : #'Gtk-Widget-Buttons'
+	#name : 'GtkSwitch',
+	#superclass : 'GtkWidget',
+	#category : 'Gtk-Widget-Buttons',
+	#package : 'Gtk',
+	#tag : 'Widget-Buttons'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSwitch class >> buttonNew [
 
 	^ self ffiCall: #(GtkSwitch *gtk_switch_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSwitch class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_switch_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSwitch class >> new [ 
 	^ self buttonNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSwitch class >> off [
 
 	^ self new
@@ -36,7 +38,7 @@ GtkSwitch class >> off [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSwitch class >> on [
 
 	^ self new
@@ -44,25 +46,25 @@ GtkSwitch class >> on [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSwitch >> active: aBoolean [
 
 	^ self ffiCall: #(void gtk_switch_set_active (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSwitch >> beActive [
 
 	self active: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSwitch >> beNonActive [
 
 	self active: false
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkSwitch >> connectStateSet: aBlock [
 
 	^ self 
@@ -71,7 +73,7 @@ GtkSwitch >> connectStateSet: aBlock [
  		do: [ :widget :state :aData | aBlock value ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSwitch >> isActive [
 
 	^ self ffiCall: #(gboolean gtk_switch_get_active (self))

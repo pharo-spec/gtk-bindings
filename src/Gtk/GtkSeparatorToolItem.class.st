@@ -5,40 +5,42 @@ GtkSeparatorToolItem — A toolbar item that separates groups of other toolbar i
 https://developer.gnome.org/gtk3/stable/GtkSeparatorToolItem.html
 "
 Class {
-	#name : #GtkSeparatorToolItem,
-	#superclass : #GtkToolItem,
-	#category : #'Gtk-Widget-Toolbar'
+	#name : 'GtkSeparatorToolItem',
+	#superclass : 'GtkToolItem',
+	#category : 'Gtk-Widget-Toolbar',
+	#package : 'Gtk',
+	#tag : 'Widget-Toolbar'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSeparatorToolItem class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_separator_tool_item_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSeparatorToolItem class >> new [
 	^ self separatorToolItemNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSeparatorToolItem class >> separatorToolItemNew [
 	^ self ffiCall: #(GtkSeparatorToolItem *gtk_separator_tool_item_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSeparatorToolItem >> draw: draw [
 	^ self ffiCall: #(void gtk_separator_tool_item_set_draw (self, gboolean draw))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkSeparatorToolItem >> initialize [ 
 	super initialize.
 	self draw: true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSeparatorToolItem >> isDraw [
 	^ self ffiCall: #(gboolean gtk_separator_tool_item_get_draw (self))
 ]

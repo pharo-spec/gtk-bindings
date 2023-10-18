@@ -3,14 +3,16 @@ Add ""one child behavior"" to classes.
 
 "
 Trait {
-	#name : #GtkTBin,
+	#name : 'GtkTBin',
 	#instVars : [
 		'child'
 	],
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTBin classSide >> newWidget: aWidget [
 
 	^ self new
@@ -18,46 +20,46 @@ GtkTBin classSide >> newWidget: aWidget [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTBin >> basicRemove [
 
 	self setChild: GObject null
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTBin >> child [
 
 	^ child
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTBin >> child: aWidget [
 
 	child := aWidget.
 	self setChild: aWidget
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTBin >> cleanupAfterReplacing [
 
 	child cleanupAfterReplacing.
 	child := nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTBin >> isBin [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTBin >> removeChild [
 
 	self basicRemove.
 	child := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTBin >> setChild: aWidget [
 
 	self shouldBeImplemented

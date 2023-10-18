@@ -6,31 +6,33 @@ https://developer.gnome.org/gtk3/stable/GtkGrid.html
 
 "
 Class {
-	#name : #GtkGrid,
-	#superclass : #GtkWidget,
+	#name : 'GtkGrid',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkTContainer',
 	#classTraits : 'GtkTContainer classTrait',
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_grid_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkGrid class >> gridNew [
 	^ self ffiCall: #(GtkGrid *gtk_grid_new (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkGrid class >> new [ 
 	^ self gridNew initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> attach: child at: aPoint [
 
 	^ self 
@@ -39,7 +41,7 @@ GtkGrid >> attach: child at: aPoint [
 		span: 1@1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> attach: child at: aPoint span: spanPoint [
 	
 	self keepWidget: child.
@@ -51,7 +53,7 @@ GtkGrid >> attach: child at: aPoint span: spanPoint [
 		height: spanPoint y
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkGrid >> attach: child left: left top: top width: width height: height [
 
 	self ffiCall: #(void gtk_grid_attach (
@@ -63,62 +65,62 @@ GtkGrid >> attach: child left: left top: top width: width height: height [
 		int height))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkGrid >> basicRemove: child [
 
 	self ffiCall: #(void gtk_grid_remove (self, GtkWidget* child))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> columnHomogeneous: homogeneous [
 
 	self ffiCall: #(void gtk_grid_set_column_homogeneous (self, gboolean homogeneous))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> columnSpacing [
 
 	^ self ffiCall: #(guint gtk_grid_get_column_spacing (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> columnSpacing: spacing [
 
 	self ffiCall: #(void gtk_grid_set_column_spacing (self, guint spacing))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkGrid >> initialize [
 
 	super initialize.
 	self initializeTContainer
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkGrid >> isColumnHomogeneous [
 
 	^ self ffiCall: #(gboolean gtk_grid_get_column_homogeneous (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkGrid >> isRowHomogeneous [
 
 	^ self ffiCall: #(gboolean gtk_grid_get_row_homogeneous (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> rowHomogeneous: homogeneous [
 
 	self ffiCall: #(void gtk_grid_set_row_homogeneous (self, gboolean homogeneous))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> rowSpacing [
 
 	^ self ffiCall: #(guint gtk_grid_get_row_spacing (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkGrid >> rowSpacing: spacing [
 
 	self ffiCall: #(void gtk_grid_set_row_spacing (self, guint spacing))

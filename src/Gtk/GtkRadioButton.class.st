@@ -5,18 +5,20 @@ GtkRadioButton — A choice from multiple check buttons
 https://developer.gnome.org/gtk3/unstable/GtkRadioButton.html
 "
 Class {
-	#name : #GtkRadioButton,
-	#superclass : #GtkCheckButton,
-	#category : #'Gtk-Widget-Buttons'
+	#name : 'GtkRadioButton',
+	#superclass : 'GtkCheckButton',
+	#category : 'Gtk-Widget-Buttons',
+	#package : 'Gtk',
+	#tag : 'Widget-Buttons'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkRadioButton class >> buttonNew [
 
 	^ self buttonNewInGroup: GtkRadioButtonGroup new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkRadioButton class >> buttonNewInGroup: aGroup [
 
 	"aGroup should be an existing radio button group, or NULL if you are creating a new group"
@@ -24,7 +26,7 @@ GtkRadioButton class >> buttonNewInGroup: aGroup [
 	^ self ffiCall: #(GtkRadioButton *gtk_radio_button_new (GtkRadioButtonGroup *aGroup))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkRadioButton class >> buttonNewInGroup: aGroup withLabel: utf8EncodedString [
 
 	"aGroup should be an existing radio button group, or NULL if you are creating a new group"
@@ -32,32 +34,32 @@ GtkRadioButton class >> buttonNewInGroup: aGroup withLabel: utf8EncodedString [
 	^ self ffiCall: #(GtkRadioButton *gtk_radio_button_new_with_label (GtkRadioButtonGroup *aGroup, String utf8EncodedString))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkRadioButton class >> buttonNewInSameGroupAs: aRadioButton [
 
 	^ self ffiCall: #(GtkRadioButton *gtk_radio_button_new_from_widget (GtkRadioButton *aRadioButton))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkRadioButton class >> buttonNewInSameGroupAs: aRadioButton withLabel: utf8EncodedString [
 
 	^ self ffiCall: #(GtkRadioButton *gtk_radio_button_new_with_label_from_widget (GtkRadioButton *aRadioButton, String utf8EncodedString))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkRadioButton class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_radio_button_get_type())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkRadioButton class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkRadioButton class >> newInGroup: aGroup [
 
 	^ (self buttonNewInGroup: aGroup)
@@ -65,7 +67,7 @@ GtkRadioButton class >> newInGroup: aGroup [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkRadioButton class >> newInGroup: aGroup withLabel: aLabel [
 
 	^ (self buttonNewInGroup: aGroup withLabel: aLabel)
@@ -73,7 +75,7 @@ GtkRadioButton class >> newInGroup: aGroup withLabel: aLabel [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkRadioButton class >> newInSameGroupAs: aRadioButton [
 
 	^ (self buttonNewInSameGroupAs: aRadioButton)
@@ -81,7 +83,7 @@ GtkRadioButton class >> newInSameGroupAs: aRadioButton [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkRadioButton class >> newInSameGroupAs: aRadioButton withLabel: aLabel [
 
 	^ (self buttonNewInSameGroupAs: aRadioButton withLabel: aLabel)
@@ -89,19 +91,19 @@ GtkRadioButton class >> newInSameGroupAs: aRadioButton withLabel: aLabel [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkRadioButton class >> newLabel: aString [
 
 	^ self newInGroup: GtkRadioButtonGroup new withLabel: aString
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkRadioButton >> connectGroupChanged: aBlock [
 
 	self connect: 'group-changed' do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkRadioButton >> joinGroupOf: aRadioButton [
 
 	^ self ffiCall: #(void *gtk_radio_button_join_group (self, GtkRadioButton *aRadioButton))

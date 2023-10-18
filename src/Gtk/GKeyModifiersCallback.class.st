@@ -4,18 +4,20 @@ Emitted whenever the state of modifier keys and pointer buttons change.
 https://docs.gtk.org/gtk4/signal.EventControllerKey.modifiers.html
 "
 Class {
-	#name : #GKeyModifiersCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Event-Callbacks'
+	#name : 'GKeyModifiersCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GKeyModifiersCallback class >> signalName [
 
 	^ 'modifiers'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GKeyModifiersCallback >> do: aBlock [
 
 	self 
@@ -25,7 +27,7 @@ GKeyModifiersCallback >> do: aBlock [
 			false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyModifiersCallback >> signature [
 
 	^ #(void (

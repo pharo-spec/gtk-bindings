@@ -2,29 +2,31 @@
 A wrapper for elements to be shown in a list. It keeps the element to show plus an GtkIterPath and their children (also wrapped).
 "
 Class {
-	#name : #GtkTreeDataWrapper,
-	#superclass : #Object,
+	#name : 'GtkTreeDataWrapper',
+	#superclass : 'Object',
 	#instVars : [
 		'item',
 		'children',
 		'path'
 	],
-	#category : #'Gtk-Widget-Tree-Store'
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> childAt: aNumber [
 
 	^ children at: aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> children [
 
 	^ children
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTreeDataWrapper >> free [
 
 	children ifNotNil: [ 
@@ -33,50 +35,50 @@ GtkTreeDataWrapper >> free [
 		path free ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeDataWrapper >> hasChildren [
 
 	^ children isEmptyOrNil not
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> item [
 
 	^ item
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> item: anObject [
 
 	item := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeDataWrapper >> needsChildren [
 
 	^ children isNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> numberOfChildren [
 
 	children ifNil: [ ^ 0 ].
 	^ children size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> path [
 
 	^ path
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> path: anArray [
 
 	path := anArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeDataWrapper >> wrapChildren: anArray [
 
 	children := anArray withIndexCollect: [ :each :index |

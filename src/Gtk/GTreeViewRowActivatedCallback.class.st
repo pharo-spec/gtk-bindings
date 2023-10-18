@@ -11,24 +11,26 @@ The ""row-activated"" signal is emitted when the method gtk_tree_view_row_activa
 For selection handling refer to the tree widget conceptual overview as well as GtkTreeSelection.
 "
 Class {
-	#name : #GTreeViewRowActivatedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GTreeViewRowActivatedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GTreeViewRowActivatedCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTreeViewRowActivatedCallback class >> signalName [
 
 	^ 'row-activated'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTreeViewRowActivatedCallback >> do: aBlock [ 
 
 	^ self
@@ -37,7 +39,7 @@ GTreeViewRowActivatedCallback >> do: aBlock [
 			aBlock cull: (GtkTreePath fromHandle: pathHandle) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTreeViewRowActivatedCallback >> signature [
 
 	^  #(void (void *treeView, void *path, void *column, void *userData))

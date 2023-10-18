@@ -5,12 +5,14 @@ GtkEventBox — A widget used to catch events for widgets which do not have thei
 https://developer.gnome.org/gtk3/stable/GtkEventBox.html
 "
 Class {
-	#name : #GtkEventBox,
-	#superclass : #GtkBin,
-	#category : #'Gtk-Widget-Container'
+	#name : 'GtkEventBox',
+	#superclass : 'GtkBin',
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkEventBox class >> isDeprecated [
 
 	^ true

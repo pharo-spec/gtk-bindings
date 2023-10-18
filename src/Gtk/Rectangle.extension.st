@@ -1,6 +1,6 @@
-Extension { #name : #Rectangle }
+Extension { #name : 'Rectangle' }
 
-{ #category : #'*Gtk' }
+{ #category : '*Gtk' }
 Rectangle >> asGtkAllocation [
 	| extent |
 

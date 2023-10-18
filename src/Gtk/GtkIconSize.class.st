@@ -4,17 +4,19 @@ Built-in stock icon sizes.
 https://developer.gnome.org/gtk3/stable/gtk3-Themeable-Stock-Images.html#GtkIconSize
 "
 Class {
-	#name : #GtkIconSize,
-	#superclass : #GEnumeration,
+	#name : 'GtkIconSize',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_ICON_SIZE_INHERIT',
 		'GTK_ICON_SIZE_LARGE',
 		'GTK_ICON_SIZE_NORMAL'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkIconSize class >> enumDecl [
 	"
 	self initializeEnumeration.

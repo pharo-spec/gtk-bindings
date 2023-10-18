@@ -12,58 +12,60 @@ This component is a base definition of a container dedicated to display informat
 can be used as any GtkBox.
 "
 Class {
-	#name : #GtkInfoArea,
-	#superclass : #GtkBox,
+	#name : 'GtkInfoArea',
+	#superclass : 'GtkBox',
 	#instVars : [
 		'removeTime',
 		'showTime'
 	],
-	#category : #'Gtk-Widget-Display'
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInfoArea class >> boxNewOrientation: orientation spacing: spacing [
 
 	^ self ffiCall: #(GtkInfoArea *gtk_box_new (GtkOrientation orientation, gint spacing))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInfoArea class >> defaultRemoveTime [
 
 	^ 1 seconds
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInfoArea class >> defaultShowTime [
 
 	^ 5 seconds
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkInfoArea class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkInfoArea class >> new [
 
 	^ (self boxNewOrientation: GTK_ORIENTATION_VERTICAL spacing: 0) initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkInfoArea class >> newHorizontal [
 
 	self error: 'Use #new'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkInfoArea class >> newVertical [
 
 	self error: 'Use #new'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> addError: aString [
 
 	self 
@@ -71,13 +73,13 @@ GtkInfoArea >> addError: aString [
 		type: #beError
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> addInfo: aString [
 	
 	self addMessage: aString type: #beInfo
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInfoArea >> addMessage: aString type: aSelector [
 
 	^ self 
@@ -85,7 +87,7 @@ GtkInfoArea >> addMessage: aString type: aSelector [
 		type: aSelector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> addQuestion: aString [
 
 	self 
@@ -93,7 +95,7 @@ GtkInfoArea >> addQuestion: aString [
 		type: #beQuestion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> addWarning: aString [
 
 	self 
@@ -101,7 +103,7 @@ GtkInfoArea >> addWarning: aString [
 		type: #beWarning
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInfoArea >> addWidget: aWidget type: aSelector [
 	| infoBar |
 
@@ -127,19 +129,19 @@ GtkInfoArea >> addWidget: aWidget type: aSelector [
 	^ infoBar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> removeTime [
 
 	^ removeTime ifNil: [ self class defaultRemoveTime ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> removeTime: aDuration [
 
 	removeTime := aDuration
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInfoArea >> setupFadeOut: infoBar [
 
 	[ 
@@ -150,13 +152,13 @@ GtkInfoArea >> setupFadeOut: infoBar [
 	asTask schedule: TKTNewProcessTaskRunner new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> showTime [
 
 	^ showTime ifNil:[ self class defaultShowTime ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInfoArea >> showTime: aDuration [
 
 	showTime := aDuration

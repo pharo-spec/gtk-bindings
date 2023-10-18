@@ -4,8 +4,8 @@ GtkCssProvider — CSS-like styling for widgets
 https://developer.gnome.org/gtk3/stable/GtkCssProvider.html
 "
 Class {
-	#name : #GtkCssProvider,
-	#superclass : #GtkStyleProvider,
+	#name : 'GtkCssProvider',
+	#superclass : 'GtkStyleProvider',
 	#classVars : [
 		'GTK_STYLE_PROVIDER_PRIORITY_APPLICATION',
 		'GTK_STYLE_PROVIDER_PRIORITY_USER'
@@ -13,16 +13,18 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCssProvider class >> cssProviderNew [
 	^ self ffiCall: #(GtkCssProvider *gtk_css_provider_new (void))
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCssProvider class >> fileNameToUTF8: aString [
 	| encoded read written errorHolder error |
 
@@ -43,7 +45,7 @@ GtkCssProvider class >> fileNameToUTF8: aString [
 	^ encoded
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCssProvider class >> fileNameToUTF8: opsysstring len: len read: bytes_read written: bytes_written error: error [
 
 	self 
@@ -56,44 +58,44 @@ GtkCssProvider class >> fileNameToUTF8: opsysstring len: len read: bytes_read wr
 		module: GLibLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCssProvider class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_css_provider_get_type())
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkCssProvider class >> initialize [ 
 
 	GTK_STYLE_PROVIDER_PRIORITY_APPLICATION := 600.
 	GTK_STYLE_PROVIDER_PRIORITY_USER := 800
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCssProvider class >> new [ 
 	^ self cssProviderNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCssProvider class >> newFromPath: aString [
 
 	^ self new loadFromPath: aString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCssProvider class >> newFromReference: aFileReference [ 
 	
 	^ self newFromPath: aFileReference fullName
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCssProvider class >> newFromString: aString [
 
 	^ self new loadFromData: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCssProvider >> addForApplicationToDefaultDisplay [
 
 	self
@@ -101,13 +103,13 @@ GtkCssProvider >> addForApplicationToDefaultDisplay [
 		priority: GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCssProvider >> addForApplicationToDefaultScreen [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCssProvider >> addForDisplay: display priority: priority [
 
 	self ffiCall: #(void gtk_style_context_add_provider_for_display (
@@ -116,13 +118,13 @@ GtkCssProvider >> addForDisplay: display priority: priority [
 		guint priority))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCssProvider >> addForScreen: screen priority: priority [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCssProvider >> addForUserToDefaultDisplay [
 
 	self
@@ -130,13 +132,13 @@ GtkCssProvider >> addForUserToDefaultDisplay [
 		priority: GTK_STYLE_PROVIDER_PRIORITY_USER
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCssProvider >> addForUserToDefaultScreen [
 
 	self deprecated: #Gtk
 ]
 
-{ #category : #'accessing - loading' }
+{ #category : 'accessing - loading' }
 GtkCssProvider >> loadFromData: data [
 
 	^ self ffiCall: #(void gtk_css_provider_load_from_data (
@@ -145,7 +147,7 @@ GtkCssProvider >> loadFromData: data [
 		gssize -1))
 ]
 
-{ #category : #'accessing - loading' }
+{ #category : 'accessing - loading' }
 GtkCssProvider >> loadFromPath: path [
 
 	^ self ffiCall: #(gboolean gtk_css_provider_load_from_path (
@@ -153,7 +155,7 @@ GtkCssProvider >> loadFromPath: path [
 		const gchar *path))
 ]
 
-{ #category : #'accessing - loading' }
+{ #category : 'accessing - loading' }
 GtkCssProvider >> loadFromResource: resource_path [
 
 	^ self ffiCall: #(gboolean gtk_css_provider_load_from_resource (
@@ -161,7 +163,7 @@ GtkCssProvider >> loadFromResource: resource_path [
 		const gchar *resource_path))
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkCssProvider >> toString [
 
 	^ self ffiCall: #(char *gtk_css_provider_to_string (self))

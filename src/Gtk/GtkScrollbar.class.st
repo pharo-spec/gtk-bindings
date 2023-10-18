@@ -5,24 +5,26 @@ GtkScrollbar — A Scrollbar
 https://developer.gnome.org/gtk3/stable/GtkScrollbar.html
 "
 Class {
-	#name : #GtkScrollbar,
-	#superclass : #GtkWidget,
+	#name : 'GtkScrollbar',
+	#superclass : 'GtkWidget',
 	#instVars : [
 		'adjustment'
 	],
 	#pools : [
 		'GtkOrientation'
 	],
-	#category : #'Gtk-Widget-Scrollbar'
+	#category : 'Gtk-Widget-Scrollbar',
+	#package : 'Gtk',
+	#tag : 'Widget-Scrollbar'
 }
 
-{ #category : #'instance creation - private' }
+{ #category : 'instance creation - private' }
 GtkScrollbar class >> basicOrientation: orientation adjustment: adjustment [
 
 	^ self ffiCall: #(#GtkScrollbar *gtk_scrollbar_new  (GtkOrientation orientation, GtkAdjustment *adjustment))
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkScrollbar class >> example [ 
 
 	<script>
@@ -61,26 +63,26 @@ GtkScrollbar class >> example [
 			
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScrollbar class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_scrollbar_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkScrollbar class >> newHorizontalAdjustment: adjustment [
 
 	^ self orientation: GtkOrientation GTK_ORIENTATION_HORIZONTAL adjustment: adjustment
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkScrollbar class >> newVerticalAdjustment: adjustment [
 
 	^ self orientation: GtkOrientation GTK_ORIENTATION_VERTICAL adjustment: adjustment
 ]
 
-{ #category : #'instance creation - private' }
+{ #category : 'instance creation - private' }
 GtkScrollbar class >> orientation: orientation adjustment: adjustment [
 
 	| widget |
@@ -93,12 +95,12 @@ GtkScrollbar class >> orientation: orientation adjustment: adjustment [
 		yourself.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScrollbar >> adjustment [
 	^ adjustment
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScrollbar >> adjustment: anObject [
 	adjustment := anObject
 ]

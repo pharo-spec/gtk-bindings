@@ -2,21 +2,23 @@
 An executor to be used when ""keep alive"" property is set, in dialogs.
 "
 Class {
-	#name : #GtkDelayedDestroyExecutor,
-	#superclass : #Object,
+	#name : 'GtkDelayedDestroyExecutor',
+	#superclass : 'Object',
 	#instVars : [
 		'handle'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkDelayedDestroyExecutor class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkDelayedDestroyExecutor >> finalize [
 
 	"handle could have been nulled (when starting an image)"
@@ -24,7 +26,7 @@ GtkDelayedDestroyExecutor >> finalize [
 	GtkWidget widgetDestroy: handle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDelayedDestroyExecutor >> handle: aHandle [
 
 	handle := aHandle

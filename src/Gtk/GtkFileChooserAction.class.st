@@ -5,42 +5,44 @@ Describes whether a GtkFileChooser is being used to open existing files or to sa
 https://developer.gnome.org/gtk3/stable/GtkFileChooser.html#GtkFileChooserAction
 "
 Class {
-	#name : #GtkFileChooserAction,
-	#superclass : #GEnumeration,
+	#name : 'GtkFileChooserAction',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER',
 		'GTK_FILE_CHOOSER_ACTION_OPEN',
 		'GTK_FILE_CHOOSER_ACTION_SAVE',
 		'GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkFileChooserAction class >> GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER [
 	"This method was automatically generated"
 	^ GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkFileChooserAction class >> GTK_FILE_CHOOSER_ACTION_OPEN [
 	"This method was automatically generated"
 	^ GTK_FILE_CHOOSER_ACTION_OPEN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkFileChooserAction class >> GTK_FILE_CHOOSER_ACTION_SAVE [
 	"This method was automatically generated"
 	^ GTK_FILE_CHOOSER_ACTION_SAVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkFileChooserAction class >> GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER [
 	"This method was automatically generated"
 	^ GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkFileChooserAction class >> enumDecl [
 	
 	^ #(

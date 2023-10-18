@@ -5,30 +5,32 @@ GtkMenuButton — A widget that shows a popup when clicked on
 https://developer.gnome.org/gtk3/unstable/GtkMenuButton.html
 "
 Class {
-	#name : #GtkMenuButton,
-	#superclass : #GtkButton,
+	#name : 'GtkMenuButton',
+	#superclass : 'GtkButton',
 	#instVars : [
 		'model'
 	],
 	#pools : [
 		'GtkArrowType'
 	],
-	#category : #'Gtk-Widget-Buttons'
+	#category : 'Gtk-Widget-Buttons',
+	#package : 'Gtk',
+	#tag : 'Widget-Buttons'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton class >> buttonNew [
 
 	^ self ffiCall: #(GtkMenuButton *gtk_menu_button_new (void))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton class >> buttonNewWithLabel: utf8EncodedString [
 
 	self shouldNotImplement
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 GtkMenuButton class >> example [
 	| button menu |
 
@@ -60,80 +62,80 @@ GtkMenuButton class >> example [
 		showAll
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_menu_button_get_type())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> alignMenuWithWidget: aWidget [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> bePopupDirectionDown [
 
 	self popupDirection: GTK_ARROW_DOWN
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> bePopupDirectionLeft [
 
 	self popupDirection: GTK_ARROW_LEFT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> bePopupDirectionNone [
 
 	self popupDirection: GTK_ARROW_NONE
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> bePopupDirectionRight [
 
 	self popupDirection: GTK_ARROW_RIGHT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> bePopupDirectionUp [
 
 	self popupDirection: GTK_ARROW_UP
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> getChild [
 
 	self ffiCall: #(GtkWidget *gtk_menu_button_get_child (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> getLabel [
 
 	^ self ffiCall: #(const char* gtk_menu_button_get_label (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> getMenuModel [
 
 	^ self ffiCall: #(GMenuModel *gtk_menu_button_get_menu_model (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> getPopover [
 
 	^ self ffiCall: #(GtkPopover *gtk_menu_button_get_popover (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> menuModel [
 
 	^ model ifNil: [ model := self getMenuModel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> menuModel: aMenuModel [
 
 	model := aMenuModel.
@@ -141,49 +143,49 @@ GtkMenuButton >> menuModel: aMenuModel [
 	model doNotAutoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> menuPopup: aMenu widgetGravity: widgetGavity menuGravity: menuGravity [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> popover [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> popover: aPopover [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> popup [
 
 	^ self ffiCall: #(void gtk_menu_button_popup (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> popupDirection [
 
 	^ self ffiCall: #(GtkArrowType gtk_menu_button_get_direction (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> popupDirection: direction [
 
 	^ self ffiCall: #(void gtk_menu_button_set_direction (self, GtkArrowType direction))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> setLabel: label [
 
 	self ffiCall: #(void gtk_menu_button_set_label (self, const char* label))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> setMenuModel: aMenuModel [
 
 	"We do not have menu models implemented.
@@ -191,25 +193,25 @@ GtkMenuButton >> setMenuModel: aMenuModel [
 	self ffiCall: #(void gtk_menu_button_set_menu_model (self, GMenuModel *aMenuModel))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMenuButton >> setPopover: aPopover [
 
 	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkPopover *aPopover))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> usePopover: aBoolean [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkMenuButton >> usesPopover [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButton >> widgetAlignedWithMenu [
 
 	self deprecated: #Gtk4

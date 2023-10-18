@@ -3,32 +3,34 @@ A common parent for stores.
 I will keep the commonly used api (iterators, etc.) 
 "
 Class {
-	#name : #GtkBaseStore,
-	#superclass : #GObject,
+	#name : 'GtkBaseStore',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseStore class >> basicNewWithNumberOfColumns: aNumber andTypes: anExternalArray [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBaseStore class >> gType [ 
 
 	^ nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBaseStore class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkBaseStore class >> newColumnTypes: columnTypes [
 	| columnTypesExternalArray longSize |
 	
@@ -51,7 +53,7 @@ GtkBaseStore class >> newColumnTypes: columnTypes [
 			columnTypesExternalArray unpinInMemory ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkBaseStore class >> newStrings: aCollection [
 	"convenience method to create a store of strings"
 	| store |
@@ -65,7 +67,7 @@ GtkBaseStore class >> newStrings: aCollection [
 	^ store
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseStore >> getIter: iter fromPath: path [
 	
 	self ffiCall: #(gboolean gtk_tree_model_get_iter (
@@ -74,7 +76,7 @@ GtkBaseStore >> getIter: iter fromPath: path [
 		GtkTreePath *path))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseStore >> getIter: iter fromString: path_string [
 	
 	self ffiCall: #(gboolean gtk_tree_model_get_iter_from_string (
@@ -83,7 +85,7 @@ GtkBaseStore >> getIter: iter fromString: path_string [
 		const gchar *path_string))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBaseStore >> iteratorFromPath: aPath [
 	| iter |
 
@@ -97,7 +99,7 @@ GtkBaseStore >> iteratorFromPath: aPath [
 	^ iter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBaseStore >> iteratorFromString: aString [
 	| iter |
 
@@ -111,7 +113,7 @@ GtkBaseStore >> iteratorFromString: aString [
 	^ iter
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseStore >> prepareToDisconnect [
 	"Subclasses of *class:GtkBaseStore* maybe need some extra work when being disconnected from 
 	 its owner *class:GtkTreeView*. 

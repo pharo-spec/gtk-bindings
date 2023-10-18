@@ -1,9 +1,11 @@
 Class {
-	#name : #GtkFontDialog,
-	#superclass : #GtkStandardDialog,
+	#name : 'GtkFontDialog',
+	#superclass : 'GtkStandardDialog',
 	#instVars : [
 		'parent',
 		'callback'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }

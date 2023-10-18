@@ -13,21 +13,23 @@ This signal will be sent to the grab widget if there is one.
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-scroll-event
 "
 Class {
-	#name : #GScrollEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GScrollEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GScrollEventCallback class >> signalName [
 
 	^ 'scroll-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GScrollEventCallback >> do: aBlock [
 
 	super do: [ :widget :dx :dy :user_data |
@@ -37,7 +39,7 @@ GScrollEventCallback >> do: aBlock [
 			yourself) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GScrollEventCallback >> signature [
 
 	^ #(gboolean (void *widget, gdouble dx, gdouble dy, void *user_data))

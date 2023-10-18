@@ -2,18 +2,20 @@
 https://docs.gtk.org/gtk4/class.NamedAction.html
 "
 Class {
-	#name : #GtkNamedAction,
-	#superclass : #GtkShortcutAction,
-	#category : #'Gtk-Shortcut'
+	#name : 'GtkNamedAction',
+	#superclass : 'GtkShortcutAction',
+	#category : 'Gtk-Shortcut',
+	#package : 'Gtk',
+	#tag : 'Shortcut'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkNamedAction class >> gtkNew: aName [ 
 
 	^ self ffiCall: #(GtkNamedAction *gtk_named_action_new (char* aName))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkNamedAction class >> newName: aString [
 
 	^ (self gtkNew: aString) initialize

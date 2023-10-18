@@ -4,18 +4,20 @@ Indicates that the action was just activated.
 https://docs.gtk.org/gio/signal.SimpleAction.activate.html
 "
 Class {
-	#name : #GActionActivateCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Widget-Menu'
+	#name : 'GActionActivateCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GActionActivateCallback class >> signalName [
 
 	^ 'activate'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GActionActivateCallback >> do: aBlock [
 
 	self 
@@ -23,7 +25,7 @@ GActionActivateCallback >> do: aBlock [
 		block: [ :widget :parameter :user_data | aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActionActivateCallback >> signature [
 
 	^ #(void (void *action, void *parameter, gpointer user_data))

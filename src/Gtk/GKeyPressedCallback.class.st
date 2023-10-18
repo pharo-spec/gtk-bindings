@@ -2,18 +2,20 @@
 https://docs.gtk.org/gtk4/signal.EventControllerKey.key-pressed.html
 "
 Class {
-	#name : #GKeyPressedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Event-Callbacks'
+	#name : 'GKeyPressedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Event-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Event-Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GKeyPressedCallback class >> signalName [
 
 	^ 'key-pressed'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyPressedCallback >> do: aBlock [
 
 	self
@@ -28,7 +30,7 @@ GKeyPressedCallback >> do: aBlock [
 			event wasHandled ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyPressedCallback >> signature [
 
 	^ #(gboolean (

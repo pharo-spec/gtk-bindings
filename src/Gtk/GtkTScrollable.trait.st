@@ -4,29 +4,31 @@ GtkScrollable — An interface for scrollable widgets
 https://developer.gnome.org/gtk3/stable/GtkScrollable.html
 "
 Trait {
-	#name : #GtkTScrollable,
-	#category : #'Gtk-Widget'
+	#name : 'GtkTScrollable',
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTScrollable >> hAdjustment [
 
 	^ self ffiCall: #(GtkAdjustment *gtk_scrollable_get_hadjustment (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTScrollable >> hAdjustment: adjustment [
 
 	^ self ffiCall: #(void gtk_scrollable_set_hadjustment (self, GtkAdjustment *adjustment))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTScrollable >> vAdjustment [
 
 	^ self ffiCall: #(GtkAdjustment *gtk_scrollable_get_vadjustment (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTScrollable >> vAdjustment: adjustment [
 
 	^ self ffiCall: #(void gtk_scrollable_set_vadjustment (self, GtkAdjustment *adjustment))

@@ -6,8 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkDialog.html
 In fact, I'm a simulation of what happens in the real GtkDialog. This is need because GtkDialog>>run function will in fact takeover the run loop, hanging the VM loop (and making us unable to handle events).
 "
 Class {
-	#name : #GtkDialogWindow,
-	#superclass : #GtkBaseDialog,
+	#name : 'GtkDialogWindow',
+	#superclass : 'GtkBaseDialog',
 	#instVars : [
 		'contentArea',
 		'buttonBox',
@@ -16,23 +16,25 @@ Class {
 	#pools : [
 		'GtkResponseType'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtkDialogWindow class >> defaultBorderWidth [
 
 	^ 5
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 GtkDialogWindow class >> defaultSpacing [
 	"Default space between buttons"
 
 	^ 5
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDialogWindow class >> newParent: aWindow [
 
 	^ (self windowNew: GTK_WINDOW_TOPLEVEL) 
@@ -40,13 +42,13 @@ GtkDialogWindow class >> newParent: aWindow [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDialogWindow class >> windowNew: type [ 
 
 	^ self ffiCall: #( GtkDialogWindow *gtk_window_new ( GtkWindowType type ) )
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 GtkDialogWindow >> addButton: aString do: aBlock [
 
 	buttonBox packStart: ((GtkButton newLabel: aString)
@@ -54,26 +56,26 @@ GtkDialogWindow >> addButton: aString do: aBlock [
 		yourself)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDialogWindow >> buttonBox [
 
 	^ buttonBox
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDialogWindow >> contentArea [
 
 	^ contentArea
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDialogWindow >> defaultResponse: aNumber [
 	"number of response to be executed by default"
 
 	defaultResponse := aNumber
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDialogWindow >> initialize [
 
 	super initialize.
@@ -87,14 +89,14 @@ GtkDialogWindow >> initialize [
 		yourself)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDialogWindow >> initializeParent: aWindow [
 
 	self initialize.
 	aWindow ifNotNil: [ self transientTo: aWindow ]
 ]
 
-{ #category : #'private factory' }
+{ #category : 'private factory' }
 GtkDialogWindow >> newButtonBox [
 
 	^ GtkButtonBox newHorizontal 
@@ -104,7 +106,7 @@ GtkDialogWindow >> newButtonBox [
 		yourself
 ]
 
-{ #category : #'private factory' }
+{ #category : 'private factory' }
 GtkDialogWindow >> newContentArea [ 
 
 	^ GtkBox newVertical

@@ -12,42 +12,44 @@ If this is set, the target will only be selected for drags within a single widge
 
 "
 Class {
-	#name : #GtkTargetFlags,
-	#superclass : #GEnumeration,
+	#name : 'GtkTargetFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_TARGET_OTHER_APP',
 		'GTK_TARGET_OTHER_WIDGET',
 		'GTK_TARGET_SAME_APP',
 		'GTK_TARGET_SAME_WIDGET'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTargetFlags class >> GTK_TARGET_OTHER_APP [
 	"This method was automatically generated"
 	^ GTK_TARGET_OTHER_APP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTargetFlags class >> GTK_TARGET_OTHER_WIDGET [
 	"This method was automatically generated"
 	^ GTK_TARGET_OTHER_WIDGET
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTargetFlags class >> GTK_TARGET_SAME_APP [
 	"This method was automatically generated"
 	^ GTK_TARGET_SAME_APP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkTargetFlags class >> GTK_TARGET_SAME_WIDGET [
 	"This method was automatically generated"
 	^ GTK_TARGET_SAME_WIDGET
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkTargetFlags class >> enumDecl [
 	"self initializeEnumeration"
 	^ {

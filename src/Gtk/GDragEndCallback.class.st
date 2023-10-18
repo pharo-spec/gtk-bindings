@@ -13,18 +13,20 @@ Parameters
 
 "
 Class {
-	#name : #GDragEndCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GDragEndCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GDragEndCallback class >> signalName [
 
 	^ 'drag-end'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GDragEndCallback >> do: aBlock [
 
 	^ super do: [ :widget :context :user_data |
@@ -33,7 +35,7 @@ GDragEndCallback >> do: aBlock [
 			value: user_data ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDragEndCallback >> signature [
 
 	^ #(void ("GtkWidget *"void *widget, "GdkDragContext *"void *context, gpointer user_data))

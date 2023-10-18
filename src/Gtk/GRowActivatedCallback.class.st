@@ -2,18 +2,20 @@
 https://docs.gtk.org/gtk4/signal.ListView.activate.html
 "
 Class {
-	#name : #GRowActivatedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GRowActivatedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRowActivatedCallback class >> signalName [
 
 	^ 'activate'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRowActivatedCallback >> do: aBlock [
 
 	self 
@@ -21,7 +23,7 @@ GRowActivatedCallback >> do: aBlock [
 		block: [ :widget :position :user_data | aBlock value: position ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRowActivatedCallback >> signature [
 
 	^ #(void (void* widget, guint position, gpointer user_data))

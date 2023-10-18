@@ -13,28 +13,30 @@ This signal will be sent to the grab widget if there is one.
 
 "
 Class {
-	#name : #GKeyReleaseEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GKeyReleaseEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyReleaseEventCallback class >> signalName [
 
 	^ 'key-release-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyReleaseEventCallback >> do: aBlock [
 
 	super do: [ :widget :event :aData |
 		aBlock value: (GdkKeyEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GKeyReleaseEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

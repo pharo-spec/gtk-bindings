@@ -9,18 +9,20 @@ The GTK+ main loop will emit three signals for each GDK event delivered to a wid
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-event
 "
 Class {
-	#name : #GEventCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GEventCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEventCallback class >> signalName [
 
 	^ 'event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEventCallback >> do: aBlock [
 	"events are dangerous, they can hang the full system. 
 	 I'll catch all errors and fork a debugger"
@@ -33,7 +35,7 @@ GEventCallback >> do: aBlock [
 			return: [ false ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void *event, gpointer user_data))

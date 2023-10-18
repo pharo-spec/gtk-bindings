@@ -3,52 +3,54 @@ I'm a confirm dialog.
 I can answer whether the dialog was acepted or not.
 "
 Class {
-	#name : #GtkConfirmDialog,
-	#superclass : #GtkMessageDialog,
+	#name : 'GtkConfirmDialog',
+	#superclass : 'GtkMessageDialog',
 	#instVars : [
 		'accepted',
 		'acceptLabel',
 		'rejectLabel'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog class >> defaultAcceptLabel [
 
 	^ 'Accept'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog class >> defaultRejectLabel [
 
 	^ 'Cancel'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog class >> defaultTitle [
 
 	^ 'Confirm'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkConfirmDialog class >> windowNew: type [ 
 
 	^ self ffiCall: #( GtkConfirmDialog *gtk_window_new ( GtkWindowType type ) )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog >> acceptLabel [
 
 	^ acceptLabel ifNil: [ self class defaultAcceptLabel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog >> acceptLabel: anObject [
 	acceptLabel := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkConfirmDialog >> addButtons [
 
 	self addButton: self rejectLabel do: [ self respond ].
@@ -57,25 +59,25 @@ GtkConfirmDialog >> addButtons [
 		self respond ].	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkConfirmDialog >> initialize [
 
 	super initialize.
 	accepted := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog >> rejectLabel [
 
 	^ rejectLabel ifNil: [ self class defaultRejectLabel ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkConfirmDialog >> rejectLabel: anObject [
 	rejectLabel := anObject
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkConfirmDialog >> run [ 
 	
 	super run.

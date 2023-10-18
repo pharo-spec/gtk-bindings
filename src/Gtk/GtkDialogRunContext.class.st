@@ -6,30 +6,32 @@ over the event loop and that would hang the full application making impossible t
 evaluating callbacks or executing callouts, we need to simulate that behaviour.
 "
 Class {
-	#name : #GtkDialogRunContext,
-	#superclass : #Object,
+	#name : 'GtkDialogRunContext',
+	#superclass : 'Object',
 	#instVars : [
 		'dialog',
 		'wasModal',
 		'wasDestroyed',
 		'dialogClosed'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkDialogRunContext class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDialogRunContext class >> new [
 
 	self error: 'Use #newDialog:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDialogRunContext class >> newDialog: aGtkDialog [
 
 	^ self basicNew 
@@ -37,13 +39,13 @@ GtkDialogRunContext class >> newDialog: aGtkDialog [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDialogRunContext >> dialog [ 
 
 	^ dialog
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkDialogRunContext >> doAfterRun [
 
 	wasDestroyed ifTrue: [ ^ self ].
@@ -58,7 +60,7 @@ GtkDialogRunContext >> doAfterRun [
 	self dialog objectUnref
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkDialogRunContext >> doBeforeRun [
 
 	"Ensure dialog is not collected while running"
@@ -76,7 +78,7 @@ GtkDialogRunContext >> doBeforeRun [
 	"self dialog connectDestroy: [ wasDestroyed := true. self resume ]".
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDialogRunContext >> initializeDialog: aGtkDialog [
 
 	self initialize.
@@ -86,13 +88,13 @@ GtkDialogRunContext >> initializeDialog: aGtkDialog [
 	dialogClosed := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDialogRunContext >> resume [
 
 	dialogClosed := true.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkDialogRunContext >> run [ 
 
 	self doBeforeRun.
@@ -102,7 +104,7 @@ GtkDialogRunContext >> run [
 	"^ result"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDialogRunContext >> waitForAnswer [ 
 	| runLoop |
 
@@ -111,7 +113,7 @@ GtkDialogRunContext >> waitForAnswer [
 	doWhileFalse: [ dialogClosed ]
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 GtkDialogRunContext >> windowDestroyed [
 
 	wasDestroyed := true.

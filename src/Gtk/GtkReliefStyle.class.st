@@ -5,28 +5,30 @@ Indicated the relief to be drawn around a GtkButton.
 https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkReliefStyle
 "
 Class {
-	#name : #GtkReliefStyle,
-	#superclass : #GEnumeration,
+	#name : 'GtkReliefStyle',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_RELIEF_NONE',
 		'GTK_RELIEF_NORMAL'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkReliefStyle class >> GTK_RELIEF_NONE [
 	"This method was automatically generated"
 	^ GTK_RELIEF_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkReliefStyle class >> GTK_RELIEF_NORMAL [
 	"This method was automatically generated"
 	^ GTK_RELIEF_NORMAL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkReliefStyle class >> enumDecl [
 	^ #(
 	GTK_RELIEF_NORMAL 	0

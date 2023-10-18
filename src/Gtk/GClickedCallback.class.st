@@ -8,18 +8,20 @@ user_function (GtkButton *button,
 Emitted when the button has been activated (pressed and released).
 "
 Class {
-	#name : #GClickedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GClickedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClickedCallback class >> signalName [
 
 	^ 'clicked'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClickedCallback >> do: aBlock [
 
 	self 

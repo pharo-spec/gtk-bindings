@@ -4,8 +4,8 @@ I'm a container with just one child.
 https://developer.gnome.org/gtk3/stable/GtkBin.html
 "
 Class {
-	#name : #GtkBin,
-	#superclass : #GtkContainer,
+	#name : 'GtkBin',
+	#superclass : 'GtkContainer',
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
 	#instVars : [
@@ -14,16 +14,18 @@ Class {
 	#pools : [
 		'GtkOrientation'
 	],
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBin class >> isDeprecated [
 
 	^ super isDeprecated or: [ self = GtkBin ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBin >> add: aWidget [
 
 	self 

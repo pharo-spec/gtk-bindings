@@ -6,8 +6,8 @@ https://developer.gnome.org/gtk3/stable/GtkTextIter.html
 WARNING: GtkTextIter is an opaque type that is, however, threat as a regular structure (handled in the stack and not in the heap). That's the reason of all those dummys instead real fields (and it is not my fault, is like that on Gtk3 itself) 
 "
 Class {
-	#name : #GtkTextIter,
-	#superclass : #GStructure,
+	#name : 'GtkTextIter',
+	#superclass : 'GStructure',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -29,10 +29,12 @@ Class {
 		'OFFSET_DUMMY8',
 		'OFFSET_DUMMY9'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkTextIter class >> fieldsDesc [ 
 	"From gtktextiter.h: 
 	/* GtkTextIter is an opaque datatype; ignore all these fields.
@@ -60,25 +62,25 @@ GtkTextIter class >> fieldsDesc [
 	)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> backwardChar [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_backward_char (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> backwardChars: count [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_backward_chars (self, gint count))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> backwardLines: count [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_backward_lines (self, gint count))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextIter >> basicTags [
 	"From Gtk3 documentation: Returns a list of tags that apply to iter , in ascending order of priority (highest-priority tags are last). The GtkTextTag in the list don’t have a reference added, BUT YOU HAVE TO FREE THE LIST ITSELF.
 	So, REMEMBER TO FREE THE LIST :)"
@@ -87,271 +89,271 @@ GtkTextIter >> basicTags [
 	^ self ffiCall: #("GSList"void *gtk_text_iter_get_tags (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> buffer [
 
 	^ buffer ifNil: [ buffer := self getBuffer ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> char [
 
 	^ Character value: self getChar
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy1 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DUMMY1) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy10 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DUMMY10) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy10: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DUMMY10 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy11 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY11
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy11: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY11 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy12 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY12
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy12: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY12 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy13 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY13
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy13: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY13 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy14 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DUMMY14) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy14: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DUMMY14 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy1: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DUMMY1 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy2 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DUMMY2) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy2: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DUMMY2 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy3 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY3
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy3: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY3 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy4 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY4
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy4: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY4 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy5 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY5
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy5: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY5 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy6 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY6
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy6: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY6 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy7 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY7
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy7: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY7 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy8 [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_DUMMY8
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy8: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_DUMMY8 put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy9 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DUMMY9) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkTextIter >> dummy9: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DUMMY9 put: anObject getHandle.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTextIter >> endsLine [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_ends_line (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTextIter >> endsWord [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_ends_word (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> forwardChar [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_forward_char (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> forwardChars: count [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_forward_chars (self, gint count))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> forwardLines: count [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_forward_lines (self, gint count))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> forwardToLineEnd [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_forward_to_line_end (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> forwardWordEnd [
 
 	^ self ffiCall: #(gboolean gtk_text_iter_forward_word_end (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextIter >> getBuffer [
 
 	^ self ffiCall: #(GtkTextBuffer *gtk_text_iter_get_buffer (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTextIter >> getChar [
 
 	^ self ffiCall: #(gunichar gtk_text_iter_get_char (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> line [
 
 	^ self ffiCall: #(gint gtk_text_iter_get_line (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> lineOffset [
 
 	^ self ffiCall: #(gint gtk_text_iter_get_line_offset (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> lineOffset: char_on_line [
 
 	^ self ffiCall: #(void gtk_text_iter_set_line_offset (self, gint char_on_line))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> offset [ 
 	
 	^ self ffiCall: #(gint gtk_text_iter_get_offset (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> sliceTo: end [
 
 	^ self ffiCall: #(char* gtk_text_iter_get_slice (self, GtkTextIter* end))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTextIter >> tags [
 	| tagList tags |
 

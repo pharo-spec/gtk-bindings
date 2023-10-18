@@ -4,70 +4,72 @@ GtkToolbar — Create bars of buttons and other widgets
 https://developer.gnome.org/gtk3/stable/GtkToolbar.html
 "
 Class {
-	#name : #GtkToolbar,
-	#superclass : #GtkContainer,
+	#name : 'GtkToolbar',
+	#superclass : 'GtkContainer',
 	#pools : [
 		'GtkIconSize',
 		'GtkToolbarStyle'
 	],
-	#category : #'Gtk-Widget-Toolbar'
+	#category : 'Gtk-Widget-Toolbar',
+	#package : 'Gtk',
+	#tag : 'Widget-Toolbar'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_toolbar_get_type())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkToolbar class >> isDeprecated [
 
 	"apparently, we need to use a GtkBox with a style `toolbar`"
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkToolbar class >> new [
 	^ self toolbarNew initialize 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkToolbar class >> toolbarNew [
 	^ self ffiCall: #(GtkToolbar *gtk_toolbar_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> beBoth [
 	^ self style: GTK_TOOLBAR_BOTH
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> beBothHorizontal [
 	^ self style: GTK_TOOLBAR_BOTH_HORIZ
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> beIconSizeLargeToolbar [
 	^ self iconSize: GTK_ICON_SIZE_LARGE_TOOLBAR
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> beIconSizeSmallToolbar [
 	^ self iconSize: GTK_ICON_SIZE_SMALL_TOOLBAR
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> beIcons [
 	^ self style: GTK_TOOLBAR_ICONS
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> beText [
 	^ self style: GTK_TOOLBAR_TEXT
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkToolbar >> connectPopupContextMenu: aBlock [
 
 	^ self 
@@ -76,98 +78,98 @@ GtkToolbar >> connectPopupContextMenu: aBlock [
  		do: [ :widget :x :y :aData | aBlock value: x value: y ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> dropHighlightItem: item atIndex: anIndex [
 
 	^ self ffiCall: #(void gtk_toolbar_set_drop_highlight_item (self, GtkToolItem *item, gint anIndex))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> iconSize [
 	^ self ffiCall: #(GtkIconSize gtk_toolbar_get_icon_size (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> iconSize: icon_size [
 	^ self ffiCall: #(void gtk_toolbar_set_icon_size (self, GtkIconSize icon_size))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> indexOf: item [
 
 	^ self ffiCall: #(gint gtk_toolbar_get_item_index (self, GtkToolItem *item))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> insert: item at: pos [
 	"If pos is 0 the item is prepended to the start of the toolbar. 
 	 If pos is negative, the item is appended to the end of the toolbar."
 	^ self ffiCall: #(void gtk_toolbar_insert (self, GtkToolItem *item, gint pos))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> itemAt: anIndex [
 
 	^ self ffiCall: #(GtkToolItem * gtk_toolbar_get_nth_item (self, gint anIndex))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> positionAt: aPoint [
 
 	^ self positionAtX: aPoint x y: aPoint y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> positionAtX: x y: y [
 
 	^ self ffiCall: #(gint gtk_toolbar_get_drop_index (self, gint x, gint y))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> reliefStyle [
 	^ self ffiCall: #(GtkReliefStyle gtk_toolbar_get_relief_style (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> reliefStyle: style [
 
 	^ self ffiCall: #(void gtk_toolbar_set_style (self, GtkToolbarStyle style))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> showOverflowArrow: aBoolean [
 
 	^ self ffiCall: #(void gtk_toolbar_set_show_arrow (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> showsOverflowArrow [
 
 	^ self ffiCall: #(gboolean gtk_toolbar_get_show_arrow (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> size [
 
 	^ self ffiCall: #(gint gtk_toolbar_get_n_items (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> style [
 	^ self ffiCall: #(GtkToolbarStyle gtk_toolbar_get_style (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> style: style [
 	^ self ffiCall: #(void gtk_toolbar_set_style (self, GtkToolbarStyle style))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> unsetIconSize [
 	^ self ffiCall: #(void gtk_toolbar_unset_icon_size (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToolbar >> unsetStyle [
 	^ self ffiCall: #(void gtk_toolbar_unset_style (self))
 ]

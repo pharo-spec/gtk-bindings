@@ -4,15 +4,17 @@ A variant of GtkClosureExpression using a C closure.
 https://docs.gtk.org/gtk4/class.CClosureExpression.html
 "
 Class {
-	#name : #GtkCClosureExpression,
-	#superclass : #GtkExpression,
+	#name : 'GtkCClosureExpression',
+	#superclass : 'GtkExpression',
 	#instVars : [
 		'callback'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCClosureExpression class >> gtkNewType: value_type callback: callback_func [
 
 	^ self ffiCall: #(GtkCClosureExpression *gtk_cclosure_expression_new (
@@ -25,7 +27,7 @@ GtkCClosureExpression class >> gtkNewType: value_type callback: callback_func [
   "GClosureNotify user_destroy"NULL))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCClosureExpression class >> newStringCallback: aBlock [
 	| callback |
 
@@ -38,20 +40,20 @@ GtkCClosureExpression class >> newStringCallback: aBlock [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkCClosureExpression >> initializeCallback: aCallback [
 
 	self initialize.
 	callback := aCallback
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCClosureExpression >> keyval [
 
 	^ self ffiCall: #(guint gtk_keyval_trigger_get_keyval (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCClosureExpression >> modifiers [
 
 	^ self ffiCall: #(GdkModifierType gtk_keyval_trigger_get_modifiers (self))

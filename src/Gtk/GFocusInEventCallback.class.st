@@ -12,24 +12,26 @@ Returns
 	false to propagate the event further
 "
 Class {
-	#name : #GFocusInEventCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GFocusInEventCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GFocusInEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GFocusInEventCallback class >> signalName [
 
 	^ 'focus-in-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GFocusInEventCallback >> do: aBlock [
 	
 	self
@@ -38,7 +40,7 @@ GFocusInEventCallback >> do: aBlock [
 			aBlock cull: (GdkEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GFocusInEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void *event, void *user_data))

@@ -4,14 +4,16 @@ Clipboards — Storing data on clipboards
 https://developer.gnome.org/gtk3/stable/gtk3-Clipboards.html
 "
 Class {
-	#name : #GtkClipboard,
-	#superclass : #GObject,
+	#name : 'GtkClipboard',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkClipboard class >> defaultForDisplay: aDisplay [
 
 	"do not send #initialize here because we do not need it (and keeping a reference 
@@ -19,7 +21,7 @@ GtkClipboard class >> defaultForDisplay: aDisplay [
 	^ (self getDefaultClipboard: aDisplay) "initialize"
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkClipboard class >> forSelection [
 
 	"from documentation: https://developer.gnome.org/gdk3/stable/gdk3-Selections.html#GDK-SELECTION-CLIPBOARD:CAPS
@@ -31,44 +33,44 @@ GtkClipboard class >> forSelection [
 	^ (self gtkClipboardGet: (ExternalAddress fromAddress: 69)) "initialize"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkClipboard class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_clipboard_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkClipboard class >> getDefaultClipboard: display [
 
 	^ self ffiCall: #(GtkClipboard *gtk_clipboard_get_default (GdkDisplay *display))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkClipboard class >> gtkClipboardGet: selection [
 
 	^ self ffiCall: #(GtkClipboard *gtk_clipboard_get ("GdkAtom"gpointer selection))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkClipboard class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkClipboard >> clear [
 	
 	^ self ffiCall: #(void gtk_clipboard_clear (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkClipboard >> text: text [
 	
 	self ffiCall: #(void gtk_clipboard_set_text (self, const gchar *text, (gint)-1))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkClipboard >> waitForText [
 	
 	^ self ffiCall: #(gchar *gtk_clipboard_wait_for_text (self))

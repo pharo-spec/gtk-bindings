@@ -2,11 +2,13 @@
 https://docs.gtk.org/gtk4/iface.Native.html
 "
 Trait {
-	#name : #GtkTNative,
-	#category : #'Gtk-Widget'
+	#name : 'GtkTNative',
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTNative >> getSurfaceTransformX: x y: y [
 
 	self ffiCall: #(void gtk_native_get_surface_transform (
@@ -15,13 +17,13 @@ GtkTNative >> getSurfaceTransformX: x y: y [
   		void *y))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTNative >> surface [
 
 	^ self ffiCall: #(GdkSurface *gtk_native_get_surface (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTNative >> surfaceTransform [
 	| xBuffer yBuffer |
 

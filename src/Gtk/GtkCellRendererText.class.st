@@ -5,31 +5,33 @@ GtkCellRendererText — Renders text in a cell
 https://developer.gnome.org/gtk3/stable/GtkCellRendererText.html#gtk-cell-renderer-text-new
 "
 Class {
-	#name : #GtkCellRendererText,
-	#superclass : #GtkCellRenderer,
-	#category : #'Gtk-Widget-CellRenderers'
+	#name : 'GtkCellRendererText',
+	#superclass : 'GtkCellRenderer',
+	#category : 'Gtk-Widget-CellRenderers',
+	#package : 'Gtk',
+	#tag : 'Widget-CellRenderers'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererText class >> cellRendererNew [
 
 	^ self ffiCall: #(GtkCellRendererText *gtk_cell_renderer_text_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererText class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_cell_renderer_text_get_type())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRendererText >> beEditable [
 
 	self editable: true
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkCellRendererText >> connectEdited: aBlock [
 	"I use a block with two arguments: 
 	 aRenderer connectEdited: [ :path :newText | ... ] "
@@ -43,7 +45,7 @@ GtkCellRendererText >> connectEdited: aBlock [
 				value: new_text utf8StringFromCString ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRendererText >> editable: aBoolean [
 
 	self 
@@ -51,7 +53,7 @@ GtkCellRendererText >> editable: aBoolean [
 		toBoolean: aBoolean
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkCellRendererText >> isEditable [
 
 	^ self gObjectGetBoolean: 'editable'

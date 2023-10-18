@@ -2,35 +2,37 @@
 An util to answer tags of a text buffer, with its range of application (this is used in `GtkTextBuffer>>#tagsWithRange)
 "
 Class {
-	#name : #GtkTagRange,
-	#superclass : #Object,
+	#name : 'GtkTagRange',
+	#superclass : 'Object',
 	#instVars : [
 		'tag',
 		'start',
 		'end'
 	],
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTagRange class >> newTag: aTag [
 
 	^ self new tag: aTag
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTagRange >> end [
 
 	^ end
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTagRange >> isSameTag: aTag [
 
 	^ tag getHandle asInteger = aTag getHandle asInteger
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtkTagRange >> printOn: stream [
 
 	super printOn: stream.
@@ -39,25 +41,25 @@ GtkTagRange >> printOn: stream [
 	stream << ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTagRange >> start [
 
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTagRange >> tag [
 
 	^ tag
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTagRange >> tag: aTag [
 
 	tag := aTag
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 GtkTagRange >> updatePosition: aNumber [
 
 	start ifNil: [ start := aNumber ].

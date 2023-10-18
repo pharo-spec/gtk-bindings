@@ -2,39 +2,41 @@
 I'm an information dialog.
 "
 Class {
-	#name : #GtkInformDialog,
-	#superclass : #GtkMessageDialog,
+	#name : 'GtkInformDialog',
+	#superclass : 'GtkMessageDialog',
 	#instVars : [
 		'acceptLabel'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInformDialog class >> defaultAcceptLabel [
 
 	^ 'Ok'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInformDialog class >> defaultTitle [
 
 	^ 'Information'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInformDialog class >> windowNew: type [ 
 
 	^ self ffiCall: #( GtkInformDialog *gtk_window_new ( GtkWindowType type ) )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkInformDialog >> acceptLabel [
 
 	^ acceptLabel ifNil: [ self class defaultAcceptLabel ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkInformDialog >> addButtons [
 
 	self addButton: self acceptLabel do: [ self respond ]

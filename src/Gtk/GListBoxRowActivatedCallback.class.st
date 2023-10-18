@@ -9,18 +9,20 @@ user_function (GtkListBox    *box,
 The ::row-activated signal is emitted when a row has been activated by the user.
 "
 Class {
-	#name : #GListBoxRowActivatedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GListBoxRowActivatedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListBoxRowActivatedCallback class >> signalName [
 
 	^ 'row-activated'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListBoxRowActivatedCallback >> do: aBlock [ 
 
 	^ self
@@ -29,7 +31,7 @@ GListBoxRowActivatedCallback >> do: aBlock [
 			aBlock cull: row ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListBoxRowActivatedCallback >> signature [
 
 	^  #(void (void *box, void *row, void *user_data))

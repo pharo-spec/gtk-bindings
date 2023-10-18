@@ -3,12 +3,14 @@ A support for the engine, that needs to be executed when starting the `GtkEngine
 This is useful for initialization of packages that may or not be included (see children as example). 
 "
 Class {
-	#name : #GtkEngineSupport,
-	#superclass : #Object,
-	#category : #'Gtk-Application'
+	#name : 'GtkEngineSupport',
+	#superclass : 'Object',
+	#category : 'Gtk-Application',
+	#package : 'Gtk',
+	#tag : 'Application'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkEngineSupport class >> allAvailable [
 	
 	^ self allSubclasses 
@@ -16,13 +18,13 @@ GtkEngineSupport class >> allAvailable [
 		thenCollect: [ :each | each new ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkEngineSupport class >> isAvailable [
 
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkEngineSupport >> start [
 
 	^ self subclassResponsibility

@@ -4,33 +4,35 @@ A GtkAccelGroup represents a group of keyboard accelerators, typically attached 
 https://developer.gnome.org/gtk3/stable/gtk3-Keyboard-Accelerators.html#GtkAccelGroup
 "
 Class {
-	#name : #GtkAccelGroup,
-	#superclass : #GObject,
+	#name : 'GtkAccelGroup',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Misc'
+	#category : 'Gtk-Misc',
+	#package : 'Gtk',
+	#tag : 'Misc'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkAccelGroup class >> accelGroupNew [
 
 	^ self ffiCall: #(GtkAccelGroup *gtk_accel_group_new (void))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAccelGroup class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_accel_group_get_type())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkAccelGroup class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkAccelGroup class >> new [
 
 	^ self accelGroupNew initialize

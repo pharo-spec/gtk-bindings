@@ -5,42 +5,44 @@ Used to control what selections users are allowed to make.
 https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkSelectionMode
 "
 Class {
-	#name : #GtkSelectionMode,
-	#superclass : #GEnumeration,
+	#name : 'GtkSelectionMode',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_SELECTION_BROWSE',
 		'GTK_SELECTION_MULTIPLE',
 		'GTK_SELECTION_NONE',
 		'GTK_SELECTION_SINGLE'
 	],
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSelectionMode class >> GTK_SELECTION_BROWSE [
 	"This method was automatically generated"
 	^ GTK_SELECTION_BROWSE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSelectionMode class >> GTK_SELECTION_MULTIPLE [
 	"This method was automatically generated"
 	^ GTK_SELECTION_MULTIPLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSelectionMode class >> GTK_SELECTION_NONE [
 	"This method was automatically generated"
 	^ GTK_SELECTION_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSelectionMode class >> GTK_SELECTION_SINGLE [
 	"This method was automatically generated"
 	^ GTK_SELECTION_SINGLE
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkSelectionMode class >> enumDecl [
 
 	^ #( 

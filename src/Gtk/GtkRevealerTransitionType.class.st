@@ -1,6 +1,6 @@
 Class {
-	#name : #GtkRevealerTransitionType,
-	#superclass : #GEnumeration,
+	#name : 'GtkRevealerTransitionType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_REVEALER_TRANSITION_TYPE_CROSSFADE',
 		'GTK_REVEALER_TRANSITION_TYPE_NONE',
@@ -9,46 +9,48 @@ Class {
 		'GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT',
 		'GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkRevealerTransitionType class >> GTK_REVEALER_TRANSITION_TYPE_CROSSFADE [
 	"This method was automatically generated"
 	^ GTK_REVEALER_TRANSITION_TYPE_CROSSFADE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkRevealerTransitionType class >> GTK_REVEALER_TRANSITION_TYPE_NONE [
 	"This method was automatically generated"
 	^ GTK_REVEALER_TRANSITION_TYPE_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkRevealerTransitionType class >> GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN [
 	"This method was automatically generated"
 	^ GTK_REVEALER_TRANSITION_TYPE_SLIDE_DOWN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkRevealerTransitionType class >> GTK_REVEALER_TRANSITION_TYPE_SLIDE_LEFT [
 	"This method was automatically generated"
 	^ GTK_REVEALER_TRANSITION_TYPE_SLIDE_LEFT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkRevealerTransitionType class >> GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT [
 	"This method was automatically generated"
 	^ GTK_REVEALER_TRANSITION_TYPE_SLIDE_RIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkRevealerTransitionType class >> GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP [
 	"This method was automatically generated"
 	^ GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkRevealerTransitionType class >> enumDecl [
 	^ #(
 	GTK_REVEALER_TRANSITION_TYPE_NONE         0

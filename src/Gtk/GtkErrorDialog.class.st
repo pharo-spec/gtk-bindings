@@ -2,18 +2,20 @@
 I'm an error dialog.
 "
 Class {
-	#name : #GtkErrorDialog,
-	#superclass : #GtkInformDialog,
-	#category : #'Gtk-Widget-Window'
+	#name : 'GtkErrorDialog',
+	#superclass : 'GtkInformDialog',
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkErrorDialog class >> defaultTitle [
 
 	^ 'Error'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkErrorDialog class >> windowNew: type [ 
 
 	^ self ffiCall: #( GtkErrorDialog *gtk_window_new ( GtkWindowType type ) )

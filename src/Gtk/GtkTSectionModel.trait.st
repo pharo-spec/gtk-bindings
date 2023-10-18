@@ -2,11 +2,13 @@
 https://docs.gtk.org/gtk4/iface.SectionModel.html
 "
 Trait {
-	#name : #GtkTSectionModel,
-	#category : #'Gtk-Widget-ListView'
+	#name : 'GtkTSectionModel',
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTSectionModel >> getSection: position start: out_start end: out_end [
 
 	self ffiCall: #(void gtk_section_model_get_section (
@@ -16,7 +18,7 @@ GtkTSectionModel >> getSection: position start: out_start end: out_end [
   		guint* out_end))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTSectionModel >> sectionAt: position [
 	| startBuffer endBuffer |
 
@@ -27,7 +29,7 @@ GtkTSectionModel >> sectionAt: position [
 	^ (startBuffer uint32AtOffset: 0) to: (endBuffer uint32AtOffset: 0)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTSectionModel >> sectionsChangedAt: position numberOfItems: n_items [
 
 	self ffiCall: #(void gtk_section_model_sections_changed (

@@ -9,18 +9,20 @@ he ::changed signal is emitted at the end of a single user-visible operation on 
 E.g., a paste operation that replaces the contents of the selection will cause only one signal emission (even though it is implemented by first deleting the selection, then inserting the new content, and may cause multiple ::notify::text signals to be emitted).
 "
 Class {
-	#name : #GChangedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GChangedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GChangedCallback class >> signalName [
 
 	^ 'changed'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GChangedCallback >> do: aBlock [ 
 
 	^ super do: [ :widget :user_data | aBlock value ]

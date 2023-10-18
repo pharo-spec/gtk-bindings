@@ -4,58 +4,60 @@ They are useful to not break the way we handle events, since in Gtk4 sometimes I
 
 "
 Class {
-	#name : #GdkSimulatedEvent,
-	#superclass : #Object,
+	#name : 'GdkSimulatedEvent',
+	#superclass : 'Object',
 	#instVars : [
 		'wasHandled'
 	],
-	#category : #'Gtk-Events-Simulated'
+	#category : 'Gtk-Events-Simulated',
+	#package : 'Gtk',
+	#tag : 'Events-Simulated'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkSimulatedEvent >> accept: aVisitor [
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdkSimulatedEvent >> initialize [
 
 	super initialize.
 	wasHandled := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedEvent >> isButtonEvent [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedEvent >> isCrossingEvent [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedEvent >> isKeyEvent [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedEvent >> isMotionEvent [
 
 	^ false
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedEvent >> wasHandled [
 
 	^ wasHandled
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedEvent >> wasHandled: aBoolean [
 
 	wasHandled := aBoolean

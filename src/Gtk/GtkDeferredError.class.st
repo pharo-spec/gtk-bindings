@@ -2,15 +2,17 @@
 An error thrown while performing a deferred action.
 "
 Class {
-	#name : #GtkDeferredError,
-	#superclass : #Error,
+	#name : 'GtkDeferredError',
+	#superclass : 'Error',
 	#instVars : [
 		'exception'
 	],
-	#category : #'Gtk-Application'
+	#category : 'Gtk-Application',
+	#package : 'Gtk',
+	#tag : 'Application'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GtkDeferredError class >> signalForException: anError [
 
 	^ self new
@@ -18,25 +20,25 @@ GtkDeferredError class >> signalForException: anError [
 		signal
 ]
 
-{ #category : #handling }
+{ #category : 'handling' }
 GtkDeferredError >> defaultAction [
 
 	^ self exception defaultAction
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDeferredError >> exception [
 
 	^ exception
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDeferredError >> exception: anObject [
 
 	exception := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDeferredError >> originException [
 
 	^ self exception originException

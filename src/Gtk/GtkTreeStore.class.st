@@ -5,17 +5,19 @@ GtkTreeStore — A tree-like data structure that can be used with the GtkTreeVie
 https://developer.gnome.org/gtk3/stable/GtkTreeStore.html
 "
 Class {
-	#name : #GtkTreeStore,
-	#superclass : #GtkBaseStore,
+	#name : 'GtkTreeStore',
+	#superclass : 'GtkBaseStore',
 	#traits : 'GtkTTreeSortable',
 	#classTraits : 'GtkTTreeSortable classTrait',
 	#pools : [
 		'GType'
 	],
-	#category : #'Gtk-Widget-Tree-Store'
+	#category : 'Gtk-Widget-Tree-Store',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree-Store'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeStore class >> basicNewWithNumberOfColumns: aNumber andTypes: anExternalArray [
 
 	^ self 
@@ -23,57 +25,57 @@ GtkTreeStore class >> basicNewWithNumberOfColumns: aNumber andTypes: anExternalA
 		andTypes: anExternalArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeStore class >> gClassSize [
 	"hardcoded. I took the size by executing sizeof in a C program"
 
 	^ 168
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeStore class >> gSize [
 
 	^ 32
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeStore class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_tree_store_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeStore class >> gtkTreeStoreNewWithNumberOfColums: numberoOfColumns andTypes: types [
 
 	^ self ffiCall: #(GtkTreeStore * gtk_tree_store_newv (gint numberoOfColumns, oop types))
 ]
 
-{ #category : #common }
+{ #category : 'common' }
 GtkTreeStore class >> init: iface [
 
 	^ self ffiCall: #(void gtk_tree_store_tree_model_init (GtkTreeModelIface *iface))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeStore class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #iterating }
+{ #category : 'iterating' }
 GtkTreeStore >> appendNew [
 	
 	^ (GtkTreeIter on: self) appendNewRoot
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeStore >> clear [
 
 	^ self ffiCall: #(void gtk_tree_store_clear(self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeStore >> getString: buffer column: column iter: iter [
 	
 	self ffiCall: #(void gtk_tree_model_get (
@@ -84,7 +86,7 @@ GtkTreeStore >> getString: buffer column: column iter: iter [
 		gint -1))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTreeStore >> initialize [
 
 	self initializeTTreeSortable.
@@ -94,13 +96,13 @@ GtkTreeStore >> initialize [
 		self autoObjectUnref	]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeStore >> numberOfColumns [
 
 	^ self ffiCall: #(gint gtk_tree_model_get_n_columns(self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeStore >> stringAt: iter column: columnNumber [
 	| buffer |
 	

@@ -11,18 +11,20 @@ After the emission of the “event” signal and (optionally) the second more sp
 https://developer.gnome.org/gtk3/stable/GtkWidget.html#GtkWidget-event-after
 "
 Class {
-	#name : #GEventAfterCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GEventAfterCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEventAfterCallback class >> signalName [
 
 	^ 'event-after'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEventAfterCallback >> do: aBlock [
 	"events are dangerous, they can hang the full system. 
 	 I'll catch all errors and fork a debugger"
@@ -35,7 +37,7 @@ GEventAfterCallback >> do: aBlock [
 			return: [ false ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEventAfterCallback >> signature [
 
 	^ #(gboolean (void *widget, void *event, void *user_data))

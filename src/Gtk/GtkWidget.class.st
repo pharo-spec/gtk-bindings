@@ -4,8 +4,8 @@ GtkWidget — Base class for all widgets.
 https://developer.gnome.org/gtk3/stable/GtkWidget.html
 "
 Class {
-	#name : #GtkWidget,
-	#superclass : #GObject,
+	#name : 'GtkWidget',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -20,10 +20,12 @@ Class {
 		'GtkOrientation',
 		'GtkStateFlags'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget class >> bindingSet [
 	"Binding set gives access to the bindings of a class.
 	 It is possible to use it to override the default keybindings defined.
@@ -38,55 +40,55 @@ GtkWidget class >> bindingSet [
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkWidget class >> ffiLibraryName [
 	^ GtkLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkWidget class >> fromHandle: handle [
 	^ (self basicNew setHandle: handle) initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget class >> gClassSize [
 	"hardcoded. I took the size by executing sizeof in a C program"
 
 	^ 824
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget class >> gSize [
 
 	^ 32
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_widget_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget class >> gtkBindingSetByClass: object_class [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget class >> widgetDestroy: widget [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'accessing - actions' }
+{ #category : 'accessing - actions' }
 GtkWidget >> actionGroups [
 
 	^ actionGroups ifNil: [ SmallDictionary new ]
 ]
 
-{ #category : #'accessing - actions' }
+{ #category : 'accessing - actions' }
 GtkWidget >> activateAction: name [ 
 
 	^ self 
@@ -94,7 +96,7 @@ GtkWidget >> activateAction: name [
 		arguments: GVariant null
 ]
 
-{ #category : #'accessing - actions' }
+{ #category : 'accessing - actions' }
 GtkWidget >> activateAction: name arguments: args [ 
 
 	^ self ffiCall: #(gboolean gtk_widget_activate_action_variant (
@@ -103,13 +105,13 @@ GtkWidget >> activateAction: name arguments: args [
 	GVariant* args))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> addAccelerator: aString group: anAccelGroup shortcut: aShortcut [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addButtonPressEvent: aBlock [
 	"adds a button press event.
 	 aBlock does not receives an event as argument"
@@ -121,7 +123,7 @@ GtkWidget >> addButtonPressEvent: aBlock [
 			connectPressed: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addButtonReleaseEvent: aBlock [
 	"adds a button release event.
 	 aBlock does not receives an event as argument"
@@ -133,13 +135,13 @@ GtkWidget >> addButtonReleaseEvent: aBlock [
 			connectReleased: aBlock ]
 ]
 
-{ #category : #style }
+{ #category : 'style' }
 GtkWidget >> addClass: css_class [
 
 	self ffiCall: #(void gtk_widget_add_css_class (self, const char* css_class))
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addClickEvent: aBlock [
 	"adds a click event.
 	 aBlock does not receives arguments"
@@ -151,7 +153,7 @@ GtkWidget >> addClickEvent: aBlock [
 			connectPressed: aBlock ]
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addController: controller [
 
 	eventControllers ifNil: [ eventControllers := #() ].
@@ -165,7 +167,7 @@ GtkWidget >> addController: controller [
 	^ controller
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addDoubleClickEvent: aBlock [
 	"adds a doible click event.
 	 aBlock does not receives arguments."
@@ -179,7 +181,7 @@ GtkWidget >> addDoubleClickEvent: aBlock [
 					ifTrue: [ aBlock cull: event ] ] ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addEnterEvent: aBlock [
 	"adds a mouse enter event.
 	 aBlock receives a `GdkSimulatedCrossingEnterEvent` as argument"
@@ -188,7 +190,7 @@ GtkWidget >> addEnterEvent: aBlock [
 		aController connectEnter: aBlock ]
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addEventControllerFocusWith: aBlock [
 
 	"focus controllers stack (I can stack focus enter and focus leave)"
@@ -197,7 +199,7 @@ GtkWidget >> addEventControllerFocusWith: aBlock [
 		ifNone: [ self addController: GtkEventControllerFocus new ])
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addEventControllerMotionWith: aBlock [
 
 	"key event controllers stack (I can stack key pressed and key released events)"
@@ -206,7 +208,7 @@ GtkWidget >> addEventControllerMotionWith: aBlock [
 		ifNone: [ self addController: GtkEventControllerMotion new ])
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addEventControllerScrollWith: aBlock [
 	| gesture |
 
@@ -216,13 +218,13 @@ GtkWidget >> addEventControllerScrollWith: aBlock [
 	self addController: gesture
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> addEvents: events [
 	
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addFocusEnterEvent: aBlock [
 	"adds a focus enter event.
 	 aBlock receives zero arguments"
@@ -231,7 +233,7 @@ GtkWidget >> addFocusEnterEvent: aBlock [
 		aController connectEnter: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addFocusLeaveEvent: aBlock [
 	"adds a focus leave event.
 	 aBlock receives zero arguments"
@@ -240,7 +242,7 @@ GtkWidget >> addFocusLeaveEvent: aBlock [
 		aController connectLeave: aBlock ]
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addGestureClickWith: aBlock [
 	| gesture |
 
@@ -250,14 +252,14 @@ GtkWidget >> addGestureClickWith: aBlock [
 	self addController: gesture
 ]
 
-{ #category : #'accessing - shortcuts' }
+{ #category : 'accessing - shortcuts' }
 GtkWidget >> addGlobalShortcut: aShortcut [
 
 	self addGlobalShortcutControllerWith: [ :aController |
 		aController addShortcut: aShortcut ]
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addGlobalShortcutControllerWith: aBlock [
 
 	"shortcut controllers stack (but just if same level)"
@@ -269,7 +271,7 @@ GtkWidget >> addGlobalShortcutControllerWith: aBlock [
 				yourself) ])
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addHorizontalScrollEvent: aBlock [
 	"connects to scroll signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -280,7 +282,7 @@ GtkWidget >> addHorizontalScrollEvent: aBlock [
 			connectScroll: aBlock ]
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addKeyEventControllerWith: aBlock [
 
 	"key event controllers stack (I can stack key pressed and key released events)"
@@ -289,7 +291,7 @@ GtkWidget >> addKeyEventControllerWith: aBlock [
 		ifNone: [ self addController: GtkEventControllerKey new ])
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addKeyModifiersEvent: aBlock [
 	"aBlock receives a `GdkModifierType`"
 
@@ -299,7 +301,7 @@ GtkWidget >> addKeyModifiersEvent: aBlock [
 			connectModifiers: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addKeyPressEvent: aBlock [
 	"aBlock receives a `GdkSimulatedKeyEvent`"
 
@@ -309,7 +311,7 @@ GtkWidget >> addKeyPressEvent: aBlock [
 			connectKeyPressed: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addKeyReleaseEvent: aBlock [
 	"aBlock receives a `GdkSimulatedKeyEvent`"
 
@@ -319,7 +321,7 @@ GtkWidget >> addKeyReleaseEvent: aBlock [
 			connectKeyReleased: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addLeaveEvent: aBlock [
 	"adds a mouse leave event.
 	 aBlock receives a `GdkSimulatedCrossingLeaveEvent` as argument"
@@ -328,7 +330,7 @@ GtkWidget >> addLeaveEvent: aBlock [
 		aController connectLeave: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addMotionEvent: aBlock [
 	"adds a mouse motion (move) event.
 	 aBlock receives a `GdkSimulatedMotionEvent` as argument"
@@ -337,7 +339,7 @@ GtkWidget >> addMotionEvent: aBlock [
 		aController connectMotion: aBlock ]
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addRightClickEvent: aBlock [
 	"adds a click event.
 	 aBlock does receives an event argument"
@@ -349,14 +351,14 @@ GtkWidget >> addRightClickEvent: aBlock [
 			connectPressed: aBlock ]
 ]
 
-{ #category : #'accessing - shortcuts' }
+{ #category : 'accessing - shortcuts' }
 GtkWidget >> addShortcut: aShortcut [
 
 	self addShortcutControllerWith: [ :aController |
 		aController addShortcut: aShortcut ]
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> addShortcutControllerWith: aBlock [
 
 	"shortcut controllers stack"
@@ -368,7 +370,7 @@ GtkWidget >> addShortcutControllerWith: aBlock [
 				yourself) ])
 ]
 
-{ #category : #'accessing - events' }
+{ #category : 'accessing - events' }
 GtkWidget >> addVerticalScrollEvent: aBlock [
 	"connects to scroll signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -379,7 +381,7 @@ GtkWidget >> addVerticalScrollEvent: aBlock [
 			connectScroll: aBlock ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> allocation [
 	| allocation |
 	
@@ -388,39 +390,39 @@ GtkWidget >> allocation [
 	^ allocation asRectangle
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkWidget >> asListBoxRow [
 
 	^ GtkListBoxRow newWidget: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkWidget >> autoObjectUnref [
 	"do not unref widgets because freeing the window that contains them will do it already.
 	 there are however some cases where one may need to take control, in which case one may 
 	 override this method and restore its function (see overrides as examples)"
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GtkWidget >> autoRelease [
 
 	GRegisterAutoReleaseAnnouncement emitWidget: self.
 	^ super autoRelease
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> basicAddController: controller [
 
 	self ffiCall: #(void gtk_widget_add_controller (self, GtkEventController* controller))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> basicGrabDefault [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> basicInsertActionGroup: name actions: group [
 
 	self ffiCall: #(void gtk_widget_insert_action_group (
@@ -429,25 +431,25 @@ GtkWidget >> basicInsertActionGroup: name actions: group [
 		"GActionGroup*"GObject *group))
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> basicRemoveController: controller [
 
 	self ffiCall: #(void gtk_widget_remove_controller (self, GtkEventController* controller))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> beNotVisible [
 
 	self visible: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> beVisible [
 
 	self visible: true
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkWidget >> boundingBox [
 	| positionInTopLevel |
 
@@ -455,41 +457,41 @@ GtkWidget >> boundingBox [
 	^ positionInTopLevel corner: positionInTopLevel + self size
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> canDefault: can_default [
 
 	self deprecated: #Gtk4 "this is set in the window now"
 ]
 
-{ #category : #'accessing - focus' }
+{ #category : 'accessing - focus' }
 GtkWidget >> canFocus [
 
 	^ self ffiCall: #(gboolean gtk_widget_get_can_focus (self))
 ]
 
-{ #category : #'accessing - focus' }
+{ #category : 'accessing - focus' }
 GtkWidget >> canFocus: can_focus [
 
 	^ self ffiCall: #(void gtk_widget_set_can_focus (self, gboolean can_focus))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> cleanupAfterReplacing [
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> clipboard [
 
 	^ self ffiCall: #(GdkClipboard *gtk_widget_get_clipboard (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> color [
 
 	^ self colorRGBA asColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> colorRGBA [
 	| colorRGBA |
 	
@@ -498,7 +500,7 @@ GtkWidget >> colorRGBA [
 	^ colorRGBA
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectButtonPressEvent: aBlock [
 	"connects to button-press-event signal 
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -506,7 +508,7 @@ GtkWidget >> connectButtonPressEvent: aBlock [
 	self deprecated: 'Use a gesture now'
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectButtonReleaseEvent: aBlock [
 	"connects to button-release-event signal 
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -514,44 +516,44 @@ GtkWidget >> connectButtonReleaseEvent: aBlock [
 	self deprecated: 'Use a gesture now'
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectClicked: aBlock [
 
 	self deprecated: 'Use a gesture now'
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectDeleteEvent: aBlock [
 	"answers whether the widget can be deleted ot not"
 	
 	self deprecated: #Gtk
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectDestroy: aBlock [
 
 	(GDestroyCallback do: [ :widget :aData | aBlock value ]) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectDoubleClicked: aBlock [
 	
 	self deprecated: 'Use a gesture now'
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectDragBegin: aBlock [
 
 	(GDragBeginCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectDragEnd: aBlock [
 
 	(GDragEndCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectEnterNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -559,51 +561,51 @@ GtkWidget >> connectEnterNotify: aBlock [
 	self deprecated: #Gtk4
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectEvent: aBlock [
 
 	(GEventCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectEventAfter: aBlock [
 
 	(GEventAfterCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectFocusInEvent: aBlock [
 	"we use a controller now"
 	
 	self deprecated: #Gtk4
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectFocusOutEvent: aBlock [
 	"we use a controller now"
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectHide: aBlock [
 
 	(GHideCallback do: [ :widget :user_data | aBlock value ]) connectTo: self 
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectKeyPressEvent: aBlock [
  
 	self deprecated: 'Gtk4: use a GtkEventControllerKey'
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectKeyReleaseEvent: aBlock [
 
 	self deprecated: 'Gtk4: use a GtkEventControllerKey'
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectLeaveNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -611,7 +613,7 @@ GtkWidget >> connectLeaveNotify: aBlock [
 	self deprecated: #Gtk4
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectMotionNotify: aBlock [
 	"connects to motion_notify_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -619,13 +621,13 @@ GtkWidget >> connectMotionNotify: aBlock [
 	self deprecated: #Gtk4
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectNotifyProperty: property do: aBlock [
 
 	(GNotifyPropertyCallback property: property do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectRealize: aBlock [
 
 	^ self 
@@ -633,7 +635,7 @@ GtkWidget >> connectRealize: aBlock [
 		do: aBlock
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectRightClicked: aBlock [
 	"connect to button-press-event signal but evaluates if this is 'secondary button', 
 	 which is right click.
@@ -642,7 +644,7 @@ GtkWidget >> connectRightClicked: aBlock [
 	(GSecondaryButtonPressEventCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectScroll: aBlock [
 	"connects to scroll_event signal.
 	 aBlock needs to answer a boolean to stop or not event propagation"
@@ -651,18 +653,18 @@ GtkWidget >> connectScroll: aBlock [
 
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectShow: aBlock [
 	self connect: 'show' do: aBlock
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectSizeAllocate: aBlock [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectUnmap: aBlock [
 
 	self 
@@ -670,13 +672,13 @@ GtkWidget >> connectUnmap: aBlock [
 		do: aBlock
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWidget >> connectWindowStateEvent: aBlock [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> contextMenu: aGtkMenu [
 	"sets all needed to show a context menu. 
 	 this is an extension to Gtk3, but it will make our lifes easier this side :).
@@ -689,32 +691,32 @@ GtkWidget >> contextMenu: aGtkMenu [
 		false ]
 ]
 
-{ #category : #'accessing - fonts' }
+{ #category : 'accessing - fonts' }
 GtkWidget >> createPangoLayout: text [
 
 	^ self ffiCall: #(PangoLayout *gtk_widget_create_pango_layout ( self, const gchar* text ))
 ]
 
-{ #category : #style }
+{ #category : 'style' }
 GtkWidget >> cssName [
 
 	^ self ffiCall: #(const char* gtk_widget_get_css_name (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> data [
 	"Stores any kind of 'data' you want to keep associated to the widget"
 
 	^ data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> data: anObject [
 
 	data := anObject
 ]
 
-{ #category : #'private - deferring' }
+{ #category : 'private - deferring' }
 GtkWidget >> deferAction: aBlock [
 	"Deferred actions are needed because some settings (like #grabDefault) acquire sense once a 
 	 widget is inserted into a window. Hence, we need to 'defer' this action until that moment. 
@@ -725,20 +727,20 @@ GtkWidget >> deferAction: aBlock [
 	deferActions := deferActions copyWith: aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkWidget >> delete [
 
 	self isAlive ifFalse: [ ^ self ].
 	self destroy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> destroy [
 	
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> detectController: detectBlock ifNone: noneBlock [
 
 	eventControllers ifNil: [ ^ noneBlock value ].
@@ -747,7 +749,7 @@ GtkWidget >> detectController: detectBlock ifNone: noneBlock [
 		ifNone: noneBlock
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> detectControllerKind: aClass ifNone: aBlock [
 
 	^ self 
@@ -755,37 +757,37 @@ GtkWidget >> detectControllerKind: aClass ifNone: aBlock [
 		ifNone: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> display [
 
 	^ self ffiCall: #(GdkDisplay *gtk_widget_get_display (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> dragDestSetFlags: flags targetsTypes: targets targetsAmount: n_targets actions: actions [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> dragDestUnset [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> events [
 	
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> events: events [
 	
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'private - deferring' }
+{ #category : 'private - deferring' }
 GtkWidget >> executeDeferredActions [
 
 	deferActions ifNil: [ ^ self ].
@@ -793,19 +795,19 @@ GtkWidget >> executeDeferredActions [
 	deferActions := nil
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> expand: aBoolean [
 
 	self hExpand: aBoolean.
 	self vExpand: aBoolean
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkWidget >> ffiLibraryName [
 	^ self class ffiLibraryName
 ]
 
-{ #category : #'accessing - focus' }
+{ #category : 'accessing - focus' }
 GtkWidget >> focusOnClick: focus_on_click [
 
 	self ffiCall: #(void gtk_widget_set_focus_on_click (
@@ -813,19 +815,19 @@ GtkWidget >> focusOnClick: focus_on_click [
 		gboolean focus_on_click))
 ]
 
-{ #category : #'accessing - focus' }
+{ #category : 'accessing - focus' }
 GtkWidget >> focusable: focusable [
 
 	self ffiCall: #(void gtk_widget_set_focusable (self, gboolean focusable))
 ]
 
-{ #category : #'accessing - fonts' }
+{ #category : 'accessing - fonts' }
 GtkWidget >> fontMap: font_map [
 
 	^ self ffiCall: #(void gtk_widget_set_font_map (self, PangoFontMap *font_map))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> gdkWindow [
 
 	self 
@@ -833,70 +835,70 @@ GtkWidget >> gdkWindow [
 		transformWith: '`@receiver gdkWindow' -> '`@receiver gdkSurface'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getAllocatedHeight [
 	"Returns the height that has currently been allocated to widget . This function is intended to be used when implementing handlers for the “draw” function."
 
 	^ self ffiCall: #(int gtk_widget_get_allocated_height(self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getAllocatedWidth [
 	"Returns the width that has currently been allocated to widget . This function is intended to be used when implementing handlers for the “draw” function."
 
 	^ self ffiCall: #(int gtk_widget_get_allocated_width(self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getAllocation: allocation [
 
 	self ffiCall: #(void gtk_widget_get_allocation (self, GtkAllocation *allocation))
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getCSSClasses [
 
 	self ffiCall: #("char**"void *gtk_widget_get_css_classes (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getColorRGBAInto: color [
 
 	^ self ffiCall: #(void gtk_widget_get_color (self, GdkRGBA* color))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredHeightTo: dest_minimum_height naturalTo: dest_natural_height [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredMinimalHeight [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredMinimalWidth [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredNaturalHeight [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredNaturalWidth [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredSizeMin: minimum_size natural: natural_size [
 
 	self ffiCall: #(void gtk_widget_get_preferred_size (
@@ -905,13 +907,13 @@ GtkWidget >> getPreferredSizeMin: minimum_size natural: natural_size [
 		GtkRequisition *natural_size))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> getPreferredWidthTo: dest_minimum_width naturalTo: dest_natural_width [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getTopLevel [
 	"I will get the window from GtkApplication (to keep identity), so I answer just the 
 	 ExternalAddress, skiping any other object creation."
@@ -919,72 +921,72 @@ GtkWidget >> getTopLevel [
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> getWindow [
 	"Returns the height that has currently been allocated to widget . This function is intended to be used when implementing handlers for the “draw” function."
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> grabDefault [
 
 	self deprecated: #Gtk4. "Use GtkWindow>>defaultWidget:"
 ]
 
-{ #category : #'accessing - focus' }
+{ #category : 'accessing - focus' }
 GtkWidget >> grabFocus [
 
 	^ self ffiCall: #(gboolean gtk_widget_grab_focus (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> hAlign [
 	^ self ffiCall: #(GtkAlign gtk_widget_get_halign (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> hAlign: align [
 	^ self ffiCall: #(void gtk_widget_set_halign (self, GtkAlign align))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> hAlignCenter [
 
 	self hAlign: GTK_ALIGN_CENTER
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> hAlignEnd [
 
 	self hAlign: GTK_ALIGN_END
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> hAlignStart [
 
 	self hAlign: GTK_ALIGN_START
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> hExpand: expand [
 
 	self ffiCall: #(void gtk_widget_set_hexpand (self, gboolean expand))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> height [
 
 	^ self getAllocatedHeight
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> height: aNumber [
 
 	self sizeRequest: self width @ aNumber
 ]
 
-{ #category : #showing }
+{ #category : 'showing' }
 GtkWidget >> hide [
 	
 	self 
@@ -994,7 +996,7 @@ GtkWidget >> hide [
 	self beNotVisible
 ]
 
-{ #category : #'accessing - actions' }
+{ #category : 'accessing - actions' }
 GtkWidget >> insertActionGroup: name actions: group [
 
 	actionGroups ifNil: [ actionGroups := SmallDictionary new ].
@@ -1006,78 +1008,78 @@ GtkWidget >> insertActionGroup: name actions: group [
 	group objectUnref
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isBin [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isConfiguredVisible [
 	^ self ffiCall: #(gboolean gtk_widget_get_visible (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isContainer [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isFocus [
 	^ self ffiCall: #(gboolean gtk_widget_is_focus (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isFocusOnClick [
 
 	^ self ffiCall: #(gboolean gtk_widget_get_focus_on_click (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isFocusable [
 
 	^ self ffiCall: #(gboolean gtk_widget_get_focusable (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isHExpand [
 
 	self ffiCall: #(gboolean gtk_widget_get_hexpand (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isSensitive [
 	"Returns the widget’s effective sensitivity, which means it is sensitive itself and also its parent widget is sensitive"
 
 	^ self ffiCall: #(gboolean gtk_widget_is_sensitive (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isVExpand [
 
 	self ffiCall: #(gboolean gtk_widget_get_vexpand (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidget >> isVisible [
 
 	^ self ffiCall: #(gboolean gtk_widget_is_visible (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> layoutManager [
 
 	^ self ffiCall: #(GtkLayoutManager* gtk_widget_get_layout_manager (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> layoutManager: layout_manager [
 
 	self ffiCall: #(void gtk_widget_set_layout_manager (self, GtkLayoutManager* layout_manager))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> margin [
 
 	self deprecated: 'Gtk4. Use margin* methods.'.
@@ -1085,7 +1087,7 @@ GtkWidget >> margin [
 	^ 0
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> margin: aNumber [
 
 	self marginTop: aNumber.	
@@ -1095,55 +1097,55 @@ GtkWidget >> margin: aNumber [
 	
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginBottom [
 
 	^ self ffiCall: #(gint gtk_widget_get_margin_bottom (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginBottom: margin [
 
 	self ffiCall: #(void gtk_widget_set_margin_bottom (self, gint margin))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginEnd [
 
 	^ self ffiCall: #(gint gtk_widget_get_margin_end (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginEnd: margin [
 
 	self ffiCall: #(void gtk_widget_set_margin_end (self, gint margin))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginStart [
 
 	^ self ffiCall: #(gint gtk_widget_get_margin_start (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginStart: margin [
 
 	self ffiCall: #(void gtk_widget_set_margin_start (self, gint margin))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginTop [
 
 	^ self ffiCall: #(gint gtk_widget_get_margin_top (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> marginTop: margin [
 
 	self ffiCall: #(void gtk_widget_set_margin_top (self, gint margin))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> measure: orientation [
 
 	^ (GtkWidgetMeasure
@@ -1152,37 +1154,37 @@ GtkWidget >> measure: orientation [
 		measure
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> measureHorizontal [
 
 	^ self measure: GTK_ORIENTATION_HORIZONTAL
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> measureVertical [
 
 	^ self measure: GTK_ORIENTATION_VERTICAL
 ]
 
-{ #category : #'accessing - fonts' }
+{ #category : 'accessing - fonts' }
 GtkWidget >> pangoContext [
 
 	^ self ffiCall: #(PangoContext *gtk_widget_get_pango_context (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> parent [
 
 	^ self ffiCall: #(GtkWidget* gtk_widget_get_parent (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> parent: parent [
 
 	self ffiCall: #(void gtk_widget_set_parent (self, GtkWidget* parent))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> parentWindow [ 
 	| windowHandle |
 	
@@ -1192,13 +1194,13 @@ GtkWidget >> parentWindow [
 	^ GtkEngine current windowByHandle: windowHandle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> path [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkWidget >> positionInTopLevel [
 
 	^ self
@@ -1206,7 +1208,7 @@ GtkWidget >> positionInTopLevel [
 		to: self root
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> preferredSizeMinimum [
 	| min natural |
 	
@@ -1219,7 +1221,7 @@ GtkWidget >> preferredSizeMinimum [
 	^ min width @ min height
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> preferredSizeNatural [
 	| min natural |
 	
@@ -1232,32 +1234,32 @@ GtkWidget >> preferredSizeNatural [
 	^ natural width @ natural height
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> queueDraw [
 
 	^ GtkQueueDraw uniqueInstance queueDraw: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> queueResize [
 
 	^ self ffiCall: #(void gtk_widget_queue_resize (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> queueResizeNoRedraw [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'accessing - actions' }
+{ #category : 'accessing - actions' }
 GtkWidget >> removeAllActions [
 
 	self actionGroups 
 		valuesDo: [ :each | each removeAll ]
 ]
 
-{ #category : #'accessing - shortcuts' }
+{ #category : 'accessing - shortcuts' }
 GtkWidget >> removeAllShortcuts [
 
 	(eventControllers 
@@ -1265,13 +1267,13 @@ GtkWidget >> removeAllShortcuts [
 		do: [ :each | self removeController: each ]
 ]
 
-{ #category : #style }
+{ #category : 'style' }
 GtkWidget >> removeClass: css_class [
 
 	self ffiCall: #(void gtk_widget_remove_css_class (self, const char* css_class))
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkWidget >> removeController: controller [
 
 	eventControllers := eventControllers copyWithout: controller.
@@ -1281,59 +1283,59 @@ GtkWidget >> removeController: controller [
 	^ controller
 ]
 
-{ #category : #'accessing - shortcuts' }
+{ #category : 'accessing - shortcuts' }
 GtkWidget >> removeGlobalShortcut: aShortcut [
 
 	self addGlobalShortcutControllerWith: [ :aController |
 		aController removeShortcut: aShortcut ]
 ]
 
-{ #category : #'accessing - shortcuts' }
+{ #category : 'accessing - shortcuts' }
 GtkWidget >> removeShortcut: aShortcut [
 
 	self addShortcutControllerWith: [ :aController |
 		aController removeShortcut: aShortcut ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> root [
 
 	^ self ffiCall: #("GtkRoot "GtkWindow *gtk_widget_get_root (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> scaleFactor [
 	"See https://developer.gnome.org/gtk3/stable/GtkWidget.html#gtk-widget-get-scale-factor"
 
 	^ self ffiCall: #(gint gtk_widget_get_scale_factor (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> sensitive [
 	
 	^ self ffiCall: #(gboolean gtk_widget_get_sensitive (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> sensitive: sensitive [
 	"sensitive is the gtk equivallent of enable/disable"
 
 	self ffiCall: #(void gtk_widget_set_sensitive (self, gboolean sensitive))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> setSizeRequestWidth: width height: height [
 	
 	self ffiCall: #(void gtk_widget_set_size_request #(self, gint width, gint height))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> setTooltipText: text [
 
 	^ self ffiCall: #(void gtk_widget_set_tooltip_text (self, const gchar *text))
 ]
 
-{ #category : #showing }
+{ #category : 'showing' }
 GtkWidget >> show [
 
 	self
@@ -1343,25 +1345,25 @@ GtkWidget >> show [
 	self beVisible
 ]
 
-{ #category : #showing }
+{ #category : 'showing' }
 GtkWidget >> showAll [
 
 	self deprecated: 'Removed in Gtk4'
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> size [
 
 	^  self width @ self height
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> sizeAllocate: aRect [
 
 	self widgetSizeAllocate: aRect asGtkAllocation
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> sizeRequest: aPoint [
 
 	self 
@@ -1369,37 +1371,37 @@ GtkWidget >> sizeRequest: aPoint [
 		height: aPoint y asInteger
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> sizeRequestWidth: width height: height [
 	^ self ffiCall: #(void gtk_widget_set_size_request ( self, gint width, gint height ) )
 ]
 
-{ #category : #style }
+{ #category : 'style' }
 GtkWidget >> styleContext [
 	
 	self deprecated: #Gtk4.
 	^ self ffiCall: #(GtkStyleContext *gtk_widget_get_style_context (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> surface [
 
 	^ self ffiCall: #(GdkSurface *gtk_native_get_surface (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> tooltipText [
 	
 	^ self ffiCall: #(String gtk_widget_get_tooltip_text (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> tooltipText: aString [
 
 	self setTooltipText: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> translateCoordinates: aPoint to: aWidget [
 	| result xBuffer yBuffer |
 
@@ -1418,7 +1420,7 @@ GtkWidget >> translateCoordinates: aPoint to: aWidget [
 		ifFalse: [ aPoint ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> translateCoordinatesTo: dest_widget x: src_x y: src_y toX: dest_x toY: dest_y [
 
 	^ self ffiCall: #(gboolean gtk_widget_translate_coordinates (
@@ -1430,84 +1432,84 @@ GtkWidget >> translateCoordinatesTo: dest_widget x: src_x y: src_y toX: dest_x t
  		void *dest_y))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> unparent [
 
 	^ self ffiCall: #(void gtk_widget_unparent (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> vAlign [
 	^ self ffiCall: #(GtkAlign gtk_widget_get_valign (self))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> vAlign: align [
 	^ self ffiCall: #(void gtk_widget_set_valign (self, GtkAlign align))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> vAlignCenter [
 
 	self vAlign: GTK_ALIGN_CENTER
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> vAlignEnd [
 
 	self vAlign: GTK_ALIGN_END
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> vAlignStart [
 
 	self vAlign: GTK_ALIGN_START
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> vExpand: expand [
 
 	self ffiCall: #(void gtk_widget_set_vexpand (self, gboolean expand))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidget >> visible: visible [
 
 	self ffiCall: #(void gtk_widget_set_visible (self, gboolean visible))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> widgetAddAccelerator: accel_signal group: accel_group key: accel_key modifiers: accel_mods accelFlags: accel_flags [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> widgetPathLength: path_length path: path reversed: path_reversed [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWidget >> widgetSizeAllocate: allocation [
 
 	self ffiCall: #(void gtk_widget_size_allocate (self, GtkAllocation *allocation))
 	
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> width [
 
 	^ self getAllocatedWidth
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWidget >> width: aNumber [
 
 	self sizeRequest: aNumber @ self height
 ]
 
-{ #category : #'private - deferring' }
+{ #category : 'private - deferring' }
 GtkWidget >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self

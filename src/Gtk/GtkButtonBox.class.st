@@ -5,12 +5,14 @@ GtkButtonBox — A container for arranging buttons
 https://developer.gnome.org/gtk3/stable/GtkButtonBox.html
 "
 Class {
-	#name : #GtkButtonBox,
-	#superclass : #GtkBox,
-	#category : #'Gtk-Widget-Container'
+	#name : 'GtkButtonBox',
+	#superclass : 'GtkBox',
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkButtonBox class >> isDeprecated [
 
 	^ true

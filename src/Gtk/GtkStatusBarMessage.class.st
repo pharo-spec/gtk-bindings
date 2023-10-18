@@ -2,42 +2,44 @@
 Convenience class to manage messages inside a context in a status bar
 "
 Class {
-	#name : #GtkStatusBarMessage,
-	#superclass : #Object,
+	#name : 'GtkStatusBarMessage',
+	#superclass : 'Object',
 	#instVars : [
 		'text',
 		'context',
 		'id'
 	],
-	#category : #'Gtk-Widget-Display'
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarMessage >> context [
 	^ context
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarMessage >> context: anObject [
 	context := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarMessage >> id [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarMessage >> id: anObject [
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarMessage >> text [
 	^ text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarMessage >> text: anObject [
 	text := anObject
 ]

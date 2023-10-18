@@ -5,8 +5,8 @@ I'm the foundation of modal behaviour, which I implement in the #run method.
 Since the regular Gtk design will take over the event loop (and it will hang the image), we need to implement our own mechanism. This follows the same design as the original `gtk_dialog_run`.
 "
 Class {
-	#name : #GtkBaseDialog,
-	#superclass : #GtkWindow,
+	#name : 'GtkBaseDialog',
+	#superclass : 'GtkWindow',
 	#instVars : [
 		'runContext',
 		'keepAlive'
@@ -14,22 +14,24 @@ Class {
 	#pools : [
 		'GtkResponseType'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBaseDialog class >> gType [ 
 
 	^ nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBaseDialog class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseDialog >> deferToAutoRelease [
 		
 	self engine resourceManager
@@ -40,7 +42,7 @@ GtkBaseDialog >> deferToAutoRelease [
 	self unregister
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBaseDialog >> doNotKeepAlive [
 	"For a dialog, the default behavior is that it is destroyed after run. 
 	 Setting this flag will instruct the dialog to destroy itself when closed."
@@ -48,14 +50,14 @@ GtkBaseDialog >> doNotKeepAlive [
 	keepAlive := false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseDialog >> ensureRegister [
 
 	(self engine isWindowRegistered: self) ifTrue: [ ^ self ].
 	self engine registerWindow: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBaseDialog >> initialize [ 
 
 	super initialize.
@@ -64,7 +66,7 @@ GtkBaseDialog >> initialize [
 	self keepAlive
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBaseDialog >> initializeKeyBindings [
 	"| group |
 	
@@ -74,7 +76,7 @@ GtkBaseDialog >> initializeKeyBindings [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBaseDialog >> initializeTitleBar [
 	
 	"self titleBar: (GtkHeaderBar new
@@ -82,19 +84,19 @@ GtkBaseDialog >> initializeTitleBar [
 		yourself)"
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBaseDialog >> isKeepAlive [
 
 	^ keepAlive
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBaseDialog >> isRunning [ 
 
 	^ runContext notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkBaseDialog >> keepAlive [
 	"For a dialog, the default behavior is that it is destroyed after run. 
 	 Setting this flag will instruct the dialog NOT to destroy itself when closed. 
@@ -104,7 +106,7 @@ GtkBaseDialog >> keepAlive [
 	self ensureObjectRefAndAutoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseDialog >> respond [ 
 
 	self runContext ifNil: [ ^ self ].
@@ -115,7 +117,7 @@ GtkBaseDialog >> respond [
 		ifFalse: [ self destroy ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkBaseDialog >> run [
 
 	self isRunning ifTrue: [ self error: 'Dialog is already running!' ].
@@ -126,7 +128,7 @@ GtkBaseDialog >> run [
 	ensure: [ runContext := nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseDialog >> runContext [
 
 	^ runContext

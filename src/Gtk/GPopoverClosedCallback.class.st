@@ -2,18 +2,20 @@
 https://docs.gtk.org/gtk4/signal.Popover.closed.html
 "
 Class {
-	#name : #GPopoverClosedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Widget-Menu'
+	#name : 'GPopoverClosedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Widget-Menu',
+	#package : 'Gtk',
+	#tag : 'Widget-Menu'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GPopoverClosedCallback class >> signalName [
 
 	^ 'closed'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GPopoverClosedCallback >> do: aBlock [
 
 	super do: [ :widget :user_data | aBlock value ] 

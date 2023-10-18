@@ -4,48 +4,50 @@ GtkIconTheme — Looking up icons by name
 https://developer.gnome.org/gtk3/3.24/GtkIconTheme.html
 "
 Class {
-	#name : #GtkIconTheme,
-	#superclass : #GObject,
+	#name : 'GtkIconTheme',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#pools : [
 		'GtkIconLookupFlags',
 		'GtkTextDirection'
 	],
-	#category : #'Gtk-Widget-Display'
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkIconTheme class >> default [
 
 	^ self newForDisplay: GdkDisplay default
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme class >> getForDisplay: display [
 
 	^ self ffiCall: #(GtkIconTheme* gtk_icon_theme_get_for_display (GdkDisplay* display))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkIconTheme class >> newForDisplay: aDisplay [
 
 	^ (self getForDisplay: aDisplay) initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> allContextNames [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> allIcons [
 
 	^ self allNames collect: [ :each | GtkImage newIconForButtonNamed: each ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> allNames [
 	| names namesAddress |
 
@@ -63,43 +65,43 @@ GtkIconTheme >> allNames [
 	^ names
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> allNamesByContext [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> getIconNames [
 
 	^ self ffiCall: #("char **"void *gtk_icon_theme_get_icon_names (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> getIconSizes: icon_name [
 
 	^ self ffiCall: #("int*"void * gtk_icon_theme_get_icon_sizes (self, char* icon_name))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> getThemeName [
 
 	^ self ffiCall: #(void* gtk_icon_theme_get_theme_name (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkIconTheme >> hasIcon: icon_name [
 
 	^ self ffiCall: #(gboolean gtk_icon_theme_has_icon (self, char* icon_name))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> iconNamesInContext: aString [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> iconSizesOf: aName [
 	| sizes sizesAddress |
 
@@ -114,43 +116,43 @@ GtkIconTheme >> iconSizesOf: aName [
 	^ sizes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> iconsInContext: aName [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> listAllIcons [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> listContexts [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> listIcons: context [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> loadIconName: iconName size: iconSize [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> lookupIconName: icon_name size: size [
 
 	^ self
@@ -161,7 +163,7 @@ GtkIconTheme >> lookupIconName: icon_name size: size [
 		flags: GTK_ICON_LOOKUP_FORCE_REGULAR
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> lookupIconName: icon_name size: size scale: scale direction: direction flags: flags [
 
 	self ffiCall: #(GtkIconPaintable* gtk_icon_theme_lookup_icon (
@@ -174,7 +176,7 @@ GtkIconTheme >> lookupIconName: icon_name size: size scale: scale direction: dir
 		GtkIconLookupFlags flags))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkIconTheme >> name [
 	| name nameAddress |
 

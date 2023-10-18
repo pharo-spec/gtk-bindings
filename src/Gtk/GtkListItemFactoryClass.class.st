@@ -1,6 +1,6 @@
 Class {
-	#name : #GtkListItemFactoryClass,
-	#superclass : #GStructure,
+	#name : 'GtkListItemFactoryClass',
+	#superclass : 'GStructure',
 	#traits : 'GtkTLibrary + GTClassStructure',
 	#classTraits : 'GtkTLibrary classTrait + GTClassStructure classTrait',
 	#instVars : [
@@ -15,10 +15,12 @@ Class {
 		'OFFSET_TEARDOWN',
 		'OFFSET_UPDATE'
 	],
-	#category : #'Gtk-Widget-ListView'
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkListItemFactoryClass class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 
@@ -31,7 +33,7 @@ GtkListItemFactoryClass class >> fieldsDesc [
 	
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> parent_class [
 	"This method was automatically generated"
 	
@@ -41,7 +43,7 @@ GtkListItemFactoryClass >> parent_class [
 			length: GObjectClass byteSize) ]
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> parent_class: anObject [
 	"This method was automatically generated"
 	
@@ -52,13 +54,13 @@ GtkListItemFactoryClass >> parent_class: anObject [
 		length: GObjectClass byteSize
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> setup [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_SETUP) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> setup: aCallback [
 	"This method was automatically generated"
 
@@ -70,13 +72,13 @@ GtkListItemFactoryClass >> setup: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> teardown [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_TEARDOWN) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> teardown: aCallback [
 	"This method was automatically generated"
 
@@ -88,13 +90,13 @@ GtkListItemFactoryClass >> teardown: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> update [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_UPDATE) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkListItemFactoryClass >> update: aCallback [
 	"This method was automatically generated"
 	

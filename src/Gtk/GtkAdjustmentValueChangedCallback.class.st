@@ -22,28 +22,30 @@ Flags: No Recursion
 
 "
 Class {
-	#name : #GtkAdjustmentValueChangedCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GtkAdjustmentValueChangedCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustmentValueChangedCallback class >> signalName [
 
 	^ 'value-changed'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustmentValueChangedCallback >> do: aBlock [
 
 	super do: [ :adjustment :user_data |
 		aBlock value: (GtkAdjustment fromHandle: adjustment) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkAdjustmentValueChangedCallback >> signature [
 
 	^ #(void (void *adjustment, void *user_data))

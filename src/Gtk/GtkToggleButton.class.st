@@ -5,74 +5,76 @@ GtkToggleButton — Create buttons which retain their state
 https://developer.gnome.org/gtk3/unstable/GtkToggleButton.html
 "
 Class {
-	#name : #GtkToggleButton,
-	#superclass : #GtkButton,
+	#name : 'GtkToggleButton',
+	#superclass : 'GtkButton',
 	#traits : 'GtkTToggleableButton',
 	#classTraits : 'GtkTToggleableButton classTrait',
-	#category : #'Gtk-Widget-Buttons'
+	#category : 'Gtk-Widget-Buttons',
+	#package : 'Gtk',
+	#tag : 'Widget-Buttons'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkToggleButton class >> buttonNew [
 	^ self ffiCall: #(GtkToggleButton *gtk_toggle_button_new ())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkToggleButton class >> buttonNewWithLabel: utf8EncodedString [
 
 	^ self ffiCall: #(GtkToggleButton *gtk_toggle_button_new_with_label (String utf8EncodedString))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToggleButton class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_toggle_button_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkToggleButton >> active: aBoolean [
 
 	^ self ffiCall: #(void gtk_toggle_button_set_active (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToggleButton >> doNotDrawIndicator [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToggleButton >> drawIndicator [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkToggleButton >> drawIndicator: aBoolean [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkToggleButton >> inconsistent: aBoolean [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkToggleButton >> isActive [
 
 	^ self ffiCall: #(gboolean gtk_toggle_button_get_active (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkToggleButton >> isDrawingIndicator [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkToggleButton >> isInconsistent [
 
 	self deprecated: #Gtk4

@@ -4,67 +4,69 @@ I'm an element inside a GtkListBox
 https://docs.gtk.org/gtk4/class.ListBoxRow.html
 "
 Class {
-	#name : #GtkListBoxRow,
-	#superclass : #GtkWidget,
+	#name : 'GtkListBoxRow',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkTBin',
 	#classTraits : 'GtkTBin classTrait',
-	#category : #'Gtk-Widget-List'
+	#category : 'Gtk-Widget-List',
+	#package : 'Gtk',
+	#tag : 'Widget-List'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBoxRow class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_list_box_row_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBoxRow class >> listBoxRowNew [
 	^ self ffiCall: #(GtkListBoxRow *gtk_list_box_row_new (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkListBoxRow class >> new [
 	^ self listBoxRowNew initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBoxRow >> activatable: activatable [
 
 	self ffiCall: #(void gtk_list_box_row_set_activatable (self, gboolean activatable))
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkListBoxRow >> asListBoxRow [
 	
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBoxRow >> content [
 
 	^ self child
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkListBoxRow >> isActivatable [
 
 	^ self ffiCall: #(gboolean gtk_list_box_row_get_activatable (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkListBoxRow >> isSelectable [
 
 	^ self ffiCall: #(gboolean gtk_list_box_row_get_selectable (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBoxRow >> selectable: selectable [
 
 	self ffiCall: #(void gtk_list_box_row_set_selectable (self, gboolean selectable))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkListBoxRow >> setChild: aWidget [
 
 	self ffiCall: #(void gtk_list_box_row_set_child (self, GtkWidget* child))

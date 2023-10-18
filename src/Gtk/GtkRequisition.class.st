@@ -4,16 +4,18 @@ A GtkRequisition represents the desired size of a widget.
 https://developer.gnome.org/gtk3/unstable/GtkWidget.html#GtkRequisition-struct
 "
 Class {
-	#name : #GtkRequisition,
-	#superclass : #GStructure,
+	#name : 'GtkRequisition',
+	#superclass : 'GStructure',
 	#classVars : [
 		'OFFSET_HEIGHT',
 		'OFFSET_WIDTH'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkRequisition class >> fieldsDesc [ 
 	"self rebuildFieldAccessors"
 	
@@ -23,25 +25,25 @@ GtkRequisition class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkRequisition >> height [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_HEIGHT
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkRequisition >> height: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_HEIGHT put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkRequisition >> width [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_WIDTH
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GtkRequisition >> width: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_WIDTH put: anObject

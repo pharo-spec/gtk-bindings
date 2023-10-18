@@ -1,16 +1,18 @@
 Class {
-	#name : #GDragDataReceivedCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GDragDataReceivedCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GDragDataReceivedCallback class >> signalName [
 
 	^ 'drag-data-received'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDragDataReceivedCallback >> signature [
 
 	^ #(void ("GtkWidget *"void *widget,	

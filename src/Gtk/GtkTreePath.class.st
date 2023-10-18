@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkTreePath,
-	#superclass : #GBaseObject,
+	#name : 'GtkTreePath',
+	#superclass : 'GBaseObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkTreePath class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
@@ -15,74 +17,74 @@ GtkTreePath class >> finalizeResourceData: handle [
 	handle beNull
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkTreePath class >> fromHandle: aHandle [
 
 	^ self basicNew setHandle: aHandle
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTreePath class >> new [
 
 	^ self treePathNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkTreePath class >> newFromArray: anArray [
 
 	"Gtk3 is zero based :("
 	^ self newFromString: ((anArray collect: [ :each | each - 1 ]) joinUsing: $:)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath class >> newFromString: aString [
 
 	^ (self treePathNewFromString: aString) initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath class >> treePathFree: path [
 
 	^ self ffiCall: #(void gtk_tree_path_free (void *path))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath class >> treePathNew [
 
 	^ self ffiCall: #(GtkTreePath *gtk_tree_path_new (void))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath class >> treePathNewFromString: path [
 
 	^ self ffiCall: #(GtkTreePath *gtk_tree_path_new_from_string (const gchar *path))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> appendIndex: index [
 
 	^ self ffiCall: #(void gtk_tree_path_append_index (self, gint index))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath >> basicFree [
 
 	self ffiCall: #(void gtk_tree_path_free (self))
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtkTreePath >> copy [ 
 
 	^ self ffiCall: #(GtkTreePath *gtk_tree_path_copy (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> down [ 
 
 	^ self ffiCall: #(void gtk_tree_path_down (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> firstChild [
 	| path |
 
@@ -91,26 +93,26 @@ GtkTreePath >> firstChild [
 	^ path
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkTreePath >> free [
 
 	self basicFree.
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath >> getIndicesWithDepth: depth [
 
 	^ self ffiCall: #(gint *gtk_tree_path_get_indices_with_depth (self, gint *depth))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> next [
 
 	^ self ffiCall: #(void gtk_tree_path_next (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> parent [
 	| path |
 
@@ -119,13 +121,13 @@ GtkTreePath >> parent [
 	^ path
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> prev [
 
 	^ self ffiCall: #(gboolean gtk_tree_path_prev (self))
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtkTreePath >> toArray [
 	| indices depth |
 	
@@ -136,13 +138,13 @@ GtkTreePath >> toArray [
 			stream nextPut: (indices signedLongAt: (((index - 1) * FFIInt32 externalTypeSize) + 1)) + 1 ] ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreePath >> toString [ 
 
 	^ self ffiCall: #(gchar *gtk_tree_path_to_string (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreePath >> up [ 
 
 	^ self ffiCall: #(gboolean gtk_tree_path_up (self))

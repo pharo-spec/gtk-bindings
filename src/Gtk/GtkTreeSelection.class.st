@@ -4,21 +4,23 @@ GtkTreeSelection — The selection object for GtkTreeView
 https://developer.gnome.org/gtk3/stable/GtkTreeSelection.html
 "
 Class {
-	#name : #GtkTreeSelection,
-	#superclass : #GObject,
+	#name : 'GtkTreeSelection',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Widget-Tree'
+	#category : 'Gtk-Widget-Tree',
+	#package : 'Gtk',
+	#tag : 'Widget-Tree'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeSelection class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_tree_selection_get_type())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeSelection >> allSelected [
 	| listHandle list result |
 	
@@ -38,49 +40,49 @@ GtkTreeSelection >> allSelected [
 	^ result
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeSelection >> basicSelectPath: path [
 
 	self ffiCall: #(void gtk_tree_selection_select_path (self, GtkTreePath *path))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeSelection >> basicUnselectPath: path [
 
 	self ffiCall: #(void gtk_tree_selection_unselect_path (self, GtkTreePath *path))
 ]
 
-{ #category : #signals }
+{ #category : 'signals' }
 GtkTreeSelection >> connectChanged: aBlock [
 
 	(GChangedCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeSelection >> getSelectedRows [
 
 	^ self ffiCall: #("GList *"void *gtk_tree_selection_get_selected_rows (self, NULL))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkTreeSelection >> isSelected: pathArray [
 
 	^ self allSelected includes: pathArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeSelection >> mode [
 	
 	self ffiCall: #(GtkSelectionMode gtk_tree_selection_get_mode (self))
 ]
 
-{ #category : #'selection mode' }
+{ #category : 'selection mode' }
 GtkTreeSelection >> mode: type [
 	
 	self ffiCall: #(void gtk_tree_selection_set_mode (self, GtkSelectionMode type))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeSelection >> selectPath: pathArray [
 	"an array to the path selected: #(1 2 3)"
 	| path |
@@ -93,7 +95,7 @@ GtkTreeSelection >> selectPath: pathArray [
 	ensure: [ path free ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkTreeSelection >> selectedForEach: func data: data [
 
 	self ffiCall: #(void gtk_tree_selection_selected_foreach (
@@ -102,7 +104,7 @@ GtkTreeSelection >> selectedForEach: func data: data [
 		gpointer data))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeSelection >> selectedPath [
 	
 	| allSelected |
@@ -113,13 +115,13 @@ GtkTreeSelection >> selectedPath [
 	^ allSelected first
 ]
 
-{ #category : #selection }
+{ #category : 'selection' }
 GtkTreeSelection >> unselectAll [
 	
 	self ffiCall: #(void gtk_tree_selection_unselect_all (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTreeSelection >> unselectPath: pathArray [
 
 	| path |

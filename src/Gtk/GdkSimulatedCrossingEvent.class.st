@@ -2,30 +2,32 @@
 Simulate a `GdkCrossingEvent`
 "
 Class {
-	#name : #GdkSimulatedCrossingEvent,
-	#superclass : #GdkSimulatedEvent,
-	#category : #'Gtk-Events-Simulated'
+	#name : 'GdkSimulatedCrossingEvent',
+	#superclass : 'GdkSimulatedEvent',
+	#category : 'Gtk-Events-Simulated',
+	#package : 'Gtk',
+	#tag : 'Events-Simulated'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkSimulatedCrossingEvent >> accept: aVisitor [
 
 	^ aVisitor visitCrossingEvent: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedCrossingEvent >> isCrossingEvent [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedCrossingEvent >> isEnter [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedCrossingEvent >> isLeave [
 
 	^ false

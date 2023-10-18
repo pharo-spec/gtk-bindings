@@ -2,8 +2,8 @@
 https://docs.gtk.org/gtk4/struct.BitsetIter.html
 "
 Class {
-	#name : #GtkBitsetIter,
-	#superclass : #GStructure,
+	#name : 'GtkBitsetIter',
+	#superclass : 'GStructure',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -21,10 +21,12 @@ Class {
 		'OFFSET_PRIVATE_DATA8',
 		'OFFSET_PRIVATE_DATA9'
 	],
-	#category : #'Gtk-Widget-ListView'
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkBitsetIter class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 
@@ -42,7 +44,7 @@ GtkBitsetIter class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkBitsetIter class >> on: aBitset [
 
 	^ self new 
@@ -50,20 +52,20 @@ GtkBitsetIter class >> on: aBitset [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBitsetIter >> bitset: aBitset [
 
 	bitset := aBitset
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtkBitsetIter >> collect: aBlock [
 
 	^ Array streamContents: [ :stream |
 		self do: [ :each | stream nextPut: (aBlock value: each) ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtkBitsetIter >> do: aBlock [
 	| current |
 
@@ -74,7 +76,7 @@ GtkBitsetIter >> do: aBlock [
 		current := self next ]
 ]
 
-{ #category : #'private - enumerating' }
+{ #category : 'private - enumerating' }
 GtkBitsetIter >> first [
 	| buffer |
 	
@@ -84,7 +86,7 @@ GtkBitsetIter >> first [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkBitsetIter >> getFirst: value [ 
 
 	^ self ffiCall: #(gboolean gtk_bitset_iter_init_first (
@@ -93,7 +95,7 @@ GtkBitsetIter >> getFirst: value [
   void *value))
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkBitsetIter >> getNext: value [ 
 
 	^ self ffiCall: #(gboolean gtk_bitset_iter_next (
@@ -101,7 +103,7 @@ GtkBitsetIter >> getNext: value [
   void *value))
 ]
 
-{ #category : #'private - enumerating' }
+{ #category : 'private - enumerating' }
 GtkBitsetIter >> next [
 	| buffer |
 	
@@ -111,121 +113,121 @@ GtkBitsetIter >> next [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data1 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA1) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data10 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA10) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data10: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA10 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data1: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA1 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data2 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA2) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data2: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA2 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data3 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA3) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data3: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA3 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data4 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA4) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data4: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA4 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data5 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA5) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data5: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA5 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data6 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA6) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data6: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA6 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data7 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA7) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data7: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA7 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data8 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA8) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data8: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA8 put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data9 [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PRIVATE_DATA9) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkBitsetIter >> private_data9: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PRIVATE_DATA9 put: anObject getHandle.

@@ -3,8 +3,8 @@ I'm a helper object to provide a non-existing notion on Gtk: the concept of a pa
 I provide an API to access and modify this reified concepts (e.g. changing labels, etc.) 
 "
 Class {
-	#name : #GtkNotebookPage,
-	#superclass : #Object,
+	#name : 'GtkNotebookPage',
+	#superclass : 'Object',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
@@ -17,16 +17,18 @@ Class {
 		'GtkOrientation',
 		'GtkTypes'
 	],
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkNotebookPage class >> new [ 
 
 	self error: 'Use newNotebook:label:page:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkNotebookPage class >> newNotebook: aNotebook label: labelWidget content: pageWidget [
 
 	^ self basicNew 
@@ -36,13 +38,13 @@ GtkNotebookPage class >> newNotebook: aNotebook label: labelWidget content: page
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> content [
 
 	^ content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> data [
 	"using data to store any information to easy access. 
 	 (I can store the model of the page, for example)"
@@ -50,12 +52,12 @@ GtkNotebookPage >> data [
 	^ data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> data: anObject [
 	data := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkNotebookPage >> initializeNotebook: aNotebook label: labelWidget content: contentWidget [
 
 	self initialize.
@@ -64,29 +66,29 @@ GtkNotebookPage >> initializeNotebook: aNotebook label: labelWidget content: con
 	content := contentWidget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> label [
 	^ label
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkNotebookPage >> labelText [
 	
 	^ label children second text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> notebook [
 	^ notebook
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> select [ 
 
 	self select: self zIndex
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkNotebookPage >> select: page_num [
 
 	^ self ffiCall: #(void gtk_notebook_set_current_page (
@@ -94,7 +96,7 @@ GtkNotebookPage >> select: page_num [
 		gint page_num))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkNotebookPage >> setLabel [
 
 	^ self ffiCall: #(void gtk_notebook_set_tab_label (
@@ -104,7 +106,7 @@ GtkNotebookPage >> setLabel [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> updateLabel: aWidget [
 
 	label := aWidget.
@@ -112,14 +114,14 @@ GtkNotebookPage >> updateLabel: aWidget [
 	
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GtkNotebookPage >> withAllChildrenDo: aBlock [
 	
 	aBlock cull: self label.
 	aBlock cull: self content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookPage >> zIndex [
 	"the index of this page in the notebook.
 	 This is zero based"

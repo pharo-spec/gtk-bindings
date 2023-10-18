@@ -2,8 +2,8 @@
 https://docs.gtk.org/gtk4/flags.EventControllerScrollFlags.html
 "
 Class {
-	#name : #GtkEventControllerScrollFlags,
-	#superclass : #GEnumeration,
+	#name : 'GtkEventControllerScrollFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES',
 		'GTK_EVENT_CONTROLLER_SCROLL_DISCRETE',
@@ -12,46 +12,48 @@ Class {
 		'GTK_EVENT_CONTROLLER_SCROLL_NONE',
 		'GTK_EVENT_CONTROLLER_SCROLL_VERTICAL'
 	],
-	#category : #'Gtk-Event-Controllers'
+	#category : 'Gtk-Event-Controllers',
+	#package : 'Gtk',
+	#tag : 'Event-Controllers'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkEventControllerScrollFlags class >> GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES [
 	"This method was automatically generated"
 	^ GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkEventControllerScrollFlags class >> GTK_EVENT_CONTROLLER_SCROLL_DISCRETE [
 	"This method was automatically generated"
 	^ GTK_EVENT_CONTROLLER_SCROLL_DISCRETE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkEventControllerScrollFlags class >> GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL [
 	"This method was automatically generated"
 	^ GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkEventControllerScrollFlags class >> GTK_EVENT_CONTROLLER_SCROLL_KINETIC [
 	"This method was automatically generated"
 	^ GTK_EVENT_CONTROLLER_SCROLL_KINETIC
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkEventControllerScrollFlags class >> GTK_EVENT_CONTROLLER_SCROLL_NONE [
 	"This method was automatically generated"
 	^ GTK_EVENT_CONTROLLER_SCROLL_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkEventControllerScrollFlags class >> GTK_EVENT_CONTROLLER_SCROLL_VERTICAL [
 	"This method was automatically generated"
 	^ GTK_EVENT_CONTROLLER_SCROLL_VERTICAL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkEventControllerScrollFlags class >> enumDecl [
 
 	^ #(

@@ -4,18 +4,20 @@ GtkGestureClick is a GtkGesture implementation for clicks.
 https://docs.gtk.org/gtk4/class.GestureClick.html
 "
 Class {
-	#name : #GtkGestureClick,
-	#superclass : #GtkGestureSingle,
-	#category : #'Gtk-Event-Controllers'
+	#name : 'GtkGestureClick',
+	#superclass : 'GtkGestureSingle',
+	#category : 'Gtk-Event-Controllers',
+	#package : 'Gtk',
+	#tag : 'Event-Controllers'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkGestureClick class >> gtkNew [
 
 	^ self ffiCall: #(GtkGestureClick* gtk_gesture_click_new (void))
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkGestureClick >> connectPressed: aBlock [
 	"aBlock arguments: 
 		- position (a Point)
@@ -24,7 +26,7 @@ GtkGestureClick >> connectPressed: aBlock [
 	(GButtonPressedCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkGestureClick >> connectReleased: aBlock [
 	"aBlock arguments: 
 		- position (a Point)
@@ -33,7 +35,7 @@ GtkGestureClick >> connectReleased: aBlock [
 	(GButtonReleasedCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkGestureClick >> isGestureClick [
 
 	^ true

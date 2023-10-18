@@ -4,28 +4,30 @@ Represents the orientation of widgets and other objects which can be switched be
 https://developer.gnome.org/gtk3/stable/gtk3-Standard-Enumerations.html#GtkOrientation
 "
 Class {
-	#name : #GtkOrientation,
-	#superclass : #GEnumeration,
+	#name : 'GtkOrientation',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_ORIENTATION_HORIZONTAL',
 		'GTK_ORIENTATION_VERTICAL'
 	],
-	#category : #'Gtk-Widget-Container'
+	#category : 'Gtk-Widget-Container',
+	#package : 'Gtk',
+	#tag : 'Widget-Container'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkOrientation class >> GTK_ORIENTATION_HORIZONTAL [
 	"This method was automatically generated"
 	^ GTK_ORIENTATION_HORIZONTAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkOrientation class >> GTK_ORIENTATION_VERTICAL [
 	"This method was automatically generated"
 	^ GTK_ORIENTATION_VERTICAL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkOrientation class >> enumDecl [
 	^ #(
 	GTK_ORIENTATION_HORIZONTAL 	0

@@ -4,63 +4,65 @@ GtkCellRenderer — An object for rendering a single cell
 https://developer.gnome.org/gtk3/unstable/GtkCellRenderer.html
 "
 Class {
-	#name : #GtkCellRenderer,
-	#superclass : #GObject,
+	#name : 'GtkCellRenderer',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
-	#category : #'Gtk-Widget-CellRenderers'
+	#category : 'Gtk-Widget-CellRenderers',
+	#package : 'Gtk',
+	#tag : 'Widget-CellRenderers'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRenderer class >> cellRendererNew [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer class >> gClassSize [
 	"hardcoded. I took the size by executing sizeof in a C program"
 	
 	^ 264
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer class >> gSize [
 
 	^ 32
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_cell_renderer_get_type())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkCellRenderer class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCellRenderer class >> new [
 	
 	^ self cellRendererNew
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkCellRenderer >> addedToTreeView: aTreeView column: aColumn [
 	"do nothing, this is just useful for custom renderers and in certain cases"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRenderer >> getPaddingX: xpad y: ypad [
 
 	^ self ffiCall: #(void gtk_cell_renderer_get_padding ( self, void *xpad, void * ypad ))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer >> padding [
 	| xBuffer yBuffer |
 	
@@ -73,37 +75,37 @@ GtkCellRenderer >> padding [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer >> padding: aPoint [ 
 
 	self setPaddingX: aPoint x y: aPoint y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer >> sensitive [
 
 	^ self ffiCall: #(gboolean gtk_cell_renderer_get_sensitive ( self ))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer >> sensitive: sensitive [
 
 	self ffiCall: #(void gtk_cell_renderer_set_sensitive ( self, gboolean sensitive ))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCellRenderer >> setPaddingX: xpad y: ypad [
 
 	^ self ffiCall: #(void gtk_cell_renderer_set_padding ( self, gint xpad, gint ypad ))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer >> width [
 
 	^ self gObjectGetInteger: 'width'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCellRenderer >> width: aNumber [ 
 
 	self gObjectSet: 'width' toInteger: aNumber

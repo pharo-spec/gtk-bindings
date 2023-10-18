@@ -2,24 +2,26 @@
 https://docs.gtk.org/gtk4/class.SignalListItemFactory.html
 "
 Class {
-	#name : #GtkSignalListItemFactory,
-	#superclass : #GtkListItemFactory,
-	#category : #'Gtk-Widget-ListView'
+	#name : 'GtkSignalListItemFactory',
+	#superclass : 'GtkListItemFactory',
+	#category : 'Gtk-Widget-ListView',
+	#package : 'Gtk',
+	#tag : 'Widget-ListView'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSignalListItemFactory class >> gtkNew [ 
 
 	self ffiCall: #(GtkSignalListItemFactory *gtk_signal_list_item_factory_new())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSignalListItemFactory class >> new [
 
 	^ self gtkNew initialize
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkSignalListItemFactory >> connectBind: aBlock [
 	"aBlock receives one argument: a GtkListItem"
 
@@ -28,7 +30,7 @@ GtkSignalListItemFactory >> connectBind: aBlock [
 		connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkSignalListItemFactory >> connectSetup: aBlock [
 	"aBlock receives one argument: a GtkListItem"
 
@@ -37,7 +39,7 @@ GtkSignalListItemFactory >> connectSetup: aBlock [
 		connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkSignalListItemFactory >> connectUnbind: aBlock [
 	"aBlock receives one argument: a GtkListItem"
 
@@ -46,7 +48,7 @@ GtkSignalListItemFactory >> connectUnbind: aBlock [
 		connectTo: self
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkSignalListItemFactory >> finalize [
 
 	GRunLoop defer: [
@@ -54,7 +56,7 @@ GtkSignalListItemFactory >> finalize [
 		super finalize ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSignalListItemFactory >> itemClass [
 
 	^ GtkListItem

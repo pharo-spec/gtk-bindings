@@ -2,8 +2,8 @@
 Simulate a `GdkKeyEvent`
 "
 Class {
-	#name : #GdkSimulatedKeyEvent,
-	#superclass : #GdkSimulatedEvent,
+	#name : 'GdkSimulatedKeyEvent',
+	#superclass : 'GdkSimulatedEvent',
 	#traits : 'GdkTEventState',
 	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
@@ -16,10 +16,12 @@ Class {
 		'GdkKeyCodes',
 		'GdkModifierType'
 	],
-	#category : #'Gtk-Events-Simulated'
+	#category : 'Gtk-Events-Simulated',
+	#package : 'Gtk',
+	#tag : 'Events-Simulated'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkSimulatedKeyEvent class >> newCharacter: aCharacter shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
 	^ self
@@ -31,7 +33,7 @@ GdkSimulatedKeyEvent class >> newCharacter: aCharacter shift: shiftBoolean meta:
 		option: optionBoolean
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkSimulatedKeyEvent class >> newKeyVal: keyVal keyCode: keyCode state: state [
 
 	^ self basicNew
@@ -40,7 +42,7 @@ GdkSimulatedKeyEvent class >> newKeyVal: keyVal keyCode: keyCode state: state [
 		state: state
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkSimulatedKeyEvent class >> newKeyValue: keyVal keyCode: keyCode shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 	| state |
 
@@ -56,7 +58,7 @@ GdkSimulatedKeyEvent class >> newKeyValue: keyVal keyCode: keyCode shift: shiftB
 		state: state
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkSimulatedKeyEvent class >> newKeyValue: keyVal shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
 	^ self
@@ -68,25 +70,25 @@ GdkSimulatedKeyEvent class >> newKeyValue: keyVal shift: shiftBoolean meta: meta
 		option: optionBoolean
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> asKeyCombination [
 
 	^ KMKeyCombination fromEventKey: self
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> character [
 
 	^ self keyCharacter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> hasModifier: aModifier [
 
 	^ (self state & aModifier) = aModifier
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdkSimulatedKeyEvent >> initializeKeyVal: keyValNumber keyCode: keyCodeNumber state: stateNumber [
 
 	self initialize.
@@ -95,67 +97,67 @@ GdkSimulatedKeyEvent >> initializeKeyVal: keyValNumber keyCode: keyCodeNumber st
 	state := stateNumber
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isEscape [
 
 	^ self keyValue = KEY_Escape
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyDown [
 
 	^ self keyValue = KEY_Down
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyEvent [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyLeft [
 
 	^ self keyValue = KEY_Left
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyPress [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyRelease [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyRight [
 
 	^ self keyValue = KEY_Right
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isKeyUp [
 
 	^ self keyValue = KEY_Up
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isModifier [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkSimulatedKeyEvent >> isReturn [
 
 	^ self keyValue = KEY_Return
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> key [
 
 	self keyValue <= 16rFF ifTrue: [
@@ -169,31 +171,31 @@ GdkSimulatedKeyEvent >> key [
 		ifAbsent: [ Smalltalk os keyForValue: self scanCode ]
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> keyCharacter [
 
 	^ Unicode value: self unicodeValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedKeyEvent >> keyCode [
 
 	^ keyCode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedKeyEvent >> keyVal [
 
 	^ keyVal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedKeyEvent >> keyValue [
 
 	^ self keyVal
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> modifiedCharacter [
 
 	self flag: #TODO. "This I think is always `self character` ?"
@@ -202,7 +204,7 @@ GdkSimulatedKeyEvent >> modifiedCharacter [
 	^ Unicode value: 0
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GdkSimulatedKeyEvent >> printOn: stream [
 
 	super printOn: stream.
@@ -213,25 +215,25 @@ GdkSimulatedKeyEvent >> printOn: stream [
 	stream << ')'
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> scanCode [
 
 	^ self keyCode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedKeyEvent >> state [
 
 	^ state
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkSimulatedKeyEvent >> symbol [
 
 	^ self keyValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSimulatedKeyEvent >> unicodeValue [
 
 	^ unicodeValue ifNil: [ unicodeValue := GdkKeyEvent keyValToUnicode: self keyVal ]

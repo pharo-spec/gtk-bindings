@@ -4,8 +4,8 @@ GtkWindow — Toplevel which can contain other widgets.
 https://developer.gnome.org/gtk3/stable/GtkWindow.html
 "
 Class {
-	#name : #GtkWindow,
-	#superclass : #GtkWidget,
+	#name : 'GtkWindow',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkTRoot + GtkTNative',
 	#classTraits : 'GtkTRoot classTrait + GtkTNative classTrait',
 	#instVars : [
@@ -17,10 +17,12 @@ Class {
 		'GtkWindowPosition',
 		'GtkWindowType'
 	],
-	#category : #'Gtk-Widget-Window'
+	#category : 'Gtk-Widget-Window',
+	#package : 'Gtk',
+	#tag : 'Widget-Window'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkWindow class >> example [
 	| window |
 
@@ -33,7 +35,7 @@ GtkWindow class >> example [
 		window present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkWindow class >> exampleModal [
 	| window |
 
@@ -47,7 +49,7 @@ GtkWindow class >> exampleModal [
 		window present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkWindow class >> exampleModalWithTransient [
 	| mainWindow transientWindow |
 
@@ -68,7 +70,7 @@ GtkWindow class >> exampleModalWithTransient [
 		transientWindow present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkWindow class >> exampleModalWithTransientBlocking [
 	"how a dialog should run now (since GtkDialog is now deprecated)"
 	| mainWindow transientWindow sem |
@@ -99,49 +101,49 @@ GtkWindow class >> exampleModalWithTransientBlocking [
 	GRunLoop defer: [ transientWindow objectUnref ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_window_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow class >> listTopLevels [
 
 	^ self ffiCall: #(GList* gtk_window_list_toplevels (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkWindow class >> new [ 
 	^ (self windowNew: GTK_WINDOW_TOPLEVEL) initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkWindow class >> newPopup [
 
 	^ (self windowNew: GTK_WINDOW_POPUP) initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow class >> windowNew: type [ 
 
 	^ self ffiCall: #( GtkWindow *gtk_window_new ( GtkWindowType type ) )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> addAcceleratorGroup: anAcceleratorGroup [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> attachedTo: widget [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GtkWindow >> autoRelease [
 	"autoReleasing windows is more complicated than the usual WeakRegistry mechanism, since 
 	 I can have strong references to self in callbacks (due to the events registered). 
@@ -151,68 +153,68 @@ GtkWindow >> autoRelease [
 	super autoRelease
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> basicPresent [
 
 	^ self ffiCall: #(void gtk_window_present (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beDecorated [
 
 	self decorated: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beHideOnClose [
 
 	self hideOnClose: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beModal [
 
 	self modal: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beNotDecorated [
 
 	self decorated: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beNotHideOnClose [
 
 	self hideOnClose: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beNotModal [
 
 	self modal: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> beep [ 
 
 	self gdkWindow beep
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> bounds [
 
 	^ self position extent: self defaultSize
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> bounds: aRectangle [
 
 	"gtk4 does not really knows what to do with the position, we can just take the extent"
 	self defaultSize: aRectangle extent
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> center [
 	"Sets position as 'center' to be applied *before* window is opened."
 	
@@ -221,65 +223,65 @@ GtkWindow >> center [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> child [
 
 	^ child ifNil: [ child := self getChild ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> child: aWidget [
 
 	child := aWidget.
 	self setChild: aWidget
 ]
 
-{ #category : #showing }
+{ #category : 'showing' }
 GtkWindow >> close [
 
 	self ffiCall: #(void gtk_window_close (self))
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWindow >> connectActivateFocus: aBlock [
 
 	self connect: 'activate-focus' do: aBlock
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWindow >> connectCloseRequest: aBlock [
 
 	(GtkCloseRequestCallback do: aBlock) connectTo: self
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWindow >> connectDefaultHeight: aBlock [
 	"aBlock receives an optional parameter (the GObject.ParamSpec* pspec)"
 
 	self connectNotifyProperty: 'default-height' do: aBlock
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkWindow >> connectDefaultWidth: aBlock [
 	"aBlock receives an optional parameter (the GObject.ParamSpec* pspec)"
 
 	self connectNotifyProperty: 'default-width' do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> cursor: aGdkCursor [
 
 	cursor := aGdkCursor.
 	self gdkWindow cursor: cursor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> decorated: setting [
 
 	self ffiCall: #(void gtk_window_set_decorated (self, gboolean setting))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> defaultSize [
 	| width height |
 	
@@ -291,7 +293,7 @@ GtkWindow >> defaultSize [
 	^ (width signedLongAt: 1) @ (height signedLongAt: 1)
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> defaultSize: aPoint [
 
 	self 
@@ -299,26 +301,26 @@ GtkWindow >> defaultSize: aPoint [
 		height: aPoint y asInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> defaultWidget: aWidget [
 
 	defaultWidget := aWidget.
 	self setDefaultWidget: aWidget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> destroy [
 
 	self ffiCall: #(void gtk_window_destroy (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> extent [
 
 	^ (self gObjectGetInteger: 'default-width')@(self gObjectGetInteger: 'default-height')
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkWindow >> finalize [
 
 	self isValidHandle ifFalse: [ ^ self ].
@@ -327,49 +329,49 @@ GtkWindow >> finalize [
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> getChild [
 
 	self ffiCall: #(GtkWidget *gtk_window_get_child (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> getDefaultSizeWidth: width height: height [
 
 	^ self ffiCall: #(void gtk_window_get_default_size (self, gint *width, gint *height))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> getPositionX: root_x y: root_y [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> gravity [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> gravity: gravity [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> hasTopLevelFocus [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> hideOnClose: setting [
 
 	self ffiCall: #(void gtk_window_set_hide_on_close (self, gboolean setting))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> iconify [
 
 	self 
@@ -379,7 +381,7 @@ GtkWindow >> iconify [
 	self minimize
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkWindow >> initialize [
 
 	super initialize.
@@ -389,113 +391,113 @@ GtkWindow >> initialize [
 	self connectDestroy: [ self windowDestroyed ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> isActive [
 
 	^ self ffiCall: #(gboolean gtk_window_is_active (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> isDecorated [
 
 	^ self ffiCall: #(gboolean gtk_window_get_decorated (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> isHideOnClose [
 
 	^ self ffiCall: #(gboolean gtk_window_get_hide_on_close (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> isMaximized [
 
 	^ self ffiCall: #(gboolean gtk_window_is_maximized (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> isModal [ 
 
 	^ self ffiCall: #(gboolean gtk_window_get_modal (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWindow >> isResizable [
 
 	^ self ffiCall: #(gboolean gtk_window_get_resizable (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> maximize [
 
 	self ffiCall: #(void gtk_window_maximize (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> minimize [
 
 	self ffiCall: #(void gtk_window_minimize (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> modal: modal [
 
 	^ self ffiCall: #(void gtk_window_set_modal (self, gboolean modal))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> moveTo: aPoint [
 
 	self deprecated: #Gtk4. "can't be done"
 
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> moveToCenter [ 
 
 	self deprecated: #Gtk4. "can't be done"
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> moveX: x y: y [
 
 	self deprecated: #Gtk4. "can't be done"
 
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> position [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #showing }
+{ #category : 'showing' }
 GtkWindow >> present [
 
 	self withAllChildrenDo: #executeDeferredActions.
 	self basicPresent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> propagateKeyEvent: event [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> removeAcceleratorGroup: anAcceleratorGroup [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> resizable: resizable [
 
 	self ffiCall: #(void gtk_window_set_resizable (self, gboolean resizable))
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> resize: aPoint [
 
 	self 
@@ -505,39 +507,39 @@ GtkWindow >> resize: aPoint [
 	^ self defaultSize: aPoint		
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> scaleFactor [
 	"See https://developer.gnome.org/gdk3/stable/gdk3-Windows.html#gdk-window-get-scale-factor"
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> setChild: aWidget [
 
 	self ffiCall: #(void gtk_window_set_child (self, GtkWidget *aWidget))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> setDefaultSizeWidth: width height: height [
 
 	^ self ffiCall: #(void gtk_window_set_default_size (self, gint width, gint height))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> setDefaultWidget: default_widget [
 
 	self ffiCall: #(void gtk_window_set_default_widget (self, GtkWidget* default_widget))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> setPosition: position [
 	"This is how it will be positioned WHEN showing (not after)"
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> show [
 	"| titleBar |
 	
@@ -552,7 +554,7 @@ GtkWindow >> show [
 	self present
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> showAll [
 	"We have to do in this way to avoid the selection of the first element in a list"
 
@@ -565,7 +567,7 @@ GtkWindow >> showAll [
 	self present
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkWindow >> size [
 	
 	self 
@@ -575,35 +577,35 @@ GtkWindow >> size [
 	^ self defaultSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> title [ 
 	^ self ffiCall: #(const gchar *gtk_window_get_title (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> title: title [
 	^ self ffiCall: #(void gtk_window_set_title (self, String title))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> titleBar [
 
 	self ffiCall: #(GtkWidget *gtk_window_get_titlebar (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> titleBar: aTitleBar [
 
 	self ffiCall: #(void gtk_window_set_titlebar (self, GtkWidget *aTitleBar))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWindow >> transientTo: parent [
 	
 	self ffiCall: #(void gtk_window_set_transient_for (self, GtkWindow *parent))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> unregister [
 
 	"if this is the last window and I'm closing the app, it can happen than a destroy 
@@ -613,13 +615,13 @@ GtkWindow >> unregister [
 		app unregisterWindow: self ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> windowAddAccelGroup: accel_group [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GtkWindow >> windowDestroyed [
 	"This process a destroy signal"
 
@@ -635,7 +637,7 @@ GtkWindow >> windowDestroyed [
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkWindow >> windowRemoveAccelGroup: accel_group [
 
 	self deprecated: #Gtk4

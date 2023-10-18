@@ -8,24 +8,26 @@ The ::selected-rows-changed signal is emitted when the set of selected rows chan
 https://developer.gnome.org/gtk3/stable/GtkListBox.html#GtkListBox-selected-rows-changed
 "
 Class {
-	#name : #GSelectedRowsChanged,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gtk-Callbacks'
+	#name : 'GSelectedRowsChanged',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSelectedRowsChanged class >> signalName [
 
 	^ 'selected-rows-changed'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSelectedRowsChanged >> do: aBlock [ 
 
 	^ super do: [ :box :user_data | aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSelectedRowsChanged >> signature [
 
 	^  #(void (void *box, void *user_data))

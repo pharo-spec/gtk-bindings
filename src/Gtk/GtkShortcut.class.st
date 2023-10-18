@@ -2,30 +2,32 @@
 https://docs.gtk.org/gtk4/class.Shortcut.html
 "
 Class {
-	#name : #GtkShortcut,
-	#superclass : #GObject,
+	#name : 'GtkShortcut',
+	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'action',
 		'trigger'
 	],
-	#category : #'Gtk-Shortcut'
+	#category : 'Gtk-Shortcut',
+	#package : 'Gtk',
+	#tag : 'Shortcut'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkShortcut class >> gtkNew [
 
 	self ffiCall: #(GtkShortcut* gtk_shortcut_new (NULL, NULL))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkShortcut class >> new [
 
 	^ self gtkNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkShortcut class >> newKeyCombination: aKeyCombination action: anAction [
 
 	^ self 
@@ -33,7 +35,7 @@ GtkShortcut class >> newKeyCombination: aKeyCombination action: anAction [
 		action: anAction
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkShortcut class >> newKeyCombination: aKeyCombination actionName: aName [
 
 	^ self 
@@ -41,7 +43,7 @@ GtkShortcut class >> newKeyCombination: aKeyCombination actionName: aName [
 		action: (GtkNamedAction newName: aName)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkShortcut class >> newKeyCombination: aKeyCombination do: aBlock [
 
 	^ self 
@@ -50,7 +52,7 @@ GtkShortcut class >> newKeyCombination: aKeyCombination do: aBlock [
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkShortcut class >> newTrigger: aTrigger action: anAction [
 
 	^ self new 
@@ -59,7 +61,7 @@ GtkShortcut class >> newTrigger: aTrigger action: anAction [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkShortcut >> action: anAction [
 
 	action := anAction.
@@ -67,19 +69,19 @@ GtkShortcut >> action: anAction [
 	action doNotAutoRelease
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkShortcut >> setAction: anAction [
 
 	self ffiCall: #(void gtk_shortcut_set_action (self, GtkShortcutAction* anAction))
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkShortcut >> setTrigger: aTrigger [
 
 	self ffiCall: #(void gtk_shortcut_set_trigger (self, GtkShortcutTrigger* aTrigger))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkShortcut >> trigger: aTrigger [
 
 	trigger := aTrigger.

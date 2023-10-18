@@ -1,25 +1,27 @@
 Class {
-	#name : #GButtonPressEventCallback,
-	#superclass : #GManagedSignalCallback,
+	#name : 'GButtonPressEventCallback',
+	#superclass : 'GManagedSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'Gtk-Callbacks'
+	#category : 'Gtk-Callbacks',
+	#package : 'Gtk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GButtonPressEventCallback class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonPressEventCallback class >> signalName [
 
 	^ 'button-press-event'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonPressEventCallback >> do: aBlock [
 	
 	self
@@ -28,7 +30,7 @@ GButtonPressEventCallback >> do: aBlock [
 			aBlock cull: (GdkButtonEvent fromHandle: event) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GButtonPressEventCallback >> signature [
 
 	^ #(gboolean (void *widget, void* event, void *aData))

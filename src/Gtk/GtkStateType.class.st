@@ -4,8 +4,8 @@ This type indicates the current state of a widget; the state determines how the 
 https://developer.gnome.org/gtk2/stable/gtk2-Standard-Enumerations.html#GtkStateType
 "
 Class {
-	#name : #GtkStateType,
-	#superclass : #GEnumeration,
+	#name : 'GtkStateType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_STATE_ACTIVE',
 		'GTK_STATE_FOCUSED',
@@ -15,52 +15,54 @@ Class {
 		'GTK_STATE_PRELIGHT',
 		'GTK_STATE_SELECTED'
 	],
-	#category : #'Gtk-Widget'
+	#category : 'Gtk-Widget',
+	#package : 'Gtk',
+	#tag : 'Widget'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_ACTIVE [
 	"This method was automatically generated"
 	^ GTK_STATE_ACTIVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_FOCUSED [
 	"This method was automatically generated"
 	^ GTK_STATE_FOCUSED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_INCONSISTENT [
 	"This method was automatically generated"
 	^ GTK_STATE_INCONSISTENT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_INSENSITIVE [
 	"This method was automatically generated"
 	^ GTK_STATE_INSENSITIVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_NORMAL [
 	"This method was automatically generated"
 	^ GTK_STATE_NORMAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_PRELIGHT [
 	"This method was automatically generated"
 	^ GTK_STATE_PRELIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkStateType class >> GTK_STATE_SELECTED [
 	"This method was automatically generated"
 	^ GTK_STATE_SELECTED
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkStateType class >> enumDecl [
 	^ #(
   GTK_STATE_NORMAL 			0

@@ -5,23 +5,25 @@ GtkScale — A slider widget for selecting a value from a range
 https://developer.gnome.org/gtk3/stable/GtkScale.html
 "
 Class {
-	#name : #GtkScale,
-	#superclass : #GtkWidget,
+	#name : 'GtkScale',
+	#superclass : 'GtkWidget',
 	#pools : [
 		'GtkOrientation',
 		'GtkPositionType'
 	],
-	#category : #'Gtk-Widget-Input'
+	#category : 'Gtk-Widget-Input',
+	#package : 'Gtk',
+	#tag : 'Widget-Input'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_scale_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkScale class >> gtkNewOrientation: orientation min: min max: max step: step [
 
 	^ self ffiCall: #(GtkScale * gtk_scale_new_with_range (GtkOrientation orientation,
@@ -30,25 +32,25 @@ GtkScale class >> gtkNewOrientation: orientation min: min max: max step: step [
                           gdouble step))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkScale class >> newHorizontalMin: min max: max step: step [
 
 	^ self newOrientation: GTK_ORIENTATION_HORIZONTAL min: min max: max step: step
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkScale class >> newOrientation: orientation min: min max: max step: step [
 
 	^ (self gtkNewOrientation: orientation min: min max: max step: step) initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkScale class >> newVerticalMin: min max: max step: step [
 
 	^ self newOrientation: GTK_ORIENTATION_VERTICAL min: min max: max step: step
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> addMarkAtValue: value withPosition: position [
 
 	^ self ffiCall: #(void gtk_scale_add_mark (self, gdouble value,
@@ -56,13 +58,13 @@ GtkScale >> addMarkAtValue: value withPosition: position [
                     0))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> addMarkAtValue: value withPosition: position withText: markup [
 
 	self basicAddMarkAtValue: value withPosition: position withText: markup
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkScale >> basicAddMarkAtValue: value withPosition: position withText: utf8EncodedString [
 
 	^ self ffiCall: #(void gtk_scale_add_mark (self, gdouble value,
@@ -70,13 +72,13 @@ GtkScale >> basicAddMarkAtValue: value withPosition: position withText: utf8Enco
                     String utf8EncodedString))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> clearMarks [
 
 	self ffiCall: #(void gtk_scale_clear_marks (self))
 ]
 
-{ #category : #signaling }
+{ #category : 'signaling' }
 GtkScale >> connectValueChanged: aBlock [
 
 	^ self 
@@ -85,85 +87,85 @@ GtkScale >> connectValueChanged: aBlock [
  		do: [ :widget :aData | aBlock value ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> digits [
 
 	^ self ffiCall: #(gint gtk_scale_get_digits (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> digits: digits [
 
 	self ffiCall: #(void gtk_scale_set_digits (self, gint digits))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> drawValue: aBoolean [
 
 	^ self ffiCall: #(void gtk_scale_set_draw_value (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> drawsValue [
 
 	^ self ffiCall: #(gboolean gtk_scale_get_draw_value (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> hasOrigin [
 
 	^ self ffiCall: #(gboolean gtk_scale_get_has_origin (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> hasOrigin: aBoolean [
 
 	^ self ffiCall: #(void gtk_scale_set_has_origin (self, gboolean aBoolean))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> setValue: value [
 
 	^ self ffiCall: #(void gtk_range_set_value #(self, gdouble value))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> value [
 
 	^ self ffiCall: #(gdouble gtk_range_get_value #(self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> valueAtBottom [
 
 	self valuePosition: GTK_POS_BOTTOM
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> valueAtLeft [
 
 	self valuePosition: GTK_POS_LEFT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> valueAtRight [
 
 	self valuePosition: GTK_POS_RIGHT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> valueAtTop [
 
 	self valuePosition: GTK_POS_TOP
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> valuePosition [
 
 	^ self ffiCall: #(GtkPositionType gtk_scale_get_value_pos (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScale >> valuePosition: aPosition [
 
 	self ffiCall: #(void gtk_scale_set_value_pos (self, GtkPositionType aPosition))

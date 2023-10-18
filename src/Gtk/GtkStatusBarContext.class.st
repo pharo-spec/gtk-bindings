@@ -2,53 +2,55 @@
 Convenience class that represents the context of a status bar.
 "
 Class {
-	#name : #GtkStatusBarContext,
-	#superclass : #Object,
+	#name : 'GtkStatusBarContext',
+	#superclass : 'Object',
 	#instVars : [
 		'bar',
 		'name',
 		'id'
 	],
-	#category : #'Gtk-Widget-Display'
+	#category : 'Gtk-Widget-Display',
+	#package : 'Gtk',
+	#tag : 'Widget-Display'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> bar [
 	^ bar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> bar: anObject [
 	bar := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> id [
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> id: anObject [
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> name [
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> popMessage [
 
 	bar popFromContextId: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> pushMessage: text [
 
 	^ GtkStatusBarMessage new
@@ -58,13 +60,13 @@ GtkStatusBarContext >> pushMessage: text [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> removeAll [
 
 	bar removeAllFromContextId: id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarContext >> removeMessageWithId: messageId [
 
 	bar removeMessageWithId: messageId fromContextId: id
