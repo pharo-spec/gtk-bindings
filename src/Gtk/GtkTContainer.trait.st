@@ -22,6 +22,7 @@ GtkTContainer >> children [
 GtkTContainer >> cleanupAfterReplacing [
 
 	self children do: [ :aChild | aChild cleanupAfterReplacing ].
+
 	children := #()
 ]
 
