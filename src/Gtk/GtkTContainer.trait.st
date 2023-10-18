@@ -27,10 +27,6 @@ GtkTContainer >> cleanupAfterReplacing [
 ]
 
 { #category : #private }
-GtkTContainer >> cleanupAfterReplacingContainer [
-]
-
-{ #category : #private }
 GtkTContainer >> findChildByHandle: anExternalAddress [
 	| address |
 
