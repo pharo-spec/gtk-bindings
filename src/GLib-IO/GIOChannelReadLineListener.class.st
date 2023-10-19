@@ -135,6 +135,14 @@ GIOChannelReadLineListener >> stop [
 	worker := nil
 ]
 
+{ #category : #events }
+GIOChannelReadLineListener >> whenTerminatedDo: aBlock [
+
+	self announcer 
+		when: GIOChannelTerminatedAnnouncement 
+		do: aBlock
+]
+
 { #category : #accessing }
 GIOChannelReadLineListener >> worker [
 
