@@ -31,8 +31,8 @@ You can check at them as examples.
 
 "
 Class {
-	#name : #GClass,
-	#superclass : #Object,
+	#name : 'GClass',
+	#superclass : 'Object',
 	#instVars : [
 		'type',
 		'name',
@@ -54,29 +54,31 @@ Class {
 	#classInstVars : [
 		'mutex'
 	],
-	#category : #'GObject-ClassBuilder'
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GClass class >> critical: aBlock [
 
 	mutex ifNil: [ mutex := Mutex new ].
 	^ mutex critical: aBlock
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GClass class >> ffiLibraryName [
 	
 	^ GObjectLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass class >> gClassAt: aClass [
 
 	^ self gClasses at: aClass
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass class >> gClassAt: aClass ifAbsent: aBlock [
 
 	^ self gClasses
@@ -84,7 +86,7 @@ GClass class >> gClassAt: aClass ifAbsent: aBlock [
 		ifAbsent: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass class >> gClassAt: aClass ifPresent: aBlock [
 
 	^ self gClasses
@@ -92,19 +94,19 @@ GClass class >> gClassAt: aClass ifPresent: aBlock [
 		ifPresent: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass class >> gClassAt: aClass put: gClass [
 	
 	^ self gClasses at: aClass put: gClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass class >> gClasses [
 
 	^ GClasses ifNil: [ GClasses := IdentityDictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass class >> gDefinitionAt: aClass [
 	"Answers a GClass definition of aClass. 
 	 if the definition does not yet exits, it tries to install a new definition by calling
@@ -120,13 +122,13 @@ GClass class >> gDefinitionAt: aClass [
 		gClass ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GClass class >> initialize [
 
 	SessionManager default registerSystemClassNamed: self name
 ]
 
-{ #category : #installing }
+{ #category : 'installing' }
 GClass class >> install: aClass [
 
 	^ self 
@@ -134,7 +136,7 @@ GClass class >> install: aClass [
 		with: [ :gClass | ]
 ]
 
-{ #category : #installing }
+{ #category : 'installing' }
 GClass class >> install: aClass with: aBlock [
 
 	^ self new 
@@ -143,7 +145,7 @@ GClass class >> install: aClass with: aBlock [
 		install
 ]
 
-{ #category : #installing }
+{ #category : 'installing' }
 GClass class >> install: aClass withName: aName [
 	"Overrides the name in Gtk side. 
 	 This is mostly used to allow test to install several times same class"
@@ -153,27 +155,27 @@ GClass class >> install: aClass withName: aName [
 		with: [ :gClass | gClass name: aName ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass class >> reset [
 
 	GClasses := nil
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GClass class >> shutDown: quitting [ 
 
 	quitting ifFalse: [ ^ self ].
 	self reset
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GClass class >> startUp: resuming [ 
 
 	resuming ifFalse: [ ^ self ].
 	self reset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> addInterface: interfaceClass initialize: aBlock [
 
 	interfaces 
@@ -186,7 +188,7 @@ GClass >> addInterface: interfaceClass initialize: aBlock [
 				aBlock value: interface ])
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GClass >> addInterfaceGType: interfaceType initialize: initCallback [
 	| info |
 
@@ -204,7 +206,7 @@ GClass >> addInterfaceGType: interfaceType initialize: initCallback [
 		ifFalse: [ GClassError signal: 'Interface can not be added.' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> classInitialize: aBlock [ 
 	
 	classInitialize := GCallback 
@@ -214,26 +216,26 @@ GClass >> classInitialize: aBlock [
 			aBlock value: klass ].
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GClass >> ffiLibraryName [
 	
 	^ GObjectLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass >> findInstance: handle [
 
 	^ mutex critical: [ 
 		instances at: handle asInteger ]
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GClass >> gObjectNew: object_type [
 
 	^ GObject gObjectNew: object_type
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GClass >> gTypeAddInterfaceStaticType: instance_type interfaceType: interface_type info: info [
 
 	^ self ffiCall: #(void g_type_add_interface_static (
@@ -242,7 +244,7 @@ GClass >> gTypeAddInterfaceStaticType: instance_type interfaceType: interface_ty
 		GInterfaceInfo *info))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass >> gTypeInterfaces [
 	| interfaceTypes |
 	
@@ -252,13 +254,13 @@ GClass >> gTypeInterfaces [
 		until: [ :each | each isZero ]
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GClass >> gTypeInterfaces: object_type [
 
 	^ self ffiCall: #(gsize *g_type_interfaces (gsize object_type, NULL))
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GClass >> gTypeRegisterStaticSimpleParent: parent_type name: type_name classSize: class_size classInit: class_init instanceSize: instance_size instanceInit: instance_init flags: flags [
 
 	^ self ffiCall: #(GType g_type_register_static_simple (
@@ -271,7 +273,7 @@ GClass >> gTypeRegisterStaticSimpleParent: parent_type name: type_name classSize
  		"GTypeFlags"int32 flags))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GClass >> initialize [
 
 	super initialize.
@@ -286,7 +288,7 @@ GClass >> initialize [
 	self classInitialize: [ :gclass | ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> initialize: aBlock [
 	
 	initialize := GCallback
@@ -294,7 +296,7 @@ GClass >> initialize: aBlock [
 		block: [ :object | aBlock value: object ]
 ]
 
-{ #category : #installing }
+{ #category : 'installing' }
 GClass >> install [
 
 	type := self registerType.
@@ -311,7 +313,7 @@ GClass >> install [
 		put: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> interfaces [
 
 	self flag: #TODO. "What I do with unknown interfaces?"
@@ -321,19 +323,19 @@ GClass >> interfaces [
 			ifNone: [ nil ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> name: aString [
 
 	name := aString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GClass >> new [ 
 
 	^ mutex critical: [
@@ -345,25 +347,25 @@ GClass >> new [
 		instance ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> parent [
 
 	^ parent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> parent: aClass [
 
 	parent := aClass
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GClass >> prepare: aBlock [
 
 	aBlock value: self
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GClass >> registerType [
 	| utf8Name |
 
@@ -381,7 +383,7 @@ GClass >> registerType [
 		flags: 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass >> safeFindInstance: handle [
 
 	^ mutex critical: [ 
@@ -390,7 +392,7 @@ GClass >> safeFindInstance: handle [
 			ifAbsent: [ nil ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> targetClass: aClass [ 
 
 	targetClass := aClass.
@@ -400,19 +402,19 @@ GClass >> targetClass: aClass [
 		parent: aClass superclass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> type [
 
 	^ type
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClass >> typeName [
 
 	^ self ffiCall: #(gchar *g_type_name (gsize type))
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GClass >> validateInstallPreconditions [
 	| selectors |
 
@@ -427,7 +429,7 @@ GClass >> validateInstallPreconditions [
 					each }) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClass >> warn: aString [
 
 	('WARNING: ', aString) crTrace

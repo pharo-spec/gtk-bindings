@@ -1,16 +1,18 @@
 Class {
-	#name : #GAnnouncementFilterAll,
-	#superclass : #GAnnouncementFilter,
-	#category : #'GObject-Signal'
+	#name : 'GAnnouncementFilterAll',
+	#superclass : 'GAnnouncementFilter',
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementFilterAll >> isFiltered: aSignal [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementFilterAll >> isFilteredClass: aSignalClass [
 
 	^ true

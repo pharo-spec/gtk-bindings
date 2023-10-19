@@ -2,11 +2,13 @@
 Adds convenience methods to easy declaration of ""connecting"" properties (when defining interfaces or extending classes you need a structure that points to a bunch of callbacks)
 "
 Trait {
-	#name : #GTConnectCallback,
-	#category : #'GObject-ClassBuilder'
+	#name : 'GTConnectCallback',
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #'connecting - convenience' }
+{ #category : 'connecting - convenience' }
 GTConnectCallback >> connect: aProperty signature: aSignature to: aBlock [
 	
 	self
@@ -16,7 +18,7 @@ GTConnectCallback >> connect: aProperty signature: aSignature to: aBlock [
 			block: aBlock)
 ]
 
-{ #category : #'connecting - convenience' }
+{ #category : 'connecting - convenience' }
 GTConnectCallback >> connectToNull: aProperty [
 	
 	self

@@ -3,24 +3,26 @@ I'm a base interface to be extended for real Gtk interfaces.
 My children needs to define #fieldsDesc but they can use the fieldsDesc implementation I keep as a base (since all interfaces needs to start with same field, the GTypeInterface)
 "
 Class {
-	#name : #GInterface,
-	#superclass : #GStructure,
+	#name : 'GInterface',
+	#superclass : 'GStructure',
 	#traits : 'GTConnectCallback',
 	#classTraits : 'GTConnectCallback classTrait',
 	#classVars : [
 		'OFFSET_G_IFACE'
 	],
-	#category : #'GObject-ClassBuilder'
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GInterface class >> compileFields [
 
 	self = GInterface ifTrue: [ ^ self ].	
 	^ super compileFields
 ]
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GInterface class >> fieldsDesc [
 
 	^ #(
@@ -28,14 +30,14 @@ GInterface class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GInterface class >> initialize [
 
 	"Offset is always 1"
 	OFFSET_G_IFACE := 1
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterface >> g_iface [
 	"This method was automatically generated"
 	^ GTypeInterface fromHandle: (handle 
@@ -43,7 +45,7 @@ GInterface >> g_iface [
 		length: GTypeInterface byteSize)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterface >> g_iface: anObject [
 	"This method was automatically generated"
 	handle 

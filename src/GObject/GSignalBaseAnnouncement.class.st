@@ -2,33 +2,35 @@
 I'm a generic signal to be used on Gtk platform.
 "
 Class {
-	#name : #GSignalBaseAnnouncement,
-	#superclass : #BeaconSignal,
+	#name : 'GSignalBaseAnnouncement',
+	#superclass : 'BeaconSignal',
 	#classVars : [
 		'ActiveFilter'
 	],
-	#category : #'GObject-Signal'
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GSignalBaseAnnouncement class >> activeFilter [
 
 	^ ActiveFilter ifNil: [ ActiveFilter := GAnnouncementFilterAll new ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSignalBaseAnnouncement class >> activeFilter: aFilter [
 
 	ActiveFilter := aFilter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GSignalBaseAnnouncement class >> emit [ 
 	
 	^ self new emit
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSignalBaseAnnouncement class >> ensureTracingFilter [
 
 	self activeFilter isTracingFilter 
@@ -36,7 +38,7 @@ GSignalBaseAnnouncement class >> ensureTracingFilter [
 	^ ActiveFilter
 ]
 
-{ #category : #'accessing filtering' }
+{ #category : 'accessing filtering' }
 GSignalBaseAnnouncement class >> filter [
 	
 	self ensureTracingFilter trace: self
@@ -44,51 +46,51 @@ GSignalBaseAnnouncement class >> filter [
 	
 ]
 
-{ #category : #'accessing filtering' }
+{ #category : 'accessing filtering' }
 GSignalBaseAnnouncement class >> filterAllSignalsExcept: aListOfSignals [
 
 	ActiveFilter := GAnnouncementTracingFilter newTraceSignals: aListOfSignals
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GSignalBaseAnnouncement class >> initialize [ 
 
 	self resetFilters
 ]
 
-{ #category : #'accessing filtering' }
+{ #category : 'accessing filtering' }
 GSignalBaseAnnouncement class >> isFiltered [
 	
 	^ self activeFilter isFilteredClass: self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSignalBaseAnnouncement class >> resetFilters [
 	<script>
 
 	ActiveFilter := GAnnouncementFilterAll new
 ]
 
-{ #category : #'accessing filtering' }
+{ #category : 'accessing filtering' }
 GSignalBaseAnnouncement class >> traceSignal [
 	
 	self ensureTracingFilter trace: self
 ]
 
-{ #category : #emitting }
+{ #category : 'emitting' }
 GSignalBaseAnnouncement >> emit [ 
 
 	self isFiltered ifTrue: [ ^ self ].
 	^ super emit
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GSignalBaseAnnouncement >> isFiltered [
 
 	^ self class activeFilter isFiltered: self
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 GSignalBaseAnnouncement >> logIn: aLogger [
 
 	"Do nothing"

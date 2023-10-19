@@ -4,15 +4,17 @@ GInitiallyUnowned is derived from GObject. The only difference between the two i
 https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#GInitiallyUnowned
 "
 Class {
-	#name : #GInitiallyUnowned,
-	#superclass : #GObject,
+	#name : 'GInitiallyUnowned',
+	#superclass : 'GObject',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GInitiallyUnowned >> autoObjectUnref [
 
 	"do not unref"

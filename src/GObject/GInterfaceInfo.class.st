@@ -11,8 +11,8 @@ struct GInterfaceInfo {
 https://developer.gnome.org/gobject/stable/gobject-Type-Information.html#GInterfaceInfo
 "
 Class {
-	#name : #GInterfaceInfo,
-	#superclass : #GStructure,
+	#name : 'GInterfaceInfo',
+	#superclass : 'GStructure',
 	#instVars : [
 		'interface_init',
 		'interface_finalize',
@@ -23,10 +23,12 @@ Class {
 		'OFFSET_INTERFACE_FINALIZE',
 		'OFFSET_INTERFACE_INIT'
 	],
-	#category : #'GObject-ClassBuilder'
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GInterfaceInfo class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 
@@ -37,13 +39,13 @@ GInterfaceInfo class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterfaceInfo >> interface_data [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_INTERFACE_DATA) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterfaceInfo >> interface_data: anObject [
 	"This method was automatically generated"
 	
@@ -51,13 +53,13 @@ GInterfaceInfo >> interface_data: anObject [
 	handle pointerAt: OFFSET_INTERFACE_DATA put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterfaceInfo >> interface_finalize [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_INTERFACE_FINALIZE) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterfaceInfo >> interface_finalize: aCallback [
 	"This method was automatically generated"
 	
@@ -69,13 +71,13 @@ GInterfaceInfo >> interface_finalize: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterfaceInfo >> interface_init [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_INTERFACE_INIT) asInteger)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GInterfaceInfo >> interface_init: aCallback [
 	"This method was automatically generated"
 	

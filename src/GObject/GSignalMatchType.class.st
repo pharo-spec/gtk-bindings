@@ -4,8 +4,8 @@ The match types specify what g_signal_handlers_block_matched(), g_signal_handler
 https://developer.gnome.org/gobject/unstable/gobject-Signals.html#GSignalMatchType
 "
 Class {
-	#name : #GSignalMatchType,
-	#superclass : #GEnumeration,
+	#name : 'GSignalMatchType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_SIGNAL_MATCH_CLOSURE',
 		'G_SIGNAL_MATCH_DATA',
@@ -14,46 +14,48 @@ Class {
 		'G_SIGNAL_MATCH_ID',
 		'G_SIGNAL_MATCH_UNBLOCKED'
 	],
-	#category : #'GObject-Misc'
+	#category : 'GObject-Misc',
+	#package : 'GObject',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSignalMatchType class >> G_SIGNAL_MATCH_CLOSURE [
 	"This method was automatically generated"
 	^ G_SIGNAL_MATCH_CLOSURE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSignalMatchType class >> G_SIGNAL_MATCH_DATA [
 	"This method was automatically generated"
 	^ G_SIGNAL_MATCH_DATA
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSignalMatchType class >> G_SIGNAL_MATCH_DETAIL [
 	"This method was automatically generated"
 	^ G_SIGNAL_MATCH_DETAIL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSignalMatchType class >> G_SIGNAL_MATCH_FUNC [
 	"This method was automatically generated"
 	^ G_SIGNAL_MATCH_FUNC
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSignalMatchType class >> G_SIGNAL_MATCH_ID [
 	"This method was automatically generated"
 	^ G_SIGNAL_MATCH_ID
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSignalMatchType class >> G_SIGNAL_MATCH_UNBLOCKED [
 	"This method was automatically generated"
 	^ G_SIGNAL_MATCH_UNBLOCKED
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GSignalMatchType class >> enumDecl [
 	^ { 
 	#G_SIGNAL_MATCH_ID	. 			1 << 0.

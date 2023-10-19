@@ -1,17 +1,19 @@
 Class {
-	#name : #GExternalResourceManager,
-	#superclass : #FFIExternalResourceManager,
-	#category : #'GObject-Base'
+	#name : 'GExternalResourceManager',
+	#superclass : 'FFIExternalResourceManager',
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GExternalResourceManager >> addResource: anObject [
 	
 	(self includesObjectWithHandle: anObject getHandle) ifTrue: [ ^ self ].
 	registry add: anObject
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GExternalResourceManager >> addResource: anObject data: resourceData [
 	
 	self flag: #REMOVEME.
@@ -19,13 +21,13 @@ GExternalResourceManager >> addResource: anObject data: resourceData [
 	self addResource: anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GExternalResourceManager >> includesObject: anObject [
 
 	^ registry includes: anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GExternalResourceManager >> includesObjectWithHandle: anObject [
 
 	registry 
@@ -35,13 +37,13 @@ GExternalResourceManager >> includesObjectWithHandle: anObject [
 	^ false
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 GExternalResourceManager >> removeResource: aGObject [
 	| removed |
 
-	removed := registry remove: self ifAbsent: [ nil ]. 
+	removed := registry remove: aGObject ifAbsent: [ nil ]. 
 	removed ifNil: [ 
 		registry
 			detect: [ :each | each getHandle = aGObject getHandle ]
-			ifFound: [ :gObject | registry remove: gObject ifAbsent: [ ] ] ]
+			ifFound: [ :foundGObject | registry remove: foundGObject ifAbsent: [ ] ] ]
 ]

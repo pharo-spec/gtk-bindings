@@ -1,31 +1,33 @@
 Class {
-	#name : #GManagedSignalCallback,
-	#superclass : #GSignalCallback,
+	#name : 'GManagedSignalCallback',
+	#superclass : 'GSignalCallback',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Callbacks'
+	#category : 'GObject-Callbacks',
+	#package : 'GObject',
+	#tag : 'Callbacks'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GManagedSignalCallback class >> do: aBlock [
 
 	^ self new do: aBlock
 ]
 
-{ #category : #connecting }
+{ #category : 'connecting' }
 GManagedSignalCallback >> connectTo: aWidget [
 
 	aWidget connectSignal: self
 ]
 
-{ #category : #connecting }
+{ #category : 'connecting' }
 GManagedSignalCallback >> disconnectFrom: aWidget [
 
 	aWidget disconnectCallback: self	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GManagedSignalCallback >> do: aBlock [
 
 	self 
@@ -33,7 +35,7 @@ GManagedSignalCallback >> do: aBlock [
 		block: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GManagedSignalCallback >> signature [
 
 	^ #(void (void *widget, void *data))

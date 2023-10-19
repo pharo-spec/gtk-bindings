@@ -2,25 +2,27 @@
 I signal a gobject has been destroyed.
 "
 Class {
-	#name : #GDestroyAnnouncement,
-	#superclass : #GSignalBaseAnnouncement,
+	#name : 'GDestroyAnnouncement',
+	#superclass : 'GSignalBaseAnnouncement',
 	#instVars : [
 		'handle'
 	],
 	#classVars : [
 		'NotifyCallback'
 	],
-	#category : #'GObject-Signal'
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #installing }
+{ #category : 'installing' }
 GDestroyAnnouncement class >> installFor: aWidget [
 	
 	self isFiltered ifTrue: [ ^ self ].
 	aWidget weakRef: self notifyCallback
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GDestroyAnnouncement class >> notifyCallback [
 
 	^ NotifyCallback ifNil: [ 
@@ -32,30 +34,30 @@ GDestroyAnnouncement class >> notifyCallback [
 					 emit ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GDestroyAnnouncement class >> reset [ 
 	<script>
 	
 	NotifyCallback := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDestroyAnnouncement >> handle [
 	^ handle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDestroyAnnouncement >> handle: anObject [
 	handle := anObject
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 GDestroyAnnouncement >> logIn: aLogger [
 
 	^ aLogger logDestroySignal: self
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GDestroyAnnouncement >> printOneLineContentsOn: stream [
 	
 	stream << self handle printString

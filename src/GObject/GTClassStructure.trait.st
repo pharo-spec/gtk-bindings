@@ -3,13 +3,15 @@ A structure used to define classes.
 Sometimes, when extending a gtk class, we need to map its parent structure, in order to redefine methods/functions or add properties.
 "
 Trait {
-	#name : #GTClassStructure,
+	#name : 'GTClassStructure',
 	#traits : 'GTConnectCallback',
 	#classTraits : 'GTConnectCallback classTrait',
-	#category : #'GObject-ClassBuilder'
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gInstallPropertyId: property_id spec: pspec [
 
 	^ self 
@@ -20,7 +22,7 @@ GTClassStructure >> gInstallPropertyId: property_id spec: pspec [
 		module: GObjectLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gParamSpecBooleanName: name nick: nick blurb: blurb default: default flags: flags [
 
 	^ self 
@@ -33,7 +35,7 @@ GTClassStructure >> gParamSpecBooleanName: name nick: nick blurb: blurb default:
 		module: GObjectLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gParamSpecBoxedName: name nick: nick blurb: blurb type: object_type flags: flags [
 
 	^ self 
@@ -46,7 +48,7 @@ GTClassStructure >> gParamSpecBoxedName: name nick: nick blurb: blurb type: obje
 		module: GObjectLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gParamSpecFloatName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
 
 	^ self 
@@ -61,7 +63,7 @@ GTClassStructure >> gParamSpecFloatName: name nick: nick blurb: blurb minimum: m
 		module: GObjectLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gParamSpecIntName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
 
 	^ self
@@ -76,7 +78,7 @@ GTClassStructure >> gParamSpecIntName: name nick: nick blurb: blurb minimum: min
 		module: GObjectLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gParamSpecLongName: name nick: nick blurb: blurb minimum: minimum maximum: maximum default: default_value flags: flags [
 
 	^ self
@@ -91,7 +93,7 @@ GTClassStructure >> gParamSpecLongName: name nick: nick blurb: blurb minimum: mi
 		module: GtkLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> gParamSpecStringName: name nick: nick blurb: blurb default: default flags: flags [
 
 	^ self 
@@ -104,7 +106,7 @@ GTClassStructure >> gParamSpecStringName: name nick: nick blurb: blurb default: 
 		module: GObjectLibrary
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyBooleanId: index name: aName default: default flags: flags [
 
 	self 
@@ -116,7 +118,7 @@ GTClassStructure >> installPropertyBooleanId: index name: aName default: default
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyBooleanId: index name: aName nick: aNickname blurb: aBlurb default: default flags: flags [
 
 	self 
@@ -129,7 +131,7 @@ GTClassStructure >> installPropertyBooleanId: index name: aName nick: aNickname 
 			flags: flags)
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyFloatId: index name: aName default: default flags: flags [
 
 	self 
@@ -143,7 +145,7 @@ GTClassStructure >> installPropertyFloatId: index name: aName default: default f
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyFloatId: index name: aName minimum: minimum maximum: maximum default: default flags: flags [
 
 	self 
@@ -157,7 +159,7 @@ GTClassStructure >> installPropertyFloatId: index name: aName minimum: minimum m
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyFloatId: index name: aName nick: aNickname blurb: aBlurb minimum: minimum maximum: maximum default: default flags: flags [
 
 	self 
@@ -172,7 +174,7 @@ GTClassStructure >> installPropertyFloatId: index name: aName nick: aNickname bl
 			flags: flags)
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyIntId: index name: aName default: default flags: flags [
 
 	self
@@ -186,7 +188,7 @@ GTClassStructure >> installPropertyIntId: index name: aName default: default fla
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyIntId: index name: aName minimum: minimum maximum: maximum default: default flags: flags [
 
 	self 
@@ -200,7 +202,7 @@ GTClassStructure >> installPropertyIntId: index name: aName minimum: minimum max
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyIntId: index name: aName nick: aNickname blurb: aBlurb minimum: minimum maximum: maximum default: default flags: flags [
 
 	self 
@@ -215,7 +217,7 @@ GTClassStructure >> installPropertyIntId: index name: aName nick: aNickname blur
 			flags: flags)
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyLongId: index name: aName default: default flags: flags [
 
 	self
@@ -229,7 +231,7 @@ GTClassStructure >> installPropertyLongId: index name: aName default: default fl
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyLongId: index name: aName minimum: minimum maximum: maximum default: default flags: flags [
 
 	self
@@ -243,7 +245,7 @@ GTClassStructure >> installPropertyLongId: index name: aName minimum: minimum ma
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyLongId: index name: aName nick: aNickname blurb: aBlurb minimum: minimum maximum: maximum default: default flags: flags [
 
 	self
@@ -258,7 +260,7 @@ GTClassStructure >> installPropertyLongId: index name: aName nick: aNickname blu
 			flags: flags)
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyObjectId: index name: aName nick: aNickname blurb: aBlurb type: aGType flags: flags [
 
 	self 
@@ -271,7 +273,7 @@ GTClassStructure >> installPropertyObjectId: index name: aName nick: aNickname b
 			flags: flags)
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyStringId: index name: aName default: default flags: flags [
 
 	self 
@@ -283,7 +285,7 @@ GTClassStructure >> installPropertyStringId: index name: aName default: default 
 		flags: flags
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassStructure >> installPropertyStringId: index name: aName nick: aNickname blurb: aBlurb default: default flags: flags [
 
 	self 

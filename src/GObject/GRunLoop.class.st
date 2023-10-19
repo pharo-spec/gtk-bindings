@@ -8,8 +8,8 @@ I define the base behaviour of a run loop:
 Abstract class, the user need to refer to children for concrete implementations.
 "
 Class {
-	#name : #GRunLoop,
-	#superclass : #Object,
+	#name : 'GRunLoop',
+	#superclass : 'Object',
 	#traits : 'GObjectTLibrary',
 	#classTraits : 'GObjectTLibrary classTrait',
 	#instVars : [
@@ -20,22 +20,24 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRunLoop class >> current [
 
 	^ GEngine current runLoop
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GRunLoop class >> defer: aBlock [
 
 	^ self current defer: aBlock
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GRunLoop class >> delayedDefer: aBlock [ 
 
 	self defer: [ 
@@ -44,49 +46,49 @@ GRunLoop class >> delayedDefer: aBlock [
 			aBlock value ] fork ]
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GRunLoop class >> forceDefer: aBlock [
 
 	^ self current forceDefer: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRunLoop >> callbackEnter [
 
 	inCallback := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRunLoop >> callbackLeave [
 
 	inCallback := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRunLoop >> callerProcess [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GRunLoop >> checkSession [
 
 	^ session == Smalltalk session
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GRunLoop >> defer: aBlock [
 
 	^ aBlock value
 ]
 
-{ #category : #deferring }
+{ #category : 'deferring' }
 GRunLoop >> forceDefer: aBlock [
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GRunLoop >> initialize [
 	
 	self class initializeSlots: self. 
@@ -94,44 +96,44 @@ GRunLoop >> initialize [
 	super initialize
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GRunLoop >> installRunLoop [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRunLoop >> isDeferring [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GRunLoop >> isInCallback [
 
 	^ inCallback == true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GRunLoop >> isRunning [
 
 	^ running
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GRunLoop >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk."
 
 	^ TFSameThreadRunner uniqueInstance
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GRunLoop >> spawnNewRunLoop [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GRunLoop >> start [
 
 	self isRunning ifTrue: [ ^ self ].
@@ -143,7 +145,7 @@ GRunLoop >> start [
 	self installRunLoop
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GRunLoop >> stop [ 
 
 	self isRunning ifFalse: [ ^ self ].
@@ -151,7 +153,7 @@ GRunLoop >> stop [
 	running := false
 ]
 
-{ #category : #'private - installing' }
+{ #category : 'private - installing' }
 GRunLoop >> uninstallRunLoop [
 
 	self subclassResponsibility

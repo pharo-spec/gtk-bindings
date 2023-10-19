@@ -1,17 +1,19 @@
 Trait {
-	#name : #GObjectTLibrary,
+	#name : 'GObjectTLibrary',
 	#traits : 'TEmpty',
 	#classTraits : 'TEmpty classTrait',
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectTLibrary classSide >> ffiLibraryName [
 	
 	^ GObjectLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectTLibrary >> ffiLibraryName [
 	
 	^ GObjectLibrary

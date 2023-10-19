@@ -4,8 +4,8 @@ I'm a system for reporting errors.
 https://developer.gnome.org/glib/stable/glib-Error-Reporting.html
 "
 Class {
-	#name : #GError,
-	#superclass : #GStructure,
+	#name : 'GError',
+	#superclass : 'GStructure',
 	#classVars : [
 		'OFFSET_CODE',
 		'OFFSET_DOMAIN',
@@ -14,10 +14,12 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Misc'
+	#category : 'GObject-Misc',
+	#package : 'GObject',
+	#tag : 'Misc'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GError class >> fieldsDesc [
 	"self rebuildFieldAccessors" 
 	^ #(
@@ -27,36 +29,36 @@ GError class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GError >> code [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_CODE
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GError >> code: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_CODE put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GError >> domain [
 	"This method was automatically generated"
 	^handle unsignedLongAt: OFFSET_DOMAIN
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GError >> domain: anObject [
 	"This method was automatically generated"
 	handle unsignedLongAt: OFFSET_DOMAIN put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GError >> domainString [
 	^ self gquarkToString: self domain
 ]
 
-{ #category : #freeing }
+{ #category : 'freeing' }
 GError >> free [
 	"Frees a GError and associated resources."
 
@@ -64,7 +66,7 @@ GError >> free [
 	handle := nil.
 ]
 
-{ #category : #freeing }
+{ #category : 'freeing' }
 GError >> g_error_free [
 	"Frees a GError and associated resources.
 	void g_error_free (GError* error)"
@@ -72,35 +74,35 @@ GError >> g_error_free [
 	self ffiCall: #(void g_error_free(self) ) module: GLibLibrary.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GError >> gquarkToString: quark [
 
 	^ self ffiCall: #(const gchar *g_quark_to_string (GQuark quark)) module: GLibLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GError >> isError [
 	^ self isOk not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GError >> isOk [
 	^ self code = 0
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GError >> message [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_MESSAGE) type: ExternalType char asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GError >> message: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_MESSAGE put: anObject getHandle.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GError >> messageString [
 
 	self message isNull ifTrue: [ ^ 'Unknown error.' ].

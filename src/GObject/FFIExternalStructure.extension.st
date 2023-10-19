@@ -1,6 +1,6 @@
-Extension { #name : #FFIExternalStructure }
+Extension { #name : 'FFIExternalStructure' }
 
-{ #category : #'*GObject' }
+{ #category : '*GObject' }
 FFIExternalStructure >> copyInMemory [
 	| bytes size |
 	

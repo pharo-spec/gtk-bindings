@@ -3,19 +3,21 @@ Adds class methods needed to define a class in gtk side.
 The class will contain also properties (accessible also on gtk side).
 "
 Trait {
-	#name : #GTClassWithProperties,
+	#name : 'GTClassWithProperties',
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
-	#category : #'GObject-ClassBuilder'
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GTClassWithProperties classSide >> gClassDefinition [
 
 	^ GObjectClass
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GTClassWithProperties classSide >> gDefine: gClass [
 
 	gClass 
@@ -24,7 +26,7 @@ GTClassWithProperties classSide >> gDefine: gClass [
 			self gInitializeClass: (self gClassDefinition fromHandle: gClassHandle) ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GTClassWithProperties classSide >> gInitializeClass: aDefinition [
 		
 	self gInitializeClassSetProperty: aDefinition gObjectClass.
@@ -32,7 +34,7 @@ GTClassWithProperties classSide >> gInitializeClass: aDefinition [
 	self gInitializeClassInstallPropertiesOn: aDefinition 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GTClassWithProperties classSide >> gInitializeClassGetProperty: aDefinition [
 		
 	aDefinition get_property: (GCallback 
@@ -47,11 +49,11 @@ GTClassWithProperties classSide >> gInitializeClassGetProperty: aDefinition [
 				inValue: (GValue fromHandle: value) ])
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GTClassWithProperties classSide >> gInitializeClassInstallPropertiesOn: aDefinition [ 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GTClassWithProperties classSide >> gInitializeClassSetProperty: aGObjectClass [
 
 	aGObjectClass set_property: (GCallback 
@@ -66,12 +68,12 @@ GTClassWithProperties classSide >> gInitializeClassSetProperty: aGObjectClass [
 				toValue: (GValue fromHandle: value) ])
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassWithProperties >> getProperty: id inValue: gValue [
 	"override this to get a property value"
 ]
 
-{ #category : #'accessing - properties' }
+{ #category : 'accessing - properties' }
 GTClassWithProperties >> setProperty: id toValue: gValue [
 	"override this to set your property value"
 ]

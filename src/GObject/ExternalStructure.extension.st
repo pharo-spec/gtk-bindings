@@ -1,6 +1,6 @@
-Extension { #name : #ExternalStructure }
+Extension { #name : 'ExternalStructure' }
 
-{ #category : #'*GObject' }
+{ #category : '*GObject' }
 ExternalStructure class >> fromPointerBuffer: aBuffer [
 
 	^ self fromHandle: (aBuffer pointerAt: 1)

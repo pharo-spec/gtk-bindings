@@ -1,6 +1,6 @@
 Class {
-	#name : #GObjectLibrary,
-	#superclass : #FFILibrary,
+	#name : 'GObjectLibrary',
+	#superclass : 'FFILibrary',
 	#instVars : [
 		'runner'
 	],
@@ -10,43 +10,45 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary class >> beForDebug [
 	<script>
 	
 	Debug := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary class >> beForProduction [
 	<script>
 
 	Debug := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GObjectLibrary class >> isDebug [ 
 
 	^ Debug ifNil: [ Debug := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary class >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk"
 	
 	^ GEngine ensureEngine naturalRunner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary >> calloutAPIClass [ 
 
 	^ TFCalloutAPI
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GObjectLibrary >> macLibraryName [
 	"In linux and mac this is not really important, because once you load the main 
 	 library, you will find also the symbols on dependent librarues. 
@@ -55,7 +57,7 @@ GObjectLibrary >> macLibraryName [
 	^ GMacLibraryFinder findLibrary: 'libgtk-4.dylib'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary >> runner [
 	
 	^ TFProcessLocalWorker new 
@@ -63,14 +65,14 @@ GObjectLibrary >> runner [
 		yourself
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GObjectLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
 	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so'
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GObjectLibrary >> win32LibraryName [
 
 	^ FFIWindowsLibraryFinder findLibrary: 'libgobject-2.0-0.dll'

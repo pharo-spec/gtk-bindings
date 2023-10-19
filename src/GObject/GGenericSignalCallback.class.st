@@ -3,15 +3,17 @@ I'm a generic gtk signal to connect to.
 In general, you should not use this but one of the other callbacks inheriting from GSignalCallback
 "
 Class {
-	#name : #GGenericSignalCallback,
-	#superclass : #GSignalCallback,
+	#name : 'GGenericSignalCallback',
+	#superclass : 'GSignalCallback',
 	#instVars : [
 		'signalName'
 	],
-	#category : #'GObject-Callbacks'
+	#category : 'GObject-Callbacks',
+	#package : 'GObject',
+	#tag : 'Callbacks'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GGenericSignalCallback class >> signal: aString signature: aSignature block: aBlock [
 
 	^ (self 
@@ -21,13 +23,13 @@ GGenericSignalCallback class >> signal: aString signature: aSignature block: aBl
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GGenericSignalCallback >> signalName [
 
 	^ signalName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GGenericSignalCallback >> signalName: aString [
 
 	signalName := aString

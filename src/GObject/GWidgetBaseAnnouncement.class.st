@@ -2,26 +2,28 @@
 I'm a generic widget signal.
 "
 Class {
-	#name : #GWidgetBaseAnnouncement,
-	#superclass : #GSignalBaseAnnouncement,
+	#name : 'GWidgetBaseAnnouncement',
+	#superclass : 'GSignalBaseAnnouncement',
 	#instVars : [
 		'widget'
 	],
-	#category : #'GObject-Signal'
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GWidgetBaseAnnouncement class >> emitWidget: aWidget [
 
 	^ (self newWidget: aWidget) emit
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GWidgetBaseAnnouncement class >> newWidget: aWidget [
 	^ self new widget: aWidget
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GWidgetBaseAnnouncement >> printOneLineContentsOn: stream [
 	
 	stream
@@ -29,12 +31,12 @@ GWidgetBaseAnnouncement >> printOneLineContentsOn: stream [
 		<< ' ' << self widget getHandle printString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GWidgetBaseAnnouncement >> widget [
 	^ widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GWidgetBaseAnnouncement >> widget: anObject [
 	widget := anObject
 ]
