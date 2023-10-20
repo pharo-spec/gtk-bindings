@@ -4,35 +4,37 @@ The connection flags are used to specify the behaviour of a signal's connection.
 https://developer.gnome.org/gobject/unstable/gobject-Signals.html#GConnectFlags
 "
 Class {
-	#name : #GConnectFlags,
-	#superclass : #GEnumeration,
+	#name : 'GConnectFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_CONNECT_AFTER',
 		'G_CONNECT_NONE',
 		'G_CONNECT_SWAPPED'
 	],
-	#category : #'GObject-Misc'
+	#category : 'GObject-Misc',
+	#package : 'GObject',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GConnectFlags class >> G_CONNECT_AFTER [
 	"This method was automatically generated"
 	^ G_CONNECT_AFTER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GConnectFlags class >> G_CONNECT_NONE [
 	"This method was automatically generated"
 	^ G_CONNECT_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GConnectFlags class >> G_CONNECT_SWAPPED [
 	"This method was automatically generated"
 	^ G_CONNECT_SWAPPED
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GConnectFlags class >> enumDecl [
 	^ { 
 	#G_CONNECT_NONE. 		0.

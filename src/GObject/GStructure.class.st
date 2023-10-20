@@ -1,20 +1,22 @@
 Class {
-	#name : #GStructure,
-	#superclass : #FFIExternalStructure,
+	#name : 'GStructure',
+	#superclass : 'FFIExternalStructure',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GStructure >> autoRelease [
 
 	self isExternalAddress ifFalse: [ ^ self ].
 	^ GEngine current resourceManager addResource: self
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GStructure >> copyIntoImage [
 	| size bytes |
 
@@ -24,7 +26,7 @@ GStructure >> copyIntoImage [
 	^ self copy setHandle: bytes
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GStructure >> resourceData [
 
 	^ self getHandle

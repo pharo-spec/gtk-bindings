@@ -1,10 +1,12 @@
 Class {
-	#name : #GEnumeration,
-	#superclass : #FFIExternalEnumeration,
-	#category : #'GObject-Base'
+	#name : 'GEnumeration',
+	#superclass : 'FFIExternalEnumeration',
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GEnumeration class >> newValue: anInteger [
 	"Used for aritmetic"
 
@@ -14,31 +16,31 @@ GEnumeration class >> newValue: anInteger [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEnumeration class >> systemIconName [
 
 	^ #magnitude
 ]
 
-{ #category : #'logical operations' }
+{ #category : 'logical operations' }
 GEnumeration >> & other [
 
 	^ self class newValue: self value & other value
 ]
 
-{ #category : #arithmetic }
+{ #category : 'arithmetic' }
 GEnumeration >> + other [
 
 	^ self class newValue: (self value + other value)
 ]
 
-{ #category : #arithmetic }
+{ #category : 'arithmetic' }
 GEnumeration >> - other [
 
 	^ self class newValue: (self value - other value)
 ]
 
-{ #category : #'logical operations' }
+{ #category : 'logical operations' }
 GEnumeration >> | other [
 
 	^ self class newValue: self value | other value

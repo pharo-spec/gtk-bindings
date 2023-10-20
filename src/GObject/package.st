@@ -1,1 +1,1 @@
-Package { #name : #GObject }
+Package { #name : 'GObject' }

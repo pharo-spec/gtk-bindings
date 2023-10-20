@@ -2,16 +2,18 @@
 I signal a callback has been disconnected from its owner widget
 "
 Class {
-	#name : #GDisconnectCallbackAnnouncement,
-	#superclass : #GSignalBaseAnnouncement,
+	#name : 'GDisconnectCallbackAnnouncement',
+	#superclass : 'GSignalBaseAnnouncement',
 	#instVars : [
 		'callback',
 		'number'
 	],
-	#category : #'GObject-Signal'
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GDisconnectCallbackAnnouncement class >> emitCallback: aCallback number: aNumber [ 
 
 	^ (self 
@@ -20,7 +22,7 @@ GDisconnectCallbackAnnouncement class >> emitCallback: aCallback number: aNumber
 		emit
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GDisconnectCallbackAnnouncement class >> newCallback: aCallback number: aNumber [ 
 
 	^ self new 
@@ -29,27 +31,27 @@ GDisconnectCallbackAnnouncement class >> newCallback: aCallback number: aNumber 
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDisconnectCallbackAnnouncement >> callback [
 	^ callback
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDisconnectCallbackAnnouncement >> callback: anObject [
 	callback := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDisconnectCallbackAnnouncement >> number [
 	^ number
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GDisconnectCallbackAnnouncement >> number: anObject [
 	number := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GDisconnectCallbackAnnouncement >> printOneLineContentsOn: stream [
 	
 	stream

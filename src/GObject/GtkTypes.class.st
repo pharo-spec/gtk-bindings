@@ -2,8 +2,8 @@
 I contain gtk types.
 "
 Class {
-	#name : #GtkTypes,
-	#superclass : #SharedPool,
+	#name : 'GtkTypes',
+	#superclass : 'SharedPool',
 	#classVars : [
 		'GErrorHolder',
 		'GPid',
@@ -29,10 +29,12 @@ Class {
 		'gulong',
 		'gunichar'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkTypes class >> initialize [
 
 	gchar 	:= #char.

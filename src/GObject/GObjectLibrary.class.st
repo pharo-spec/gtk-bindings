@@ -1,32 +1,34 @@
 Class {
-	#name : #GObjectLibrary,
-	#superclass : #FFILibrary,
+	#name : 'GObjectLibrary',
+	#superclass : 'FFILibrary',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GObjectLibrary class >> isDebug [
 	
 	^ GMacLibraryFinder isDebug
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary class >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk"
 	
 	^ GEngine ensureEngine naturalRunner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary >> calloutAPIClass [ 
 
 	^ TFCalloutAPI
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GObjectLibrary >> macLibraryName [
 	"In linux and mac this is not really important, because once you load the main 
 	 library, you will find also the symbols on dependent librarues. 
@@ -35,20 +37,20 @@ GObjectLibrary >> macLibraryName [
 	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GObjectLibrary >> runner [
 	
 	^ self class naturalRunner
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GObjectLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
 	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgobject-2.0.so' 'libgobject-2.0.so.0')
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GObjectLibrary >> win32LibraryName [
 
 	^ FFIWindowsLibraryFinder findLibrary: 'libgobject-2.0-0.dll'

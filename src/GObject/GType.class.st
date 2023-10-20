@@ -4,8 +4,8 @@ Definition of basic tyles from glib
 https://github.com/GNOME/glib/blob/cbfa776fc149fcc3e351fbdf68c1a299519f4905/gobject/gtype.h
 "
 Class {
-	#name : #GType,
-	#superclass : #SharedPool,
+	#name : 'GType',
+	#superclass : 'SharedPool',
 	#classVars : [
 		'G_TYPE_BOOLEAN',
 		'G_TYPE_BOXED',
@@ -34,131 +34,133 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_BOOLEAN [
 	^ G_TYPE_BOOLEAN
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_BOXED [
 	^ G_TYPE_BOXED
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_CHAR [
 	^ G_TYPE_CHAR
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_DOUBLE [
 	^ G_TYPE_DOUBLE
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_ENUM [
 	^ G_TYPE_ENUM
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_FLAGS [
 	^ G_TYPE_FLAGS
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_FLOAT [
 	^ G_TYPE_FLOAT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_FUNDAMENTAL_SHIFT [
 	^ G_TYPE_FUNDAMENTAL_SHIFT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_INT [
 	^ G_TYPE_INT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_INT64 [
 	^ G_TYPE_INT64
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_INTERFACE [
 	^ G_TYPE_INTERFACE
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_INVALID [
 	^ G_TYPE_INVALID
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_LONG [
 	^ G_TYPE_LONG
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_NONE [
 	^ G_TYPE_NONE
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_OBJECT [
 	^ G_TYPE_OBJECT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_PARAM [
 	^ G_TYPE_PARAM
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_POINTER [
 	^ G_TYPE_POINTER
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_STRING [
 	^ G_TYPE_STRING
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_UCHAR [
 	^ G_TYPE_UCHAR
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_UINT [
 	^ G_TYPE_UINT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_UINT64 [
 	^ G_TYPE_UINT64
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_ULONG [
 	^ G_TYPE_ULONG
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GType class >> G_TYPE_VARIANT [
 	^ G_TYPE_VARIANT
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GType class >> ffiLibrary [
 
 	^ GObjectLibrary
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GType class >> initialize [
 
 	"self initialize"
@@ -317,7 +319,7 @@ GType class >> initialize [
 	G_TYPE_VARIANT := self makeFundamentalGType: 21.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GType class >> makeFundamentalGType: aValue [
 
 	"/**

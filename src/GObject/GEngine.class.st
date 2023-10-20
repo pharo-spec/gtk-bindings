@@ -1,6 +1,6 @@
 Class {
-	#name : #GEngine,
-	#superclass : #Object,
+	#name : 'GEngine',
+	#superclass : 'Object',
 	#instVars : [
 		'runLoop',
 		'windowRegistry',
@@ -12,21 +12,23 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GEngine class >> availableEngineClass [
 
 	^ GEngine allSubclasses detect: [ :each | each isAvailable ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine class >> current [
 	^ Current
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine class >> ensureEngine [
 
 	self isRunning ifTrue: [ ^ self current ].
@@ -34,7 +36,7 @@ GEngine class >> ensureEngine [
 	^ self availableEngineClass new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine class >> ensureRunning [
 
 	"already running"
@@ -45,20 +47,20 @@ GEngine class >> ensureRunning [
 	^ self ensureEngine run
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GEngine class >> isAvailable [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GEngine class >> isRunning [ 
 	
 	^ self current notNil 
 		and: [ self current isRunning ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GEngine class >> reset [
 	<script>
 
@@ -69,7 +71,7 @@ GEngine class >> reset [
 	GDestroyAnnouncement reset.
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GEngine class >> shutDown: quitting [
 	"ensure Gtk3 is stop when shutting down"
 
@@ -79,7 +81,7 @@ GEngine class >> shutDown: quitting [
 	 they will be closed/will crash/will put you in a world of suffering."
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GEngine class >> startUp: resuming [
 	
 	resuming ifTrue: [ 
@@ -91,13 +93,13 @@ GEngine class >> startUp: resuming [
 	Current startUp: resuming
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GEngine >> ensureRunLoop [
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GEngine >> initialize [
 
 	super initialize.
@@ -106,25 +108,25 @@ GEngine >> initialize [
 	runLoop := self ensureRunLoop
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GEngine >> isRunning [ 
 
 	^ runLoop isRunning
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GEngine >> isWindowRegistered: aWindow [ 
 
 	^ windowRegistry includes: aWindow
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine >> naturalRunner [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #registry }
+{ #category : 'registry' }
 GEngine >> registerShutdown: anObject [
 	"Some objects need special shutdown action *before* going out. 
 	 (This is the case, for example, of the GtkFormView used in OSGtkFormRenderer).
@@ -135,20 +137,20 @@ GEngine >> registerShutdown: anObject [
 	shutdownRegistry add: anObject
 ]
 
-{ #category : #registry }
+{ #category : 'registry' }
 GEngine >> registerWindow: aWindow [
 
 	windowRegistry add: aWindow.
 	GWindowRegisterAnnouncement emitWidget: aWindow	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine >> resourceManager [
 
 	^ GExternalResourceManager uniqueInstance
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GEngine >> run [
 	Current ifNotNil: [ Current stop ].
 	Current := nil.
@@ -157,13 +159,13 @@ GEngine >> run [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine >> runLoop [
 
 	^ runLoop
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GEngine >> shutDown: quitting [
 	
 	self isRunning ifFalse: [ ^ self ].
@@ -176,13 +178,13 @@ GEngine >> shutDown: quitting [
 	runLoop stop
 ]
 
-{ #category : #'private running' }
+{ #category : 'private running' }
 GEngine >> start [ 
 
 	self subclassResponsibility
 ]
 
-{ #category : #'system startup' }
+{ #category : 'system startup' }
 GEngine >> startUp: resuming [
 
 	resuming ifTrue: [ 
@@ -191,19 +193,19 @@ GEngine >> startUp: resuming [
 	runLoop start
 ]
 
-{ #category : #'private running' }
+{ #category : 'private running' }
 GEngine >> stop [
 	
 	self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GEngine >> suspendRunLoopWhile: aBlock [
 	self stop.
 	^ aBlock ensure: [ self start ]
 ]
 
-{ #category : #registry }
+{ #category : 'registry' }
 GEngine >> unregisterWindow: aWindow [
 
 	GWindowUnregisterAnnouncement emitWidget: aWindow.
@@ -211,10 +213,11 @@ GEngine >> unregisterWindow: aWindow [
 		remove: aWindow 
 		ifAbsent: [ ].
 		
+	"prevent closed windows leaking instances."	
 	windowRegistry := windowRegistry reject: [ :each | each getHandle isNull ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GEngine >> windowByHandle: aHandle [ 
 	| numberHandle |
 

@@ -1,34 +1,36 @@
 Class {
-	#name : #GAnnouncementFilter,
-	#superclass : #Object,
-	#category : #'GObject-Signal'
+	#name : 'GAnnouncementFilter',
+	#superclass : 'Object',
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 GAnnouncementFilter >> install [
 
 	GSignalBaseAnnouncement activeFilter: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementFilter >> isFiltered: aSignal [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementFilter >> isFilteredClass: aSignalClass [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementFilter >> isTracing: aSignal [
 
 	^ (self isFiltered: aSignal) not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementFilter >> isTracingFilter [
 	
 	^ false

@@ -1,10 +1,12 @@
 Class {
-	#name : #GExternalResourceManager,
-	#superclass : #FFIExternalResourceManager,
-	#category : #'GObject-Base'
+	#name : 'GExternalResourceManager',
+	#superclass : 'FFIExternalResourceManager',
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GExternalResourceManager >> addResource: anObject data: resourceData [
 	
 	(self includesObject: anObject) ifTrue: [ ^ self ].
@@ -13,7 +15,7 @@ GExternalResourceManager >> addResource: anObject data: resourceData [
 		data: resourceData
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GExternalResourceManager >> includesObject: anObject [
 
 	^ registry includes: anObject

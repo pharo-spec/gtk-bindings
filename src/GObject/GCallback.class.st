@@ -5,23 +5,25 @@ It can also mark its conclusion status (suceed or failure)
 
 "
 Class {
-	#name : #GCallback,
-	#superclass : #FFICallback,
+	#name : 'GCallback',
+	#superclass : 'FFICallback',
 	#traits : 'GObjectTLibrary',
 	#classTraits : 'GObjectTLibrary classTrait',
 	#pools : [
 		'GtkTypes'
 	],
-	#category : #'GObject-Callbacks'
+	#category : 'GObject-Callbacks',
+	#package : 'GObject',
+	#tag : 'Callbacks'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GCallback class >> null [
 
 	^ self new
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GCallback >> basicValueWithArguments: args [
 	"This method is using a side effect of ensure (returning from it) in PURPOSE because I need to be 
 	 sure an answer is provided and the callback is returned when a debug session is aborted (the 
@@ -40,7 +42,7 @@ GCallback >> basicValueWithArguments: args [
 		finished ifFalse: [  self beFailed ] ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GCallback >> valueWithArguments: args [
 
 	GRunLoop current callbackEnter.	

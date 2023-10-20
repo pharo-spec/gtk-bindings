@@ -4,42 +4,44 @@ https://docs.gtk.org/gobject/flags.ParamFlags.html
 Through the GParamFlags flag values, certain aspects of parameters can be configured.
 "
 Class {
-	#name : #GParamFlags,
-	#superclass : #GEnumeration,
+	#name : 'GParamFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_PARAM_EXPLICIT_NOTIFY',
 		'G_PARAM_READABLE',
 		'G_PARAM_READWRITE',
 		'G_PARAM_WRITABLE'
 	],
-	#category : #'GObject-ClassBuilder'
+	#category : 'GObject-ClassBuilder',
+	#package : 'GObject',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GParamFlags class >> G_PARAM_EXPLICIT_NOTIFY [
 	"This method was automatically generated"
 	^ G_PARAM_EXPLICIT_NOTIFY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GParamFlags class >> G_PARAM_READABLE [
 	"This method was automatically generated"
 	^ G_PARAM_READABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GParamFlags class >> G_PARAM_READWRITE [
 	"This method was automatically generated"
 	^ G_PARAM_READWRITE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GParamFlags class >> G_PARAM_WRITABLE [
 	"This method was automatically generated"
 	^ G_PARAM_WRITABLE
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GParamFlags class >> enumDecl [
 	"
 	self initializeEnumeration.

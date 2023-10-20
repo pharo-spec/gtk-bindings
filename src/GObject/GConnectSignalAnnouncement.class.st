@@ -2,15 +2,17 @@
 I signal a widget has connect to a gtk signal.
 "
 Class {
-	#name : #GConnectSignalAnnouncement,
-	#superclass : #GWidgetBaseAnnouncement,
+	#name : 'GConnectSignalAnnouncement',
+	#superclass : 'GWidgetBaseAnnouncement',
 	#instVars : [
 		'signal'
 	],
-	#category : #'GObject-Signal'
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GConnectSignalAnnouncement class >> emitWidget: aWidget signal: aName [
 
 	^ (self 
@@ -19,7 +21,7 @@ GConnectSignalAnnouncement class >> emitWidget: aWidget signal: aName [
 		emit
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GConnectSignalAnnouncement class >> newWidget: aWidget signal: aName [
 
 	^ (self newWidget: aWidget)
@@ -27,19 +29,19 @@ GConnectSignalAnnouncement class >> newWidget: aWidget signal: aName [
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GConnectSignalAnnouncement >> printOneLineContentsOn: stream [
 	
 	super printOneLineContentsOn: stream.
 	stream << ' ' << self signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GConnectSignalAnnouncement >> signal [
 	^ signal
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GConnectSignalAnnouncement >> signal: anObject [
 	signal := anObject
 ]

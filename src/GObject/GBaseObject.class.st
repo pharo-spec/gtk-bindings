@@ -3,18 +3,20 @@ I'm a base object for the Gtk3 hierarchy.
 Since not all Gtk3 references are actually ""Gtk3 objects"", not all can be descendents of GObject (my main child), but they need to extend me directly.
 "
 Class {
-	#name : #GBaseObject,
-	#superclass : #FFIOpaqueObject,
+	#name : 'GBaseObject',
+	#superclass : 'FFIOpaqueObject',
 	#traits : 'GObjectTLibrary',
 	#classTraits : 'GObjectTLibrary classTrait',
 	#pools : [
 		'GType',
 		'GtkTypes'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBaseObject class >> ffiLibrary [
 	| theClass theMethod |
 	
@@ -25,7 +27,7 @@ GBaseObject class >> ffiLibrary [
 	^  theClass ffiLibraryName asFFILibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBaseObject class >> fromHandleUnreferenced: aHandle [ 
 	"Creates an instance ensuring this reference does not enter the autoRelease cycle. 
 	 This will prevent an undesirable GC. 
@@ -36,38 +38,38 @@ GBaseObject class >> fromHandleUnreferenced: aHandle [
 	^ self basicNew setHandle: aHandle
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GBaseObject class >> isValidHandle: handle [
 
 	^ handle notNil and: [ handle isNull not ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBaseObject class >> null [
 
 	^ self fromHandle: ExternalAddress null
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GBaseObject >> = other [
 
 	^ self species = other species 
 		and: [ self getHandle = other getHandle ]
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GBaseObject >> autoRelease [
 
 	self engine resourceManager addResource: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBaseObject >> engine [
 
 	^ GEngine current
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBaseObject >> ffiLibrary [
 	| theClass theMethod |
 	
@@ -88,21 +90,21 @@ GBaseObject >> ffiLibrary [
 	^ theClass ffiLibraryName asFFILibrary
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GBaseObject >> hash [
 
 	^ self species hash
 		bitXor: self getHandle hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GBaseObject >> initialize [
 	"cancel chain because superclass attempts to setHandle: 
 	 (which is incorrect, probably I should patch UFFI)"
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GBaseObject >> isValidHandle [ 
 
 	^ self class isValidHandle: self getHandle

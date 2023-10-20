@@ -1,13 +1,15 @@
 Class {
-	#name : #GAnnouncementCondition,
-	#superclass : #GAnnouncementFilter,
+	#name : 'GAnnouncementCondition',
+	#superclass : 'GAnnouncementFilter',
 	#instVars : [
 		'conditionBlock'
 	],
-	#category : #'GObject-Signal'
+	#category : 'GObject-Signal',
+	#package : 'GObject',
+	#tag : 'Signal'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GAnnouncementCondition class >> installWhen: aCondition [
 
 	^ self new 
@@ -15,32 +17,32 @@ GAnnouncementCondition class >> installWhen: aCondition [
 		install
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GAnnouncementCondition class >> newWhen: aCondition [
 
 	^ self new when: aCondition
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GAnnouncementCondition >> initialize [
 
 	super initialize.
 	conditionBlock := [ :aSignal | true ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementCondition >> isFiltered: aSignal [
 
 	^ (conditionBlock value: aSignal) not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GAnnouncementCondition >> isFilteredClass: aSignalClass [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GAnnouncementCondition >> when: aBlock [ 
 
 	conditionBlock := aBlock

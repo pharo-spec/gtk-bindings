@@ -8,41 +8,43 @@ In practice, I will chain all callbacks executions.
 INPORTANT: In case of those callbacks that returns a value, the resulting value will be the last chained execution.
 "
 Class {
-	#name : #GSignalCallback,
-	#superclass : #GCallback,
+	#name : 'GSignalCallback',
+	#superclass : 'GCallback',
 	#instVars : [
 		'registerId',
 		'linkedCallbacks'
 	],
-	#category : #'GObject-Callbacks'
+	#category : 'GObject-Callbacks',
+	#package : 'GObject',
+	#tag : 'Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GSignalCallback class >> signalName [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GSignalCallback >> basicValueWithArguments: args [
 
 	GWidgetSignaledAnnouncement emitSignal: self.
 	^ super basicValueWithArguments: args
 ]
 
-{ #category : #connecting }
+{ #category : 'connecting' }
 GSignalCallback >> connectTo: aWidget [
 
 	aWidget connectSignal: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GSignalCallback >> hasLinkedCallbacks [
 
 	^ linkedCallbacks notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSignalCallback >> link: aCallback [
 
 	linkedCallbacks := linkedCallbacks
@@ -50,37 +52,37 @@ GSignalCallback >> link: aCallback [
 		ifNil: [ { aCallback } ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GSignalCallback >> printOn: stream [ 
 
 	super printOn: stream.
 	stream << '(' << self signalName << ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSignalCallback >> registerId [
 	^ registerId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSignalCallback >> registerId: anObject [
 	registerId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GSignalCallback >> signalName [
 
 	^ self class signalName
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GSignalCallback >> tfPrintString [
 
 	^ String streamContents: [ :stream |
 		stream << self signalName << ':' << super tfPrintString ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GSignalCallback >> valueWithArguments: args [
 	"chain linked callbacks, answer last result (ideally, there are just one callback, 
 	 but sometimes...)"

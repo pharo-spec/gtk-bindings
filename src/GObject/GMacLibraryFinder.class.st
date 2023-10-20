@@ -1,40 +1,42 @@
 Class {
-	#name : #GMacLibraryFinder,
-	#superclass : #FFIMacLibraryFinder,
+	#name : 'GMacLibraryFinder',
+	#superclass : 'FFIMacLibraryFinder',
 	#classVars : [
 		'Debug'
 	],
-	#category : #'GObject-Base'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMacLibraryFinder class >> beForDebug [
 	<script>
 	
 	Debug := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMacLibraryFinder class >> beForProduction [
 	<script>
 
 	Debug := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GMacLibraryFinder class >> isDebug [ 
 
 	^ Debug ifNil: [ Debug := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMacLibraryFinder >> basePaths [
 	
 	^ { self gtkBasePath }, super basePaths
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GMacLibraryFinder >> gtkBasePath [
 
 	^  self isDebug 
@@ -42,14 +44,14 @@ GMacLibraryFinder >> gtkBasePath [
 		ifFalse: [ (FileLocator vmBinary parent parent / 'Resources' / 'gtk3' / 'lib') fullName ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GMacLibraryFinder >> initialize [
 
 	super initialize.
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GMacLibraryFinder >> isDebug [
 
 	^  self class isDebug
