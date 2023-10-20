@@ -209,7 +209,9 @@ GEngine >> unregisterWindow: aWindow [
 	GWindowUnregisterAnnouncement emitWidget: aWindow.
 	windowRegistry 
 		remove: aWindow 
-		ifAbsent: [ ]
+		ifAbsent: [ ].
+		
+	windowRegistry := windowRegistry reject: [ :each | each getHandle isNull ].
 ]
 
 { #category : #accessing }
