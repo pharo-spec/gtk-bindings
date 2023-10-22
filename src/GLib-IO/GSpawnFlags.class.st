@@ -4,8 +4,8 @@ enum GSpawnFlags
 Flags passed to g_spawn_sync(), g_spawn_async() and g_spawn_async_with_pipes().
 "
 Class {
-	#name : #GSpawnFlags,
-	#superclass : #GEnumeration,
+	#name : 'GSpawnFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_SPAWN_CHILD_INHERITS_STDERR',
 		'G_SPAWN_CHILD_INHERITS_STDIN',
@@ -21,88 +21,90 @@ Class {
 		'G_SPAWN_STDIN_FROM_DEV_NULL',
 		'G_SPAWN_STDOUT_TO_DEV_NULL'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_CHILD_INHERITS_STDERR [
 	"This method was automatically generated"
 	^ G_SPAWN_CHILD_INHERITS_STDERR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_CHILD_INHERITS_STDIN [
 	"This method was automatically generated"
 	^ G_SPAWN_CHILD_INHERITS_STDIN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_CHILD_INHERITS_STDOUT [
 	"This method was automatically generated"
 	^ G_SPAWN_CHILD_INHERITS_STDOUT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_CLOEXEC_PIPES [
 	"This method was automatically generated"
 	^ G_SPAWN_CLOEXEC_PIPES
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_DEFAULT [
 	"This method was automatically generated"
 	^ G_SPAWN_DEFAULT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_DO_NOT_REAP_CHILD [
 	"This method was automatically generated"
 	^ G_SPAWN_DO_NOT_REAP_CHILD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_FILE_AND_ARGV_ZERO [
 	"This method was automatically generated"
 	^ G_SPAWN_FILE_AND_ARGV_ZERO
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_LEAVE_DESCRIPTORS_OPEN [
 	"This method was automatically generated"
 	^ G_SPAWN_LEAVE_DESCRIPTORS_OPEN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_SEARCH_PATH [
 	"This method was automatically generated"
 	^ G_SPAWN_SEARCH_PATH
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_SEARCH_PATH_FROM_ENVP [
 	"This method was automatically generated"
 	^ G_SPAWN_SEARCH_PATH_FROM_ENVP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_STDERR_TO_DEV_NULL [
 	"This method was automatically generated"
 	^ G_SPAWN_STDERR_TO_DEV_NULL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_STDIN_FROM_DEV_NULL [
 	"This method was automatically generated"
 	^ G_SPAWN_STDIN_FROM_DEV_NULL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnFlags class >> G_SPAWN_STDOUT_TO_DEV_NULL [
 	"This method was automatically generated"
 	^ G_SPAWN_STDOUT_TO_DEV_NULL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GSpawnFlags class >> enumDecl [
 	"
 	self initializeEnumeration.

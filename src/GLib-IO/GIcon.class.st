@@ -1,7 +1,9 @@
 Class {
-	#name : #GIcon,
-	#superclass : #GObject,
+	#name : 'GIcon',
+	#superclass : 'GObject',
 	#traits : 'GLibIOTLibrary',
 	#classTraits : 'GLibIOTLibrary classTrait',
-	#category : #'GLib-IO-Icon'
+	#category : 'GLib-IO-Icon',
+	#package : 'GLib-IO',
+	#tag : 'Icon'
 }

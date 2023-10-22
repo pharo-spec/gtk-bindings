@@ -2,14 +2,16 @@
 https://docs.gtk.org/gio/class.Task.html
 "
 Class {
-	#name : #GTask,
-	#superclass : #GObject,
+	#name : 'GTask',
+	#superclass : 'GObject',
 	#traits : 'GLibIOTLibrary',
 	#classTraits : 'GLibIOTLibrary classTrait',
-	#category : #'GLib-IO-Task'
+	#category : 'GLib-IO-Task',
+	#package : 'GLib-IO',
+	#tag : 'Task'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GTask class >> gNew: source_object cancellable: cancellable readyCallback: callback data: callback_data [ 
 
 	self ffiCall: #(GTask *g_task_new (
@@ -19,7 +21,7 @@ GTask class >> gNew: source_object cancellable: cancellable readyCallback: callb
   		gpointer callback_data))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GTask class >> gNew: source_object cancellable: cancellable readyCallbackHandle: callback data: callback_data [ 
 
 	self ffiCall: #(GTask *g_task_new (
@@ -29,7 +31,7 @@ GTask class >> gNew: source_object cancellable: cancellable readyCallbackHandle:
   		gpointer callback_data))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GTask class >> gNew: source_object cancellableHandle: cancellable readyCallbackHandle: callback data: callback_data [ 
 
 	self ffiCall: #(GTask *g_task_new (
@@ -39,7 +41,7 @@ GTask class >> gNew: source_object cancellableHandle: cancellable readyCallbackH
   		gpointer callback_data))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GTask class >> newSource: source_object [
 
 	^ self 
@@ -49,7 +51,7 @@ GTask class >> newSource: source_object [
 		data: ExternalAddress null
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GTask class >> newSource: source_object cancellable: cancellable readyCallback: callback data: callback_data [ 
 
 	^ (self 
@@ -60,7 +62,7 @@ GTask class >> newSource: source_object cancellable: cancellable readyCallback: 
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GTask class >> newSource: source_object cancellable: cancellable readyCallbackHandle: callback data: callback_data [ 
 
 	^ (self 
@@ -71,7 +73,7 @@ GTask class >> newSource: source_object cancellable: cancellable readyCallbackHa
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GTask class >> newSource: source_object cancellableHandle: cancellable readyCallbackHandle: callback data: callback_data [ 
 
 	^ (self 
@@ -82,19 +84,19 @@ GTask class >> newSource: source_object cancellableHandle: cancellable readyCall
 		initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTask >> propagatePointer: error [
 
 	^ self ffiCall: #(gpointer g_task_propagate_pointer (self, "GError**"void *error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTask >> returnBoolean: result [
 
 	self ffiCall: #(void g_task_return_boolean (self, gboolean result))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTask >> returnPointer: result [
 
 	self ffiCall: #(void g_task_return_pointer (self, gpointer result, NULL))

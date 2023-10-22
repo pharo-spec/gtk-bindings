@@ -2,8 +2,8 @@
 An object to wrap the output of a GSpawn
 "
 Class {
-	#name : #GIOProcess,
-	#superclass : #Object,
+	#name : 'GIOProcess',
+	#superclass : 'Object',
 	#traits : 'GLibIOTLibrary',
 	#classTraits : 'GLibIOTLibrary classTrait',
 	#instVars : [
@@ -14,10 +14,12 @@ Class {
 		'GSpawnFlags',
 		'GtkTypes'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data [
 	| gPidOut error result |
 
@@ -42,7 +44,7 @@ GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: 
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data childPidOut: child_pid_out error: error [
 	"void (*GSpawnChildSetupFunc) (gpointer user_data)"
 
@@ -57,7 +59,7 @@ GIOProcess class >> gSpawnAsync: working_directory argv: argv envp: envp flags: 
 		"GError **"GErrorHolder error))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOProcess class >> gSpawnAsync: working_directory command: command arguments: anArray flags: flags childSetup: child_setup data: user_data [
 	| argv envp |
 
@@ -75,13 +77,13 @@ GIOProcess class >> gSpawnAsync: working_directory command: command arguments: a
 			argv freeArrayOfStrings ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOProcess class >> spawn: command [
 
 	^ self spawn: command flags: G_SPAWN_DEFAULT
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOProcess class >> spawn: command arguments: anArray [
 
 	^ self 
@@ -90,7 +92,7 @@ GIOProcess class >> spawn: command arguments: anArray [
 		flags: G_SPAWN_DEFAULT
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOProcess class >> spawn: command arguments: anArray flags: flags [
 
 	^ self 
@@ -102,25 +104,25 @@ GIOProcess class >> spawn: command arguments: anArray flags: flags [
 		data: ExternalAddress null
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOProcess class >> spawn: command flags: flags [
 
 	^ self spawn: command arguments: #() flags: flags
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOProcess >> close [
 
 	self gSpawnClose
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOProcess >> forceTerminate [
 
 	LibC system: ('kill -9 {1}' format: { self pid })
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOProcess >> gChildWatchAdd: function [
 
 	^ self ffiCall: #(guint 
@@ -131,13 +133,13 @@ GIOProcess >> gChildWatchAdd: function [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOProcess >> gSpawnClose [
 
 	^ self ffiCall: #(void g_spawn_close_pid (GPid pid))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIOProcess >> initializePid: pidNum [
 
 	self initialize.
@@ -145,13 +147,13 @@ GIOProcess >> initializePid: pidNum [
 	"self watch: [ :status | self close ]"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOProcess >> pid [
 
 	^ pid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOProcess >> watch: aBlock [ 
 	"If the process is spawned with other value than default, you may need to watch it to 
 	 properly close it (see g_spawn documentation and examples)."

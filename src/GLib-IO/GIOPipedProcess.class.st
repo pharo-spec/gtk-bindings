@@ -1,6 +1,6 @@
 Class {
-	#name : #GIOPipedProcess,
-	#superclass : #GIOProcess,
+	#name : 'GIOPipedProcess',
+	#superclass : 'GIOProcess',
 	#instVars : [
 		'errChannel',
 		'inChannel',
@@ -9,10 +9,12 @@ Class {
 		'inFd',
 		'outFd'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data [
 	| gPidOut stdinFdOut stdoutFdOut stderrFdOut error result |
 	
@@ -45,7 +47,7 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data childPidOut: child_pid_out stdinPipeOut: stdin_pipe_out stdoutPipeOut: stdout_pipe_out stderrPipeOut: stderr_pipe_out error: error [
 	"void (*GSpawnChildSetupFunc) (gpointer user_data)"
 
@@ -63,7 +65,7 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
 		"GError **"GErrorHolder error))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory command: command arguments: anArray flags: flags childSetup: child_setup data: user_data [
 	| argv envp |
 
@@ -81,7 +83,7 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory command: comman
 			argv freeArrayOfStrings ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOPipedProcess class >> spawn: command arguments: anArray flags: flags [
 
 	^ self 
@@ -93,7 +95,7 @@ GIOPipedProcess class >> spawn: command arguments: anArray flags: flags [
 		data: ExternalAddress null
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 GIOPipedProcess >> close [
 
 	super close.
@@ -102,19 +104,19 @@ GIOPipedProcess >> close [
 	errChannel ifNotNil: [ errChannel shutDown: true ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOPipedProcess >> errChannel [
 
 	^ errChannel ifNil: [ errChannel := self newChannel: errFd ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOPipedProcess >> inChannel [
 
 	^ inChannel ifNil: [ inChannel := self newChannel: inFd ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIOPipedProcess >> initializePid: pidNum in: stdinFd out: stdoutFd err: stderrFd [
 
 	self initializePid: pidNum.
@@ -125,13 +127,13 @@ GIOPipedProcess >> initializePid: pidNum in: stdinFd out: stdoutFd err: stderrFd
 	"self watch: [ :status | self close ]"
 ]
 
-{ #category : #'private - factory' }
+{ #category : 'private - factory' }
 GIOPipedProcess >> newChannel: fd [
 
 	^ GIOChannel newFromFileDescriptor: fd
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOPipedProcess >> outChannel [
 
 	^ outChannel ifNil: [ outChannel := self newChannel: outFd ]

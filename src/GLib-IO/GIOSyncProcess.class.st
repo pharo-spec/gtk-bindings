@@ -3,8 +3,8 @@ A wrapper to spawn synchronously subprocesses with GLib (waits for the child to 
 See https://docs.gtk.org/glib/func.spawn_sync.html
 "
 Class {
-	#name : #GIOSyncProcess,
-	#superclass : #Object,
+	#name : 'GIOSyncProcess',
+	#superclass : 'Object',
 	#traits : 'GLibIOTLibrary',
 	#classTraits : 'GLibIOTLibrary classTrait',
 	#instVars : [
@@ -21,10 +21,12 @@ Class {
 		'GSpawnFlags',
 		'GtkTypes'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOSyncProcess class >> spawn: command arguments: anArray workingDirectory: workingdirectory flags: flags processInfo: processInfo [
 
 	^ self new
@@ -37,7 +39,7 @@ GIOSyncProcess class >> spawn: command arguments: anArray workingDirectory: work
 		processInfo: processInfo
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOSyncProcess >> basicgSpawnSync: working_directory command: command arguments: anArray flags: flags childSetup: child_setup data: user_data processInfo: processInfo [
 
 	arguments := ExternalAddress arrayOfStringsFrom: { command } , anArray.
@@ -62,7 +64,7 @@ GIOSyncProcess >> basicgSpawnSync: working_directory command: command arguments:
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOSyncProcess >> gSpawnSync: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data standard_output: standard_output standard_error: standard_error wait_status: wait_status error: error [
 	"bgboolean
 g_spawn_sync (
@@ -91,7 +93,7 @@ g_spawn_sync (
 		gpointerHolder error))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOSyncProcess >> gSpawnSync: working_directory command: command arguments: anArray flags: flags childSetup: child_setup data: user_data processInfo: processInfo [
 
 	^ [ 
@@ -110,7 +112,7 @@ GIOSyncProcess >> gSpawnSync: working_directory command: command arguments: anAr
 	]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIOSyncProcess >> initialize [
 
 	super initialize.
@@ -121,13 +123,13 @@ GIOSyncProcess >> initialize [
 	standardError := gpointerHolder new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOSyncProcess >> isSuccess [ 
 
 	^ isSuccess
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOSyncProcess >> setErrorIfAny: processInfo [
 	| error |
 
@@ -142,7 +144,7 @@ GIOSyncProcess >> setErrorIfAny: processInfo [
 		error free. errorHolder := nil. ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOSyncProcess >> setExitCodeIfNoError: processInfo [
 
 	self isSuccess ifFalse: [ ^ self ].

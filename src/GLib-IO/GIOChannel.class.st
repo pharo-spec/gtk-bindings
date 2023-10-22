@@ -4,8 +4,8 @@ IO Channels — portable support for using files, pipes and sockets
 https://developer-old.gnome.org/glib/stable/glib-IO-Channels.html
 "
 Class {
-	#name : #GIOChannel,
-	#superclass : #GBaseObject,
+	#name : 'GIOChannel',
+	#superclass : 'GBaseObject',
 	#traits : 'GLibIOTLibrary',
 	#classTraits : 'GLibIOTLibrary classTrait',
 	#instVars : [
@@ -16,22 +16,24 @@ Class {
 		'GIOError',
 		'GIOStatus'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GIOChannel class >> g_io_channel_unix_new: fd [
 
 	^ self ffiCall: #(GIOChannel *g_io_channel_unix_new(int fd))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOChannel class >> g_io_channel_win32_new_fd: fd [
 
 	^ self ffiCall: #(GIOChannel *g_io_channel_win32_new_fd(int fd))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannel class >> newFromFileDescriptor: fd [
 
 	^ (OSPlatform current isWindows 
@@ -40,32 +42,32 @@ GIOChannel class >> newFromFileDescriptor: fd [
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannel class >> newStderr [
 
 	^ self newFromFileDescriptor: 2 "STDERR_FILENO"
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannel class >> newStdin [
 
 	^ self newFromFileDescriptor: 0 "STDIN_FILENO"
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannel class >> newStdout [
 
 	^ self newFromFileDescriptor: 1 "STDOUT_FILENO"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> close [
 
 	self ffiCall: #(void g_io_channel_close (self))
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> flush [
 
 	^ self ffiCall: #(GIOStatus g_io_channel_flush (self, NULL))
@@ -73,7 +75,7 @@ GIOChannel >> flush [
 
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GIOChannel >> gAddWatch: func condition: condition data: user_data [
 
 	^ self ffiCall: #(guint g_io_add_watch (
@@ -84,14 +86,14 @@ GIOChannel >> gAddWatch: func condition: condition data: user_data [
 ))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIOChannel >> initialize [
 
 	super initialize.
 	self autoRelease
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannel >> newReadLineListener: aName action: aBlock [
 	"
 	see `GIOChannelListener`
@@ -109,7 +111,7 @@ GIOChannel >> newReadLineListener: aName action: aBlock [
 		action: aBlock
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannel >> newReadLineListener: aName receiver: anObject selector: aSelector [
 	"
 	see `GIOChannelListener`
@@ -133,7 +135,7 @@ GIOChannel >> newReadLineListener: aName receiver: anObject selector: aSelector 
 			selector: aSelector)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> read: aNumber [
 	| buf read error status |
 
@@ -151,7 +153,7 @@ GIOChannel >> read: aNumber [
 	^ buf
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GIOChannel >> read: buf count: count bytesRead: bytes_read [
 
 	self ffiCall: #(GIOError g_io_channel_read (
@@ -162,7 +164,7 @@ GIOChannel >> read: buf count: count bytesRead: bytes_read [
 	))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> readAllLines [
 	| status lines |
 
@@ -175,7 +177,7 @@ GIOChannel >> readAllLines [
 	^ lines
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GIOChannel >> readChars: buf count: count bytesRead: bytes_read error: error [
 
 	^ self ffiCall: #(GIOStatus g_io_channel_read_chars (
@@ -186,14 +188,14 @@ GIOChannel >> readChars: buf count: count bytesRead: bytes_read error: error [
   		"GError **"GError *error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> readLine [
 
 	self readLineTo: [ :aLine | ^ aLine ].
 	^ nil
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GIOChannel >> readLine: str_return size: length terminator: terminator_pos error: error [
 
 	self ffiCall: #(GIOStatus
@@ -205,7 +207,7 @@ GIOChannel >> readLine: str_return size: length terminator: terminator_pos error
 		  "GError **" GErrorHolder error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> readLineTo: aBlock [
 	"reads a line and class aBlock with it.
 	 returns a GIOStatus (when is not ERROR)"
@@ -231,13 +233,13 @@ GIOChannel >> readLineTo: aBlock [
 	^ status
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> shutDown: flush [
 
 	self ffiCall: #(GIOStatus g_io_channel_shutdown (self, gboolean flush, NULL))
 ]
 
-{ #category : #'accessing - watching' }
+{ #category : 'accessing - watching' }
 GIOChannel >> watch: aCallback [
 
 	^ self 
@@ -245,7 +247,7 @@ GIOChannel >> watch: aCallback [
 		condition: GIOCondition all
 ]
 
-{ #category : #'accessing - watching' }
+{ #category : 'accessing - watching' }
 GIOChannel >> watch: aBlock condition: aCondition [
 	| callback |
 
@@ -262,7 +264,7 @@ GIOChannel >> watch: aBlock condition: aCondition [
 		data: ExternalAddress null
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> write: aString [
 	| status written error |
 
@@ -279,7 +281,7 @@ GIOChannel >> write: aString [
 	^ written signedLongAt: 1 
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GIOChannel >> write: buf count: count bytesWritten: bytes_written [
 
 	self ffiCall: #(GIOError g_io_channel_write (
@@ -289,7 +291,7 @@ GIOChannel >> write: buf count: count bytesWritten: bytes_written [
 	  "gsize *"void *bytes_written))
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GIOChannel >> writeChars: buf count: count bytesWritten: bytes_written error: error [
 
 	^ self ffiCall: #(GIOStatus g_io_channel_write_chars (
@@ -300,20 +302,20 @@ GIOChannel >> writeChars: buf count: count bytesWritten: bytes_written error: er
 		"GError**"GError *error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> writeFlush: aString [
 
 	self write: aString.
 	self flush
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> writeLine: aString [
 
 	self write: aString, (OSPlatform current lineEnding asString)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannel >> writeLineFlush: aString [
 
 	self writeLine: aString.

@@ -28,8 +28,8 @@ GSpawnError:
  *   `error->message` should explain.
 "
 Class {
-	#name : #GSpawnError,
-	#superclass : #GEnumeration,
+	#name : 'GSpawnError',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_SPAWN_ERROR_2BIG',
 		'G_SPAWN_ERROR_ACCES',
@@ -53,136 +53,138 @@ Class {
 		'G_SPAWN_ERROR_TOO_BIG',
 		'G_SPAWN_ERROR_TXTBUSY'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_2BIG [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_2BIG
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_ACCES [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_ACCES
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_CHDIR [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_CHDIR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_FAILED [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_FAILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_FORK [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_FORK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_INVAL [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_INVAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_IO [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_IO
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_ISDIR [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_ISDIR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_LIBBAD [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_LIBBAD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_LOOP [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_LOOP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_MFILE [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_MFILE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_NAMETOOLONG [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_NAMETOOLONG
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_NFILE [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_NFILE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_NOENT [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_NOENT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_NOEXEC [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_NOEXEC
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_NOMEM [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_NOMEM
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_NOTDIR [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_NOTDIR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_PERM [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_PERM
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_READ [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_READ
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_TOO_BIG [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_TOO_BIG
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GSpawnError class >> G_SPAWN_ERROR_TXTBUSY [
 	"This method was automatically generated"
 	^ G_SPAWN_ERROR_TXTBUSY
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GSpawnError class >> enumDecl [
 	"
 	self initializeEnumeration.

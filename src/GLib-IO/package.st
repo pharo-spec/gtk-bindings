@@ -1,1 +1,1 @@
-Package { #name : #'GLib-IO' }
+Package { #name : 'GLib-IO' }

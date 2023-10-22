@@ -4,42 +4,44 @@ enum GIOStatus
 Statuses returned by most of the GIOFuncs functions.
 "
 Class {
-	#name : #GIOStatus,
-	#superclass : #GEnumeration,
+	#name : 'GIOStatus',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_IO_STATUS_AGAIN',
 		'G_IO_STATUS_EOF',
 		'G_IO_STATUS_ERROR',
 		'G_IO_STATUS_NORMAL'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOStatus class >> G_IO_STATUS_AGAIN [
 	"This method was automatically generated"
 	^ G_IO_STATUS_AGAIN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOStatus class >> G_IO_STATUS_EOF [
 	"This method was automatically generated"
 	^ G_IO_STATUS_EOF
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOStatus class >> G_IO_STATUS_ERROR [
 	"This method was automatically generated"
 	^ G_IO_STATUS_ERROR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOStatus class >> G_IO_STATUS_NORMAL [
 	"This method was automatically generated"
 	^ G_IO_STATUS_NORMAL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GIOStatus class >> enumDecl [
 	"
 	self initializeEnumeration.

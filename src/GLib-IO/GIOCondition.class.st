@@ -4,8 +4,8 @@ enum GIOCondition
 A bitwise combination representing a condition to watch for on an event source.
 "
 Class {
-	#name : #GIOCondition,
-	#superclass : #GEnumeration,
+	#name : 'GIOCondition',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'G_IO_ERR',
 		'G_IO_HUP',
@@ -14,52 +14,54 @@ Class {
 		'G_IO_OUT',
 		'G_IO_PRI'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOCondition class >> G_IO_ERR [
 	"This method was automatically generated"
 	^ G_IO_ERR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOCondition class >> G_IO_HUP [
 	"This method was automatically generated"
 	^ G_IO_HUP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOCondition class >> G_IO_IN [
 	"This method was automatically generated"
 	^ G_IO_IN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOCondition class >> G_IO_NVAL [
 	"This method was automatically generated"
 	^ G_IO_NVAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOCondition class >> G_IO_OUT [
 	"This method was automatically generated"
 	^ G_IO_OUT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GIOCondition class >> G_IO_PRI [
 	"This method was automatically generated"
 	^ G_IO_PRI
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOCondition class >> all [
 
 	^ self newValue: 16rFF
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GIOCondition class >> enumDecl [
 	"
 	self initializeEnumeration.

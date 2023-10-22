@@ -1,5 +1,7 @@
 Class {
-	#name : #GActionMap,
-	#superclass : #GObject,
-	#category : #'GLib-IO-Actions'
+	#name : 'GActionMap',
+	#superclass : 'GObject',
+	#category : 'GLib-IO-Actions',
+	#package : 'GLib-IO',
+	#tag : 'Actions'
 }

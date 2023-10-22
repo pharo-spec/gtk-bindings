@@ -8,8 +8,8 @@ The listener will handle two-side processes:
 2. it will also create a local process that will also be stopped waiting for read operations to be executed.
 "
 Class {
-	#name : #GIOChannelReadLineListener,
-	#superclass : #Object,
+	#name : 'GIOChannelReadLineListener',
+	#superclass : 'Object',
 	#instVars : [
 		'worker',
 		'process',
@@ -21,10 +21,12 @@ Class {
 	#pools : [
 		'GIOStatus'
 	],
-	#category : #'GLib-IO-Process'
+	#category : 'GLib-IO-Process',
+	#package : 'GLib-IO',
+	#tag : 'Process'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannelReadLineListener class >> newName: aName channel: aChannel action: aBlock [
 
 	^ self new 
@@ -34,26 +36,26 @@ GIOChannelReadLineListener class >> newName: aName channel: aChannel action: aBl
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannelReadLineListener >> action [
 
 	^ action
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOChannelReadLineListener >> announce: anAnnouncement [
 
 	announcer ifNil: [ ^ self ].
 	announcer announce: anAnnouncement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOChannelReadLineListener >> announceTerminatedWithStatus: status [
 
 	self announce: (GIOChannelTerminatedAnnouncement newStatus: status)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannelReadLineListener >> announcer [
 
 	announcer ifNil: [ announcer := Announcer new ].
@@ -61,20 +63,20 @@ GIOChannelReadLineListener >> announcer [
 	^ announcer weak
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannelReadLineListener >> channel [
 
 	^ channel
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIOChannelReadLineListener >> initialize [
 	
 	self class initializeSlots: self.
 	super initialize
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIOChannelReadLineListener >> initializeName: aName channel: aChannel action: aBlock [
 
 	self initialize.
@@ -83,7 +85,7 @@ GIOChannelReadLineListener >> initializeName: aName channel: aChannel action: aB
 	action := aBlock
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GIOChannelReadLineListener >> isRunning [
 	
 	^ channel notNil 
@@ -92,25 +94,25 @@ GIOChannelReadLineListener >> isRunning [
 		and: [ process isTerminated not ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannelReadLineListener >> name [
 
 	^ name
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GIOChannelReadLineListener >> newWorker [
 
 	^ TFWorker named: ('channel_listener_{1}' format: { self name })
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIOChannelReadLineListener >> readLineToAction [
 	
 	^ self channel readLineTo: self action
 ]
 
-{ #category : #starting }
+{ #category : 'starting' }
 GIOChannelReadLineListener >> start [
 
 	self isRunning ifTrue: [ ^ self ].
@@ -124,7 +126,7 @@ GIOChannelReadLineListener >> start [
 	forkNamed: ('Channel read listener: {1}' format: { self name })
 ]
 
-{ #category : #starting }
+{ #category : 'starting' }
 GIOChannelReadLineListener >> stop [
 
 	process ifNil: [ ^ self ].
@@ -135,15 +137,16 @@ GIOChannelReadLineListener >> stop [
 	worker := nil
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GIOChannelReadLineListener >> whenTerminatedDo: aBlock [
 
-	self announcer 
-		when: GIOChannelTerminatedAnnouncement 
+	self announcer
+		when: GIOChannelTerminatedAnnouncement
 		do: aBlock
+		for: aBlock receiver
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIOChannelReadLineListener >> worker [
 
 	^ worker ifNil: [ worker := self newWorker ]
