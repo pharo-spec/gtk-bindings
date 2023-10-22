@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfGtk,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfGtk
+	#name : 'BaselineOfGtk',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfGtk',
+	#package : 'BaselineOfGtk'
 }
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfGtk >> baseline: spec [
 	<baseline>
 
@@ -41,7 +42,7 @@ BaselineOfGtk >> baseline: spec [
 				package: 'PangoStandaloneEngine' with: [ spec requires: #('GObject') ];
 				package: 'PangoStandaloneEngine-Test' with: [ spec requires: #('PangoStandaloneEngine') ].
 
-		spec group: 'Core' with: #('Pango' 'Gtk').
+		spec group: 'Core' with: #('Pango' 'GLib' 'Gtk').
 		spec group: 'GIO' with: #('GLib' 'GLib-IO').
 		spec group: 'Code' with: #('Core' 'GtkSourceView').
 		spec group: 'Morphic' with: #('Core' 'Gtk-FreeType' 'Gtk-Morphic' 'Gtk-Morphic-UIManager').
@@ -56,7 +57,7 @@ BaselineOfGtk >> baseline: spec [
 
 ]
 
-{ #category : #doits }
+{ #category : 'doits' }
 BaselineOfGtk >> installGtkDriver [
 			
 	"Do not switch driver if we are not in MacOS (it is not working there)"
@@ -69,7 +70,7 @@ BaselineOfGtk >> installGtkDriver [
 		ifPresent: [ :driverClass | OSWindowDriver driverClass: driverClass ]
 ]
 
-{ #category : #doits }
+{ #category : 'doits' }
 BaselineOfGtk >> postLoad [
 
 	self installGtkDriver.
@@ -78,7 +79,7 @@ BaselineOfGtk >> postLoad [
 	(Smalltalk classNamed: #GStructure) allSubclassesDo: [ :each | each compiledSpec ].
 ]
 
-{ #category : #doits }
+{ #category : 'doits' }
 BaselineOfGtk >> recompileStructures [
 	"Recompile structures (just to be sure we match everything we need"
 
