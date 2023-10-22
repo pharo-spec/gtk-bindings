@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'listFactory',
 		'model',
-		'expression'
+		'expression',
+		'factory'
 	],
 	#category : 'Gtk-Widget-Input',
 	#package : 'Gtk',
@@ -52,6 +53,20 @@ GtkDropDown >> expression: anExpression [
 	expression objectUnref
 ]
 
+{ #category : 'accessing' }
+GtkDropDown >> factory [
+
+	^ factory
+]
+
+{ #category : 'accessing' }
+GtkDropDown >> factory: aFactory [
+
+	factory := aFactory.
+	self setFactory: factory.
+	factory ensureAutoRelease
+]
+
 { #category : 'private' }
 GtkDropDown >> getModel [
 
@@ -59,11 +74,17 @@ GtkDropDown >> getModel [
 ]
 
 { #category : 'accessing' }
-GtkDropDown >> listFactory: factory [
+GtkDropDown >> listFactory [
 
-	listFactory := factory.
-	self setListFactory: factory.
-	factory ensureAutoRelease
+	^ listFactory
+]
+
+{ #category : 'accessing' }
+GtkDropDown >> listFactory: aFactory [
+
+	listFactory := aFactory.
+	self setListFactory: listFactory.
+	listFactory ensureAutoRelease
 ]
 
 { #category : 'accessing' }
@@ -97,6 +118,14 @@ GtkDropDown >> selected [
 GtkDropDown >> setExpression: anExpression [
 
 	self ffiCall: #(void gtk_drop_down_set_expression (self, GtkExpression* anExpression))
+]
+
+{ #category : 'private' }
+GtkDropDown >> setFactory: aFactory [
+
+	self ffiCall: #(void gtk_drop_down_set_factory (
+  		self,
+  		GtkListItemFactory *aFactory))
 ]
 
 { #category : 'private' }
