@@ -8,14 +8,16 @@ The real interface is defined in `GListModelIface`.
 Concrete types are defined in `GListStore` hierarchy.
 "
 Class {
-	#name : #GListModel,
-	#superclass : #GObject,
+	#name : 'GListModel',
+	#superclass : 'GObject',
 	#traits : 'GLibTLibrary + GTListModel',
 	#classTraits : 'GLibTLibrary classTrait + GTListModel classTrait',
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GListModel class >> new [
 
 	self error: 'This is an abstract type, it will be provided by some functions. Use GListStore hierarchy instead.'

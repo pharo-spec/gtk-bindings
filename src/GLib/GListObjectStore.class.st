@@ -3,27 +3,29 @@ An implementation of `GListStore`/GListModel that receives generic `GObject`.
 Use `GListObjectStore class>>#newType:` to explicit the type of objects that will be returned (needed in some Gtk components)
 "
 Class {
-	#name : #GListObjectStore,
-	#superclass : #GListStore,
+	#name : 'GListObjectStore',
+	#superclass : 'GListStore',
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
 		'items',
 		'type'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GListObjectStore class >> gDefine: gClass [
 
 	gClass 
-		parent: GListStore;
+		parent: GObject;
 		addInterface: GListModelIface 
 			initialize: [ :interface | self gDefineListModelInterface: interface ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GListObjectStore class >> gDefineListModelInterface: iface [
 
 	iface 
@@ -48,7 +50,7 @@ GListObjectStore class >> gDefineListModelInterface: iface [
 					added: added ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GListObjectStore class >> newType: gType [
 
 	^ self new
@@ -56,7 +58,7 @@ GListObjectStore class >> newType: gType [
 		yourself
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListObjectStore >> get_item: position [
 
 	position >= items size
@@ -65,19 +67,19 @@ GListObjectStore >> get_item: position [
 	^ (self get_object: position) getHandle
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListObjectStore >> get_item_type [
 
 	^ type ifNil: [ GType G_TYPE_OBJECT ]
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListObjectStore >> get_n_items [
 	
 	^ items size
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListObjectStore >> get_object: position [
 
 	position > items size
@@ -90,13 +92,13 @@ GListObjectStore >> get_object: position [
 		yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GListObjectStore >> isEmpty [
 
 	^ self items isEmptyOrNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListObjectStore >> itemAt: aPosition [
 
 	aPosition = 0 ifTrue: [ ^ nil ].
@@ -105,7 +107,7 @@ GListObjectStore >> itemAt: aPosition [
 	^ self items at: aPosition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListObjectStore >> itemByHandle: aHandle ifFound: foundBlock ifNone: noneBlock [
 
 	^ self items 
@@ -114,7 +116,7 @@ GListObjectStore >> itemByHandle: aHandle ifFound: foundBlock ifNone: noneBlock 
 		ifNone: noneBlock		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListObjectStore >> itemByHandle: aHandle ifNone: noneBlock [
 
 	^ self items 
@@ -122,13 +124,13 @@ GListObjectStore >> itemByHandle: aHandle ifNone: noneBlock [
 		ifNone: noneBlock		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListObjectStore >> items [
 
 	^ items
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListObjectStore >> items: aSequenceableCollection [
 	"aSequenceableCollection contains GObject"
 
@@ -136,17 +138,17 @@ GListObjectStore >> items: aSequenceableCollection [
 	self reset
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListObjectStore >> items_changed: position removed: removed added: added [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GListObjectStore >> reset [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GListObjectStore >> type: aType [
 
 	type := aType

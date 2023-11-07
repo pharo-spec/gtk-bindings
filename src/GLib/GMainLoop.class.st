@@ -1,48 +1,50 @@
 Class {
-	#name : #GMainLoop,
-	#superclass : #GBaseObject,
+	#name : 'GMainLoop',
+	#superclass : 'GBaseObject',
 	#traits : 'GLibTLibrary',
 	#classTraits : 'GLibTLibrary classTrait',
-	#category : #'GLib-Application'
+	#category : 'GLib-Application',
+	#package : 'GLib',
+	#tag : 'Application'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GMainLoop class >> gNew [
 
 	^ self ffiCall: #(GMainLoop* g_main_loop_new (NULL, gboolean false))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GMainLoop class >> gNew: context [
 
 	^ self ffiCall: #(GMainLoop* g_main_loop_new (GMainContext *context, gboolean false))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GMainLoop class >> new [
 
 	^ self gNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GMainLoop class >> newDefault [
 
 	^ (self gNew: GMainContext default) initialize
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GMainLoop >> isRunning [
 
 	^ self ffiCall: #(gboolean g_main_loop_is_running (self))
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GMainLoop >> quit [
 
 	self ffiCall: #(void g_main_loop_quit (self))
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GMainLoop >> run [
 
 	self ffiCall: #(void g_main_loop_run (self))

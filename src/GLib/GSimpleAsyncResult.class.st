@@ -2,18 +2,20 @@
 https://docs.gtk.org/gio/class.SimpleAsyncResult.html
 "
 Class {
-	#name : #GSimpleAsyncResult,
-	#superclass : #GObject,
+	#name : 'GSimpleAsyncResult',
+	#superclass : 'GObject',
 	#traits : 'GLibTLibrary',
 	#classTraits : 'GLibTLibrary classTrait',
 	#instVars : [
 		'gObject',
 		'callback'
 	],
-	#category : #'GLib-Misc'
+	#category : 'GLib-Misc',
+	#package : 'GLib',
+	#tag : 'Misc'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleAsyncResult class >> gNew: source_object callback: callback [ 
 
 	self ffiCall: #(GSimpleAsyncResult* g_simple_async_result_new (
@@ -23,7 +25,7 @@ GSimpleAsyncResult class >> gNew: source_object callback: callback [
 		"gpointer source_tag"NULL))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSimpleAsyncResult class >> gNew: source_object callbackHandle: anAddress [ 
 
 	self ffiCall: #(GSimpleAsyncResult* g_simple_async_result_new (
@@ -33,7 +35,7 @@ GSimpleAsyncResult class >> gNew: source_object callbackHandle: anAddress [
 		"gpointer source_tag"NULL))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GSimpleAsyncResult class >> newObject: aGObject callback: aCallback [
 
 	^  (self gNew: aGObject callback: aCallback) 
@@ -41,7 +43,7 @@ GSimpleAsyncResult class >> newObject: aGObject callback: aCallback [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GSimpleAsyncResult class >> newObject: aGObject callbackHandle: anAddress [
 
 	^  (self gNew: aGObject callbackHandle: anAddress) 
@@ -49,7 +51,7 @@ GSimpleAsyncResult class >> newObject: aGObject callbackHandle: anAddress [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GSimpleAsyncResult >> initializeObject: aGObject callback: aCallback [
 		
 	gObject := aGObject.

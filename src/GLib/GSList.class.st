@@ -4,24 +4,26 @@ The GSList struct is used for each element in the singly-linked list.
 https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList
 "
 Class {
-	#name : #GSList,
-	#superclass : #GStructure,
+	#name : 'GSList',
+	#superclass : 'GStructure',
 	#traits : 'GLibTLibrary + GTEnumerable',
 	#classTraits : 'GLibTLibrary classTrait + GTEnumerable classTrait',
 	#classVars : [
 		'OFFSET_DATA',
 		'OFFSET_NEXT'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GSList class >> ffiLibrary [
 
 	^ GLibLibrary
 ]
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GSList class >> fieldsDesc [ 
 	"self rebuildFieldAccessors"
 	^ #(
@@ -30,7 +32,7 @@ GSList class >> fieldsDesc [
 	)
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GSList class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
@@ -39,31 +41,31 @@ GSList class >> finalizeResourceData: handle [
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSList class >> gSlistFree: listHandle [
 	
 	self ffiCall: #(void g_slist_free ("GSList"void *listHandle))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GSList class >> isValidHandle: handle [
 
 	^ handle notNil and: [ handle isNull not ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSList >> basicFree [
 
 	self ffiCall: #(void g_slist_free (self))
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GSList >> data [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DATA) type: ExternalType void asPointerType
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GSList >> do: aBlock [
 
 	self 
@@ -71,33 +73,33 @@ GSList >> do: aBlock [
 		do: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSList >> engine [
 
 	^ GEngine current
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GSList >> ffiLibrary [
 
 	^ GLibLibrary
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GSList >> free [
 	
 	self basicFree.
 	self getHandle beNull
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GSList >> initialize [
 	
 	super initialize.
 	"self autoRelease"
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GSList >> next [
 	| next |
 
@@ -107,7 +109,7 @@ GSList >> next [
 		ifFalse: [ GSList fromHandle: next ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GSList >> traverseNext: anElement do: aBlock [
 
 	(anElement isNil or: [ anElement isNull ]) ifTrue: [ ^ self ].

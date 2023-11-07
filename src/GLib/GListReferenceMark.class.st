@@ -2,16 +2,18 @@
 This is a reference to be answered in `GListReferenceContainer>>#referenceTo:`. We cannot answer just one holder, as the caller needs to know more data (if the object was created, for instance).
 "
 Class {
-	#name : #GListReferenceMark,
-	#superclass : #Object,
+	#name : 'GListReferenceMark',
+	#superclass : 'Object',
 	#instVars : [
 		'object',
 		'wasCreated'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GListReferenceMark class >> newObject: aGObject created: aBoolean [
 
 	^ self new
@@ -20,25 +22,25 @@ GListReferenceMark class >> newObject: aGObject created: aBoolean [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceMark >> object [
 
 	^ object
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceMark >> object: aGObject [
 
 	object := aGObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceMark >> wasCreated [
 
 	^ wasCreated
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceMark >> wasCreated: aBoolean [
 
 	wasCreated := aBoolean

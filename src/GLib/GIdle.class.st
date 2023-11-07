@@ -3,22 +3,24 @@ I am a special class made to insert callbacks into the idle action.
 I exist because while running on main thread, gtk will execute gtk_main who will take over the thread. To insert commands, we need to add a call to one of the idle functions (see my implemented methods and senders to it for details)
 "
 Class {
-	#name : #GIdle,
-	#superclass : #GLibLibrary,
+	#name : 'GIdle',
+	#superclass : 'GLibLibrary',
 	#instVars : [
 		'deferring',
 		'mutex'
 	],
-	#category : #'GLib-Library'
+	#category : 'GLib-Library',
+	#package : 'GLib',
+	#tag : 'Library'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GIdle >> addFunction: function [
 
 	deferring add: function
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIdle >> gIdleAddFull: aCallback [
 
 	self ffiCall: #(void g_idle_add_full(
@@ -28,7 +30,7 @@ GIdle >> gIdleAddFull: aCallback [
 		NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIdle >> idleAddFull: aBlock [
 
 	mutex critical: [ 
@@ -38,7 +40,7 @@ GIdle >> idleAddFull: aBlock [
 		self gIdleAddFull: function ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GIdle >> initialize [ 
 
 	super initialize.
@@ -46,7 +48,7 @@ GIdle >> initialize [
 	deferring := IdentitySet new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIdle >> newFunctionWith: aBlock [
 	| function |
 	
@@ -61,7 +63,7 @@ GIdle >> newFunctionWith: aBlock [
 	^ function
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GIdle >> removeFunction: function [
 	
 	mutex critical: [ 
@@ -70,13 +72,13 @@ GIdle >> removeFunction: function [
 			ifAbsent: [ ('{1} not found while removing. Skipping.' format: { function }) crTrace ] ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GIdle >> reset [
 
 	deferring removeAll
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GIdle >> runner [
 
 	^ TFSameThreadRunner uniqueInstance

@@ -1,6 +1,6 @@
-Extension { #name : #ExternalAddress }
+Extension { #name : 'ExternalAddress' }
 
-{ #category : #'*GLib' }
+{ #category : '*GLib' }
 ExternalAddress class >> arrayOfStringsFrom: aCollection [
 	"answer a char**, terminated with nil"
 	| stringArray index |
@@ -14,7 +14,7 @@ ExternalAddress class >> arrayOfStringsFrom: aCollection [
 	^ stringArray
 ]
 
-{ #category : #'*GLib' }
+{ #category : '*GLib' }
 ExternalAddress >> freeArrayOfStrings [
 	| string index |
 	
@@ -28,7 +28,7 @@ ExternalAddress >> freeArrayOfStrings [
 	self free 
 ]
 
-{ #category : #'*GLib' }
+{ #category : '*GLib' }
 ExternalAddress >> gFree [
 
 	GLibLibrary uniqueInstance gFree: self

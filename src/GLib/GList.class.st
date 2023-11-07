@@ -16,8 +16,8 @@ struct _GList
 ```
 "
 Class {
-	#name : #GList,
-	#superclass : #GStructure,
+	#name : 'GList',
+	#superclass : 'GStructure',
 	#traits : 'GLibTLibrary + GTEnumerable',
 	#classTraits : 'GLibTLibrary classTrait + GTEnumerable classTrait',
 	#classVars : [
@@ -25,10 +25,12 @@ Class {
 		'OFFSET_NEXT',
 		'OFFSET_PREV'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GList class >> fieldsDesc [ 
 
 	^ #(
@@ -38,7 +40,7 @@ GList class >> fieldsDesc [
 	)
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GList class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
@@ -47,19 +49,19 @@ GList class >> finalizeResourceData: handle [
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GList class >> gListFree: list [
 
 	^ self ffiCall: #(void g_list_free (void *list))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GList class >> new [
 
 	^ self basicNew setHandle: ExternalAddress null
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GList class >> newFromCollection: aCollection [
 	| list |
 	
@@ -69,32 +71,32 @@ GList class >> newFromCollection: aCollection [
 	^ list first
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GList >> append: aGObject [
 
 	^ self class fromHandle: (self gListAppend: aGObject getHandle)
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GList >> asArray [
 
 	^ Array streamContents: [ :stream | 
 		self do: [ :each | stream nextPut: each ] ]
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GList >> data [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DATA) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GList >> data: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DATA put: anObject getHandle.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GList >> do: aBlock [
 	| node |
 	
@@ -104,61 +106,61 @@ GList >> do: aBlock [
 		node := node next ]
 ]
 
-{ #category : #resources }
+{ #category : 'resources' }
 GList >> ffiLibrary [
 
     ^ GLibLibrary 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GList >> first [
 
 	^ self class fromHandle: self gListFirst
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GList >> free [
 
 	self ffiCall: #(void g_list_free(self))
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GList >> freeFull: aNotifyCallback [
 
 	self ffiCall: #(void g_list_free_full(self, GCallback aNotifyCallback))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GList >> gListAppend: data [
 
 	^ self ffiCall: #(void *g_list_append (self, gpointer data))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GList >> gListFirst [
 
 	^ self ffiCall: #(void *g_list_append (self))
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GList >> next [
 	"This method was automatically generated"
 	^ self class fromHandle: (handle pointerAt: OFFSET_NEXT)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GList >> next: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_NEXT put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GList >> prev [
 	"This method was automatically generated"
 	^GList fromHandle: (handle pointerAt: OFFSET_PREV)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GList >> prev: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PREV put: anObject getHandle.

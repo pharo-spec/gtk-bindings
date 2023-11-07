@@ -2,8 +2,8 @@
 https://docs.gtk.org/gio/iface.ListModel.html
 "
 Class {
-	#name : #GListModelIface,
-	#superclass : #GInterface,
+	#name : 'GListModelIface',
+	#superclass : 'GInterface',
 	#instVars : [
 		'get_item',
 		'get_item_type',
@@ -18,10 +18,12 @@ Class {
 		'OFFSET_GET_OBJECT',
 		'OFFSET_ITEMS_CHANGED'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GListModelIface class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 	
@@ -34,7 +36,7 @@ GListModelIface class >> fieldsDesc [
 )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListModelIface class >> gType [ 
 	"This method was automatically generated"
 
@@ -43,13 +45,13 @@ GListModelIface class >> gType [
 		module: GtkLibrary
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_item [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_ITEM) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_item: aCallback [
 	"This method was automatically generated"
 	
@@ -61,13 +63,13 @@ GListModelIface >> get_item: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_item_type [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_ITEM_TYPE) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_item_type: aCallback [
 	"This method was automatically generated"
 
@@ -79,13 +81,13 @@ GListModelIface >> get_item_type: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_n_items [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_N_ITEMS) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_n_items: aCallback [
 	"This method was automatically generated"
 	
@@ -97,13 +99,13 @@ GListModelIface >> get_n_items: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_object [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_OBJECT) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> get_object: aCallback [
 	"This method was automatically generated"
 	
@@ -115,13 +117,13 @@ GListModelIface >> get_object: aCallback [
 			ifNil: [ ExternalAddress null ])
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> items_changed [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_ITEMS_CHANGED) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GListModelIface >> items_changed: aCallback [
 	"This method was automatically generated"
 	

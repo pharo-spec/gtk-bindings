@@ -1,1 +1,1 @@
-Package { #name : #GLib }
+Package { #name : 'GLib' }

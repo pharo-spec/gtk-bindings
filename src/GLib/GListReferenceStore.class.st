@@ -3,8 +3,8 @@ Implements a datastore that use instances if `GObject` as reference, setting the
 This feels more lightway than the mechanism used with GListDataStore, that uses a specially created object.
 "
 Class {
-	#name : #GListReferenceStore,
-	#superclass : #GListStore,
+	#name : 'GListReferenceStore',
+	#superclass : 'GListStore',
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
@@ -12,10 +12,12 @@ Class {
 		'references',
 		'mutex'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GListReferenceStore class >> gDefine: gClass [
 
 	gClass 
@@ -24,7 +26,7 @@ GListReferenceStore class >> gDefine: gClass [
 			initialize: [ :interface | self gDefineListModelInterface: interface ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GListReferenceStore class >> gDefineListModelInterface: iface [
 
 	iface 
@@ -50,7 +52,7 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 						added: added ] ]
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GListReferenceStore >> finalize [
 
 	self isValidHandle ifFalse: [ ^ self ].
@@ -59,13 +61,13 @@ GListReferenceStore >> finalize [
 		super finalize ]
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GListReferenceStore >> finalizedOnGtk [
 
 	references freeReferences
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListReferenceStore >> get_item: position [
 
 	position >= self items size
@@ -74,19 +76,19 @@ GListReferenceStore >> get_item: position [
 	^ (self get_object: position) getHandle
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListReferenceStore >> get_item_type [
 
 	^ GObject gType
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListReferenceStore >> get_n_items [
 	
 	^ self items size
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListReferenceStore >> get_object: position [
 	| mark |
 
@@ -105,7 +107,7 @@ GListReferenceStore >> get_object: position [
 		mark object ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GListReferenceStore >> initialize [
 
 	super initialize.
@@ -113,7 +115,7 @@ GListReferenceStore >> initialize [
 	references := GListReferenceContainer new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceStore >> itemAt: aPosition [
 
 	aPosition = 0 ifTrue: [ ^ nil ].
@@ -122,31 +124,31 @@ GListReferenceStore >> itemAt: aPosition [
 	^ self items at: aPosition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceStore >> itemAtHandle: address [
 
 	^ self itemAt: ((GObject fromHandleUnreferenced: address) dataAt: 'position') asInteger + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceStore >> items [
 
 	^ items
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceStore >> items: aSequenceableCollection [
 
 	items := aSequenceableCollection copy.
 	self reset
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GListReferenceStore >> items_changed: position removed: removed added: added [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GListReferenceStore >> reset [
 	
 	references reset

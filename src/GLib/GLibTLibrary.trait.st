@@ -1,17 +1,19 @@
 Trait {
-	#name : #GLibTLibrary,
+	#name : 'GLibTLibrary',
 	#traits : 'TEmpty',
 	#classTraits : 'TEmpty classTrait',
-	#category : #'GLib-Library'
+	#category : 'GLib-Library',
+	#package : 'GLib',
+	#tag : 'Library'
 }
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GLibTLibrary classSide >> ffiLibraryName [
 
 	^ GLibLibrary
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GLibTLibrary >> ffiLibraryName [
 
 	^ GLibLibrary

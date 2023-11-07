@@ -9,12 +9,14 @@ When calling g_source_set_callback(), you may need to cast a function of a diffe
 https://developer.gnome.org/glib/stable/glib-The-Main-Event-Loop.html#GSourceFunc
 "
 Class {
-	#name : #GSourceFunc,
-	#superclass : #GCallback,
-	#category : #'GLib-Callbacks'
+	#name : 'GSourceFunc',
+	#superclass : 'GCallback',
+	#category : 'GLib-Callbacks',
+	#package : 'GLib',
+	#tag : 'Callbacks'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GSourceFunc class >> do: aBlock [
 
 	^ self 

@@ -3,8 +3,8 @@ Keep the ""reference objects"" (the marks transmited to Gtk) in a separated cont
 The main reason for this is that this objects need to be unreferenced (freed) separately from its corresponding `GListReferenceStore`, mainly because we don't know when we will control the release of the store in pharo side, and independently of that, the referenced object need to be referenced ALWAYS.
 "
 Class {
-	#name : #GListReferenceContainer,
-	#superclass : #Object,
+	#name : 'GListReferenceContainer',
+	#superclass : 'Object',
 	#instVars : [
 		'mutex',
 		'objects'
@@ -12,28 +12,30 @@ Class {
 	#classVars : [
 		'ReferenceRegistry'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #'private - registry' }
+{ #category : 'private - registry' }
 GListReferenceContainer class >> referenceRegistry [
 
 	^ ReferenceRegistry ifNil: [ ReferenceRegistry := FinalizationRegistry new ]
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 GListReferenceContainer >> autoRelease [
 
 	self class referenceRegistry add: self
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GListReferenceContainer >> finalize [
 
 	GRunLoop defer: [ self freeReferences ]
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GListReferenceContainer >> freeReferences [
 
 	mutex critical: [
@@ -48,7 +50,7 @@ GListReferenceContainer >> freeReferences [
 			removeAll ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GListReferenceContainer >> initialize [
 
 	super initialize.
@@ -56,7 +58,7 @@ GListReferenceContainer >> initialize [
 	self resetObjects
 ]
 
-{ #category : #'private - factory' }
+{ #category : 'private - factory' }
 GListReferenceContainer >> newHolderForPosition: position [
 	
 	^ GObject basicNew 
@@ -66,14 +68,14 @@ GListReferenceContainer >> newHolderForPosition: position [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceContainer >> referenceAt: position [
 
 	^ mutex critical: [ 	
 		self safeReferenceAt: position ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GListReferenceContainer >> reset [
 
 	GRunLoop defer: [ 
@@ -81,14 +83,14 @@ GListReferenceContainer >> reset [
 		self resetObjects ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GListReferenceContainer >> resetObjects [
 
 	mutex critical: [ 
 		objects := IdentityDictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GListReferenceContainer >> safeReferenceAt: position [
 	| holder created |
 	

@@ -1,6 +1,6 @@
-Extension { #name : #GClass }
+Extension { #name : 'GClass' }
 
-{ #category : #'*GLib' }
+{ #category : '*GLib' }
 GClass >> gInternStaticString: string [
 
 	^ self 
@@ -8,7 +8,7 @@ GClass >> gInternStaticString: string [
 		module: GLibLibrary
 ]
 
-{ #category : #'*GLib' }
+{ #category : '*GLib' }
 GClass >> gInternStaticStringFromByteArray: string [
 
 	^ self 

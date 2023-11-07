@@ -2,27 +2,29 @@
 An interface that defines GListModel (since it is used in different parts of the hierarchy)
 "
 Trait {
-	#name : #GTListModel,
+	#name : 'GTListModel',
 	#instVars : [
 		'type'
 	],
-	#category : #'GLib-Lists'
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GTListModel >> asArray [
 
 	^ Array streamContents: [ :stream |
 		self do: [ :each | stream nextPut: each ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GTListModel >> classToUse [
 
 	^ type ifNil: [ GObject ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTListModel >> do: aBlock [
 	| classToUse |
 
@@ -31,19 +33,19 @@ GTListModel >> do: aBlock [
 		aBlock value: (classToUse fromHandleUnreferenced: (self itemAt: index)) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTListModel >> itemAt: position [
 
 	^ self ffiCall: #(gpointer g_list_model_get_item (self, guint position))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTListModel >> itemType [
 
 	^ self ffiCall: #(GType g_list_model_get_item_type (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTListModel >> itemsChangedAt: position removed: removed added: added [
 
 	^ self ffiCall: #(void g_list_model_items_changed (self,
@@ -52,19 +54,19 @@ GTListModel >> itemsChangedAt: position removed: removed added: added [
   guint added))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTListModel >> numberOfItems [
 
 	^ self ffiCall: #(guint g_list_model_get_n_items (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTListModel >> objectAt: position [
 
 	^ self ffiCall: #(GObject* g_list_model_get_object (self, guint position))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GTListModel >> objectAt: position as: aClass [
 	| itemHandle |
 
@@ -72,7 +74,7 @@ GTListModel >> objectAt: position as: aClass [
 	^ aClass fromHandleUnreferenced: itemHandle
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTListModel >> ofType: aClass [
 	"Used for ennumerations"
 

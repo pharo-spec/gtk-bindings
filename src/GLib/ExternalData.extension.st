@@ -1,6 +1,6 @@
-Extension { #name : #ExternalData }
+Extension { #name : 'ExternalData' }
 
-{ #category : #'*GLib' }
+{ #category : '*GLib' }
 ExternalData >> gFree [
 	
 	self getHandle gFree

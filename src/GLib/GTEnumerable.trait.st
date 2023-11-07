@@ -2,24 +2,26 @@
 To add enumeration capabilities to GList family.
 "
 Trait {
-	#name : #GTEnumerable,
-	#category : #'GLib-Lists'
+	#name : 'GTEnumerable',
+	#category : 'GLib-Lists',
+	#package : 'GLib',
+	#tag : 'Lists'
 }
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTEnumerable >> collect: aBlock [ 
 
 	^ Array streamContents: [ :stream | 
 		self do: [ :each | stream nextPut: (aBlock value: each) ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTEnumerable >> detect: aBlock [
 
 	^ self detect: aBlock ifNone: [ NotFound signalFor: aBlock ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTEnumerable >> detect: aBlock ifNone: noneBlock [
 
 	self do: [ :each | 
@@ -28,13 +30,13 @@ GTEnumerable >> detect: aBlock ifNone: noneBlock [
 	^ noneBlock value
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTEnumerable >> do: aBlock [
 
 	self required
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GTEnumerable >> select: aBlock [
 
 	^ Array streamContents: [ :stream |
