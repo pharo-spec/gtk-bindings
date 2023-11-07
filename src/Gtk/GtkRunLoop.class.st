@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'callerProcess',
 		'context',
-		'runProcess'
+		'runProcess',
+		'mutex'
 	],
 	#category : 'Gtk-Application',
 	#package : 'Gtk',
@@ -30,10 +31,9 @@ GtkRunLoop >> callerProcess [
 { #category : 'deferring' }
 GtkRunLoop >> defer: aBlock [
 
-	self isInCallback
-		ifTrue: [ ^ aBlock value ].
-
-	^ self forceDefer: aBlock	
+	^ self isInCallback
+		ifTrue: [ aBlock value ]
+		ifFalse: [ self forceDefer: aBlock ]
 ]
 
 { #category : 'deferring' }
@@ -43,12 +43,14 @@ GtkRunLoop >> forceDefer: aBlock [
 	callerProcess := Processor activeProcess.
 	sem := Semaphore new.
 	exception := nil.
-	GIdle uniqueInstance idleAddFull: [
-		result := [ 
-			aBlock 
-				on: Exception 
-				do: [ :e | exception := e freeze ] ] 
-			ensure: [ sem signal ] ].
+	mutex critical: [ 
+		GIdle uniqueInstance idleAddFull: [
+			result := [
+				aBlock 
+					on: Exception 
+					do: [ :e | exception := e freeze ] ] 
+				ensure: [ 
+					sem signal ] ] ].
 	sem wait.
 	callerProcess := nil.
 
@@ -56,6 +58,13 @@ GtkRunLoop >> forceDefer: aBlock [
 		GtkDeferredError signalForException: exception ].
 
 	^ result
+]
+
+{ #category : 'initialization' }
+GtkRunLoop >> initialize [
+
+	super initialize.
+	mutex := Mutex new
 ]
 
 { #category : 'private - installing' }
