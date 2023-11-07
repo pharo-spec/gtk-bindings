@@ -82,6 +82,11 @@ GtkEngine >> ensureApplication [
 		newId: 'org.pharo.Gtk4Application'
 		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
 	application register.
+	
+	"this 'leaks', but since once started an application it cannot be destroyed unless you quit, 
+	 better to formalise it ;)"
+	application doNotAutoRelease.
+	
 	^ application
 ]
 
