@@ -51,9 +51,6 @@ Class {
 	#pools : [
 		'GtkTypes'
 	],
-	#classInstVars : [
-		'mutex'
-	],
 	#category : 'GObject-ClassBuilder',
 	#package : 'GObject',
 	#tag : 'ClassBuilder'
@@ -299,18 +296,19 @@ GClass >> initialize: aBlock [
 { #category : 'installing' }
 GClass >> install [
 
-	type := self registerType.
-	type = 0 ifTrue: [ 
-		GClassError signal: 'Class not installed.' ].
+	mutex critical: [  
+		type := self registerType.
+		type = 0 ifTrue: [ 
+			GClassError signal: 'Class not installed.' ].
 
-	interfaces keysAndValuesDo: [ :interfaceClass :initCallback |
-		self 
-			addInterfaceGType: interfaceClass gType 
-			initialize: initCallback ].
-		
-	self class 
-		gClassAt: targetClass 
-		put: self
+		interfaces keysAndValuesDo: [ :interfaceClass :initCallback |
+			self 
+				addInterfaceGType: interfaceClass gType 
+				initialize: initCallback ].
+			
+		self class 
+			gClassAt: targetClass 
+			put: self ]
 ]
 
 { #category : 'accessing' }
@@ -367,16 +365,19 @@ GClass >> prepare: aBlock [
 
 { #category : 'private - installing' }
 GClass >> registerType [
-	| utf8Name |
+	| utf8Name classSize |
 
 	self validateInstallPreconditions.
 
 	utf8Name := name utf8Encoded copyWith: 0.
 	utf8Name pinInMemory.
+	
+	classSize := parent gClassSize.
+
 	^ self
 		gTypeRegisterStaticSimpleParent: parent gType
 		name: (self gInternStaticStringFromByteArray: utf8Name)
-		classSize: parent gClassSize
+		classSize: classSize
 		classInit: (classInitialize ifNil: [ GCallback null ])
 		instanceSize: parent gSize
 		instanceInit: (initialize ifNil: [ GCallback null ])
