@@ -55,8 +55,8 @@ GtkOverlay >> basicRemove: widget [
 { #category : 'private' }
 GtkOverlay >> cleanupAfterReplacing [
 
-	self cleanupAfterReplacingBin.
-	self cleanupAfterReplacingContainer
+	"self cleanupAfterReplacingBin.
+	self cleanupAfterReplacingContainer"
 ]
 
 { #category : 'private' }
