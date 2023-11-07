@@ -21,7 +21,7 @@ Class {
 GListReferenceStore class >> gDefine: gClass [
 
 	gClass 
-		parent: GListStore;
+		parent: GObject;
 		addInterface: GListModelIface 
 			initialize: [ :interface | self gDefineListModelInterface: interface ]
 ]
