@@ -10,9 +10,9 @@ Class {
 }
 
 { #category : 'private' }
-GtkSingleSelection class >> gtkNew: model [
+GtkSingleSelection class >> gtkNew [
 
-	^ self ffiCall: #(GtkSingleSelection *gtk_single_selection_new ("GListModel*"GObject *model))
+	^ self ffiCall: #(GtkSingleSelection *gtk_single_selection_new (NULL))
 ]
 
 { #category : 'accessing' }

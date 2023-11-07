@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : 'private' }
-GtkSelectionModel class >> gtkNew: model [
+GtkSelectionModel class >> gtkNew [
 
 	self subclassResponsibility
 ]
@@ -23,7 +23,7 @@ GtkSelectionModel class >> gtkNew: model [
 { #category : 'instance creation' }
 GtkSelectionModel class >> new [
 
-	^ (self gtkNew: GObject null) initialize
+	^ self gtkNew initialize
 ]
 
 { #category : 'instance creation' }
