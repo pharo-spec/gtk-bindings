@@ -50,6 +50,7 @@ GtkDropDown >> expression: anExpression [
 
 	expression := anExpression.
 	self setExpression: anExpression.
+	expression doNotAutoRelease.
 	expression objectUnref
 ]
 
@@ -64,7 +65,8 @@ GtkDropDown >> factory: aFactory [
 
 	factory := aFactory.
 	self setFactory: factory.
-	factory ensureAutoRelease
+	factory doNotAutoRelease.
+	factory objectUnref
 ]
 
 { #category : 'private' }
@@ -84,7 +86,8 @@ GtkDropDown >> listFactory: aFactory [
 
 	listFactory := aFactory.
 	self setListFactory: listFactory.
-	listFactory ensureAutoRelease
+	listFactory doNotAutoRelease.
+	listFactory objectUnref
 ]
 
 { #category : 'accessing' }
