@@ -329,7 +329,7 @@ GtkWindow >> finalize [
 	handle beNull
 ]
 
-{ #category : 'private' }
+{ #category : 'accessing' }
 GtkWindow >> getChild [
 
 	self ffiCall: #(GtkWidget *gtk_window_get_child (self))
