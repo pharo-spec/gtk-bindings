@@ -56,13 +56,6 @@ Class {
 	#tag : 'ClassBuilder'
 }
 
-{ #category : 'private' }
-GClass class >> critical: aBlock [
-
-	mutex ifNil: [ mutex := Mutex new ].
-	^ mutex critical: aBlock
-]
-
 { #category : 'library path' }
 GClass class >> ffiLibraryName [
 	
@@ -108,15 +101,15 @@ GClass class >> gDefinitionAt: aClass [
 	"Answers a GClass definition of aClass. 
 	 if the definition does not yet exits, it tries to install a new definition by calling
 	 the #gDefine: hook method."
+	| gClass |
 
-	^ self critical: [ 
-		| gClass |
-		gClass := self gClassAt: aClass ifAbsent: [ nil ].
-		gClass ifNil: [
-			gClass := self 
-				install: aClass 
-				with: [ :c | aClass gDefine: c ] ].
-		gClass ]
+	gClass := self gClassAt: aClass ifAbsent: [ nil ].
+	gClass ifNil: [
+		gClass := self 
+			install: aClass 
+			with: [ :c | aClass gDefine: c ] ].
+	
+	^ gClass
 ]
 
 { #category : 'class initialization' }
