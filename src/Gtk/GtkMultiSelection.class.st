@@ -10,9 +10,9 @@ Class {
 }
 
 { #category : 'private' }
-GtkMultiSelection class >> gtkNew: model [
+GtkMultiSelection class >> gtkNew [
 
-	self ffiCall: #(GtkMultiSelection* gtk_multi_selection_new (GListModel* model))
+	self ffiCall: #(GtkMultiSelection* gtk_multi_selection_new (NULL))
 ]
 
 { #category : 'private' }
