@@ -2,7 +2,7 @@ Class {
 	#name : 'GtkLibrary',
 	#superclass : 'GObjectLibrary',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Library',
 	#package : 'Gtk',

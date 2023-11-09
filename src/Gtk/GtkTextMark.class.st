@@ -9,7 +9,7 @@ Class {
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Misc',
 	#package : 'Gtk',

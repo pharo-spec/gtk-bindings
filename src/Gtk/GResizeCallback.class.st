@@ -5,7 +5,7 @@ Class {
 	#name : 'GResizeCallback',
 	#superclass : 'GManagedSignalCallback',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Callbacks',
 	#package : 'Gtk',

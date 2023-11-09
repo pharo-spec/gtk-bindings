@@ -2,7 +2,7 @@
 I contain gtk types.
 "
 Class {
-	#name : 'GtkTypes',
+	#name : 'GObjectTypes',
 	#superclass : 'SharedPool',
 	#classVars : [
 		'GErrorHolder',
@@ -37,7 +37,7 @@ Class {
 }
 
 { #category : 'class initialization' }
-GtkTypes class >> initialize [
+GObjectTypes class >> initialize [
 
 	gchar 	:= #char.
 	guchar := #char.

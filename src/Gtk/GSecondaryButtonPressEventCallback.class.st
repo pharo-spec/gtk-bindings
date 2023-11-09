@@ -2,7 +2,7 @@ Class {
 	#name : 'GSecondaryButtonPressEventCallback',
 	#superclass : 'GButtonPressEventCallback',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Callbacks',
 	#package : 'Gtk',

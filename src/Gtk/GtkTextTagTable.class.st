@@ -12,7 +12,7 @@ Class {
 		'tags'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Misc',
 	#package : 'Gtk',

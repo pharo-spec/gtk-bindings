@@ -13,7 +13,7 @@ Class {
 		'OFFSET_USER_DATA3'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Widget-Tree',
 	#package : 'Gtk',

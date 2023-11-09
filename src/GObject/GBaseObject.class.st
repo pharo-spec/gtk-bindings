@@ -8,8 +8,8 @@ Class {
 	#traits : 'GObjectTLibrary',
 	#classTraits : 'GObjectTLibrary classTrait',
 	#pools : [
-		'GType',
-		'GtkTypes'
+		'GObjectTypes',
+		'GType'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',

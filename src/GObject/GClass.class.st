@@ -49,7 +49,7 @@ Class {
 		'GClasses'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-ClassBuilder',
 	#package : 'GObject',

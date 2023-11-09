@@ -2,7 +2,7 @@ Class {
 	#name : 'GManagedSignalCallback',
 	#superclass : 'GSignalCallback',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Callbacks',
 	#package : 'GObject',

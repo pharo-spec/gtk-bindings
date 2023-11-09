@@ -8,7 +8,7 @@ Class {
 		'Debug'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',

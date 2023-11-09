@@ -11,7 +11,7 @@ Class {
 		'GTK_STYLE_PROVIDER_PRIORITY_USER'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Misc',
 	#package : 'Gtk',

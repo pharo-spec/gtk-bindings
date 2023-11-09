@@ -2,7 +2,7 @@ Class {
 	#name : 'GButtonPressEventCallback',
 	#superclass : 'GManagedSignalCallback',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Callbacks',
 	#package : 'Gtk',

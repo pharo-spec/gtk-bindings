@@ -6,7 +6,7 @@ Class {
 		'OFFSET_G_TYPE'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Misc',
 	#package : 'GObject',

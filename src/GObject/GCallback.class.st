@@ -10,7 +10,7 @@ Class {
 	#traits : 'GObjectTLibrary',
 	#classTraits : 'GObjectTLibrary classTrait',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Callbacks',
 	#package : 'GObject',

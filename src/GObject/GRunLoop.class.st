@@ -18,7 +18,7 @@ Class {
 		'#inCallback => ProcessLocalSlot'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',

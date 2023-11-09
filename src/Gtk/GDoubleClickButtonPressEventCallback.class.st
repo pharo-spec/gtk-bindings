@@ -2,7 +2,7 @@ Class {
 	#name : 'GDoubleClickButtonPressEventCallback',
 	#superclass : 'GButtonPressEventCallback',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Callbacks',
 	#package : 'Gtk',

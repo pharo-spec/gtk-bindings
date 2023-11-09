@@ -16,7 +16,7 @@ Class {
 	#name : 'GMotionNotifyEventCallback',
 	#superclass : 'GManagedSignalCallback',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Callbacks',
 	#package : 'Gtk',

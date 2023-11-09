@@ -18,7 +18,7 @@ Class {
 		'Current'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',
@@ -238,6 +238,7 @@ GEngine >> stop [
 
 { #category : 'running' }
 GEngine >> suspendRunLoopWhile: aBlock [
+
 	self stop.
 	^ aBlock ensure: [ self start ]
 ]

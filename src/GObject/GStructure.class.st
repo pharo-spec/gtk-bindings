@@ -2,7 +2,7 @@ Class {
 	#name : 'GStructure',
 	#superclass : 'FFIExternalStructure',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',

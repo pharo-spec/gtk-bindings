@@ -32,7 +32,7 @@ Class {
 		'G_TYPE_VARIANT'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',

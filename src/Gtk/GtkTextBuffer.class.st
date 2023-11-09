@@ -12,7 +12,7 @@ Class {
 		'tagTable'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'Gtk-Misc',
 	#package : 'Gtk',

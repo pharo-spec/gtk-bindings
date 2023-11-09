@@ -14,8 +14,8 @@ Class {
 		'data'
 	],
 	#pools : [
-		'GtkOrientation',
-		'GtkTypes'
+		'GObjectTypes',
+		'GtkOrientation'
 	],
 	#category : 'Gtk-Widget-Container',
 	#package : 'Gtk',

@@ -12,7 +12,7 @@ Class {
 		'OFFSET_MESSAGE'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Misc',
 	#package : 'GObject',

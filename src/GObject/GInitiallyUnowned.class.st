@@ -7,7 +7,7 @@ Class {
 	#name : 'GInitiallyUnowned',
 	#superclass : 'GObject',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
 	#category : 'GObject-Base',
 	#package : 'GObject',
