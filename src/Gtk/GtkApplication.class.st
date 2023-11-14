@@ -12,6 +12,20 @@ Class {
 	#tag : 'Application'
 }
 
+{ #category : 'accessing' }
+GtkApplication class >> activeClass [
+
+	^ (self subclasses select: [ :each | each canBeActivated ])
+		ifNotEmpty: [ :sc | sc first ]
+		ifEmpty: [ self ]
+]
+
+{ #category : 'private' }
+GtkApplication class >> canBeActivated [
+
+	^ true
+]
+
 { #category : 'private' }
 GtkApplication class >> finalize: handle [
 
