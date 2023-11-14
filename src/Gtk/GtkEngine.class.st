@@ -78,7 +78,7 @@ GtkEngine >> ensureApplication [
 
 	self hasValidApplication ifTrue: [ ^ application ].
 
-	application := GtkApplication
+	application := GtkApplication activeClass
 		newId: 'org.pharo.Gtk4Application'
 		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
 	application register.
