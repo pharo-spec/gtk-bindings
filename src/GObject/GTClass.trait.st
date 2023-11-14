@@ -24,6 +24,7 @@ GTClass classSide >> gDefine: gClass [
 { #category : 'class initialization' }
 GTClass classSide >> gInstall [
 
+	"forces install"
 	GClass gDefinitionAt: self
 ]
 

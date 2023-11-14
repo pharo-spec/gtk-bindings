@@ -289,7 +289,7 @@ GClass >> initialize: aBlock [
 { #category : 'installing' }
 GClass >> install [
 
-	mutex critical: [  
+	mutex critical: [
 		type := self registerType.
 		type = 0 ifTrue: [ 
 			GClassError signal: 'Class not installed.' ].
@@ -358,21 +358,19 @@ GClass >> prepare: aBlock [
 
 { #category : 'private - installing' }
 GClass >> registerType [
-	| utf8Name classSize |
+	| utf8Name classSize instanceSize |
 
 	self validateInstallPreconditions.
 
 	utf8Name := name utf8Encoded copyWith: 0.
-	utf8Name pinInMemory.
-	
-	classSize := parent gClassSize.
-
+	classSize := targetClass gClassSize.
+	instanceSize := targetClass gSize.
 	^ self
 		gTypeRegisterStaticSimpleParent: parent gType
 		name: (self gInternStaticStringFromByteArray: utf8Name)
 		classSize: classSize
 		classInit: (classInitialize ifNil: [ GCallback null ])
-		instanceSize: parent gSize
+		instanceSize: instanceSize
 		instanceInit: (initialize ifNil: [ GCallback null ])
 		flags: 0
 ]
@@ -412,7 +410,7 @@ GClass >> typeName [
 GClass >> validateInstallPreconditions [
 	| selectors |
 
-	selectors := parent class selectors.
+	selectors := targetClass class selectors.
 	#(gType gClassSize gSize) 
 		reject: [ :each | selectors includes: each ]
 		thenDo: [ :each |  
