@@ -2,15 +2,9 @@ Extension { #name : 'FinalizationRegistry' }
 
 { #category : '*GObject' }
 FinalizationRegistry >> detect: aBlock ifFound: foundBlock [
-	| current |
 	
-	current := ephemeronListHead.
-	[ current notNil ] 
-	whileTrue: [ 
-		current key ifNotNil: [ :aKey | 
-			(aBlock value: aKey) 
-				ifTrue: [ ^ foundBlock value: current value ] ].
-		current := current next ].
-		
-	^ nil
+	^ ephemeronList 
+		detect: [ :entry | aBlock value: entry key ]
+		ifFound: [ :entry | foundBlock value: entry value ]
+		ifNone: [ nil ]
 ]
