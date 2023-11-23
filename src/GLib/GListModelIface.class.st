@@ -14,9 +14,7 @@ Class {
 	#classVars : [
 		'OFFSET_GET_ITEM',
 		'OFFSET_GET_ITEM_TYPE',
-		'OFFSET_GET_N_ITEMS',
-		'OFFSET_GET_OBJECT',
-		'OFFSET_ITEMS_CHANGED'
+		'OFFSET_GET_N_ITEMS'
 	],
 	#category : 'GLib-Lists',
 	#package : 'GLib',
@@ -31,8 +29,6 @@ GListModelIface class >> fieldsDesc [
 	GCallback get_item_type;
 	GCallback get_n_items;
 	GCallback get_item;
-	GCallback get_object;
-	GCallback items_changed;
 )
 ]
 
@@ -72,7 +68,7 @@ GListModelIface >> get_item_type [
 { #category : 'accessing - structure variables' }
 GListModelIface >> get_item_type: aCallback [
 	"This method was automatically generated"
-
+	
 	get_item_type := aCallback.
 	handle 
 		pointerAt: OFFSET_GET_ITEM_TYPE
@@ -94,42 +90,6 @@ GListModelIface >> get_n_items: aCallback [
 	get_n_items := aCallback.
 	handle 
 		pointerAt: OFFSET_GET_N_ITEMS
-		put: (aCallback 
-			ifNotNil: [ aCallback thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : 'accessing - structure variables' }
-GListModelIface >> get_object [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_OBJECT) asInteger)
-]
-
-{ #category : 'accessing - structure variables' }
-GListModelIface >> get_object: aCallback [
-	"This method was automatically generated"
-	
-	get_object := aCallback.
-	handle 
-		pointerAt: OFFSET_GET_OBJECT
-		put: (aCallback 
-			ifNotNil: [ aCallback thunk asExternalAddress ]
-			ifNil: [ ExternalAddress null ])
-]
-
-{ #category : 'accessing - structure variables' }
-GListModelIface >> items_changed [
-	"This method was automatically generated"
-	^GCallback forAddress: ((handle pointerAt: OFFSET_ITEMS_CHANGED) asInteger)
-]
-
-{ #category : 'accessing - structure variables' }
-GListModelIface >> items_changed: aCallback [
-	"This method was automatically generated"
-	
-	items_changed := aCallback.
-	handle 
-		pointerAt: OFFSET_ITEMS_CHANGED
 		put: (aCallback 
 			ifNotNil: [ aCallback thunk asExternalAddress ]
 			ifNil: [ ExternalAddress null ])
