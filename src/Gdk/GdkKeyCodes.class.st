@@ -3,8 +3,8 @@ Key codes of the gtk platform (just the ones needed because they are a lot).
 They can be found at: gdk/gdkkeysyms.h
 "
 Class {
-	#name : #GdkKeyCodes,
-	#superclass : #SharedPool,
+	#name : 'GdkKeyCodes',
+	#superclass : 'SharedPool',
 	#classVars : [
 		'KEY_BackSpace',
 		'KEY_Begin',
@@ -44,10 +44,12 @@ Class {
 		'KEY_dead_circumflex',
 		'KEY_script_switch'
 	],
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GdkKeyCodes class >> initialize [ 
 
 	KEY_VoidSymbol := 16rffffff.

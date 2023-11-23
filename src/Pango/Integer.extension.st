@@ -1,12 +1,12 @@
-Extension { #name : #Integer }
+Extension { #name : 'Integer' }
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 Integer >> pangoScaled [
 
 	^ self * 1024
 ]
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 Integer >> pangoUnscaled [
 
 	^ self / 1024.0

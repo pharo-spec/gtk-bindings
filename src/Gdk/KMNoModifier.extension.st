@@ -1,6 +1,6 @@
-Extension { #name : #KMNoModifier }
+Extension { #name : 'KMNoModifier' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KMNoModifier >> asGdkModifierType [ 
 
 	^ GdkModifierType newValue: 0

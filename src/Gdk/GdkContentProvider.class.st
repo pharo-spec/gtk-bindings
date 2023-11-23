@@ -1,12 +1,14 @@
 Class {
-	#name : #GdkContentProvider,
-	#superclass : #GObject,
+	#name : 'GdkContentProvider',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkContentProvider >> getValue: value error: error [
 
 	self ffiCall: #(gboolean gdk_content_provider_get_value (
@@ -15,7 +17,7 @@ GdkContentProvider >> getValue: value error: error [
 		void **error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkContentProvider >> string [
 	| value errorHolder result |
 

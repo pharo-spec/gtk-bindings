@@ -1,26 +1,28 @@
 Class {
-	#name : #PangoShapeFlags,
-	#superclass : #GEnumeration,
+	#name : 'PangoShapeFlags',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'PANGO_SHAPE_NONE',
 		'PANGO_SHAPE_ROUND_POSITIONS'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoShapeFlags class >> PANGO_SHAPE_NONE [
 	"This method was automatically generated"
 	^ PANGO_SHAPE_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoShapeFlags class >> PANGO_SHAPE_ROUND_POSITIONS [
 	"This method was automatically generated"
 	^ PANGO_SHAPE_ROUND_POSITIONS
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 PangoShapeFlags class >> enumDecl [
 
 	^ #(

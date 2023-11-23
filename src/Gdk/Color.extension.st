@@ -1,6 +1,6 @@
-Extension { #name : #Color }
+Extension { #name : 'Color' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 Color >> asGdkRGBA [
 
 	^ GdkRGBA 

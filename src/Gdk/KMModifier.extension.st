@@ -1,6 +1,6 @@
-Extension { #name : #KMModifier }
+Extension { #name : 'KMModifier' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KMModifier >> asGdkModifierType [ 
 	
 	^ self subclassResponsibility

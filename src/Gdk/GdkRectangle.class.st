@@ -4,8 +4,8 @@ Defines the position and size of a rectangle. It is identical to cairo_rectangle
 https://developer.gnome.org/gdk3/stable/gdk3-Points-Rectangles-and-Regions.html#GdkRectangle
 "
 Class {
-	#name : #GdkRectangle,
-	#superclass : #GStructure,
+	#name : 'GdkRectangle',
+	#superclass : 'GStructure',
 	#classVars : [
 		'OFFSET_HEIGHT',
 		'OFFSET_WIDTH',
@@ -13,12 +13,14 @@ Class {
 		'OFFSET_Y'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GdkRectangle class >> fieldsDesc [ 
 	"self rebuildFieldAccessors"
 
@@ -30,73 +32,73 @@ GdkRectangle class >> fieldsDesc [
 	)
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdkRectangle >> asGdkRectangle [
 
 	^ self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdkRectangle >> asRectangle [
 	
 	^ (self x @ self y) extent: (self width @ self height)
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> height [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_HEIGHT
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> height: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_HEIGHT put: anObject
 ]
 
-{ #category : #'accessing - compatibility' }
+{ #category : 'accessing - compatibility' }
 GdkRectangle >> left [
 
 	^ self x
 ]
 
-{ #category : #'accessing - compatibility' }
+{ #category : 'accessing - compatibility' }
 GdkRectangle >> top [
 
 	^ self y
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> width [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_WIDTH
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> width: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_WIDTH put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> x [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_X
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> x: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_X put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> y [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_Y
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRectangle >> y: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_Y put: anObject

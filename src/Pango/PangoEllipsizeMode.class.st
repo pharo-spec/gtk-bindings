@@ -1,40 +1,42 @@
 Class {
-	#name : #PangoEllipsizeMode,
-	#superclass : #GEnumeration,
+	#name : 'PangoEllipsizeMode',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'PANGO_ELLIPSIZE_END',
 		'PANGO_ELLIPSIZE_MIDDLE',
 		'PANGO_ELLIPSIZE_NONE',
 		'PANGO_ELLIPSIZE_START'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoEllipsizeMode class >> PANGO_ELLIPSIZE_END [
 	"This method was automatically generated"
 	^ PANGO_ELLIPSIZE_END
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoEllipsizeMode class >> PANGO_ELLIPSIZE_MIDDLE [
 	"This method was automatically generated"
 	^ PANGO_ELLIPSIZE_MIDDLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoEllipsizeMode class >> PANGO_ELLIPSIZE_NONE [
 	"This method was automatically generated"
 	^ PANGO_ELLIPSIZE_NONE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoEllipsizeMode class >> PANGO_ELLIPSIZE_START [
 	"This method was automatically generated"
 	^ PANGO_ELLIPSIZE_START
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 PangoEllipsizeMode class >> enumDecl [
 	"self initializeEnumeration; rebuildEnumAccessors"
 

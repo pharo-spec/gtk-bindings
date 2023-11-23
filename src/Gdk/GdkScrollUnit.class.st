@@ -2,28 +2,30 @@
 https://docs.gtk.org/gdk4/enum.ScrollUnit.html
 "
 Class {
-	#name : #GdkScrollUnit,
-	#superclass : #GEnumeration,
+	#name : 'GdkScrollUnit',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_SCROLL_UNIT_SURFACE',
 		'GDK_SCROLL_UNIT_WHEEL'
 	],
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollUnit class >> GDK_SCROLL_UNIT_SURFACE [
 	"This method was automatically generated"
 	^ GDK_SCROLL_UNIT_SURFACE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollUnit class >> GDK_SCROLL_UNIT_WHEEL [
 	"This method was automatically generated"
 	^ GDK_SCROLL_UNIT_WHEEL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkScrollUnit class >> enumDecl [
 	"self initializeEnumeration.
 	 self rebuildEnumAccessors"

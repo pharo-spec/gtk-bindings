@@ -1,36 +1,38 @@
 Class {
-	#name : #GdkClipboard,
-	#superclass : #GObject,
+	#name : 'GdkClipboard',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkClipboard class >> default [
 
 	^ GdkDisplay default clipboard
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkClipboard class >> primary [
 
 	^ GdkDisplay default primaryClipboard
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> content [
 
 	^ self ffiCall: #(GdkContentProvider *gdk_clipboard_get_content (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> formats [
 
 	^ self ffiCall: #(GdkContentFormats *gdk_clipboard_get_formats (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> readText [
 	| sem result error |
 
@@ -46,7 +48,7 @@ GdkClipboard >> readText [
 	^ self readTextFinish: result error: error
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> readTextAsync: callback [
 
 	self ffiCall: #(void gdk_clipboard_read_text_async (
@@ -56,7 +58,7 @@ GdkClipboard >> readTextAsync: callback [
   		NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> readTextFinish: result error: error [
 
 	self ffiCall: #(char* gdk_clipboard_read_text_finish (
@@ -65,7 +67,7 @@ GdkClipboard >> readTextFinish: result error: error [
   		GErrorHolder error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> string: aString [
 	| value |
 
@@ -75,25 +77,25 @@ GdkClipboard >> string: aString [
 	self value: value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> text [
 
 	^ self content string
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> text: text [
 
 	self ffiCall: #(void gdk_clipboard_set_text (self, const char* text))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> texture: texture [
 
 	self ffiCall: #(void gdk_clipboard_set_texture (self, GdkTexture* texture))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkClipboard >> value: value [
 
 	self ffiCall: #(void gdk_clipboard_set_value (self, GValue *value))

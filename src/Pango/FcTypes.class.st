@@ -1,15 +1,17 @@
 Class {
-	#name : #FcTypes,
-	#superclass : #SharedPool,
+	#name : 'FcTypes',
+	#superclass : 'SharedPool',
 	#classVars : [
 		'FcBool',
 		'FcChar8',
 		'FcSetName'
 	],
-	#category : #'Pango-FontConfig'
+	#category : 'Pango-FontConfig',
+	#package : 'Pango',
+	#tag : 'FontConfig'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FcTypes >> initialize [
 
 	FcChar8 := #char.

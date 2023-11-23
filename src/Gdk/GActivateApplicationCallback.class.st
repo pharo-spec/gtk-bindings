@@ -4,18 +4,20 @@ The ::activate signal is emitted on the primary instance when an activation occu
 https://docs.gtk.org/gio/signal.Application.activate.html
 "
 Class {
-	#name : #GActivateApplicationCallback,
-	#superclass : #GManagedSignalCallback,
-	#category : #'Gdk-Callbacks'
+	#name : 'GActivateApplicationCallback',
+	#superclass : 'GManagedSignalCallback',
+	#category : 'Gdk-Callbacks',
+	#package : 'Gdk',
+	#tag : 'Callbacks'
 }
 
-{ #category : #signalling }
+{ #category : 'signalling' }
 GActivateApplicationCallback class >> signalName [
 
 	^ 'activate'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 GActivateApplicationCallback >> do: aBlock [
 
 	self 
@@ -23,7 +25,7 @@ GActivateApplicationCallback >> do: aBlock [
 		block: [ :app | aBlock value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GActivateApplicationCallback >> signature [
 
 	^ #(void (void *app))

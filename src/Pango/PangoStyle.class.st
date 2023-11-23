@@ -1,6 +1,6 @@
 Class {
-	#name : #PangoStyle,
-	#superclass : #GEnumeration,
+	#name : 'PangoStyle',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'PANGO_WEIGHT_BOLD',
 		'PANGO_WEIGHT_BOOK',
@@ -15,82 +15,84 @@ Class {
 		'PANGO_WEIGHT_ULTRAHEAVY',
 		'PANGO_WEIGHT_ULTRALIGHT'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_BOLD [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_BOLD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_BOOK [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_BOOK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_HEAVY [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_HEAVY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_LIGHT [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_LIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_MEDIUM [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_MEDIUM
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_NORMAL [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_NORMAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_SEMIBOLD [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_SEMIBOLD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_SEMILIGHT [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_SEMILIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_THIN [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_THIN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_ULTRABOLD [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_ULTRABOLD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_ULTRAHEAVY [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_ULTRAHEAVY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 PangoStyle class >> PANGO_WEIGHT_ULTRALIGHT [
 	"This method was automatically generated"
 	^ PANGO_WEIGHT_ULTRALIGHT
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 PangoStyle class >> enumDecl [
 
 	^ #(

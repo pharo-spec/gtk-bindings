@@ -1,6 +1,6 @@
 Class {
-	#name : #PangoGlyphString,
-	#superclass : #GStructure,
+	#name : 'PangoGlyphString',
+	#superclass : 'GStructure',
 	#traits : 'TPangoLibrary',
 	#classTraits : 'TPangoLibrary classTrait',
 	#classVars : [
@@ -8,10 +8,12 @@ Class {
 		'OFFSET_LOG_CLUSTERS',
 		'OFFSET_NUM_GLYPHS'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoGlyphString class >> externalNew [
 
 	^ self glyphStringNew
@@ -19,7 +21,7 @@ PangoGlyphString class >> externalNew [
 		  yourself
 ]
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 PangoGlyphString class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 
@@ -31,7 +33,7 @@ PangoGlyphString class >> fieldsDesc [
 	)
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoGlyphString class >> finalizeResourceData: handle [
 
 	handle isNull ifTrue: [ ^ self ].
@@ -39,19 +41,19 @@ PangoGlyphString class >> finalizeResourceData: handle [
 	handle beNull
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoGlyphString class >> glyphStringFree: handle [
 
 	self ffiCall: #( void pango_glyph_string_free ( void* handle ) )
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoGlyphString class >> glyphStringNew [
 
 	^ self ffiCall: #( PangoGlyphString *pango_glyph_string_new () )
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoGlyphString class >> shape: aString analysis: aPangoAnalysis [
 
 	| glyphString |
@@ -65,7 +67,7 @@ PangoGlyphString class >> shape: aString analysis: aPangoAnalysis [
 	^ glyphString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoGlyphString class >> shapeFull: itemString paragraph: paragraphString analysis: aPangoAnalysis [
 
 	| glyphString |
@@ -81,7 +83,7 @@ PangoGlyphString class >> shapeFull: itemString paragraph: paragraphString analy
 	^ glyphString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoGlyphString class >> shapeItem: aPangoItem paragraphText: paragraphText [
 
 	| glyphString |
@@ -97,7 +99,7 @@ PangoGlyphString class >> shapeItem: aPangoItem paragraphText: paragraphText [
 	^ glyphString
 ]
 
-{ #category : #measuring }
+{ #category : 'measuring' }
 PangoGlyphString >> extentsWithFont: aFont [
 	"Answer an array with 'ink' and 'logical' rectangles. 
 	See https://docs.gtk.org/Pango/method.GlyphString.extents.html"
@@ -115,7 +117,7 @@ PangoGlyphString >> extentsWithFont: aFont [
 		  logicalRectangle }
 ]
 
-{ #category : #measuring }
+{ #category : 'measuring' }
 PangoGlyphString >> extentsWithFont: aFont inkRectangle: inkRectangle logicalRectangle: logicalRectangle [
 
 	self ffiCall: #(
@@ -127,31 +129,31 @@ PangoGlyphString >> extentsWithFont: aFont inkRectangle: inkRectangle logicalRec
 		  PangoRectangle* logicalRectangle ))
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoGlyphString >> glyphs [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_GLYPHS) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoGlyphString >> glyphs: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_GLYPHS put: anObject getHandle.
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoGlyphString >> log_clusters [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_LOG_CLUSTERS) type: ExternalType long asPointerType
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoGlyphString >> log_clusters: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_LOG_CLUSTERS put: anObject getHandle.
 ]
 
-{ #category : #measuring }
+{ #category : 'measuring' }
 PangoGlyphString >> logicalRectangleWithFont: aFont [
 	"Answer a Rectangle with the logical bounds.
 	See https://docs.gtk.org/Pango/method.GlyphString.extents.html"
@@ -167,19 +169,19 @@ PangoGlyphString >> logicalRectangleWithFont: aFont [
 	^ logicalRectangle asRectangle
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoGlyphString >> num_glyphs [
 	"This method was automatically generated"
 	^handle signedLongAt: OFFSET_NUM_GLYPHS
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoGlyphString >> num_glyphs: anObject [
 	"This method was automatically generated"
 	handle signedLongAt: OFFSET_NUM_GLYPHS put: anObject
 ]
 
-{ #category : #shaping }
+{ #category : 'shaping' }
 PangoGlyphString >> shape: text length: length analysis: analysis [
 	"https://docs.gtk.org/Pango/func.shape.html"
 
@@ -192,7 +194,7 @@ PangoGlyphString >> shape: text length: length analysis: analysis [
 		  self ))
 ]
 
-{ #category : #shaping }
+{ #category : 'shaping' }
 PangoGlyphString >> shapeFull: itemText length: itemLength paragraphText: paragraphText paragraphLength: paragraphLength analysis: analysis [
 	"https://docs.gtk.org/Pango/func.shape_full.html"
 
@@ -207,7 +209,7 @@ PangoGlyphString >> shapeFull: itemText length: itemLength paragraphText: paragr
 		  self ))
 ]
 
-{ #category : #shaping }
+{ #category : 'shaping' }
 PangoGlyphString >> shapeItem: aPangoItem paragraphText: paragraphText paragraphLength: paragraphLength logAttrs: logAttrs flags: flags [
 	"https://docs.gtk.org/Pango/func.shape_item.html"
 

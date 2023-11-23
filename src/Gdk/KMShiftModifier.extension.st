@@ -1,6 +1,6 @@
-Extension { #name : #KMShiftModifier }
+Extension { #name : 'KMShiftModifier' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KMShiftModifier >> asGdkModifierType [ 
 
 	^ GdkModifierType GDK_SHIFT_MASK

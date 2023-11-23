@@ -2,8 +2,8 @@
 https://docs.gtk.org/gdk4/enum.NotifyType.html
 "
 Class {
-	#name : #GdkNotifyType,
-	#superclass : #GEnumeration,
+	#name : 'GdkNotifyType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_NOTIFY_ANCESTOR',
 		'GDK_NOTIFY_INFERIOR',
@@ -12,46 +12,48 @@ Class {
 		'GDK_NOTIFY_UNKNOWN',
 		'GDK_NOTIFY_VIRTUAL'
 	],
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkNotifyType class >> GDK_NOTIFY_ANCESTOR [
 	"This method was automatically generated"
 	^ GDK_NOTIFY_ANCESTOR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkNotifyType class >> GDK_NOTIFY_INFERIOR [
 	"This method was automatically generated"
 	^ GDK_NOTIFY_INFERIOR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkNotifyType class >> GDK_NOTIFY_NONLINEAR [
 	"This method was automatically generated"
 	^ GDK_NOTIFY_NONLINEAR
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkNotifyType class >> GDK_NOTIFY_NONLINEAR_VIRTUAL [
 	"This method was automatically generated"
 	^ GDK_NOTIFY_NONLINEAR_VIRTUAL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkNotifyType class >> GDK_NOTIFY_UNKNOWN [
 	"This method was automatically generated"
 	^ GDK_NOTIFY_UNKNOWN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkNotifyType class >> GDK_NOTIFY_VIRTUAL [
 	"This method was automatically generated"
 	^ GDK_NOTIFY_VIRTUAL
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkNotifyType class >> enumDecl [
 	"self initializeEnumeration; rebuildEnumAccessors"
 	

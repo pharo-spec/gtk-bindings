@@ -4,12 +4,14 @@ The GdkPixbuf Structure — Information that describes an image.
 https://developer.gnome.org/gdk-pixbuf/stable/gdk-pixbuf-The-GdkPixbuf-Structure.html
 "
 Class {
-	#name : #GdkPixbuf,
-	#superclass : #GBaseObject,
-	#category : #'Gdk-Pixbuf'
+	#name : 'GdkPixbuf',
+	#superclass : 'GBaseObject',
+	#category : 'Gdk-Pixbuf',
+	#package : 'Gdk',
+	#tag : 'Pixbuf'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GdkPixbuf class >> gType [
 
 	^ self 
@@ -17,7 +19,7 @@ GdkPixbuf class >> gType [
 		module: GdkPixbufLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkPixbuf class >> getFromFile: filename error: error [
 	
 	^ self ffiCall: #(GdkPixbuf *gdk_pixbuf_new_from_file (
@@ -25,7 +27,7 @@ GdkPixbuf class >> getFromFile: filename error: error [
 		"GError **"GErrorHolder error))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkPixbuf class >> getFromSurface: surface x: src_x y: src_y width: width height: height [
 	"https://developer.gnome.org/gdk3/stable/gdk3-Pixbufs.html#gdk-pixbuf-get-from-surface"
 	
@@ -37,7 +39,7 @@ GdkPixbuf class >> getFromSurface: surface x: src_x y: src_y width: width height
 		gint height)) module: GdkLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkPixbuf class >> newFromFile: filename [ 
 	| errorHolder error pixbuf |
 
@@ -50,7 +52,7 @@ GdkPixbuf class >> newFromFile: filename [
 	^ pixbuf
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkPixbuf class >> newFromSurface: aSurface width: width height: height [
 
 	^ self 
@@ -61,42 +63,42 @@ GdkPixbuf class >> newFromSurface: aSurface width: width height: height [
 		height: height
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkPixbuf class >> newFromSurface: surface x: x y: y width: width height: height [
 
 	^ (self getFromSurface: surface x: x y: y width: width height: height) initialize
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdkPixbuf >> asGdkPixbuf [
 
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkPixbuf >> depth [
 	
 	^ self numberOfChannels * 8
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GdkPixbuf >> height [ 
 
 	^ self ffiCall: #(int gdk_pixbuf_get_height(self)) module: GdkPixbufLibrary
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GdkPixbuf >> isSimilarTo: aGdkPixbuf [ 
 	self shouldBeImplemented.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkPixbuf >> numberOfChannels [
 	
 	^ self ffiCall: #(int gdk_pixbuf_get_n_channels(self)) module: GdkPixbufLibrary
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 GdkPixbuf >> width [ 
 
 	^ self ffiCall: #(int gdk_pixbuf_get_width(self)) module: GdkPixbufLibrary

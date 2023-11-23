@@ -1,6 +1,6 @@
-Extension { #name : #Rectangle }
+Extension { #name : 'Rectangle' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 Rectangle >> asGdkRectangle [
 
 	^ GdkRectangle new 

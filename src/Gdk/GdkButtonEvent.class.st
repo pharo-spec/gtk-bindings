@@ -4,8 +4,8 @@ Used for button press and button release events.
 https://developer.gnome.org/gdk3/stable/gdk3-Event-Structures.html#GdkEventButton
 "
 Class {
-	#name : #GdkButtonEvent,
-	#superclass : #GdkEvent,
+	#name : 'GdkButtonEvent',
+	#superclass : 'GdkEvent',
 	#traits : 'GdkTEventState',
 	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
@@ -14,65 +14,67 @@ Class {
 	#pools : [
 		'GdkButtonType'
 	],
-	#category : #'Gdk-Events'
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkButtonEvent class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_button_event_get_type())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkButtonEvent class >> newButtonPress [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkButtonEvent class >> newButtonRelease [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkButtonEvent class >> newRightClick [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkButtonEvent >> button [
 
 	^ button ifNil: [ button := self getButton ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkButtonEvent >> getButton [
 
 	^ self ffiCall: #(guint gdk_button_event_get_button (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isButtonEvent [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isButtonPress [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isButtonRelease [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isDoubleClick [
 
 	self flag: #TODO. "This now has to be controlled with gestures"
@@ -80,31 +82,31 @@ GdkButtonEvent >> isDoubleClick [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isMiddleButton [
 
 	^ self button = GDK_BUTTON_MIDDLE
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isPrimaryButton [
 
 	^ self button = GDK_BUTTON_PRIMARY
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonEvent >> isSecondaryButton [
 
 	^ self button = GDK_BUTTON_SECONDARY
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkButtonEvent >> isWheel [
 	
 	^ false	
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkButtonEvent >> state [
 
 	^ self modifierState

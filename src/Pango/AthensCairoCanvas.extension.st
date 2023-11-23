@@ -1,6 +1,6 @@
-Extension { #name : #AthensCairoCanvas }
+Extension { #name : 'AthensCairoCanvas' }
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 AthensCairoCanvas >> showGlyphItem: glyphItem text: text [
 
 	self 
@@ -12,7 +12,7 @@ AthensCairoCanvas >> showGlyphItem: glyphItem text: text [
 
 ]
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 AthensCairoCanvas >> showGlyphString: glyphs font: font [
 
 	self 
@@ -24,14 +24,14 @@ AthensCairoCanvas >> showGlyphString: glyphs font: font [
 
 ]
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 AthensCairoCanvas >> showLayout: layout [
 	self 
 		ffiCall: #(void pango_cairo_show_layout (self, PangoLayout *layout))
 		module: PangoCairoLibrary
 ]
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 AthensCairoCanvas >> updateLayout: layout [
 	self 
 		ffiCall: #(void pango_cairo_update_layout (self, PangoLayout *layout))

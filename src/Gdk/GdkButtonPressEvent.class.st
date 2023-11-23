@@ -1,10 +1,12 @@
 Class {
-	#name : #GdkButtonPressEvent,
-	#superclass : #GdkButtonEvent,
-	#category : #'Gdk-Events'
+	#name : 'GdkButtonPressEvent',
+	#superclass : 'GdkButtonEvent',
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonPressEvent class >> isType: aType [ 
 
 	^ { 
@@ -15,13 +17,13 @@ GdkButtonPressEvent class >> isType: aType [
 	includes: aType
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkButtonPressEvent >> accept: aVisitor [
 
 	^ aVisitor visitMouseButtonPressEvent: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonPressEvent >> isButtonPress [
 
 	^ true

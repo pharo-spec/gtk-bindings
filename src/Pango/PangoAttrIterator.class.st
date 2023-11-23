@@ -1,18 +1,20 @@
 Class {
-	#name : #PangoAttrIterator,
-	#superclass : #PangoObject,
+	#name : 'PangoAttrIterator',
+	#superclass : 'PangoObject',
 	#traits : 'TPangoLibrary',
 	#classTraits : 'TPangoLibrary classTrait',
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoAttrIterator >> destroy [
 	
 	self ffiCall: #( void pango_attr_iterator_destroy ( self ) )
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoAttrIterator >> finalize [
 
 	handle isNull ifTrue: [ ^ self ].

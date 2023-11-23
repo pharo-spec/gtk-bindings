@@ -4,18 +4,20 @@ The PangoFontFamily structure is used to represent a family of related font face
 https://developer.gnome.org/pango/stable/pango-Fonts.html#PangoFontFamily-struct
 "
 Class {
-	#name : #PangoFontFamily,
-	#superclass : #PangoObject,
-	#category : #'Pango-Base'
+	#name : 'PangoFontFamily',
+	#superclass : 'PangoObject',
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoFontFamily >> name [
 
 	^ self ffiCall: #(const char* pango_font_family_get_name (self))
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 PangoFontFamily >> printOn: aStream [
 
 	"Append a sequence of characters to aStream that identify the receiver."

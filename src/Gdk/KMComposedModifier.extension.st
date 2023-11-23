@@ -1,6 +1,6 @@
-Extension { #name : #KMComposedModifier }
+Extension { #name : 'KMComposedModifier' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KMComposedModifier >> asGdkModifierType [ 
 	
 	^ (self modifiers collect: #asGdkModifierType) sum

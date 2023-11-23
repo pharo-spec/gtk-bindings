@@ -5,45 +5,47 @@ GdkMonitor — Object representing an output
 https://developer.gnome.org/gdk3/stable/GdkMonitor.html
 "
 Class {
-	#name : #GdkMonitor,
-	#superclass : #GObject,
+	#name : 'GdkMonitor',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkMonitor class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_monitor_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkMonitor class >> getOn: display number: monitor_num [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkMonitor class >> getPrimaryOn: display [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkMonitor class >> on: aDisplay number: aNumber [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkMonitor class >> primaryOn: aDisplay [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkMonitor >> forceRectangleToFitLimits: aRectangle [
 	| rect geometry |
 	
@@ -57,7 +59,7 @@ GdkMonitor >> forceRectangleToFitLimits: aRectangle [
 	^ rect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkMonitor >> geometry [
 	| rect |
 	
@@ -67,13 +69,13 @@ GdkMonitor >> geometry [
 	^ rect asRectangle
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkMonitor >> getGeometry: geometry [
 	
 	self ffiCall: #(void gdk_monitor_get_geometry (self, GdkRectangle *geometry))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkMonitor >> scaleFactor [
 
 	self ffiCall: #(int gdk_monitor_get_scale_factor (self))

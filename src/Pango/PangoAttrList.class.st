@@ -4,39 +4,41 @@ A PangoAttrList represents a list of attributes that apply to a section of text.
 https://docs.gtk.org/Pango/struct.AttrList.html
 "
 Class {
-	#name : #PangoAttrList,
-	#superclass : #PangoObject,
+	#name : 'PangoAttrList',
+	#superclass : 'PangoObject',
 	#instVars : [
 		'empty'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoAttrList class >> new [ 
 
 	^ self newUnowned autoRelease
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoAttrList class >> newUnowned [
 
 	^ self pango_attr_list_new initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoAttrList class >> pango_attr_list_new [
 
 	^ self ffiCall: #(PangoAttrList *pango_attr_list_new ())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoAttrList >> add: attr [
 
 	self add: attr from: 0 to: 16rFFFF
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoAttrList >> add: attr from: startIndex to: endIndex [
 
 	attr
@@ -46,7 +48,7 @@ PangoAttrList >> add: attr from: startIndex to: endIndex [
 	empty := false
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoAttrList >> finalize [
 
 	handle isNull ifTrue: [ ^ self ].
@@ -55,32 +57,32 @@ PangoAttrList >> finalize [
 		handle beNull ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoAttrList >> getIterator [
 
 	^ self ffiCall: #( PangoAttrIterator* pango_attr_list_get_iterator ( self ) )
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PangoAttrList >> initialize [
 
 	super initialize.
 	empty := true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoAttrList >> insert: attr [
 
 	self ffiCall: #(void pango_attr_list_insert ( self, PangoAttribute* attr))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 PangoAttrList >> isEmpty [
 
 	^ empty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoAttrList >> newIterator [
 
 	^ self getIterator
@@ -88,7 +90,7 @@ PangoAttrList >> newIterator [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoAttrList >> to_string [
 
 	^ self ffiCall: #(
@@ -97,7 +99,7 @@ PangoAttrList >> to_string [
 		  PangoAttrList* list ))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoAttrList >> unref [
 
 	self ffiCall: #(void pango_attr_list_unref (self))

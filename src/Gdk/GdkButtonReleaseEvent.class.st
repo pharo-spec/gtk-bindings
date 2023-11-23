@@ -1,22 +1,24 @@
 Class {
-	#name : #GdkButtonReleaseEvent,
-	#superclass : #GdkButtonEvent,
-	#category : #'Gdk-Events'
+	#name : 'GdkButtonReleaseEvent',
+	#superclass : 'GdkButtonEvent',
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonReleaseEvent class >> isType: aType [
 
 	^ aType = GDK_BUTTON_RELEASE
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkButtonReleaseEvent >> accept: aVisitor [
  
 	^ aVisitor visitMouseButtonReleaseEvent: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkButtonReleaseEvent >> isButtonRelease [
 
 	^ true

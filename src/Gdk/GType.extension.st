@@ -1,12 +1,12 @@
-Extension { #name : #GType }
+Extension { #name : 'GType' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 GType class >> GDK_TYPE_PIXBUF [
 
 	^ GdkPixbuf gType
 ]
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 GType class >> GDK_TYPE_RGBA [
 
 	^ GdkRGBA gType

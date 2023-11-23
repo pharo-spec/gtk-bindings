@@ -1,12 +1,12 @@
-Extension { #name : #KeyboardKey }
+Extension { #name : 'KeyboardKey' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KeyboardKey >> asInteger [
 
 	^ self value
 ]
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KeyboardKey >> asciiValue [
 
 	^ self value

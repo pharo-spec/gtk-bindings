@@ -1,48 +1,50 @@
 Class {
-	#name : #PangoLayout,
-	#superclass : #PangoObject,
+	#name : 'PangoLayout',
+	#superclass : 'PangoObject',
 	#pools : [
 		'PangoAlignment',
 		'PangoFontDescription'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoLayout class >> finalizeResourceData: handle [
 	handle isNull ifTrue: [ ^ self ].
 	^ self g_object_unref: handle
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoLayout class >> newCanvas: aCanvas [
 	^ self pango_cairo_create_layout: aCanvas
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoLayout class >> newContext: aContext [
 	^ self pango_layout_new: aContext
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoLayout class >> pango_cairo_create_layout: cr [
 	^ self 
 		ffiCall: #(PangoLayout *pango_cairo_create_layout (AthensCairoCanvas cr))
 		module: PangoCairoLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoLayout class >> pango_layout_new: context [
 	^ self ffiCall: #(PangoLayout *pango_layout_new (PangoContext *context))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> alignment [
 
 	^ self ffiCall: #(PangoAlignment pango_layout_get_alignment (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> attributes [
 
 	^ self getAttributes
@@ -50,13 +52,13 @@ PangoLayout >> attributes [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> baseline [
 
 	^ self ffiCall: #( int pango_layout_get_baseline ( self ) )
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoLayout >> finalize [
 
 	handle isNull ifTrue: [ ^ self ].
@@ -65,66 +67,66 @@ PangoLayout >> finalize [
 		handle beNull ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> fontDescription [
 	self ffiCall: #(PangoFontDescription *pango_layout_get_font_description (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> fontDescription: desc [
 	self ffiCall: #(void pango_layout_set_font_description (self, const PangoFontDescription *desc))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> getAttributes [
 	"https://docs.gtk.org/Pango/method.Layout.get_attributes.html"
 
 	^ self ffiCall: #( PangoAttrList* pango_layout_get_attributes ( self ) )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> height: height [
 	"https://docs.gtk.org/Pango/method.Layout.set_height.html"
 
 	self ffiCall: #(void pango_layout_set_height (self, int height))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PangoLayout >> initialize [
 	self autoRelease
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> markup: markup [
 	^ self ffiCall: #(void pango_layout_set_markup (self, const char *markup, -1))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoLayout >> primGetSizeWidth: width height: height [
 	self ffiCall: #(void pango_layout_get_size (self, int *width, int *height))
 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> scaledSize [
 
 	^ (self size / PANGO_SCALE) asIntegerPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> setAlignment: alignment [
 
 	self ffiCall: #(void pango_layout_set_alignment (self, PangoAlignment alignment))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> setAttributes: attrs [
 
 	^ self ffiCall: #(void pango_layout_set_attributes ( self, PangoAttrList* attrs ))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> setEllipsize: ellipsize [
 	"https://docs.gtk.org/Pango/method.Layout.set_ellipsize.html"
 
@@ -136,7 +138,7 @@ PangoLayout >> setEllipsize: ellipsize [
 		))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> setJustify: justify [
 
 	self ffiCall: #(
@@ -147,7 +149,7 @@ PangoLayout >> setJustify: justify [
 		))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> setLineSpacing: factor [
 	"https://docs.gtk.org/Pango/method.Layout.set_line_spacing.html"
 
@@ -159,7 +161,7 @@ PangoLayout >> setLineSpacing: factor [
 		))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> size [ 
 	| widthBuffer heightBuffer |
 	
@@ -169,24 +171,24 @@ PangoLayout >> size [
 	^ (widthBuffer signedLongAt: 1) @ (heightBuffer signedLongAt: 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> text: text [
 	self ffiCall: #(void pango_layout_set_text (self, const char *text, -1))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoLayout >> unref [
 
 	^ self ffiCall: #( void g_object_unref (self)) module: PangoLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> width [
 
 	self ffiCall: #(int pango_layout_get_width (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoLayout >> width: width [
 	self ffiCall: #(void pango_layout_set_width (self, int width))
 ]

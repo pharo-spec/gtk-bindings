@@ -1,6 +1,6 @@
-Extension { #name : #KMMetaModifier }
+Extension { #name : 'KMMetaModifier' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KMMetaModifier >> asGdkModifierType [ 
 
 	^ GdkModifierType GDK_META_MASK

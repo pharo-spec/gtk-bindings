@@ -1,6 +1,6 @@
-Extension { #name : #FFIExternalStructureReferenceHandle }
+Extension { #name : 'FFIExternalStructureReferenceHandle' }
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 FFIExternalStructureReferenceHandle >> tfPointerAddress [
 
 	^ self asExternalAddress

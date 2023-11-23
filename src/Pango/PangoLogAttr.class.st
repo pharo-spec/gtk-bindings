@@ -23,17 +23,19 @@ struct PangoLogAttr {
 See: https://docs.gtk.org/Pango/struct.LogAttr.html
 "
 Class {
-	#name : #PangoLogAttr,
-	#superclass : #GStructure,
+	#name : 'PangoLogAttr',
+	#superclass : 'GStructure',
 	#traits : 'TPangoLibrary',
 	#classTraits : 'TPangoLibrary classTrait',
 	#classVars : [
 		'OFFSET_FLAGS'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 PangoLogAttr class >> compileBitAccessors [
 	"self compileBitAccessors"
 
@@ -89,7 +91,7 @@ PangoLogAttr class >> compileBitAccessors [
 
 ]
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 PangoLogAttr class >> fieldsDesc [
 	"Hack to support bit flags. See doc linked in class comment.
 	
@@ -100,7 +102,7 @@ PangoLogAttr class >> fieldsDesc [
 		)
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> backspaceDeletesCharacter [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -109,7 +111,7 @@ PangoLogAttr >> backspaceDeletesCharacter [
 	^ (self flags bitAt: 11) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> backspaceDeletesCharacter: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -118,7 +120,7 @@ PangoLogAttr >> backspaceDeletesCharacter: aBoolean [
 	^ self flags bitAt: 11 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> breakInsertsHyphen [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -127,7 +129,7 @@ PangoLogAttr >> breakInsertsHyphen [
 	^ (self flags bitAt: 14) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> breakInsertsHyphen: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -136,7 +138,7 @@ PangoLogAttr >> breakInsertsHyphen: aBoolean [
 	^ self flags bitAt: 14 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> breakRemovesPreceding [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -145,7 +147,7 @@ PangoLogAttr >> breakRemovesPreceding [
 	^ (self flags bitAt: 15) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> breakRemovesPreceding: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -154,19 +156,19 @@ PangoLogAttr >> breakRemovesPreceding: aBoolean [
 	^ self flags bitAt: 15 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoLogAttr >> flags [
 	"This method was automatically generated"
 	^handle unsignedLongAt: OFFSET_FLAGS
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 PangoLogAttr >> flags: anObject [
 	"This method was automatically generated"
 	handle unsignedLongAt: OFFSET_FLAGS put: anObject
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isCharBreak [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -175,7 +177,7 @@ PangoLogAttr >> isCharBreak [
 	^ (self flags bitAt: 3) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isCharBreak: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -184,7 +186,7 @@ PangoLogAttr >> isCharBreak: aBoolean [
 	^ self flags bitAt: 3 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isCursorPosition [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -193,7 +195,7 @@ PangoLogAttr >> isCursorPosition [
 	^ (self flags bitAt: 5) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isCursorPosition: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -202,7 +204,7 @@ PangoLogAttr >> isCursorPosition: aBoolean [
 	^ self flags bitAt: 5 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isExpandableSpace [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -211,7 +213,7 @@ PangoLogAttr >> isExpandableSpace [
 	^ (self flags bitAt: 12) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isExpandableSpace: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -220,7 +222,7 @@ PangoLogAttr >> isExpandableSpace: aBoolean [
 	^ self flags bitAt: 12 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isLineBreak [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -229,7 +231,7 @@ PangoLogAttr >> isLineBreak [
 	^ (self flags bitAt: 1) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isLineBreak: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -238,7 +240,7 @@ PangoLogAttr >> isLineBreak: aBoolean [
 	^ self flags bitAt: 1 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isMandatoryBreak [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -247,7 +249,7 @@ PangoLogAttr >> isMandatoryBreak [
 	^ (self flags bitAt: 2) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isMandatoryBreak: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -256,7 +258,7 @@ PangoLogAttr >> isMandatoryBreak: aBoolean [
 	^ self flags bitAt: 2 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isSentenceBoundary [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -265,7 +267,7 @@ PangoLogAttr >> isSentenceBoundary [
 	^ (self flags bitAt: 8) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isSentenceBoundary: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -274,7 +276,7 @@ PangoLogAttr >> isSentenceBoundary: aBoolean [
 	^ self flags bitAt: 8 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isSentenceEnd [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -283,7 +285,7 @@ PangoLogAttr >> isSentenceEnd [
 	^ (self flags bitAt: 10) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isSentenceEnd: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -292,7 +294,7 @@ PangoLogAttr >> isSentenceEnd: aBoolean [
 	^ self flags bitAt: 10 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isSentenceStart [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -301,7 +303,7 @@ PangoLogAttr >> isSentenceStart [
 	^ (self flags bitAt: 9) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isSentenceStart: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -310,7 +312,7 @@ PangoLogAttr >> isSentenceStart: aBoolean [
 	^ self flags bitAt: 9 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWhite [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -319,7 +321,7 @@ PangoLogAttr >> isWhite [
 	^ (self flags bitAt: 4) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWhite: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -328,7 +330,7 @@ PangoLogAttr >> isWhite: aBoolean [
 	^ self flags bitAt: 4 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWordBoundary [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -337,7 +339,7 @@ PangoLogAttr >> isWordBoundary [
 	^ (self flags bitAt: 13) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWordBoundary: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -346,7 +348,7 @@ PangoLogAttr >> isWordBoundary: aBoolean [
 	^ self flags bitAt: 13 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWordEnd [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -355,7 +357,7 @@ PangoLogAttr >> isWordEnd [
 	^ (self flags bitAt: 7) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWordEnd: aBoolean [
 	"Set the bit flag on this struct.
 
@@ -364,7 +366,7 @@ PangoLogAttr >> isWordEnd: aBoolean [
 	^ self flags bitAt: 7 put: aBoolean asBit
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWordStart [
 	"Answer whether the bit flag is enabled on this struct.
 
@@ -373,7 +375,7 @@ PangoLogAttr >> isWordStart [
 	^ (self flags bitAt: 6) == 1
 ]
 
-{ #category : #'accessing - bit flags' }
+{ #category : 'accessing - bit flags' }
 PangoLogAttr >> isWordStart: aBoolean [
 	"Set the bit flag on this struct.
 

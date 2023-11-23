@@ -1,31 +1,33 @@
 Class {
-	#name : #PangoObject,
-	#superclass : #FFIOpaqueObject,
+	#name : 'PangoObject',
+	#superclass : 'FFIOpaqueObject',
 	#traits : 'TPangoLibrary',
 	#classTraits : 'TPangoLibrary classTrait',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
-	#category : #'Pango-Base'
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 PangoObject class >> ffiLibraryName [
 	^ PangoLibrary
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 PangoObject >> autoRelease [
 
 	self resourceManager addResource: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PangoObject >> initialize [
 	
 ]
 
-{ #category : #'external resource management' }
+{ #category : 'external resource management' }
 PangoObject >> resourceManager [
 	
 	^ GExternalResourceManager uniqueInstance

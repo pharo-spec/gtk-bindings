@@ -4,8 +4,8 @@ Specifies the state of a toplevel surface.
 https://docs.gtk.org/gdk4/flags.ToplevelState.html
 "
 Class {
-	#name : #GdkTopLevelState,
-	#superclass : #GEnumeration,
+	#name : 'GdkTopLevelState',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_TOPLEVEL_STATE_ABOVE',
 		'GDK_TOPLEVEL_STATE_BELOW',
@@ -24,106 +24,108 @@ Class {
 		'GDK_TOPLEVEL_STATE_TOP_RESIZABLE',
 		'GDK_TOPLEVEL_STATE_TOP_TILED'
 	],
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_ABOVE [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_ABOVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_BELOW [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_BELOW
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_BOTTOM_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_BOTTOM_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_BOTTOM_TILED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_BOTTOM_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_FOCUSED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_FOCUSED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_FULLSCREEN [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_FULLSCREEN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_LEFT_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_LEFT_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_LEFT_TILED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_LEFT_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_MAXIMIZED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_MAXIMIZED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_MINIMIZED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_MINIMIZED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_RIGHT_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_RIGHT_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_RIGHT_TILED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_RIGHT_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_STICKY [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_STICKY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_TILED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_TOP_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_TOP_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkTopLevelState class >> GDK_TOPLEVEL_STATE_TOP_TILED [
 	"This method was automatically generated"
 	^ GDK_TOPLEVEL_STATE_TOP_TILED
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkTopLevelState class >> enumDecl [
 	"self initializeEnumeration; rebuildEnumAccessors"
 
@@ -147,7 +149,7 @@ GdkTopLevelState class >> enumDecl [
 	}
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkTopLevelState >> isMinimized [
 
 	^ (self & GDK_TOPLEVEL_STATE_MINIMIZED) = GDK_TOPLEVEL_STATE_MINIMIZED

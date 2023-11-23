@@ -6,8 +6,8 @@ Defines the reference point of a window and the meaning of coordinates passed to
 https://developer.gnome.org/gdk3/stable/gdk3-Windows.html#GdkGravity
 "
 Class {
-	#name : #GdkGravity,
-	#superclass : #GEnumeration,
+	#name : 'GdkGravity',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_GRAVITY_CENTER',
 		'GDK_GRAVITY_EAST',
@@ -20,70 +20,72 @@ Class {
 		'GDK_GRAVITY_STATIC',
 		'GDK_GRAVITY_WEST'
 	],
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_CENTER [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_CENTER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_EAST [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_EAST
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_NORTH [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_NORTH
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_NORTH_EAST [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_NORTH_EAST
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_NORTH_WEST [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_NORTH_WEST
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_SOUTH [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_SOUTH
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_SOUTH_EAST [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_SOUTH_EAST
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_SOUTH_WEST [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_SOUTH_WEST
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_STATIC [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_STATIC
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkGravity class >> GDK_GRAVITY_WEST [
 	"This method was automatically generated"
 	^ GDK_GRAVITY_WEST
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkGravity class >> enumDecl [ 
 
 	^ #(

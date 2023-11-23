@@ -1,10 +1,12 @@
 Class {
-	#name : #PangoExamples,
-	#superclass : #Object,
-	#category : #'Pango-Examples'
+	#name : 'PangoExamples',
+	#superclass : 'Object',
+	#category : 'Pango-Examples',
+	#package : 'Pango',
+	#tag : 'Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example1Markup [
 	<example>
 	| fontDescription surface |
@@ -29,7 +31,7 @@ PangoExamples class >> example1Markup [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example2Text [
 	<example>
 	| fontDescription surface pangoLayout extent baselineY |
@@ -70,7 +72,7 @@ PangoExamples class >> example2Text [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example3CreateLayoutFromContext [
 	<example>
 
@@ -92,7 +94,7 @@ PangoExamples class >> example3CreateLayoutFromContext [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example4ListFamilies [
 	<example>
 
@@ -134,7 +136,7 @@ PangoExamples class >> example4ListFamilies [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example5Shape [
 	"An example of pango_itemize and pango_shape. 
 	Documentation recommends using pango_shape_full instead.
@@ -186,7 +188,7 @@ PangoExamples class >> example5Shape [
 	surface asForm inspect
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example6ShapeFull [
 	"An example of pango_itemize and pango_shape_full, and drawing bounds.
 	See: https://docs.gtk.org/Pango/func.shape_full.html"
@@ -237,7 +239,7 @@ PangoExamples class >> example6ShapeFull [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 PangoExamples class >> example7LayoutNoMarkup [
 	<example>
 
@@ -291,6 +293,6 @@ PangoExamples class >> example7LayoutNoMarkup [
 
 ]
 
-{ #category : #'see class side' }
+{ #category : 'see class side' }
 PangoExamples >> seeClassSide [
 ]

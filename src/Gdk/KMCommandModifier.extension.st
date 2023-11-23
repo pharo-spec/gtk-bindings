@@ -1,6 +1,6 @@
-Extension { #name : #KMCommandModifier }
+Extension { #name : 'KMCommandModifier' }
 
-{ #category : #'*Gdk' }
+{ #category : '*Gdk' }
 KMCommandModifier >> asGdkModifierType [ 
 
 	self flag: #TODO. "This is wrong"	

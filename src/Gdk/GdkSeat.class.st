@@ -4,14 +4,16 @@ GdkSeat — Object representing an user seat
 https://developer.gnome.org/gdk3/unstable/GdkSeat.html
 "
 Class {
-	#name : #GdkSeat,
-	#superclass : #GObject,
+	#name : 'GdkSeat',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkSeat class >> defaultForDisplay: aDisplay [ 
 
 	"do not send #initialize here because we do not need it (and keeping a reference 
@@ -19,26 +21,26 @@ GdkSeat class >> defaultForDisplay: aDisplay [
 	^ (self getDefaultSeat: aDisplay) "initialize"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSeat class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_seat_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkSeat class >> getDefaultSeat: display [
 
 	^ self ffiCall: #(GdkSeat *gdk_display_get_default_seat (GdkDisplay *display))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSeat >> gtkGetPointer [
 
 	^ self ffiCall: #(GdkDevice *gdk_seat_get_pointer (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSeat >> pointer [
 
 	"do not send #initialize here because we do not need it (and keeping a reference 

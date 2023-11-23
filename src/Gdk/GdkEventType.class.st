@@ -4,8 +4,8 @@ Specifies the type of the event.
 https://docs.gtk.org/gdk4/enum.EventType.html
 "
 Class {
-	#name : #GdkEventType,
-	#superclass : #GEnumeration,
+	#name : 'GdkEventType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_BUTTON_PRESS',
 		'GDK_BUTTON_RELEASE',
@@ -37,184 +37,186 @@ Class {
 		'GDK_TOUCH_END',
 		'GDK_TOUCH_UPDATE'
 	],
-	#category : #'Gdk-Events'
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_BUTTON_PRESS [
 	"This method was automatically generated"
 	^ GDK_BUTTON_PRESS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_BUTTON_RELEASE [
 	"This method was automatically generated"
 	^ GDK_BUTTON_RELEASE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_DELETE [
 	"This method was automatically generated"
 	^ GDK_DELETE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_DRAG_ENTER [
 	"This method was automatically generated"
 	^ GDK_DRAG_ENTER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_DRAG_LEAVE [
 	"This method was automatically generated"
 	^ GDK_DRAG_LEAVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_DRAG_MOTION [
 	"This method was automatically generated"
 	^ GDK_DRAG_MOTION
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_DROP_START [
 	"This method was automatically generated"
 	^ GDK_DROP_START
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_ENTER_NOTIFY [
 	"This method was automatically generated"
 	^ GDK_ENTER_NOTIFY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_FOCUS_CHANGE [
 	"This method was automatically generated"
 	^ GDK_FOCUS_CHANGE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_GRAB_BROKEN [
 	"This method was automatically generated"
 	^ GDK_GRAB_BROKEN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_KEY_PRESS [
 	"This method was automatically generated"
 	^ GDK_KEY_PRESS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_KEY_RELEASE [
 	"This method was automatically generated"
 	^ GDK_KEY_RELEASE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_LEAVE_NOTIFY [
 	"This method was automatically generated"
 	^ GDK_LEAVE_NOTIFY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_MOTION_NOTIFY [
 	"This method was automatically generated"
 	^ GDK_MOTION_NOTIFY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PAD_BUTTON_PRESS [
 	"This method was automatically generated"
 	^ GDK_PAD_BUTTON_PRESS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PAD_BUTTON_RELEASE [
 	"This method was automatically generated"
 	^ GDK_PAD_BUTTON_RELEASE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PAD_GROUP_MODE [
 	"This method was automatically generated"
 	^ GDK_PAD_GROUP_MODE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PAD_RING [
 	"This method was automatically generated"
 	^ GDK_PAD_RING
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PAD_STRIP [
 	"This method was automatically generated"
 	^ GDK_PAD_STRIP
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PROXIMITY_IN [
 	"This method was automatically generated"
 	^ GDK_PROXIMITY_IN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_PROXIMITY_OUT [
 	"This method was automatically generated"
 	^ GDK_PROXIMITY_OUT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_SCROLL [
 	"This method was automatically generated"
 	^ GDK_SCROLL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCHPAD_HOLD [
 	"This method was automatically generated"
 	^ GDK_TOUCHPAD_HOLD
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCHPAD_PINCH [
 	"This method was automatically generated"
 	^ GDK_TOUCHPAD_PINCH
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCHPAD_SWIPE [
 	"This method was automatically generated"
 	^ GDK_TOUCHPAD_SWIPE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCH_BEGIN [
 	"This method was automatically generated"
 	^ GDK_TOUCH_BEGIN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCH_CANCEL [
 	"This method was automatically generated"
 	^ GDK_TOUCH_CANCEL
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCH_END [
 	"This method was automatically generated"
 	^ GDK_TOUCH_END
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkEventType class >> GDK_TOUCH_UPDATE [
 	"This method was automatically generated"
 	^ GDK_TOUCH_UPDATE
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkEventType class >> enumDecl [
 	"
 	self rebuildEnumAccessors.

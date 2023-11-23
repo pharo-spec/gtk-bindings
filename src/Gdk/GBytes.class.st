@@ -2,14 +2,16 @@
 https://docs.gtk.org/glib/struct.Bytes.html
 "
 Class {
-	#name : #GBytes,
-	#superclass : #GBaseObject,
+	#name : 'GBytes',
+	#superclass : 'GBaseObject',
 	#traits : 'GLibTLibrary',
 	#classTraits : 'GLibTLibrary classTrait',
-	#category : #'Gdk-Texture'
+	#category : 'Gdk-Texture',
+	#package : 'Gdk',
+	#tag : 'Texture'
 }
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 GBytes class >> finalizeResourceData: handle [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
@@ -20,25 +22,25 @@ GBytes class >> finalizeResourceData: handle [
 	handle beNull
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GBytes class >> gBytesNew: data size: size [
 
 	self ffiCall: #(GBytes* g_bytes_new (gpointer data, gsize size))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GBytes class >> gBytesNewStatic: data size: size [
 
 	self ffiCall: #(GBytes* g_bytes_new_static (gpointer data, gsize size))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GBytes class >> gBytesNewTake: data size: size [
 
 	self ffiCall: #(GBytes* g_bytes_new_take (gpointer data, gsize size))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GBytes class >> gBytesNewWithFreeFunc: data size: size freeFunc: free_func userData: user_data [
 
 	self ffiCall: #(GBytes* g_bytes_new_with_free_func (
@@ -48,19 +50,19 @@ GBytes class >> gBytesNewWithFreeFunc: data size: size freeFunc: free_func userD
 		gpointer user_data))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBytes class >> newData: data [
 
 	^ self newData: data size: data size
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBytes class >> newData: data size: size [
 
 	^ (self gBytesNew: data size: size) initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBytes class >> newData: data size: size freeFunction: aCallback [
 
 	^ (self 
@@ -71,31 +73,31 @@ GBytes class >> newData: data size: size freeFunction: aCallback [
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBytes class >> newStaticData: data size: size [
 
 	^ (self gBytesNewStatic: data size: size) initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GBytes class >> newTakeData: data size: size [
 
 	^ (self gBytesNewTake: data size: size) initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GBytes class >> unref: handle [
 
 	self ffiCall: #(void g_bytes_unref (void *handle))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBytes >> ref [
 
 	self ffiCall: #(GBytes* g_bytes_ref (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GBytes >> unref [
 
 	self ffiCall: #(void g_bytes_unref (self))

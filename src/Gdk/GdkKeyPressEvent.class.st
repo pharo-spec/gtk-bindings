@@ -1,22 +1,24 @@
 Class {
-	#name : #GdkKeyPressEvent,
-	#superclass : #GdkKeyEvent,
-	#category : #'Gdk-Events'
+	#name : 'GdkKeyPressEvent',
+	#superclass : 'GdkKeyEvent',
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyPressEvent class >> isType: aType [
 
 	^ aType = GDK_KEY_PRESS
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkKeyPressEvent >> accept: aVisitor [
 
 	^ aVisitor visitKeyDownEvent: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyPressEvent >> isKeyPress [
 
 	^ true

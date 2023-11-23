@@ -1,16 +1,18 @@
 Class {
-	#name : #GdkButtonType,
-	#superclass : #SharedPool,
+	#name : 'GdkButtonType',
+	#superclass : 'SharedPool',
 	#classVars : [
 		'GDK_BUTTON_ANY',
 		'GDK_BUTTON_MIDDLE',
 		'GDK_BUTTON_PRIMARY',
 		'GDK_BUTTON_SECONDARY'
 	],
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GdkButtonType class >> initialize [ 
 
 	GDK_BUTTON_PRIMARY := 1. 

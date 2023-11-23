@@ -11,8 +11,8 @@ Class {
 		'callbacks'
 	],
 	#pools : [
-		'GSpawnFlags',
-		'GtkTypes'
+		'GObjectTypes',
+		'GSpawnFlags'
 	],
 	#category : 'GLib-IO-Process',
 	#package : 'GLib-IO',

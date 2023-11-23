@@ -5,8 +5,8 @@ A set of bit-flags to indicate the state of modifier keys and mouse buttons in v
 https://developer.gnome.org/gdk3/stable/gdk3-Windows.html#GdkModifierType
 "
 Class {
-	#name : #GdkModifierType,
-	#superclass : #GEnumeration,
+	#name : 'GdkModifierType',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_BUTTON1_MASK',
 		'GDK_BUTTON2_MASK',
@@ -41,202 +41,204 @@ Class {
 		'GDK_SHIFT_MASK',
 		'GDK_SUPER_MASK'
 	],
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_BUTTON1_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON1_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_BUTTON2_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON2_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_BUTTON3_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON3_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_BUTTON4_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON4_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_BUTTON5_MASK [
 	"This method was automatically generated"
 	^ GDK_BUTTON5_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_CONTROL_MASK [
 	"This method was automatically generated"
 	^ GDK_CONTROL_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_HYPER_MASK [
 	"This method was automatically generated"
 	^ GDK_HYPER_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_LOCK_MASK [
 	"This method was automatically generated"
 	^ GDK_LOCK_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_META_MASK [
 	"This method was automatically generated"
 	^ GDK_META_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MOD1_MASK [
 	"This method was automatically generated"
 	^ GDK_MOD1_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MOD2_MASK [
 	"This method was automatically generated"
 	^ GDK_MOD2_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MOD3_MASK [
 	"This method was automatically generated"
 	^ GDK_MOD3_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MOD4_MASK [
 	"This method was automatically generated"
 	^ GDK_MOD4_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MOD5_MASK [
 	"This method was automatically generated"
 	^ GDK_MOD5_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_13_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_13_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_14_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_14_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_15_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_15_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_16_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_16_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_17_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_17_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_18_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_18_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_19_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_19_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_20_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_20_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_21_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_21_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_22_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_22_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_23_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_23_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_24_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_24_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_25_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_25_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_MODIFIER_RESERVED_29_MASK [
 	"This method was automatically generated"
 	^ GDK_MODIFIER_RESERVED_29_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_RELEASE_MASK [
 	"This method was automatically generated"
 	^ GDK_RELEASE_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_SHIFT_MASK [
 	"This method was automatically generated"
 	^ GDK_SHIFT_MASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkModifierType class >> GDK_SUPER_MASK [
 	"This method was automatically generated"
 	^ GDK_SUPER_MASK
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkModifierType class >> enumDecl [
 
 	^ { 

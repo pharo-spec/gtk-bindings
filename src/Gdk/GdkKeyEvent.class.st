@@ -4,8 +4,8 @@ Describes a key press or key release event.
 https://developer.gnome.org/gdk3/stable/gdk3-Event-Structures.html#GdkEventKey
 "
 Class {
-	#name : #GdkKeyEvent,
-	#superclass : #GdkEvent,
+	#name : 'GdkKeyEvent',
+	#superclass : 'GdkEvent',
 	#traits : 'GdkTEventState',
 	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
@@ -19,10 +19,12 @@ Class {
 		'GdkKeyCodes',
 		'GdkModifierType'
 	],
-	#category : #'Gdk-Events'
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #'private - compatibility' }
+{ #category : 'private - compatibility' }
 GdkKeyEvent class >> createInternalMap [
 
 	^ IdentityDictionary newFromPairs: { 
@@ -64,13 +66,13 @@ GdkKeyEvent class >> createInternalMap [
 	}
 ]
 
-{ #category : #'private - compatibility' }
+{ #category : 'private - compatibility' }
 GdkKeyEvent class >> internalMap [
 
 	^ InternalMap ifNil: [ InternalMap := self createInternalMap ]
 ]
 
-{ #category : #'private - compatibility' }
+{ #category : 'private - compatibility' }
 GdkKeyEvent class >> internalMapAt: aCode ifAbsentOrNil: aBlock [
 	
 	self internalMap
@@ -81,55 +83,55 @@ GdkKeyEvent class >> internalMapAt: aCode ifAbsentOrNil: aBlock [
 	^ aBlock value
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GdkKeyEvent class >> keyValToUnicode: keyval [
 
 	 ^ self ffiCall: #(guint32 gdk_keyval_to_unicode  (guint keyval))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkKeyEvent class >> modMask [
 
 	^ self ffiCall: #(uint32 gtk_accelerator_get_default_mod_mask (void))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkKeyEvent class >> newKeyPress [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkKeyEvent class >> newKeyPressValue: keyVal shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkKeyEvent class >> newKeyRelease [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkKeyEvent class >> newKeyReleaseValue: keyVal shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
 	self deprecated: #Gtk4
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 GdkKeyEvent class >> unicodeToKeyVal: wc [
 
 	^ self ffiCall: #(guint gdk_unicode_to_keyval  (guint32 wc))
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> asKeyCombination [
 
 	^ KMKeyCombination fromEventKey: self
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> basicKey [
 
 	self keyValue <= 16rFF ifTrue: [ 
@@ -143,80 +145,80 @@ GdkKeyEvent >> basicKey [
 		ifAbsent: [ Smalltalk os keyForValue: self scanCode ]
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> character [
 
 	^ self keyCharacter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> description [ 
 
 	^ self stringOrNil ifNil: [ '<nodesc>' ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isEscape [
 
 	^ self keyValue = KEY_Escape
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyDown [
 
 	^ self keyValue = KEY_Down
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyEvent [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyLeft [
 
 	^ self keyValue = KEY_Left
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyPress [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyRelease [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyRight [
 
 	^ self keyValue = KEY_Right
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isKeyUp [
 
 	^ self keyValue = KEY_Up
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isModifier [
 	"Answers if the keycode received is a modifier (for example, control or alt)"
 
 	^ self ffiCall: #(gboolean gdk_key_event_is_modifier (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkKeyEvent >> isReturn [
 
 	^ self keyValue = KEY_Return
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> isTextInput [
 
 	self hasControlModifier ifTrue: [ ^ false ].
@@ -224,25 +226,25 @@ GdkKeyEvent >> isTextInput [
 	^ (self class internalMap keys includes: self keyValue) not
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> key [
 
 	^ key ifNil: [ key := self basicKey ]
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> keyCharacter [
 
 	^ Character value: (self toInternalValue: self keyValue)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> keyCode [
 
 	^ self ffiCall: #(guint gdk_key_event_get_keycode (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> keySymbol [
 
 	^ self state = 0 
@@ -250,31 +252,31 @@ GdkKeyEvent >> keySymbol [
 		ifFalse: [ self keyValue & (self state & self class modMask)  ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> keyValue [
 
 	^ keyValue ifNil: [ keyValue := self keyval ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> keyval [
 
 	^ self ffiCall: #(guint gdk_key_event_get_keyval (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> layout [
 
 	^ self ffiCall: #(guint gdk_key_event_get_layout (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> level [
 
 	^ self ffiCall: #(guint gdk_key_event_get_level (self))
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> modifiedCharacter [
 	
 	self character ifNotNil: [ :c | ^ c ].
@@ -282,19 +284,19 @@ GdkKeyEvent >> modifiedCharacter [
 	^ Character value: 0
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> scanCode [
 
 	^ self keyCode
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> state [
 
 	^ self modifierState
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkKeyEvent >> stringOrNil [ 
 	| unicodeVal |
 	
@@ -303,7 +305,7 @@ GdkKeyEvent >> stringOrNil [
 	^ Unicode value: unicodeVal
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> symbol [
 
 	^ self isModifier 
@@ -311,7 +313,7 @@ GdkKeyEvent >> symbol [
 		ifFalse: [ self keyValue ]
 ]
 
-{ #category : #compatibility }
+{ #category : 'compatibility' }
 GdkKeyEvent >> toInternalValue: aKeyValue [ 
 
 	^ self class 

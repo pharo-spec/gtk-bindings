@@ -2,8 +2,8 @@
 https://docs.gtk.org/gdk4/enum.MemoryFormat.html
 "
 Class {
-	#name : #GdkMemoryFormat,
-	#superclass : #GEnumeration,
+	#name : 'GdkMemoryFormat',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_MEMORY_A8B8G8R8',
 		'GDK_MEMORY_A8R8G8B8',
@@ -26,130 +26,132 @@ Class {
 		'GDK_MEMORY_R8G8B8A8',
 		'GDK_MEMORY_R8G8B8A8_PREMULTIPLIED'
 	],
-	#category : #'Gdk-Texture'
+	#category : 'Gdk-Texture',
+	#package : 'Gdk',
+	#tag : 'Texture'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_A8B8G8R8 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_A8B8G8R8
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_A8R8G8B8 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_A8R8G8B8
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_A8R8G8B8_PREMULTIPLIED [
 	"This method was automatically generated"
 	^ GDK_MEMORY_A8R8G8B8_PREMULTIPLIED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_B8G8R8 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_B8G8R8
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_B8G8R8A8 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_B8G8R8A8
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_B8G8R8A8_PREMULTIPLIED [
 	"This method was automatically generated"
 	^ GDK_MEMORY_B8G8R8A8_PREMULTIPLIED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_DEFAULT [
 
 	^ GDK_MEMORY_DEFAULT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_N_FORMATS [
 	"This method was automatically generated"
 	^ GDK_MEMORY_N_FORMATS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R16G16B16 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R16G16B16
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R16G16B16A16 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R16G16B16A16
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R16G16B16A16_FLOAT [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R16G16B16A16_FLOAT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R16G16B16A16_FLOAT_PREMULTIPLIED [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R16G16B16A16_FLOAT_PREMULTIPLIED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R16G16B16A16_PREMULTIPLIED [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R16G16B16A16_PREMULTIPLIED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R16G16B16_FLOAT [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R16G16B16_FLOAT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R32G32B32A32_FLOAT [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R32G32B32A32_FLOAT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R32G32B32A32_FLOAT_PREMULTIPLIED [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R32G32B32A32_FLOAT_PREMULTIPLIED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R32G32B32_FLOAT [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R32G32B32_FLOAT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R8G8B8 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R8G8B8
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R8G8B8A8 [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R8G8B8A8
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkMemoryFormat class >> GDK_MEMORY_R8G8B8A8_PREMULTIPLIED [
 	"This method was automatically generated"
 	^ GDK_MEMORY_R8G8B8A8_PREMULTIPLIED
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkMemoryFormat class >> enumDecl [
 	"self initializeEnumeration.
 	 self rebuildEnumAccessors"
@@ -177,7 +179,7 @@ GdkMemoryFormat class >> enumDecl [
 	)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GdkMemoryFormat class >> initialize [
 
 	self initializeEnumeration.

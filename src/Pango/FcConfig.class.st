@@ -6,48 +6,50 @@ holds a complete configuration of the library; there is one default configuratio
 https://www.freedesktop.org/software/fontconfig/fontconfig-devel/x31.html
 "
 Class {
-	#name : #FcConfig,
-	#superclass : #FcObject,
-	#category : #'Pango-FontConfig'
+	#name : 'FcConfig',
+	#superclass : 'FcObject',
+	#category : 'Pango-FontConfig',
+	#package : 'Pango',
+	#tag : 'FontConfig'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 FcConfig class >> create [
 
 	^ self ffiCall: #(FcConfig *FcConfigCreate())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FcConfig class >> current [
 
 	^ self getCurrent initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FcConfig class >> getCurrent [
 
 	^ self ffiCall: #(FcConfig *FcConfigGetCurrent(void))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FcConfig class >> initLoadConfigAndFonts [
 
 	self ffiCall: #(FcConfig *FcInitLoadConfigAndFonts())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FcConfig class >> new [ 
 
 	^ self create initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FcConfig class >> newLoadConfigAndFonts [
 
 	^ self initLoadConfigAndFonts initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcConfig >> addDirectory: aFileReference [
 	| result |
 
@@ -58,7 +60,7 @@ FcConfig >> addDirectory: aFileReference [
 		self error: ('I could not add font directory {1}.' format: { FileReference fullName }) ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcConfig >> addFile: aFileReference [
 	| result |
 
@@ -69,50 +71,50 @@ FcConfig >> addFile: aFileReference [
 		self error: ('I could not add font {1}.' format: { FileReference fullName }) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcConfig >> applicationFonts [
 
 	^ self getFonts: 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcConfig >> buildFonts [
 
 	^ self ffiCall: #(FcBool FcConfigBuildFonts(self))
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 FcConfig >> fcAddDir: dir [
 	"https://www.freedesktop.org/software/fontconfig/fontconfig-devel/fcconfigappfontadddir.html"
 
 	^ self ffiCall: #(FcBool FcConfigAppFontAddDir(self, const FcChar8 *dir))
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 FcConfig >> fcAddFile: file [
 	"https://www.freedesktop.org/software/fontconfig/fontconfig-devel/fcconfigappfontaddfile.html"
 
 	^ self ffiCall: #(FcBool FcConfigAppFontAddFile(self, const FcChar8 *file))
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 FcConfig >> getFonts: set [
 
 	^ self ffiCall: #(FcFontSet *FcConfigGetFonts(self, FcSetName set))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FcConfig >> initialize [
 	"cancel super to avoid setHandle: call"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcConfig >> installInDefaultFontMap [
 
 	PangoFontMap default config: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcConfig >> systemFonts [
 
 	^ self getFonts: 0

@@ -4,8 +4,8 @@ GdkRGBA is a convenient way to pass rgba colors around. It’s based on cairo’
 https://developer.gnome.org/gdk3/stable/gdk3-RGBA-Colors.html
 "
 Class {
-	#name : #GdkRGBA,
-	#superclass : #GStructure,
+	#name : 'GdkRGBA',
+	#superclass : 'GStructure',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
 	#classVars : [
@@ -15,12 +15,14 @@ Class {
 		'OFFSET_RED'
 	],
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GdkRGBA class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 	^ #(
@@ -31,7 +33,7 @@ GdkRGBA class >> fieldsDesc [
 	)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkRGBA class >> fromHexString: aColorHex [
 	"Returns a color instance from HEX (6 element elements)."
 	| green red blue alpha hexString |
@@ -48,13 +50,13 @@ GdkRGBA class >> fromHexString: aColorHex [
 	^ self r: red g: green b: blue alpha: alpha
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkRGBA class >> gType [
 
 	^ self ffiCall: #(gsize gdk_rgba_get_type ())
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkRGBA class >> r: red g: green b: blue alpha: alpha [
 
 	^ self new 
@@ -65,19 +67,19 @@ GdkRGBA class >> r: red g: green b: blue alpha: alpha [
 		yourself
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> alpha [
 	"This method was automatically generated"
 	^handle doubleAt: OFFSET_ALPHA
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> alpha: anObject [
 	"This method was automatically generated"
 	handle doubleAt: OFFSET_ALPHA put: anObject
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdkRGBA >> asColor [
 
 	^ Color 
@@ -87,48 +89,48 @@ GdkRGBA >> asColor [
 		alpha: self alpha
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdkRGBA >> asGdkRGBA [
 
 	^ self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GdkRGBA >> asString [ 
 	^ self ffiCall: #( gchar *gdk_rgba_to_string ( self ) )
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> blue [
 	"This method was automatically generated"
 	^handle doubleAt: OFFSET_BLUE
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> blue: anObject [
 	"This method was automatically generated"
 	handle doubleAt: OFFSET_BLUE put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> green [
 	"This method was automatically generated"
 	^handle doubleAt: OFFSET_GREEN
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> green: anObject [
 	"This method was automatically generated"
 	handle doubleAt: OFFSET_GREEN put: anObject
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> red [
 	"This method was automatically generated"
 	^handle doubleAt: OFFSET_RED
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 GdkRGBA >> red: anObject [
 	"This method was automatically generated"
 	handle doubleAt: OFFSET_RED put: anObject

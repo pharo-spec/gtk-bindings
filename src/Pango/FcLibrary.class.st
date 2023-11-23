@@ -1,40 +1,42 @@
 Class {
-	#name : #FcLibrary,
-	#superclass : #FFILibrary,
-	#category : #'Pango-FontConfig'
+	#name : 'FcLibrary',
+	#superclass : 'FFILibrary',
+	#category : 'Pango-FontConfig',
+	#package : 'Pango',
+	#tag : 'FontConfig'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcLibrary class >> fcInit [
 
 	^ self uniqueInstance fcInit
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 FcLibrary >> calloutAPIClass [ 
 
 	^ TFCalloutAPI
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FcLibrary >> fcInit [
 
 	^ self ffiCall: #(FcBool FcInit())
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 FcLibrary >> macLibraryName [
 
 	^ GMacLibraryFinder findAnyLibrary: #('libfontconfig.1.dylib' 'libfontconfig.dylib')
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 FcLibrary >> runner [
 	
 	^ GObjectLibrary naturalRunner
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 FcLibrary >> unix64LibraryName [
 
 	^ FFIUnix64LibraryFinder findLibrary: 'libfontconfig.so.1'

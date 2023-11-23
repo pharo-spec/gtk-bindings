@@ -1,10 +1,12 @@
 Class {
-	#name : #GdkLibrary,
-	#superclass : #GObjectLibrary,
-	#category : #'Gdk-Library'
+	#name : 'GdkLibrary',
+	#superclass : 'GObjectLibrary',
+	#category : 'Gdk-Library',
+	#package : 'Gdk',
+	#tag : 'Library'
 }
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GdkLibrary >> unix64LibraryName [ 
 
 	"It seems to come linked with libgtk-4 ? (in any case, I do not find it and it 
@@ -13,7 +15,7 @@ GdkLibrary >> unix64LibraryName [
 	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 GdkLibrary >> win32LibraryName [
 
 	^ 'libgdk-3-0.dll'

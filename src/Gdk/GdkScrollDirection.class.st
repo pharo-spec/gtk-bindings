@@ -2,8 +2,8 @@
 https://docs.gtk.org/gdk4/enum.ScrollDirection.html
 "
 Class {
-	#name : #GdkScrollDirection,
-	#superclass : #GEnumeration,
+	#name : 'GdkScrollDirection',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_SCROLL_DOWN',
 		'GDK_SCROLL_LEFT',
@@ -11,40 +11,42 @@ Class {
 		'GDK_SCROLL_SMOOTH',
 		'GDK_SCROLL_UP'
 	],
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollDirection class >> GDK_SCROLL_DOWN [
 	"This method was automatically generated"
 	^ GDK_SCROLL_DOWN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollDirection class >> GDK_SCROLL_LEFT [
 	"This method was automatically generated"
 	^ GDK_SCROLL_LEFT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollDirection class >> GDK_SCROLL_RIGHT [
 	"This method was automatically generated"
 	^ GDK_SCROLL_RIGHT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollDirection class >> GDK_SCROLL_SMOOTH [
 	"This method was automatically generated"
 	^ GDK_SCROLL_SMOOTH
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkScrollDirection class >> GDK_SCROLL_UP [
 	"This method was automatically generated"
 	^ GDK_SCROLL_UP
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkScrollDirection class >> enumDecl [
 	"self initializeEnumeration"
 	
@@ -57,31 +59,31 @@ GdkScrollDirection class >> enumDecl [
 )
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkScrollDirection >> isDown [ 
 
 	^ value = GDK_SCROLL_DOWN
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkScrollDirection >> isLeft [
 
 	^ value = GDK_SCROLL_LEFT
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkScrollDirection >> isRight [
 
 	^ value = GDK_SCROLL_RIGHT
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkScrollDirection >> isSmooth [
 
 	^ value = GDK_SCROLL_SMOOTH
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkScrollDirection >> isUp [ 
 
 	^ value = self class GDK_SCROLL_UP

@@ -17,8 +17,8 @@ https://code.woboq.org/gtk/gtk/gdk/gdkdnd.h.html
  */
 "
 Class {
-	#name : #GdkDragAction,
-	#superclass : #GEnumeration,
+	#name : 'GdkDragAction',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_ACTION_ASK',
 		'GDK_ACTION_COPY',
@@ -27,46 +27,48 @@ Class {
 		'GDK_ACTION_MOVE',
 		'GDK_ACTION_PRIVATE'
 	],
-	#category : #'Gdk-Misc'
+	#category : 'Gdk-Misc',
+	#package : 'Gdk',
+	#tag : 'Misc'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkDragAction class >> GDK_ACTION_ASK [
 	"This method was automatically generated"
 	^ GDK_ACTION_ASK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkDragAction class >> GDK_ACTION_COPY [
 	"This method was automatically generated"
 	^ GDK_ACTION_COPY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkDragAction class >> GDK_ACTION_DEFAULT [
 	"This method was automatically generated"
 	^ GDK_ACTION_DEFAULT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkDragAction class >> GDK_ACTION_LINK [
 	"This method was automatically generated"
 	^ GDK_ACTION_LINK
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkDragAction class >> GDK_ACTION_MOVE [
 	"This method was automatically generated"
 	^ GDK_ACTION_MOVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkDragAction class >> GDK_ACTION_PRIVATE [
 	"This method was automatically generated"
 	^ GDK_ACTION_PRIVATE
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GdkDragAction class >> enumDecl [
 	^  { 
 		#GDK_ACTION_DEFAULT . 1 << 0.

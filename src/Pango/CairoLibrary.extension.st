@@ -1,6 +1,6 @@
-Extension { #name : #CairoLibrary }
+Extension { #name : 'CairoLibrary' }
 
-{ #category : #'*Pango' }
+{ #category : '*Pango' }
 CairoLibrary >> macLibraryName [
 	"since both Gtk3 and athens both use Cairo, I need to be sure we are going to 
 	use same library (this also applies to freetype, btw)"

@@ -2,12 +2,14 @@
 https://docs.gtk.org/gdk4/ctor.MemoryTexture.new.html
 "
 Class {
-	#name : #GdkMemoryTexture,
-	#superclass : #GdkTexture,
-	#category : #'Gdk-Texture'
+	#name : 'GdkMemoryTexture',
+	#superclass : 'GdkTexture',
+	#category : 'Gdk-Texture',
+	#package : 'Gdk',
+	#tag : 'Texture'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GdkMemoryTexture class >> gdkNewWidth: width height: height format: memoryFormat bytes: bytes stride: stride [
 
 	self ffiCall: #(GdkMemoryTexture *gdk_memory_texture_new (
@@ -18,7 +20,7 @@ GdkMemoryTexture class >> gdkNewWidth: width height: height format: memoryFormat
   gsize stride))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkMemoryTexture class >> newWidth: width height: height format: memoryFormat bytes: bytes stride: stride [
 
 	^ (self 

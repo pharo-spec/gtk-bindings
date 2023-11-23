@@ -4,12 +4,14 @@ The PangoContext structure stores global information used to control the itemiza
 https://developer.gnome.org/pango/unstable/pango-Text-Processing.html#PangoContext
 "
 Class {
-	#name : #PangoContext,
-	#superclass : #PangoObject,
-	#category : #'Pango-Base'
+	#name : 'PangoContext',
+	#superclass : 'PangoObject',
+	#category : 'Pango-Base',
+	#package : 'Pango',
+	#tag : 'Base'
 }
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 PangoContext >> finalize [
 
 	handle isNull ifTrue: [ ^ self ].
@@ -18,13 +20,13 @@ PangoContext >> finalize [
 		handle beNull ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoContext >> fontDescription [
 
 	^ self ffiCall: #(PangoFontDescription *pango_context_get_font_description (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoContext >> getMetricsFontDescription: desc language: language [
 
 	^ self ffiCall: #(PangoFontMetrics *pango_context_get_metrics (
@@ -33,13 +35,13 @@ PangoContext >> getMetricsFontDescription: desc language: language [
 		PangoLanguage *language))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PangoContext >> initialize [
 
 	self autoRelease
 ]
 
-{ #category : #itemizing }
+{ #category : 'itemizing' }
 PangoContext >> itemize: aUTF8ByteArray [
 	"Answer a GList of PangoItem for a complete String, without any attribute."
 		
@@ -49,7 +51,7 @@ PangoContext >> itemize: aUTF8ByteArray [
 
 ]
 
-{ #category : #itemizing }
+{ #category : 'itemizing' }
 PangoContext >> itemize: aUTF8ByteArray attributes: aPangoAttrList [
 	"Answer a GList of PangoItem for a complete String"
 	
@@ -68,7 +70,7 @@ PangoContext >> itemize: aUTF8ByteArray attributes: aPangoAttrList [
 			PangoItem fromHandle: each getHandle ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoContext >> itemize: aString startIndex: startIndex length: length attributes: aPangoAttrList cachedIterator: cachedIterator [
 	"https://docs.gtk.org/Pango/func.itemize.html"
 
@@ -83,13 +85,13 @@ PangoContext >> itemize: aString startIndex: startIndex length: length attribute
 			void * cachedIterator ))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoContext >> language [
 
 	^ self ffiCall: #(PangoLanguage *pango_context_get_language (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoContext >> loadFontDescription: desc [
 
 	^ self 
@@ -101,13 +103,13 @@ PangoContext >> loadFontDescription: desc [
 		module: PangoLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PangoContext >> metrics [
 
 	^ self getMetricsFontDescription: self fontDescription language: self language
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PangoContext >> unref [
 	
 	self ffiCall: #( void g_object_unref (void *handle)) module: PangoLibrary

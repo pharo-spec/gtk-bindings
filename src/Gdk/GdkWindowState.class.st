@@ -4,8 +4,8 @@ Specifies the state of a toplevel window.
 https://developer.gnome.org/gdk3/stable/gdk3-Event-Structures.html#GdkWindowState
 "
 Class {
-	#name : #GdkWindowState,
-	#superclass : #GEnumeration,
+	#name : 'GdkWindowState',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GDK_WINDOW_STATE_ABOVE',
 		'GDK_WINDOW_STATE_BELOW',
@@ -25,112 +25,114 @@ Class {
 		'GDK_WINDOW_STATE_TOP_TILED',
 		'GDK_WINDOW_STATE_WITHDRAWN'
 	],
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_ABOVE [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_ABOVE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_BELOW [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_BELOW
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_BOTTOM_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_BOTTOM_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_BOTTOM_TILED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_BOTTOM_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_FOCUSED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_FOCUSED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_FULLSCREEN [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_FULLSCREEN
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_ICONIFIED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_ICONIFIED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_LEFT_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_LEFT_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_LEFT_TILED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_LEFT_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_MAXIMIZED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_MAXIMIZED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_RIGHT_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_RIGHT_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_RIGHT_TILED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_RIGHT_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_STICKY [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_STICKY
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_TILED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_TOP_RESIZABLE [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_TOP_RESIZABLE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_TOP_TILED [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_TOP_TILED
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GdkWindowState class >> GDK_WINDOW_STATE_WITHDRAWN [
 	"This method was automatically generated"
 	^ GDK_WINDOW_STATE_WITHDRAWN
 ]
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GdkWindowState class >> enumDecl [
 	"
 	self initializeEnumeration.
@@ -157,7 +159,7 @@ GdkWindowState class >> enumDecl [
 	 }
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkWindowState class >> isDeprecated [
 
 	^ true

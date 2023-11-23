@@ -4,48 +4,50 @@ An event caused by a pointing device moving between surfaces.
 https://docs.gtk.org/gdk4/class.CrossingEvent.html
 "
 Class {
-	#name : #GdkCrossingEvent,
-	#superclass : #GdkEvent,
-	#category : #'Gdk-Events'
+	#name : 'GdkCrossingEvent',
+	#superclass : 'GdkEvent',
+	#category : 'Gdk-Events',
+	#package : 'Gdk',
+	#tag : 'Events'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GdkCrossingEvent >> accept: aVisitor [
 	
 	^ aVisitor visitCrossingEvent: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkCrossingEvent >> detail [
 
 	^ self ffiCall: #(GdkNotifyType gdk_crossing_event_get_detail (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkCrossingEvent >> isCrossingEvent [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkCrossingEvent >> isEnter [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkCrossingEvent >> isFocus [
 
 	^ self ffiCall: #(gboolean gdk_crossing_event_get_focus (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkCrossingEvent >> isLeave [
 
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkCrossingEvent >> mode [
 
 	^ self ffiCall: #(GdkCrossingMode gdk_crossing_event_get_mode (self))

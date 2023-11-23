@@ -1,57 +1,59 @@
 Class {
-	#name : #GdkSurface,
-	#superclass : #GObject,
+	#name : 'GdkSurface',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GdkSurface class >> ffiLibraryName [ 
 
 	^ GdkLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface class >> gType [
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_surface_get_type())
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> beep [
 
 	"Emits a short beep associated to window in the appropriate display, if supported. Otherwise, emits a short beep on the display just as gdk_display_beep()."
 	self ffiCall: #(void gdk_surface_beep (GdkWindow * self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> cursor: cursor [
 
 	"Use #cursor: to store the cursor in the object"
 	self ffiCall: #(void gdk_surface_set_cursor (self, GdkCursor *cursor))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> display [
 
 	^ self ffiCall: #(GdkDisplay *gdk_surface_get_display (self))
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GdkSurface >> ffiLibraryName [ 
 
 	^ GdkLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> opacity: opacity [
 
 	self deprecated: #Gtk4.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> positionOfDevice: device [
 	| xBuffer yBuffer |
 	
@@ -63,7 +65,7 @@ GdkSurface >> positionOfDevice: device [
 	^ (xBuffer doubleAt: 1) @ (yBuffer doubleAt: 1)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkSurface >> positionOfDevice: device x: x y: y [
 
 	^ self ffiCall: #(GdkWindow *gdk_surface_get_device_position (
@@ -74,19 +76,19 @@ GdkSurface >> positionOfDevice: device x: x y: y [
 		NULL))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> positionOfPointer [
 
 	^ self positionOfDevice: GdkDisplay default defaultSeat pointer
 ]
 
-{ #category : #'accessing - toplevel' }
+{ #category : 'accessing - toplevel' }
 GdkSurface >> state [
 
 	^ self ffiCall: #(#GdkTopLevelState gdk_toplevel_get_state (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkSurface >> translateCoordinates: aPoint to: destSurface [
 	| xBuffer yBuffer result |
 
@@ -103,7 +105,7 @@ GdkSurface >> translateCoordinates: aPoint to: destSurface [
 		ifFalse: [ aPoint ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkSurface >> translateCoordinatesTo: dest_surface x: x y: y [
 
 	^ self ffiCall: #(gboolean gtk_widget_translate_coordinates (

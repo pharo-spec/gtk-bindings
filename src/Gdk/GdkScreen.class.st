@@ -4,14 +4,16 @@ GdkScreen — Object representing a physical screen
 https://developer.gnome.org/gdk3/stable/GdkScreen.html
 "
 Class {
-	#name : #GdkScreen,
-	#superclass : #GObject,
+	#name : 'GdkScreen',
+	#superclass : 'GObject',
 	#traits : 'GdkTLibrary',
 	#classTraits : 'GdkTLibrary classTrait',
-	#category : #'Gdk-Base'
+	#category : 'Gdk-Base',
+	#package : 'Gdk',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GdkScreen class >> default [
 
 	"do not send #initialize here because we do not need it (and keeping a reference 
@@ -19,26 +21,26 @@ GdkScreen class >> default [
 	^ self getDefault "initialize"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GdkScreen class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_screen_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GdkScreen class >> getDefault [
 
 	^ self ffiCall: #(GdkScreen *gdk_screen_get_default ())
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GdkScreen class >> isDeprecated [
 
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GdkScreen >> resolution [
 
 	self deprecated: #Gtk4

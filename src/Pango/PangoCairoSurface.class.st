@@ -1,12 +1,14 @@
 Class {
-	#name : #PangoCairoSurface,
-	#superclass : #AthensCairoSurface,
+	#name : 'PangoCairoSurface',
+	#superclass : 'AthensCairoSurface',
 	#traits : 'TCairoLibrary',
 	#classTraits : 'TCairoLibrary classTrait',
-	#category : #'Pango-Athens'
+	#category : 'Pango-Athens',
+	#package : 'Pango',
+	#tag : 'Athens'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoCairoSurface class >> newFromData: pixels width: width height: height [
 	| stride |
 	stride := self primStrideForWidth: width.
@@ -18,7 +20,7 @@ PangoCairoSurface class >> newFromData: pixels width: width height: height [
 		initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoCairoSurface class >> primImageFromData: data width: width height: height stride: stride [
 	^ self ffiCall: #(AthensCairoSurface cairo_image_surface_create_for_data (
 		void *data,
@@ -30,7 +32,7 @@ PangoCairoSurface class >> primImageFromData: data width: width height: height s
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PangoCairoSurface class >> primStrideForWidth: width [
 	^ self ffiCall: #(int cairo_format_stride_for_width (CAIRO_FORMAT_A8, int width))
 ]

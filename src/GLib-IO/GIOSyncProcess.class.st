@@ -17,9 +17,9 @@ Class {
 		'waitStatus'
 	],
 	#pools : [
+		'GObjectTypes',
 		'GSpawnError',
-		'GSpawnFlags',
-		'GtkTypes'
+		'GSpawnFlags'
 	],
 	#category : 'GLib-IO-Process',
 	#package : 'GLib-IO',
