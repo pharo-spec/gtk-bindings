@@ -1,6 +1,6 @@
-Extension { #name : #ImageMorph }
+Extension { #name : 'ImageMorph' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 ImageMorph >> asGdkPixbuf [
 
 	^ self form asGdkPixbuf

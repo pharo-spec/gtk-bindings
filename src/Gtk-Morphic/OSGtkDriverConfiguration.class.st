@@ -5,24 +5,25 @@ This is needed because some Gtk settings (like theme) need to be applied before 
 first window is created (otherwise it will create a default window theme).
 "
 Class {
-	#name : #OSGtkDriverConfiguration,
-	#superclass : #OSPlatformVisitor,
-	#category : #'Gtk-Morphic'
+	#name : 'OSGtkDriverConfiguration',
+	#superclass : 'OSPlatformVisitor',
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 OSGtkDriverConfiguration >> apply [ 
 
 	self visit
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 OSGtkDriverConfiguration >> visitMacOS: aPlatform [
 
 	GtkSettings default themeName: 'Sierra-light'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 OSGtkDriverConfiguration >> visitWindows: aPlatform [
 
 	GtkSettings default themeName: 'Windows-10-master'

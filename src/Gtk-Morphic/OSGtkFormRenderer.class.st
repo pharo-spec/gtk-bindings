@@ -3,15 +3,16 @@ I'm a bridge between a window and a GtkFormView to render a Form.
 
 "
 Class {
-	#name : #OSGtkFormRenderer,
-	#superclass : #OSWindowFormRenderer,
+	#name : 'OSGtkFormRenderer',
+	#superclass : 'OSWindowFormRenderer',
 	#instVars : [
 		'formView'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 OSGtkFormRenderer >> backendWindow: aWindowHandle [
 
 	super backendWindow: aWindowHandle.
@@ -19,13 +20,13 @@ OSGtkFormRenderer >> backendWindow: aWindowHandle [
 	self ensureFormView
 ]
 
-{ #category : #'updating screen' }
+{ #category : 'updating screen' }
 OSGtkFormRenderer >> deferUpdatesWhile: aBlock [
 
 	GRunLoop defer: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 OSGtkFormRenderer >> ensureEventHandler [
 	"ensure we use the correct event handler"
 		
@@ -35,7 +36,7 @@ OSGtkFormRenderer >> ensureEventHandler [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 OSGtkFormRenderer >> ensureFormView [
 	"ensure window contains a world morph view"
 	
@@ -46,7 +47,7 @@ OSGtkFormRenderer >> ensureFormView [
 	formView show
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 OSGtkFormRenderer >> form: aForm [
 
 	super form: aForm.
@@ -54,7 +55,7 @@ OSGtkFormRenderer >> form: aForm [
 "	formView form: aForm
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 OSGtkFormRenderer >> initialize [
 
 	super initialize.
@@ -62,19 +63,19 @@ OSGtkFormRenderer >> initialize [
 	GtkEngine current registerShutdown: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 OSGtkFormRenderer >> prepareToShutdown [ 
 
 	formView disconnectAll
 ]
 
-{ #category : #'updating screen' }
+{ #category : 'updating screen' }
 OSGtkFormRenderer >> updateAll [
 	
 	self updateRectangle: form boundingBox
 ]
 
-{ #category : #'updating screen' }
+{ #category : 'updating screen' }
 OSGtkFormRenderer >> updateAreas: allDamage immediate: forceToScreen [
 
 	| intersection windowExtent |
@@ -90,7 +91,7 @@ OSGtkFormRenderer >> updateAreas: allDamage immediate: forceToScreen [
 			intersection ifNotNil: [ formView invalidateRect: rectangle ] ]
 ]
 
-{ #category : #'updating screen' }
+{ #category : 'updating screen' }
 OSGtkFormRenderer >> updateRectangle: aRect [
 
 	formView invalidateRect: aRect

@@ -1,6 +1,6 @@
-Extension { #name : #GdkCursor }
+Extension { #name : 'GdkCursor' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 GdkCursor class >> fromForm: aForm [
 
 	^ self newFromTexture: aForm asGdkTexture

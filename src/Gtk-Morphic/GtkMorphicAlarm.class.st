@@ -5,15 +5,16 @@ I'm used to implement the alarm property of morphs in the context of a GtkMorphV
 once scheduled, an alarm will wait until its execution.
 "
 Class {
-	#name : #GtkMorphicAlarm,
-	#superclass : #MorphicAlarm,
+	#name : 'GtkMorphicAlarm',
+	#superclass : 'MorphicAlarm',
 	#instVars : [
 		'process'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #scheduling }
+{ #category : 'scheduling' }
 GtkMorphicAlarm >> cancel [
 
 	process ifNil: [ ^ self ].
@@ -22,7 +23,7 @@ GtkMorphicAlarm >> cancel [
 	process := nil
 ]
 
-{ #category : #scheduling }
+{ #category : 'scheduling' }
 GtkMorphicAlarm >> schedule [
 
 	process := [ 
@@ -31,13 +32,13 @@ GtkMorphicAlarm >> schedule [
 		fork
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 GtkMorphicAlarm >> value: aTime [
 
 	^ GRunLoop defer: [ super value: aTime ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicAlarm >> waitUntilExecution [
 
 	(self scheduledTime - Time millisecondClockValue) milliSeconds wait

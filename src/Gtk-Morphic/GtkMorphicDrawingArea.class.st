@@ -3,21 +3,22 @@ I'm a base morphic drawing area.
 I define common behaviour for my children. They will be resposibly to draw Morphs or other morphic related elements (like GtkFormView, used to display a full World).
 "
 Class {
-	#name : #GtkMorphicDrawingArea,
-	#superclass : #GtkDrawingArea,
+	#name : 'GtkMorphicDrawingArea',
+	#superclass : 'GtkDrawingArea',
 	#instVars : [
 		'eventHandler'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkMorphicDrawingArea >> basicDraw: cr [
 
 	"do nothing"
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkMorphicDrawingArea >> cairoCreate: target [
 
 	^ self 
@@ -25,7 +26,7 @@ GtkMorphicDrawingArea >> cairoCreate: target [
 		module: CairoLibrary
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkMorphicDrawingArea >> cairoDestroy: cr [
 
 	^ self 
@@ -33,7 +34,7 @@ GtkMorphicDrawingArea >> cairoDestroy: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkMorphicDrawingArea >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth height: aHeight [
 
 	self 
@@ -45,13 +46,13 @@ GtkMorphicDrawingArea >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth h
 		module: CairoLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicDrawingArea >> canDraw [
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphicDrawingArea >> connectToSignals [
 
 	self addController: (GtkEventControllerLegacy new 
@@ -59,31 +60,31 @@ GtkMorphicDrawingArea >> connectToSignals [
 		yourself)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicDrawingArea >> currentExtent [
 
 	self subclassResponsibility
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkMorphicDrawingArea >> draw: cr [
 
 	self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicDrawingArea >> eventHandler [
 
 	^ eventHandler
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicDrawingArea >> eventHandler: aHandler [
 
 	eventHandler := aHandler
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkMorphicDrawingArea >> handleEvent: event [
 
 	"event isEventConfigure ifTrue: [
@@ -94,32 +95,32 @@ GtkMorphicDrawingArea >> handleEvent: event [
 	^ eventHandler handleEvent: (event withPositionRelativeTo: self)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkMorphicDrawingArea >> hasEventHandler [
 
 	^ eventHandler notNil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphicDrawingArea >> initialize [ 
 
 	super initialize.
 	self canFocus: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicDrawingArea >> invalidate [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicDrawingArea >> invalidateRect: damageRect [
 
 	self subclassResponsibility
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphicDrawingArea >> newDrawFunction [
 
 	^ GCallback 
@@ -129,7 +130,7 @@ GtkMorphicDrawingArea >> newDrawFunction [
 			self draw: cr ]
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkMorphicDrawingArea >> paint: cr [
 
 	self 
@@ -137,7 +138,7 @@ GtkMorphicDrawingArea >> paint: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicDrawingArea >> queueDraw [
 	
 	"(drawing or: [ drawQueued ]) ifTrue: [ ^ self ].
@@ -145,19 +146,19 @@ GtkMorphicDrawingArea >> queueDraw [
 	super queueDraw
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphicDrawingArea >> registerToEvents [
 
 	self registerToAllEvents
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicDrawingArea >> resizeIfEnabledTo: extent [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface [
 
 	self 
@@ -167,7 +168,7 @@ GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface [
 		y: 0.0
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface x: x y: y [
 
 	self 
@@ -175,13 +176,13 @@ GtkMorphicDrawingArea >> setSourceSurfaceTo: cr surface: surface x: x y: y [
 		module: CairoLibrary
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphicDrawingArea >> updateSurface [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicDrawingArea >> world [ 
 
 	self subclassResponsibility

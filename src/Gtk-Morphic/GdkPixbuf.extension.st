@@ -1,6 +1,6 @@
-Extension { #name : #GdkPixbuf }
+Extension { #name : 'GdkPixbuf' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 GdkPixbuf class >> newForm: aForm [
 
 	^ self 
@@ -9,7 +9,7 @@ GdkPixbuf class >> newForm: aForm [
 		height: aForm height asInteger
 ]
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 GdkPixbuf class >> newMorph: anImageMorph [
 
 	^ self 

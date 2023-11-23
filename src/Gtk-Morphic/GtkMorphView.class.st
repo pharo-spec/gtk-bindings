@@ -2,8 +2,8 @@
 I'm a widget to display morphs. 
 "
 Class {
-	#name : #GtkMorphView,
-	#superclass : #GtkMorphicDrawingArea,
+	#name : 'GtkMorphView',
+	#superclass : 'GtkMorphicDrawingArea',
 	#instVars : [
 		'morph',
 		'activeSurface',
@@ -18,16 +18,17 @@ Class {
 		'lastRequestedSize',
 		'updating'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView class >> drawingAreaNew [
 
 	^ self ffiCall: #(GtkMorphView *gtk_drawing_area_new ())
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example1 [
 
 	GtkEngine ensureRunning.
@@ -48,7 +49,7 @@ GtkMorphView class >> example1 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example2 [
 	| morph positionMorph |
 	"show mouse events"
@@ -71,7 +72,7 @@ GtkMorphView class >> example2 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example3 [
 	| morph |
 
@@ -95,7 +96,7 @@ GtkMorphView class >> example3 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example4 [
 	| morph1 morph2 |
 
@@ -127,7 +128,7 @@ GtkMorphView class >> example4 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example5 [
 	| morph inform |
 
@@ -154,7 +155,7 @@ GtkMorphView class >> example5 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example6 [
 	"This is the same as example5, but buttons have a hover (a help text)."
 	| morph inform |
@@ -183,7 +184,7 @@ GtkMorphView class >> example6 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example7 [
 	| morph inform |
 
@@ -213,7 +214,7 @@ GtkMorphView class >> example7 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> example8 [
 	| morph1 morph2 "inform" |
 
@@ -258,7 +259,7 @@ GtkMorphView class >> example8 [
 			present ]
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkMorphView class >> newGridOf: aNumber with: aBlock [
 	| gridMorph |
 
@@ -290,7 +291,7 @@ GtkMorphView class >> newGridOf: aNumber with: aBlock [
 	^ gridMorph
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkMorphView class >> newMorph: aMorph [
 
 	^ self new 
@@ -299,13 +300,13 @@ GtkMorphView class >> newMorph: aMorph [
 
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> activateCursor: aCursor withMask: aForm [ 
 	
 	self flag: #TODO.
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> activeHand [
 	
 	^ activeHand ifNil: [ 
@@ -314,19 +315,19 @@ GtkMorphView >> activeHand [
 			yourself ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> activeSurface [
 	
 	^ activeSurface
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> activeSurface: aSurface [
 
 	activeSurface := aSurface
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> addAlarm: aSelector withArguments: argArray for: aTarget at: scheduledTime [
 	"Add a new alarm with the given set of parameters"
 	| newAlarm |
@@ -343,13 +344,13 @@ GtkMorphView >> addAlarm: aSelector withArguments: argArray for: aTarget at: sch
 	newAlarm schedule
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> addMorphFront: aMorph [
 	
 	self addMorphInFrontOfLayer: aMorph
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> addMorphInFrontOfLayer: aMorph [
 
 	layeredMorphs add: aMorph.
@@ -357,85 +358,85 @@ GtkMorphView >> addMorphInFrontOfLayer: aMorph [
 	self invalidateRect: aMorph fullBounds
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> beCursorOwner [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphView >> beMorphNotResizable [
 
 	self morphResizable: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphView >> beMorphResizable [
 
 	self morphResizable: true
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> becomeActiveDuring: aBlock [
 	
 	aBlock value
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> bounds [ 
 
 	^ self morph bounds
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> canDraw [
 
 	^ self morph notNil
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> colorForInsets [
 	
 	^ Color transparent
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> convertWindowMouseEventPosition: aPoint [ 
 	
 	^ aPoint
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphView >> createEventHandler [
 
 	^ GtkMorphicEventHandler for: self world
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> currentCursor [
 	
 	self flag: #TODO. "cursor handling"
 	^ Cursor normal
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> currentCursor: aCursor [
 
 	self flag: #TODO.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> currentExtent [
 
 	^ self morph extent
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> defer: aBlock [
 
 	GRunLoop defer: aBlock
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkMorphView >> draw: cr [
 
 	(drawing or: [ self canDraw not ]) ifTrue: [ ^ true ].
@@ -453,14 +454,14 @@ GtkMorphView >> draw: cr [
 	^ true
 ]
 
-{ #category : #'private - events' }
+{ #category : 'private - events' }
 GtkMorphView >> handleEvent: event [
 
 	self morph ifNil: [ ^ false ].
 	^ super handleEvent: event
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphView >> initialize [ 
 
 	super initialize.
@@ -474,7 +475,7 @@ GtkMorphView >> initialize [
 	updating := false
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> intersectingMorphs: aMorph within: aRect [
 	| morphs |
 	
@@ -496,7 +497,7 @@ GtkMorphView >> intersectingMorphs: aMorph within: aRect [
 	^ morphs reversed
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> intersectingMorphsWithin: aRect [
 	| allMorphs intersectingMorphs |
 	
@@ -520,7 +521,7 @@ GtkMorphView >> intersectingMorphsWithin: aRect [
 	^ intersectingMorphs	reversed
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> invalidRect: damageRect from: aMorph [
 
 	self isUpdating 
@@ -528,62 +529,62 @@ GtkMorphView >> invalidRect: damageRect from: aMorph [
 	self invalidateRect: damageRect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphView >> invalidate [
 
 	self invalidate: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> invalidate: needQueue [
 
 	damageRecorder doFullRepaint.
 	needQueue ifTrue: [ self queueDraw ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphView >> invalidateRect: damageRect [
 
 	damageRecorder recordInvalidRect: damageRect.
 	self queueDraw
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> isCursorOwner [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkMorphView >> isMorphResizable [
 
 	^ morphResizable
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 GtkMorphView >> isUpdating [
 
 	^ updating
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> kmDispatcher [
 
 	^ kmDispatcher ifNil: [ kmDispatcher := KMDispatcher target: self ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> layoutChanged [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphView >> morph [
 
 	^ morph
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphView >> morph: aMorph [
 	| needQueue |
 
@@ -608,19 +609,19 @@ GtkMorphView >> morph: aMorph [
 	self invalidate: needQueue
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> morphResizable: aBoolean [
 
 	morphResizable := aBoolean
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkMorphView >> needUpdate [
 
 	^ damageRecorder updateIsNeeded
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> newSurfaceOfMorph: aMorph [
 	| newSurface |
 
@@ -634,13 +635,13 @@ GtkMorphView >> newSurfaceOfMorph: aMorph [
 	^ newSurface
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> owner [
 
 	^ nil
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> paintMorph: aMorph [
 	| cr position morphSurface |
 	
@@ -658,25 +659,25 @@ GtkMorphView >> paintMorph: aMorph [
 		self cairoDestroy: cr ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> paneColorOrNil [
 	
 	^ nil
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> privateRemove: aMorph [
 	
 	^ aMorph
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> processEvent: anEvent [
  
 	^ self morph processEvent: anEvent
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> removeAlarm: aSelector for: aTarget [
 	
 	alarms ifNil: [ ^ self ].
@@ -689,7 +690,7 @@ GtkMorphView >> removeAlarm: aSelector for: aTarget [
 			alarms remove: anAlarm ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> removeMorph: aMorph [ 
 	
 	(layeredMorphs includes: aMorph) ifFalse: [ ^ self ].
@@ -698,11 +699,11 @@ GtkMorphView >> removeMorph: aMorph [
 	self invalidateRect: aMorph fullBounds
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> removedMorph: aMorph [
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphView >> resizeIfEnabledTo: extent [
 
 	self isMorphResizable ifFalse: [ ^ self ].
@@ -712,7 +713,7 @@ GtkMorphView >> resizeIfEnabledTo: extent [
 		self morph extent: extent ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 GtkMorphView >> sizeRequest: anExtent [
 
 	lastRequestedSize = anExtent ifTrue: [ ^ self ].
@@ -720,7 +721,7 @@ GtkMorphView >> sizeRequest: anExtent [
 	lastRequestedSize := anExtent
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> startStepping: aMorph [
 
 	self 
@@ -731,7 +732,7 @@ GtkMorphView >> startStepping: aMorph [
 		stepTime: nil
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> startStepping: aMorph at: scheduledTime selector: aSelector arguments: args stepTime: stepTime [
 	"Add the given morph to the step list. Do nothing if it is already being stepped."
 	| newStep |
@@ -754,11 +755,11 @@ GtkMorphView >> startStepping: aMorph at: scheduledTime selector: aSelector argu
 		self stopStepping ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> startSteppingSubmorphsOf: aMorph [
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> stopStepping [
 
 	steps ifNil: [ ^ self ].
@@ -767,7 +768,7 @@ GtkMorphView >> stopStepping [
 	steps := nil
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> stopStepping: aMorph selector: aSelector [
 	
 	steps ifNil: [ ^ self ].
@@ -780,19 +781,19 @@ GtkMorphView >> stopStepping: aMorph selector: aSelector [
 		do: [ :each | each cancel ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> theme [
 
 	^ Smalltalk ui theme
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> transformFrom: aMorph [ 
 	
 	^ IdentityTransform new
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> updateAllSurface [
 
 	self activeSurface: (self newSurfaceOfMorph: self morph).
@@ -800,7 +801,7 @@ GtkMorphView >> updateAllSurface [
 		self paintMorph: each ]
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> updateSurface [
 	| rects |
 
@@ -813,7 +814,7 @@ GtkMorphView >> updateSurface [
 			self updateAllSurface ]
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> updateSurfaceRectangles: aCollection [
     | rect |
 
@@ -834,7 +835,7 @@ GtkMorphView >> updateSurfaceRectangles: aCollection [
 		self paintMorph: eachMorph ]
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkMorphView >> updatingWhile: aBlock [
 	| oldUpdating |
 
@@ -844,7 +845,7 @@ GtkMorphView >> updatingWhile: aBlock [
 		updating := oldUpdating ]
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> viewBox [
 	| boundingBox |
 
@@ -852,26 +853,26 @@ GtkMorphView >> viewBox [
 	^ boundingBox origin asIntegerPoint corner: boundingBox corner asIntegerPoint
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> withAllOwnersDo: aBlock [
 	
 	aBlock value: self
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> world [
 	"I'm simulating being a world"
 
 	^ self
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> worldRenderer [
 	
 	^ self
 ]
 
-{ #category : #'world simulation' }
+{ #category : 'world simulation' }
 GtkMorphView >> worldState [
 	
 	^ self

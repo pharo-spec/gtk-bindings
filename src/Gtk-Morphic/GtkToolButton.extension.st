@@ -1,6 +1,6 @@
-Extension { #name : #GtkToolButton }
+Extension { #name : 'GtkToolButton' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 GtkToolButton class >> newForm: aForm label: aString [
 
 	^ self 
@@ -8,7 +8,7 @@ GtkToolButton class >> newForm: aForm label: aString [
 		label: aString
 ]
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 GtkToolButton class >> newMorph: anImageMorph label: aString [
 
 	^ self 

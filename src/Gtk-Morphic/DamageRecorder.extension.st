@@ -1,12 +1,12 @@
-Extension { #name : #DamageRecorder }
+Extension { #name : 'DamageRecorder' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 DamageRecorder >> hasInvalidRects [
 
 	^ invalidRects notEmpty
 ]
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 DamageRecorder >> invalidRects [
 
 	^ invalidRects copy

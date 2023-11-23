@@ -3,8 +3,8 @@ A service to process stepping of morphs.
 I keep a registry of all stepping morphs and execute the required stepping (by default every 1000ms), but I'm only active if I have morphs registered (otherwise, I will stop until a new morph is registered) 
 "
 Class {
-	#name : #GtkMorphicStepService,
-	#superclass : #TKTService,
+	#name : 'GtkMorphicStepService',
+	#superclass : 'TKTService',
 	#instVars : [
 		'mutex',
 		'messages'
@@ -12,22 +12,23 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkMorphicStepService class >> new [
 
 	self error: 'Use #uniqueInstance'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkMorphicStepService class >> uniqueInstance [
 
 	^ uniqueInstance ifNil: [ uniqueInstance := self basicNew initialize ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphicStepService >> initialize [
 
 	super initialize.
@@ -36,13 +37,13 @@ GtkMorphicStepService >> initialize [
 	messages := Set new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicStepService >> name [
 	
 	^ 'GtkMorphView Step Service'
 ]
 
-{ #category : #registry }
+{ #category : 'registry' }
 GtkMorphicStepService >> register: aGtkStepMessage [
 
 	mutex critical: [ 
@@ -51,13 +52,13 @@ GtkMorphicStepService >> register: aGtkStepMessage [
 			self start ] ].
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 GtkMorphicStepService >> stepService [
 
 	messages do: [ :each | each step ]
 ]
 
-{ #category : #registry }
+{ #category : 'registry' }
 GtkMorphicStepService >> unregister: aGtkStepMessage [
 
 	mutex critical: [ 

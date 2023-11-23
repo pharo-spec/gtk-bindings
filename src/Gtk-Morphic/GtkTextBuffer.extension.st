@@ -1,6 +1,6 @@
-Extension { #name : #GtkTextBuffer }
+Extension { #name : 'GtkTextBuffer' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 GtkTextBuffer >> asText [
 	| text pos iter atEnd |
 	

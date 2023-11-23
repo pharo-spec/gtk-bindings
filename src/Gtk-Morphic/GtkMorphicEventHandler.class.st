@@ -2,8 +2,8 @@
 I'm used to convert Gtk events into Morphic events to be passed to GtkMorphView instances.
 "
 Class {
-	#name : #GtkMorphicEventHandler,
-	#superclass : #OSWindowMorphicEventHandler,
+	#name : 'GtkMorphicEventHandler',
+	#superclass : 'OSWindowMorphicEventHandler',
 	#instVars : [
 		'imContext',
 		'lastEvent'
@@ -14,10 +14,11 @@ Class {
 	#classInstVars : [
 		'symbolCharacterMapping'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtkMorphicEventHandler class >> createSymbolCharacterMapping [
 	| mapping |
 
@@ -60,13 +61,13 @@ GtkMorphicEventHandler class >> createSymbolCharacterMapping [
 	^ mapping
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtkMorphicEventHandler class >> symbolCharacterMapping [
 
 	^ symbolCharacterMapping ifNil: [ symbolCharacterMapping := self createSymbolCharacterMapping ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 GtkMorphicEventHandler class >> symbolCharacterMappingAt: aKey ifAbsent: aBlock [
 
 	^ self symbolCharacterMapping 
@@ -74,7 +75,7 @@ GtkMorphicEventHandler class >> symbolCharacterMappingAt: aKey ifAbsent: aBlock 
 		ifAbsent: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> convertModifiers: anEvent [
 	| modifiers button |
 
@@ -102,7 +103,7 @@ GtkMorphicEventHandler >> convertModifiers: anEvent [
 	^ modifiers
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> doKeystroke: aString [
 	| char keyStrokeEvent |
 
@@ -124,7 +125,7 @@ GtkMorphicEventHandler >> doKeystroke: aString [
 	self dispatchMorphicEvent: keyStrokeEvent
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
 	(anEvent isKeyEvent
@@ -134,7 +135,7 @@ GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 		ifTrue: [ UserInterruptHandler new handleUserInterrupt ]
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkMorphicEventHandler >> handleEvent: anEvent [
 	"convert the event to morphic one, and dispatch it whatever..."
 	| morphicEvent |
@@ -149,14 +150,14 @@ GtkMorphicEventHandler >> handleEvent: anEvent [
 	^ morphicEvent wasHandled
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> imContext [
 
 	^ imContext ifNil: [ 
 		imContext := GRunLoop defer: [ GtkIMContext newSimple ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkMorphicEventHandler >> initialize [
 
 	super initialize.
@@ -165,7 +166,7 @@ GtkMorphicEventHandler >> initialize [
 			connectCommit: [ :aString | self doKeystroke: aString ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> mapSymbolToKeyValue: symbol [
 
 	^ self class 
@@ -176,7 +177,7 @@ GtkMorphicEventHandler >> mapSymbolToKeyValue: symbol [
 				ifFalse: [ symbol ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 	| keyDownEvent keyValue |
 
@@ -200,7 +201,7 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 	^ keyDownEvent
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 
 	anEvent isTextInput ifFalse: [ ^ nil ].
@@ -216,13 +217,13 @@ GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
 		self imContext filterKeypress: anEvent ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtkMorphicEventHandler >> visitCrossingEvent: anEvent [
 
 	self flag: #TODO. "do something"
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	| modifiers keyDownEvent |
 
@@ -237,7 +238,7 @@ GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	^ keyDownEvent
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtkMorphicEventHandler >> visitKeyUpEvent: anEvent [
 	| keyUpEvent keyValue |
 
@@ -259,20 +260,20 @@ GtkMorphicEventHandler >> visitKeyUpEvent: anEvent [
 	self dispatchMorphicEvent: keyUpEvent
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 
 	GRunLoop defer: [ self imContext reset ].
 	^ super visitMouseButtonPressEvent: anEvent
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtkMorphicEventHandler >> visitScrollEvent: anEvent [
 
 	self flag: #TODO. "do something"
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 GtkMorphicEventHandler >> visitUnknownEvent: anEvent [
 
 	"anEvent type crLog."

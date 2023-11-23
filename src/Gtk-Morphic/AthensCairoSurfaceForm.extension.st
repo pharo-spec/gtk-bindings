@@ -1,6 +1,6 @@
-Extension { #name : #AthensCairoSurfaceForm }
+Extension { #name : 'AthensCairoSurfaceForm' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 AthensCairoSurfaceForm >> asAthensSurface [
 
 	^ self surface

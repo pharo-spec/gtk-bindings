@@ -3,37 +3,38 @@ I'm a recurrent alarm.
 I'm used to implement the steping property of morphs in the context of a GtkMorphView.
 "
 Class {
-	#name : #GtkStepMessage,
-	#superclass : #StepMessage,
-	#category : #'Gtk-Morphic'
+	#name : 'GtkStepMessage',
+	#superclass : 'StepMessage',
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #scheduling }
+{ #category : 'scheduling' }
 GtkStepMessage >> cancel [
 
 	GtkMorphicStepService uniqueInstance unregister: self
 ]
 
-{ #category : #scheduling }
+{ #category : 'scheduling' }
 GtkStepMessage >> schedule [
 
 	GtkMorphicStepService uniqueInstance register: self
 ]
 
-{ #category : #scheduling }
+{ #category : 'scheduling' }
 GtkStepMessage >> step [
 
 	self value: Time millisecondClockValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStepMessage >> stepTime [
 
 	^ super stepTime 
 		ifNil: [ self receiver stepTime ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkStepMessage >> waitUntilExecution [
 
 	self stepTime milliSeconds wait

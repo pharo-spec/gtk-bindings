@@ -3,22 +3,23 @@ I'm a widget to display a world contained in a Form.
 Being a Form a bitmap, this component could be used to display any kind of Form, containded in a World (provided through the event handler).
 "
 Class {
-	#name : #GtkFormView,
-	#superclass : #GtkMorphicDrawingArea,
+	#name : 'GtkFormView',
+	#superclass : 'GtkMorphicDrawingArea',
 	#instVars : [
 		'form',
 		'surface'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFormView class >> drawingAreaNew [
 
 	^ self ffiCall: #(GtkFormView *gtk_drawing_area_new ())
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 GtkFormView class >> example [
 
 	GtkEngine ensureRunning.
@@ -31,32 +32,32 @@ GtkFormView class >> example [
 			present ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFormView >> canDraw [
 
 	^ true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFormView >> currentExtent [
 
 	^ self form extent
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 GtkFormView >> draw: aCr [
 	
 	surface ifNil: [ ^ self ]. 
 	surface fillInto: aCr
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFormView >> form [
 
 	^ form
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFormView >> form: aForm [
 
 	form := aForm.
@@ -64,7 +65,7 @@ GtkFormView >> form: aForm [
 	self invalidate	
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkFormView >> handleEvent: anEvent [
 
 	self tryFocus: anEvent.  
@@ -72,47 +73,47 @@ GtkFormView >> handleEvent: anEvent [
 	^ super handleEvent: anEvent
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkFormView >> hasWorld [
 
 	^ self hasEventHandler and: [ self world notNil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFormView >> invalidate [
 
 	self updateSurface.
 	self queueDraw
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFormView >> invalidateRect: damageRect [
 
 	self updateSurfaceRectangle: damageRect.
 	self queueDraw
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkFormView >> resizeIfEnabledTo: extent [
 
 	self hasWorld ifFalse: [ ^ self ].
 	self world worldState worldRenderer checkForNewScreenSize
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 GtkFormView >> tryFocus: anEvent [
 	
 	anEvent type = GdkEventType GDK_ENTER_NOTIFY ifFalse: [ ^ self ].
 	self grabFocus
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkFormView >> updateSurface [
 
 	surface := GtkCairoSurface fromForm: form
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 GtkFormView >> updateSurfaceRectangle: aRect [
 	| origin newForm |
 	
@@ -128,7 +129,7 @@ GtkFormView >> updateSurfaceRectangle: aRect [
 	surface copyForm: newForm clippedBy: aRect at: origin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFormView >> world [ 
 
 	^ self eventHandler morphicWorld

@@ -1,12 +1,12 @@
-Extension { #name : #Morph }
+Extension { #name : 'Morph' }
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 Morph >> asGdkPixbuf [
 
 	^ self asForm asGdkPixbuf
 ]
 
-{ #category : #'*Gtk-Morphic' }
+{ #category : '*Gtk-Morphic' }
 Morph >> asGtkImage [
 
 	^ GtkImage newMorph: self

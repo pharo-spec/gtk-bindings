@@ -3,15 +3,16 @@ I'm a cairo surface to be used on form rendering.
 It will create a cairo surface that does not needs to be mapped to RGBA (as my parent does).
 "
 Class {
-	#name : #GtkCairoSurface,
-	#superclass : #AthensCairoSurface,
+	#name : 'GtkCairoSurface',
+	#superclass : 'AthensCairoSurface',
 	#pools : [
-		'GtkTypes'
+		'GObjectTypes'
 	],
-	#category : #'Gtk-Morphic'
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCairoSurface class >> extent: anExtent [
 
 	^ self platformClass
@@ -19,14 +20,14 @@ GtkCairoSurface class >> extent: anExtent [
 		format: CAIRO_FORMAT_ARGB32
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCairoSurface class >> extent: anExtent format: aFormat [
 
 	^ (self primImage: aFormat width: anExtent x height: anExtent y) initialize
 
 ]
 
-{ #category : #'finalize resources' }
+{ #category : 'finalize resources' }
 GtkCairoSurface class >> finalizeResourceData: data [
 	| handle id contextHandle |
 
@@ -42,7 +43,7 @@ GtkCairoSurface class >> finalizeResourceData: data [
 	self unregisterSurfaceWithId: id
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCairoSurface class >> fromForm: aForm [
 	| form surface |
 	
@@ -60,7 +61,7 @@ GtkCairoSurface class >> fromForm: aForm [
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkCairoSurface class >> fromImageMorph: anImageMorph [
 	| surface |
 
@@ -71,14 +72,14 @@ GtkCairoSurface class >> fromImageMorph: anImageMorph [
 	^ surface
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCairoSurface class >> platformClass [
 		
 	"OSPlatform current isMacOS ifTrue: [ ^ GtkQuartzCairoSurface ]."
 	^ self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCairoSurface class >> primImage: aFormat width: aWidth height: aHeight [
 	"rewrite to answer correct receiver"
 
@@ -89,7 +90,7 @@ GtkCairoSurface class >> primImage: aFormat width: aWidth height: aHeight [
 
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> cairoCreate: target [
 
 	^ self 
@@ -97,7 +98,7 @@ GtkCairoSurface >> cairoCreate: target [
 		module: CairoLibrary
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> cairoDestroy: cr [
 
 	self 
@@ -105,7 +106,7 @@ GtkCairoSurface >> cairoDestroy: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth height: aHeight [
 
 	self 
@@ -117,7 +118,7 @@ GtkCairoSurface >> cairoRectangle: aCr x: xValue y: yValue	width: aWidth height:
 		module: CairoLibrary
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> cairoScale: cr x: sx y: sy [
 
 	self 
@@ -125,7 +126,7 @@ GtkCairoSurface >> cairoScale: cr x: sx y: sy [
 		module: CairoLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkCairoSurface >> clipRectangleFrom: aCr [
 	| x1 y1 x2 y2 |
 	
@@ -140,7 +141,7 @@ GtkCairoSurface >> clipRectangleFrom: aCr [
 		corner: ((x2 doubleAt: 1) asInteger@(y2 doubleAt: 1) asInteger)
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtkCairoSurface >> copyForm: aForm clippedBy: aRect at: aPoint [
 	"Will copy the contents of aForm into this surface at aPoint"
 	| cr newSurface |
@@ -152,7 +153,7 @@ GtkCairoSurface >> copyForm: aForm clippedBy: aRect at: aPoint [
 		self cairoDestroy: cr ]
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> fill: cr [
 
 	self 
@@ -160,7 +161,7 @@ GtkCairoSurface >> fill: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 GtkCairoSurface >> fillInto: cr [
 	"fills 'cr' with this surface. 
 	 it will take the clipping rectangle as the surface area to draw"
@@ -188,7 +189,7 @@ GtkCairoSurface >> fillInto: cr [
 	self fill: cr
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> getClipExtents: cr x1: x1 y1: y1 x2: x2 y2: y2 [
 
 	self 
@@ -201,13 +202,13 @@ GtkCairoSurface >> getClipExtents: cr x1: x1 y1: y1 x2: x2 y2: y2 [
 		module: CairoLibrary
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> getClipRectangle: rect from: cr [
 	
 	self deprecated: #Gtk4
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> paint: cr [
 
 	self 
@@ -215,7 +216,7 @@ GtkCairoSurface >> paint: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 GtkCairoSurface >> paintInto: cr at: aPoint [
 	"Paints this surface into 'cr' at specified positition"
 
@@ -227,13 +228,13 @@ GtkCairoSurface >> paintInto: cr at: aPoint [
 	self paint: cr
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtkCairoSurface >> scale: cr [ 
 
 	self cairoScale: cr x: 0.5 y: 0.5
 ]
 
-{ #category : #'private - primitives' }
+{ #category : 'private - primitives' }
 GtkCairoSurface >> setSourceSurfaceTo: cr surface: surface x: x y: y [
 
 	self 

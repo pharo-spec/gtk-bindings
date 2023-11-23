@@ -1,1 +1,1 @@
-Package { #name : #'Gtk-Morphic' }
+Package { #name : 'Gtk-Morphic' }

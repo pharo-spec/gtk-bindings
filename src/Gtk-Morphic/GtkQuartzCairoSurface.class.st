@@ -1,10 +1,11 @@
 Class {
-	#name : #GtkQuartzCairoSurface,
-	#superclass : #GtkCairoSurface,
-	#category : #'Gtk-Morphic'
+	#name : 'GtkQuartzCairoSurface',
+	#superclass : 'GtkCairoSurface',
+	#category : 'Gtk-Morphic',
+	#package : 'Gtk-Morphic'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkQuartzCairoSurface class >> primImage: aFormat width: aWidth height: aHeight [
 	"rewrite to answer correct receiver"
 
@@ -15,7 +16,7 @@ GtkQuartzCairoSurface class >> primImage: aFormat width: aWidth height: aHeight 
 
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGColorSpaceCreateDeviceRGB [
 	
 	^ self 
@@ -23,7 +24,7 @@ GtkQuartzCairoSurface >> CGColorSpaceCreateDeviceRGB [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGColorSpaceRelease: space [
 
 	self 
@@ -31,7 +32,7 @@ GtkQuartzCairoSurface >> CGColorSpaceRelease: space [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGContext: aContext clipToRect: rect [
 
 	self 
@@ -39,7 +40,7 @@ GtkQuartzCairoSurface >> CGContext: aContext clipToRect: rect [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGContext: aContext rect: rect drawImage: image [
 
 	self 
@@ -50,7 +51,7 @@ GtkQuartzCairoSurface >> CGContext: aContext rect: rect drawImage: image [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGContextRestoreGState: aContext [
 
 	self 
@@ -58,7 +59,7 @@ GtkQuartzCairoSurface >> CGContextRestoreGState: aContext [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGContextSaveGState: aContext [
 	
 	self 
@@ -66,7 +67,7 @@ GtkQuartzCairoSurface >> CGContextSaveGState: aContext [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGDataProviderCreateWithData: data size: size [
 	
 	^ self 
@@ -74,7 +75,7 @@ GtkQuartzCairoSurface >> CGDataProviderCreateWithData: data size: size [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGDataProviderRelease: data [
 
 	self 
@@ -82,7 +83,7 @@ GtkQuartzCairoSurface >> CGDataProviderRelease: data [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> CGImageRelease: image [
 
 	self 
@@ -90,7 +91,7 @@ GtkQuartzCairoSurface >> CGImageRelease: image [
 		module: self moduleCoreGraphics
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtkQuartzCairoSurface >> copyForm: aForm clippedBy: aRect at: aPoint [
 	""
 	| space dataProvider image cgContext cgRect |
@@ -129,7 +130,7 @@ GtkQuartzCairoSurface >> copyForm: aForm clippedBy: aRect at: aPoint [
 	"super copyForm: aForm clippedBy: aRect at: aPoint"
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> getContext [
 	
 	^ self 
@@ -137,7 +138,7 @@ GtkQuartzCairoSurface >> getContext [
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> getTargetFrom: cr [
 	
 	^ self 
@@ -145,7 +146,7 @@ GtkQuartzCairoSurface >> getTargetFrom: cr [
 		module: CairoLibrary
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> imageCreateWidth: width height: height bitsPerComponent: bitsPerComponent bitsPerPixel: bitsPerPixel bytesPerRow: bytesPerRow space: space bitmapInfo: bitmapInfo provider: provider decode: decode shouldInterpolate: shouldInterpolate intent: intent [
 
 	^ self 
@@ -164,13 +165,13 @@ GtkQuartzCairoSurface >> imageCreateWidth: width height: height bitsPerComponent
 	module: self moduleCoreGraphics
 ]
 
-{ #category : #'private primitives' }
+{ #category : 'private primitives' }
 GtkQuartzCairoSurface >> moduleCoreGraphics [
 
 	^ '/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics'
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 GtkQuartzCairoSurface >> rectangleToCGRect: aRect [
 	| rect |
 	
