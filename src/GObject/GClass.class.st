@@ -220,12 +220,6 @@ GClass >> findInstance: handle [
 ]
 
 { #category : 'private - primitives' }
-GClass >> gObjectNew: object_type [
-
-	^ GObject gObjectNew: object_type
-]
-
-{ #category : 'private - primitives' }
 GClass >> gTypeAddInterfaceStaticType: instance_type interfaceType: interface_type info: info [
 
 	^ self ffiCall: #(void g_type_add_interface_static (
@@ -331,7 +325,7 @@ GClass >> new [
 
 	^ mutex critical: [
 		| handle instance |
-		handle := self gObjectNew: self type.
+		handle := GObject gObjectNew: self type.
 		instance := targetClass basicNew setHandle: handle.
 		instances at: handle asInteger put: instance.
 		instance initialize. 
