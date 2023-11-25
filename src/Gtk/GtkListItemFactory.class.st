@@ -38,13 +38,19 @@ GtkListItemFactory class >> gType [
 GtkListItemFactory >> initialize [
 
 	super initialize.
-	storedObjects := Dictionary new
+	self reset
 ]
 
 { #category : 'accessing' }
 GtkListItemFactory >> objectAtHandle: anAddress [
 
 	^ storedObjects at: anAddress
+]
+
+{ #category : 'accessing' }
+GtkListItemFactory >> reset [
+
+	storedObjects := Dictionary new
 ]
 
 { #category : 'accessing' }
