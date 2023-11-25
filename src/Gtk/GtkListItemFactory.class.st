@@ -17,7 +17,7 @@ Class {
 { #category : 'accessing' }
 GtkListItemFactory class >> gClassSize [
 	"this object structure: is in GtkListItemFactoryClass"
-	^ GtkListItemFactoryClass structureSize 
+	^ GtkListItemFactoryClass structureSize
 ]
 
 { #category : 'accessing' }

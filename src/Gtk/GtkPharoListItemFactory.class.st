@@ -102,6 +102,13 @@ GtkPharoListItemFactory >> newFunction [
 		library: self ffiLibrary
 ]
 
+{ #category : 'private' }
+GtkPharoListItemFactory >> removeStoredObjectAtHandle: aHandle [
+
+	"GObject objectUnref: aHandle."
+	storedObjects removeKey: aHandle ifAbsent: [ ]
+]
+
 { #category : 'accessing' }
 GtkPharoListItemFactory >> setup: item [
 
@@ -138,9 +145,9 @@ GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 ]
 
 { #category : 'private' }
-GtkPharoListItemFactory >> toListItem: item [
+GtkPharoListItemFactory >> toListItem: itemHandle [
 
-	^ self listItemClass fromHandleUnreferenced: item
+	^ self listItemClass fromHandleUnreferenced: itemHandle
 ]
 
 { #category : 'accessing' }
