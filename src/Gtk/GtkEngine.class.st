@@ -125,7 +125,7 @@ GtkEngine >> start [
 
 	self isRunning ifTrue: [ self stop ].
 	
-	self installGClasses.
+	"self installGClasses."
 	self ensureApplication.
 	GApplicationStartAnnouncement emit.
 	self startEngineSupports.
