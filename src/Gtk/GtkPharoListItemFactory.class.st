@@ -36,29 +36,19 @@ GtkPharoListItemFactory class >> gInitializeClass: aDefinition [
 	aDefinition
 		connect: #setup 
 			signature: #(void (void *factory, void *item, gboolean bind, void *func, gpointer data)) 
-			to: [ :factory :item :bind :func :data |
-				(self gInstance: factory) 
-					setup: item
-						bind: bind
-						func: func
-						data: data ];
+			to: [ :handle :item :bind :func :data |
+				(self gInstanceSafe: handle) ifNotNil: [ :factory | 
+					factory setup: item bind: bind func: func data: data ] ];
 		connect: #teardown 
 			signature: #(void (void *factory, void *item, gboolean unbind, void *func, gpointer data)) 
-			to: [ :factory :item :unbind :func :data |
-				(self gInstance: factory)
-					teardown: item 
-						unbind: unbind 
-						func: func
-						data: data ];
+			to: [ :handle :item :unbind :func :data |
+				(self gInstanceSafe: handle) ifNotNil: [ :factory |
+					factory teardown: item unbind: unbind func: func data: data ] ];
 		connect: #update 
 			signature: #(void (void *factory, void *item, gboolean unbind, gboolean bind, void *func, gpointer data)) 
-			to: [ :factory :item :unbind :bind :func :data | 
-				(self gInstance: factory)
-					update: item 
-						unbind: unbind 
-						bind: bind 
-						func: func
-						data: data ]
+			to: [ :handle :item :unbind :bind :func :data | 
+				(self gInstanceSafe: handle) ifNotNil: [ :factory | 
+					factory update: item  unbind: unbind bind: bind func: func data: data ] ]
 ]
 
 { #category : 'testing' }
