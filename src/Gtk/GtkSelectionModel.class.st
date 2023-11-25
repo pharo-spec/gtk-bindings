@@ -108,7 +108,8 @@ GtkSelectionModel >> model: aModel [
 
 	model := aModel.
 	self setModel: model.
-	model ensureAutoRelease
+	model doNotAutoRelease.
+	model objectUnref
 ]
 
 { #category : 'accessing' }
