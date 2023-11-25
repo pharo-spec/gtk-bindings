@@ -112,7 +112,7 @@ GListReferenceStore >> initialize [
 
 	super initialize.
 	mutex := Mutex new.
-	references := GListReferenceContainer new
+	references := GListReferenceContainer new" autoRelease"
 ]
 
 { #category : 'accessing' }
