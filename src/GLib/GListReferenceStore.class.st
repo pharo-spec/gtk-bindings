@@ -17,6 +17,12 @@ Class {
 	#tag : 'Lists'
 }
 
+{ #category : 'accessing' }
+GListReferenceStore class >> gClassSize [
+
+	^ super gClassSize
+]
+
 { #category : 'class initialization' }
 GListReferenceStore class >> gDefine: gClass [
 
@@ -29,27 +35,47 @@ GListReferenceStore class >> gDefine: gClass [
 { #category : 'class initialization' }
 GListReferenceStore class >> gDefineListModelInterface: iface [
 
+	'INSTALLED' printToStdout.
+
 	iface 
 		connect: #get_item_type 
 			signature:  #(GType (void *list)) 
-			to: [ :list | (self gInstance: list) get_item_type ];
+			to: [ :handle | 
+				(self gInstanceSafe: handle) 
+					ifNotNil: [ :list | list get_item_type ]
+					ifNil: [ 0 ] ];
 		connect: #get_n_items 
 			signature: #(guint (void *list))  
-			to: [ :list | (self gInstance: list) get_n_items ];
+			to: [ :handle | 
+				(self gInstanceSafe: handle) 
+					ifNotNil: [ :list | list get_n_items ]
+					ifNil: [ 0 ] ];
 		connect: #get_item 
 			signature: #(gpointer (void *list, guint position)) 
-			to: [ :list :position | (self gInstance: list) get_item: position ];
+			to: [ :handle :position | 
+				(self gInstanceSafe: handle) 
+					ifNotNil: [ :list | list get_item: position ] 
+					ifNil: [ ExternalAddress null ] "];
 		connect: #get_object:  
 			signature: #(GObject* (void * list, guint position))  
-			to: [ :list :position | (self gInstance: list) get_object: position ];
+			to: [ :handle :position | 
+				(self gInstanceSafe: handle) 
+					ifNotNil: [ :list | list get_object: position ]
+					ifNil: [ ExternalAddress null ] ];
 		connect: #items_changed 
 			signature: #(void (void *list, guint position, guint removed, guint added)) 
-			to: [ :list :position :removed :added |
-				(self gInstanceSafe: list) ifNotNil: [ :instance | 
-					instance
+			to: [ :handle :position :removed :added |
+				(self gInstanceSafe: handle) ifNotNil: [ :list | 
+					list
 						items_changed: position 
 						removed: removed 
-						added: added ] ]
+						added: added ]" ]
+]
+
+{ #category : 'accessing' }
+GListReferenceStore class >> gSize [
+
+	^ super gSize
 ]
 
 { #category : 'finalization' }
