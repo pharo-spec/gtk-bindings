@@ -20,7 +20,7 @@ Class {
 { #category : 'private - registry' }
 GListReferenceContainer class >> referenceRegistry [
 
-	^ ReferenceRegistry ifNil: [ ReferenceRegistry := FinalizationRegistry new ]
+	^ FinalizationRegistry default
 ]
 
 { #category : 'external resource management' }
