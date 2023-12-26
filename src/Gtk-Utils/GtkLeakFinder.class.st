@@ -21,25 +21,26 @@ finder leaks inspect. ""this will show collected leaks""
 
 "
 Class {
-	#name : #GtkLeakFinder,
-	#superclass : #SignalLogger,
+	#name : 'GtkLeakFinder',
+	#superclass : 'SignalLogger',
 	#instVars : [
 		'created',
 		'destroyed',
 		'mutex',
 		'zombies'
 	],
-	#category : #'Gtk-Utils'
+	#category : 'Gtk-Utils',
+	#package : 'Gtk-Utils'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkLeakFinder class >> reset [
 	<script>
 
 	self instance reset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder class >> startTraceLeaks [
 	<script>
 
@@ -51,7 +52,7 @@ GtkLeakFinder class >> startTraceLeaks [
 	self instance inspect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder class >> stopTraceLeaks [
 	<script>
 
@@ -59,25 +60,25 @@ GtkLeakFinder class >> stopTraceLeaks [
 	self stop
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> collected [
 
 	^ created \ (self leaks)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> collectedWithInstancesCount [
 
 	^ (self collected collect: [ :each | each -> (each instanceCount) ]) asDictionary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLeakFinder >> ensureLoggingSignals [
 	
 	self signals do: [ :each | each traceSignal ]
 ]
 
-{ #category : #initialize }
+{ #category : 'initialization' }
 GtkLeakFinder >> initialize [
 
 	super initialize.
@@ -85,7 +86,7 @@ GtkLeakFinder >> initialize [
 	self reset
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> inspectorLeaks [
 	<inspectorPresentationOrder: 0 title: 'Leaks'>
 	| table |
@@ -102,26 +103,26 @@ GtkLeakFinder >> inspectorLeaks [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> leaks [
 
 	3 timesRepeat: [ Smalltalk garbageCollect ].
 	^ created select: [ :each | (destroyed includes: each handle) not ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> leaksWithInstancesCount [
 
 	^ (self leaks collect: [ :each | each -> (each instanceCount) ]) asDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> leaksWithReferenceCount [
 
 	^ (self leaks collect: [ :each | each -> (each referenceCount) ]) asDictionary
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 GtkLeakFinder >> logCreateSignal: aSignal [
 
 	mutex critical: [ 
@@ -131,14 +132,14 @@ GtkLeakFinder >> logCreateSignal: aSignal [
 			yourself) ]
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 GtkLeakFinder >> logDestroySignal: aSignal [
 
 	mutex critical: [ 
 		destroyed add: aSignal handle copy ]
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 GtkLeakFinder >> logZombieSignal: aSignal [
 
 	mutex critical: [ 
@@ -148,14 +149,14 @@ GtkLeakFinder >> logZombieSignal: aSignal [
 			yourself) ]
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 GtkLeakFinder >> nextPut: aSignal [
 
 	(aSignal respondsTo: #logIn:) ifFalse: [ ^ self ].
 	aSignal logIn: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> remainingReferences [
 	<script: 'self new remainingReferences inspect'>
 	
@@ -176,7 +177,7 @@ GtkLeakFinder >> remainingReferences [
 		flattened
 ]
 
-{ #category : #initialize }
+{ #category : 'initialization' }
 GtkLeakFinder >> reset [
 	
 	created := Set new.
@@ -184,27 +185,27 @@ GtkLeakFinder >> reset [
 	zombies := Set new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkLeakFinder >> signals [
 
 	^ { GCreateAnnouncement. GDestroyAnnouncement. GZombieAnnouncement }
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 GtkLeakFinder >> start [
 
 	self ensureLoggingSignals.
 	self startFor: GSignalBaseAnnouncement
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 GtkLeakFinder >> stop [
 	
 	super stop.
 	GSignalBaseAnnouncement resetFilters
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLeakFinder >> zombies [
 
 	3 timesRepeat: [ Smalltalk garbageCollect ].

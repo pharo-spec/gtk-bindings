@@ -1,14 +1,15 @@
 Class {
-	#name : #GtkWidgetTrace,
-	#superclass : #Object,
+	#name : 'GtkWidgetTrace',
+	#superclass : 'Object',
 	#instVars : [
 		'widgetClass',
 		'handle'
 	],
-	#category : #'Gtk-Utils'
+	#category : 'Gtk-Utils',
+	#package : 'Gtk-Utils'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> findAllPaths [
 	| instance |
 	
@@ -18,17 +19,17 @@ GtkWidgetTrace >> findAllPaths [
 	^ ReferenceFinder findAllPathsTo: instance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> handle [
 	^ handle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> handle: anObject [
 	handle := anObject
 ]
 
-{ #category : #inspecting }
+{ #category : 'inspecting' }
 GtkWidgetTrace >> inspectionInfo [
 	<inspectorPresentationOrder: 0 title: 'Info'>
 
@@ -46,13 +47,13 @@ GtkWidgetTrace >> inspectionInfo [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> instanceCount [
 
 	^ self instances size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> instances [
 	| stream |
 
@@ -64,30 +65,30 @@ GtkWidgetTrace >> instances [
 	^ stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> isAlive [
 
 	^ GRunLoop defer: [ (GObject fromHandle: self handle) isAlive ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 GtkWidgetTrace >> printOn: stream [ 
 
 	stream << self widgetClass name << '(' << self handle printString << ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> referenceCount [
 
 	^ GRunLoop defer: [ (GObject fromHandle: self handle) referenceCount ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> widgetClass [
 	^ widgetClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTrace >> widgetClass: anObject [
 	widgetClass := anObject
 ]
