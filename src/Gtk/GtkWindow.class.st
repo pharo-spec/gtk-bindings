@@ -325,7 +325,7 @@ GtkWindow >> finalize [
 
 	self isValidHandle ifFalse: [ ^ self ].
 	GFinalizeAnnouncement emitTarget: self handle: handle.
-	"self widgetDestroy: aHandle."
+	self destroy.
 	handle beNull
 ]
 
