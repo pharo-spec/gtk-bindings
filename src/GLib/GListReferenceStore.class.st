@@ -35,8 +35,6 @@ GListReferenceStore class >> gDefine: gClass [
 { #category : 'class initialization' }
 GListReferenceStore class >> gDefineListModelInterface: iface [
 
-	'INSTALLED' printToStdout.
-
 	iface 
 		connect: #get_item_type 
 			signature:  #(GType (void *list)) 
