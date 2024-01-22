@@ -72,6 +72,13 @@ GtkLeakFinder >> collectedWithInstancesCount [
 	^ (self collected collect: [ :each | each -> (each instanceCount) ]) asDictionary
 ]
 
+{ #category : 'accessing' }
+GtkLeakFinder >> destroyed [
+
+	3 timesRepeat: [ Smalltalk garbageCollect ].
+	^ created select: [ :each | destroyed includes: each handle ]
+]
+
 { #category : 'private' }
 GtkLeakFinder >> ensureLoggingSignals [
 	
@@ -107,7 +114,7 @@ GtkLeakFinder >> inspectorLeaks [
 GtkLeakFinder >> leaks [
 
 	3 timesRepeat: [ Smalltalk garbageCollect ].
-	^ created select: [ :each | (destroyed includes: each handle) not ]
+	^ created reject: [ :each | destroyed includes: each handle ]
 ]
 
 { #category : 'accessing' }
