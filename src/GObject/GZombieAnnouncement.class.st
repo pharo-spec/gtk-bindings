@@ -1,5 +1,5 @@
 "
-I indicate when I am trying to release an already released object (it is a zombie, alive in this side but not anymore in gtk3 side)
+I indicate when I am trying to release an already released object (it is a zombie, alive in this side but not anymore in GTK side)
 "
 Class {
 	#name : 'GZombieAnnouncement',
