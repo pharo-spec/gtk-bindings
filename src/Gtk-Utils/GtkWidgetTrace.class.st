@@ -83,6 +83,12 @@ GtkWidgetTrace >> referenceCount [
 	^ GRunLoop defer: [ (GObject fromHandle: self handle) referenceCount ]
 ]
 
+{ #category : 'private' }
+GtkWidgetTrace >> unref [
+
+	GRunLoop defer: [ GObject objectUnref: self handle ]
+]
+
 { #category : 'accessing' }
 GtkWidgetTrace >> widgetClass [
 	^ widgetClass
