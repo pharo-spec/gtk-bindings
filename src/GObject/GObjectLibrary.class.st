@@ -42,6 +42,12 @@ GObjectLibrary class >> naturalRunner [
 	^ GEngine ensureEngine naturalRunner
 ]
 
+{ #category : 'options' }
+GObjectLibrary class >> options [
+
+	^ #(-optStrict)
+]
+
 { #category : 'accessing' }
 GObjectLibrary >> calloutAPIClass [ 
 
