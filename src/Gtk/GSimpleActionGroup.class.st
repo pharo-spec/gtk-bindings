@@ -30,14 +30,15 @@ GSimpleActionGroup class >> new [
 
 { #category : 'private' }
 GSimpleActionGroup >> basicInsert: action [
+	"using correct function"
 
-	self ffiCall: #(void g_simple_action_group_insert (self, "GAction"GObject* action))
+	self ffiCall: #(void g_action_map_add_action (self, "GAction"GObject* action))
 ]
 
 { #category : 'private' }
 GSimpleActionGroup >> basicRemove: action_name [
 
-	^ self ffiCall: #(void g_simple_action_group_remove (self, const gchar* action_name))
+	^ self ffiCall: #(void g_action_map_remove_action (self, const gchar* action_name))
 ]
 
 { #category : 'initialization' }
