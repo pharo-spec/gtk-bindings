@@ -9,7 +9,17 @@ Class {
 	#package : 'Gtk-Utils'
 }
 
-{ #category : 'accessing' }
+{ #category : 'actions' }
+GtkWidgetTrace >> allInstances [
+
+	^ Array streamContents: [ :stream  |
+		self widgetClass allInstancesDo: [ :each |
+			(each getHandle = handle) ifTrue: [ 
+				stream nextPut: each ] ] ].
+	
+]
+
+{ #category : 'actions' }
 GtkWidgetTrace >> findAllPaths [
 	| instance |
 	
@@ -41,31 +51,19 @@ GtkWidgetTrace >> inspectionInfo [
 			'Class' -> self widgetClass name.
 			'Address' -> self handle printString.
 			"'isAlive' -> self isAlive." "Sometimes there is a problem knowing if object is alive"
-			'Instances' -> self instances size.
+			'Instances' -> self allInstances size.
 			'Referece Count' -> self referenceCount.
 			};
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : 'actions' }
 GtkWidgetTrace >> instanceCount [
 
-	^ self instances size
+	^ self allInstances size
 ]
 
-{ #category : 'accessing' }
-GtkWidgetTrace >> instances [
-	| stream |
-
-	stream := Array new writeStream.
-	self widgetClass allInstancesDo: [ :each |
-		(each getHandle = handle) ifTrue: [ 
-			stream nextPut: each ] ].
-	
-	^ stream contents
-]
-
-{ #category : 'accessing' }
+{ #category : 'testing' }
 GtkWidgetTrace >> isAlive [
 
 	^ GRunLoop defer: [ (GObject fromHandle: self handle) isAlive ]
@@ -77,13 +75,19 @@ GtkWidgetTrace >> printOn: stream [
 	stream << self widgetClass name << '(' << self handle printString << ')'
 ]
 
-{ #category : 'accessing' }
-GtkWidgetTrace >> referenceCount [
+{ #category : 'actions' }
+GtkWidgetTrace >> reference [
 
-	^ GRunLoop defer: [ (GObject fromHandle: self handle) referenceCount ]
+	^ self widgetClass fromHandleUnreferenced: self handle
 ]
 
-{ #category : 'private' }
+{ #category : 'actions' }
+GtkWidgetTrace >> referenceCount [
+
+	^ self reference referenceCount
+]
+
+{ #category : 'actions' }
 GtkWidgetTrace >> unref [
 
 	GRunLoop defer: [ GObject objectUnref: self handle ]

@@ -60,6 +60,14 @@ GtkLeakFinder class >> stopTraceLeaks [
 	self stop
 ]
 
+{ #category : 'accessing - actions' }
+GtkLeakFinder >> cleanUp [
+
+	3 timesRepeat: [ GRunLoop forceDefer: [] ].
+	3 timesRepeat: [ Smalltalk garbageCollect ].
+
+]
+
 { #category : 'accessing' }
 GtkLeakFinder >> collected [
 
@@ -72,10 +80,10 @@ GtkLeakFinder >> collectedWithInstancesCount [
 	^ (self collected collect: [ :each | each -> (each instanceCount) ]) asDictionary
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - actions' }
 GtkLeakFinder >> destroyed [
 
-	3 timesRepeat: [ Smalltalk garbageCollect ].
+	self cleanUp.
 	^ created select: [ :each | destroyed includes: each handle ]
 ]
 
@@ -93,7 +101,7 @@ GtkLeakFinder >> initialize [
 	self reset
 ]
 
-{ #category : 'accessing' }
+{ #category : 'inspecting' }
 GtkLeakFinder >> inspectorLeaks [
 	<inspectorPresentationOrder: 0 title: 'Leaks'>
 	| table |
@@ -110,10 +118,10 @@ GtkLeakFinder >> inspectorLeaks [
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - actions' }
 GtkLeakFinder >> leaks [
 
-	3 timesRepeat: [ Smalltalk garbageCollect ].
+	self cleanUp.
 	^ created reject: [ :each | destroyed includes: each handle ]
 ]
 
@@ -163,12 +171,11 @@ GtkLeakFinder >> nextPut: aSignal [
 	aSignal logIn: self
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - actions' }
 GtkLeakFinder >> remainingReferences [
 	<script: 'self new remainingReferences inspect'>
 	
-
-	3 timesRepeat: [ Smalltalk garbageCollect ].
+	self cleanUp.
 	^ (Smalltalk allClasses
 		select: [ :each | 
 			(each name beginsWith: 'Gtk') 
@@ -208,11 +215,12 @@ GtkLeakFinder >> start [
 { #category : 'registering' }
 GtkLeakFinder >> stop [
 	
+	3 timesRepeat: [ Smalltalk garbageCollect ].
 	super stop.
 	GSignalBaseAnnouncement resetFilters
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - actions' }
 GtkLeakFinder >> zombies [
 
 	3 timesRepeat: [ Smalltalk garbageCollect ].
