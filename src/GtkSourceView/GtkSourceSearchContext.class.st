@@ -2,8 +2,8 @@
 [https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchContext.html](https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchSettings.html)
 "
 Class {
-	#name : #GtkSourceSearchContext,
-	#superclass : #GObject,
+	#name : 'GtkSourceSearchContext',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
@@ -11,10 +11,12 @@ Class {
 		'buffer',
 		'lastForwardCallback'
 	],
-	#category : #'GtkSourceView-Search'
+	#category : 'GtkSourceView-Search',
+	#package : 'GtkSourceView',
+	#tag : 'Search'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext class >> gtkSourceSearchNew: buffer settings: settings [
 
 	^ self 
@@ -24,7 +26,7 @@ GtkSourceSearchContext class >> gtkSourceSearchNew: buffer settings: settings [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceSearchContext class >> newBuffer: aSourceBuffer [
 	
 	^ self 
@@ -32,13 +34,13 @@ GtkSourceSearchContext class >> newBuffer: aSourceBuffer [
 		settings: GtkSourceSearchSettings null
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceSearchContext class >> newBuffer: aSourceBuffer settings: aSourceSettings [
 
 	^ (self gtkSourceSearchNew: aSourceBuffer settings: aSourceSettings) initialize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> backward [
 
 	^ self backward: ((self buffer iterAtMark: self buffer insertMark)
@@ -46,13 +48,13 @@ GtkSourceSearchContext >> backward [
 		yourself)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> backward: iter [
 
 	^ self backward: iter thenDo: [ :start :end :wrappedAround | ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext >> backward: iter matchStart: match_start matchEnd: match_end wrappedAround: has_wrapped_around [
 
 	^ self 
@@ -65,7 +67,7 @@ GtkSourceSearchContext >> backward: iter matchStart: match_start matchEnd: match
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> backward: iter thenDo: aBlock [
 	| matchStart matchEnd wrappedAroundBuffer backward |
 		
@@ -85,7 +87,7 @@ GtkSourceSearchContext >> backward: iter thenDo: aBlock [
 		value: (wrappedAroundBuffer booleanAt: 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> backwardThenDo: aBlock [
 
 	^ self 
@@ -95,13 +97,13 @@ GtkSourceSearchContext >> backwardThenDo: aBlock [
 		thenDo: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> buffer [
 	
 	^ buffer ifNil: [ buffer := self getBuffer ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forward [
 
 	^ self forward: ((self buffer iterAtMark: self buffer insertMark)
@@ -109,13 +111,13 @@ GtkSourceSearchContext >> forward [
 		yourself)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forward: iter [
 
 	^ self forward: iter thenDo: [ :start :end :wrappedAround | ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext >> forward: iter matchStart: match_start matchEnd: match_end wrappedAround: has_wrapped_around [
 
 	^ self 
@@ -128,7 +130,7 @@ GtkSourceSearchContext >> forward: iter matchStart: match_start matchEnd: match_
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forward: iter thenDo: aBlock [
 	| matchStart matchEnd wrappedAroundBuffer forwarded |
 		
@@ -148,7 +150,7 @@ GtkSourceSearchContext >> forward: iter thenDo: aBlock [
 		value: (wrappedAroundBuffer booleanAt: 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forwardAsync: iter onFirstPositionDo: aBlock [ 
 
 	self 
@@ -169,7 +171,7 @@ GtkSourceSearchContext >> forwardAsync: iter onFirstPositionDo: aBlock [
 				aBlock value: start value: end ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forwardAsync: iter onReadyDo: aBlock [ 
 
 	self 
@@ -180,7 +182,7 @@ GtkSourceSearchContext >> forwardAsync: iter onReadyDo: aBlock [
 				aBlock value: result ] )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext >> forwardAsync: iter ready: callback [
 
 	^ self ffiCall: #(void gtk_source_search_context_forward_async (
@@ -191,7 +193,7 @@ GtkSourceSearchContext >> forwardAsync: iter ready: callback [
 		"gpointer user_data"NULL))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext >> forwardFinish: result start: match_start end: match_end wrapped: has_wrapped_around error: error [
 
 	self ffiCall: #(gboolean gtk_source_search_context_forward_finish (
@@ -203,7 +205,7 @@ GtkSourceSearchContext >> forwardFinish: result start: match_start end: match_en
 		"GError **"void *error))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forwardThenDo: aBlock [
 
 	^ self 
@@ -213,7 +215,7 @@ GtkSourceSearchContext >> forwardThenDo: aBlock [
 		thenDo: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext >> getBuffer [
 
 	^ self 
@@ -221,7 +223,7 @@ GtkSourceSearchContext >> getBuffer [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceSearchContext >> getOccurrencePositionStart: match_start end: match_end [
 
 	self ffiCall: #(gint gtk_source_search_context_get_occurrence_position (
@@ -230,7 +232,7 @@ GtkSourceSearchContext >> getOccurrencePositionStart: match_start end: match_end
 		"GtkTextIter *"void *match_end))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> highlight: highlight [
 
 	^ self 
@@ -240,7 +242,7 @@ GtkSourceSearchContext >> highlight: highlight [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceSearchContext >> isHighlight [
 
 	^ self 
@@ -248,19 +250,19 @@ GtkSourceSearchContext >> isHighlight [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchContext >> occurrencesCount [
 
 	self ffiCall: #(gint gtk_source_search_context_get_occurrences_count (self))
 ]
 
-{ #category : #'accessing settings' }
+{ #category : 'accessing settings' }
 GtkSourceSearchContext >> searchText: aString [
 	
 	self settings searchText: aString
 ]
 
-{ #category : #'accessing settings' }
+{ #category : 'accessing settings' }
 GtkSourceSearchContext >> settings [
 
 	^ settings ifNil: [ 

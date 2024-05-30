@@ -2,21 +2,23 @@
 A completion context prepared to work on `GtkPharoSourceCompletionProvider`.
 "
 Class {
-	#name : #GtkCompletionContext,
-	#superclass : #CoCompletionContext,
+	#name : 'GtkCompletionContext',
+	#superclass : 'CoCompletionContext',
 	#instVars : [
 		'token'
 	],
-	#category : #'GtkSourceView-Completion-Pharo'
+	#category : 'GtkSourceView-Completion-Pharo',
+	#package : 'GtkSourceView',
+	#tag : 'Completion-Pharo'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCompletionContext >> completionToken [
 
 	^ token
 ]
 
-{ #category : #narrowing }
+{ #category : 'narrowing' }
 GtkCompletionContext >> narrowWith: aToken [
 
 	token := aToken.

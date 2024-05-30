@@ -4,14 +4,16 @@ GtkSourceLanguage — Represents a syntax highlighted language
 https://developer.gnome.org/gtksourceview/unstable/GtkSourceLanguage.html
 "
 Class {
-	#name : #GtkSourceLanguage,
-	#superclass : #GObject,
+	#name : 'GtkSourceLanguage',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Language'
+	#category : 'GtkSourceView-Language',
+	#package : 'GtkSourceView',
+	#tag : 'Language'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceLanguage class >> gType [ 
 
 	^ self 
@@ -19,7 +21,7 @@ GtkSourceLanguage class >> gType [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceLanguage class >> new [
 
 	self error: 'This can''t be made. You need to access languages through GtkSourceLanguageManager'

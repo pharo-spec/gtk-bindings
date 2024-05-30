@@ -1,1 +1,1 @@
-Package { #name : #GtkSourceView }
+Package { #name : 'GtkSourceView' }

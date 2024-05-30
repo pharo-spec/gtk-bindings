@@ -2,8 +2,8 @@
 https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/enum.CompletionColumn.html
 "
 Class {
-	#name : #GtkSourceCompletionColumn,
-	#superclass : #GEnumeration,
+	#name : 'GtkSourceCompletionColumn',
+	#superclass : 'GEnumeration',
 	#classVars : [
 		'GTK_SOURCE_COMPLETION_COLUMN_AFTER',
 		'GTK_SOURCE_COMPLETION_COLUMN_BEFORE',
@@ -12,46 +12,48 @@ Class {
 		'GTK_SOURCE_COMPLETION_COLUMN_ICON',
 		'GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT'
 	],
-	#category : #'GtkSourceView-Completion'
+	#category : 'GtkSourceView-Completion',
+	#package : 'GtkSourceView',
+	#tag : 'Completion'
 }
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSourceCompletionColumn class >> GTK_SOURCE_COMPLETION_COLUMN_AFTER [
 	"This method was automatically generated"
 	^ GTK_SOURCE_COMPLETION_COLUMN_AFTER
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSourceCompletionColumn class >> GTK_SOURCE_COMPLETION_COLUMN_BEFORE [
 	"This method was automatically generated"
 	^ GTK_SOURCE_COMPLETION_COLUMN_BEFORE
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSourceCompletionColumn class >> GTK_SOURCE_COMPLETION_COLUMN_COMMENT [
 	"This method was automatically generated"
 	^ GTK_SOURCE_COMPLETION_COLUMN_COMMENT
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSourceCompletionColumn class >> GTK_SOURCE_COMPLETION_COLUMN_DETAILS [
 	"This method was automatically generated"
 	^ GTK_SOURCE_COMPLETION_COLUMN_DETAILS
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSourceCompletionColumn class >> GTK_SOURCE_COMPLETION_COLUMN_ICON [
 	"This method was automatically generated"
 	^ GTK_SOURCE_COMPLETION_COLUMN_ICON
 ]
 
-{ #category : #'accessing enum' }
+{ #category : 'accessing enum' }
 GtkSourceCompletionColumn class >> GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT [
 	"This method was automatically generated"
 	^ GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT
 ]
 
-{ #category : #'enum declaration' }
+{ #category : 'enum declaration' }
 GtkSourceCompletionColumn class >> enumDecl [
 	"self initializeEnumeration.
 	 self rebuildEnumAccessors"

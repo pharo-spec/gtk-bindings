@@ -1,6 +1,6 @@
-Extension { #name : #NECEntry }
+Extension { #name : 'NECEntry' }
 
-{ #category : #'*GtkSourceView' }
+{ #category : '*GtkSourceView' }
 NECEntry >> icon [
 	| completion |
 	

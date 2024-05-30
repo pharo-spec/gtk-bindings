@@ -2,29 +2,31 @@
 https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.CompletionCell.html
 "
 Class {
-	#name : #GtkSourceCompletionCell,
-	#superclass : #GtkWidget,
+	#name : 'GtkSourceCompletionCell',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'widget'
 	],
-	#category : #'GtkSourceView-Completion'
+	#category : 'GtkSourceView-Completion',
+	#package : 'GtkSourceView',
+	#tag : 'Completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionCell >> column [
 
 	^ self ffiCall: #(GtkSourceCompletionColumn gtk_source_completion_cell_get_column (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionCell >> getWidget [
 
 	self ffiCall: #(GtkWidget* gtk_source_completion_cell_get_widget (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionCell >> iconName: aName [
 
 	self ffiCall: #(void gtk_source_completion_cell_set_icon_name (
@@ -32,7 +34,7 @@ GtkSourceCompletionCell >> iconName: aName [
   		const char* aName))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionCell >> markup: markup [
 
 	self ffiCall: #(void gtk_source_completion_cell_set_markup (
@@ -40,7 +42,7 @@ GtkSourceCompletionCell >> markup: markup [
   		const char* markup))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionCell >> setWidget: child [
 
 	self ffiCall: #(void gtk_source_completion_cell_set_widget (
@@ -48,7 +50,7 @@ GtkSourceCompletionCell >> setWidget: child [
   		GtkWidget* child))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionCell >> text: text [
 
 	self ffiCall: #(void gtk_source_completion_cell_set_text (
@@ -56,13 +58,13 @@ GtkSourceCompletionCell >> text: text [
   		const char* text))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionCell >> widget [
 
 	^ widget ifNil: [ widget := self getWidget ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionCell >> widget: aWidget [
 
 	widget := aWidget.

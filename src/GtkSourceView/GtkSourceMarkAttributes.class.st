@@ -4,20 +4,22 @@ GtkSourceMarkAttributes — The source mark attributes object
 https://developer.gnome.org/gtksourceview/stable/GtkSourceMarkAttributes.html
 "
 Class {
-	#name : #GtkSourceMarkAttributes,
-	#superclass : #GObject,
+	#name : 'GtkSourceMarkAttributes',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Base'
+	#category : 'GtkSourceView-Base',
+	#package : 'GtkSourceView',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceMarkAttributes class >> new [
 
 	^ self sourceMarkAttributesNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceMarkAttributes class >> sourceMarkAttributesNew [
 
 	^ self 
@@ -25,7 +27,7 @@ GtkSourceMarkAttributes class >> sourceMarkAttributesNew [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceMarkAttributes >> background [
 	| background |
 
@@ -35,7 +37,7 @@ GtkSourceMarkAttributes >> background [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceMarkAttributes >> background: background [
 
 	^ self 
@@ -43,7 +45,7 @@ GtkSourceMarkAttributes >> background: background [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceMarkAttributes >> getBackground: background [
 
 	^ self 
@@ -51,7 +53,7 @@ GtkSourceMarkAttributes >> getBackground: background [
 		module: GtkSourceViewLibrary	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceMarkAttributes >> iconName [
 
 	^ self 
@@ -59,7 +61,7 @@ GtkSourceMarkAttributes >> iconName [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceMarkAttributes >> iconName: icon_name [
 
 	^ self 
@@ -67,7 +69,7 @@ GtkSourceMarkAttributes >> iconName: icon_name [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceMarkAttributes >> pixbuf [
 
 	^ self 
@@ -75,7 +77,7 @@ GtkSourceMarkAttributes >> pixbuf [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceMarkAttributes >> pixbuf: pixbuf [
 
 	^ self 

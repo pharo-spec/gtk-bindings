@@ -4,24 +4,26 @@ GtkSourceCompletion — Main Completion Object
 https://developer.gnome.org/gtksourceview/stable/GtkSourceCompletion.html
 "
 Class {
-	#name : #GtkSourceCompletion,
-	#superclass : #GObject,
+	#name : 'GtkSourceCompletion',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'providers'
 	],
-	#category : #'GtkSourceView-Completion'
+	#category : 'GtkSourceView-Completion',
+	#package : 'GtkSourceView',
+	#tag : 'Completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletion >> addProvider: provider [
 
 	self basicAddProvider: provider.
 	self keepProvider: provider
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletion >> basicAddProvider: provider [
 
 	^ self ffiCall: #(void gtk_source_completion_add_provider (
@@ -29,13 +31,13 @@ GtkSourceCompletion >> basicAddProvider: provider [
  		GObject *provider))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletion >> blockInteractive [
 
 	^ self ffiCall: #(void gtk_source_completion_block_interactive(self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletion >> blockInteractiveDuring: aBlock [ 
 
 	self blockInteractive.
@@ -43,26 +45,26 @@ GtkSourceCompletion >> blockInteractiveDuring: aBlock [
 		self unblockInteractive ]
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkSourceCompletion >> ffiLibraryName [
 
 	^ GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletion >> keepProvider: provider [
 	
 	providers ifNil: [ providers := Set new ].
 	providers add: provider
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletion >> pageSize [
 
 	^ self ffiCall: #(guint gtk_source_completion_get_page_size (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletion >> pageSize: page_size [
 
 	self ffiCall: #(void gtk_source_completion_set_page_size (
@@ -70,7 +72,7 @@ GtkSourceCompletion >> pageSize: page_size [
   		guint page_size))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletion >> showHeaders: aBoolean [ 
 
 	self 
@@ -78,7 +80,7 @@ GtkSourceCompletion >> showHeaders: aBoolean [
 		toBoolean: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletion >> showIcons: aBoolean [ 
 
 	self 
@@ -86,7 +88,7 @@ GtkSourceCompletion >> showIcons: aBoolean [
 		toBoolean: aBoolean
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletion >> unblockInteractive [
 
 	^ self ffiCall: #(void gtk_source_completion_unblock_interactive(self))

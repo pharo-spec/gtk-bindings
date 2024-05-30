@@ -4,20 +4,22 @@ GtkSourceMark — Mark object for GtkSourceBuffer
 https://developer.gnome.org/gtksourceview/stable/GtkSourceMark.html
 "
 Class {
-	#name : #GtkSourceMark,
-	#superclass : #GtkTextMark,
+	#name : 'GtkSourceMark',
+	#superclass : 'GtkTextMark',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Base'
+	#category : 'GtkSourceView-Base',
+	#package : 'GtkSourceView',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceMark class >> newName: aName category: aCategory [
 
 	^ (self sourceMarkNewName: aName category: aCategory) initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceMark class >> sourceMarkNewName: aName category: aCategory [
 
 	^ self 

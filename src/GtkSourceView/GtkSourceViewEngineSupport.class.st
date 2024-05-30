@@ -2,18 +2,20 @@
 GtkSourceView needs to be initialized.
 "
 Class {
-	#name : #GtkSourceViewEngineSupport,
-	#superclass : #GtkEngineSupport,
-	#category : #'GtkSourceView-Base'
+	#name : 'GtkSourceViewEngineSupport',
+	#superclass : 'GtkEngineSupport',
+	#category : 'GtkSourceView-Base',
+	#package : 'GtkSourceView',
+	#tag : 'Base'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceViewEngineSupport class >> isAvailable [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceViewEngineSupport >> start [
 
 	GtkSourceViewLibrary uniqueInstance init

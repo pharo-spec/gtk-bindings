@@ -1,20 +1,22 @@
 Class {
-	#name : #GExternalFunction,
-	#superclass : #Object,
+	#name : 'GExternalFunction',
+	#superclass : 'Object',
 	#instVars : [
 		'ffiLibrary',
 		'function'
 	],
-	#category : #'GtkSourceView-Utils'
+	#category : 'GtkSourceView-Utils',
+	#package : 'GtkSourceView',
+	#tag : 'Utils'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GExternalFunction class >> new [
 
 	self error: 'Use #newFromAddress:signature:library:'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GExternalFunction class >> newAddress: anExternalAddress signature: aSignature library: aFFILibrary [
 
 	^ self basicNew
@@ -24,7 +26,7 @@ GExternalFunction class >> newAddress: anExternalAddress signature: aSignature l
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GExternalFunction class >> newName: aName signature: aSignature library: aFFILibrary [
 
 	^ self 
@@ -33,7 +35,7 @@ GExternalFunction class >> newName: aName signature: aSignature library: aFFILib
 		library: aFFILibrary
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GExternalFunction >> initializeAddress: anExternalAddress signature: aSignature library: aFFILibrary [
 
 	ffiLibrary := aFFILibrary.
@@ -42,7 +44,7 @@ GExternalFunction >> initializeAddress: anExternalAddress signature: aSignature 
 		definition: (self parseSignature: aSignature)
 ]
 
-{ #category : #invoking }
+{ #category : 'invoking' }
 GExternalFunction >> invokeWithArguments: aCollection [
 
 	^ ffiLibrary runner
@@ -50,7 +52,7 @@ GExternalFunction >> invokeWithArguments: aCollection [
 		withArguments: aCollection
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GExternalFunction >> parseSignature: aSignature [
 	| parser functionSpec |
 	
@@ -63,7 +65,7 @@ GExternalFunction >> parseSignature: aSignature [
 		returnType: functionSpec returnType tfExternalTypeWithArity
 ]
 
-{ #category : #invoking }
+{ #category : 'invoking' }
 GExternalFunction >> withAddress: anAddress invokeWithArguments: aCollection [
 
 	function address: anAddress.

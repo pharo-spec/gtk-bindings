@@ -4,39 +4,41 @@ GtkSourceLanguageManager — Provides access to GtkSourceLanguages
 https://developer.gnome.org/gtksourceview/unstable/GtkSourceLanguageManager.html#gtk-source-language-manager-get-language-ids
 "
 Class {
-	#name : #GtkSourceLanguageManager,
-	#superclass : #GObject,
+	#name : 'GtkSourceLanguageManager',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Language'
+	#category : 'GtkSourceView-Language',
+	#package : 'GtkSourceView',
+	#tag : 'Language'
 }
 
-{ #category : #'accessing languages' }
+{ #category : 'accessing languages' }
 GtkSourceLanguageManager class >> c [
 
 	^ self default languageWithId: 'c'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceLanguageManager class >> default [
 
 	^ self getDefault
 ]
 
-{ #category : #'accessing languages' }
+{ #category : 'accessing languages' }
 GtkSourceLanguageManager class >> diff [
 
 	^ self default languageWithId: 'diff'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceLanguageManager class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gtk_source_language_manager_get_type())
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceLanguageManager class >> getDefault [ 
 
 	^ self 
@@ -44,19 +46,19 @@ GtkSourceLanguageManager class >> getDefault [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #'accessing languages' }
+{ #category : 'accessing languages' }
 GtkSourceLanguageManager class >> markdown [
 
 	^ self default languageWithId: 'markdown'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceLanguageManager class >> new [
 	
 	^ self sourceManagerLanguageNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceLanguageManager class >> sourceManagerLanguageNew [
 
 	^ self 
@@ -64,7 +66,7 @@ GtkSourceLanguageManager class >> sourceManagerLanguageNew [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceLanguageManager >> getLanguageIds [
 
 	^ self 
@@ -72,7 +74,7 @@ GtkSourceLanguageManager >> getLanguageIds [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceLanguageManager >> languageIds [ 
 	| ids |
 
@@ -86,7 +88,7 @@ GtkSourceLanguageManager >> languageIds [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceLanguageManager >> languageWithId: id [ 
 
 	^ self 
@@ -96,7 +98,7 @@ GtkSourceLanguageManager >> languageWithId: id [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceLanguageManager >> searchPaths: anArrayOfString [
 	| array arrayOfPointers index |
 	
@@ -111,7 +113,7 @@ GtkSourceLanguageManager >> searchPaths: anArrayOfString [
 		arrayOfPointers do: [ :each | each free ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceLanguageManager >> setSearchPath: dirs [
 
 	self 

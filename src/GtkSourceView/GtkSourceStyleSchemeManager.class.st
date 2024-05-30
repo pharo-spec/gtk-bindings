@@ -2,20 +2,22 @@
 https://developer.gnome.org/gtksourceview/stable/GtkSourceStyleSchemeManager.html
 "
 Class {
-	#name : #GtkSourceStyleSchemeManager,
-	#superclass : #GObject,
+	#name : 'GtkSourceStyleSchemeManager',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Style'
+	#category : 'GtkSourceView-Style',
+	#package : 'GtkSourceView',
+	#tag : 'Style'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceStyleSchemeManager class >> default [
 
 	^ self getDefault
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceStyleSchemeManager class >> getDefault [ 
 
 	^ self 
@@ -23,13 +25,13 @@ GtkSourceStyleSchemeManager class >> getDefault [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceStyleSchemeManager class >> new [
 	
 	^ self sourceStyleSchemaManagerNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceStyleSchemeManager class >> sourceStyleSchemaManagerNew [
 
 	^ self 
@@ -37,7 +39,7 @@ GtkSourceStyleSchemeManager class >> sourceStyleSchemaManagerNew [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceStyleSchemeManager >> getSchemeIds [
 
 	^ self 
@@ -45,7 +47,7 @@ GtkSourceStyleSchemeManager >> getSchemeIds [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceStyleSchemeManager >> schemeIds [
 	| ids |
 
@@ -59,7 +61,7 @@ GtkSourceStyleSchemeManager >> schemeIds [
 		  each utf8StringFromCString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceStyleSchemeManager >> schemeWithId: id [ 
 
 	^ self 
@@ -69,7 +71,7 @@ GtkSourceStyleSchemeManager >> schemeWithId: id [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceStyleSchemeManager >> searchPaths: anArrayOfString [
 	| array arrayOfPointers index |
 	
@@ -84,7 +86,7 @@ GtkSourceStyleSchemeManager >> searchPaths: anArrayOfString [
 		arrayOfPointers do: [ :each | each free ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceStyleSchemeManager >> setSearchPath: dirs [
 
 	self 

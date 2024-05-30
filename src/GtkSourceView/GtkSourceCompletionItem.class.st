@@ -4,32 +4,34 @@ GtkSourceCompletionItem — Simple implementation of GtkSourceCompletionProposal
 https://developer.gnome.org/gtksourceview/stable/GtkSourceCompletionItem.html
 "
 Class {
-	#name : #GtkSourceCompletionItem,
-	#superclass : #GObject,
+	#name : 'GtkSourceCompletionItem',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-TOREMOVE'
+	#category : 'GtkSourceView-TOREMOVE',
+	#package : 'GtkSourceView',
+	#tag : 'TOREMOVE'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionItem class >> completionItemNew [
 
 	^ self ffiCall: #(GtkSourceCompletionItem *gtk_source_completion_item_new (void))
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkSourceCompletionItem class >> ffiLibraryName [
 
 	^ GtkSourceViewLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceCompletionItem class >> new [
 
 	^ self completionItemNew initialize
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceCompletionItem class >> newLabel: aString [ 
 	
 	^ self new 
@@ -37,49 +39,49 @@ GtkSourceCompletionItem class >> newLabel: aString [
 		yourself
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkSourceCompletionItem >> ffiLibraryName [
 
 	^ GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> icon: icon [ 
 
 	^ self ffiCall: #(void gtk_source_completion_item_set_icon (self, GdkPixbuf *icon))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> label [ 
 
 	^ self gObjectGetString: 'label'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> label: label [
 
 	^ self ffiCall: #(void gtk_source_completion_item_set_label (self, const gchar *label))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> markup [
 
 	^ self gObjectGetString: 'markup'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> markup: markup [
 
 	^ self ffiCall: #(void gtk_source_completion_item_set_markup (self, const gchar *markup))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> text [
 
 	^ self gObjectGetString: 'text'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionItem >> text: text [ 
 
 	self ffiCall: #(void gtk_source_completion_item_set_text (self, const gchar *text))

@@ -2,18 +2,20 @@
 https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/iface.CompletionProposal.html
 "
 Class {
-	#name : #GtkSourceCompletionProposalIface,
-	#superclass : #GInterface,
+	#name : 'GtkSourceCompletionProposalIface',
+	#superclass : 'GInterface',
 	#instVars : [
 		'get_typed_text'
 	],
 	#classVars : [
 		'OFFSET_GET_TYPED_TEXT'
 	],
-	#category : #'GtkSourceView-Completion'
+	#category : 'GtkSourceView-Completion',
+	#package : 'GtkSourceView',
+	#tag : 'Completion'
 }
 
-{ #category : #'field definition' }
+{ #category : 'field definition' }
 GtkSourceCompletionProposalIface class >> fieldsDesc [
 	"super rebuildFieldAccessors"
 	
@@ -22,7 +24,7 @@ GtkSourceCompletionProposalIface class >> fieldsDesc [
 )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionProposalIface class >> gType [ 
 	"This method was automatically generated"
 
@@ -31,18 +33,18 @@ GtkSourceCompletionProposalIface class >> gType [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionProposalIface class >> rebuildFieldAccessors [
 
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkSourceCompletionProposalIface >> get_typed_text [
 	"This method was automatically generated"
 	^GCallback forAddress: ((handle pointerAt: OFFSET_GET_TYPED_TEXT) asInteger)
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkSourceCompletionProposalIface >> get_typed_text: aCallback [
 	"This method was automatically generated"
 	

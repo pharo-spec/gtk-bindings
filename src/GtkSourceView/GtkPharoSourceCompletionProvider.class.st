@@ -6,8 +6,8 @@ It uses CompletionContext to provide useful completions in editors.
 https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/iface.CompletionProvider.html
 "
 Class {
-	#name : #GtkPharoSourceCompletionProvider,
-	#superclass : #GObject,
+	#name : 'GtkPharoSourceCompletionProvider',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary + GTClass',
 	#classTraits : 'GtkSourceViewTLibrary classTrait + GTClass classTrait',
 	#instVars : [
@@ -24,10 +24,12 @@ Class {
 		'GtkSourceCompletionActivation',
 		'GtkSourceCompletionColumn'
 	],
-	#category : #'GtkSourceView-Completion-Pharo'
+	#category : 'GtkSourceView-Completion-Pharo',
+	#package : 'GtkSourceView',
+	#tag : 'Completion-Pharo'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoSourceCompletionProvider class >> defaultCompletionEngine [
 	"A simple completion engine that provides a scripting completion engine (to be 
 	 used if no completion engine is provided)"
@@ -40,13 +42,13 @@ GtkPharoSourceCompletionProvider class >> defaultCompletionEngine [
 		yourself
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoSourceCompletionProvider class >> gClass [
 
 	^ GClass gClassAt: self
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoSourceCompletionProvider class >> gDefine: gClass [
 
 	gClass
@@ -54,7 +56,7 @@ GtkPharoSourceCompletionProvider class >> gDefine: gClass [
 		initialize: [ :interface | self gDefineCompletionProviderInterface: interface ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: interface [
 
 	interface
@@ -121,25 +123,25 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 					proposal: proposal ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoSourceCompletionProvider class >> gInstance: handle [
 
 	^ self gClass findInstance: handle
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPharoSourceCompletionProvider class >> new [
 
 	^ (GClass gDefinitionAt: self) new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoSourceCompletionProvider class >> separators [
 
 	^ Separators ifNil: [ Separators := Character separators, Character specialCharacters ]
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> activate: context proposal: proposalHandle [
 	| proposal word |
 	
@@ -151,7 +153,7 @@ GtkPharoSourceCompletionProvider >> activate: context proposal: proposalHandle [
 		self insertWord: word begin: begin end: end ]
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> asyncCallbackFunctionFrom: callbackHandle [
 
 	^ GExternalFunction 
@@ -160,26 +162,26 @@ GtkPharoSourceCompletionProvider >> asyncCallbackFunctionFrom: callbackHandle [
 		library: self ffiLibrary
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> cleanWord: aString [
 	"remove cascade and end of sentence"
 
 	^ aString reject: [ :each | #(; .) includes: each  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoSourceCompletionProvider >> completionEngine [
 
 	^ completionEngine ifNil: [ completionEngine := self class defaultCompletionEngine ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoSourceCompletionProvider >> completionEngine: aCompletionEngine [
 
 	completionEngine := aCompletionEngine
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> completionEntriesFor: iter [
 	| completionContext word textBuffer |
 
@@ -197,7 +199,7 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: iter [
 	^ completionContext entries
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: textBuffer [
 	| completionContext |
 
@@ -213,7 +215,7 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: textBuffer [
 	^ completionContext entries
 ]
 
-{ #category : #'private - populate' }
+{ #category : 'private - populate' }
 GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: aString position: aPosition [
 	| completionContext |
 
@@ -229,7 +231,7 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: aString posit
 	^ completionContext entries
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> currentWord: iter in: textBuffer [
 	| start line |
 		
@@ -247,7 +249,7 @@ GtkPharoSourceCompletionProvider >> currentWord: iter in: textBuffer [
 	^ self cleanWord: line substrings last
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> display: context proposal: proposalHandle cell: cellHandle [
 	| cell |
 
@@ -265,19 +267,19 @@ GtkPharoSourceCompletionProvider >> display: context proposal: proposalHandle ce
 	cell text: nil
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> get_priority: context [
 
 	^ 1
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> get_title [
 
 	^ ExternalAddress null  "GLibLibrary uniqueInstance gstrdup: 'Pharo'"
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> iconAt: icon ifAbsentPut: aBlock [ 
 
 	iconsCache ifNil: [ iconsCache := IdentityDictionary new ].
@@ -286,7 +288,7 @@ GtkPharoSourceCompletionProvider >> iconAt: icon ifAbsentPut: aBlock [
 		ifAbsentPut: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoSourceCompletionProvider >> insertWord: word begin: begin end: end [
 	| textBuffer endWord endMark |
 	
@@ -319,27 +321,27 @@ GtkPharoSourceCompletionProvider >> insertWord: word begin: begin end: end [
 		textBuffer deleteMark: endMark ].
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> is_trigger: iter character: ch [
 
 'trigger' printToStdout.
 	^ false
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> key_activates: context proposal: proposal keyval: keyval [
 
 'activates' printToStdout.
 	^ false
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> list_alternates: context proposal: proposal [
 
 	^ ExternalAddress null
 ]
 
-{ #category : #'private - populate' }
+{ #category : 'private - populate' }
 GtkPharoSourceCompletionProvider >> newResultsFor: word in: aString position: aPosition [
 	
 	self flag: #TODO. "I do not autorelease because control will be in the other side. 
@@ -355,14 +357,14 @@ GtkPharoSourceCompletionProvider >> newResultsFor: word in: aString position: aP
 		yourself
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> populate: context [
 
 	self error: 'should not arrive here'. 
 	^ ExternalAddress null
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> populateAsync: context [
 	| word text position |
 	
@@ -378,7 +380,7 @@ GtkPharoSourceCompletionProvider >> populateAsync: context [
 				context proposalsForProvider: self results: lastResults ] ] ]"
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancellable callback: callback data: data [
 	| word text position "function" |
 	
@@ -398,14 +400,14 @@ GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancella
 	lastResultTask returnPointer: lastResults getHandle
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> populateFinish: result error: error [
 
 	"this will take ownership, hence it needs to be referenced (otherwise, it will crash)"
 	^ (GTask fromHandleUnreferenced: result) propagatePointer: error
 ]
 
-{ #category : #'accessing - model' }
+{ #category : 'accessing - model' }
 GtkPharoSourceCompletionProvider >> refilter: context model: modelHandle [ 
 	| word text position |
 
@@ -424,7 +426,7 @@ GtkPharoSourceCompletionProvider >> refilter: context model: modelHandle [
 	context proposalsForProvider: self results: lastResults
 ]
 
-{ #category : #TOREMOVE }
+{ #category : 'TOREMOVE' }
 GtkPharoSourceCompletionProvider >> toItem: aCompletionEntry [
 	| item |
 

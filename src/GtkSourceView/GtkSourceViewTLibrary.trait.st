@@ -1,17 +1,19 @@
 Trait {
-	#name : #GtkSourceViewTLibrary,
+	#name : 'GtkSourceViewTLibrary',
 	#traits : 'TEmpty',
 	#classTraits : 'TEmpty classTrait',
-	#category : #'GtkSourceView-Base'
+	#category : 'GtkSourceView-Base',
+	#package : 'GtkSourceView',
+	#tag : 'Base'
 }
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkSourceViewTLibrary classSide >> ffiLibraryName [
 
 	^ GtkSourceViewLibrary
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkSourceViewTLibrary >> ffiLibraryName [
 
 	^ GtkSourceViewLibrary

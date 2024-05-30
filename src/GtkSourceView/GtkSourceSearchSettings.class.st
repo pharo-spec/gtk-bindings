@@ -2,21 +2,23 @@
 [https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchSettings.html](https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchSettings.html)
 "
 Class {
-	#name : #GtkSourceSearchSettings,
-	#superclass : #GObject,
+	#name : 'GtkSourceSearchSettings',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
-	#category : #'GtkSourceView-Search'
+	#category : 'GtkSourceView-Search',
+	#package : 'GtkSourceView',
+	#tag : 'Search'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceSearchSettings >> atWordBoundaries [
 
 	^ self 
 		ffiCall: #(gboolean gtk_source_search_settings_get_at_word_boundaries (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchSettings >> atWordBoundaries: at_word_boundaries [
 
 	^ self ffiCall: #(void gtk_source_search_settings_set_at_word_boundaries (
@@ -24,7 +26,7 @@ GtkSourceSearchSettings >> atWordBoundaries: at_word_boundaries [
 			gboolean at_word_boundaries))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchSettings >> caseSensitive: case_sensitive [
 
 	^ self 
@@ -34,7 +36,7 @@ GtkSourceSearchSettings >> caseSensitive: case_sensitive [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceSearchSettings >> isCaseSensitive [
 
 	^ self 
@@ -42,7 +44,7 @@ GtkSourceSearchSettings >> isCaseSensitive [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceSearchSettings >> isRegexEnabled [
 
 	^ self 
@@ -50,7 +52,7 @@ GtkSourceSearchSettings >> isRegexEnabled [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceSearchSettings >> isWrapAround [
 
 	^ self 
@@ -58,7 +60,7 @@ GtkSourceSearchSettings >> isWrapAround [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchSettings >> regexEnabled: regex_enabled [
 
 	^ self 
@@ -68,7 +70,7 @@ GtkSourceSearchSettings >> regexEnabled: regex_enabled [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchSettings >> searchText [
 
 	^ self 
@@ -76,7 +78,7 @@ GtkSourceSearchSettings >> searchText [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchSettings >> searchText: search_text [
 
 	^ self 
@@ -86,7 +88,7 @@ GtkSourceSearchSettings >> searchText: search_text [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceSearchSettings >> wrapAround: wrap_around [
 
 	^ self 

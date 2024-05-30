@@ -4,42 +4,44 @@ GtkSourceCompletionContext — The context of a completion
 https://developer.gnome.org/gtksourceview/stable/GtkSourceCompletionContext.html
 "
 Class {
-	#name : #GtkSourceCompletionContext,
-	#superclass : #GObject,
+	#name : 'GtkSourceCompletionContext',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'buffer',
 		'completion'
 	],
-	#category : #'GtkSourceView-Completion'
+	#category : 'GtkSourceView-Completion',
+	#package : 'GtkSourceView',
+	#tag : 'Completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> activation [
 
 	^ self ffiCall: #(GtkSourceCompletionActivation gtk_source_completion_context_get_activation (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> buffer [ 
 
 	^ buffer ifNil: [ buffer := self getBuffer ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> completion [
 	
 	^ completion ifNil: [ completion := self getCompletion ]
 ]
 
-{ #category : #'library path' }
+{ #category : 'library path' }
 GtkSourceCompletionContext >> ffiLibraryName [
 
 	^ GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionContext >> getBoundsBegin: begin end: end [
 
 	self ffiCall: #(gboolean gtk_source_completion_context_get_bounds (
@@ -48,31 +50,31 @@ GtkSourceCompletionContext >> getBoundsBegin: begin end: end [
   		GtkTextIter *end))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionContext >> getBuffer [
 
 	^ self ffiCall: #(GtkSourceBuffer *gtk_source_completion_context_get_buffer (self))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceCompletionContext >> getCompletion [
 
 	^ self ffiCall: #(GtkSourceCompletion* gtk_source_completion_context_get_completion (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceCompletionContext >> isBusy [
 
 	^ self ffiCall: #(gboolean gtk_source_completion_context_get_busy (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceCompletionContext >> isEmpty [
 
 	^ self ffiCall: #(gboolean gtk_source_completion_context_get_empty (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> proposalsForProvider: provider [
 
 	^ self ffiCall: #(GListModel *gtk_source_completion_context_get_proposals_for_provider (
@@ -80,7 +82,7 @@ GtkSourceCompletionContext >> proposalsForProvider: provider [
   		"GtkSourceCompletionProvider"GObject* provider))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> proposalsForProvider: provider results: results [
 
 	^ self ffiCall: #(void gtk_source_completion_context_set_proposals_for_provider (
@@ -89,7 +91,7 @@ GtkSourceCompletionContext >> proposalsForProvider: provider results: results [
   		GListModel* results))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> withBoundsDo: aBlock [
 	| begin end result |
 
@@ -101,7 +103,7 @@ GtkSourceCompletionContext >> withBoundsDo: aBlock [
 	aBlock value: begin value: end
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceCompletionContext >> word [
 
 	^ self ffiCall: #(char* gtk_source_completion_context_get_word (self))

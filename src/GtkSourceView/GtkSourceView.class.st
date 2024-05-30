@@ -13,8 +13,8 @@ This class provides:
 https://developer.gnome.org/gtksourceview/stable/GtkSourceView.html
 "
 Class {
-	#name : #GtkSourceView,
-	#superclass : #GtkTextView,
+	#name : 'GtkSourceView',
+	#superclass : 'GtkTextView',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
@@ -23,10 +23,12 @@ Class {
 		'gutterLeft',
 		'gutterRight'
 	],
-	#category : #'GtkSourceView-Base'
+	#category : 'GtkSourceView-Base',
+	#package : 'GtkSourceView',
+	#tag : 'Base'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 GtkSourceView class >> example [
 
 	GtkEngine ensureRunning.
@@ -38,7 +40,7 @@ GtkSourceView class >> example [
 			present ]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 GtkSourceView class >> example1 [
 	| sourceView |
 
@@ -56,7 +58,7 @@ GtkSourceView class >> example1 [
 			present ]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 GtkSourceView class >> example2 [
 	| sourceView |
 
@@ -76,7 +78,7 @@ GtkSourceView class >> example2 [
 			present ]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 GtkSourceView class >> example3 [
 	| sourceView |
 
@@ -96,7 +98,7 @@ GtkSourceView class >> example3 [
 			present ]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 GtkSourceView class >> example4 [
 	| sourceView |
 
@@ -123,7 +125,7 @@ GtkSourceView class >> example4 [
 	]
 ]
 
-{ #category : #example }
+{ #category : 'example' }
 GtkSourceView class >> example5 [
 	| sourceView1 sourceView2 |
 
@@ -154,7 +156,7 @@ GtkSourceView class >> example5 [
 			present ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView class >> gType [ 
 
 	^ self 
@@ -162,13 +164,13 @@ GtkSourceView class >> gType [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceView class >> new [ 
 
 	^ self sourceViewNew initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceView class >> sourceViewNew [
 
 	^ self 
@@ -176,7 +178,7 @@ GtkSourceView class >> sourceViewNew [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> autoIndent: enable [
 
 	^ self 
@@ -184,13 +186,13 @@ GtkSourceView >> autoIndent: enable [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> completion [
 
 	^ completion ifNil: [ completion := self getCompletion ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceView >> getBuffer [
 
 	^ self 
@@ -198,7 +200,7 @@ GtkSourceView >> getBuffer [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceView >> getCompletion [
 
 	^ self 
@@ -206,25 +208,25 @@ GtkSourceView >> getCompletion [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceView >> getGutter: window_type [
 
 	^ self ffiCall: #(GtkSourceGutter *gtk_source_view_get_gutter (self, GtkTextWindowType window_type))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> gutterLeft [
 
 	^ gutterLeft ifNil: [ gutterLeft := self getGutter: GTK_TEXT_WINDOW_LEFT ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> gutterRight [
 
 	^ gutterRight ifNil: [ gutterRight := self getGutter: GTK_TEXT_WINDOW_RIGHT ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> highlightCurrentLine: highlight [
 
 	^ self 
@@ -232,7 +234,7 @@ GtkSourceView >> highlightCurrentLine: highlight [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> indentOnTab: enable [
 
 	^ self 
@@ -240,7 +242,7 @@ GtkSourceView >> indentOnTab: enable [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> insertSpacesInsteadOfTabs: enable [
 
 	^ self 
@@ -248,63 +250,53 @@ GtkSourceView >> insertSpacesInsteadOfTabs: enable [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isAutoIndent [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_get_auto_indent (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_get_auto_indent (self))
+
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isHighlightCurrentLine [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_set_highlight_current_line (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_set_highlight_current_line (self))
+
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isIndentOnTab [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_set_indent_on_tab (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_set_indent_on_tab (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isInsertSpacesInsteadOfTabs [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_get_insert_spaces_instead_of_tabs (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_get_insert_spaces_instead_of_tabs (self))
+
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isShowLineMarks [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_get_show_line_marks (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_get_show_line_marks (self))
+
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isShowLineNumbers [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_get_show_line_numbers (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_get_show_line_numbers (self))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceView >> isShowRightMargin [
 
-	^ self 
-		ffiCall: #(gboolean gtk_source_view_get_show_right_margin (self))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(gboolean gtk_source_view_get_show_right_margin (self))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> markAttributesForCategory: category attributes: attributes priority: priority [
 
 	markAttributes ifNil: [ markAttributes := SmallDictionary new ].
@@ -315,7 +307,7 @@ GtkSourceView >> markAttributesForCategory: category attributes: attributes prio
 		priority: priority
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceView >> setMarkAttributesForCategory: category attributes: attributes priority: priority [
 
 	^ self 
@@ -327,7 +319,7 @@ GtkSourceView >> setMarkAttributesForCategory: category attributes: attributes p
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> showLineMarks: show [
 
 	^ self 
@@ -335,15 +327,13 @@ GtkSourceView >> showLineMarks: show [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> showLineNumbers: show [
 
-	^ self 
-		ffiCall: #(void gtk_source_view_set_show_line_numbers (self, gboolean show))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(void gtk_source_view_set_show_line_numbers (self, gboolean show))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> showRightMargin: show [
 
 	^ self 
@@ -351,7 +341,7 @@ GtkSourceView >> showRightMargin: show [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> tabWidth [
 
 	^ self 
@@ -359,7 +349,7 @@ GtkSourceView >> tabWidth [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> tabWidth: width [
 
 	^ self 
@@ -367,7 +357,7 @@ GtkSourceView >> tabWidth: width [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceView >> text: aString [
 
 	self completion blockInteractiveDuring: [ 

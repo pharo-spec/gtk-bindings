@@ -2,18 +2,20 @@
 https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/iface.CompletionProposal.html
 "
 Class {
-	#name : #GtkPharoSourceCompletionProposal,
-	#superclass : #GObject,
+	#name : 'GtkPharoSourceCompletionProposal',
+	#superclass : 'GObject',
 	#traits : 'GtkSourceViewTLibrary + GTClass',
 	#classTraits : 'GtkSourceViewTLibrary classTrait + GTClass classTrait',
 	#instVars : [
 		'entry',
 		'typedText'
 	],
-	#category : #'GtkSourceView-Completion-Pharo'
+	#category : 'GtkSourceView-Completion-Pharo',
+	#package : 'GtkSourceView',
+	#tag : 'Completion-Pharo'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoSourceCompletionProposal class >> gDefine: gClass [
 
 	gClass 
@@ -22,7 +24,7 @@ GtkPharoSourceCompletionProposal class >> gDefine: gClass [
 			initialize: [ :interface | self gDefineCompletionProposalInterface: interface ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GtkPharoSourceCompletionProposal class >> gDefineCompletionProposalInterface: interface [
 
 	interface 
@@ -31,7 +33,7 @@ GtkPharoSourceCompletionProposal class >> gDefineCompletionProposalInterface: in
 		to: [ :proposal | (self gInstance: proposal) get_typed_text ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPharoSourceCompletionProposal class >> newEntry: anEntry [
 
 	^ self new
@@ -39,25 +41,25 @@ GtkPharoSourceCompletionProposal class >> newEntry: anEntry [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoSourceCompletionProposal >> entry [
 
 	^ entry
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPharoSourceCompletionProposal >> entry: anEntry [
 	
 	entry := anEntry
 ]
 
-{ #category : #'accessing - structure variables' }
+{ #category : 'accessing - structure variables' }
 GtkPharoSourceCompletionProposal >> get_typed_text [
 
 	^ GLibLibrary uniqueInstance gstrdup: self typedText
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPharoSourceCompletionProposal >> typedText [
 
 	^ typedText ifNil: [ 

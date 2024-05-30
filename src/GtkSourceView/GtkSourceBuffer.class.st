@@ -4,18 +4,20 @@ A GtkSourceBuffer object is the model for GtkSourceView widgets. It extends the 
 https://developer.gnome.org/gtksourceview/stable/GtkSourceBuffer.html
 "
 Class {
-	#name : #GtkSourceBuffer,
-	#superclass : #GtkTextBuffer,
+	#name : 'GtkSourceBuffer',
+	#superclass : 'GtkTextBuffer',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'language',
 		'searchContext'
 	],
-	#category : #'GtkSourceView-Base'
+	#category : 'GtkSourceView-Base',
+	#package : 'GtkSourceView',
+	#tag : 'Base'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer class >> gType [ 
 
 	^ self 
@@ -23,19 +25,19 @@ GtkSourceBuffer class >> gType [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceBuffer class >> new [
 
 	^ self newTable: GObject null
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkSourceBuffer class >> newTable: table [
 
 	^ (self sourceBufferNew: table) initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceBuffer class >> sourceBufferNew: table [
 
 	^ self 
@@ -43,7 +45,7 @@ GtkSourceBuffer class >> sourceBufferNew: table [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> createSourceMarkNamed: name category: category where: where [
 
 	^ self 	
@@ -55,7 +57,7 @@ GtkSourceBuffer >> createSourceMarkNamed: name category: category where: where [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceBuffer >> getLanguage [
 
 	^ self 
@@ -63,15 +65,15 @@ GtkSourceBuffer >> getLanguage [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> highlightMatchingBrackets: highlight [
 
-	^ self 
-		ffiCall: #(void gtk_source_buffer_set_highlight_matching_brackets (self, gboolean highlight))
-		module: GtkSourceViewLibrary
+	^ self ffiCall: #(void gtk_source_buffer_set_highlight_matching_brackets (
+		self, 
+		gboolean highlight))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> highlightSyntax: highlight [
 
 	self 
@@ -79,7 +81,7 @@ GtkSourceBuffer >> highlightSyntax: highlight [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> implicitTrailingNewline: implicit_trailing_newline [
 
 	self 
@@ -89,7 +91,7 @@ GtkSourceBuffer >> implicitTrailingNewline: implicit_trailing_newline [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceBuffer >> isHighlightMatchingBrackets [
 
 	^ self 
@@ -97,7 +99,7 @@ GtkSourceBuffer >> isHighlightMatchingBrackets [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceBuffer >> isHighlightSyntax [
 
 	self 
@@ -105,7 +107,7 @@ GtkSourceBuffer >> isHighlightSyntax [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkSourceBuffer >> isImplicitTrailingNewline [
 
 	^ self 
@@ -113,26 +115,26 @@ GtkSourceBuffer >> isImplicitTrailingNewline [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> language [
 
 	^ language ifNil: [ language :=  self getLanguage ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> language: aLanguage [
 
 	language := aLanguage.
 	self setLanguage: (language ifNil: [ GObject null ])
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceBuffer >> newSearchContext [
 
 	^ GtkSourceSearchContext newBuffer: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> removeSourceMarksStart: start end: end category: category [  
 
 	self ffiCall: #(void gtk_source_buffer_remove_source_marks (
@@ -142,13 +144,13 @@ GtkSourceBuffer >> removeSourceMarksStart: start end: end category: category [
 		gchar *category))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> searchContext [
 
 	^ searchContext ifNil: [ searchContext := self newSearchContext ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkSourceBuffer >> setLanguage: aLanguage [
 
 	^ self 
@@ -156,10 +158,10 @@ GtkSourceBuffer >> setLanguage: aLanguage [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSourceBuffer >> styleScheme: scheme [
 
-	self 
-		ffiCall: #(void gtk_source_buffer_set_style_scheme (self, GtkSourceStyleScheme *scheme))
-		module: GtkSourceViewLibrary
+	self ffiCall: #(void gtk_source_buffer_set_style_scheme (
+		self, 
+		GtkSourceStyleScheme *scheme))
 ]
