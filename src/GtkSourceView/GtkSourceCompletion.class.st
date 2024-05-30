@@ -73,14 +73,6 @@ GtkSourceCompletion >> pageSize: page_size [
 ]
 
 { #category : 'accessing' }
-GtkSourceCompletion >> showHeaders: aBoolean [ 
-
-	self 
-		gObjectSet: 'show-headers' 
-		toBoolean: aBoolean
-]
-
-{ #category : 'accessing' }
 GtkSourceCompletion >> showIcons: aBoolean [ 
 
 	self 
