@@ -322,10 +322,14 @@ GtkWindow >> extent [
 
 { #category : 'finalization' }
 GtkWindow >> finalize [
-
-	self isValidHandle ifFalse: [ ^ self ].
+	"self isValidHandle ifFalse: [ ^ self ]."
+	"beware, since hide_on_close = false, window will be destroyed when hiding it 
+	 (causing all tree to be released, including the window). We can't then destroy 
+	 it here. BUT! if you set hide_on_close = true, then you will need to destroy it 
+	 by hand too."
+	"self destroy."
+	
 	GFinalizeAnnouncement emitTarget: self handle: handle.
-	self destroy.
 	handle beNull
 ]
 
