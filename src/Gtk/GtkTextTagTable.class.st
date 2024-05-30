@@ -42,17 +42,15 @@ GtkTextTagTable class >> textTagTableNew [
 GtkTextTagTable >> add: tag [
 
 	tags add: tag.
-	self basicAdd: tag
+	self basicAdd: tag.
+	tag doNotAutoRelease.
+	tag objectUnref
 ]
 
 { #category : 'adding' }
 GtkTextTagTable >> addAll: aListOfTags [
 
 	aListOfTags do: [ :each | self add: each ]
-]
-
-{ #category : 'initialization' }
-GtkTextTagTable >> autoObjectUnref [
 ]
 
 { #category : 'adding' }
