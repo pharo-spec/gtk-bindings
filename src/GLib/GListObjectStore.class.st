@@ -37,17 +37,7 @@ GListObjectStore class >> gDefineListModelInterface: iface [
 			to: [ :list | (self gInstance: list) get_n_items ];
 		connect: #get_item 
 			signature: #(gpointer (void *list, guint position)) 
-			to: [ :list :position | (self gInstance: list) get_item: position ];
-		connect: #get_object:  
-			signature: #(GObject* (void * list, guint position))  
-			to: [ :list :position | (self gInstance: list) get_object: position ];
-		connect: #items_changed 
-			signature: #(void (void *list, guint position, guint removed, guint added)) 
-			to: [ :list :position :removed :added |
-				(self gInstance: list)
-					items_changed: position 
-					removed: removed 
-					added: added ]
+			to: [ :list :position | (self gInstance: list) get_item: position ]
 ]
 
 { #category : 'instance creation' }

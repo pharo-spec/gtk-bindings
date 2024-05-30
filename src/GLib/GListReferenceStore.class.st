@@ -53,21 +53,7 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 			to: [ :handle :position | 
 				(self gInstanceSafe: handle) 
 					ifNotNil: [ :list | list get_item: position ] 
-					ifNil: [ ExternalAddress null ] "];
-		connect: #get_object:  
-			signature: #(GObject* (void * list, guint position))  
-			to: [ :handle :position | 
-				(self gInstanceSafe: handle) 
-					ifNotNil: [ :list | list get_object: position ]
-					ifNil: [ ExternalAddress null ] ];
-		connect: #items_changed 
-			signature: #(void (void *list, guint position, guint removed, guint added)) 
-			to: [ :handle :position :removed :added |
-				(self gInstanceSafe: handle) ifNotNil: [ :list | 
-					list
-						items_changed: position 
-						removed: removed 
-						added: added ]" ]
+					ifNil: [ ExternalAddress null ] ]
 ]
 
 { #category : 'accessing' }
