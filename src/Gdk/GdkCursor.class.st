@@ -11,19 +11,19 @@ Class {
 	#tag : 'Base'
 }
 
-{ #category : 'private' }
-GdkCursor class >> cursorNewFromName: aName display: display [
-
-	^ self ffiCall: #(GdkCursor *gdk_cursor_new_from_name (
-		GdkDisplay *display,
-		const gchar *aName))
-]
-
 { #category : 'accessing' }
 GdkCursor class >> gType [ 
 	"This method was automatically generated"
 
 	^ self ffiCall: #(gsize gdk_cursor_get_type())
+]
+
+{ #category : 'private' }
+GdkCursor class >> gdkNewFromName: aName [
+
+	^ self ffiCall: #(GdkCursor *gdk_cursor_new_from_name (
+		const gchar *aName, 
+		NULL))
 ]
 
 { #category : 'private' }
@@ -45,10 +45,7 @@ GdkCursor class >> newDefault [
 { #category : 'instance creation' }
 GdkCursor class >> newFromName: aName [
 
-	^ (self 
-		cursorNewFromName: aName
-		display: GdkDisplay default)
-		initialize
+	^ (self gdkNewFromName: aName) initialize
 ]
 
 { #category : 'instance creation' }
