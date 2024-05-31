@@ -9,12 +9,7 @@ Class {
 { #category : 'testing' }
 GdkButtonPressEvent class >> isType: aType [ 
 
-	^ { 
-		GDK_BUTTON_PRESS. 
-		GDK_2BUTTON_PRESS.
-		GDK_3BUTTON_PRESS.
-	 }
-	includes: aType
+	^ aType = GDK_BUTTON_PRESS
 ]
 
 { #category : 'visiting' }
