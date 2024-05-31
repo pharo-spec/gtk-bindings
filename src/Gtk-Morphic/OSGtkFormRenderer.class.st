@@ -40,11 +40,8 @@ OSGtkFormRenderer >> ensureEventHandler [
 OSGtkFormRenderer >> ensureFormView [
 	"ensure window contains a world morph view"
 	
-	backendWindow gtkWindow
-		removeAll;
-		add: formView.
-		
-	formView show
+	backendWindow gtkWindow child: formView.
+	"formView show"
 ]
 
 { #category : 'accessing' }

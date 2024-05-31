@@ -130,17 +130,20 @@ OSGtkBackendWindow >> initializeWindowAttributes: attributes [
 
 	gtkWindow := GtkWindow new.
 	gtkWindow
-		beHideOnClose;
-		connectFocusOutEvent: [ self resetKeyboardFocus. false ];
-		connectFocusInEvent: [ self restoreKeyboardFocus. false ];
-		connectHide: [ 
+		hideOnClose: true;
+		addEventControllerFocusWith: [ :controller |
+			controller 
+				connectEnter: [ self resetKeyboardFocus ];
+				connectLeave: [ self restoreKeyboardFocus ] ];
+		connectHide: [
 			gtkWindow objectUnref.
-			self quitSession ].
+			[ self quitSession ] fork ].
 
 	gtkWindow defaultSize: attributes width @ attributes height.
 	"attributes windowCentered 
 		ifTrue: [ gtkWindow center ]
 		ifFalse: [ gtkWindow moveTo: attributes x @ attributes y ]"
+
 ]
 
 { #category : 'testing' }
@@ -184,8 +187,7 @@ OSGtkBackendWindow >> position: newPosition [
 { #category : 'private' }
 OSGtkBackendWindow >> quitSession [
 
-	UIManager default 
-		defer: [ WorldState quitSession ]
+	Smalltalk snapshot: false andQuit: true
 ]
 
 { #category : 'accessing' }
@@ -230,7 +232,7 @@ OSGtkBackendWindow >> setMouseCursor: cursorForm mask: maskForm [
 { #category : 'accessing' }
 OSGtkBackendWindow >> show [
 
-	gtkWindow showAll
+	gtkWindow present
 ]
 
 { #category : 'accessing' }

@@ -38,7 +38,6 @@ OSGtkDriver >> createWindowWithAttributes: attributes osWindow: osWindow [
 	| window |
 
 	self ensureGtkRunning.
-	
 	GRunLoop defer: [ 
 		window := OSGtkBackendWindow newAttributes: attributes.
 		window osWindow: osWindow.
@@ -53,7 +52,7 @@ OSGtkDriver >> createWindowWithAttributes: attributes osWindow: osWindow [
 { #category : 'window creation' }
 OSGtkDriver >> ensureGtkRunning [
 
-	GtkEngine ensureRunning.
+	GEngine ensureRunning.
 	"OSGtkDriverConfiguration new apply"
 ]
 
