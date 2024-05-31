@@ -35,12 +35,9 @@ GtkCairoSurface class >> finalizeResourceData: data [
 	id := data second.
 	contextHandle := data third.
 	
+	self unregisterSurfaceWithId: id.
 	self destroyContextHandle: contextHandle value. 
-	self destroySurfaceHandle: handle value.
-	
-	(self findSurface: id) = handle value 
-		ifFalse: [  ^ self ].	
-	self unregisterSurfaceWithId: id
+	self destroySurfaceHandle: handle value
 ]
 
 { #category : 'instance creation' }
