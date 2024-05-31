@@ -23,9 +23,14 @@ GtkSourceViewLibrary >> init [
 
 { #category : 'testing' }
 GtkSourceViewLibrary >> isAvailable [
-	self flag: #TODO.	"Find a way to do this just once"
-	^ self libraryName asFileReference exists
-		and: [ (DynamicLoader loadLibrary: self libraryName) notNil ]
+
+	^ [ 
+			self libraryName asFileReference exists
+				and: [ (DynamicLoader loadLibrary: self libraryName) notNil ] 
+		]
+		on: Error do: [ :e | 
+			"not located or not loaded = not available"
+			false ]
 ]
 
 { #category : 'accessing platform' }

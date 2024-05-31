@@ -12,7 +12,7 @@ Class {
 { #category : 'testing' }
 GtkSourceViewEngineSupport class >> isAvailable [
 
-	^ true
+	^ GtkSourceViewLibrary uniqueInstance isAvailable
 ]
 
 { #category : 'accessing' }
