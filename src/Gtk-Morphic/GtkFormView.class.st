@@ -22,7 +22,7 @@ GtkFormView class >> drawingAreaNew [
 { #category : 'examples' }
 GtkFormView class >> example [
 
-	GtkEngine ensureRunning.
+	GEngine ensureRunning.
 	GRunLoop defer: [
 		GtkWindow new
 			defaultSize: 500@500;
