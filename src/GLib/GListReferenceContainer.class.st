@@ -72,7 +72,7 @@ GListReferenceContainer >> newHolderForPosition: position [
 GListReferenceContainer >> referenceAt: position [
 
 	^ mutex critical: [ 	
-		self safeReferenceAt: position ]
+		self newHolderForPosition: position ]
 ]
 
 { #category : 'initialization' }
@@ -88,18 +88,4 @@ GListReferenceContainer >> resetObjects [
 
 	mutex critical: [ 
 		objects := IdentityDictionary new ]
-]
-
-{ #category : 'accessing' }
-GListReferenceContainer >> safeReferenceAt: position [
-	| holder created |
-	
-	created := false.
-	holder := objects 
-		at: position 
-		ifAbsentPut: [ 
-			created := true.
-			self newHolderForPosition: position ].
-	
-	^ GListReferenceMark newObject: holder created: created
 ]

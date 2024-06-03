@@ -100,21 +100,12 @@ GListReferenceStore >> get_n_items [
 
 { #category : 'accessing - model' }
 GListReferenceStore >> get_object: position [
-	| mark |
-
-"('get_object: ', position asString) printToStdout."
 
 	position >= self items size
 		ifTrue: [ ^ GObject null ].
 
-	"I need to increment the ref count because the otherside will unref it
-	 (and I want to keep it). But just it is not just created."
 	^ mutex critical: [
-		mark := references referenceAt: position.
-		(mark wasCreated not 
-			and: [ mark object getHandle isNull not ])
-			ifTrue: [ mark object objectRef ].
-		mark object ]
+		references referenceAt: position ]
 ]
 
 { #category : 'initialization' }
