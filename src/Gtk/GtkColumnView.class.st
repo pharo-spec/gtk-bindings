@@ -4,6 +4,9 @@ Class {
 	#instVars : [
 		'columns'
 	],
+	#pools : [
+		'GtkListScrollFlags'
+	],
 	#category : 'Gtk-Widget-ListView',
 	#package : 'Gtk',
 	#tag : 'Widget-ListView'
@@ -108,6 +111,25 @@ GtkColumnView >> removeColumn: aColumn [
 	columns remove: aColumn
 ]
 
+{ #category : 'accessing' }
+GtkColumnView >> scrollToPosition: index [
+
+	self 
+		scrollToPosition: index 
+		flags: GTK_LIST_SCROLL_FOCUS
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> scrollToPosition: pos flags: flags [ 
+	
+	self ffiCall: #(void gtk_column_view_scroll_to (
+		self,
+		guint pos,
+  		"GtkColumnViewColumn* column"NULL,
+  		GtkListScrollFlags flags,
+  		"GtkScrollInfo* scroll"NULL))
+]
+
 { #category : 'private' }
 GtkColumnView >> setFactory: aFactory [
 	
@@ -122,6 +144,22 @@ GtkColumnView >> setModel: aModel [
 	self ffiCall: #(void gtk_column_view_set_model (
   		self,
   		GtkSelectionModel *aModel))
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> showColumnSeparators: show_column_separators [
+	
+	self ffiCall: #(void gtk_column_view_set_show_column_separators (
+		self,
+		gboolean show_column_separators))
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> showRowSeparators: show_row_separators [
+	
+	self ffiCall: #(void gtk_column_view_set_show_row_separators (
+		self,
+		gboolean show_row_separators))
 ]
 
 { #category : 'accessing' }
