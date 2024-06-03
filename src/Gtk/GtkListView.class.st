@@ -63,6 +63,8 @@ GtkListView >> headerFactory: aFactory [
 
 	headerFactory := aFactory.
 	self setHeaderFactory: headerFactory.
+	self flag: #TODO. "This has to be leaking, is the opposite of what we are doing 
+	on regular factories"
 	headerFactory ensureAutoRelease
 ]
 

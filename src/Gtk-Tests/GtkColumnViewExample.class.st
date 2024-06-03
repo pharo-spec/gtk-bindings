@@ -32,12 +32,9 @@ GtkColumnViewExample >> addContentsTo: window [
 ]
 
 { #category : 'private' }
-GtkColumnViewExample >> newColumnView [
-	| store factory selectionModel columnView |
+GtkColumnViewExample >> newColumn1: store [
+	| factory |
 
-	store :=  GListReferenceStore new.
-	store items: Smalltalk allClassesAndTraits.
-	 
 	factory := GtkSignalListItemFactory new.
 	factory connectSetup: [ :listItem |
 		listItem child: (factory storeObject: (GtkBox newHorizontal
@@ -53,19 +50,50 @@ GtkColumnViewExample >> newColumnView [
 			pixbuf: (UITheme current iconNamed: item systemIconName) asGdkPixbuf.
 		box children second 
 			label: item name ].
+		
+	^ GtkColumnViewColumn new 
+		title: 'Class';
+		factory: factory;
+		yourself
+]
 
+{ #category : 'private' }
+GtkColumnViewExample >> newColumn2: store [
+	| factory |
+
+	factory := GtkSignalListItemFactory new.
+	factory connectSetup: [ :listItem |
+		listItem child: (factory storeObject: (GtkBox newHorizontal
+			append: GtkLabel new;
+			yourself)) ].
+	factory connectBind: [ :listItem |
+		| box item |
+		box := factory objectAtHandle: listItem child.
+		item := store items at: listItem position + 1.
+		box children first 
+			label: item linesOfCode asString ].
+		
+	^ GtkColumnViewColumn new 
+		title: 'Lines of code';
+		factory: factory;
+		yourself
+]
+
+{ #category : 'private' }
+GtkColumnViewExample >> newColumnView [
+	| store selectionModel columnView |
+
+	store :=  GListReferenceStore new.
+	store items: Smalltalk allClassesAndTraits.
+	 
 	selectionModel := GtkSingleSelection new.
 	"selectionModel canUnselect: true."
 	selectionModel autoSelect: false.
 	selectionModel model: store.
 
 	columnView := GtkColumnView new.
-	
-	columnView appendColumn: (GtkColumnViewColumn new 
-		title: 'Test1';
-		factory: factory;
-		yourself).
-	
+	columnView appendColumn: (self newColumn1: store).
+	columnView appendColumn: (self newColumn2: store).
 	columnView selectionModel: selectionModel.
 	
 	^ columnView

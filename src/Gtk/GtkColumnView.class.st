@@ -37,10 +37,35 @@ GtkColumnView >> basicAppendColumn: column [
   		GtkColumnViewColumn* column))
 ]
 
+{ #category : 'private' }
+GtkColumnView >> basicInsertColumn: column atPosition: position [
+
+	self ffiCall: #(void gtk_column_view_insert_column (
+  		self,
+  		guint position,
+		GtkColumnViewColumn* column))
+]
+
+{ #category : 'private' }
+GtkColumnView >> basicRemoveColumn: column [
+
+	self ffiCall: #(void gtk_column_view_remove_column (
+		self,
+		GtkColumnViewColumn* column))
+]
+
 { #category : 'columns' }
 GtkColumnView >> columns [
 
 	^ columns
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> enableRubberband: enable_rubberband [
+
+	self ffiCall: #(void gtk_column_view_set_enable_rubberband (
+		self,
+  		gboolean enable_rubberband))
 ]
 
 { #category : 'private' }
@@ -63,16 +88,24 @@ GtkColumnView >> initialize [
 ]
 
 { #category : 'columns' }
-GtkColumnView >> insertColumn: aColumn atIndex: index [
+GtkColumnView >> insertColumn: aColumn atPosition: index [
 
 	self keepColumn: aColumn.
-	self basicInsertColumn: aColumn atIndex: index
+	self basicInsertColumn: aColumn atPosition: index - 1.
+	aColumn objectUnrefNow
 ]
 
 { #category : 'private' }
 GtkColumnView >> keepColumn: aColumn [
 
 	columns add: aColumn
+]
+
+{ #category : 'columns' }
+GtkColumnView >> removeColumn: aColumn [
+
+	self basicRemoveColumn: aColumn.
+	columns remove: aColumn
 ]
 
 { #category : 'private' }
@@ -89,4 +122,12 @@ GtkColumnView >> setModel: aModel [
 	self ffiCall: #(void gtk_column_view_set_model (
   		self,
   		GtkSelectionModel *aModel))
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> singleClickActivate: single_click_activate [
+
+	self ffiCall: #(void gtk_column_view_set_single_click_activate (
+		self,
+		gboolean single_click_activate))
 ]
