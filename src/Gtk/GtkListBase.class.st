@@ -49,8 +49,7 @@ GtkListBase >> factory: aFactory [
 
 	factory := aFactory.
 	self setFactory: factory.
-	factory doNotAutoRelease.
-	factory objectUnref
+	factory objectUnrefNow
 ]
 
 { #category : 'private' }
@@ -76,8 +75,7 @@ GtkListBase >> selectionModel: aModel [
 
 	selectionModel := aModel.
 	self setModel: selectionModel.
-	selectionModel doNotAutoRelease.
-	selectionModel objectUnref
+	selectionModel objectUnrefNow
 ]
 
 { #category : 'private' }

@@ -34,8 +34,7 @@ GtkFilterListModel >> filter: aFilter [
 
 	filter := aFilter.
 	self setFilter: filter.
-	filter doNotAutoRelease.
-	filter objectUnref
+	filter objectUnrefNow
 ]
 
 { #category : 'accessing' }
@@ -43,8 +42,7 @@ GtkFilterListModel >> model: aModel [
 
 	model := aModel.
 	self setModel: model.
-	model doNotAutoRelease.
-	model objectUnref
+	model objectUnrefNow
 ]
 
 { #category : 'private' }

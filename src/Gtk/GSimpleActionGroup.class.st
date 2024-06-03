@@ -53,8 +53,7 @@ GSimpleActionGroup >> insert: anAction [
 
 	self keepAction: anAction.
 	self basicInsert: anAction.
-	anAction doNotAutoRelease.
-	anAction objectUnref
+	anAction objectUnrefNow
 ]
 
 { #category : 'private' }

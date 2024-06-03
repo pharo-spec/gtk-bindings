@@ -768,6 +768,14 @@ GObject >> objectUnref [
 	self ffiCall: #(void g_object_unref (self)) module: GObjectLibrary
 ]
 
+{ #category : 'accessing - referencing' }
+GObject >> objectUnrefNow [
+	"Ensure this is not autoreleased and instead is unref right now"
+
+	self doNotAutoRelease.
+	self objectUnref
+]
+
 { #category : 'private - debugging' }
 GObject >> referenceCount [
 	"Access the reference count of this object."

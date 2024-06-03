@@ -287,8 +287,7 @@ GtkTextView >> textBuffer: aTextBuffer [
 
 	textBuffer := aTextBuffer.
 	self setBuffer: aTextBuffer.
-	textBuffer doNotAutoRelease.
-	textBuffer objectUnref
+	textBuffer objectUnrefNow
 ]
 
 { #category : 'accessing' }
