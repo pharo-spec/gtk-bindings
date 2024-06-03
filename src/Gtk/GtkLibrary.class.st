@@ -27,7 +27,7 @@ GtkLibrary >> getMinorVersion [
 	^ self ffiCall: #(guint gtk_get_minor_version (void))
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GtkLibrary >> macLibraryName [
 
 	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
@@ -65,11 +65,11 @@ GtkLibrary >> matchesVersion: aString [
 	^ match isNil or: [ match isNull ]
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GtkLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so'
+	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so.1'
 ]
 
 { #category : 'accessing' }
@@ -81,7 +81,7 @@ GtkLibrary >> version [
 		self getMicroVersion }
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GtkLibrary >> win32LibraryName [
 	
 	^ FFIWindowsLibraryFinder findLibrary: 'libgtk-4-0.dll'

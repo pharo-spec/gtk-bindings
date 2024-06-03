@@ -54,7 +54,7 @@ GObjectLibrary >> calloutAPIClass [
 	^ TFCalloutAPI
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GObjectLibrary >> macLibraryName [
 	"In linux and mac this is not really important, because once you load the main 
 	 library, you will find also the symbols on dependent librarues. 
@@ -71,14 +71,14 @@ GObjectLibrary >> runner [
 		yourself
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GObjectLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so'
+	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so.0'
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GObjectLibrary >> win32LibraryName [
 
 	^ FFIWindowsLibraryFinder findLibrary: 'libgobject-2.0-0.dll'
