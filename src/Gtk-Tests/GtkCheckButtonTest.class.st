@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkCheckButtonTest,
-	#superclass : #GtkBaseButtonTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkCheckButtonTest',
+	#superclass : 'GtkBaseButtonTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkCheckButtonTest >> testCheckButtonAsRadioButton [
 
 	| button1 button2 button3 |
@@ -34,7 +36,7 @@ GtkCheckButtonTest >> testCheckButtonAsRadioButton [
 	self deny: button2 isActive
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkCheckButtonTest >> widgetClass [
 	
 	^ GtkCheckButton

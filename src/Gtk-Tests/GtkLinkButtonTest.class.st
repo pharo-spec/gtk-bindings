@@ -1,16 +1,18 @@
 Class {
-	#name : #GtkLinkButtonTest,
-	#superclass : #GtkBaseButtonTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkLinkButtonTest',
+	#superclass : 'GtkBaseButtonTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkLinkButtonTest >> newWidget [
 
 	^ self widgetClass newWithUri: ''
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkLinkButtonTest >> widgetClass [
 
 	^ GtkLinkButton

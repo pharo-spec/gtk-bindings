@@ -1,10 +1,12 @@
 Class {
-	#name : #GSimpleActionTest,
-	#superclass : #GtkBaseTest,
-	#category : #'Gtk-Tests-Base'
+	#name : 'GSimpleActionTest',
+	#superclass : 'GtkBaseTest',
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GSimpleActionTest >> testEnable [
 
 	| action |
@@ -15,7 +17,7 @@ GSimpleActionTest >> testEnable [
 	self deny: action isEnabled	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GSimpleActionTest >> testNewName [
 	| action |
 	

@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkTestResource,
-	#superclass : #TestResource,
-	#category : #'Gtk-Tests-ClassBuilder'
+	#name : 'GtkTestResource',
+	#superclass : 'TestResource',
+	#category : 'Gtk-Tests-ClassBuilder',
+	#package : 'Gtk-Tests',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 GtkTestResource >> setUp [
 
 	GtkApplication ensureRunning

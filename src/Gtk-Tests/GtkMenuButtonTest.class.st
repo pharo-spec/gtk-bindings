@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkMenuButtonTest,
-	#superclass : #GtkBaseButtonTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkMenuButtonTest',
+	#superclass : 'GtkBaseButtonTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMenuButtonTest >> widgetClass [
 
 	^ GtkMenuButton

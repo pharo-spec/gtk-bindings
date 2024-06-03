@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkPopoverMenuBarTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkPopoverMenuBarTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTContainerTest',
 	#classTraits : 'GtkTContainerTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkPopoverMenuBarTest >> testMenuModel [
 	| menuModel |
 
@@ -20,7 +22,7 @@ GtkPopoverMenuBarTest >> testMenuModel [
 	widget menuModel: menuModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverMenuBarTest >> widgetClass [
 
 	^ GtkPopoverMenuBar

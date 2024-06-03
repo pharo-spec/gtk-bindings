@@ -1,25 +1,27 @@
 Class {
-	#name : #GtkKeyEventTest,
-	#superclass : #TestCase,
+	#name : 'GtkKeyEventTest',
+	#superclass : 'TestCase',
 	#pools : [
 		'GdkKeyCodes'
 	],
-	#category : #'Gtk-Tests-Events'
+	#category : 'Gtk-Tests-Events',
+	#package : 'Gtk-Tests',
+	#tag : 'Events'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkKeyEventTest class >> isAbstract [
 
 	^ super isAbstract or: [ self = GtkKeyEventTest ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkKeyEventTest >> classToTest [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> newFromCharacter: aCharacter [
 
 	^ self classToTest 
@@ -30,7 +32,7 @@ GtkKeyEventTest >> newFromCharacter: aCharacter [
 		option: false
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> newFromCharacter: aCharacter shift: shiftBoolean meta: metaBoolean control: controlBoolean option: optionBoolean [
 
 	^ self classToTest 
@@ -41,7 +43,7 @@ GtkKeyEventTest >> newFromCharacter: aCharacter shift: shiftBoolean meta: metaBo
 		option: optionBoolean
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> newFromKeyValue: aValue [
 
 	^ self classToTest 
@@ -52,7 +54,7 @@ GtkKeyEventTest >> newFromKeyValue: aValue [
 		option: false
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> newFromKeyValue: aValue keyCode: aKeyCode [
 
 	^ self classToTest 
@@ -64,7 +66,7 @@ GtkKeyEventTest >> newFromKeyValue: aValue keyCode: aKeyCode [
 		option: false
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkKeyEventTest >> runCase [
 
 	TFProcessLocalWorker worker: TFSameThreadRunner uniqueInstance.
@@ -72,7 +74,7 @@ GtkKeyEventTest >> runCase [
 	ensure: [ TFProcessLocalWorker worker: nil ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> testAsKeyCombination [
 	| event km |
 	
@@ -87,7 +89,7 @@ GtkKeyEventTest >> testAsKeyCombination [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> testKey [
 	| event |
 	
@@ -98,7 +100,7 @@ GtkKeyEventTest >> testKey [
 	self assert: event key equals: KeyboardKey backspace.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> testKeyCharacter [
 	| event |
 	
@@ -109,7 +111,7 @@ GtkKeyEventTest >> testKeyCharacter [
 	self assert: event keyCharacter equals: Character backspace.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> testModifiedCharacter [
 	| event |
 	
@@ -120,7 +122,7 @@ GtkKeyEventTest >> testModifiedCharacter [
 	self assert: event modifiedCharacter equals: Character backspace.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkKeyEventTest >> testScanCode [
 	| event |
 	

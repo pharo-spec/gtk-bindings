@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkPopoverTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkPopoverTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTBinTest',
 	#classTraits : 'GtkTBinTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkPopoverTest >> testSmoke [
 
 	self widget 
@@ -14,7 +16,7 @@ GtkPopoverTest >> testSmoke [
 		popdown
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverTest >> widgetClass [
 
 	^ GtkPopover

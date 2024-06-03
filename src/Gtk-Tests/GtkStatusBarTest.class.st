@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkStatusBarTest,
-	#superclass : #GtkWidgetTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkStatusBarTest',
+	#superclass : 'GtkWidgetTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStatusBarTest >> widgetClass [
 
 	^ GtkStatusBar

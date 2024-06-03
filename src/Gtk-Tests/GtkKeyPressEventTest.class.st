@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkKeyPressEventTest,
-	#superclass : #GtkKeyEventTest,
-	#category : #'Gtk-Tests-Events'
+	#name : 'GtkKeyPressEventTest',
+	#superclass : 'GtkKeyEventTest',
+	#category : 'Gtk-Tests-Events',
+	#package : 'Gtk-Tests',
+	#tag : 'Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkKeyPressEventTest >> classToTest [
 
 	^ GdkSimulatedKeyPressEvent

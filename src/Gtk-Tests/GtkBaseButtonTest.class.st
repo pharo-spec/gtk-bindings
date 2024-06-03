@@ -1,16 +1,18 @@
 Class {
-	#name : #GtkBaseButtonTest,
-	#superclass : #GtkWidgetTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkBaseButtonTest',
+	#superclass : 'GtkWidgetTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBaseButtonTest class >> isAbstract [
 
 	^ super isAbstract or: [ self = GtkBaseButtonTest ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkBaseButtonTest >> testChild [
 	| child |
 
@@ -19,7 +21,7 @@ GtkBaseButtonTest >> testChild [
 	self assert: widget child getHandle equals: child getHandle
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkBaseButtonTest >> testLabel [
 
 	widget label: 'Test'.

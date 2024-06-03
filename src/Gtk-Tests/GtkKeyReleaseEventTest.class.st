@@ -1,13 +1,15 @@
 Class {
-	#name : #GtkKeyReleaseEventTest,
-	#superclass : #GtkKeyEventTest,
+	#name : 'GtkKeyReleaseEventTest',
+	#superclass : 'GtkKeyEventTest',
 	#pools : [
 		'GdkKeyCodes'
 	],
-	#category : #'Gtk-Tests-Events'
+	#category : 'Gtk-Tests-Events',
+	#package : 'Gtk-Tests',
+	#tag : 'Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkKeyReleaseEventTest >> classToTest [
 
 	^ GdkSimulatedKeyReleaseEvent

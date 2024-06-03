@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkFixedTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkFixedTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTContainerTest',
 	#classTraits : 'GtkTContainerTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkFixedTest >> testMoveChildTo [
 	| child |
 
@@ -17,7 +19,7 @@ GtkFixedTest >> testMoveChildTo [
 	self widget moveChild: child to: 10@10
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkFixedTest >> testPutChidtAt [
 
 	self widget 
@@ -26,7 +28,7 @@ GtkFixedTest >> testPutChidtAt [
 	self assert: self widget children size equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkFixedTest >> testRemove [
 	| child |
 
@@ -39,7 +41,7 @@ GtkFixedTest >> testRemove [
 	self deny: self widget hasChildren
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFixedTest >> widgetClass [
 
 	^ GtkFixed

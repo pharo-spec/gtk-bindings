@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkComboBoxTextTest,
-	#superclass : #GtkComboBoxTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkComboBoxTextTest',
+	#superclass : 'GtkComboBoxTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkComboBoxTextTest >> widgetClass [
 
 	^ GtkComboBoxText

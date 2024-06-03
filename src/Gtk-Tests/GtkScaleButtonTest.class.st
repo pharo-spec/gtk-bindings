@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkScaleButtonTest,
-	#superclass : #GtkBaseButtonTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkScaleButtonTest',
+	#superclass : 'GtkBaseButtonTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkScaleButtonTest >> newWidget [
 
 	^ self widgetClass 
@@ -14,7 +16,7 @@ GtkScaleButtonTest >> newWidget [
 		icons: nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScaleButtonTest >> widgetClass [
 
 	^ GtkScaleButton

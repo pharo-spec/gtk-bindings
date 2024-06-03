@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkNotebookTest,
-	#superclass : #GtkWidgetTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkNotebookTest',
+	#superclass : 'GtkWidgetTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkNotebookTest >> widgetClass [
 
 	^ GtkNotebook

@@ -1,33 +1,35 @@
 Class {
-	#name : #GtkBaseTest,
-	#superclass : #TestCase,
+	#name : 'GtkBaseTest',
+	#superclass : 'TestCase',
 	#classVars : [
 		'RemoteExecutionEnvironment'
 	],
-	#category : #'Gtk-Tests-Base'
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkBaseTest class >> isAbstract [
 
 	^ super isAbstract or: [ self = GtkBaseTest ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkBaseTest class >> resetTestEnvironment [
 	<script>
 
 	RemoteExecutionEnvironment := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseTest >> ensureRemoteExecutionEnvironment [
 		
 	^ RemoteExecutionEnvironment ifNil: [
 		RemoteExecutionEnvironment := self newRemoteExecutionEnronment ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkBaseTest >> executionEnvironment [
 
 	"verify if class exists to not force a dependence"
@@ -37,7 +39,7 @@ GtkBaseTest >> executionEnvironment [
 		ifFalse: [ super executionEnvironment ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseTest >> newRemoteExecutionEnronment [
 
 	^ (self class environment at: #RmRunnerExecutionEnvironment) new
@@ -49,7 +51,7 @@ GtkBaseTest >> newRemoteExecutionEnronment [
 		yourself
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkBaseTest >> runCase [
 
 	GEngine ensureRunning.
@@ -57,13 +59,13 @@ GtkBaseTest >> runCase [
 		super runCase ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkBaseTest >> runCaseManaged [
 
 	self executionEnvironment runTestCase: self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkBaseTest >> useRemoteExecutionEnvironment [
 	
 	"^ (self class environment classNamed: #RmRunnerExecutionEnvironment)"

@@ -1,10 +1,12 @@
 Class {
-	#name : #GSimpleActionGroupTest,
-	#superclass : #GtkBaseTest,
-	#category : #'Gtk-Tests-Base'
+	#name : 'GSimpleActionGroupTest',
+	#superclass : 'GtkBaseTest',
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GSimpleActionGroupTest >> testInsert [
 	| group action1 |
 
@@ -15,7 +17,7 @@ GSimpleActionGroupTest >> testInsert [
 	self assert: (group lookup: 'test1') equals: action1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GSimpleActionGroupTest >> testRemove [
 	| group action1 |
 
@@ -28,7 +30,7 @@ GSimpleActionGroupTest >> testRemove [
 	self assert: (group lookup: 'test1') isNil
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GSimpleActionGroupTest >> testRemoveNamed [
 	| group action1 |
 

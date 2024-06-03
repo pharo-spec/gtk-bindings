@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkSpinButtonTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkSpinButtonTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTEditableTest',
 	#classTraits : 'GtkTEditableTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSpinButtonTest >> widgetClass [
 
 	^ GtkSpinButton

@@ -1,26 +1,28 @@
 Class {
-	#name : #GtkWidgetTest,
-	#superclass : #GtkBaseTest,
+	#name : 'GtkWidgetTest',
+	#superclass : 'GtkBaseTest',
 	#instVars : [
 		'window',
 		'widget'
 	],
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkWidgetTest class >> isAbstract [
 
 	^ super isAbstract or: [ self = GtkWidgetTest ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkWidgetTest >> newWidget [
 
 	^ self widgetClass new
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkWidgetTest >> setUp [
 
 	super setUp.
@@ -29,14 +31,14 @@ GtkWidgetTest >> setUp [
 	widget := self newWidget	
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkWidgetTest >> tearDown [
 
 	window ifNotNil: #close.
 	super tearDown
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkWidgetTest >> testMeasureHorizontal [
 	| measure |
 
@@ -49,7 +51,7 @@ GtkWidgetTest >> testMeasureHorizontal [
 	self assert: measure minimumBaseline equals: -1"
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkWidgetTest >> testMeasureVertical [
 	| measure |
 
@@ -62,26 +64,26 @@ GtkWidgetTest >> testMeasureVertical [
 	self assert: measure minimumBaseline equals: -1"
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkWidgetTest >> testSmoke [
 	"a smoke test that tests the widget can be created and added into a window"
 	
 	self window child: self widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTest >> widget [
 
 	^ widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTest >> widgetClass [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkWidgetTest >> window [
 
 	^ window

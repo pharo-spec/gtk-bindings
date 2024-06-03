@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkDropDownTest,
-	#superclass : #GtkWidgetTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkDropDownTest',
+	#superclass : 'GtkWidgetTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDropDownTest >> widgetClass [
 
 	^ GtkDropDown

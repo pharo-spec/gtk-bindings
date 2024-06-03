@@ -1,10 +1,12 @@
 Class {
-	#name : #GClassTest,
-	#superclass : #TestCase,
-	#category : #'Gtk-Tests-ClassBuilder'
+	#name : 'GClassTest',
+	#superclass : 'TestCase',
+	#category : 'Gtk-Tests-ClassBuilder',
+	#package : 'Gtk-Tests',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 GClassTest >> randomNameForTest [
 
 	^ 'Test',
@@ -14,14 +16,14 @@ GClassTest >> randomNameForTest [
 	 asString
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GClassTest >> setUp [
 	
 	super setUp.
 	GClassForTest reset
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GClassTest >> testInstall [
 	| gClass name |
 
@@ -38,7 +40,7 @@ GClassTest >> testInstall [
 	self assert: gClass typeName equals: name
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GClassTest >> testInstallOnNew [
 	| gClass name annonClass object |
 
@@ -54,7 +56,7 @@ GClassTest >> testInstallOnNew [
 	self assert: object gType equals: gClass type
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GClassTest >> testNew [
 	| name gClass object initialized interfaceInitialized |
 
@@ -77,7 +79,7 @@ GClassTest >> testNew [
 	self assert: interfaceInitialized
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GClassTest >> toByteArray: aNumber size: sizeNumber [
 	| result |
 	

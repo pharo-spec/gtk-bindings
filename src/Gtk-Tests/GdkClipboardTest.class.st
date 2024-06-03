@@ -1,10 +1,12 @@
 Class {
-	#name : #GdkClipboardTest,
-	#superclass : #TestCase,
-	#category : #'Gtk-Tests-Base'
+	#name : 'GdkClipboardTest',
+	#superclass : 'TestCase',
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GdkClipboardTest >> testText [
 	| clipboard result |
 

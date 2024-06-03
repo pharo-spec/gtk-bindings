@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkPopoverMenuTest,
-	#superclass : #GtkWidgetTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkPopoverMenuTest',
+	#superclass : 'GtkWidgetTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkPopoverMenuTest >> testMenuModel [
 	| box actionGroup model |
 	
@@ -32,7 +34,7 @@ GtkPopoverMenuTest >> testMenuModel [
 	self widget popup
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkPopoverMenuTest >> testPopup [
 	| box |
 	
@@ -44,13 +46,13 @@ GtkPopoverMenuTest >> testPopup [
 	self widget popup
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkPopoverMenuTest >> testPresent [
 
 	self widget present
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkPopoverMenuTest >> testPresentWithMenuModel [
 
 	self widget 
@@ -61,7 +63,7 @@ GtkPopoverMenuTest >> testPresentWithMenuModel [
 		present
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPopoverMenuTest >> widgetClass [
 
 	^ GtkPopoverMenu

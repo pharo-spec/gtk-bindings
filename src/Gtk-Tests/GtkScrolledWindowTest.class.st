@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkScrolledWindowTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkScrolledWindowTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTBinTest',
 	#classTraits : 'GtkTBinTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkScrolledWindowTest >> widgetClass [
 
 	^ GtkScrolledWindow

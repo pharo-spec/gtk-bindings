@@ -2,7 +2,7 @@
 An example of a gtk4 list
 "
 Class {
-	#name : 'GtkListViewExample',
+	#name : 'GtkColumnViewExample',
 	#superclass : 'Object',
 	#category : 'Gtk-Tests-Examples',
 	#package : 'Gtk-Tests',
@@ -10,30 +10,30 @@ Class {
 }
 
 { #category : 'instance creation' }
-GtkListViewExample class >> open [
+GtkColumnViewExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
 { #category : 'private' }
-GtkListViewExample >> addContentsTo: window [
-	| listView scrolledWindow box |
+GtkColumnViewExample >> addContentsTo: window [
+	| columnView scrolledWindow box |
 
 	box := GtkBox newVertical.
 	box expand: true.
 
-	listView := self newListView.
-	scrolledWindow := GtkScrolledWindow newWidget: listView.
+	columnView := self newColumnView.
+	scrolledWindow := GtkScrolledWindow newWidget: columnView.
 	scrolledWindow expand: true.
 	box append: scrolledWindow.
 
 	window child: box
 ]
 
-{ #category : 'as yet unclassified' }
-GtkListViewExample >> newListView [
-	| store factory selectionModel |
+{ #category : 'private' }
+GtkColumnViewExample >> newColumnView [
+	| store factory selectionModel columnView |
 
 	store :=  GListReferenceStore new.
 	store items: Smalltalk allClassesAndTraits.
@@ -59,14 +59,20 @@ GtkListViewExample >> newListView [
 	selectionModel autoSelect: false.
 	selectionModel model: store.
 
-	^ GtkListView new
+	columnView := GtkColumnView new.
+	
+	columnView appendColumn: (GtkColumnViewColumn new 
+		title: 'Test1';
 		factory: factory;
-		selectionModel: selectionModel;
-		yourself
+		yourself).
+	
+	columnView selectionModel: selectionModel.
+	
+	^ columnView
 ]
 
 { #category : 'opening' }
-GtkListViewExample >> open [
+GtkColumnViewExample >> open [
 	<script: 'self new open'>
 	| window |
 
@@ -74,7 +80,7 @@ GtkListViewExample >> open [
 	GRunLoop defer: [ 
 		window := GtkWindow new.
 		window defaultSize: 600@400.
-		window title: 'Example list'.
+		window title: 'Example column view'.
 		self addContentsTo: window.
 		window present ]
 ]

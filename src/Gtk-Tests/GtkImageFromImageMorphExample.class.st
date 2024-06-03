@@ -1,17 +1,19 @@
 Class {
-	#name : #GtkImageFromImageMorphExample,
-	#superclass : #Object,
-	#category : #'Gtk-Tests-Examples'
+	#name : 'GtkImageFromImageMorphExample',
+	#superclass : 'Object',
+	#category : 'Gtk-Tests-Examples',
+	#package : 'Gtk-Tests',
+	#tag : 'Examples'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkImageFromImageMorphExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkImageFromImageMorphExample >> addContentsTo: window [
 	| morph image |
 
@@ -23,7 +25,7 @@ GtkImageFromImageMorphExample >> addContentsTo: window [
 	window child: image
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 GtkImageFromImageMorphExample >> open [
 	<script: 'self new open'>
 	| window |

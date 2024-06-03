@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkSearchEntryTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkSearchEntryTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTEditableTest',
 	#classTraits : 'GtkTEditableTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkSearchEntryTest >> widgetClass [
 
 	^ GtkSearchEntry

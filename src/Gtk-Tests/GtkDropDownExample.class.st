@@ -2,19 +2,21 @@
 An example of a dropdown.
 "
 Class {
-	#name : #GtkDropDownExample,
-	#superclass : #Object,
-	#category : #'Gtk-Tests-Examples'
+	#name : 'GtkDropDownExample',
+	#superclass : 'Object',
+	#category : 'Gtk-Tests-Examples',
+	#package : 'Gtk-Tests',
+	#tag : 'Examples'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkDropDownExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDropDownExample >> addContentsTo: window [
 	| dropDown widget |
 
@@ -27,7 +29,7 @@ GtkDropDownExample >> addContentsTo: window [
 	window child: widget
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDropDownExample >> newDropDown [
 	| store factory |
 
@@ -58,7 +60,7 @@ GtkDropDownExample >> newDropDown [
 		yourself
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 GtkDropDownExample >> open [
 	<script: 'self new open'>
 	| window |

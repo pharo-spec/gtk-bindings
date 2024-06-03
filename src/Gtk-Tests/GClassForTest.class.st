@@ -1,22 +1,24 @@
 Class {
-	#name : #GClassForTest,
-	#superclass : #GObject,
+	#name : 'GClassForTest',
+	#superclass : 'GObject',
 	#instVars : [
 		'initialized'
 	],
 	#classInstVars : [
 		'initialized'
 	],
-	#category : #'Gtk-Tests-ClassBuilder'
+	#category : 'Gtk-Tests-ClassBuilder',
+	#package : 'Gtk-Tests',
+	#tag : 'ClassBuilder'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClassForTest class >> gClass [ 
 
 	^ GClass gDefinitionAt: self
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GClassForTest class >> gDefine: gClass [
 	"this method is executed by the creator to define the GClass to be instantiated"
 	gClass 
@@ -24,50 +26,50 @@ GClassForTest class >> gDefine: gClass [
 		addInterface: GInterfaceForTest initialize: [ :ifaz | ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClassForTest class >> gType [ 
 
 	^ self gClass type
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GClassForTest class >> initialize [
 
 	"GClass install: self"
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 GClassForTest class >> initialize: aHandle [
 	
 	initialized := true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GClassForTest class >> isInitialized [
 
 	^ initialized
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GClassForTest class >> new [ 
 
 	^ self gClass new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GClassForTest class >> reset [
 
 	initialized := false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GClassForTest >> initialize [
 
 	super initialize.
 	initialized := true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GClassForTest >> isInitialized [
 
 	^ initialized == true

@@ -1,21 +1,23 @@
 Trait {
-	#name : #GtkTBinTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkTBinTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTBinTest >> childWidgetClass [
 
 	^ GtkLabel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkTBinTest >> newChildWidget [
 
 	^ self childWidgetClass new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkTBinTest >> testChild [
 	"A simple test to verify setting a child will not crash the environment"
 

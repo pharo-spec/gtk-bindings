@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkVolumeButtonTest,
-	#superclass : #GtkBaseButtonTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkVolumeButtonTest',
+	#superclass : 'GtkBaseButtonTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkVolumeButtonTest >> widgetClass [
 
 	^ GtkVolumeButton

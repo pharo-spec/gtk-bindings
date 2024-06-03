@@ -2,19 +2,21 @@
 An example of a list with a popover menu.
 "
 Class {
-	#name : #GtkPopoverMenuExample,
-	#superclass : #Object,
-	#category : #'Gtk-Tests-Examples'
+	#name : 'GtkPopoverMenuExample',
+	#superclass : 'Object',
+	#category : 'Gtk-Tests-Examples',
+	#package : 'Gtk-Tests',
+	#tag : 'Examples'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPopoverMenuExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenuExample >> addContentsTo: window [
 	| listView popoverMenu scrolledWindow box actionGroup model testAction |
 
@@ -58,7 +60,7 @@ GtkPopoverMenuExample >> addContentsTo: window [
 			popup ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenuExample >> newListView [
 	| store factory selectionModel |
 
@@ -89,7 +91,7 @@ GtkPopoverMenuExample >> newListView [
 		yourself
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 GtkPopoverMenuExample >> open [
 	<script: 'self new open'>
 	| window |

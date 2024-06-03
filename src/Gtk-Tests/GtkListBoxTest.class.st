@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkListBoxTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkListBoxTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTContainerTest',
 	#classTraits : 'GtkTContainerTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkListBoxTest >> testAppend [
 	"A simple test to verify setting a child will not crash the environment"
 
@@ -14,7 +16,7 @@ GtkListBoxTest >> testAppend [
 	self window child: self widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkListBoxTest >> widgetClass [
 
 	^ GtkListBox

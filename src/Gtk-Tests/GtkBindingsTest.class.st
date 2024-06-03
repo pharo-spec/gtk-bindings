@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkBindingsTest,
-	#superclass : #TestCase,
-	#category : #'Gtk-Tests-Base'
+	#name : 'GtkBindingsTest',
+	#superclass : 'TestCase',
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkBindingsTest >> testAllFFICallsAreExistingFunctions [
 	"Verify all implemented functions actually exists (some functions/classes may not exist 
 	 anymore from gtk3 to gtk4)"
@@ -29,7 +31,7 @@ GtkBindingsTest >> testAllFFICallsAreExistingFunctions [
 	self assert: notFound isEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkBindingsTest >> testAllFFICallsInTraitsAreExistingFunctions [
 	"Verify all implemented functions actually exists (some functions/classes may not exist
 	 anymore from gtk3 to gtk4)"

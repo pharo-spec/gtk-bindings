@@ -1,9 +1,11 @@
 Trait {
-	#name : #GtkTEditableTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkTEditableTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkTEditableTest >> testEditable [
 
 	self assert: self widget isEditable.
@@ -11,7 +13,7 @@ GtkTEditableTest >> testEditable [
 	self deny: self widget isEditable
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkTEditableTest >> testText [
 
 	self widget text: 'Test'.

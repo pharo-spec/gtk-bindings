@@ -1,18 +1,20 @@
 Class {
-	#name : #GtkOverlayTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkOverlayTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTBinTest',
 	#classTraits : 'GtkTBinTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkOverlayTest >> newOverlayWidget [
 
 	^ self childWidgetClass new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkOverlayTest >> testChild [
 	"A simple test to verify setting a child will not crash the environment"
 
@@ -22,7 +24,7 @@ GtkOverlayTest >> testChild [
 	self window child: self widget
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkOverlayTest >> widgetClass [
 
 	^ GtkOverlay

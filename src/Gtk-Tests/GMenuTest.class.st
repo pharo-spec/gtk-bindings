@@ -1,26 +1,28 @@
 Class {
-	#name : #GMenuTest,
-	#superclass : #GtkBaseTest,
+	#name : 'GMenuTest',
+	#superclass : 'GtkBaseTest',
 	#instVars : [
 		'menu'
 	],
-	#category : #'Gtk-Tests-Base'
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GMenuTest >> newMenu [
 
 	^ GMenu new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GMenuTest >> setUp [
 
 	super setUp.
 	menu := self newMenu
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GMenuTest >> testAppendItem [
 
 	menu
@@ -30,7 +32,7 @@ GMenuTest >> testAppendItem [
 	self assert: menu numberOfItems equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 GMenuTest >> testAppendLabelAction [
 	
 	menu

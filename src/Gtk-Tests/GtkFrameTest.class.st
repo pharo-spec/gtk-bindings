@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkFrameTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkFrameTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTBinTest',
 	#classTraits : 'GtkTBinTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkFrameTest >> widgetClass [
 
 	^ GtkFrame

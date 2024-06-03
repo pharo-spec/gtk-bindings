@@ -1,17 +1,19 @@
 Class {
-	#name : #GtkPopoverMenuBarExample,
-	#superclass : #Object,
-	#category : #'Gtk-Tests-Examples'
+	#name : 'GtkPopoverMenuBarExample',
+	#superclass : 'Object',
+	#category : 'Gtk-Tests-Examples',
+	#package : 'Gtk-Tests',
+	#tag : 'Examples'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPopoverMenuBarExample class >> open [
 	<script>
 
 	^ self new open
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenuBarExample >> addContentsTo: window [
 	"installing shortcuts is complicated in gtk4 :)
 	 1. you need an action (see testAction).
@@ -64,7 +66,7 @@ GtkPopoverMenuBarExample >> addContentsTo: window [
 	window child: box
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkPopoverMenuBarExample >> newListView [
 	| store factory selectionModel |
 
@@ -95,7 +97,7 @@ GtkPopoverMenuBarExample >> newListView [
 		yourself
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 GtkPopoverMenuBarExample >> open [
 	<script: 'self new open'>
 	| window |

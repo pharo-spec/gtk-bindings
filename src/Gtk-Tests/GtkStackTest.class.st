@@ -1,12 +1,14 @@
 Class {
-	#name : #GtkStackTest,
-	#superclass : #GtkWidgetTest,
+	#name : 'GtkStackTest',
+	#superclass : 'GtkWidgetTest',
 	#traits : 'GtkTContainerTest',
 	#classTraits : 'GtkTContainerTest classTrait',
-	#category : #'Gtk-Tests-Widget'
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkStackTest >> widgetClass [
 
 	^ GtkStack

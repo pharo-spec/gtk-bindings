@@ -1,10 +1,12 @@
 Class {
-	#name : #GtkApplicationTest,
-	#superclass : #TestCase,
-	#category : #'Gtk-Tests-Base'
+	#name : 'GtkApplicationTest',
+	#superclass : 'TestCase',
+	#category : 'Gtk-Tests-Base',
+	#package : 'Gtk-Tests',
+	#tag : 'Base'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 GtkApplicationTest >> testRun [
 	| app run sem |
 

@@ -1,16 +1,18 @@
 Class {
-	#name : #GtkPanedTest,
-	#superclass : #GtkWidgetTest,
-	#category : #'Gtk-Tests-Widget'
+	#name : 'GtkPanedTest',
+	#superclass : 'GtkWidgetTest',
+	#category : 'Gtk-Tests-Widget',
+	#package : 'Gtk-Tests',
+	#tag : 'Widget'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtkPanedTest >> newWidget [
 
 	^ self widgetClass newVertical
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkPanedTest >> widgetClass [
 
 	^ GtkPaned
