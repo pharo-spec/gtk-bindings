@@ -69,7 +69,7 @@ GtkLibrary >> matchesVersion: aString [
 GtkLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtk-4.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgtk-4.so.1'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgtk-4.so' 'libgtk-4.so.1')
 ]
 
 { #category : 'accessing' }

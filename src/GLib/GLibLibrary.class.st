@@ -30,7 +30,7 @@ GLibLibrary >> gstrdup: str [
 { #category : 'accessing - platform' }
 GLibLibrary >> unix64LibraryName [
 
-	^ FFIUnix64LibraryFinder findLibrary: 'libglib-2.0.so.0'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libglib-2.0.so' 'libglib-2.0.so.0')
 ]
 
 { #category : 'accessing - platform' }

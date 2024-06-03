@@ -57,7 +57,7 @@ GObjectLibrary >> calloutAPIClass [
 { #category : 'accessing - platform' }
 GObjectLibrary >> macLibraryName [
 	"In linux and mac this is not really important, because once you load the main 
-	 library, you will find also the symbols on dependent librarues. 
+	 library, you will find also the symbols on dependent libraries. 
 	 So I will point directly to the gtk4 library, just to simplify"
 
 	^ GMacLibraryFinder findLibrary: 'libgtk-4.dylib'
@@ -75,7 +75,7 @@ GObjectLibrary >> runner [
 GObjectLibrary >> unix64LibraryName [ 
 
 	self class isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgobject-2.0.so' ]. 
-	^ FFIUnix64LibraryFinder findLibrary: 'libgobject-2.0.so.0'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgobject-2.0.so' 'libgobject-2.0.so.0')
 ]
 
 { #category : 'accessing - platform' }
