@@ -20,3 +20,10 @@ GtkExpression >> objectUnref [
 
 	self ffiCall: #(void gtk_expression_unref (self))
 ]
+
+{ #category : 'accessing - referencing' }
+GtkExpression >> objectUnrefNow [
+
+	self doNotAutoRelease.
+	self objectUnref
+]
