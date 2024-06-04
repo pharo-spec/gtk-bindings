@@ -751,6 +751,17 @@ GObject >> isObject [
 ]
 
 { #category : 'accessing - referencing' }
+GObject >> notifyDisposed: aBlock [
+	| callback |
+	
+	callback := GCallback 
+		signature: #(void (void *data, void *object)) 
+		block: [ :data :object | aBlock cull: self ].
+	self registerCallback: callback.
+	self weakRef: callback
+]
+
+{ #category : 'accessing - referencing' }
 GObject >> objectRef [
 
 	self ffiCall: #(gpointer g_object_ref (self)) module: GObjectLibrary
@@ -857,4 +868,14 @@ GObject >> withCallbacksOfType: aClass do: aBlock [
 	self
 		withCallbacksMatching: [ :each | each class = aClass ]
 		do: aBlock
+]
+
+{ #category : 'accessing - referencing' }
+GObject >> withObjectReferenceDo: aBlock [
+	"takes a reference to execute an operation and then releases it (this is to ensure 
+	 an object is not collected while I am doing something with it"
+	
+	self objectRef.
+	aBlock ensure: [ 
+		self objectUnref ]
 ]
