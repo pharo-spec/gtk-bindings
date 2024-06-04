@@ -31,6 +31,12 @@ GtkColumnViewColumn >> factory: aFactory [
 	aFactory objectUnrefNow
 ]
 
+{ #category : 'testing' }
+GtkColumnViewColumn >> isResizable [
+
+	^ self ffiCall: #(gboolean gtk_column_view_column_get_resizable (self))
+]
+
 { #category : 'private' }
 GtkColumnViewColumn >> setFactory: aFactory [ 
 
