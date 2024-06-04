@@ -38,6 +38,11 @@ GtkFilterListModel >> filter: aFilter [
 ]
 
 { #category : 'accessing' }
+GtkFilterListModel >> model [
+	^ model
+]
+
+{ #category : 'accessing' }
 GtkFilterListModel >> model: aModel [
 
 	model := aModel.
