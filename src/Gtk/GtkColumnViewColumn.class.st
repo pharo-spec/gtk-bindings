@@ -37,6 +37,14 @@ GtkColumnViewColumn >> isResizable [
 	^ self ffiCall: #(gboolean gtk_column_view_column_get_resizable (self))
 ]
 
+{ #category : 'accessing' }
+GtkColumnViewColumn >> resizable: resizable [
+
+	self ffiCall: #(void gtk_column_view_column_set_resizable (
+		self,
+  		gboolean resizable))
+]
+
 { #category : 'private' }
 GtkColumnViewColumn >> setFactory: aFactory [ 
 
