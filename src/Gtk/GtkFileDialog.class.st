@@ -16,6 +16,14 @@ Class {
 }
 
 { #category : 'examples' }
+GtkFileDialog class >> exampleOpen [
+
+	GEngine ensureRunning.
+	GRunLoop defer: [ 
+		GtkFileDialog new open ]
+]
+
+{ #category : 'examples' }
 GtkFileDialog class >> exampleSave [
 
 	GEngine ensureRunning.
@@ -39,6 +47,27 @@ GtkFileDialog class >> new [
 GtkFileDialog >> callback: aCallback [
 	
 	callback := aCallback
+]
+
+{ #category : 'actions' }
+GtkFileDialog >> open [
+
+	self 
+		openParent: (parent ifNil: [ GObject null ])
+		cancellable: GObject null 
+		callback: (callback ifNil: [ GCallback null ])
+]
+
+{ #category : 'private' }
+GtkFileDialog >> openParent: aParent cancellable: cancellable callback: aCallback [
+
+	self ffiCall: #(void gtk_file_dialog_open (
+  	self,
+  	GtkWindow* aParent,
+  	"GCancellable*"void* cancellable,
+  	"GAsyncReadyCallback"GCallback aCallback,
+  	NULL))
+
 ]
 
 { #category : 'accessing - building' }
