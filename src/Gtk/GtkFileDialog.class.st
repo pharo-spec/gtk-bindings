@@ -20,7 +20,25 @@ GtkFileDialog class >> exampleOpen [
 
 	GEngine ensureRunning.
 	GRunLoop defer: [ 
-		GtkFileDialog new open ]
+		GtkFileDialog new 
+			openDo: [ :file | file inspect ] ].
+	
+	
+]
+
+{ #category : 'examples' }
+GtkFileDialog class >> exampleOpenModal [
+	| sem result |
+
+	GEngine ensureRunning.
+	
+	sem := Semaphore new.
+	GRunLoop defer: [ 
+		GtkFileDialog new openDo: [ :file | 
+			result := file.
+			sem signal ] ].
+	sem wait.
+	result inspect
 ]
 
 { #category : 'examples' }
@@ -28,7 +46,7 @@ GtkFileDialog class >> exampleSave [
 
 	GEngine ensureRunning.
 	GRunLoop defer: [ 
-		GtkFileDialog new save ]
+		GtkFileDialog new saveDo: [ :file | file inspect ] ]
 ]
 
 { #category : 'private' }
@@ -43,19 +61,49 @@ GtkFileDialog class >> new [
 	^ self gtkNew initialize
 ]
 
-{ #category : 'accessing - building' }
-GtkFileDialog >> callback: aCallback [
-	
-	callback := aCallback
+{ #category : 'initialization' }
+GtkFileDialog >> initialize [
+
+	super initialize.
+	parent := GObject null
+]
+
+{ #category : 'private' }
+GtkFileDialog >> newCallback: aBlock [
+"GAsyncReadyCallback
+	void
+(* GAsyncReadyCallback) (
+  GObject* source_object,
+  GAsyncResult* res,
+  gpointer data
+)"
+
+	^ GCallback 
+		signature: #(void (void *source, void *result, gpointer user_data)) 
+		block: aBlock
 ]
 
 { #category : 'actions' }
-GtkFileDialog >> open [
+GtkFileDialog >> openDo: aBlock [
 
+	callback := self newCallback: [ :source :result :user_data |
+		| file |
+		file := self openFinishResult: result.
+		aBlock value: file ].
+		
 	self 
-		openParent: (parent ifNil: [ GObject null ])
+		openParent: parent
 		cancellable: GObject null 
-		callback: (callback ifNil: [ GCallback null ])
+		callback: callback
+]
+
+{ #category : 'private' }
+GtkFileDialog >> openFinishResult: result [
+
+	self ffiCall: #(GFile* gtk_file_dialog_open_finish (
+  		self,
+  		"GAsyncResult*"void *result,
+  		NULL))
 ]
 
 { #category : 'private' }
@@ -77,12 +125,26 @@ GtkFileDialog >> parent: aParent [
 ]
 
 { #category : 'actions' }
-GtkFileDialog >> save [
+GtkFileDialog >> saveDo: aBlock [
 
+	callback := self newCallback: [ :source :result :user_data |
+		| file |
+		file := self saveFinishResult: result.
+		aBlock value: file ].
+		
 	self 
-		saveParent: (parent ifNil: [ GObject null ])
+		saveParent: parent
 		cancellable: GObject null 
-		callback: (callback ifNil: [ GCallback null ])
+		callback: callback
+]
+
+{ #category : 'private' }
+GtkFileDialog >> saveFinishResult: result [
+
+	self ffiCall: #(GFile* gtk_file_dialog_save_finish (
+  		self,
+  		"GAsyncResult*"void *result,
+  		NULL))
 ]
 
 { #category : 'private' }
