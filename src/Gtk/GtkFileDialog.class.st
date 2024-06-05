@@ -89,7 +89,9 @@ GtkFileDialog >> openDo: aBlock [
 	callback := self newCallback: [ :source :result :user_data |
 		| file |
 		file := self openFinishResult: result.
-		aBlock value: file ].
+		aBlock value: (file isNull 
+			ifTrue: [ nil ] 
+			ifFalse: [ file ]) ].
 		
 	self 
 		openParent: parent
@@ -130,7 +132,9 @@ GtkFileDialog >> saveDo: aBlock [
 	callback := self newCallback: [ :source :result :user_data |
 		| file |
 		file := self saveFinishResult: result.
-		aBlock value: file ].
+		aBlock value: (file isNull 
+			ifTrue: [ nil ] 
+			ifFalse: [ file ]) ].
 		
 	self 
 		saveParent: parent
