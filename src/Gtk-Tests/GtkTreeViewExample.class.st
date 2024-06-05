@@ -21,8 +21,10 @@ GtkTreeViewExample >> newFactory: store [
 		| expander box itemStore itemReference item row |
 		
 		row := GtkTreeListRow fromHandleUnreferenced: listItem item getHandle.
+		
 		expander := factory objectAtHandle: listItem child.
 		expander listRow: row.
+		
 		box := expander child.
 		
 		itemReference := row item.
@@ -32,12 +34,19 @@ GtkTreeViewExample >> newFactory: store [
 		box children first 
 			pixbuf: (UITheme current iconNamed: item systemIconName) asGdkPixbuf.
 		box children second 
-			label: item name ].
+			label: item name.
+
+		"IMPORTANT: The call to row>>#item will increase the reference, since as 
+		 the documentatation says:  
+		 The caller of the method takes ownership of the returned data, and is 
+		 responsible for freeing it. 
+		 so, we need to free it or we will leak"			
+		itemReference objectUnref ].
 		
 	^ factory
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'instance creation' }
 GtkTreeViewExample >> newListView [
 	| store factory selectionModel |
 

@@ -104,10 +104,8 @@ GListReferenceStore >> get_object: position [
 	position >= self items size
 		ifTrue: [ ^ GObject null ].
 
-	^ mutex critical: [
-		(references referenceAt: position)
-			dataAt: 'store' put: self getHandle;
-			yourself ]
+	^ mutex critical: [ 
+		self referenceAt: position ]
 ]
 
 { #category : 'initialization' }
@@ -155,6 +153,12 @@ GListReferenceStore >> items_changed: position removed: removed added: added [
 GListReferenceStore >> newReferenceContainer [
 
 	^ GListReferenceContainer new
+]
+
+{ #category : 'private' }
+GListReferenceStore >> referenceAt: position [
+
+	^ references referenceAt: position
 ]
 
 { #category : 'private' }

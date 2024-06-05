@@ -1,22 +1,32 @@
+"
+A store that can answer other stores. 
+Used to traverse trees.
+"
 Class {
 	#name : 'GTreeListReferenceStore',
 	#superclass : 'GListReferenceStore',
 	#instVars : [
-		'stores'
+		'stores',
+		'index'
 	],
 	#category : 'GLib-Lists',
 	#package : 'GLib',
 	#tag : 'Lists'
 }
 
-{ #category : 'as yet unclassified' }
-GTreeListReferenceStore >> initialize [
+{ #category : 'private' }
+GTreeListReferenceStore >> index [
 
-	super initialize.
-	stores := Dictionary new
+	^ index ifNil: [ 0 ]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
+GTreeListReferenceStore >> index: aNumber [
+
+	index := aNumber
+]
+
+{ #category : 'accessing' }
 GTreeListReferenceStore >> itemAtHandle: itemHandle children: aBlock [
 	| holder storeHandle store item children position |
 	
@@ -35,19 +45,31 @@ GTreeListReferenceStore >> itemAtHandle: itemHandle children: aBlock [
 	^ ExternalAddress null
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 GTreeListReferenceStore >> pushStore: aStore [
 
-	stores at: aStore getHandle put: aStore.
+	stores ifNil: [ stores := OrderedCollection new ].
+	stores add: aStore.
+	aStore index: stores size.
 	aStore doNotAutoRelease.
+	
 	^ aStore
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
+GTreeListReferenceStore >> referenceAt: position [ 
+
+	^ (super referenceAt: position) 
+		dataAt: 'store' put: (ExternalAddress fromAddress: self index);
+		yourself
+]
+
+{ #category : 'accessing' }
 GTreeListReferenceStore >> storeAt: storeHandle [
-	
-	^ mutex critical: [ 
-		storeHandle = self getHandle 
-			ifTrue: [ self ]
-			ifFalse: [ stores at: storeHandle ] ]
+	| storeIndex |
+
+	storeIndex := storeHandle asInteger.
+	^ storeIndex = 0
+		ifTrue: [ self ]
+		ifFalse: [ stores at: storeIndex ]
 ]
