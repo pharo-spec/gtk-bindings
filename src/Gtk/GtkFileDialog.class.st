@@ -53,7 +53,7 @@ GtkFileDialog >> save [
 	self 
 		saveParent: (parent ifNil: [ GObject null ])
 		cancellable: GObject null 
-		callback: (callback ifNil: [ GObject null ])
+		callback: (callback ifNil: [ GCallback null ])
 ]
 
 { #category : 'private' }
@@ -62,8 +62,8 @@ GtkFileDialog >> saveParent: aParent cancellable: aCancellable callback: aCallba
 	self ffiCall: #(void gtk_file_dialog_save (
   		self,
   		GtkWindow* aParent,
-  		GCancellable* aCancellable,
-  		GAsyncReadyCallback aCallback,
-  		gpointer NULL))
+  		"GCancellable"void* aCancellable,
+  		"GAsyncReadyCallback"GCallback aCallback,
+  		NULL))
 
 ]
