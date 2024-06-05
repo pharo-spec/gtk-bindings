@@ -683,7 +683,21 @@ GObject >> gSignalHandlerUnblock: handler_id [
 { #category : 'accessing - type' }
 GObject >> gType [
 
-	^ self class gType
+	^ self gTypeClass g_type 
+]
+
+{ #category : 'accessing - type' }
+GObject >> gTypeClass [
+	"This is a hack, but it works :P"
+	"first element of any GObject is type instance, and type instanvce is like this: 
+		struct _GTypeInstance
+		{
+  		/*< private >*/
+  		GTypeClass *g_class;
+		};
+	 so first element is a GTypeClass pointer"
+	
+	^ GTypeClass fromHandle: (handle pointerAt: 1)
 ]
 
 { #category : 'accessing - type' }
