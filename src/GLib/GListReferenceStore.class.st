@@ -105,7 +105,9 @@ GListReferenceStore >> get_object: position [
 		ifTrue: [ ^ GObject null ].
 
 	^ mutex critical: [
-		references referenceAt: position ]
+		(references referenceAt: position)
+			dataAt: 'store' put: self getHandle;
+			yourself ]
 ]
 
 { #category : 'initialization' }
@@ -113,10 +115,10 @@ GListReferenceStore >> initialize [
 
 	super initialize.
 	mutex := Mutex new.
-	references := GListReferenceContainer new" autoRelease"
+	references := self newReferenceContainer
 ]
 
-{ #category : 'accessing' }
+{ #category : 'as yet unclassified' }
 GListReferenceStore >> itemAt: aPosition [
 
 	aPosition = 0 ifTrue: [ ^ nil ].
@@ -131,13 +133,13 @@ GListReferenceStore >> itemAtHandle: address [
 	^ self itemAt: ((GObject fromHandleUnreferenced: address) dataAt: 'position') asInteger + 1
 ]
 
-{ #category : 'accessing' }
+{ #category : 'as yet unclassified' }
 GListReferenceStore >> items [
 
 	^ items
 ]
 
-{ #category : 'accessing' }
+{ #category : 'as yet unclassified' }
 GListReferenceStore >> items: aSequenceableCollection [
 
 	items := aSequenceableCollection copy.
@@ -147,6 +149,12 @@ GListReferenceStore >> items: aSequenceableCollection [
 { #category : 'accessing - model' }
 GListReferenceStore >> items_changed: position removed: removed added: added [
 
+]
+
+{ #category : 'as yet unclassified' }
+GListReferenceStore >> newReferenceContainer [
+
+	^ GListReferenceContainer new
 ]
 
 { #category : 'private' }

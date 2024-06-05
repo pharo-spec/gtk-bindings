@@ -20,9 +20,9 @@ Class {
 GtkFileChooserDialog class >> example [
 	| dialog |
 
-	GtkEngine ensureRunning.
+	GEngine ensureRunning.
 
-	Gtk3RunLoop defer: [ 
+	GRunLoop defer: [ 
 		dialog := self 
 			newOpenFileTitle: 'Export as...'
 			acceptLabel: 'Export'

@@ -26,7 +26,7 @@ GtkListItem >> child: child [
 { #category : 'accessing' }
 GtkListItem >> item [
 
-	^ self ffiCall: #("GObject *"void *gtk_list_item_get_item (self))
+	^ self ffiCall: #(GObject* gtk_list_item_get_item (self))
 ]
 
 { #category : 'accessing' }

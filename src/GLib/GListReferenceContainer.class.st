@@ -9,9 +9,6 @@ Class {
 		'mutex',
 		'objects'
 	],
-	#classVars : [
-		'ReferenceRegistry'
-	],
 	#category : 'GLib-Lists',
 	#package : 'GLib',
 	#tag : 'Lists'

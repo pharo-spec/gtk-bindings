@@ -24,11 +24,37 @@ GtkColumnViewColumn class >> new [
 ]
 
 { #category : 'accessing' }
+GtkColumnViewColumn >> expand: expand [
+
+	self ffiCall: #(void gtk_column_view_column_set_expand (self, gboolean expand))
+]
+
+{ #category : 'accessing' }
 GtkColumnViewColumn >> factory: aFactory [
 
 	factory := aFactory.
 	self setFactory: aFactory.
 	aFactory objectUnrefNow
+]
+
+{ #category : 'accessing' }
+GtkColumnViewColumn >> fixedWidth [
+
+	^ self ffiCall: #(int gtk_column_view_column_get_fixed_width (self))
+]
+
+{ #category : 'accessing' }
+GtkColumnViewColumn >> fixedWidth: fixed_width [
+
+	self ffiCall: #(void gtk_column_view_column_set_fixed_width (
+		self,
+  		int fixed_width))
+]
+
+{ #category : 'testing' }
+GtkColumnViewColumn >> isExpand [
+
+	^ self ffiCall: #(gboolean gtk_column_view_column_get_expand (self))
 ]
 
 { #category : 'testing' }

@@ -11,6 +11,24 @@ Class {
 	#tag : 'Widget-ListView'
 }
 
+{ #category : 'private' }
+GtkBitset class >> gtkNewEmpty [
+
+	^ self ffiCall: #(GtkBitset* gtk_bitset_new_empty ())
+]
+
+{ #category : 'instance creation' }
+GtkBitset class >> newEmpty [
+
+	^ self gtkNewEmpty initialize
+]
+
+{ #category : 'accessing' }
+GtkBitset >> add: value [
+
+	self ffiCall: #(gboolean gtk_bitset_add (self, guint value))
+]
+
 { #category : 'enumerating' }
 GtkBitset >> iterator [
 	

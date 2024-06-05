@@ -74,7 +74,13 @@ GtkListViewExample >> open [
 	GRunLoop defer: [ 
 		window := GtkWindow new.
 		window defaultSize: 600@400.
-		window title: 'Example list'.
+		window title: self title.
 		self addContentsTo: window.
 		window present ]
+]
+
+{ #category : 'opening' }
+GtkListViewExample >> title [
+	
+	^ 'Example list'
 ]

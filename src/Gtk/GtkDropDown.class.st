@@ -113,7 +113,7 @@ GtkDropDown >> selected [
 	^ self ffiCall: #(guint gtk_drop_down_get_selected (self))
 ]
 
-{ #category : 'initialization' }
+{ #category : 'private' }
 GtkDropDown >> setExpression: anExpression [
 
 	self ffiCall: #(void gtk_drop_down_set_expression (self, GtkExpression* anExpression))
