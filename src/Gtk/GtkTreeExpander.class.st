@@ -24,6 +24,18 @@ GtkTreeExpander class >> new [
 ]
 
 { #category : 'accessing' }
+GtkTreeExpander >> child [
+
+	^ child ifNil: [ child := self getChild ]
+]
+
+{ #category : 'private' }
+GtkTreeExpander >> getChild [
+
+	^ self ffiCall: #(GtkWidget* gtk_tree_expander_get_child ())
+]
+
+{ #category : 'accessing' }
 GtkTreeExpander >> listRow: aRow [ 
 
 	listRow := aRow.

@@ -29,7 +29,9 @@ GtkTreeListModel class >> gtkTreeListModelNew: root passthrough: passthrough aut
 { #category : 'instance creation' }
 GtkTreeListModel class >> newRootModel: store [
 
-	^ self newRootModel: store children: [ :item | ExternalAddress null ]
+	^ self 
+		newRootModel: store 
+		children: [ :item | ExternalAddress null ]
 ]
 
 { #category : 'instance creation' }
@@ -38,7 +40,8 @@ GtkTreeListModel class >> newRootModel: store children: aBlock [
 
 	func := GCallback 
 		signature: #(void *(void *item, gpointer user_data)) 
-		block: [ :item :user_data | aBlock value: item ].
+		block: [ :item :user_data | 
+			aBlock value: item].
 		
 	instance := self 
 		gtkTreeListModelNew: store 
@@ -63,4 +66,10 @@ GtkTreeListModel >> keepStore: aStore [
 	
 	store := aStore.
 	store doNotAutoRelease
+]
+
+{ #category : 'accessing' }
+GtkTreeListModel >> store [
+
+	^ store
 ]
