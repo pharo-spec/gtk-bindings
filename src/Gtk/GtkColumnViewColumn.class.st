@@ -30,6 +30,12 @@ GtkColumnViewColumn >> expand: expand [
 ]
 
 { #category : 'accessing' }
+GtkColumnViewColumn >> factory [
+
+	^ factory
+]
+
+{ #category : 'accessing' }
 GtkColumnViewColumn >> factory: aFactory [
 
 	factory := aFactory.

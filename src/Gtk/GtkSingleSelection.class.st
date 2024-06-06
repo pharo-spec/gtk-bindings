@@ -68,6 +68,12 @@ GtkSingleSelection >> selected [
 	^ self basicSelected + 1
 ]
 
+{ #category : 'accessing' }
+GtkSingleSelection >> selectedItem [
+
+	^ self ffiCall: #(GObject* gtk_single_selection_get_selected_item (self))
+]
+
 { #category : 'private' }
 GtkSingleSelection >> setModel: aModel [
 

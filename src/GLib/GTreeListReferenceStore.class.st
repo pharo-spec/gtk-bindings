@@ -7,7 +7,8 @@ Class {
 	#superclass : 'GListReferenceStore',
 	#instVars : [
 		'stores',
-		'index'
+		'index',
+		'path'
 	],
 	#category : 'GLib-Lists',
 	#package : 'GLib',
@@ -40,9 +41,30 @@ GTreeListReferenceStore >> itemAtHandle: itemHandle children: aBlock [
 	children isEmptyOrNil ifFalse: [ 
 		^ self pushStore: (self class new
 			items: children;
+			path: (store path copyWith: position);
 			yourself) ].
 		
 	^ ExternalAddress null
+]
+
+{ #category : 'private' }
+GTreeListReferenceStore >> path [
+
+	^ path ifNil: [ #() ]
+]
+
+{ #category : 'private' }
+GTreeListReferenceStore >> path: aPath [
+
+	path := aPath
+]
+
+{ #category : 'accessing' }
+GTreeListReferenceStore >> pathOfItem: aGObject [
+	| store |
+	
+	store := self storeAt: (aGObject dataAt: 'store') asInteger.
+	^ store path copyWith: (aGObject dataAt: 'position') asInteger + 1
 ]
 
 { #category : 'private' }
