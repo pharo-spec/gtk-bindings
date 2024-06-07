@@ -8,6 +8,38 @@ Class {
 	#tag : 'Widget-ListView'
 }
 
+{ #category : 'private' }
+GtkTreeListRow >> basicPosition [
+
+	^ self ffiCall: #(guint gtk_tree_list_row_get_position(self))
+]
+
+{ #category : 'accessing' }
+GtkTreeListRow >> childRowAt: position [
+
+	^ self ffiCall: #(GtkTreeListRow *gtk_tree_list_row_get_child_row (
+		self,
+		guint position))
+]
+
+{ #category : 'accessing' }
+GtkTreeListRow >> expand: expanded [
+
+	self ffiCall: #(void gtk_tree_list_row_set_expanded (self, gboolean expanded))
+]
+
+{ #category : 'testing' }
+GtkTreeListRow >> isExpandable [
+
+	^ self ffiCall: #(gboolean gtk_tree_list_row_is_expandable (self))
+]
+
+{ #category : 'testing' }
+GtkTreeListRow >> isExpanded [
+
+	^ self ffiCall: #(gboolean gtk_tree_list_row_get_expanded (self))
+]
+
 { #category : 'accessing' }
 GtkTreeListRow >> item [ 
 	"Important: 
@@ -19,10 +51,23 @@ GtkTreeListRow >> item [
 ]
 
 { #category : 'accessing' }
+GtkTreeListRow >> position [
+
+	^ self basicPosition + 1
+]
+
+{ #category : 'accessing' }
 GtkTreeListRow >> withItemDo: aBlock [
 	| item |
 	
 	item := self item.
 	^ [ aBlock value: item ]
 	ensure: [ item objectUnref ]
+]
+
+{ #category : 'accessing' }
+GtkTreeListRow >> withRowAt: aPosition do: aBlock [ 
+	"this method is provided to be polymorphic with GtkTreeListModel"
+	
+	^ aBlock value: (self childRowAt: aPosition)
 ]

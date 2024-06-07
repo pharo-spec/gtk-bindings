@@ -69,7 +69,24 @@ GtkTreeListModel >> keepStore: aStore [
 ]
 
 { #category : 'accessing' }
+GtkTreeListModel >> rowAt: position [
+	"The caller of the method takes ownership of the returned data, and is responsible for freeing it.
+	 better use withRowAt:do:"
+
+	^ self ffiCall: #(GtkTreeListRow* gtk_tree_list_model_get_row (self, guint position))
+]
+
+{ #category : 'accessing' }
 GtkTreeListModel >> store [
 
 	^ store
+]
+
+{ #category : 'accessing' }
+GtkTreeListModel >> withRowAt: position do: aBlock [
+	| row |
+
+	row := self rowAt: position.
+	^ [ aBlock value: row ]
+	ensure: [ row objectUnref ]
 ]
