@@ -4,8 +4,8 @@ https://docs.gtk.org/gtk4/iface.SelectionModel.html
 Class {
 	#name : 'GtkSelectionModel',
 	#superclass : 'GObject',
-	#traits : 'GtkTLibrary + GtkTSectionModel',
-	#classTraits : 'GtkTLibrary classTrait + GtkTSectionModel classTrait',
+	#traits : 'GtkTLibrary + GtkTSectionModel + GTListModel',
+	#classTraits : 'GtkTLibrary classTrait + GtkTSectionModel classTrait + GTListModel classTrait',
 	#instVars : [
 		'model'
 	],

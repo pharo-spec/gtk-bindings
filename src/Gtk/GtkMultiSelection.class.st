@@ -21,6 +21,13 @@ GtkMultiSelection >> getModel [
 	self ffiCall: #(GListModel* gtk_multi_selection_get_model (self))
 ]
 
+{ #category : 'accessing' }
+GtkMultiSelection >> selectedItems [
+
+	^ self allSelected 
+		collect: [ :each | self itemAt: each - 1 ]
+]
+
 { #category : 'private' }
 GtkMultiSelection >> setModel: aModel [
 
