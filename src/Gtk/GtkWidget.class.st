@@ -914,6 +914,12 @@ GtkWidget >> getPreferredWidthTo: dest_minimum_width naturalTo: dest_natural_wid
 ]
 
 { #category : 'private' }
+GtkWidget >> getSize: orientation [
+
+	^ self ffiCall: #(int gtk_widget_get_size (self, GtkOrientation orientation))
+]
+
+{ #category : 'private' }
 GtkWidget >> getTopLevel [
 	"I will get the window from GtkApplication (to keep identity), so I answer just the 
 	 ExternalAddress, skiping any other object creation."
@@ -977,7 +983,7 @@ GtkWidget >> hExpand: expand [
 { #category : 'geometry' }
 GtkWidget >> height [
 
-	^ self getAllocatedHeight
+	^ self getSize: GTK_ORIENTATION_VERTICAL
 ]
 
 { #category : 'geometry' }
@@ -1499,7 +1505,7 @@ GtkWidget >> widgetSizeAllocate: allocation [
 { #category : 'geometry' }
 GtkWidget >> width [
 
-	^ self getAllocatedWidth
+	^ self getSize: GTK_ORIENTATION_HORIZONTAL
 ]
 
 { #category : 'geometry' }
