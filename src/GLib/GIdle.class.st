@@ -14,7 +14,7 @@ Class {
 	#tag : 'Library'
 }
 
-{ #category : 'private' }
+{ #category : 'as yet unclassified' }
 GIdle >> addFunction: function [
 
 	deferring add: function
@@ -31,8 +31,9 @@ GIdle >> gIdleAddFull: aCallback [
 ]
 
 { #category : 'accessing' }
-GIdle >> idleAddFull: aBlock [
+GIdle >> idleAdd: aBlock [
 
+	self halt.
 	mutex critical: [ 
 		| function |
 		function := self newFunctionWith: aBlock. 
@@ -48,7 +49,7 @@ GIdle >> initialize [
 	deferring := IdentitySet new
 ]
 
-{ #category : 'private' }
+{ #category : 'as yet unclassified' }
 GIdle >> newFunctionWith: aBlock [
 	| function |
 	
@@ -63,7 +64,7 @@ GIdle >> newFunctionWith: aBlock [
 	^ function
 ]
 
-{ #category : 'private' }
+{ #category : 'as yet unclassified' }
 GIdle >> removeFunction: function [
 	
 	mutex critical: [ 
