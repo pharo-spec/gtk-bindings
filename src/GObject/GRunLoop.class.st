@@ -31,13 +31,13 @@ GRunLoop class >> current [
 	^ GEngine current runLoop
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - gtk' }
 GRunLoop class >> defer: aBlock [
 
 	^ self current defer: aBlock
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - gtk' }
 GRunLoop class >> delayedDefer: aBlock [ 
 
 	self defer: [ 
@@ -46,7 +46,14 @@ GRunLoop class >> delayedDefer: aBlock [
 			aBlock value ] fork ]
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - system' }
+GRunLoop class >> enterSystem: aBlock [
+	"Execute in system"
+	
+	self current enterSystem: aBlock
+]
+
+{ #category : 'deferring - gtk' }
 GRunLoop class >> forceDefer: aBlock [
 
 	^ self current forceDefer: aBlock
@@ -76,13 +83,19 @@ GRunLoop >> checkSession [
 	^ session == Smalltalk session
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - gtk' }
 GRunLoop >> defer: aBlock [
 
 	^ aBlock value
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - system' }
+GRunLoop >> enterSystem: aBlock [
+
+	aBlock fork
+]
+
+{ #category : 'deferring - gtk' }
 GRunLoop >> forceDefer: aBlock [
 
 	self subclassResponsibility

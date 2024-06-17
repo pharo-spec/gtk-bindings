@@ -28,7 +28,7 @@ GtkRunLoop >> callerProcess [
 	^ callerProcess
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - gtk' }
 GtkRunLoop >> defer: aBlock [
 
 	^ self isInCallback
@@ -36,7 +36,15 @@ GtkRunLoop >> defer: aBlock [
 		ifFalse: [ self forceDefer: aBlock ]
 ]
 
-{ #category : 'deferring' }
+{ #category : 'deferring - system' }
+GtkRunLoop >> enterSystem: aBlock [
+
+	self isInCallback 
+		ifTrue: [ aBlock fork ]
+		ifFalse: [ aBlock value ]
+]
+
+{ #category : 'deferring - gtk' }
 GtkRunLoop >> forceDefer: aBlock [
 	| sem result exception |
 
@@ -44,7 +52,7 @@ GtkRunLoop >> forceDefer: aBlock [
 	sem := Semaphore new.
 	exception := nil.
 	mutex critical: [ 
-		GIdle uniqueInstance idleAddFull: [
+		GQueueIdle uniqueInstance idleAdd: [
 			result := [
 				aBlock 
 					on: Exception 
