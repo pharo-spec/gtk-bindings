@@ -7,6 +7,8 @@ https://developer.gnome.org/gtk3/unstable/GtkSwitch.html
 Class {
 	#name : 'GtkSwitch',
 	#superclass : 'GtkWidget',
+	#traits : 'GtkTToggleableButton',
+	#classTraits : 'GtkTToggleableButton classTrait',
 	#category : 'Gtk-Widget-Buttons',
 	#package : 'Gtk',
 	#tag : 'Widget-Buttons'
@@ -50,18 +52,6 @@ GtkSwitch class >> on [
 GtkSwitch >> active: aBoolean [
 
 	^ self ffiCall: #(void gtk_switch_set_active (self, gboolean aBoolean))
-]
-
-{ #category : 'accessing' }
-GtkSwitch >> beActive [
-
-	self active: true
-]
-
-{ #category : 'accessing' }
-GtkSwitch >> beNonActive [
-
-	self active: false
 ]
 
 { #category : 'signaling' }
