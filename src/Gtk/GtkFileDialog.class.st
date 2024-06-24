@@ -8,7 +8,8 @@ Class {
 	#superclass : 'GtkStandardDialog',
 	#instVars : [
 		'parent',
-		'callback'
+		'callback',
+		'filters'
 	],
 	#category : 'Gtk-Widget-Window',
 	#package : 'Gtk',
@@ -59,6 +60,14 @@ GtkFileDialog class >> gtkNew [
 GtkFileDialog class >> new [
 
 	^ self gtkNew initialize
+]
+
+{ #category : 'accessing' }
+GtkFileDialog >> filters: aGListModel [
+
+	filters := aGListModel.
+	self setFilters: aGListModel.
+	filters objectUnrefNow
 ]
 
 { #category : 'initialization' }
@@ -161,4 +170,61 @@ GtkFileDialog >> saveParent: aParent cancellable: aCancellable callback: aCallba
   		"GAsyncReadyCallback"GCallback aCallback,
   		NULL))
 
+]
+
+{ #category : 'actions' }
+GtkFileDialog >> selectFolderDo: aBlock [
+
+	callback := self newCallback: [ :source :result :user_data |
+		| file |
+		file := self selectFolderFinishResult: result.
+		aBlock value: (file isNull 
+			ifTrue: [ nil ] 
+			ifFalse: [ file ]) ].
+		
+	self 
+		selectParent: parent
+		cancellable: GObject null 
+		callback: callback
+]
+
+{ #category : 'private' }
+GtkFileDialog >> selectFolderFinishResult: result [
+
+	self ffiCall: #(GFile* gtk_file_dialog_select_folder_finish (
+  		self,
+  		"GAsyncResult*"void *result,
+  		NULL))
+]
+
+{ #category : 'private' }
+GtkFileDialog >> selectParent: aParent cancellable: cancellable callback: aCallback [
+
+	self ffiCall: #(void gtk_file_dialog_select_folder (
+  	self,
+  	GtkWindow* aParent,
+  	"GCancellable*"void* cancellable,
+  	"GAsyncReadyCallback"GCallback aCallback,
+  	NULL))
+]
+
+{ #category : 'private' }
+GtkFileDialog >> setFilters: filterListModel [
+
+	self ffiCall: #(void gtk_file_dialog_set_filters (self, GListModel* filterListModel))
+]
+
+{ #category : 'accessing' }
+GtkFileDialog >> title [
+
+	self ffiCall: #(char* gtk_file_dialog_get_title (self))
+	
+]
+
+{ #category : 'accessing' }
+GtkFileDialog >> title: title [
+
+	self ffiCall: #(void gtk_file_dialog_set_title (self, const char* title))
+
+	
 ]
