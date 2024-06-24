@@ -84,10 +84,10 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory command: comman
 ]
 
 { #category : 'instance creation' }
-GIOPipedProcess class >> spawn: command arguments: anArray flags: flags [
+GIOPipedProcess class >> spawn: command arguments: anArray workingDirectory: workingDir flags: flags [
 
 	^ self 
-		gSpawnAsyncWithPipes: nil "working directory" 
+		gSpawnAsyncWithPipes: workingDir
 		command: command 
 		arguments: anArray 
 		flags: flags 

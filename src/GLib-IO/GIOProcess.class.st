@@ -96,7 +96,17 @@ GIOProcess class >> spawn: command arguments: anArray [
 GIOProcess class >> spawn: command arguments: anArray flags: flags [
 
 	^ self 
-		gSpawnAsync: nil "working directory" 
+		spawn: command 
+		arguments: anArray 
+		workingDirectory: nil 
+		flags: flags
+]
+
+{ #category : 'instance creation' }
+GIOProcess class >> spawn: command arguments: anArray workingDirectory: workingDir flags: flags [ 
+
+	^ self 
+		gSpawnAsync: workingDir 
 		command: command 
 		arguments: anArray 
 		flags: flags 
