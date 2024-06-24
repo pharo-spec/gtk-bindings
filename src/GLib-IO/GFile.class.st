@@ -12,6 +12,12 @@ Class {
 }
 
 { #category : 'accessing' }
+GFile >> path [
+
+	^ self ffiCall: #(char* g_file_get_path (self))
+]
+
+{ #category : 'accessing' }
 GFile >> uri [
 
 	^ self ffiCall: #(char* g_file_get_uri (self))
