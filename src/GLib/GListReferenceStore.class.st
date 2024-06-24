@@ -4,7 +4,7 @@ This feels more lightway than the mechanism used with GListDataStore, that uses 
 "
 Class {
 	#name : 'GListReferenceStore',
-	#superclass : 'GListStore',
+	#superclass : 'GBaseListStore',
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [

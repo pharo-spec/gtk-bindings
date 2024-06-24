@@ -2,7 +2,7 @@
 An abstract data store to be used on `GtkListView`, `GtkDropDown`, etc.
 "
 Class {
-	#name : 'GListStore',
+	#name : 'GBaseListStore',
 	#superclass : 'GObject',
 	#traits : 'GLibTLibrary',
 	#classTraits : 'GLibTLibrary classTrait',

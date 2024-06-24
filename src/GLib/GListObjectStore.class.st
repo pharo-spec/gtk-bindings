@@ -4,7 +4,7 @@ Use `GListObjectStore class>>#newType:` to explicit the type of objects that wil
 "
 Class {
 	#name : 'GListObjectStore',
-	#superclass : 'GListStore',
+	#superclass : 'GBaseListStore',
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
