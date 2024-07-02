@@ -25,7 +25,7 @@ GdkSurface class >> gType [
 GdkSurface >> beep [
 
 	"Emits a short beep associated to window in the appropriate display, if supported. Otherwise, emits a short beep on the display just as gdk_display_beep()."
-	self ffiCall: #(void gdk_surface_beep (GdkWindow * self))
+	self ffiCall: #(void gdk_surface_beep (GObject *self))
 ]
 
 { #category : 'accessing' }

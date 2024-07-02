@@ -198,7 +198,7 @@ GtkWindow >> beNotModal [
 { #category : 'accessing' }
 GtkWindow >> beep [ 
 
-	self gdkWindow beep
+	self surface beep
 ]
 
 { #category : 'geometry' }
@@ -272,7 +272,7 @@ GtkWindow >> connectDefaultWidth: aBlock [
 GtkWindow >> cursor: aGdkCursor [
 
 	cursor := aGdkCursor.
-	self gdkWindow cursor: cursor
+	self surface cursor: cursor
 ]
 
 { #category : 'private' }
