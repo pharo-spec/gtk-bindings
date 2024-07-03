@@ -22,9 +22,7 @@ GtkFileDialog class >> exampleOpen [
 	GEngine ensureRunning.
 	GRunLoop defer: [ 
 		GtkFileDialog new 
-			openDo: [ :file | file inspect ] ].
-	
-	
+			openDo: [ :file | file inspect ] ]
 ]
 
 { #category : 'examples' }
@@ -105,7 +103,9 @@ GtkFileDialog >> openDo: aBlock [
 	self 
 		openParent: parent
 		cancellable: GObject null 
-		callback: callback
+		callback: callback.
+	"I need to release it, to let the system collect it when finished"
+	self objectUnrefNow
 ]
 
 { #category : 'private' }
@@ -148,7 +148,9 @@ GtkFileDialog >> saveDo: aBlock [
 	self 
 		saveParent: parent
 		cancellable: GObject null 
-		callback: callback
+		callback: callback.
+	"I need to release it, to let the system collect it when finished"
+	self objectUnrefNow
 ]
 
 { #category : 'private' }
@@ -185,7 +187,9 @@ GtkFileDialog >> selectFolderDo: aBlock [
 	self 
 		selectParent: parent
 		cancellable: GObject null 
-		callback: callback
+		callback: callback.
+	"I need to release it, to let the system collect it when finished"
+	self objectUnrefNow
 ]
 
 { #category : 'private' }
