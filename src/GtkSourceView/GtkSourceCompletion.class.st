@@ -19,8 +19,9 @@ Class {
 { #category : 'accessing' }
 GtkSourceCompletion >> addProvider: provider [
 
+	self keepProvider: provider.
 	self basicAddProvider: provider.
-	self keepProvider: provider
+	provider objectUnrefNow
 ]
 
 { #category : 'private' }
