@@ -13,10 +13,13 @@ Class {
 
 { #category : 'instance creation' }
 GtkIconPaintable class >> newFromIconName: iconName size: iconSize [
+	| icon |
 
-	^ GtkIconTheme default
+	icon := GtkIconTheme default
 		lookupIconName: iconName
-		size: iconSize
+		size: iconSize.
+	icon ifNotNil: [ icon initialize ].
+	^ icon
 ]
 
 { #category : 'accessing' }

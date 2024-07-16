@@ -7,6 +7,12 @@ Form >> asAthensSurface [
 ]
 
 { #category : '*Gtk-Morphic' }
+Form >> asGdkPaintable [
+
+	^ self asGdkTexture
+]
+
+{ #category : '*Gtk-Morphic' }
 Form >> asGdkPixbuf [
 
 	^ GdkPixbuf newForm: self

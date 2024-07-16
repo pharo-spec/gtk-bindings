@@ -90,32 +90,15 @@ GtkImage class >> surfaceFor: anImageMorph [
 
 { #category : 'converting' }
 GtkImage >> asGdkPaintable [
-	"this will only work if the image it self is creared from a pixbuf.
-	 Most of the time you are better going through GdkPixbuf creation methods."
 	| type |
 
 	type := self imageType.
-	type == GTK_IMAGE_ICON_NAME ifTrue: [
+	type = GTK_IMAGE_ICON_NAME ifTrue: [
 		^ GtkIconPaintable newFromIconName: self iconName size: self iconSize ].
-	(type == GTK_IMAGE_EMPTY or: [ type == GTK_IMAGE_PAINTABLE ]) ifTrue: [
+	(type = GTK_IMAGE_EMPTY or: [ type = GTK_IMAGE_PAINTABLE ]) ifTrue: [
 		^ self getPaintable ].
 
-	^ nil
-]
-
-{ #category : 'converting' }
-GtkImage >> asGdkPixbuf [
-	"this will only work if the image it self is creared from a pixbuf.
-	 Most of the time you are better going through GdkPixbuf creation methods."
-	| type |
-
-	type := self imageType.
-	type == GTK_IMAGE_ICON_NAME ifTrue: [
-		^ GdkPixbuf newFromIconName: self iconName size: self iconSize ].
-	(type == GTK_IMAGE_EMPTY or: [ type == GTK_IMAGE_PAINTABLE ]) ifTrue: [
-		"this comes from gtk3 times. Most probably, best way is to refactor the
-		 app to not use this."
-		self halt ].
+	self error: 'I can''t find a paintable to answer.'.
 
 	^ nil
 ]
@@ -180,4 +163,10 @@ GtkImage >> pixbuf: pixbuf [
 GtkImage >> setFromGdkPixbuf: pixbuf [
 
 	^ self ffiCall: #(void gtk_image_set_from_pixbuf(self, GdkPixbuf *pixbuf))
+]
+
+{ #category : 'converting' }
+GtkImage >> setFromPaintable: paintable [
+
+	^ self ffiCall: #(void gtk_image_set_from_paintable (self, GdkPaintable* paintable))
 ]
