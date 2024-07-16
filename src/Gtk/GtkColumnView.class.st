@@ -2,7 +2,8 @@ Class {
 	#name : 'GtkColumnView',
 	#superclass : 'GtkListBase',
 	#instVars : [
-		'columns'
+		'columns',
+		'headerFactory'
 	],
 	#pools : [
 		'GtkListScrollFlags'
@@ -78,9 +79,29 @@ GtkColumnView >> getFactory [
 ]
 
 { #category : 'private' }
+GtkColumnView >> getHeaderFactory [
+
+	^ self ffiCall: #(GtkListItemFactory* gtk_list_view_get_header_factory (self))
+]
+
+{ #category : 'private' }
 GtkColumnView >> getModel [
 
 	self ffiCall: #(GtkSelectionModel* gtk_column_view_get_model (self))
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> headerFactory [
+
+	^ headerFactory ifNil: [ headerFactory := self getHeaderFactory ]
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> headerFactory: aFactory [
+
+	headerFactory := aFactory.
+	self setHeaderFactory: headerFactory.
+	headerFactory objectUnrefNow
 ]
 
 { #category : 'initialization' }
@@ -134,6 +155,14 @@ GtkColumnView >> scrollToPosition: pos flags: flags [
 GtkColumnView >> setFactory: aFactory [
 	
 	self ffiCall: #(void gtk_column_view_set_row_factory (
+		self,
+  		GtkListItemFactory* aFactory))
+]
+
+{ #category : 'private' }
+GtkColumnView >> setHeaderFactory: aFactory [
+
+	^ self ffiCall: #(void gtk_column_view_set_header_factory (
 		self,
   		GtkListItemFactory* aFactory))
 ]
