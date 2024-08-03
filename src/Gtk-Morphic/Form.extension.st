@@ -27,5 +27,5 @@ Form >> asGdkTexture [
 { #category : '*Gtk-Morphic' }
 Form >> asGtkImage [
 
-	^ GtkImage newPixbuf: self asGdkPixbuf 
+	^ GtkImage newPaintable: self asGdkPaintable 
 ]
