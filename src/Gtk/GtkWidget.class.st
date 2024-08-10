@@ -856,7 +856,7 @@ GtkWidget >> events: events [
 GtkWidget >> executeDeferredActions [
 
 	deferActions ifNil: [ ^ self ].
-	deferActions do: #value.
+	deferActions do: [ :each | each value ].
 	deferActions := nil
 ]
 
