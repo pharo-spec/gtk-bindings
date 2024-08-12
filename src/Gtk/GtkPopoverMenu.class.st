@@ -49,8 +49,10 @@ GtkPopoverMenu class >> newFromModel: aModel [
 
 { #category : 'instance creation' }
 GtkPopoverMenu class >> newFromModelFull: aModel [
+	"GTK_POPOVER_MENU_SLIDING = 0
+	 GTK_POPOVER_MENU_NESTED = 1"
 
-	^ (self gtkNewFromModelFull: aModel flags: 1) 
+	^ (self gtkNewFromModelFull: aModel flags: 0) 
 		initializeModel: aModel;
 		yourself
 ]

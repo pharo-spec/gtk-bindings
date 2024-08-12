@@ -96,9 +96,11 @@ GtkFileDialog >> openDo: aBlock [
 	callback := self newCallback: [ :source :result :user_data |
 		| file |
 		file := self openFinishResult: result.
-		aBlock value: (file isNull 
-			ifTrue: [ nil ] 
-			ifFalse: [ file ]) ].
+		[
+			aBlock value: (file isNull 
+				ifTrue: [ nil ] 
+				ifFalse: [ file ])
+		] fork ].
 		
 	self 
 		openParent: parent

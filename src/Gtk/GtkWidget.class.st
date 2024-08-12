@@ -346,7 +346,7 @@ GtkWidget >> addMiddleButtonReleaseEvent: aBlock [
 		gesture
 			name: 'release-middle';
 			beButtonMiddle;
-			connectReleased: [ :anEvent | aBlock value: anEvent beButtonMiddle ] ]
+			connectReleased: [ :anEvent | aBlock value: anEvent beMiddleButton ] ]
 ]
 
 { #category : 'accessing - events' }
@@ -378,7 +378,7 @@ GtkWidget >> addPrimaryButtonReleaseEvent: aBlock [
 		gesture
 			name: 'release-primary';
 			beButtonPrimary;
-			connectReleased: [ :anEvent | aBlock value: anEvent beButtonPrimary ] ]
+			connectReleased: [ :anEvent | aBlock value: anEvent bePrimaryButton ] ]
 ]
 
 { #category : 'accessing - events' }
@@ -413,7 +413,7 @@ GtkWidget >> addSecondaryButtonReleaseEvent: aBlock [
 		gesture
 			name: 'release-secondary';
 			beButtonSecondary;
-			connectReleased: [ :anEvent | aBlock value: anEvent beButtonSecondary ] ]
+			connectReleased: [ :anEvent | aBlock value: anEvent beSecondaryButton ] ]
 ]
 
 { #category : 'accessing - shortcuts' }
