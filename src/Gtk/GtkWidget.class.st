@@ -750,9 +750,7 @@ GtkWidget >> contextMenu: aGtkMenu [
 	 It receives a valuable (usually a block)"
 
 	self connectRightClicked: [ :event |
-		aGtkMenu 
-			showAll;
-			popupAtPointer: event.
+		aGtkMenu popupAtPointer: event.
 		false ]
 ]
 
