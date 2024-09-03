@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.TreeExpander.html
+"
 Class {
 	#name : 'GtkTreeExpander',
 	#superclass : 'GtkWidget',

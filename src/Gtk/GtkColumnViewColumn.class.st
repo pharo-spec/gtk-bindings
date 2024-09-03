@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.ColumnViewColumn.html
+"
 Class {
 	#name : 'GtkColumnViewColumn',
 	#superclass : 'GObject',

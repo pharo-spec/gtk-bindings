@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.ColumnView.html
+"
 Class {
 	#name : 'GtkColumnView',
 	#superclass : 'GtkListBase',

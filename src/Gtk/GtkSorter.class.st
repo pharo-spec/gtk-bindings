@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.Sorter.html
+"
 Class {
 	#name : 'GtkSorter',
 	#superclass : 'GObject',
