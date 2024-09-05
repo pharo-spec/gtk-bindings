@@ -18,5 +18,5 @@ GdkLibrary >> unix64LibraryName [
 { #category : 'accessing - platform' }
 GdkLibrary >> win32LibraryName [
 
-	^ 'libgdk-3-0.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libgtk-4-1.dll'
 ]

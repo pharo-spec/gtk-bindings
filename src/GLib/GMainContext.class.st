@@ -1,6 +1,8 @@
 Class {
 	#name : 'GMainContext',
 	#superclass : 'GBaseObject',
+	#traits : 'GLibTLibrary',
+	#classTraits : 'GLibTLibrary classTrait',
 	#category : 'GLib-Application',
 	#package : 'GLib',
 	#tag : 'Application'

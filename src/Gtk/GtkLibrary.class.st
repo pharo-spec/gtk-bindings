@@ -84,5 +84,5 @@ GtkLibrary >> version [
 { #category : 'accessing - platform' }
 GtkLibrary >> win32LibraryName [
 	
-	^ FFIWindowsLibraryFinder findLibrary: 'libgtk-4-0.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libgtk-4-1.dll'
 ]

@@ -4,8 +4,8 @@
 Class {
 	#name : 'GApplication',
 	#superclass : 'GObject',
-	#traits : 'GLibTLibrary',
-	#classTraits : 'GLibTLibrary classTrait',
+	#traits : 'GLibIOTLibrary',
+	#classTraits : 'GLibIOTLibrary classTrait',
 	#pools : [
 		'GApplicationFlags'
 	],
@@ -18,12 +18,6 @@ Class {
 GApplication class >> default [
 
 	^ self gDefault initialize 
-]
-
-{ #category : 'resources' }
-GApplication class >> ffiLibraryName [
-
-	^ GdkLibrary 
 ]
 
 { #category : 'private' }
@@ -62,12 +56,6 @@ GApplication class >> newName: aName flags: flags [
 GApplication >> connectActivate: aBlock [
 
 	(GActivateApplicationCallback do: aBlock) connectTo: self
-]
-
-{ #category : 'resources' }
-GApplication >> ffiLibraryName [
-
-	^ GdkLibrary 
 ]
 
 { #category : 'private - primitives' }
