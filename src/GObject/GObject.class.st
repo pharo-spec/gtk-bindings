@@ -19,7 +19,7 @@ Class {
 { #category : 'private' }
 GObject class >> finalize: handle [
 	
-	^ self objectUnref: handle
+	self objectUnref: handle
 ]
 
 { #category : 'finalization' }
@@ -181,7 +181,7 @@ GObject class >> instanceIsObject: handle [
 { #category : 'private' }
 GObject class >> objectUnref: handle [
 	
-	^ self ffiCall: #(gpointer g_object_unref (void *handle)) module: GObjectLibrary
+	^ self ffiCall: #(void g_object_unref (void *handle)) module: GObjectLibrary
 ]
 
 { #category : 'private' }

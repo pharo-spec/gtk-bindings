@@ -32,7 +32,7 @@ GTreeListReferenceStore >> itemAtHandle: itemHandle children: aBlock [
 	| holder storeHandle store item children position |
 	
 	holder := GObject fromHandleUnreferenced: itemHandle.
-	storeHandle := (holder dataAt: 'store').
+	storeHandle := holder dataAt: 'store'.
 	store := self storeAt: storeHandle.
 	position := (holder dataAt: 'position') asInteger + 1.
 	item := store itemAt: position.
@@ -43,7 +43,7 @@ GTreeListReferenceStore >> itemAtHandle: itemHandle children: aBlock [
 			items: children;
 			path: (store path copyWith: position);
 			yourself) ].
-		
+
 	^ ExternalAddress null
 ]
 

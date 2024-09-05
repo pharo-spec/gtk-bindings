@@ -60,7 +60,7 @@ GtkSwitch >> connectStateSet: aBlock [
 	^ self 
 		connect: 'state-set' 
 		signature: #(gboolean (void *widget, gboolean state, void *aData))  
- 		do: [ :widget :state :aData | aBlock cull: state ] 
+ 		do: [ :widget :state :aData | aBlock cull: state ]
 ]
 
 { #category : 'accessing' }

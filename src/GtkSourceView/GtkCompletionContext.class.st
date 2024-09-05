@@ -18,6 +18,18 @@ GtkCompletionContext >> completionToken [
 	^ token
 ]
 
+{ #category : 'accessing' }
+GtkCompletionContext >> completionTokenStart [
+
+	^ 1
+]
+
+{ #category : 'accessing' }
+GtkCompletionContext >> engine: anEngine [
+
+	engine := anEngine
+]
+
 { #category : 'narrowing' }
 GtkCompletionContext >> narrowWith: aToken [
 

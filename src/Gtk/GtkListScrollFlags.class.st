@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/flags.ListScrollFlags.html
+"
 Class {
 	#name : 'GtkListScrollFlags',
 	#superclass : 'GEnumeration',

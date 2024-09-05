@@ -71,6 +71,17 @@ GtkWidgetTest >> testSmoke [
 	self window child: self widget
 ]
 
+{ #category : 'tests' }
+GtkWidgetTest >> testVisible [
+
+	self assert: self widget isVisible.
+	self widget visible: false.
+	self deny: self widget isVisible.
+	self widget visible: true.
+	self assert: self widget isVisible.
+	
+]
+
 { #category : 'accessing' }
 GtkWidgetTest >> widget [
 

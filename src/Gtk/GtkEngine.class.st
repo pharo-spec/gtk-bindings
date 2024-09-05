@@ -8,7 +8,8 @@ Class {
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
 		'initAction',
-		'application'
+		'application',
+		'applicationId'
 	],
 	#category : 'Gtk-Application',
 	#package : 'Gtk',
@@ -73,13 +74,25 @@ GtkEngine class >> startUp: resuming [
 	Current startUp: resuming
 ]
 
+{ #category : 'accessing' }
+GtkEngine >> applicationId [
+	
+	^ applicationId ifNil: [ applicationId := 'org.pharo.Gtk4Application' ]
+]
+
+{ #category : 'accessing' }
+GtkEngine >> applicationId: anId [
+	
+	applicationId := anId
+]
+
 { #category : 'private - running' }
 GtkEngine >> ensureApplication [
 
 	self hasValidApplication ifTrue: [ ^ application ].
 
 	application := GtkApplication activeClass
-		newId: 'org.pharo.Gtk4Application'
+		newId: self applicationId
 		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
 	application register.
 	

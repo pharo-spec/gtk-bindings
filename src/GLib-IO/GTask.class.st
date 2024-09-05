@@ -101,3 +101,21 @@ GTask >> returnPointer: result [
 
 	self ffiCall: #(void g_task_return_pointer (self, gpointer result, NULL))
 ]
+
+{ #category : 'accessing' }
+GTask >> returnPointer: result destroyCallback: aCallback [
+
+	self ffiCall: #(void g_task_return_pointer (
+		self, 
+		gpointer result, 
+		GCallback aCallback))
+]
+
+{ #category : 'accessing' }
+GTask >> returnPointer: result destroyNotify: result_destroy [
+
+	self ffiCall: #(void g_task_return_pointer (
+		self, 
+		gpointer result, 
+		gpointer result_destroy))
+]

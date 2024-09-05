@@ -3,7 +3,7 @@ Extension { #name : 'GtkImage' }
 { #category : '*Gtk-Morphic' }
 GtkImage class >> newForm: aForm [
 
-	^ self newPixbuf: aForm asGdkPixbuf
+	^ self newPaintable: aForm asGdkPaintable
 ]
 
 { #category : '*Gtk-Morphic' }

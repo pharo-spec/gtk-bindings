@@ -9,8 +9,7 @@ Class {
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
 		'items',
-		'references',
-		'mutex'
+		'references'
 	],
 	#category : 'GLib-Lists',
 	#package : 'GLib',
@@ -104,15 +103,13 @@ GListReferenceStore >> get_object: position [
 	position >= self items size
 		ifTrue: [ ^ GObject null ].
 
-	^ mutex critical: [ 
-		self referenceAt: position ]
+	^ self referenceAt: position
 ]
 
 { #category : 'initialization' }
 GListReferenceStore >> initialize [
 
 	super initialize.
-	mutex := Mutex new.
 	references := self newReferenceContainer
 ]
 

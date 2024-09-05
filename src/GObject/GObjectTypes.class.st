@@ -57,7 +57,7 @@ GObjectTypes class >> initialize [
 	gdouble := #double.
 	GQuark := #guint32.
 	GType := #gsize.
-	gssize := #long.
+	gssize := #FFISizeT.
 	gsize := #FFISizeT.
 	
 	gunichar := #guint32.

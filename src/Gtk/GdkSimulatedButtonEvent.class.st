@@ -3,7 +3,8 @@ Class {
 	#superclass : 'GdkSimulatedEvent',
 	#instVars : [
 		'position',
-		'numberPress'
+		'numberPress',
+		'button'
 	],
 	#category : 'Gtk-Events-Simulated',
 	#package : 'Gtk',
@@ -25,10 +26,46 @@ GdkSimulatedButtonEvent >> accept: aVisitor [
 	^ aVisitor visitMouseButtonPressEvent: self
 ]
 
+{ #category : 'accessing' }
+GdkSimulatedButtonEvent >> beMiddleButton [
+
+	button := 2
+]
+
+{ #category : 'accessing' }
+GdkSimulatedButtonEvent >> bePrimaryButton [
+
+	button := 1
+]
+
+{ #category : 'accessing' }
+GdkSimulatedButtonEvent >> beSecondaryButton [
+
+	button := 3
+]
+
 { #category : 'testing' }
 GdkSimulatedButtonEvent >> isButtonEvent [
 
 	^ true
+]
+
+{ #category : 'testing' }
+GdkSimulatedButtonEvent >> isMiddleButton [
+
+	^ button = 2
+]
+
+{ #category : 'testing' }
+GdkSimulatedButtonEvent >> isPrimaryButton [
+
+	^ button = 1
+]
+
+{ #category : 'testing' }
+GdkSimulatedButtonEvent >> isSecondaryButton [
+
+	^ button = 2
 ]
 
 { #category : 'accessing' }

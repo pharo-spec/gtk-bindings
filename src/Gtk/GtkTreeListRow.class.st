@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.TreeListRow.html
+"
 Class {
 	#name : 'GtkTreeListRow',
 	#superclass : 'GObject',

@@ -150,7 +150,7 @@ GtkCssProvider >> loadFromData: data [
 { #category : 'accessing - loading' }
 GtkCssProvider >> loadFromPath: path [
 
-	^ self ffiCall: #(gboolean gtk_css_provider_load_from_path (
+	^ self ffiCall: #(void gtk_css_provider_load_from_path (
 		self,
 		const gchar *path))
 ]

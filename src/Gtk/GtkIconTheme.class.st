@@ -1,7 +1,7 @@
 "
 GtkIconTheme — Looking up icons by name
 
-https://developer.gnome.org/gtk3/3.24/GtkIconTheme.html
+https://docs.gtk.org/gtk4/class.IconTheme.html
 "
 Class {
 	#name : 'GtkIconTheme',
@@ -69,6 +69,12 @@ GtkIconTheme >> allNames [
 GtkIconTheme >> allNamesByContext [
 
 	self deprecated: #Gtk4
+]
+
+{ #category : 'initialization' }
+GtkIconTheme >> autoObjectUnref [
+
+	"do not ref or unref, says the documentation"
 ]
 
 { #category : 'private' }
@@ -154,7 +160,8 @@ GtkIconTheme >> loadIconName: icon_name size: size flags: flags error: error [
 
 { #category : 'accessing' }
 GtkIconTheme >> lookupIconName: icon_name size: size [
-
+	"this will reference the object, you take responsibility for unref it"
+	
 	^ self
 		lookupIconName: icon_name
 		size: size

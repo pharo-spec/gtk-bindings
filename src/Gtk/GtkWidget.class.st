@@ -115,12 +115,10 @@ GtkWidget >> addAccelerator: aString group: anAccelGroup shortcut: aShortcut [
 GtkWidget >> addButtonPressEvent: aBlock [
 	"adds a button press event.
 	 aBlock does not receives an event as argument"
-
-	self addGestureClickWith: [ :gesture |
-		gesture
-			name: 'press';
-			beButtonAny;
-			connectPressed: aBlock ]
+	
+	self addPrimaryButtonPressEvent: aBlock.
+	self addMiddleButtonPressEvent: aBlock.
+	self addSecondaryButtonPressEvent: aBlock
 ]
 
 { #category : 'accessing - events' }
@@ -128,11 +126,9 @@ GtkWidget >> addButtonReleaseEvent: aBlock [
 	"adds a button release event.
 	 aBlock does not receives an event as argument"
 
-	self addGestureClickWith: [ :gesture |
-		gesture
-			name: 'release';
-			beButtonAny;
-			connectReleased: aBlock ]
+	self addPrimaryButtonReleaseEvent: aBlock.
+	self addMiddleButtonReleaseEvent: aBlock.
+	self addSecondaryButtonReleaseEvent: aBlock
 ]
 
 { #category : 'style' }
@@ -331,12 +327,58 @@ GtkWidget >> addLeaveEvent: aBlock [
 ]
 
 { #category : 'accessing - events' }
+GtkWidget >> addMiddleButtonPressEvent: aBlock [
+	"adds a button press event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture name: 'press-middle';
+			beButtonPrimary;
+			connectPressed: [ :anEvent | aBlock value: anEvent beMiddleButton ] ]
+]
+
+{ #category : 'accessing - events' }
+GtkWidget >> addMiddleButtonReleaseEvent: aBlock [
+	"adds a button release event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture
+			name: 'release-middle';
+			beButtonMiddle;
+			connectReleased: [ :anEvent | aBlock value: anEvent beMiddleButton ] ]
+]
+
+{ #category : 'accessing - events' }
 GtkWidget >> addMotionEvent: aBlock [
 	"adds a mouse motion (move) event.
 	 aBlock receives a `GdkSimulatedMotionEvent` as argument"
 
 	self addEventControllerMotionWith: [ :aController |
 		aController connectMotion: aBlock ]
+]
+
+{ #category : 'accessing - events' }
+GtkWidget >> addPrimaryButtonPressEvent: aBlock [
+	"adds a button press event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture name: 'press-primary';
+			beButtonPrimary;
+			connectPressed: [ :anEvent | aBlock value: anEvent bePrimaryButton ] ]
+]
+
+{ #category : 'accessing - events' }
+GtkWidget >> addPrimaryButtonReleaseEvent: aBlock [
+	"adds a button release event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture
+			name: 'release-primary';
+			beButtonPrimary;
+			connectReleased: [ :anEvent | aBlock value: anEvent bePrimaryButton ] ]
 ]
 
 { #category : 'accessing - events' }
@@ -349,6 +391,29 @@ GtkWidget >> addRightClickEvent: aBlock [
 			name: 'right-click';
 			beButtonSecondary;
 			connectPressed: aBlock ]
+]
+
+{ #category : 'accessing - events' }
+GtkWidget >> addSecondaryButtonPressEvent: aBlock [
+	"adds a button press event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture name: 'press-secondary';
+			beButtonPrimary;
+			connectPressed: [ :anEvent | aBlock value: anEvent beSecondaryButton ] ]
+]
+
+{ #category : 'accessing - events' }
+GtkWidget >> addSecondaryButtonReleaseEvent: aBlock [
+	"adds a button release event.
+	 aBlock does not receives an event as argument"
+
+	self addGestureClickWith: [ :gesture |
+		gesture
+			name: 'release-secondary';
+			beButtonSecondary;
+			connectReleased: [ :anEvent | aBlock value: anEvent beSecondaryButton ] ]
 ]
 
 { #category : 'accessing - shortcuts' }
@@ -685,9 +750,7 @@ GtkWidget >> contextMenu: aGtkMenu [
 	 It receives a valuable (usually a block)"
 
 	self connectRightClicked: [ :event |
-		aGtkMenu 
-			showAll;
-			popupAtPointer: event.
+		aGtkMenu popupAtPointer: event.
 		false ]
 ]
 
@@ -791,7 +854,7 @@ GtkWidget >> events: events [
 GtkWidget >> executeDeferredActions [
 
 	deferActions ifNil: [ ^ self ].
-	deferActions do: #value.
+	deferActions do: [ :each | each value ].
 	deferActions := nil
 ]
 
