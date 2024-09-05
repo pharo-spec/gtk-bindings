@@ -473,7 +473,8 @@ GtkWindow >> moveX: x y: y [
 { #category : 'geometry' }
 GtkWindow >> position [
 
-	self deprecated: #Gtk4
+	self deprecated: #Gtk4.
+	^ 0@0
 ]
 
 { #category : 'showing' }
