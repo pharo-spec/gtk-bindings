@@ -6,8 +6,8 @@ https://docs.gtk.org/gio/class.SimpleAction.html
 Class {
 	#name : 'GSimpleAction',
 	#superclass : 'GObject',
-	#traits : 'GdkTLibrary + GTAction',
-	#classTraits : 'GdkTLibrary classTrait + GTAction classTrait',
+	#traits : 'GLibIOTLibrary + GTAction',
+	#classTraits : 'GLibIOTLibrary classTrait + GTAction classTrait',
 	#category : 'Gtk-Widget-Menu',
 	#package : 'Gtk',
 	#tag : 'Widget-Menu'
