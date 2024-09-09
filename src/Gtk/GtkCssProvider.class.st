@@ -92,7 +92,7 @@ GtkCssProvider class >> newFromReference: aFileReference [
 { #category : 'instance creation' }
 GtkCssProvider class >> newFromString: aString [
 
-	^ self new loadFromData: aString
+	^ self new loadFromString: aString
 ]
 
 { #category : 'accessing' }
@@ -139,12 +139,16 @@ GtkCssProvider >> addForUserToDefaultScreen [
 ]
 
 { #category : 'accessing - loading' }
+GtkCssProvider >> loadFromBytes: data [
+
+	self ffiCall: #(void gtk_css_provider_load_from_bytes (self, GBytes* data))
+]
+
+{ #category : 'accessing - loading' }
 GtkCssProvider >> loadFromData: data [
 
-	^ self ffiCall: #(void gtk_css_provider_load_from_data (
-		self,
-		gchar *data,
-		gssize -1))
+	self deprecated: #Gtk4.
+	^ self loadFromString: data
 ]
 
 { #category : 'accessing - loading' }
@@ -161,6 +165,12 @@ GtkCssProvider >> loadFromResource: resource_path [
 	^ self ffiCall: #(gboolean gtk_css_provider_load_from_resource (
 		self,
 		const gchar *resource_path))
+]
+
+{ #category : 'accessing - loading' }
+GtkCssProvider >> loadFromString: string [
+
+	self ffiCall: #(void gtk_css_provider_load_from_string (self, const char* string))
 ]
 
 { #category : 'converting' }
