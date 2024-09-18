@@ -28,6 +28,12 @@ GSimpleActionGroup class >> new [
 	^ self gNew initialize
 ]
 
+{ #category : 'accessing' }
+GSimpleActionGroup >> actions [
+
+	^ actions
+]
+
 { #category : 'private' }
 GSimpleActionGroup >> basicInsert: action [
 	"using correct function"
@@ -39,6 +45,12 @@ GSimpleActionGroup >> basicInsert: action [
 GSimpleActionGroup >> basicRemove: action_name [
 
 	^ self ffiCall: #(void g_action_map_remove_action (self, const gchar* action_name))
+]
+
+{ #category : 'testing' }
+GSimpleActionGroup >> hasActions [
+
+	^ actions isNotEmpty
 ]
 
 { #category : 'initialization' }

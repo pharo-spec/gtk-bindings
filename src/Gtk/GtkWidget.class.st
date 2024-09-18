@@ -326,6 +326,25 @@ GtkWidget >> addLeaveEvent: aBlock [
 		aController connectLeave: aBlock ]
 ]
 
+{ #category : 'accessing - shortcuts' }
+GtkWidget >> addManagedShortcut: aShortcut [
+
+	self addManagedShortcutControllerWith: [ :aController |
+		aController addShortcut: aShortcut ]
+]
+
+{ #category : 'private - events' }
+GtkWidget >> addManagedShortcutControllerWith: aBlock [
+
+	"shortcut controllers stack (but just if same level)"
+	aBlock value: (self
+		detectController: [ :each | each isShortcutController and: [ each isManaged ] ]
+		ifNone: [ 
+			self addController: (GtkShortcutController new 
+				beManaged; 
+				yourself) ])
+]
+
 { #category : 'accessing - events' }
 GtkWidget >> addMiddleButtonPressEvent: aBlock [
 	"adds a button press event.
@@ -494,6 +513,15 @@ GtkWidget >> basicInsertActionGroup: name actions: group [
 		self, 
 		char* name, 
 		"GActionGroup*"GObject *group))
+]
+
+{ #category : 'private' }
+GtkWidget >> basicRemoveActionGroup: name [
+
+	self ffiCall: #(void gtk_widget_insert_action_group (
+		self, 
+		char* name, 
+		"GActionGroup*"NULL))
 ]
 
 { #category : 'private - events' }
@@ -997,12 +1025,6 @@ GtkWidget >> getWindow [
 	self deprecated: #Gtk4
 ]
 
-{ #category : 'accessing' }
-GtkWidget >> grabDefault [
-
-	self deprecated: #Gtk4. "Use GtkWindow>>defaultWidget:"
-]
-
 { #category : 'accessing - focus' }
 GtkWidget >> grabFocus [
 
@@ -1066,14 +1088,20 @@ GtkWidget >> hide [
 ]
 
 { #category : 'accessing - actions' }
-GtkWidget >> insertActionGroup: name actions: group [
+GtkWidget >> insertActionGroup: aName actions: aGroup [
+
+	aGroup hasActions ifFalse: [ 
+		"do not insert empty groups"
+		^ self ].
 
 	actionGroups ifNil: [ actionGroups := SmallDictionary new ].
-	actionGroups at: name put: group.
+	(actionGroups includesKey: aName) ifTrue: [ 
+		self error: 'There is already an action group named ""', aName, '"" in widget' ].
+	actionGroups at: aName put: aGroup.
 	self 
-		basicInsertActionGroup: name 
-		actions: group.	
-	group objectUnrefNow
+		basicInsertActionGroup: aName 
+		actions: aGroup.	
+	aGroup objectUnrefNow
 ]
 
 { #category : 'testing' }
@@ -1323,8 +1351,10 @@ GtkWidget >> queueResizeNoRedraw [
 { #category : 'accessing - actions' }
 GtkWidget >> removeAllActions [
 
-	self actionGroups 
-		valuesDo: [ :each | each removeAll ]
+	self actionGroups keysAndValuesDo: [ :aName :aGroup | 
+		aGroup removeAll.
+		self basicRemoveActionGroup: aName ].
+	actionGroups removeAll
 ]
 
 { #category : 'accessing - shortcuts' }
