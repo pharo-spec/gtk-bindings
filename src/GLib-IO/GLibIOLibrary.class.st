@@ -6,7 +6,7 @@ Class {
 	#tag : 'Base'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 GLibIOLibrary >> gTypeFromName: aString [
 
 	self ffiCall: #(gsize g_type_from_name (const gchar *aString))
