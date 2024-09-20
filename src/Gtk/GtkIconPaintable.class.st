@@ -22,6 +22,12 @@ GtkIconPaintable class >> newFromIconName: iconName size: iconSize [
 	^ icon
 ]
 
+{ #category : 'converting' }
+GtkIconPaintable >> asGdkPaintable [
+	
+	^ self
+]
+
 { #category : 'accessing' }
 GtkIconPaintable >> name [
 

@@ -47,6 +47,17 @@ GtkImage class >> imageNewFromPixbuf: pixbuf [
 	^ self ffiCall: #(GtkImage *gtk_image_new_from_pixbuf (GdkPixbuf *pixbuf))
 ]
 
+{ #category : 'utilities' }
+GtkImage class >> loadFromThemeIconNamed: aName size: aSize [
+	"an utility method that helps on loading an image from the icon theme"
+	| paintable | 
+	
+	paintable := GtkIconTheme default lookupIconName: aName size: aSize.
+	^ paintable ifNotNil: [
+		[ self newPaintable: paintable ]
+		ensure: [ paintable objectUnref ] ]
+]
+
 { #category : 'instance creation' }
 GtkImage class >> new [
 

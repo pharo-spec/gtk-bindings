@@ -166,6 +166,16 @@ GtkIconTheme >> lookupIconName: icon_name size: size [
 		lookupIconName: icon_name
 		size: size
 		scale: 1
+]
+
+{ #category : 'accessing' }
+GtkIconTheme >> lookupIconName: icon_name size: size scale: scale [
+	"this will reference the object, you take responsibility for unref it"
+	
+	^ self
+		lookupIconName: icon_name
+		size: size
+		scale: scale
 		direction: GTK_TEXT_DIR_NONE
 		flags: GTK_ICON_LOOKUP_FORCE_REGULAR
 ]
