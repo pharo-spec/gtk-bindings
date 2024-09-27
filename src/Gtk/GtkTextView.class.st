@@ -291,6 +291,18 @@ GtkTextView >> textBuffer: aTextBuffer [
 ]
 
 { #category : 'accessing' }
+GtkTextView >> textMargin: aMarginOrNumber [
+	| margin |
+	
+	margin := aMarginOrNumber asMargin.
+	self
+		topMargin: margin top;
+		leftMargin: margin left;
+		bottomMargin: margin bottom;
+		rightMargin: margin right
+]
+
+{ #category : 'accessing' }
 GtkTextView >> topMargin [
 
 	self ffiCall: #(gint gtk_text_view_get_top_margin (self))
