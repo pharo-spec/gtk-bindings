@@ -3,6 +3,6 @@ Extension { #name : 'KMAltModifier' }
 { #category : '*Gdk' }
 KMAltModifier >> asGdkModifierType [ 
 	
-	self flag: #TODO. "This is wrong"
-	^ GdkModifierType GDK_SUPER_MASK
+	self flag: #TODO. "This may be wrong in other platforms than linux"
+	^ GdkModifierType GDK_MOD1_MASK 
 ]
