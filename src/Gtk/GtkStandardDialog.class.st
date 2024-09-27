@@ -16,3 +16,18 @@ GtkStandardDialog >> initialize [
 	self notifyDisposed: [ 
 		self engine unregisterWindow: self ]
 ]
+
+{ #category : 'private' }
+GtkStandardDialog >> newCallback: aBlock [
+"GAsyncReadyCallback
+	void
+(* GAsyncReadyCallback) (
+  GObject* source_object,
+  GAsyncResult* res,
+  gpointer data
+)"
+
+	^ GCallback 
+		signature: #(void (void *source, void *result, gpointer user_data)) 
+		block: aBlock
+]
