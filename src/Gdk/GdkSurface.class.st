@@ -68,7 +68,7 @@ GdkSurface >> positionOfDevice: device [
 { #category : 'private' }
 GdkSurface >> positionOfDevice: device x: x y: y [
 
-	^ self ffiCall: #(GdkWindow *gdk_surface_get_device_position (
+	^ self ffiCall: #(gboolean gdk_surface_get_device_position (
 		self, 
 		GdkDevice *device,
 		gdouble *x,
