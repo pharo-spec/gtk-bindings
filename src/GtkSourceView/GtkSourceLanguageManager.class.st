@@ -84,7 +84,7 @@ GtkSourceLanguageManager >> languageIds [
 	^ (ids 
 		readArrayOf: (GObject resolveType: #gpointer) 
 		until: [ :each | each isNull ])
-		collect: [ :each | each readStringUTF8 ]
+		collect: [ :each | each utf8StringFromCString ]
 
 ]
 
