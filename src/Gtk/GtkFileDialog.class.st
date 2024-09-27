@@ -75,21 +75,6 @@ GtkFileDialog >> initialize [
 	parent := GObject null
 ]
 
-{ #category : 'private' }
-GtkFileDialog >> newCallback: aBlock [
-"GAsyncReadyCallback
-	void
-(* GAsyncReadyCallback) (
-  GObject* source_object,
-  GAsyncResult* res,
-  gpointer data
-)"
-
-	^ GCallback 
-		signature: #(void (void *source, void *result, gpointer user_data)) 
-		block: aBlock
-]
-
 { #category : 'actions' }
 GtkFileDialog >> openDo: aBlock [
 
