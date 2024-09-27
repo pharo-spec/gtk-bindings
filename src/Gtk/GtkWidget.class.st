@@ -1184,13 +1184,14 @@ GtkWidget >> margin [
 ]
 
 { #category : 'geometry' }
-GtkWidget >> margin: aNumber [
+GtkWidget >> margin: aMarginOrNumber [
+	| margin |
 
-	self marginTop: aNumber.	
-	self marginStart: aNumber.
-	self marginBottom: aNumber.	
-	self marginEnd: aNumber
-	
+	margin := aMarginOrNumber asMargin.
+	self marginTop: margin top.	
+	self marginStart: margin left.
+	self marginBottom: margin bottom.	
+	self marginEnd: margin right
 ]
 
 { #category : 'geometry' }
