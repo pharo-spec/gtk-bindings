@@ -26,10 +26,10 @@ Class {
 GdkRGBA class >> fieldsDesc [
 	"self rebuildFieldAccessors"
 	^ #(
-	gdouble red;
-  	gdouble green;
-  	gdouble blue;
-  	gdouble alpha;
+	float red;
+  	float green;
+  	float blue;
+  	float alpha;
 	)
 ]
 
@@ -67,16 +67,16 @@ GdkRGBA class >> r: red g: green b: blue alpha: alpha [
 		yourself
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> alpha [
 	"This method was automatically generated"
-	^handle doubleAt: OFFSET_ALPHA
+	^handle floatAt: OFFSET_ALPHA
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> alpha: anObject [
 	"This method was automatically generated"
-	handle doubleAt: OFFSET_ALPHA put: anObject
+	handle floatAt: OFFSET_ALPHA put: anObject
 ]
 
 { #category : 'converting' }
@@ -100,38 +100,38 @@ GdkRGBA >> asString [
 	^ self ffiCall: #( gchar *gdk_rgba_to_string ( self ) )
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> blue [
 	"This method was automatically generated"
-	^handle doubleAt: OFFSET_BLUE
+	^handle floatAt: OFFSET_BLUE
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> blue: anObject [
 	"This method was automatically generated"
-	handle doubleAt: OFFSET_BLUE put: anObject
+	handle floatAt: OFFSET_BLUE put: anObject
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> green [
 	"This method was automatically generated"
-	^handle doubleAt: OFFSET_GREEN
+	^handle floatAt: OFFSET_GREEN
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> green: anObject [
 	"This method was automatically generated"
-	handle doubleAt: OFFSET_GREEN put: anObject
+	handle floatAt: OFFSET_GREEN put: anObject
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> red [
 	"This method was automatically generated"
-	^handle doubleAt: OFFSET_RED
+	^handle floatAt: OFFSET_RED
 ]
 
-{ #category : 'accessing structure variables' }
+{ #category : 'accessing - structure variables' }
 GdkRGBA >> red: anObject [
 	"This method was automatically generated"
-	handle doubleAt: OFFSET_RED put: anObject
+	handle floatAt: OFFSET_RED put: anObject
 ]
