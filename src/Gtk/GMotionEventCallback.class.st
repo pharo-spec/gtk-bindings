@@ -21,8 +21,9 @@ GMotionEventCallback class >> signalName [
 { #category : 'accessing' }
 GMotionEventCallback >> do: aBlock [
 
-	super do: [ :widget :x :y :user_data |
-		aBlock value: (GdkSimulatedMotionEvent newPosition: x@y) ]
+	"connectMotion: does some transforms to be able to pass the controller"
+	super do: [ :x :y :controller |
+		aBlock value: (GdkSimulatedMotionEvent newController: controller position: x@y) ]
 ]
 
 { #category : 'accessing' }
