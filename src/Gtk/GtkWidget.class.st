@@ -1352,7 +1352,8 @@ GtkWidget >> queueResizeNoRedraw [
 { #category : 'accessing - actions' }
 GtkWidget >> removeAllActions [
 
-	self actionGroups keysAndValuesDo: [ :aName :aGroup | 
+	actionGroups ifNil: [ ^ self ].
+	actionGroups keysAndValuesDo: [ :aName :aGroup | 
 		aGroup removeAll.
 		self basicRemoveActionGroup: aName ].
 	actionGroups removeAll

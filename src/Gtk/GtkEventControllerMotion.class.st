@@ -32,12 +32,7 @@ GtkEventControllerMotion >> connectLeave: aBlock [
 { #category : 'signaling' }
 GtkEventControllerMotion >> connectMotion: aBlock [
 
-	(GMotionEventCallback do: [ :controllerHandle :x :y :user_data | 
-		aBlock 
-			value: x 
-			value: y 
-			value: self ]) 
-		connectTo: self
+	(GMotionEventCallback do: aBlock) connectTo: self
 ]
 
 { #category : 'testing' }
