@@ -154,6 +154,16 @@ GtkWindow >> autoRelease [
 ]
 
 { #category : 'private' }
+GtkWindow >> basicComputePointTarget: target point: point outPoint: out_point [
+
+	self ffiCall: #(gboolean gtk_widget_compute_point (
+		self, 
+		GtkWidget* target, 
+		GraphenePoint* point,
+		GraphenePoint* out_point))
+]
+
+{ #category : 'private' }
 GtkWindow >> basicPresent [
 
 	^ self ffiCall: #(void gtk_window_present (self))
@@ -240,6 +250,29 @@ GtkWindow >> child: aWidget [
 GtkWindow >> close [
 
 	self ffiCall: #(void gtk_window_close (self))
+]
+
+{ #category : 'geometry' }
+GtkWindow >> computePoint: aPoint target: aWidget [
+	| result outPoint |
+
+	outPoint := GraphenePoint new.
+	result := self 
+		basicComputePointTarget: aWidget 
+		point: aPoint asGraphenePoint
+		outPoint: outPoint.
+	result 
+		ifFalse: [ self error: 'Can''t convert to point.' ].
+		
+	^ outPoint asPoint
+]
+
+{ #category : 'geometry' }
+GtkWindow >> computePositionOfPointerTarget: aWidget [
+
+	^ self 
+		computePoint: self surface positionOfPointer
+		target: aWidget
 ]
 
 { #category : 'signaling' }
