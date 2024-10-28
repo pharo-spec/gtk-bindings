@@ -30,6 +30,12 @@ GObject class >> finalizeResourceData: handle [
 	self error: 'Should not arrive here.'
 ]
 
+{ #category : 'instance creation' }
+GObject class >> fromHandle: aHandle [
+
+	^ self basicNew setHandle: aHandle
+]
+
 { #category : 'accessing' }
 GObject class >> gClass [
 
@@ -152,6 +158,12 @@ GObject class >> generateInitMethods [
 		each generateInitMethod ]
 ]
 
+{ #category : 'private' }
+GObject class >> gtkNew [
+
+	^ self gObjectNew: self gType
+]
+
 { #category : 'utils' }
 GObject class >> gtkPrefix [
 		
@@ -176,6 +188,12 @@ GObject class >> instanceIsObject: handle [
 		
 	^ GRunLoop defer: [ 
 		self instance: handle isFundamentallyA: G_TYPE_OBJECT ]
+]
+
+{ #category : 'instance creation' }
+GObject class >> new [
+
+	^ self gtkNew initialize
 ]
 
 { #category : 'private' }
