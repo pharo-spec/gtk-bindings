@@ -7,6 +7,17 @@ Form >> asAthensSurface [
 ]
 
 { #category : '*Gtk-Morphic' }
+Form >> asGIcon [
+	| bytes |
+
+	"GIcons can interpret PNG but not our bitmaps, so I need to convert them first"	
+	bytes := ByteArray streamContents: [ :stream |
+		PNGReadWriter putForm: self onStream: stream ].
+
+	^ GBytesIcon fromByteArray: bytes
+]
+
+{ #category : '*Gtk-Morphic' }
 Form >> asGdkPaintable [
 
 	^ self asGdkTexture

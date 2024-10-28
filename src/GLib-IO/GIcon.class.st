@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gio/iface.Icon.html
+"
 Class {
 	#name : 'GIcon',
 	#superclass : 'GObject',
