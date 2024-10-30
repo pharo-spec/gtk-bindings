@@ -17,7 +17,7 @@ GtkTContainer >> basicRemove: child [
 { #category : 'accessing' }
 GtkTContainer >> children [ 
 
-	^ children
+	^ children ifNil: [ #() ]
 ]
 
 { #category : 'private' }
@@ -90,7 +90,7 @@ GtkTContainer >> isContainer [
 { #category : 'private' }
 GtkTContainer >> keepWidget: widget [
 
-	children := children copyWith: widget
+	children := self children copyWith: widget
 ]
 
 { #category : 'accessing' }
