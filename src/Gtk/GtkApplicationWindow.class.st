@@ -6,7 +6,7 @@ Class {
 	#tag : 'Widget-Window'
 }
 
-{ #category : 'instance creation' }
+{ #category : 'private' }
 GtkApplicationWindow class >> gtkNew: application [
 
 	^ self ffiCall: #(#GtkApplicationWindow *gtk_application_window_new (#GtkApplication *application))
