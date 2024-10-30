@@ -56,28 +56,6 @@ GtkEngine class >> requiredGtkVersion [
 	^ '4.0.0'
 ]
 
-{ #category : 'system startup' }
-GtkEngine class >> shutDown: quitting [
-	"ensure Gtk3 is stop when shutting down"
-
-	Current ifNil: [ ^ self ].
-	Current shutDown: quitting.
-	"WARNING: Do not NIL Current! This is needed to keep track of the open windows (otherwise 
-	 they will be closed/will crash/will put you in a world of suffering."
-]
-
-{ #category : 'system startup' }
-GtkEngine class >> startUp: resuming [
-	
-	resuming ifTrue: [ 
-		Current := nil.
-		self flag: #TODO. "I'm placing this here, not sure is the right place but for now it works"
-		GDestroyAnnouncement reset ].
-	
-	Current ifNil: [ ^ self ].
-	Current startUp: resuming
-]
-
 { #category : 'accessing' }
 GtkEngine >> applicationClass [
 	
