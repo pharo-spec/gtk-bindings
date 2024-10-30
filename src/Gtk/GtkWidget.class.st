@@ -76,6 +76,12 @@ GtkWidget class >> gtkBindingSetByClass: object_class [
 	self deprecated: #Gtk4
 ]
 
+{ #category : 'instance creation' }
+GtkWidget class >> newFrom: aSimilarObject [
+
+	^ self fromHandleUnreferenced: aSimilarObject getHandle
+]
+
 { #category : 'private' }
 GtkWidget class >> widgetDestroy: widget [
 
@@ -472,6 +478,14 @@ GtkWidget >> allocation [
 	allocation := GtkAllocation new.
 	self getAllocation: allocation.
 	^ allocation asRectangle
+]
+
+{ #category : 'converting' }
+GtkWidget >> asConcreteType [
+
+	^ self as: (self class environment 
+		at: self gTypeName asSymbol
+		ifAbsent: [ GtkWidget ])
 ]
 
 { #category : 'converting' }
@@ -898,6 +912,12 @@ GtkWidget >> ffiLibraryName [
 	^ self class ffiLibraryName
 ]
 
+{ #category : 'accessing - children' }
+GtkWidget >> firstChild [
+
+	^ self ffiCall: #(GtkWidget* gtk_widget_get_first_child (self))
+]
+
 { #category : 'accessing - focus' }
 GtkWidget >> focusOnClick: focus_on_click [
 
@@ -1263,6 +1283,12 @@ GtkWidget >> measureVertical [
 	^ self measure: GTK_ORIENTATION_VERTICAL
 ]
 
+{ #category : 'accessing - children' }
+GtkWidget >> nextSibling [
+
+	^ self ffiCall: #(GtkWidget* gtk_widget_get_next_sibling (self))
+]
+
 { #category : 'accessing - fonts' }
 GtkWidget >> pangoContext [
 
@@ -1582,6 +1608,24 @@ GtkWidget >> visible: visible [
 GtkWidget >> widgetAddAccelerator: accel_signal group: accel_group key: accel_key modifiers: accel_mods accelFlags: accel_flags [
 
 	self deprecated: #Gtk4
+]
+
+{ #category : 'accessing - children' }
+GtkWidget >> widgetChildren [
+
+	^ Array streamContents: [ :stream | 
+		self widgetChildrenDo: [ :aWidget | stream nextPut: aWidget ] ]
+]
+
+{ #category : 'accessing - children' }
+GtkWidget >> widgetChildrenDo: aBlock [
+	| child |
+	
+	child := self firstChild.
+	[ child getHandle isNull ] 
+	whileFalse: [
+		aBlock value: child.
+		child := child nextSibling ]
 ]
 
 { #category : 'private' }
