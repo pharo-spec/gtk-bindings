@@ -86,6 +86,13 @@ GTreeListReferenceStore >> referenceAt: position [
 		yourself
 ]
 
+{ #category : 'private' }
+GTreeListReferenceStore >> reset [
+
+	super reset.
+	stores := nil
+]
+
 { #category : 'accessing' }
 GTreeListReferenceStore >> storeAt: storeHandle [
 	| storeIndex |
