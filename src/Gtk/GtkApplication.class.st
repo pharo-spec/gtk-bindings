@@ -77,6 +77,12 @@ GtkApplication >> activeWindow [
 		as: GtkWindow
 ]
 
+{ #category : 'adding' }
+GtkApplication >> addWindow: window [
+
+	self ffiCall: #(void gtk_application_add_window (self, GtkWindow* window))
+]
+
 { #category : 'initialization' }
 GtkApplication >> id: anId [ 
 
