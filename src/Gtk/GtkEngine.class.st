@@ -9,7 +9,11 @@ Class {
 	#instVars : [
 		'initAction',
 		'application',
-		'applicationId'
+		'applicationId',
+		'applicationClass'
+	],
+	#pools : [
+		'GApplicationFlags'
 	],
 	#category : 'Gtk-Application',
 	#package : 'Gtk',
@@ -75,6 +79,18 @@ GtkEngine class >> startUp: resuming [
 ]
 
 { #category : 'accessing' }
+GtkEngine >> applicationClass [
+	
+	^ applicationClass ifNil: [ GtkApplication activeClass ]
+]
+
+{ #category : 'accessing' }
+GtkEngine >> applicationClass: anApplicationClass [
+	
+	applicationClass := anApplicationClass
+]
+
+{ #category : 'accessing' }
 GtkEngine >> applicationId [
 	
 	^ applicationId ifNil: [ applicationId := 'org.pharo.Gtk4Application' ]
@@ -91,9 +107,9 @@ GtkEngine >> ensureApplication [
 
 	self hasValidApplication ifTrue: [ ^ application ].
 
-	application := GtkApplication activeClass
+	application := self applicationClass
 		newId: self applicationId
-		flags: GApplicationFlags G_APPLICATION_NON_UNIQUE.
+		flags: G_APPLICATION_NON_UNIQUE | G_APPLICATION_CAN_OVERRIDE_APP_ID.
 	application register.
 	
 	"this 'leaks', but since once started an application it cannot be destroyed unless you quit, 
