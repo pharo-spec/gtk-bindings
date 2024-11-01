@@ -235,6 +235,14 @@ GObject class >> resolveType: aType [
 		resolveType: aType
 ]
 
+{ #category : 'converting' }
+GObject >> asConcreteType [
+
+	^ self as: (self class environment 
+		at: self gTypeName asSymbol
+		ifAbsent: [ self class ])
+]
+
 { #category : 'initialization' }
 GObject >> autoObjectUnref [
 	"by default, gobjects will be marked for autorelease, to ensure we do not leak them.
