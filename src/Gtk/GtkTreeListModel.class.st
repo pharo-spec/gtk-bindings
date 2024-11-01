@@ -98,9 +98,24 @@ GtkTreeListModel >> store [
 
 { #category : 'accessing' }
 GtkTreeListModel >> withRowAt: position do: aBlock [
-	| row |
+	"this algoritm if not very nice looking, but is the most effective I have found. 
+	 selecting a path is increasingly costly because I need to iterate by all rows 
+	 displayed (as there is no separation between roots and children once shown).
+	 Only way to know then of this is a root is asking for row depth (1 = root)"
+	| row rootPosition |
 
-	row := self rowAt: position.
-	^ [ aBlock value: row ]
-	ensure: [ row objectUnref ]
+	"position is zero based"
+	rootPosition := -1.
+	0 to: self numberOfItems - 1 do: [ :index |
+		row := self rowAt: index.
+		((row depth = 1) )
+			ifTrue: [ rootPosition := rootPosition + 1 ].
+			
+		rootPosition = position ifTrue: [ 
+			"found, execute and exit"
+			^ [ aBlock value: row ]
+			  ensure: [ row objectUnref ] ].
+		
+		row objectUnref ].
+
 ]

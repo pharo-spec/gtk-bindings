@@ -6,10 +6,19 @@ Class {
 	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
+	#instVars : [
+		'parent'
+	],
 	#category : 'Gtk-Widget-ListView',
 	#package : 'Gtk',
 	#tag : 'Widget-ListView'
 }
+
+{ #category : 'private' }
+GtkTreeListRow >> basicDepth [
+
+	^ self ffiCall: #(guint gtk_tree_list_row_get_depth(self))
+]
 
 { #category : 'private' }
 GtkTreeListRow >> basicPosition [
@@ -26,9 +35,21 @@ GtkTreeListRow >> childRowAt: position [
 ]
 
 { #category : 'accessing' }
+GtkTreeListRow >> depth [
+
+	^ self basicDepth + 1
+]
+
+{ #category : 'accessing' }
 GtkTreeListRow >> expand: expanded [
 
 	self ffiCall: #(void gtk_tree_list_row_set_expanded (self, gboolean expanded))
+]
+
+{ #category : 'private' }
+GtkTreeListRow >> getParent [
+
+	^ self ffiCall: #(GtkTreeListRow* gtk_tree_list_row_get_parent (self))
 ]
 
 { #category : 'testing' }
@@ -51,6 +72,12 @@ GtkTreeListRow >> item [
 	 finish using it."
 
 	^ self ffiCall: #(GObject* gtk_tree_list_row_get_item (self))
+]
+
+{ #category : 'accessing' }
+GtkTreeListRow >> parent [
+
+	^ parent ifNil: [ parent := self getParent ]
 ]
 
 { #category : 'accessing' }
