@@ -481,14 +481,6 @@ GtkWidget >> allocation [
 ]
 
 { #category : 'converting' }
-GtkWidget >> asConcreteType [
-
-	^ self as: (self class environment 
-		at: self gTypeName asSymbol
-		ifAbsent: [ GtkWidget ])
-]
-
-{ #category : 'converting' }
 GtkWidget >> asListBoxRow [
 
 	^ GtkListBoxRow newWidget: self
