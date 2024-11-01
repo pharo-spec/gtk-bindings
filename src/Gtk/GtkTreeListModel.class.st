@@ -4,10 +4,11 @@ https://docs.gtk.org/gtk4/class.TreeListModel.html
 Class {
 	#name : 'GtkTreeListModel',
 	#superclass : 'GObject',
-	#traits : 'GtkTLibrary',
-	#classTraits : 'GtkTLibrary classTrait',
+	#traits : 'GtkTLibrary + GTListModel',
+	#classTraits : 'GtkTLibrary classTrait + GTListModel classTrait',
 	#instVars : [
-		'store'
+		'store',
+		'model'
 	],
 	#category : 'Gtk-Widget-ListView',
 	#package : 'Gtk',
@@ -53,6 +54,13 @@ GtkTreeListModel class >> newRootModel: store children: aBlock [
 	^ instance
 ]
 
+{ #category : 'private' }
+GtkTreeListModel >> getModel [
+
+	^ self ffiCall: #(GListModel* gtk_tree_list_model_get_model (self))
+
+]
+
 { #category : 'initialization' }
 GtkTreeListModel >> initializeRootModel: aStore function: aFunction [
 
@@ -66,6 +74,12 @@ GtkTreeListModel >> keepStore: aStore [
 	
 	store := aStore.
 	store doNotAutoRelease
+]
+
+{ #category : 'accessing' }
+GtkTreeListModel >> model [
+
+	^ model ifNil: [ model := self getModel ]
 ]
 
 { #category : 'accessing' }
