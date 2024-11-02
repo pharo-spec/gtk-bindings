@@ -7,6 +7,9 @@ Class {
 	#instVars : [
 		'headerFactory'
 	],
+	#pools : [
+		'GtkListScrollFlags'
+	],
 	#category : 'Gtk-Widget-ListView',
 	#package : 'Gtk',
 	#tag : 'Widget-ListView'
@@ -85,12 +88,31 @@ GtkListView >> isSingleClickActivate [
 ]
 
 { #category : 'accessing' }
-GtkListView >> scrollToPosition: index [
+GtkListView >> scrollToPosition: pos [
 
-	self flag: #WORAROUND. "There will be an api for this, but is not yet there."
-	self 
-		activateAction: 'list.scroll-to-item' 
-		arguments: (GVariant newUint32: index - 1)
+	^ self 
+		scrollToPosition: pos 
+		flags: GTK_LIST_SCROLL_NONE
+		info: GObject null
+]
+
+{ #category : 'accessing' }
+GtkListView >> scrollToPosition: pos flags: flags [
+
+	^ self 
+		scrollToPosition: pos 
+		flags: flags 
+		info: GObject null
+]
+
+{ #category : 'accessing' }
+GtkListView >> scrollToPosition: pos flags: flags info: scroll [
+
+	^ self ffiCall: #(void gtk_list_view_scroll_to (
+		self,
+  		guint pos,
+  		GtkListScrollFlags flags,
+  		GtkScrollInfo* scroll))
 ]
 
 { #category : 'private' }
