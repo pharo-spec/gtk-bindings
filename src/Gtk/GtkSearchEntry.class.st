@@ -33,25 +33,31 @@ GtkSearchEntry class >> new [
 	^ self gtkSearchEntryNew initialize
 ]
 
-{ #category : 'events' }
+{ #category : 'signaling' }
+GtkSearchEntry >> connectActivate: aBlock [
+
+	(GActivateCallback do: aBlock) connectTo: self
+]
+
+{ #category : 'signaling' }
 GtkSearchEntry >> connectNextMatch: aBlock [
 
 	^ self connect: 'next-match' do: aBlock
 ]
 
-{ #category : 'events' }
+{ #category : 'signaling' }
 GtkSearchEntry >> connectPreviousMatch: aBlock [
 
 	^ self connect: 'previous-match' do: aBlock
 ]
 
-{ #category : 'events' }
+{ #category : 'signaling' }
 GtkSearchEntry >> connectSearchChanged: aBlock [
 
 	^ self connect: 'search-changed' do: aBlock
 ]
 
-{ #category : 'events' }
+{ #category : 'signaling' }
 GtkSearchEntry >> connectStopSearch: aBlock [
 
 	^ self connect: 'stop-search' do: aBlock
