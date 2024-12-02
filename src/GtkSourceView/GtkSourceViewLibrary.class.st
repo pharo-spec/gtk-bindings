@@ -55,5 +55,5 @@ GtkSourceViewLibrary >> unix64LibraryName [
 { #category : 'accessing platform' }
 GtkSourceViewLibrary >> win32LibraryName [ 
 
-	^ 'libgtksourceview-3.0-1.dll'
+	^ FFIWindowsLibraryFinder findLibrary: 'libgtksourceview-5-0.dll'
 ]
