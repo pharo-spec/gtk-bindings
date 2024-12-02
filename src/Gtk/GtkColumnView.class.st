@@ -139,7 +139,7 @@ GtkColumnView >> removeColumn: aColumn [
 GtkColumnView >> scrollToPosition: index [
 
 	self 
-		scrollToPosition: index 
+		scrollToPosition: index
 		flags: GTK_LIST_SCROLL_FOCUS
 ]
 

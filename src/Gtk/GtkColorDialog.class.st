@@ -49,9 +49,7 @@ GtkColorDialog class >> exampleChooseRGBA [
 	GRunLoop defer: [ 
 		GtkColorDialog new 
 			title: 'Test';
-			chooseRGBADo: [ :rgba | rgba inspect ] ].
-		
-	'ok' crTrace
+			chooseRGBADo: [ :rgba | rgba inspect ] ]
 ]
 
 { #category : 'private' }
