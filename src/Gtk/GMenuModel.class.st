@@ -4,8 +4,8 @@ https://docs.gtk.org/gio/class.MenuModel.html
 Class {
 	#name : 'GMenuModel',
 	#superclass : 'GObject',
-	#traits : 'GdkTLibrary',
-	#classTraits : 'GdkTLibrary classTrait',
+	#traits : 'GLibIOTLibrary',
+	#classTraits : 'GLibIOTLibrary classTrait',
 	#category : 'Gtk-Widget-Menu',
 	#package : 'Gtk',
 	#tag : 'Widget-Menu'

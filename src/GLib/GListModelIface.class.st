@@ -38,7 +38,7 @@ GListModelIface class >> gType [
 
 	^ self 
 		ffiCall: #(gsize g_list_model_get_type())
-		module: GtkLibrary
+		module: GLibIOLibrary
 ]
 
 { #category : 'accessing - structure variables' }
