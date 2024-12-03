@@ -12,8 +12,8 @@ Class {
 	#superclass : 'GObject',
 	#traits : 'GLibIOTLibrary + GTListModel',
 	#classTraits : 'GLibIOTLibrary classTrait + GTListModel classTrait',
-	#category : 'GLib-Lists',
-	#package : 'GLib',
+	#category : 'GLib-IO-Lists',
+	#package : 'GLib-IO',
 	#tag : 'Lists'
 }
 

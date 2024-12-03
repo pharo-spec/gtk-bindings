@@ -16,8 +16,8 @@ Class {
 		'OFFSET_GET_ITEM_TYPE',
 		'OFFSET_GET_N_ITEMS'
 	],
-	#category : 'GLib-Lists',
-	#package : 'GLib',
+	#category : 'GLib-IO-Lists',
+	#package : 'GLib-IO',
 	#tag : 'Lists'
 }
 

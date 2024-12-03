@@ -6,8 +6,8 @@ Trait {
 	#instVars : [
 		'type'
 	],
-	#category : 'GLib-Lists',
-	#package : 'GLib',
+	#category : 'GLib-IO-Lists',
+	#package : 'GLib-IO',
 	#tag : 'Lists'
 }
 
