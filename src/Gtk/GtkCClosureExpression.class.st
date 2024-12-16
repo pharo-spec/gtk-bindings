@@ -31,11 +31,14 @@ GtkCClosureExpression class >> gtkNewType: value_type callback: callback_func [
 GtkCClosureExpression class >> newStringCallback: aBlock [
 	| callback |
 
+	"the caller takes ownership of return vlue and it will free it when not using 
+	 it anymore, that' s why we answer a pointer and not a char*. Callback block can 
+	 take this shape: [ :handle | ExternalAddress fromString: 'Hello, Expression' ]"
 	callback := GCallback
-		signature: #(char * (void *handle))
+		signature: #(void *(void *handle))
 		block: aBlock.
 
-	^ (self gtkNewType: G_TYPE_STRING callback: callback)
+	^ (self gtkNewType: G_TYPE_POINTER callback: callback)
 		initializeCallback: callback;
 		yourself
 ]
