@@ -28,19 +28,17 @@ GtkCClosureExpression class >> gtkNewType: value_type callback: callback_func [
 ]
 
 { #category : 'instance creation' }
-GtkCClosureExpression class >> newStringCallback: aBlock [
+GtkCClosureExpression class >> newType: gType signature: aSignature block: aBlock [
 	| callback |
 
-	"the caller takes ownership of return vlue and it will free it when not using 
-	 it anymore, that' s why we answer a pointer and not a char*. Callback block can 
-	 take this shape: [ :handle | ExternalAddress fromString: 'Hello, Expression' ]"
 	callback := GCallback
-		signature: #(void *(void *handle))
+		signature: aSignature
 		block: aBlock.
 
-	^ (self gtkNewType: G_TYPE_POINTER callback: callback)
+	^ (self gtkNewType: gType callback: callback)
 		initializeCallback: callback;
 		yourself
+	
 ]
 
 { #category : 'initialization' }
