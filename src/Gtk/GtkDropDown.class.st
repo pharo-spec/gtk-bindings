@@ -46,6 +46,12 @@ GtkDropDown >> connectSelectedItem: aBlock [
 ]
 
 { #category : 'accessing' }
+GtkDropDown >> enableSearch: enable_search [
+
+	self ffiCall: #(void gtk_drop_down_set_enable_search (self, gboolean enable_search))
+]
+
+{ #category : 'accessing' }
 GtkDropDown >> expression: anExpression [
 
 	expression := anExpression.
@@ -71,6 +77,12 @@ GtkDropDown >> factory: aFactory [
 GtkDropDown >> getModel [
 
 	^ self ffiCall: #(GListModel* gtk_drop_down_get_model (self))
+]
+
+{ #category : 'testing' }
+GtkDropDown >> isSearchEnabled [
+
+	^ self ffiCall: #(gboolean gtk_drop_down_get_enable_search (self))
 ]
 
 { #category : 'accessing' }
