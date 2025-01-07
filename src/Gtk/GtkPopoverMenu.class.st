@@ -66,12 +66,6 @@ GtkPopoverMenu >> addChild: aWidget id: id [
 	
 ]
 
-{ #category : 'initialization' }
-GtkPopoverMenu >> autoObjectUnref [
-
-	"self autoRelease"
-]
-
 { #category : 'private' }
 GtkPopoverMenu >> basicAddChild: aWidget id: id [
 

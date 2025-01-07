@@ -8,7 +8,8 @@ Class {
 	#name : 'GtkMenuButton',
 	#superclass : 'GtkButton',
 	#instVars : [
-		'model'
+		'model',
+		'popover'
 	],
 	#pools : [
 		'GtkArrowType'
@@ -76,6 +77,14 @@ GtkMenuButton >> alignMenuWithWidget: aWidget [
 ]
 
 { #category : 'accessing' }
+GtkMenuButton >> alwaysShowArrow: always_show_arrow [
+
+	self ffiCall: #(void gtk_menu_button_set_always_show_arrow (
+		self,
+  		gboolean always_show_arrow))
+]
+
+{ #category : 'accessing' }
 GtkMenuButton >> bePopupDirectionDown [
 
 	self popupDirection: GTK_ARROW_DOWN
@@ -126,7 +135,13 @@ GtkMenuButton >> getMenuModel [
 { #category : 'private' }
 GtkMenuButton >> getPopover [
 
-	^ self ffiCall: #(GtkPopover *gtk_menu_button_get_popover (self))
+	^ self ffiCall: #(GtkPopover* gtk_menu_button_get_popover (self))
+]
+
+{ #category : 'testing' }
+GtkMenuButton >> isAlwaysShowArrow [
+
+	^ self ffiCall: #(gboolean gtk_menu_button_get_always_show_arrow (self))
 ]
 
 { #category : 'accessing' }
@@ -152,13 +167,16 @@ GtkMenuButton >> menuPopup: aMenu widgetGravity: widgetGavity menuGravity: menuG
 { #category : 'accessing' }
 GtkMenuButton >> popover [
 
-	self deprecated: #Gtk4
+	^ popover ifNil: [ popover := self getPopover ]
 ]
 
 { #category : 'accessing' }
 GtkMenuButton >> popover: aPopover [
 
-	self deprecated: #Gtk4
+	popover := aPopover.
+	self setPopover: aPopover.
+	"do not release here"
+	"popover objectUnrefNow"
 ]
 
 { #category : 'accessing' }
@@ -180,6 +198,12 @@ GtkMenuButton >> popupDirection: direction [
 ]
 
 { #category : 'private' }
+GtkMenuButton >> setChild: aWidget [
+
+	self ffiCall: #(void gtk_menu_button_set_child (self, GtkWidget* aWidget))
+]
+
+{ #category : 'private' }
 GtkMenuButton >> setLabel: label [
 
 	self ffiCall: #(void gtk_menu_button_set_label (self, const char* label))
@@ -196,7 +220,7 @@ GtkMenuButton >> setMenuModel: aMenuModel [
 { #category : 'private' }
 GtkMenuButton >> setPopover: aPopover [
 
-	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkPopover *aPopover))
+	self ffiCall: #(void gtk_menu_button_set_popover (self, GtkWidget* aPopover))
 ]
 
 { #category : 'accessing' }

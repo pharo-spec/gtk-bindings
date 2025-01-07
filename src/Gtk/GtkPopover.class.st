@@ -60,11 +60,6 @@ GtkPopover class >> popoverNewRelativeTo: aWidget [
 	^ self ffiCall: #(GtkPopover *gtk_popover_new (GtkWidget *aWidget))
 ]
 
-{ #category : 'initialization' }
-GtkPopover >> autoObjectUnref [
-	"Since this works more or less as a window, do not auto release it."
-]
-
 { #category : 'accessing' }
 GtkPopover >> autohide: autohide [
 
