@@ -63,6 +63,18 @@ GtkSearchEntry >> connectStopSearch: aBlock [
 	^ self connect: 'stop-search' do: aBlock
 ]
 
+{ #category : 'as yet unclassified' }
+GtkSearchEntry >> placeHolderText [
+
+	self ffiCall: #(String gtk_search_entry_get_placeholder_text (self))
+]
+
+{ #category : 'as yet unclassified' }
+GtkSearchEntry >> placeHolderText: text [
+
+	self ffiCall: #(void gtk_search_entry_set_placeholder_text (self, String text))
+]
+
 { #category : 'accessing' }
 GtkSearchEntry >> searchDelay [
 
