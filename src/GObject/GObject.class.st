@@ -483,20 +483,9 @@ GObject >> disconnectMatchedMask: mask
 
 { #category : 'signaling' }
 GObject >> emitSignalByName: detailed_signal [
-	| handledBuffer |
+	"in case we need parameters, we will need to create other methods to add them (as this is a va_list function)"
 
-	handledBuffer := FFIInt64 newBuffer.
-	self 
-		emitSignalByName: detailed_signal 
-		handled: handledBuffer.
-	^ handledBuffer booleanAt: 1
-]
-
-{ #category : 'signaling' }
-GObject >> emitSignalByName: detailed_signal handled: buffer [
-	"buffer is a ByteArray that contains a boolean (int32)"
-
-	self ffiCall: #(void g_signal_emit_by_name (self, const gchar *detailed_signal, void *buffer))
+	self ffiCall: #(void g_signal_emit_by_name (self, const gchar *detailed_signal, NULL))
 ]
 
 { #category : 'accessing - referencing' }
