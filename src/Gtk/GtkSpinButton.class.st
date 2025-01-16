@@ -125,6 +125,12 @@ GtkSpinButton >> climbRate: rate [
 ]
 
 { #category : 'signaling' }
+GtkSpinButton >> connectActivate: aBlock [
+
+	(GActivateCallback do: aBlock) connectTo: self
+]
+
+{ #category : 'signaling' }
 GtkSpinButton >> connectValueChanged: aBlock [
 
 	^ self 
