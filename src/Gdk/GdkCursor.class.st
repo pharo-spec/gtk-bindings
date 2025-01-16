@@ -76,3 +76,7 @@ GdkCursor class >> newWait [
 
 	^ self newFromName: 'wait'
 ]
+
+{ #category : 'initialization' }
+GdkCursor >> autoObjectUnref [
+]

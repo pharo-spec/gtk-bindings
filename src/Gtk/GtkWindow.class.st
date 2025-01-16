@@ -375,7 +375,7 @@ GtkWindow >> getChild [
 { #category : 'private' }
 GtkWindow >> getDefaultSizeWidth: width height: height [
 
-	^ self ffiCall: #(void gtk_window_get_default_size (self, gint *width, gint *height))
+	^ self ffiCall: #(void gtk_window_get_default_size (self, void *width, void *height))
 ]
 
 { #category : 'private' }

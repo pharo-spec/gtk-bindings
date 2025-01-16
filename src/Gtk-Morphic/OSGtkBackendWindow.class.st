@@ -162,11 +162,13 @@ OSGtkBackendWindow >> newCursorFromForm: cursorForm [
 { #category : 'factory' }
 OSGtkBackendWindow >> newFormRenderer: aForm [
 
-	^ GRunLoop defer: [ 
-		OSGtkFormRenderer new
+	GRunLoop defer: [ 
+		renderer := OSGtkFormRenderer new
 			form: aForm;
 			backendWindow: self;
-			yourself ]
+			yourself ].
+			
+	^ renderer
 ]
 
 { #category : 'accessing' }
@@ -233,6 +235,16 @@ OSGtkBackendWindow >> setMouseCursor: cursorForm mask: maskForm [
 OSGtkBackendWindow >> show [
 
 	gtkWindow present
+]
+
+{ #category : 'text input' }
+OSGtkBackendWindow >> startTextInput [
+	"do nothing until I understand what is this about"
+]
+
+{ #category : 'text input' }
+OSGtkBackendWindow >> startTextInputAtRectangle: anObject [
+	"do nothing until I understand what is this about"
 ]
 
 { #category : 'accessing' }

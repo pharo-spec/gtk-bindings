@@ -60,6 +60,12 @@ OSGtkFormRenderer >> initialize [
 	GtkEngine current registerShutdown: self
 ]
 
+{ #category : 'accessing' }
+OSGtkFormRenderer >> outputExtent [
+
+	^ formView parentWindow defaultSize
+]
+
 { #category : 'initialization' }
 OSGtkFormRenderer >> prepareToShutdown [ 
 

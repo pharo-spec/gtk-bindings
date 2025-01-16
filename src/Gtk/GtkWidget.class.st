@@ -971,6 +971,14 @@ GtkWidget >> getColorRGBAInto: color [
 	^ self ffiCall: #(void gtk_widget_get_color (self, GdkRGBA* color))
 ]
 
+{ #category : 'private' }
+GtkWidget >> getNative [
+	"I will get the window from GtkApplication (to keep identity), so I answer just the 
+	 ExternalAddress, skiping any other object creation."
+
+	^ self ffiCall: #(void* gtk_widget_get_native (self))
+]
+
 { #category : 'geometry' }
 GtkWidget >> getPreferredHeightTo: dest_minimum_height naturalTo: dest_natural_height [
 
@@ -1303,7 +1311,7 @@ GtkWidget >> parent: parent [
 GtkWidget >> parentWindow [ 
 	| windowHandle |
 	
-	windowHandle := self getTopLevel.
+	windowHandle := self getNative.
 	windowHandle isNull ifTrue: [ ^ nil ].
 	
 	^ GtkEngine current windowByHandle: windowHandle
