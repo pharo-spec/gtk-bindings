@@ -127,7 +127,7 @@ GdkTEventState >> hasMod5 [
 { #category : 'testing' }
 GdkTEventState >> hasModifier: aModifier [
 
-	^ (self state & (aModifier value)) = aModifier value
+	^ (self state & aModifier) = aModifier
 ]
 
 { #category : 'testing' }
