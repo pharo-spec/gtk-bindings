@@ -1085,6 +1085,15 @@ GtkWidget >> hExpand: expand [
 	self ffiCall: #(void gtk_widget_set_hexpand (self, gboolean expand))
 ]
 
+{ #category : 'testing' }
+GtkWidget >> hasActionGroupNamed: aName [
+
+	^ self actionGroups 
+		at: aName 
+		ifPresent: [ :ignore | true ]
+		ifAbsent: [ false ]
+]
+
 { #category : 'geometry' }
 GtkWidget >> height [
 
@@ -1287,6 +1296,12 @@ GtkWidget >> measureVertical [
 GtkWidget >> nextSibling [
 
 	^ self ffiCall: #(GtkWidget* gtk_widget_get_next_sibling (self))
+]
+
+{ #category : 'private - events' }
+GtkWidget >> observeControllers [
+
+	^ self ffiCall: #(GListModel* gtk_widget_observe_controllers (self))
 ]
 
 { #category : 'accessing - fonts' }
