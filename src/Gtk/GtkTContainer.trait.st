@@ -63,10 +63,10 @@ GtkTContainer >> initializeTContainer [
 ]
 
 { #category : 'inspecting' }
-GtkTContainer >> inspectionWidgets [
+GtkTContainer >> inspectionWidgets: aBuilder [
 	<inspectorPresentationOrder: 10 title: 'Widgets'>
 
-	^ SpTreeTablePresenter new
+	^ aBuilder newTreeTable
 		roots: self children;
 		children: [ :each | 
 			each isContainer 

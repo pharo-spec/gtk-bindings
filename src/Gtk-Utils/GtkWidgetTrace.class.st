@@ -40,10 +40,10 @@ GtkWidgetTrace >> handle: anObject [
 ]
 
 { #category : 'inspecting' }
-GtkWidgetTrace >> inspectionInfo [
+GtkWidgetTrace >> inspectionInfo: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Info'>
 
-	^ SpTablePresenter new 
+	^ aBuilder newTable 
 		hideColumnHeaders;
 		addColumn: (SpStringTableColumn evaluated: [ :assoc | assoc key ]);
 		addColumn: (SpStringTableColumn evaluated: [ :assoc | assoc value ]);

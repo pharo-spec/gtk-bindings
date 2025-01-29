@@ -102,18 +102,18 @@ GtkLeakFinder >> initialize [
 ]
 
 { #category : 'inspecting' }
-GtkLeakFinder >> inspectorLeaks [
+GtkLeakFinder >> inspectorLeaks: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Leaks'>
 	| table |
 
-	^ (table := SpTablePresenter new)
+	^ (table := aBuilder newTable)
 		addColumn: (SpStringTableColumn title: 'Widget' evaluated: [ :assoc | assoc key asString ]);
 		addColumn: (SpStringTableColumn title: 'References' evaluated: [ :assoc | assoc value ]);
 		items: self leaksWithReferenceCount;
 		contextMenu: (SpMenuPresenter new 
 			addItem: [ :item | item 
 				name: 'Explore pointers'; 
-				action: [ StInspector inspect: table selectedItem findAllPaths ] ];
+				action: [ StInspectorPresenter inspect: table selectedItem findAllPaths ] ];
 			yourself);
 		yourself
 ]
