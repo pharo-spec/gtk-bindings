@@ -48,15 +48,15 @@ GtkIMContext >> connectCommit: aBlock [
 
 	^ self 
 		connect: 'commit' 
-		signature: #(void (void *context, char *str, gpointer data)) 
+		signature: #(void (void *context, void *str, gpointer data)) 
 		do: [ :context :str :data | 
-			aBlock value: str ]
+			aBlock value: str utf8StringFromCString ]
 ]
 
 { #category : 'accessing' }
 GtkIMContext >> filterKeypress: event [
 
-	^ self ffiCall: #(gboolean gtk_im_context_filter_keypress (self, #GdkKeyEvent *event))
+	^ self ffiCall: #(gboolean gtk_im_context_filter_keypress (self, GdkKeyEvent *event))
 ]
 
 { #category : 'initialization' }

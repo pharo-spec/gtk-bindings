@@ -6,6 +6,9 @@ https://docs.gtk.org/gtk4/class.EventControllerKey.html
 Class {
 	#name : 'GtkEventControllerKey',
 	#superclass : 'GtkEventController',
+	#instVars : [
+		'imContext'
+	],
 	#category : 'Gtk-Event-Controllers',
 	#package : 'Gtk',
 	#tag : 'Event-Controllers'
@@ -44,8 +47,30 @@ GtkEventControllerKey >> forwardTo: widget [
 	self ffiCall: #(gboolean gtk_event_controller_key_forward (self, GtkWidget* widget))
 ]
 
+{ #category : 'accessing' }
+GtkEventControllerKey >> imContext [
+
+	^ imContext
+]
+
+{ #category : 'accessing' }
+GtkEventControllerKey >> imContext: anImContext [
+
+	imContext := anImContext.
+	self setIMContext: anImContext
+]
+
 { #category : 'testing' }
 GtkEventControllerKey >> isKeyController [
 
 	^ true
+]
+
+{ #category : 'initialization' }
+GtkEventControllerKey >> setIMContext: im_context [
+
+	self ffiCall: #(void gtk_event_controller_key_set_im_context (
+  		self,
+  		GtkIMContext* im_context))
+
 ]
