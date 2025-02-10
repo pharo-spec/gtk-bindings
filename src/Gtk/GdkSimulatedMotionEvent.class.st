@@ -4,9 +4,10 @@ Simulate a `GdkMotionEvent`
 Class {
 	#name : 'GdkSimulatedMotionEvent',
 	#superclass : 'GdkSimulatedEvent',
+	#traits : 'GdkTEventState',
+	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
-		'position',
-		'controller'
+		'position'
 	],
 	#category : 'Gtk-Events-Simulated',
 	#package : 'Gtk',
@@ -36,26 +37,6 @@ GdkSimulatedMotionEvent >> accept: aVisitor [
 	^ aVisitor visitMouseMoveEvent: self
 ]
 
-{ #category : 'accessing' }
-GdkSimulatedMotionEvent >> controller [
-
-	^ controller
-]
-
-{ #category : 'accessing' }
-GdkSimulatedMotionEvent >> controller: aMotionController [
-
-	controller := aMotionController
-]
-
-{ #category : 'testing' }
-GdkSimulatedMotionEvent >> hasButton1Modifier [
-	
-	self controller ifNil: [ ^ false ]. 
-	
-	^ (self controller currentEventState & GdkModifierType GDK_BUTTON1_MASK) = GdkModifierType GDK_BUTTON1_MASK
-]
-
 { #category : 'testing' }
 GdkSimulatedMotionEvent >> isMotionEvent [
 
@@ -72,4 +53,10 @@ GdkSimulatedMotionEvent >> position [
 GdkSimulatedMotionEvent >> position: aPoint [
 
 	position := aPoint
+]
+
+{ #category : 'accessing' }
+GdkSimulatedMotionEvent >> state [
+
+	^ self modifierState
 ]

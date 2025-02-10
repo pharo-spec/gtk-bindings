@@ -1,6 +1,8 @@
 Class {
 	#name : 'GdkSimulatedButtonEvent',
 	#superclass : 'GdkSimulatedEvent',
+	#traits : 'GdkTEventState',
+	#classTraits : 'GdkTEventState classTrait',
 	#instVars : [
 		'position',
 		'numberPress',
@@ -12,9 +14,10 @@ Class {
 }
 
 { #category : 'instance creation' }
-GdkSimulatedButtonEvent class >> newPosition: aPoint numberPress: aNumber [
+GdkSimulatedButtonEvent class >> newController: aGestureController position: aPoint numberPress: aNumber [
 
 	^ self new 
+		controller: aGestureController;
 		position: aPoint;
 		numberPress: aNumber;
 		yourself
@@ -44,6 +47,19 @@ GdkSimulatedButtonEvent >> beSecondaryButton [
 	button := 3
 ]
 
+{ #category : 'accessing' }
+GdkSimulatedButtonEvent >> button [
+
+	^ button
+]
+
+{ #category : 'accessing' }
+GdkSimulatedButtonEvent >> controller: aController [
+
+	super controller: aController. 
+	button := aController button
+]
+
 { #category : 'testing' }
 GdkSimulatedButtonEvent >> isButtonEvent [
 
@@ -68,6 +84,12 @@ GdkSimulatedButtonEvent >> isSecondaryButton [
 	^ button = 2
 ]
 
+{ #category : 'testing' }
+GdkSimulatedButtonEvent >> isWheel [
+	"in fact, I sould know if this is a wheel, isn't?"
+	^  false
+]
+
 { #category : 'accessing' }
 GdkSimulatedButtonEvent >> numberPress [
 
@@ -90,4 +112,9 @@ GdkSimulatedButtonEvent >> position [
 GdkSimulatedButtonEvent >> position: aPoint [
 
 	position := aPoint
+]
+
+{ #category : 'compatibility' }
+GdkSimulatedButtonEvent >> state [
+	^ self modifierState
 ]

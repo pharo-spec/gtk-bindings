@@ -7,7 +7,9 @@ Class {
 	#name : 'GdkSimulatedEvent',
 	#superclass : 'Object',
 	#instVars : [
-		'wasHandled'
+		'wasHandled',
+		'controller',
+		'modifierState'
 	],
 	#category : 'Gtk-Events-Simulated',
 	#package : 'Gtk',
@@ -18,6 +20,26 @@ Class {
 GdkSimulatedEvent >> accept: aVisitor [
 
 	self subclassResponsibility
+]
+
+{ #category : 'accessing' }
+GdkSimulatedEvent >> button [
+	"button number pressed. 
+	 by default, zero"
+
+	^ 0
+]
+
+{ #category : 'accessing' }
+GdkSimulatedEvent >> controller [
+
+	^ controller
+]
+
+{ #category : 'accessing' }
+GdkSimulatedEvent >> controller: aMotionController [
+
+	controller := aMotionController
 ]
 
 { #category : 'initialization' }
@@ -51,6 +73,12 @@ GdkSimulatedEvent >> isMotionEvent [
 	^ false
 ]
 
+{ #category : 'accessing' }
+GdkSimulatedEvent >> modifierState [
+
+	^ modifierState ifNil: [ modifierState := self controller currentEventState ]
+]
+
 { #category : 'compatibility' }
 GdkSimulatedEvent >> wasHandled [
 
@@ -61,4 +89,8 @@ GdkSimulatedEvent >> wasHandled [
 GdkSimulatedEvent >> wasHandled: aBoolean [
 
 	wasHandled := aBoolean
+]
+
+{ #category : 'accessing' }
+GdkSimulatedEvent >> withPositionRelativeTo: aGtkMorphicWorldView [
 ]

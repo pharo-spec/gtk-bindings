@@ -39,6 +39,12 @@ GtkGestureSingle >> beButtonSecondary [
 ]
 
 { #category : 'accessing' }
+GtkGestureSingle >> button [
+
+	^  self ffiCall: #(guint gtk_gesture_single_get_current_button (self))
+]
+
+{ #category : 'accessing' }
 GtkGestureSingle >> button: button [
 
 	self ffiCall: #(void gtk_gesture_single_set_button (self, guint button))
