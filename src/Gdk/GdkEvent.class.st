@@ -145,11 +145,12 @@ GdkEvent >> ffiLibrary [
 
 { #category : 'private' }
 GdkEvent >> getPosition [
-	| x y xFloat yFloat |
+	| x y xFloat yFloat wasSet |
 
 	x := FFIFloat64 newBuffer.
 	y := FFIFloat64 newBuffer.
-	self getPositionX: x y: y.
+	wasSet := self getPositionX: x y: y.
+	wasSet ifFalse: [ ^ 0@0 ].
 
 	xFloat := x doubleAt: 1.
 	xFloat isNaN ifTrue: [ xFloat := 0 ].
