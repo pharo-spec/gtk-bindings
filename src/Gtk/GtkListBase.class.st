@@ -72,10 +72,18 @@ GtkListBase >> selectionModel [
 
 { #category : 'accessing' }
 GtkListBase >> selectionModel: aModel [
+	| oldSelectionModel |
 
+	"I keep old selection model while I perform operations to prevent 
+	 posible undesired finalisations (not sure this is going to work, 
+	 but I realise sometimes while changing model it crashes because 
+	 clear the model fails (in gtk side) :("
+	oldSelectionModel := selectionModel.
+	oldSelectionModel ifNotNil: [ oldSelectionModel objectRef ].
 	selectionModel := aModel.
 	self setModel: selectionModel.
-	selectionModel objectUnrefNow
+	selectionModel objectUnrefNow.
+	oldSelectionModel ifNotNil: [ oldSelectionModel objectUnref ]
 ]
 
 { #category : 'private' }
