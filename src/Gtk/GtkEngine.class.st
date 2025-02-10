@@ -112,7 +112,7 @@ GtkEngine >> hasValidApplication [
 
 { #category : 'private - running' }
 GtkEngine >> installGClasses [
-	
+
 	TFProcessLocalWorker 
 		use: TFMainThreadRunner uniqueInstance
 		during: [ 
@@ -132,7 +132,7 @@ GtkEngine >> start [
 
 	self isRunning ifTrue: [ self stop ].
 	
-	"self installGClasses."
+	self installGClasses.
 	self ensureApplication.
 	GApplicationStartAnnouncement emit.
 	self startEngineSupports.
