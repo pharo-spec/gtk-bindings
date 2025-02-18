@@ -5,8 +5,9 @@ Class {
 	#name : 'GtkMorphicEventHandler',
 	#superclass : 'OSWindowMorphicEventHandler',
 	#instVars : [
-		'imContext',
-		'lastEvent'
+		'lastModifiers',
+		'lastPosition',
+		'imContext'
 	],
 	#pools : [
 		'GdkKeyCodes'
@@ -76,22 +77,28 @@ GtkMorphicEventHandler class >> symbolCharacterMappingAt: aKey ifAbsent: aBlock 
 ]
 
 { #category : 'private' }
+GtkMorphicEventHandler >> activeHandPosition [
+
+	^ morphicWorld activeHand 
+		ifNotNil: [ :aHand | aHand position ]
+		ifNil: [ 0@0 ]
+]
+
+{ #category : 'private' }
 GtkMorphicEventHandler >> convertModifiers: anEvent [
 	| modifiers button |
 
 	modifiers := 0.
 	
-	"Alt/Option key"
-	anEvent hasAltModifier ifTrue: [
-		"On windows and unix, treat alt key as command key"
-		modifiers := Smalltalk os isWin32 | Smalltalk os isUnix
-			ifTrue: [ modifiers | 2r01000000 ]
-			ifFalse: [ modifiers | 2r00100000 ] ]. 
-	
-	anEvent hasControlModifier ifTrue: [ modifiers := modifiers | 2r00010000 ]. "Control key"
-	anEvent hasShiftModifier ifTrue: [ modifiers := modifiers | 8 ]. "Shift key"
-	anEvent hasCommandModifier ifTrue: [ modifiers := modifiers | 2r01000000 ]. "Cmd key".
-	
+	anEvent hasAltModifier ifTrue: [ 
+		modifiers := modifiers | UserInputEvent altKeyMask ].  
+	anEvent hasControlModifier ifTrue: [ 
+		modifiers := modifiers | UserInputEvent ctrlKeyMask ]. 
+	anEvent hasShiftModifier ifTrue: [ 
+		modifiers := modifiers | UserInputEvent shiftKeyMask ].
+	anEvent hasCommandModifier ifTrue: [ 
+		modifiers := modifiers | UserInputEvent cmdKeyMask ].
+
 	button := anEvent button.
 	(button ~= 1 and: [ anEvent hasButton1Modifier ]) 
 		ifTrue: [ modifiers := modifiers | MouseButtonEvent redButton ].
@@ -104,28 +111,6 @@ GtkMorphicEventHandler >> convertModifiers: anEvent [
 ]
 
 { #category : 'private' }
-GtkMorphicEventHandler >> doKeystroke: aString [
-	| char keyStrokeEvent |
-
-	char := aString first.
-		
-	keyStrokeEvent := KeyboardEvent new
-		setType: #keystroke
-		buttons: (self convertModifiers: lastEvent)
-		position: lastEvent position
-		keyValue: char charCode
-		charCode: char charCode
-		hand:  morphicWorld activeHand
-		stamp: Time millisecondClockValue.
-	
-	keyStrokeEvent
-		scanCode: lastEvent scanCode;
-		key: lastEvent key.
-	
-	self dispatchMorphicEvent: keyStrokeEvent
-]
-
-{ #category : 'private' }
 GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
 	(anEvent isKeyEvent
@@ -135,35 +120,57 @@ GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 		ifTrue: [ UserInterruptHandler new handleUserInterrupt ]
 ]
 
+{ #category : 'initialization' }
+GtkMorphicEventHandler >> finalize [
+
+]
+
 { #category : 'events' }
 GtkMorphicEventHandler >> handleEvent: anEvent [
 	"convert the event to morphic one, and dispatch it whatever..."
 	| morphicEvent |
-	
+
 	morphicEvent := anEvent accept: self.
 	morphicEvent isMorphicEvent ifFalse: [ ^ false ].	
-	
+		
 	self evaluateUserInterrupt: anEvent.
 
 	self dispatchMorphicEvent: morphicEvent.
 
-	^ morphicEvent wasHandled
+	^ true
 ]
 
-{ #category : 'private' }
-GtkMorphicEventHandler >> imContext [
+{ #category : 'events' }
+GtkMorphicEventHandler >> handleKeystroke: aString [
+	| char keyStrokeEvent |
+	"taking just one, on other languages it can be different... mmm"
+	
+	char := aString first.
+		
+	keyStrokeEvent := KeyboardEvent new
+		setType: #keystroke
+		buttons: lastModifiers
+		position: (lastPosition ifNil: [ 0@0 ])
+		keyValue: char charCode
+		charCode: char charCode
+		hand:  morphicWorld activeHand
+		stamp: Time now.
+	keyStrokeEvent key: (KeyboardKey 
+		fromCharacter: char
+		ifNone: [ nil ]).
 
-	^ imContext ifNil: [ 
-		imContext := GRunLoop defer: [ GtkIMContext newSimple ] ]
+	 self dispatchMorphicEvent: keyStrokeEvent.
+		
+	^ keyStrokeEvent
 ]
 
 { #category : 'initialization' }
 GtkMorphicEventHandler >> initialize [
 
 	super initialize.
-	GRunLoop defer: [ 
-		self imContext 
-			connectCommit: [ :aString | self doKeystroke: aString ] ]
+	imContext := GRunLoop defer: [ 
+		GtkIMContext newSimple
+			connectCommit: [ :aString | self handleKeystroke: aString ] ]
 ]
 
 { #category : 'private' }
@@ -194,27 +201,11 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 		stamp: Time millisecondClockValue.
 	keyDownEvent
 		scanCode: anEvent scanCode;
-		key: anEvent key.
+		key: anEvent key..
 
 	self dispatchMorphicEvent: keyDownEvent.
 	
 	^ keyDownEvent
-]
-
-{ #category : 'private' }
-GtkMorphicEventHandler >> processKeystrokeEvent: anEvent modifiers: modifiers [
-
-	anEvent isTextInput ifFalse: [ ^ nil ].
-
-	"That's stupid and horrible, but that's the way we doing it for now"
-	anEvent keyValue = 27 "Esc" ifFalse: [
-		anEvent character ifNil: [ 
-			(modifiers alt or: [ modifiers ctrl or: [ modifiers cmd ] ]) ifFalse: [ 
-				^ nil ] ] ].
-
-	lastEvent := anEvent copyInMemory.		
-	GRunLoop defer: [ 
-		self imContext filterKeypress: anEvent ]
 ]
 
 { #category : 'visiting' }
@@ -225,15 +216,16 @@ GtkMorphicEventHandler >> visitCrossingEvent: anEvent [
 
 { #category : 'visiting' }
 GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
-	| modifiers keyDownEvent |
+	| keyDownEvent |
 
-	modifiers := self convertModifiers: anEvent modifiers.
-	keyDownEvent := self processKeyDownEvent: anEvent modifiers: modifiers.
-	self processKeystrokeEvent: anEvent modifiers: modifiers.
-	
-	keyDownEvent ifNotNil: [ 
-		keyDownEvent wasHandled: ((morphicWorld morph handlesKeyDown: keyDownEvent) 
-			or: [ morphicWorld morph handlesKeyStroke: keyDownEvent ]) ].
+	lastPosition  := self activeHandPosition.
+	lastModifiers := self convertModifiers: anEvent modifiers.
+	keyDownEvent := self processKeyDownEvent: anEvent modifiers: lastModifiers.	
+
+	GRunLoop defer: [
+		anEvent ref.
+		imContext filterKeypress: anEvent.
+		anEvent unref ].
 	
 	^ keyDownEvent
 ]
@@ -263,7 +255,6 @@ GtkMorphicEventHandler >> visitKeyUpEvent: anEvent [
 { #category : 'visiting' }
 GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 
-	GRunLoop defer: [ self imContext reset ].
 	^ super visitMouseButtonPressEvent: anEvent
 ]
 
