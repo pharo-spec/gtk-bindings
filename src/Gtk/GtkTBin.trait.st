@@ -35,8 +35,9 @@ GtkTBin >> child [
 { #category : 'accessing' }
 GtkTBin >> child: aWidget [
 
-	child := aWidget.
-	self setChild: aWidget
+	self withReferenceOf: child do: [ 
+		child := aWidget.
+		self setChild: aWidget ]
 ]
 
 { #category : 'private' }
