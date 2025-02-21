@@ -562,6 +562,12 @@ GtkMorphView >> isUpdating [
 	^ updating
 ]
 
+{ #category : 'testing' }
+GtkMorphView >> isWorldMorph [
+	
+	^ true
+]
+
 { #category : 'world simulation' }
 GtkMorphView >> kmDispatcher [
 
@@ -774,6 +780,12 @@ GtkMorphView >> stopStepping: aMorph selector: aSelector [
 				each receiver == aMorph 
 				and: [ each selector == aSelector ] ]))
 		do: [ :each | each cancel ]
+]
+
+{ #category : 'submorphs - accessing' }
+GtkMorphView >> submorphs [
+	
+	^ { self morph }
 ]
 
 { #category : 'world simulation' }
