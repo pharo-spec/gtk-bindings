@@ -1125,7 +1125,7 @@ GtkWidget >> insertActionGroup: aName actions: aGroup [
 
 	actionGroups ifNil: [ actionGroups := SmallDictionary new ].
 	(actionGroups includesKey: aName) ifTrue: [ 
-		self error: 'There is already an action group named ""', aName, '"" in widget' ].
+		self error: 'There is already an action group named "', aName, '" in widget' ].
 	actionGroups at: aName put: aGroup.
 	self 
 		basicInsertActionGroup: aName 
