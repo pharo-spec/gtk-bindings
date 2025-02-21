@@ -97,6 +97,14 @@ GtkPopover >> beRelativeTo: aWidget [
 	self error: 'Not anymore posible'
 ]
 
+{ #category : 'accessing' }
+GtkPopover >> cascadePopdown: cascade_popdown [ 
+
+	self ffiCall: #(void gtk_popover_set_cascade_popdown (
+		self,
+  		gboolean cascade_popdown))
+]
+
 { #category : 'signaling' }
 GtkPopover >> connectClosed: aBlock [
 
@@ -106,13 +114,13 @@ GtkPopover >> connectClosed: aBlock [
 { #category : 'accessing' }
 GtkPopover >> defaultWidget [
 
-	self deprecated: #Gtk4
+	^ self ffiCall: #(GtkWidget *gtk_popover_get_default_widget (self))
 ]
 
 { #category : 'accessing' }
-GtkPopover >> defaultWidget: aWidget [
+GtkPopover >> defaultWidget: widget [
 
-	self deprecated: #Gtk4
+	self ffiCall: #(void gtk_popover_set_default_widget (self, GtkWidget* widget))
 ]
 
 { #category : 'private' }
@@ -138,6 +146,12 @@ GtkPopover >> isAutohide [
 
 	^ self ffiCall: #(gboolean gtk_popover_get_autohide (self))
 
+]
+
+{ #category : 'testing' }
+GtkPopover >> isCascadePopdown [ 
+
+	self ffiCall: #(gboolean gtk_popover_get_cascade_popdown (self))
 ]
 
 { #category : 'accessing' }
