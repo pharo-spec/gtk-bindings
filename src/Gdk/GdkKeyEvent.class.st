@@ -119,6 +119,29 @@ GdkKeyEvent class >> newKeyReleaseValue: keyVal shift: shiftBoolean meta: metaBo
 	self deprecated: #Gtk4
 ]
 
+{ #category : 'accessing' }
+GdkKeyEvent class >> platformKeyboardKeyFor: anEvent [
+
+	^ self 
+		platformKeyboardKeyValue: anEvent keyValue
+		character: anEvent keyCharacter
+		scanCode: anEvent scanCode
+]
+
+{ #category : 'accessing' }
+GdkKeyEvent class >> platformKeyboardKeyValue: keyValue character: keyCharacter scanCode: scanCode [
+
+	keyValue <= 16rFF ifTrue: [ 
+		(KeyboardKey 
+			fromCharacter: keyCharacter 
+			ifNone: [ nil ])
+			ifNotNil: [ :aKey | ^ aKey ] ].
+		
+	^ KeyboardKey 
+		atValue: keyValue
+		ifAbsent: [ Smalltalk os keyForValue: scanCode ]
+]
+
 { #category : 'utility' }
 GdkKeyEvent class >> unicodeToKeyVal: wc [
 
@@ -134,15 +157,7 @@ GdkKeyEvent >> asKeyCombination [
 { #category : 'compatibility' }
 GdkKeyEvent >> basicKey [
 
-	self keyValue <= 16rFF ifTrue: [ 
-		(KeyboardKey 
-			fromCharacter: self keyCharacter 
-			ifNone: [ nil ])
-			ifNotNil: [ :aKey | ^ aKey ] ].
-		
-	^ KeyboardKey 
-		atValue: self keyValue
-		ifAbsent: [ Smalltalk os keyForValue: self scanCode ]
+	^ self class platformKeyboardKeyFor: self
 ]
 
 { #category : 'compatibility' }
