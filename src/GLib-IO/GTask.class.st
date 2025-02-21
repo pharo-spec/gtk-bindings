@@ -1,5 +1,7 @@
 "
 https://docs.gtk.org/gio/class.Task.html
+
+WARNING create a task on your side will not be registered for garbage collection, you need to call `objectUnref` yourself to free it.
 "
 Class {
 	#name : 'GTask',
@@ -82,6 +84,11 @@ GTask class >> newSource: source_object cancellableHandle: cancellable readyCall
 			readyCallbackHandle: callback 
 			data: callback_data )
 		initialize
+]
+
+{ #category : 'initialization' }
+GTask >> autoObjectUnref [
+	"do not autoObjectUnref"
 ]
 
 { #category : 'accessing' }
