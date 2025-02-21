@@ -908,3 +908,14 @@ GObject >> withObjectReferenceDo: aBlock [
 	aBlock ensure: [ 
 		self objectUnref ]
 ]
+
+{ #category : 'private' }
+GObject >> withReferenceOf: aGObject do: aBlock [ 
+	| oldGObject |
+	
+	oldGObject := aGObject.
+	oldGObject ifNotNil: [ oldGObject objectRef ].
+	aBlock ensure: [ 
+		oldGObject ifNotNil: [ 
+			oldGObject objectUnref ] ]
+]
