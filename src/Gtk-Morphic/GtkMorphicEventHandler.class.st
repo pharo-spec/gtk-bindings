@@ -155,9 +155,10 @@ GtkMorphicEventHandler >> handleKeystroke: aString [
 		charCode: char charCode
 		hand:  morphicWorld activeHand
 		stamp: Time now.
-	keyStrokeEvent key: (KeyboardKey 
-		fromCharacter: char
-		ifNone: [ nil ]).
+	keyStrokeEvent key: (GdkKeyEvent 
+		platformKeyboardKeyValue: char charCode
+		character: char charCode
+		scanCode: char charCode).
 
 	 self dispatchMorphicEvent: keyStrokeEvent.
 		
@@ -201,10 +202,8 @@ GtkMorphicEventHandler >> processKeyDownEvent: anEvent modifiers: modifiers [
 		stamp: Time millisecondClockValue.
 	keyDownEvent
 		scanCode: anEvent scanCode;
-		key: anEvent key..
+		key: anEvent key.
 
-	self dispatchMorphicEvent: keyDownEvent.
-	
 	^ keyDownEvent
 ]
 
@@ -217,6 +216,7 @@ GtkMorphicEventHandler >> visitCrossingEvent: anEvent [
 { #category : 'visiting' }
 GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	| keyDownEvent |
+	anEvent printToStdout.
 
 	lastPosition  := self activeHandPosition.
 	lastModifiers := self convertModifiers: anEvent modifiers.
@@ -248,8 +248,8 @@ GtkMorphicEventHandler >> visitKeyUpEvent: anEvent [
 	keyUpEvent
 		scanCode: anEvent scanCode;
 		key: anEvent key.
-	
-	self dispatchMorphicEvent: keyUpEvent
+		
+	^ keyUpEvent
 ]
 
 { #category : 'visiting' }
