@@ -205,6 +205,18 @@ GtkTextView >> placeCursorOnScreen [
 ]
 
 { #category : 'accessing' }
+GtkTextView >> resetCursorBlink [
+
+	self ffiCall: #(void gtk_text_view_reset_cursor_blink (self))
+]
+
+{ #category : 'accessing' }
+GtkTextView >> resetIMContext [ 
+
+	self ffiCall: #(void gtk_text_view_reset_im_context (self))
+]
+
+{ #category : 'accessing' }
 GtkTextView >> rightMargin [
 
 	self ffiCall: #(gint gtk_text_view_get_right_margin (self))
