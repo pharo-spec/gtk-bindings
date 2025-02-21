@@ -314,16 +314,18 @@ GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancella
 		readyCallbackHandle: callback 
 		data: data.
 
-	lastResults := self newResultsFor: word in: text position: position.
-	"returning the pointer will trigger an immediate call to the 
-	 callback providing the result."
-	task 
-		returnPointer: lastResults getHandle
-		destroyNotify: (ExternalAddress 
-			loadSymbol: #g_object_unref 
-			from: GObjectLibrary).
-		
-	task objectUnrefNow
+	[ 
+		lastResults := self newResultsFor: word in: text position: position.
+		"returning the pointer will trigger an immediate call to the 
+	 	 callback providing the result."
+		task 
+			returnPointer: lastResults getHandle
+			destroyNotify: (ExternalAddress 
+				loadSymbol: #g_object_unref 
+				from: GObjectLibrary) ]
+	ensure: [ 
+		task objectUnrefNow ]
+
 ]
 
 { #category : 'accessing - model' }
