@@ -53,9 +53,8 @@ OSGtkBackendWindow >> extent [
 	| size |
 
 	self ifWindowIsNotValid: [ ^ 0@0 ].
-	GRunLoop defer: [ size := gtkWindow defaultSize ].
-	
-	^ size
+	size := GRunLoop defer: [ self gtkWindow child size ].
+	^ size ifNil: [ 1400@1000 ]
 ]
 
 { #category : 'accessing' }
