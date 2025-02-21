@@ -103,7 +103,7 @@ GtkFormView >> resizeIfEnabledTo: extent [
 { #category : 'events' }
 GtkFormView >> tryFocus: anEvent [
 	
-	anEvent type = GdkEventType GDK_ENTER_NOTIFY ifFalse: [ ^ self ].
+	self isFocus ifTrue: [ ^ self ].
 	self grabFocus
 ]
 
