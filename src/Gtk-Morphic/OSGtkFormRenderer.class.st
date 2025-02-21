@@ -29,19 +29,17 @@ OSGtkFormRenderer >> deferUpdatesWhile: aBlock [
 { #category : 'private' }
 OSGtkFormRenderer >> ensureEventHandler [
 	"ensure we use the correct event handler"
-		
+
 	formView eventHandler: (GtkMorphicEventHandler new 
 		morphicWorld: backendWindow osWindow eventHandler morphicWorld;
-		yourself).
-
+		yourself)
 ]
 
 { #category : 'private' }
 OSGtkFormRenderer >> ensureFormView [
 	"ensure window contains a world morph view"
 	
-	backendWindow gtkWindow child: formView.
-	"formView show"
+	backendWindow gtkWindow child: formView
 ]
 
 { #category : 'accessing' }
@@ -86,12 +84,12 @@ OSGtkFormRenderer >> updateAreas: allDamage immediate: forceToScreen [
 	allDamage ifEmpty: [ ^ self ].
 	windowExtent := backendWindow extent.
 
-	allDamage
-		do: [ :rectangle | 
-			intersection := rectangle
-				intersect: (0 @ 0 corner: windowExtent)
-				ifNone: [ nil ].
-			intersection ifNotNil: [ formView invalidateRect: rectangle ] ]
+	allDamage do: [ :rectangle | 
+		intersection := rectangle
+			intersect: (0 @ 0 corner: windowExtent)
+			ifNone: [ nil ].
+		intersection ifNotNil: [ 
+			formView invalidateRect: rectangle ] ]
 ]
 
 { #category : 'updating screen' }

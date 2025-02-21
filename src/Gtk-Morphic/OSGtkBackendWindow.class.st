@@ -131,10 +131,12 @@ OSGtkBackendWindow >> initializeWindowAttributes: attributes [
 	gtkWindow := GtkWindow new.
 	gtkWindow
 		hideOnClose: true;
+		focusable: true;
+		canFocus: true;
 		addEventControllerFocusWith: [ :controller |
 			controller 
-				connectEnter: [ self resetKeyboardFocus ];
-				connectLeave: [ self restoreKeyboardFocus ] ];
+				connectEnter: [ :event | self resetKeyboardFocus ];
+				connectLeave: [ :event | self restoreKeyboardFocus ] ];
 		connectHide: [
 			gtkWindow objectUnref.
 			[ self quitSession ] fork ].
@@ -200,7 +202,7 @@ OSGtkBackendWindow >> raise [
 
 { #category : 'private' }
 OSGtkBackendWindow >> resetKeyboardFocus [
-		
+
 	self currentHand ifNil: [ ^ self ].
 	lastKeyboardFocus := self currentHand keyboardFocus.
 	self currentHand keyboardFocus: nil
