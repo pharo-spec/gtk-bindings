@@ -115,7 +115,7 @@ GtkMorphicEventHandler >> evaluateUserInterrupt: anEvent [
 
 	(anEvent isKeyEvent
 		and: [ anEvent isKeyPress
-		and: [ anEvent hasAnyModifier 
+		and: [ anEvent hasAltModifier 
 		and: [ anEvent keyCharacter = $. ] ] ])
 		ifTrue: [ UserInterruptHandler new handleUserInterrupt ]
 ]
