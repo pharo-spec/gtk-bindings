@@ -36,7 +36,7 @@ GtkSourceViewLibrary >> isAvailable [
 { #category : 'accessing platform' }
 GtkSourceViewLibrary >> macLibraryName [
 
-	^ GMacLibraryFinder findAnyLibrary: #('libgtksourceview-4.0.dylib' 'libgtksourceview-4.dylib')
+	^ GMacLibraryFinder findLibrary: 'libgtksourceview-5.0.dylib'
 ]
 
 { #category : 'converting' }

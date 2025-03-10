@@ -27,12 +27,6 @@ GtkLibrary >> getMinorVersion [
 	^ self ffiCall: #(guint gtk_get_minor_version (void))
 ]
 
-{ #category : 'accessing - platform' }
-GtkLibrary >> macLibraryName [
-
-	^ GMacLibraryFinder findAnyLibrary: #('libgtk-3.0.dylib' 'libgtk-3.dylib')
-]
-
 { #category : 'accessing' }
 GtkLibrary >> matchVersion: aString ifTrue: trueBlock ifFalse: falseBlock [ 
 	

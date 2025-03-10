@@ -60,7 +60,7 @@ GObjectLibrary >> macLibraryName [
 	 library, you will find also the symbols on dependent libraries. 
 	 So I will point directly to the gtk4 library, just to simplify"
 
-	^ GMacLibraryFinder findLibrary: 'libgtk-4.dylib'
+	^ GMacLibraryFinder findLibrary: 'libgtk-4.1.dylib'
 ]
 
 { #category : 'accessing' }
