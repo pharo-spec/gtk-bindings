@@ -81,6 +81,9 @@ GtkMorphicDrawingArea >> eventHandler [
 { #category : 'accessing' }
 GtkMorphicDrawingArea >> eventHandler: aHandler [
 
+	"If this has an event handler, then is focusable"
+	self focusable: true.
+	self canFocus: true.
 	eventHandler := aHandler
 ]
 
@@ -99,13 +102,6 @@ GtkMorphicDrawingArea >> handleEvent: event [
 GtkMorphicDrawingArea >> hasEventHandler [
 
 	^ eventHandler notNil
-]
-
-{ #category : 'initialization' }
-GtkMorphicDrawingArea >> initialize [ 
-
-	super initialize.
-	self canFocus: true
 ]
 
 { #category : 'accessing' }

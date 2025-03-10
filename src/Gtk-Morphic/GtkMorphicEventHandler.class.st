@@ -216,7 +216,6 @@ GtkMorphicEventHandler >> visitCrossingEvent: anEvent [
 { #category : 'visiting' }
 GtkMorphicEventHandler >> visitKeyDownEvent: anEvent [
 	| keyDownEvent |
-	anEvent printToStdout.
 
 	lastPosition  := self activeHandPosition.
 	lastModifiers := self convertModifiers: anEvent modifiers.

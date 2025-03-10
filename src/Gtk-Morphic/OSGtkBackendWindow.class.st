@@ -102,25 +102,25 @@ OSGtkBackendWindow >> initializeCursorMap [
 	"this is a map of cursors from morphic to existing gtk cursors. 
 	 they will be used to not always use the morphic ones, which is not what we want (unless 
 	 specified)"
-	
+
 	gtkCursorMap := Dictionary new
-		at: Cursor resizeBottom put: (GdkCursor newFromName: 'ns-resize');
-		at: Cursor resizeTop put: (GdkCursor newFromName: 'ns-resize');
-		at: Cursor resizeBottomLeft put: (GdkCursor newFromName: 'nesw-resize');
-		at: Cursor resizeBottomRight put: (GdkCursor newFromName: 'nwse-resize');
-		at: Cursor resizeTopLeft put: (GdkCursor newFromName: 'nwse-resize');
-		at: Cursor resizeTopRight put: (GdkCursor newFromName: 'nesw-resize');
-		at: Cursor resizeLeft put: (GdkCursor newFromName: 'ew-resize');
-		at: Cursor blank put: (GdkCursor newFromName: 'none');
-		at: Cursor crossHair put: (GdkCursor newFromName: 'crosshair');
-		at: Cursor up put: (GdkCursor newFromName: 'n-resize');
-		at: Cursor down put: (GdkCursor newFromName: 's-resize');
-		at: Cursor menu put: (GdkCursor newFromName: 'context-menu');
-		at: Cursor normal put: (GdkCursor newFromName: 'default');
-		at: Cursor overEditableText put: (GdkCursor newFromName: 'text');
-		at: Cursor wait put: (GdkCursor newFromName: 'wait');
-		at: Cursor webLink put: (GdkCursor newFromName: 'pointer');
-		at: Cursor write put: (GdkCursor newFromName: 'progress');
+		at: Cursor resizeBottom 			put: (GdkCursor newFromName: 'ns-resize');
+		at: Cursor resizeTop 			put: (GdkCursor newFromName: 'ns-resize');
+		at: Cursor resizeBottomLeft 		put: (GdkCursor newFromName: 'nesw-resize');
+		at: Cursor resizeBottomRight 	put: (GdkCursor newFromName: 'nwse-resize');
+		at: Cursor resizeTopLeft 		put: (GdkCursor newFromName: 'nwse-resize');
+		at: Cursor resizeTopRight 		put: (GdkCursor newFromName: 'nesw-resize');
+		at: Cursor resizeLeft 			put: (GdkCursor newFromName: 'ew-resize');
+		at: Cursor blank 				put: (GdkCursor newFromName: 'none');
+		at: Cursor crossHair 			put: (GdkCursor newFromName: 'crosshair');
+		at: Cursor up 					put: (GdkCursor newFromName: 'n-resize');
+		at: Cursor down 					put: (GdkCursor newFromName: 's-resize');
+		at: Cursor menu 					put: (GdkCursor newFromName: 'context-menu');
+		at: Cursor normal 				put: (GdkCursor newFromName: 'default');
+		at: Cursor overEditableText 		put: (GdkCursor newFromName: 'text');
+		at: Cursor wait 					put: (GdkCursor newFromName: 'wait');
+		at: Cursor webLink 				put: (GdkCursor newFromName: 'pointer');
+		at: Cursor write 				put: (GdkCursor newFromName: 'progress');
 		yourself
 ]
 
