@@ -33,10 +33,10 @@ GtkSourceViewLibrary >> isAvailable [
 			false ]
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GtkSourceViewLibrary >> macLibraryName [
 
-	^ GMacLibraryFinder findAnyLibrary: #('libgtksourceview-4.0.dylib' 'libgtksourceview-4.dylib')
+	^ GMacLibraryFinder findLibrary: 'libgtksourceview-5.0.dylib'
 ]
 
 { #category : 'converting' }
@@ -45,14 +45,14 @@ GtkSourceViewLibrary >> runner [
 	^ GObjectLibrary naturalRunner
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GtkSourceViewLibrary >> unix64LibraryName [
 
 	GtkLibrary isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtksourceview-5.so' ].
 	^ FFIUnix64LibraryFinder findLibrary: 'libgtksourceview-5.so'
 ]
 
-{ #category : 'accessing platform' }
+{ #category : 'accessing - platform' }
 GtkSourceViewLibrary >> win32LibraryName [ 
 
 	^ FFIWindowsLibraryFinder findLibrary: 'libgtksourceview-5-0.dll'
