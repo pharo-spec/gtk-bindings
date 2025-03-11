@@ -73,7 +73,8 @@ GdkTEventState >> hasButton5Modifier [
 GdkTEventState >> hasCommandModifier [
 	"by testing, it seems that macOS command is being mapped to mod2"
 	
-	^ self hasSuperModifier or: [ OSPlatform current isMacOS and: [ self hasMod2 ] ]
+	^ self hasSuperModifier 
+		or: [ OSPlatform current isMacOS and: [ self hasMetaModifier ] ]
 ]
 
 { #category : 'testing' }
