@@ -33,19 +33,19 @@ GdkClipboard >> formats [
 ]
 
 { #category : 'accessing' }
-GdkClipboard >> readText [
-	| sem result error |
+GdkClipboard >> readText [	
+	| text sem |
 
-	sem := Semaphore new.
-	self readTextAsync: (GCallback
-		signature: #(void (void *source, void *result, void *user_data))
-		block: [ :source :aResult :user_data |
-			result := aResult.
-			sem signal ]).
+	GRunLoop current isInCallback
+		ifTrue: [ self error: 'Can''t be executed in a callback.' ].
+
+	sem := Semaphore new.	
+	GRunLoop defer: [ 
+		self readTextDo: [ :aString | 
+			text := aString.
+			sem signal ] ].
 	sem wait.
-	error := GErrorHolder new.
-	(GObject fromHandleUnreferenced: result) autoRelease.
-	^ self readTextFinish: result error: error
+	^ text
 ]
 
 { #category : 'accessing' }
@@ -59,12 +59,24 @@ GdkClipboard >> readTextAsync: callback [
 ]
 
 { #category : 'accessing' }
-GdkClipboard >> readTextFinish: result error: error [
+GdkClipboard >> readTextDo: aBlock [
+
+	self readTextAsync: (GCallback
+		signature: #(void (void *source, void *result, void *user_data))
+		block: [ :source :resultHandle :user_data |
+			| result error text |
+			result := (GObject fromHandleUnreferenced: resultHandle).
+			text := self readTextFinish: result.
+			[ aBlock value: text ] fork ])
+]
+
+{ #category : 'accessing' }
+GdkClipboard >> readTextFinish: result [
 
 	self ffiCall: #(char* gdk_clipboard_read_text_finish (
 		self,
  	 	"GAsyncResult*"void *result,
-  		GErrorHolder error))
+  		NULL))
 ]
 
 { #category : 'accessing' }

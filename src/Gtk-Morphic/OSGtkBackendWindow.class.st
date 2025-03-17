@@ -32,7 +32,7 @@ OSGtkBackendWindow >> bounds: newBounds [
 { #category : 'accessing' }
 OSGtkBackendWindow >> clipboardText [
 
-	^ GRunLoop defer: [ GdkClipboard primary readText withInternalLineEndings ]
+	^ (GRunLoop defer: [ GdkClipboard primary ]) readText withInternalLineEndings
 ]
 
 { #category : 'accessing' }
