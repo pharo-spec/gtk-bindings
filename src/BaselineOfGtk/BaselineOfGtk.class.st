@@ -60,8 +60,8 @@ BaselineOfGtk >> baseline: spec [
 { #category : 'doits' }
 BaselineOfGtk >> installGtkDriver [
 			
-	"Do not switch driver if we are not in MacOS (it is not working there)"
-	self flag: #TODO. "Hopefully temporal :)"
+	"Do not switch driver if we are not in MacOS (mac requires to run a 
+	 single event loop)"
 	Smalltalk platform isMacOS ifFalse: [ ^ self ]. 
 			
 	"If we installed OSGtkDriver, we want to use it as default"
