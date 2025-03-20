@@ -155,6 +155,9 @@ GtkMorphicEventHandler >> handleKeystroke: aString [
 		charCode: char charCode
 		hand:  morphicWorld activeHand
 		stamp: Time now.
+	
+	keyStrokeEvent commandKeyPressed ifTrue: [ ^ self ].
+	
 	keyStrokeEvent key: (GdkKeyEvent 
 		platformKeyboardKeyValue: char charCode
 		character: char charCode
