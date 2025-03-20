@@ -178,6 +178,13 @@ GtkPaned >> position: position [
 	self ffiCall: #(void gtk_paned_set_position (self, gint position))
 ]
 
+{ #category : 'accessing' }
+GtkPaned >> remove: widget [
+
+	widget = startChild ifTrue: [ self startChild: GObject null ].
+	widget = endChild ifTrue: [ self endChild: GObject null ]
+]
+
 { #category : 'private' }
 GtkPaned >> setEndChild: child [
 
