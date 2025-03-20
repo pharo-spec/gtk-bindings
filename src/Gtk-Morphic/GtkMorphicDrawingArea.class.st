@@ -94,6 +94,7 @@ GtkMorphicDrawingArea >> handleEvent: event [
 		event extent = self currentExtent ifFalse: [
 			self invalidate.
 			^ true ] ]."
+	"event crTrace."
 
 	^ eventHandler handleEvent: (event withPositionRelativeTo: self)
 ]

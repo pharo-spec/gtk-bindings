@@ -416,7 +416,7 @@ GtkMorphView >> currentCursor [
 { #category : 'world simulation' }
 GtkMorphView >> currentCursor: aCursor [
 
-	self flag: #TODO.
+	self flag: #TODO
 ]
 
 { #category : 'private' }
