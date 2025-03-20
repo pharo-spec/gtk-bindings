@@ -480,6 +480,22 @@ GtkWidget >> allocation [
 	^ allocation asRectangle
 ]
 
+{ #category : 'accessing - children' }
+GtkWidget >> ancesorOfClass: aWidgetClass [
+	| ancestorHandle |
+
+	ancestorHandle := self ancesorOfGType: aWidgetClass gType.
+	^ ancestorHandle isNull
+		ifTrue: [ nil ]
+		ifFalse: [ aWidgetClass fromHandleUnreferenced: handle ]
+]
+
+{ #category : 'private' }
+GtkWidget >> ancesorOfGType: widget_type [
+
+	^ self ffiCall: #(void* gtk_widget_get_ancestor (self, "GType"gsize widget_type))
+]
+
 { #category : 'converting' }
 GtkWidget >> asListBoxRow [
 
