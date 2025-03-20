@@ -36,7 +36,7 @@ GtkOverlay class >> overlayNew [
 GtkOverlay >> addOverlay: aWidget [
 
 	self keepWidget: aWidget.
-	self basicAddOverlay: aWidget.
+	self basicAddOverlay: aWidget
 ]
 
 { #category : 'private' }
