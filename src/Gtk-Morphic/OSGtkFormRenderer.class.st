@@ -61,7 +61,9 @@ OSGtkFormRenderer >> initialize [
 { #category : 'accessing' }
 OSGtkFormRenderer >> outputExtent [
 
-	^ formView parentWindow defaultSize
+	^ formView parentWindow 
+		ifNotNil: [ :aWindow | aWindow defaultSize ]
+		ifNil: [ OSGtkBackendWindow defaultSize ]
 ]
 
 { #category : 'initialization' }

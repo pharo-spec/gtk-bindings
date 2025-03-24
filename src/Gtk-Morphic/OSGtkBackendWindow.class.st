@@ -15,6 +15,12 @@ Class {
 	#package : 'Gtk-Morphic'
 }
 
+{ #category : 'initialization' }
+OSGtkBackendWindow class >> defaultSize [
+
+	^ 1200@900
+]
+
 { #category : 'instance creation' }
 OSGtkBackendWindow class >> newAttributes: attributes [
 
@@ -54,7 +60,7 @@ OSGtkBackendWindow >> extent [
 
 	self ifWindowIsNotValid: [ ^ 0@0 ].
 	size := GRunLoop defer: [ self gtkWindow child size ].
-	^ size ifNil: [ 1400@1000 ]
+	^ size ifNil: [ self class defaultSize ]
 ]
 
 { #category : 'accessing' }
