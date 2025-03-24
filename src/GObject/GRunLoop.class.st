@@ -15,7 +15,8 @@ Class {
 	#instVars : [
 		'#session',
 		'#running',
-		'#inCallback => ProcessLocalSlot'
+		'#inCallback => ProcessLocalSlot',
+		'#systemWorker'
 	],
 	#pools : [
 		'GObjectTypes'
@@ -92,7 +93,7 @@ GRunLoop >> defer: aBlock [
 { #category : 'deferring - system' }
 GRunLoop >> enterSystem: aBlock [
 
-	aBlock fork
+	systemWorker schedule: aBlock
 ]
 
 { #category : 'deferring - gtk' }
@@ -106,7 +107,10 @@ GRunLoop >> initialize [
 	
 	self class initializeSlots: self. 
 	running := false.
-	super initialize
+	super initialize.
+	systemWorker := TKTWorker new 
+		name: 'GRunLoop back to system';
+		start
 ]
 
 { #category : 'private - installing' }
