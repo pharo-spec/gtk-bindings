@@ -85,6 +85,29 @@ GtkMorphicEventHandler >> activeHandPosition [
 ]
 
 { #category : 'private' }
+GtkMorphicEventHandler >> convertDirection: aDirection delta: aDelta [
+
+	aDirection isUp ifTrue: [ ^ Character arrowUp ].
+	aDirection isDown ifTrue: [ ^ Character arrowDown ].	
+	aDirection isLeft ifTrue: [ ^ Character arrowLeft ].
+	aDirection isRight ifTrue: [ ^ Character arrowRight ].
+	aDirection isSmooth ifTrue: [ ^ self convertDirectionFromDelta: aDelta ].
+	
+	self error: 'Should not arrive here'
+]
+
+{ #category : 'private' }
+GtkMorphicEventHandler >> convertDirectionFromDelta: aDelta [
+
+	aDelta y > 0 ifTrue: [ ^ Character arrowDown ].
+	aDelta y < 0 ifTrue: [ ^ Character arrowUp ].
+	aDelta x > 0 ifTrue: [ ^ Character arrowRight ].
+	aDelta x < 0 ifTrue: [ ^ Character arrowLeft ].
+	
+	^ nil
+]
+
+{ #category : 'private' }
 GtkMorphicEventHandler >> convertModifiers: anEvent [
 	| modifiers button |
 
@@ -132,7 +155,7 @@ GtkMorphicEventHandler >> handleEvent: anEvent [
 
 	morphicEvent := anEvent accept: self.
 	morphicEvent isMorphicEvent ifFalse: [ ^ false ].	
-		
+	
 	self evaluateUserInterrupt: anEvent.
 
 	self dispatchMorphicEvent: morphicEvent.
@@ -263,7 +286,13 @@ GtkMorphicEventHandler >> visitMouseButtonPressEvent: anEvent [
 { #category : 'visiting' }
 GtkMorphicEventHandler >> visitScrollEvent: anEvent [
 
-	self flag: #TODO. "do something"
+	^ MouseWheelEvent new
+		  setType: #mouseWheel
+		  position: (lastPosition ifNil: [ 0@0 ])
+		  direction: (self convertDirection: anEvent direction delta: anEvent deltas)
+		  buttons: (self convertModifiers: anEvent modifiers)
+		  hand: self activeHand
+		  stamp: Time millisecondClockValue
 ]
 
 { #category : 'visiting' }

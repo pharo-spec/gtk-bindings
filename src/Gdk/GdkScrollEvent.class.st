@@ -6,10 +6,18 @@ https://docs.gtk.org/gdk4/class.ScrollEvent.html
 Class {
 	#name : 'GdkScrollEvent',
 	#superclass : 'GdkEvent',
+	#traits : 'GdkTEventState',
+	#classTraits : 'GdkTEventState classTrait',
 	#category : 'Gdk-Events',
 	#package : 'Gdk',
 	#tag : 'Events'
 }
+
+{ #category : 'testing' }
+GdkScrollEvent class >> isType: aType [
+
+	^ aType = GDK_SCROLL
+]
 
 { #category : 'visiting' }
 GdkScrollEvent >> accept: aVisitor [
@@ -44,6 +52,12 @@ GdkScrollEvent >> getDeltaX: delta_x y: delta_y [
 GdkScrollEvent >> isStop [
 
 	^ self ffiCall: #(gboolean gdk_scroll_event_is_stop (self))
+]
+
+{ #category : 'compatibility' }
+GdkScrollEvent >> state [
+
+	^ self ffiCall: #(GdkModifierType gdk_event_get_modifier_state (self))
 ]
 
 { #category : 'accessing' }

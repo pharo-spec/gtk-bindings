@@ -62,29 +62,41 @@ GdkScrollDirection class >> enumDecl [
 { #category : 'testing' }
 GdkScrollDirection >> isDown [ 
 
-	^ value = GDK_SCROLL_DOWN
+	^ self = GDK_SCROLL_DOWN
+]
+
+{ #category : 'testing' }
+GdkScrollDirection >> isHorizontal [
+
+	^ self isLeft or: [ self isRight ]
 ]
 
 { #category : 'testing' }
 GdkScrollDirection >> isLeft [
 
-	^ value = GDK_SCROLL_LEFT
+	^ self = GDK_SCROLL_LEFT
 ]
 
 { #category : 'testing' }
 GdkScrollDirection >> isRight [
 
-	^ value = GDK_SCROLL_RIGHT
+	^ self = GDK_SCROLL_RIGHT
 ]
 
 { #category : 'testing' }
 GdkScrollDirection >> isSmooth [
 
-	^ value = GDK_SCROLL_SMOOTH
+	^ self = GDK_SCROLL_SMOOTH
 ]
 
 { #category : 'testing' }
 GdkScrollDirection >> isUp [ 
 
-	^ value = self class GDK_SCROLL_UP
+	^ self = self class GDK_SCROLL_UP
+]
+
+{ #category : 'testing' }
+GdkScrollDirection >> isVertical [
+
+	^ self isUp or: [ self isDown ]
 ]
