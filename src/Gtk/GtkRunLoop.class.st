@@ -40,7 +40,7 @@ GtkRunLoop >> defer: aBlock [
 GtkRunLoop >> enterSystem: aBlock [
 
 	self isInCallback 
-		ifTrue: [ aBlock fork ]
+		ifTrue: [ super enterSystem: aBlock ]
 		ifFalse: [ aBlock value ]
 ]
 

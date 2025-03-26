@@ -109,6 +109,7 @@ GRunLoop >> initialize [
 	running := false.
 	super initialize.
 	systemWorker := TKTWorker new 
+		priority: Processor lowIOPriority;
 		name: 'GRunLoop back to system';
 		start
 ]
