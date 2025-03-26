@@ -39,7 +39,7 @@ OSGtkFormRenderer >> ensureEventHandler [
 OSGtkFormRenderer >> ensureFormView [
 	"ensure window contains a world morph view"
 	
-	backendWindow gtkWindow child: formView
+	backendWindow gtkWindow child: (GtkScrolledWindow newWidget: formView)
 ]
 
 { #category : 'accessing' }
