@@ -60,6 +60,40 @@ GtkFileDialog class >> new [
 	^ self gtkNew initialize
 ]
 
+{ #category : 'private' }
+GtkFileDialog >> executeOpen [
+
+	self 
+		openParent: parent
+		cancellable: GObject null 
+		callback: callback.
+	"I need to release it, to let the system collect it when finished"
+	self objectUnrefNow
+]
+
+{ #category : 'private' }
+GtkFileDialog >> executeSave [
+
+	self 
+		saveParent: parent
+		cancellable: GObject null 
+		callback: callback.
+	"I need to release it, to let the system collect it when finished"
+	self objectUnrefNow
+]
+
+{ #category : 'private' }
+GtkFileDialog >> executeSelectFolder [
+
+	'SELECT' printToStdout.
+	self 
+		selectParent: parent
+		cancellable: GObject null 
+		callback: callback.
+	"I need to release it, to let the system collect it when finished"
+	self objectUnrefNow
+]
+
 { #category : 'accessing' }
 GtkFileDialog >> filters: aGListModel [
 
@@ -75,24 +109,42 @@ GtkFileDialog >> initialize [
 	parent := GObject null
 ]
 
-{ #category : 'actions' }
-GtkFileDialog >> openDo: aBlock [
-
-	callback := self newCallback: [ :source :result :user_data |
+{ #category : 'private' }
+GtkFileDialog >> newCallbackFor: aSelector do: aBlock [
+	
+	^ self newCallback: [ :source :result :user_data |
 		| file |
-		file := self openFinishResult: result.
+		file := self perform: aSelector with: result.
 		[
 			aBlock value: (file isNull 
 				ifTrue: [ nil ] 
 				ifFalse: [ file ])
-		] fork ].
-		
-	self 
-		openParent: parent
-		cancellable: GObject null 
-		callback: callback.
-	"I need to release it, to let the system collect it when finished"
-	self objectUnrefNow
+		] fork ]
+]
+
+{ #category : 'private' }
+GtkFileDialog >> newCallbackForOpenDo: aBlock [
+	
+	^ self newCallbackFor: #openFinishResult: do: aBlock
+]
+
+{ #category : 'private' }
+GtkFileDialog >> newCallbackForSaveDo: aBlock [
+	
+	^ self newCallbackFor: #saveFinishResult: do: aBlock
+]
+
+{ #category : 'private' }
+GtkFileDialog >> newCallbackForSelectFolderDo: aBlock [
+	
+	^ self newCallbackFor: #selectFolderFinishResult: do: aBlock
+]
+
+{ #category : 'actions' }
+GtkFileDialog >> openDo: aBlock [
+
+	callback := self newCallbackForOpenDo: aBlock.
+	self executeOpen
 ]
 
 { #category : 'private' }
@@ -125,19 +177,8 @@ GtkFileDialog >> parent: aParent [
 { #category : 'actions' }
 GtkFileDialog >> saveDo: aBlock [
 
-	callback := self newCallback: [ :source :result :user_data |
-		| file |
-		file := self saveFinishResult: result.
-		aBlock value: (file isNull 
-			ifTrue: [ nil ] 
-			ifFalse: [ file ]) ].
-		
-	self 
-		saveParent: parent
-		cancellable: GObject null 
-		callback: callback.
-	"I need to release it, to let the system collect it when finished"
-	self objectUnrefNow
+	callback := self newCallbackForSaveDo: aBlock.
+	self executeSave
 ]
 
 { #category : 'private' }
@@ -164,19 +205,8 @@ GtkFileDialog >> saveParent: aParent cancellable: aCancellable callback: aCallba
 { #category : 'actions' }
 GtkFileDialog >> selectFolderDo: aBlock [
 
-	callback := self newCallback: [ :source :result :user_data |
-		| file |
-		file := self selectFolderFinishResult: result.
-		aBlock value: (file isNull 
-			ifTrue: [ nil ] 
-			ifFalse: [ file ]) ].
-		
-	self 
-		selectParent: parent
-		cancellable: GObject null 
-		callback: callback.
-	"I need to release it, to let the system collect it when finished"
-	self objectUnrefNow
+	callback := self newCallbackForSelectFolderDo: aBlock.
+	self executeSelectFolder
 ]
 
 { #category : 'private' }
