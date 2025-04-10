@@ -45,7 +45,8 @@ GtkFileDialog class >> exampleSave [
 
 	GEngine ensureRunning.
 	GRunLoop defer: [ 
-		GtkFileDialog new saveDo: [ :file | file inspect ] ]
+		GtkFileDialog new 
+			saveDo: [ :file | file inspect ] ]
 ]
 
 { #category : 'private' }
