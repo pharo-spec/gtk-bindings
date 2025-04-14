@@ -26,6 +26,8 @@ GtkGSettingsSchemaSupport >> start [
 
 { #category : 'visiting' }
 GtkGSettingsSchemaSupport >> visitMacOSX: aPlatform [
+
+	self visitWindows64: aPlatform
 ]
 
 { #category : 'visiting' }
