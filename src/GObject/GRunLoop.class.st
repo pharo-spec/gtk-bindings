@@ -15,8 +15,7 @@ Class {
 	#instVars : [
 		'#session',
 		'#running',
-		'#inCallback => ProcessLocalSlot',
-		'#systemWorker'
+		'#inCallback => ProcessLocalSlot'
 	],
 	#pools : [
 		'GObjectTypes'
@@ -92,8 +91,13 @@ GRunLoop >> defer: aBlock [
 
 { #category : 'deferring - system' }
 GRunLoop >> enterSystem: aBlock [
+	"To keep the graphical backend working smoothly, I need to 'escape' as soon as possible 
+	 from each callback gtk will send me (because gtk will wait until the callback returns). 
+	 This escape, however, needs to be executed sequentially, hence the usage of a worker."
 
-	systemWorker schedule: aBlock
+	"systemWorker isBusy crTrace.
+	aBlock crTrace."  
+	aBlock fork
 ]
 
 { #category : 'deferring - gtk' }
@@ -107,11 +111,7 @@ GRunLoop >> initialize [
 	
 	self class initializeSlots: self. 
 	running := false.
-	super initialize.
-	systemWorker := TKTWorker new 
-		priority: Processor lowIOPriority;
-		name: 'GRunLoop back to system';
-		start
+	super initialize
 ]
 
 { #category : 'private - installing' }
