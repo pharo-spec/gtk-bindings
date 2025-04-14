@@ -402,7 +402,7 @@ GClass >> typeName [
 
 { #category : 'private - installing' }
 GClass >> validateInstallPreconditions [
-	| selectors |
+"	| selectors |
 
 	selectors := targetClass class selectors.
 	#(gType gClassSize gSize) 
@@ -412,7 +412,7 @@ GClass >> validateInstallPreconditions [
 				format: { 
 					name. 
 					parent name. 
-					each }) ]
+					each }) ]"
 ]
 
 { #category : 'private' }
