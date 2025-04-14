@@ -25,6 +25,14 @@ GtkGSettingsSchemaSupport >> start [
 ]
 
 { #category : 'visiting' }
+GtkGSettingsSchemaSupport >> visitMacOSX: aPlatform [
+]
+
+{ #category : 'visiting' }
+GtkGSettingsSchemaSupport >> visitUnix64: aPlatform [
+]
+
+{ #category : 'visiting' }
 GtkGSettingsSchemaSupport >> visitWindows64: aPlatform [
 
 	OSEnvironment current 
