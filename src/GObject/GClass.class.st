@@ -283,6 +283,7 @@ GClass >> initialize: aBlock [
 { #category : 'installing' }
 GClass >> install [
 
+	logger trace: targetClass.
 	mutex critical: [
 		type := self registerType.
 		type = 0 ifTrue: [ 
@@ -295,7 +296,7 @@ GClass >> install [
 			
 		self class 
 			gClassAt: targetClass 
-			put: self ]
+			put: self ].
 ]
 
 { #category : 'accessing' }
