@@ -62,7 +62,8 @@ GtkRunLoop >> forceDefer: aBlock [
 	sem wait.
 	callerProcess := nil.
 
-	exception ifNotNil: [ 
+	exception ifNotNil: [
+		logger trace: exception. 
 		GtkDeferredError signalForException: exception ].
 
 	^ result
