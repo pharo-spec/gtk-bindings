@@ -626,13 +626,13 @@ GtkWindow >> title: title [
 ]
 
 { #category : 'accessing' }
-GtkWindow >> titleBar [
+GtkWindow >> titlebar [
 
 	self ffiCall: #(GtkWidget *gtk_window_get_titlebar (self))
 ]
 
 { #category : 'accessing' }
-GtkWindow >> titleBar: aTitleBar [
+GtkWindow >> titlebar: aTitleBar [
 
 	self ffiCall: #(void gtk_window_set_titlebar (self, GtkWidget *aTitleBar))
 ]
