@@ -138,6 +138,20 @@ GtkMenuButton >> getPopover [
 	^ self ffiCall: #(GtkPopover* gtk_menu_button_get_popover (self))
 ]
 
+{ #category : 'accessing' }
+GtkMenuButton >> iconName [
+
+	self ffiCall: #(char* gtk_menu_button_get_icon_name (self))
+
+]
+
+{ #category : 'accessing' }
+GtkMenuButton >> iconName: icon_name [
+
+	self ffiCall: #(void gtk_menu_button_set_icon_name (self, const char* icon_name))
+
+]
+
 { #category : 'testing' }
 GtkMenuButton >> isAlwaysShowArrow [
 
