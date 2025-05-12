@@ -14,6 +14,8 @@ BaselineOfGtk >> baseline: spec [
 		do: [ 
 			spec postLoadDoIt: #postLoad.
 
+			self lightLogger: spec.
+			
 			spec
 				"this is GLib, but refering to a baseline in same repository is not correctly 
 				 supported right now in metacello, so we are forced to duplicate. 
@@ -68,6 +70,15 @@ BaselineOfGtk >> installGtkDriver [
 	Smalltalk globals
 		at: #OSGtkDriver
 		ifPresent: [ :driverClass | OSWindowDriver driverClass: driverClass ]
+]
+
+{ #category : 'baseline' }
+BaselineOfGtk >> lightLogger: spec [
+
+	spec baseline: 'LightLogger' with: [ 
+		spec 
+			repository: 'github://pharo-project/beacon';
+			loads: #('default') ]
 ]
 
 { #category : 'doits' }
