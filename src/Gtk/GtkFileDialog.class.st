@@ -86,7 +86,6 @@ GtkFileDialog >> executeSave [
 { #category : 'private' }
 GtkFileDialog >> executeSelectFolder [
 
-	'SELECT' printToStdout.
 	self 
 		selectParent: parent
 		cancellable: GObject null 
