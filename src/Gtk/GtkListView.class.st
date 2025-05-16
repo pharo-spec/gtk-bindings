@@ -155,3 +155,17 @@ GtkListView >> singleClickActivate: single_click_activate [
 
 
 ]
+
+{ #category : 'accessing' }
+GtkListView >> tabBehavior [
+
+	self ffiCall: #(GtkListTabBehavior gtk_list_view_get_tab_behavior (self))
+
+]
+
+{ #category : 'accessing' }
+GtkListView >> tabBehavior: tab_behavior [
+
+	self ffiCall: #(void gtk_list_view_set_tab_behavior (self, GtkListTabBehavior tab_behavior))
+
+]

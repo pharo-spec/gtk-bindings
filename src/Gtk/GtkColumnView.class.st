@@ -201,3 +201,17 @@ GtkColumnView >> singleClickActivate: single_click_activate [
 		self,
 		gboolean single_click_activate))
 ]
+
+{ #category : 'accessing' }
+GtkColumnView >> tabBehavior [
+
+	self ffiCall: #(GtkListTabBehavior gtk_column_view_get_tab_behavior (self))
+
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> tabBehavior: tab_behavior [
+
+	self ffiCall: #(void gtk_column_view_set_tab_behavior (self, GtkListTabBehavior tab_behavior))
+
+]
