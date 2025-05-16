@@ -203,6 +203,15 @@ GtkColumnView >> singleClickActivate: single_click_activate [
 ]
 
 { #category : 'accessing' }
+GtkColumnView >> sortByColumn: column direction: direction [ 
+
+	self ffiCall: #(void gtk_column_view_sort_by_column (
+		self,
+  		GtkColumnViewColumn* column,
+  		GtkSortType direction))
+]
+
+{ #category : 'accessing' }
 GtkColumnView >> tabBehavior [
 
 	self ffiCall: #(GtkListTabBehavior gtk_column_view_get_tab_behavior (self))

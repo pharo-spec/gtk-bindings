@@ -7,7 +7,8 @@ Class {
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
 	#instVars : [
-		'factory'
+		'factory',
+		'sorter'
 	],
 	#category : 'Gtk-Widget-ListView',
 	#package : 'Gtk',
@@ -72,6 +73,12 @@ GtkColumnViewColumn >> isResizable [
 	^ self ffiCall: #(gboolean gtk_column_view_column_get_resizable (self))
 ]
 
+{ #category : 'testing' }
+GtkColumnViewColumn >> isSortable [
+
+	^ self sorter isNotNil
+]
+
 { #category : 'accessing' }
 GtkColumnViewColumn >> resizable: resizable [
 
@@ -86,6 +93,26 @@ GtkColumnViewColumn >> setFactory: aFactory [
 	self ffiCall: #(void gtk_column_view_column_set_factory (
 		self,
   		GtkListItemFactory* aFactory))
+]
+
+{ #category : 'private' }
+GtkColumnViewColumn >> setSorter: aSorter [
+
+	self ffiCall: #(void gtk_column_view_column_set_sorter (self, GtkSorter* aSorter))
+]
+
+{ #category : 'accessing' }
+GtkColumnViewColumn >> sorter [
+
+	^ sorter
+]
+
+{ #category : 'accessing' }
+GtkColumnViewColumn >> sorter: aSorter [
+
+	sorter := aSorter.
+	self setSorter: aSorter.
+	sorter objectUnrefNow
 ]
 
 { #category : 'accessing' }
