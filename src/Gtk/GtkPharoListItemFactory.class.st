@@ -120,7 +120,7 @@ GtkPharoListItemFactory >> setup: itemHandle bind: shouldBind func: func data: d
 { #category : 'accessing' }
 GtkPharoListItemFactory >> teardown: item [
 
-	self subclassResponsibility
+	logger trace: item
 ]
 
 { #category : 'accessing - functions' }
