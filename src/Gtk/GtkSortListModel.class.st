@@ -18,6 +18,20 @@ GtkSortListModel class >> gtkNew [
 	^ self ffiCall: #(GtkSortListModel* gtk_sort_list_model_new (NULL, NULL))
 ]
 
+{ #category : 'instance creation' }
+GtkSortListModel class >> new [
+
+	^ self gtkNew initialize
+]
+
+{ #category : 'instance creation' }
+GtkSortListModel class >> newModel: aModel [
+
+	^ self new 
+		model: aModel;
+		yourself
+]
+
 { #category : 'accessing' }
 GtkSortListModel >> model: aModel [
 
