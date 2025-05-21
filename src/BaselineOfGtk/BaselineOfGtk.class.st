@@ -22,7 +22,7 @@ BaselineOfGtk >> baseline: spec [
 				 BEWARE: If you modify something here, you may want to check and modify 
 				 BaselineOfGLib too."
 				"GLib"
-				package: 'GObject';
+				package: 'GObject' with: [ spec requires: #('LightLogger') ];
 				package: 'GLib' with: [ spec requires: #('GObject') ];
 				package: 'GLib-IO' with: [ spec requires: #('GLib') ];
 				"Gdk"
