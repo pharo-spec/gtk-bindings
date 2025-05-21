@@ -67,6 +67,7 @@ GtkTContainer >> inspectionWidgets: aBuilder [
 	<inspectorPresentationOrder: 10 title: 'Widgets'>
 
 	^ aBuilder newTreeTable
+		addStyle: 'stList';
 		roots: self children;
 		children: [ :each | 
 			each isContainer 

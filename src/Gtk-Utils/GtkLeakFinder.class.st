@@ -107,6 +107,7 @@ GtkLeakFinder >> inspectorLeaks: aBuilder [
 	| table |
 
 	^ (table := aBuilder newTable)
+		addStyle: 'stList';
 		addColumn: (SpStringTableColumn title: 'Widget' evaluated: [ :assoc | assoc key asString ]);
 		addColumn: (SpStringTableColumn title: 'References' evaluated: [ :assoc | assoc value ]);
 		items: self leaksWithReferenceCount;

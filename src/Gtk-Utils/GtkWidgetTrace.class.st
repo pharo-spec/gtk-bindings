@@ -44,6 +44,7 @@ GtkWidgetTrace >> inspectionInfo: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Info'>
 
 	^ aBuilder newTable 
+		addStyle: 'stList';
 		hideColumnHeaders;
 		addColumn: (SpStringTableColumn evaluated: [ :assoc | assoc key ]);
 		addColumn: (SpStringTableColumn evaluated: [ :assoc | assoc value ]);
