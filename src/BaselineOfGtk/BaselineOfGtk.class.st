@@ -77,7 +77,7 @@ BaselineOfGtk >> lightLogger: spec [
 
 	spec baseline: 'LightLogger' with: [ 
 		spec 
-			repository: 'github://pharo-project/beacon';
+			repository: 'github://pharo-project/pharo-beacon';
 			loads: #('default') ]
 ]
 
