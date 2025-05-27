@@ -119,8 +119,11 @@ GtkPharoListItemFactory >> setup: itemHandle bind: shouldBind func: func data: d
 
 { #category : 'accessing' }
 GtkPharoListItemFactory >> teardown: item [
+	| object |
 
-	logger trace: item
+	logger trace: item.
+	object := storedObjects at: item getHandle ifAbsent: [ nil ].
+	logger trace: object
 ]
 
 { #category : 'accessing - functions' }
@@ -150,9 +153,13 @@ GtkPharoListItemFactory >> unbind: item [
 GtkPharoListItemFactory >> update: itemHandle unbind: shouldUnbind bind: shouldBind func: func data: data [
 	| listItem |
 
+	logger trace.
+	logger trace: shouldBind.
+	logger trace: shouldUnbind.
+	logger trace: func.
+
 	listItem := self toListItem: itemHandle.
-	"shouldUnbind ifTrue: [ 
-		'unbind' crTrace.
+	"shouldUnbind ifTrue: [
 		self unbind: listItem ]."
 	func isNull ifFalse: [
 		self execFunction: func with: { itemHandle. data } ].
