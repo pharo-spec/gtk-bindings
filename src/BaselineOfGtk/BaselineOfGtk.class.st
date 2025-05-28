@@ -38,6 +38,8 @@ BaselineOfGtk >> baseline: spec [
 				package: 'Gtk-Morphic-UIManager' with: [ spec requires: #('Gtk-Morphic') ];
 				"testing"
 				package: 'Gtk-Tests' with: [ spec requires: 'Gtk' ];
+				"utils"
+				package: 'Gtk-Utils' with: [ spec requires: 'Gtk' ];
 				"testing morphic"
 				package: 'Gtk-Morphic-Tests' with: [ spec requires: 'Gtk-Morphic' ] ];
 				"pango standalone engine and tests"
