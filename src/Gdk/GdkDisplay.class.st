@@ -54,6 +54,12 @@ GdkDisplay >> defaultSeat [
 ]
 
 { #category : 'accessing' }
+GdkDisplay >> flush [
+
+	self ffiCall: #(void gdk_display_flush (self))
+]
+
+{ #category : 'accessing' }
 GdkDisplay >> monitorAt: aNumber [
 
 	self deprecated: #Gtk4

@@ -32,6 +32,12 @@ GdkClipboard >> formats [
 	^ self ffiCall: #(GdkContentFormats *gdk_clipboard_get_formats (self))
 ]
 
+{ #category : 'private' }
+GdkClipboard >> getDisplay [
+
+	^ self ffiCall: #(GdkDisplay* gdk_clipboard_get_display (self))
+]
+
 { #category : 'accessing' }
 GdkClipboard >> readText [	
 	| text sem |
@@ -80,6 +86,12 @@ GdkClipboard >> readTextFinish: result [
 ]
 
 { #category : 'accessing' }
+GdkClipboard >> setText: text [
+
+	self ffiCall: #(void gdk_clipboard_set_text (self, const char* text))
+]
+
+{ #category : 'accessing' }
 GdkClipboard >> string: aString [
 	| value |
 
@@ -98,7 +110,8 @@ GdkClipboard >> text [
 { #category : 'accessing' }
 GdkClipboard >> text: text [
 
-	self ffiCall: #(void gdk_clipboard_set_text (self, const char* text))
+	self setText: text.
+	self getDisplay flush
 ]
 
 { #category : 'accessing' }
