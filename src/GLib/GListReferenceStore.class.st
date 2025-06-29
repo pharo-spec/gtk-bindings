@@ -28,7 +28,9 @@ GListReferenceStore class >> gDefine: gClass [
 	gClass 
 		parent: GObject;
 		addInterface: GListModelIface 
-			initialize: [ :interface | self gDefineListModelInterface: interface ]
+			initialize: [ :interface | self gDefineListModelInterface: interface ];
+		classInitialize: [ :gclass | 
+			self gDefineSignals: (GTypeClass fromHandle: gclass)]
 ]
 
 { #category : 'class initialization' }
@@ -53,6 +55,19 @@ GListReferenceStore class >> gDefineListModelInterface: iface [
 				(self gInstanceSafe: handle) 
 					ifNotNil: [ :list | list get_item: position ] 
 					ifNil: [ ExternalAddress null ] ]
+]
+
+{ #category : 'class initialization' }
+GListReferenceStore class >> gDefineSignals: aTypeClass [
+
+	"in fact, items-changed already exists on GListModel, which makes this 
+	 useless :("
+	"(GClassSignal on: aTypeClass g_type)
+		name: 'items-changed';
+		signalFlags: GSignalFlags G_SIGNAL_RUN_LAST;
+		parameterTypes: { G_TYPE_UINT. G_TYPE_UINT. G_TYPE_UINT };
+		returnType: G_TYPE_NONE;
+		execute"
 ]
 
 { #category : 'accessing' }
