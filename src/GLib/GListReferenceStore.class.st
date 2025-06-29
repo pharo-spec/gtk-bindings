@@ -113,7 +113,7 @@ GListReferenceStore >> initialize [
 	references := self newReferenceContainer
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'acccessing' }
 GListReferenceStore >> itemAt: aPosition [
 
 	aPosition = 0 ifTrue: [ ^ nil ].
@@ -128,13 +128,13 @@ GListReferenceStore >> itemAtHandle: address [
 	^ self itemAt: ((GObject fromHandleUnreferenced: address) dataAt: 'position') asInteger + 1
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'acccessing' }
 GListReferenceStore >> items [
 
 	^ items
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'acccessing' }
 GListReferenceStore >> items: aSequenceableCollection [
 
 	items := aSequenceableCollection copy.
@@ -146,7 +146,7 @@ GListReferenceStore >> items_changed: position removed: removed added: added [
 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 GListReferenceStore >> newReferenceContainer [
 
 	^ GListReferenceContainer new
