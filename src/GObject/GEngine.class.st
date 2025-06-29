@@ -135,7 +135,7 @@ GEngine >> initialize [
 	super initialize.
 	windowRegistry := IdentitySet new.
 	shutdownRegistry := Set new.
-	disposeRegistry := WeakValueDictionary new.
+	disposeRegistry := "WeakValueDictionary"SmallDictionary new.
 	runLoop := self ensureRunLoop
 ]
 

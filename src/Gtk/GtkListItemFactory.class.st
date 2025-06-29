@@ -38,7 +38,8 @@ GtkListItemFactory class >> gType [
 GtkListItemFactory >> initialize [
 
 	super initialize.
-	self reset
+	self reset.
+	self autoReleaseWhenDisposedByGtk
 ]
 
 { #category : 'accessing' }
