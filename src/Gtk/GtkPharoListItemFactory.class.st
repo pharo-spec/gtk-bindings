@@ -130,6 +130,10 @@ GtkPharoListItemFactory >> teardown: item [
 GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 	| listItem |
 
+	logger trace: item.
+	logger trace: unbind.
+	logger trace: func.
+	
 	listItem := self toListItem: item.
 	unbind ifTrue: [ self unbind: listItem ].
 	self teardown: listItem.
@@ -154,9 +158,9 @@ GtkPharoListItemFactory >> update: itemHandle unbind: shouldUnbind bind: shouldB
 	| listItem |
 
 	logger trace.
-	logger trace: shouldBind.
+	"logger trace: shouldBind.
 	logger trace: shouldUnbind.
-	logger trace: func.
+	logger trace: func."
 
 	listItem := self toListItem: itemHandle.
 	"shouldUnbind ifTrue: [
