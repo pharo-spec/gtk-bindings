@@ -46,25 +46,25 @@ GtkRunLoop >> enterSystem: aBlock [
 
 { #category : 'deferring - gtk' }
 GtkRunLoop >> forceDefer: aBlock [
-	| sem result exception |
+	| sem result "exception" |
 
 	callerProcess := Processor activeProcess.
 	sem := Semaphore new.
-	exception := nil.
+	"exception := nil."
 	mutex critical: [ 
 		GQueueIdle uniqueInstance idleAdd: [
 			result := [
 				aBlock 
 					on: Exception 
-					do: [ :e | exception := e freeze ] ] 
+					fork: [ :e | e pass ] ] 
 				ensure: [ 
 					sem signal ] ] ].
 	sem wait.
 	callerProcess := nil.
 
-	exception ifNotNil: [
+	"exception ifNotNil: [
 		logger trace: exception. 
-		GtkDeferredError signalForException: exception ].
+		GtkDeferredError signalForException: exception ]."
 
 	^ result
 ]
