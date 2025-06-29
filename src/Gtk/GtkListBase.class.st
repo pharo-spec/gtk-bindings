@@ -48,6 +48,7 @@ GtkListBase >> factory [
 GtkListBase >> factory: aFactory [
 
 	factory := aFactory.
+	logger trace: factory.
 	self setFactory: factory.
 	factory objectUnrefNow
 ]
