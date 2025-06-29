@@ -118,7 +118,9 @@ GEngine >> disposeObject: aHandle [
 	gObject ifNil: [ ^ self ].
 	
 	[ gObject finalizedOnGtk ]
-	ensure: [ disposeRegistry removeKey: aHandle ]
+	ensure: [ 
+		disposeRegistry removeKey: aHandle.
+		aHandle beNull ]
 ]
 
 { #category : 'system startup' }
