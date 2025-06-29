@@ -35,6 +35,17 @@ GExternalFunction class >> newName: aName signature: aSignature library: aFFILib
 		library: aFFILibrary
 ]
 
+{ #category : 'as yet unclassified' }
+GExternalFunction >> beVariadicWithFixedArgumentCount: aCount [
+	"Make the function variadic. 
+	 This is needed in ARM systems"
+
+	function definition: (TFVariadicFunctionDefinition 
+		parameterTypes: function definition parameterTypes 
+		returnType: function definition returnType
+		fixedArgumentCount: aCount)
+]
+
 { #category : 'initialization' }
 GExternalFunction >> initializeAddress: anExternalAddress signature: aSignature library: aFFILibrary [
 
