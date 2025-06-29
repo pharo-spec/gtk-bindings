@@ -525,14 +525,21 @@ GObject >> finalize [
 	"when marking for autoRelease, g-objects needs to be freed in a particular way."
 
 	self isValidHandle ifFalse: [ ^ self ].
+	
 	GRunLoop defer: [ 
-		self isObject 
+		"this does not let me detect zombies, but I am having a crash I want to fix
+		 and it happens when calling isObject that is destroyed (because the type 
+		 check will crash ) :/" 
+		"self isObject 
 			ifTrue: [ 
 				GFinalizeAnnouncement emitTarget: self handle: handle.
 				self objectUnref ]
 			ifFalse: [
-				GZombieAnnouncement emitTarget: self handle: handle ].
-		handle beNull ]
+				GZombieAnnouncement emitTarget: self handle: handle ]."
+		logger trace: handle.
+		GFinalizeAnnouncement emitTarget: self handle: handle.
+		[ self objectUnref ]
+		ensure: [ handle beNull ] ]
 ]
 
 { #category : 'finalization' }
