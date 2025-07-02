@@ -114,6 +114,8 @@ GEngine >> disposeCallback [
 GEngine >> disposeObject: aHandle [
 	| gObject |
 
+	logger trace: aHandle. 
+
 	gObject := disposeRegistry at: aHandle ifAbsent: [ nil ].
 	gObject ifNil: [ ^ self ].
 	
@@ -121,6 +123,12 @@ GEngine >> disposeObject: aHandle [
 	ensure: [ 
 		disposeRegistry removeKey: aHandle.
 		aHandle beNull ]
+]
+
+{ #category : 'accessing' }
+GEngine >> disposeRegistry [
+
+	^ disposeRegistry
 ]
 
 { #category : 'system startup' }
@@ -135,7 +143,9 @@ GEngine >> initialize [
 	super initialize.
 	windowRegistry := IdentitySet new.
 	shutdownRegistry := Set new.
-	disposeRegistry := "WeakValueDictionary"SmallDictionary new.
+	"This is a regular dictionery and not a weak value because I actually need to 
+	 keep a string reference to it until it is destroyed at gtk side."
+	disposeRegistry := SmallDictionary new.
 	runLoop := self ensureRunLoop
 ]
 
@@ -160,6 +170,7 @@ GEngine >> naturalRunner [
 { #category : 'registry' }
 GEngine >> registerObjectDispose: aGObject [
 
+	logger trace: aGObject.
 	disposeRegistry at: aGObject getHandle put: aGObject.
 	aGObject 
 		weakRef: self disposeCallback
@@ -262,4 +273,10 @@ GEngine >> windowByHandle: aHandle [
 	^ windowRegistry 
 		detect: [ :each | each getHandle asInteger = numberHandle ] 
 		ifNone: [ nil ]
+]
+
+{ #category : 'accessing' }
+GEngine >> windowRegistry [
+
+	^ windowRegistry
 ]

@@ -41,6 +41,7 @@ GExternalResourceManager >> includesObjectWithHandle: anObject [
 GExternalResourceManager >> removeResource: aGObject [
 	| removed |
 
+	logger trace: aGObject.
 	removed := registry remove: aGObject ifAbsent: [ nil ]. 
 	removed ifNil: [ 
 		registry

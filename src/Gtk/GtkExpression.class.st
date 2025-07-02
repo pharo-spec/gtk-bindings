@@ -23,7 +23,7 @@ GtkExpression >> objectUnref [
 
 { #category : 'accessing - referencing' }
 GtkExpression >> objectUnrefNow [
-
+	
 	self doNotAutoRelease.
 	self objectUnref
 ]

@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'cursor',
 		'child',
-		'defaultWidget'
+		'defaultWidget',
+		'finalizeAction'
 	],
 	#pools : [
 		'GtkWindowPosition',
@@ -355,14 +356,13 @@ GtkWindow >> extent [
 
 { #category : 'finalization' }
 GtkWindow >> finalize [
-	"beware, since hide_on_close = false, window will be destroyed when hiding it 
+	"beware, if hide_on_close = false, window will be destroyed when hiding it 
 	 (causing all tree to be released, including the window). We can't then destroy 
 	 it here. BUT! if you set hide_on_close = true, then you will need to destroy it 
 	 by hand too."
 	
+	logger trace.
 	GFinalizeAnnouncement emitTarget: self handle: handle.
-	"self isAlive ifTrue: [ 
-		self withObjectReferenceDo: [ self destroy ] ]."
 	handle beNull
 ]
 
