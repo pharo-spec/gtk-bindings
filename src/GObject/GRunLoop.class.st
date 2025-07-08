@@ -146,6 +146,11 @@ GRunLoop >> naturalRunner [
 ]
 
 { #category : 'running' }
+GRunLoop >> preInstallRunLoop [
+	"execute before installing the run loop"
+]
+
+{ #category : 'running' }
 GRunLoop >> spawnNewRunLoop [
 
 	^ self subclassResponsibility
@@ -160,6 +165,7 @@ GRunLoop >> start [
 	"I need to declare the event loop running before install it because otherwise
 	 the forked process will finish before we do anything ;)"
 	running := true.
+	self preInstallRunLoop.
 	self installRunLoop
 ]
 

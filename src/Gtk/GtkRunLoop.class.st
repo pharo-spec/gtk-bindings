@@ -28,6 +28,17 @@ GtkRunLoop >> callerProcess [
 	^ callerProcess
 ]
 
+{ #category : 'running' }
+GtkRunLoop >> cleanUpOldProcesses [
+
+	"clean up gtk4 run loop possible remainings (this may happen on certain 
+	 exit conditions)"
+	Processor allProcesses 
+		select: [ :each | each name beginsWith: 'Gtk4' ]
+		thenDo: [ :each | each terminate ]
+
+]
+
 { #category : 'deferring - gtk' }
 GtkRunLoop >> defer: aBlock [
 
@@ -108,6 +119,12 @@ GtkRunLoop >> isRunning [
 GtkRunLoop >> naturalRunner [
 
 	^ TFMainThreadRunner uniqueInstance
+]
+
+{ #category : 'running' }
+GtkRunLoop >> preInstallRunLoop [ 
+
+	self cleanUpOldProcesses
 ]
 
 { #category : 'private - installing' }
