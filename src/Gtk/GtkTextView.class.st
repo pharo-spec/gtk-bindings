@@ -297,9 +297,10 @@ GtkTextView >> textBuffer [
 { #category : 'accessing' }
 GtkTextView >> textBuffer: aTextBuffer [ 
 
-	textBuffer := aTextBuffer.
-	self setBuffer: aTextBuffer.
-	textBuffer objectUnrefNow
+	self withReferenceOf: textBuffer do: [
+		textBuffer := aTextBuffer.
+		self setBuffer: aTextBuffer.
+		textBuffer objectUnrefNow ]
 ]
 
 { #category : 'accessing' }
