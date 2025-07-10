@@ -33,7 +33,9 @@ GtkGSettingsSchemaSupport >> start [
 { #category : 'visiting' }
 GtkGSettingsSchemaSupport >> visitMacOSX: aPlatform [
 
-	self visitWindows64: aPlatform
+	OSEnvironment current 
+		at: #GSETTINGS_SCHEMA_DIR
+		put: FileLocator vmDirectory fullName
 ]
 
 { #category : 'visiting' }
@@ -44,6 +46,6 @@ GtkGSettingsSchemaSupport >> visitUnix64: aPlatform [
 GtkGSettingsSchemaSupport >> visitWindows64: aPlatform [
 
 	OSEnvironment current 
-		at: #GSETTINGS_SCHEMA_DIR
-		put: FileLocator vmDirectory fullName
+		at: #GDK_DISABLE put: 'gl';
+		at: #GSETTINGS_SCHEMA_DIR put: FileLocator vmDirectory fullName
 ]
