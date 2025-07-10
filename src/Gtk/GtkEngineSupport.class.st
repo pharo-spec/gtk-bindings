@@ -16,7 +16,7 @@ GtkEngineSupport class >> allAvailable [
 	^ self allSubclasses 
 		select: [ :each | 
 			each isAvailable 
-				and: [ self shouldRunBeforeEngineInitialization ] ]
+				and: [ self shouldRunBeforeEngineInitialization not ] ]
 		thenCollect: [ :each | each new ]
 ]
 
