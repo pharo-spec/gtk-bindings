@@ -14,12 +14,30 @@ Class {
 GtkEngineSupport class >> allAvailable [
 	
 	^ self allSubclasses 
-		select: [ :each | each isAvailable ]
+		select: [ :each | 
+			each isAvailable 
+				and: [ self shouldRunBeforeEngineInitialization ] ]
+		thenCollect: [ :each | each new ]
+]
+
+{ #category : 'accessing' }
+GtkEngineSupport class >> allAvailableForExecuteBeforeInitialization [
+	
+	^ self allSubclasses 
+		select: [ :each | 
+			each isAvailable 
+				and: [ self shouldRunBeforeEngineInitialization ] ]
 		thenCollect: [ :each | each new ]
 ]
 
 { #category : 'testing' }
 GtkEngineSupport class >> isAvailable [
+
+	^ false
+]
+
+{ #category : 'testing' }
+GtkEngineSupport class >> shouldRunBeforeEngineInitialization [
 
 	^ false
 ]

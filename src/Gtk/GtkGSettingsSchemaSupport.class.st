@@ -18,6 +18,12 @@ GtkGSettingsSchemaSupport class >> isAvailable [
 	^  true
 ]
 
+{ #category : 'testing' }
+GtkGSettingsSchemaSupport class >> shouldRunBeforeEngineInitialization [
+
+	^ true
+]
+
 { #category : 'accessing' }
 GtkGSettingsSchemaSupport >> start [
 
