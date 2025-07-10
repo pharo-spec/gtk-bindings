@@ -87,7 +87,9 @@ GtkEngine >> ensureApplication [
 
 	application := self applicationClass
 		newId: self applicationId
-		flags: G_APPLICATION_NON_UNIQUE | G_APPLICATION_CAN_OVERRIDE_APP_ID.
+		flags: G_APPLICATION_DEFAULT_FLAGS 
+			| G_APPLICATION_NON_UNIQUE 
+			| G_APPLICATION_CAN_OVERRIDE_APP_ID.
 	application register.
 	
 	"this 'leaks', but since once started an application it cannot be destroyed unless you quit, 
@@ -132,8 +134,10 @@ GtkEngine >> start [
 
 	self isRunning ifTrue: [ self stop ].
 	
+	self startEngineSupportsBeforeInitialization.
 	self installGClasses.
 	self ensureApplication.
+
 	GApplicationStartAnnouncement emit.
 	self startEngineSupports.
 	initAction ifNotNil: [ initAction cull: self ].
@@ -144,6 +148,13 @@ GtkEngine >> start [
 GtkEngine >> startEngineSupports [
 	
 	GtkEngineSupport allAvailable do: [ :each | each start ]
+]
+
+{ #category : 'private - running' }
+GtkEngine >> startEngineSupportsBeforeInitialization [
+	
+	GtkEngineSupport allAvailableForExecuteBeforeInitialization 
+		do: [ :each | each start ]
 ]
 
 { #category : 'private - running' }
