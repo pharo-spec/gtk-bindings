@@ -29,6 +29,12 @@ GtkRunLoop >> callerProcess [
 ]
 
 { #category : 'running' }
+GtkRunLoop >> cleanUpFinalizationRegistry [
+	
+	GExternalResourceManager reset
+]
+
+{ #category : 'running' }
 GtkRunLoop >> cleanUpOldProcesses [
 
 	"clean up gtk4 run loop possible remainings (this may happen on certain 
@@ -124,6 +130,7 @@ GtkRunLoop >> naturalRunner [
 { #category : 'running' }
 GtkRunLoop >> preInstallRunLoop [ 
 
+	self cleanUpFinalizationRegistry.
 	self cleanUpOldProcesses
 ]
 
