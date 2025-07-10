@@ -340,7 +340,7 @@ GtkPharoSourceCompletionProvider >> refilter: context model: modelHandle [
 	| word text position |
 
 	lastResults getHandle = modelHandle ifFalse: [ 
-		'ERROR' printToStdout.
+		logger warning: 'I should not arrive here'.
 		^ self ].
 
 	word := context word.
