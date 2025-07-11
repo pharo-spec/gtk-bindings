@@ -3,6 +3,8 @@ In some platforms I need to include a file, gschema.compiled to be able to execu
 This is usually deep in the system (linux, or other) but in windows or macOS we put it along with 
 the libraries. 
 To let GTK find it, we need to set `GSETTINGS_SCHEMA_DIR` environment variable to point to the directory where the file is. 
+
+The settings support need to ne executed BEFORE any engine initialization, hence `shouldRunBeforeEngineInitialization` will answer true.
 "
 Class {
 	#name : 'GtkGSettingsSchemaSupport',

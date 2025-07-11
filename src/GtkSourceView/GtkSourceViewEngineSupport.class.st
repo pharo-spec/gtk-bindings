@@ -1,5 +1,7 @@
 "
-GtkSourceView needs to be initialized.
+Initialization of GtkSourceView.
+
+GtkSourceView needs to be initialized AFTER gtk (otherwise it will fail and crash the system).
 "
 Class {
 	#name : 'GtkSourceViewEngineSupport',
