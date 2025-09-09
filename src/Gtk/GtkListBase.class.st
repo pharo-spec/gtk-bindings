@@ -84,7 +84,11 @@ GtkListBase >> selectionModel: aModel [
 	selectionModel := aModel.
 	self setModel: selectionModel.
 	selectionModel objectUnrefNow.
-	oldSelectionModel ifNotNil: [ oldSelectionModel objectUnref ]
+	oldSelectionModel ifNotNil: [ 
+		oldSelectionModel 
+			doNotAutoRelease; 
+			objectUnref;
+			resetHandle ]
 ]
 
 { #category : 'private' }

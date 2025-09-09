@@ -838,6 +838,12 @@ GObject >> registerCallback: aCallback [
 	"Stdio stdout << aCallback thunk printString << ':' << aCallback tfPrintString; lf"
 ]
 
+{ #category : 'private' }
+GObject >> resetHandle [
+
+	handle := nil
+]
+
 { #category : 'private - signaling' }
 GObject >> signal: aString connect: callback data: aData [
 
