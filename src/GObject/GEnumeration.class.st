@@ -1,6 +1,6 @@
 Class {
 	#name : 'GEnumeration',
-	#superclass : 'FFIExternalEnumeration',
+	#superclass : 'FFIEnumeration',
 	#category : 'GObject-Base',
 	#package : 'GObject',
 	#tag : 'Base'

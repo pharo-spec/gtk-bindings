@@ -1,6 +1,6 @@
 Class {
 	#name : 'GStructure',
-	#superclass : 'FFIExternalStructure',
+	#superclass : 'FFIStructure',
 	#pools : [
 		'GObjectTypes'
 	],
