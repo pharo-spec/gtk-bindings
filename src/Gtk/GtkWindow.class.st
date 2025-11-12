@@ -302,6 +302,16 @@ GtkWindow >> connectDefaultWidth: aBlock [
 	self connectNotifyProperty: 'default-width' do: aBlock
 ]
 
+{ #category : 'signaling' }
+GtkWindow >> connectFocusWidget: aBlock [
+
+	self 
+		connect: 'notify::focus-widget'
+		signature: #(void (void *object, void *pspec, gpointer user_data))
+		do: [ :object :pspec :user_data |
+			aBlock cull: self widgetFocused ]
+]
+
 { #category : 'accessing' }
 GtkWindow >> cursor: aGdkCursor [
 
@@ -651,6 +661,12 @@ GtkWindow >> unregister [
 	 saving errors."
 	self engine ifNotNil: [ :app | 
 		app unregisterWindow: self ]
+]
+
+{ #category : 'accessing' }
+GtkWindow >> widgetFocused [
+
+	self ffiCall: #(GtkWidget* gtk_window_get_focus (self))
 ]
 
 { #category : 'private' }

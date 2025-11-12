@@ -82,6 +82,12 @@ GtkLabel >> initialize [
 ]
 
 { #category : 'testing' }
+GtkLabel >> isSingleLineMode [
+
+	^ self ffiCall: #(gboolean gtk_label_get_single_line_mode (self))
+]
+
+{ #category : 'testing' }
 GtkLabel >> isWrap [
 
 	^ self ffiCall: #(gboolean gtk_label_get_line_wrap (self))
@@ -114,6 +120,12 @@ GtkLabel >> markup: aString [
 GtkLabel >> mnemonicWidget: widget [
 
 	self ffiCall: #(void gtk_label_set_mnemonic_widget (self, GtkWidget *widget))
+]
+
+{ #category : 'accessing' }
+GtkLabel >> singleLineMode: single_line_mode [
+
+	self ffiCall: #(void gtk_label_set_single_line_mode (self, gboolean single_line_mode))
 ]
 
 { #category : 'accessing' }
