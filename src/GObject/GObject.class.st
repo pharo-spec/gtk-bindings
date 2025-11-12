@@ -927,8 +927,9 @@ GObject >> withReferenceOf: aGObject do: aBlock [
 	| oldGObject |
 	
 	oldGObject := aGObject.
-	oldGObject ifNotNil: [ oldGObject objectRef ].
+	oldGObject isNullOrNil 
+		ifFalse: [ oldGObject objectRef ].
 	aBlock ensure: [ 
-		oldGObject ifNotNil: [ 
-			oldGObject objectUnref ] ]
+		oldGObject isNullOrNil 
+			ifFalse: [ oldGObject objectUnref ] ]
 ]
