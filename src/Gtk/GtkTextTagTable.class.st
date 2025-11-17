@@ -70,3 +70,9 @@ GtkTextTagTable >> size [
 
 	^ self ffiCall: #(gint gtk_text_tag_table_get_size (self))
 ]
+
+{ #category : 'accessing' }
+GtkTextTagTable >> tags [
+
+	^ tags
+]

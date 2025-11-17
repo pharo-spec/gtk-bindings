@@ -9,7 +9,8 @@ Class {
 	#instVars : [
 		'settings',
 		'buffer',
-		'lastForwardCallback'
+		'lastForwardCallback',
+		'matchStyle'
 	],
 	#category : 'GtkSourceView-Search',
 	#package : 'GtkSourceView',
@@ -224,6 +225,14 @@ GtkSourceSearchContext >> getBuffer [
 ]
 
 { #category : 'private' }
+GtkSourceSearchContext >> getMatchStyle [
+
+	^ self 
+		ffiCall: #(GtkSourceStyle* gtk_source_search_context_get_match_style (self))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : 'private' }
 GtkSourceSearchContext >> getOccurrencePositionStart: match_start end: match_end [
 
 	self ffiCall: #(gint gtk_source_search_context_get_occurrence_position (
@@ -251,18 +260,93 @@ GtkSourceSearchContext >> isHighlight [
 ]
 
 { #category : 'accessing' }
+GtkSourceSearchContext >> matchStyle [
+
+	^ matchStyle ifNil: [ matchStyle := self getMatchStyle ]
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> matchStyle: aSourceStyle [
+
+	matchStyle := aSourceStyle.
+	self setMatchStyle: aSourceStyle
+]
+
+{ #category : 'accessing' }
 GtkSourceSearchContext >> occurrencesCount [
 
 	self ffiCall: #(gint gtk_source_search_context_get_occurrences_count (self))
 ]
 
-{ #category : 'accessing settings' }
+{ #category : 'private' }
+GtkSourceSearchContext >> replace: match_start end: match_end replace: replace size: replace_length error: error [
+
+	self ffiCall: #(gboolean gtk_source_search_context_replace (
+  		self,
+  		GtkTextIter* match_start,
+  		GtkTextIter* match_end,
+  		const gchar* replace,
+  		gint replace_length,
+  		GError** error))
+]
+
+{ #category : 'private' }
+GtkSourceSearchContext >> replaceAll: replace size: replace_length error: error [
+
+	self ffiCall: #(guint gtk_source_search_context_replace_all (
+  		self,
+  		const gchar* replace,
+  		gint replace_length,
+  		GError** error))
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> replaceAllWith: aString [
+	| result result error |
+		
+	error := GError newValueHolder.
+	result := self 
+		replaceAll: aString 
+		size: aString size
+		error: error.
+		
+	^ result
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> replaceWith: aString [
+	| matchStart matchEnd result error |
+		
+	matchStart := GtkTextIter new.
+	matchEnd := GtkTextIter new.
+	
+	error := GError newValueHolder.
+	result := self 
+		replace: matchStart getHandle
+		end: matchEnd getHandle
+		replace: aString 
+		size: aString size
+		error: error.
+	result ifTrue: [ ^ self ].
+	
+	Error signal: error value messageString
+]
+
+{ #category : 'accessing - settings' }
 GtkSourceSearchContext >> searchText: aString [
 	
 	self settings searchText: aString
 ]
 
-{ #category : 'accessing settings' }
+{ #category : 'private' }
+GtkSourceSearchContext >> setMatchStyle: aStyle [
+
+	self 
+		ffiCall: #(void gtk_source_search_context_get_match_style (self, GtkSourceStyle *aStyle))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : 'accessing - settings' }
 GtkSourceSearchContext >> settings [
 
 	^ settings ifNil: [ 

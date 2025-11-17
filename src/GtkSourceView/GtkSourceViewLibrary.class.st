@@ -4,6 +4,9 @@ I am the library to GtkSourceView.
 Class {
 	#name : 'GtkSourceViewLibrary',
 	#superclass : 'FFILibrary',
+	#pools : [
+		'GObjectTypes'
+	],
 	#category : 'GtkSourceView-Base',
 	#package : 'GtkSourceView',
 	#tag : 'Base'
@@ -39,6 +42,24 @@ GtkSourceViewLibrary >> macLibraryName [
 	^ GMacLibraryFinder findLibrary: 'libgtksourceview-5.0.dylib'
 ]
 
+{ #category : 'accessing' }
+GtkSourceViewLibrary >> majorVersion [
+
+	^ self ffiCall: #(guint gtk_source_get_major_version (void))
+]
+
+{ #category : 'accessing' }
+GtkSourceViewLibrary >> microVersion [ 
+
+	^ self ffiCall: #(guint gtk_source_get_micro_version (void))
+]
+
+{ #category : 'accessing' }
+GtkSourceViewLibrary >> minorVersion [ 
+
+	^ self ffiCall: #(guint gtk_source_get_minor_version (void))
+]
+
 { #category : 'converting' }
 GtkSourceViewLibrary >> runner [
 	
@@ -50,6 +71,16 @@ GtkSourceViewLibrary >> unix64LibraryName [
 
 	GtkLibrary isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtksourceview-5.so' ].
 	^ FFIUnix64LibraryFinder findLibrary: 'libgtksourceview-5.so'
+]
+
+{ #category : 'accessing' }
+GtkSourceViewLibrary >> version [ 
+
+	^ '{1}.{2}.{3}' format: {
+		self majorVersion.
+		self minorVersion.
+		self microVersion.
+	}
 ]
 
 { #category : 'accessing - platform' }
