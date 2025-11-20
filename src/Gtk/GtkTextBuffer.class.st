@@ -1,4 +1,6 @@
 "
+# GtkTextView
+
 I store attributed text for display in a GtkTextView.
 
 https://developer.gnome.org/gtk3/stable/GtkTextBuffer.html
@@ -340,6 +342,12 @@ GtkTextBuffer >> isUndoEnabled [
 ]
 
 { #category : 'accessing' }
+GtkTextBuffer >> iterAtCursorPosition [
+
+	^ self iterAtOffset: self cursorPosition
+]
+
+{ #category : 'accessing' }
 GtkTextBuffer >> iterAtLine: lineNumber [
 	| iter |
 	
@@ -487,10 +495,10 @@ GtkTextBuffer >> removeTag: tag startIter: start endIter: end [
 ]
 
 { #category : 'accessing - tags' }
-GtkTextBuffer >> removeTagByName: aTag [
+GtkTextBuffer >> removeTagByName: aName [
 
 	self 
-		removeTag: aTag 
+		removeTagByName: aName 
 		startIter: self startIter 
 		endIter: self endIter
 ]
@@ -637,7 +645,7 @@ GtkTextBuffer >> text [
 { #category : 'accessing' }
 GtkTextBuffer >> text: text [
 
-	self ffiCall: #(void gtk_text_buffer_set_text (self, String text, "gint len" -1))
+	self ffiCall: #(void gtk_text_buffer_set_text (self, char *text, "gint len" -1))
 ]
 
 { #category : 'accessing' }

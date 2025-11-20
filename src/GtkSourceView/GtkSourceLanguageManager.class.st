@@ -13,7 +13,7 @@ Class {
 	#tag : 'Language'
 }
 
-{ #category : 'accessing languages' }
+{ #category : 'accessing - languages' }
 GtkSourceLanguageManager class >> c [
 
 	^ self default languageWithId: 'c'
@@ -25,7 +25,7 @@ GtkSourceLanguageManager class >> default [
 	^ self getDefault
 ]
 
-{ #category : 'accessing languages' }
+{ #category : 'accessing - languages' }
 GtkSourceLanguageManager class >> diff [
 
 	^ self default languageWithId: 'diff'
@@ -46,7 +46,7 @@ GtkSourceLanguageManager class >> getDefault [
 		module: GtkSourceViewLibrary
 ]
 
-{ #category : 'accessing languages' }
+{ #category : 'accessing - languages' }
 GtkSourceLanguageManager class >> markdown [
 
 	^ self default languageWithId: 'markdown'
