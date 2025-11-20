@@ -49,5 +49,6 @@ GtkGSettingsSchemaSupport >> visitWindows64: aPlatform [
 
 	OSEnvironment current 
 		at: #GDK_DISABLE put: 'gl';
+		at: #XDG_DATA_DIRS put: (FileLocator vmDirectory / 'share') fullName; 
 		at: #GSETTINGS_SCHEMA_DIR put: FileLocator vmDirectory fullName
 ]
