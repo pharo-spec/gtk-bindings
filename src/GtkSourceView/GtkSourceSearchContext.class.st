@@ -121,6 +121,17 @@ GtkSourceSearchContext >> buffer [
 ]
 
 { #category : 'accessing' }
+GtkSourceSearchContext >> currentMatchRange [
+
+	currentMatch ifNil: [ ^ 0 to: 0 ].
+	
+	^ { 
+		currentMatch first offset.
+		currentMatch second offset
+	}
+]
+
+{ #category : 'accessing' }
 GtkSourceSearchContext >> forward [
 
 	^ self forward: ((self buffer iterAtMark: self buffer insertMark)
@@ -236,7 +247,11 @@ GtkSourceSearchContext >> forwardThenDo: aBlock [
 	"if we are already in a match, start from the end of the current match"
 	iter := currentMatch 
 		ifNotNil: [ currentMatch second ]
-		ifNil: [ self buffer iterAtMark: self buffer insertMark ].
+		ifNil: [ 
+			"not sure this is good (using the current cursor position).
+			 for now, I am just searchign from the begining of the buffer :("
+			"self buffer iterAtMark: self buffer insertMark"
+			self buffer startIter ].
 
 	^ self 
 		forward: iter
@@ -374,6 +389,14 @@ GtkSourceSearchContext >> replaceMatchWith: aString [
 		error: error.
 
 	logger trace: result.
+
+	"replace current match"
+	currentMatch := {
+		currentMatch first.
+		currentMatch first copy 
+			forwardChars: aString size;
+			yourself.
+	}.
 
 	result ifFalse: [ 
 		Error signal: error value messageString ].

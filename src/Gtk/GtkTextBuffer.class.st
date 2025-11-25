@@ -639,7 +639,7 @@ GtkTextBuffer >> text [
 	^ self 
 		textStart: self startIter 
 		end: self endIter
-		includeHiddenChars: false
+		includeHiddenChars: true
 ]
 
 { #category : 'accessing' }
