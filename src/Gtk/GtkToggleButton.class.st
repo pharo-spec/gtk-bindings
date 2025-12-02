@@ -1,8 +1,7 @@
 "
-GtkToggleButton
 GtkToggleButton — Create buttons which retain their state
 
-https://developer.gnome.org/gtk3/unstable/GtkToggleButton.html
+https://docs.gtk.org/gtk4/class.ToggleButton.html
 "
 Class {
 	#name : 'GtkToggleButton',
@@ -54,6 +53,12 @@ GtkToggleButton >> drawIndicator [
 GtkToggleButton >> drawIndicator: aBoolean [
 
 	self deprecated: #Gtk4
+]
+
+{ #category : 'accessing' }
+GtkToggleButton >> groupTo: group [
+
+	self ffiCall: #(void gtk_toggle_button_set_group (self, GtkToggleButton* group))
 ]
 
 { #category : 'accessing' }
