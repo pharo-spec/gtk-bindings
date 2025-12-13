@@ -1,9 +1,7 @@
 "
-# GtkTextView
-
 I store attributed text for display in a GtkTextView.
 
-https://developer.gnome.org/gtk3/stable/GtkTextBuffer.html
+https://docs.gtk.org/gtk4/class.TextBuffer.html
 "
 Class {
 	#name : 'GtkTextBuffer',
