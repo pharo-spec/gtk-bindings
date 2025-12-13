@@ -1,5 +1,5 @@
 "
-https://docs.gtk.org/gtk4/class.ListView.html
+https://docs.gtk.org/gtk4/class.ListView.html 
 "
 Class {
 	#name : 'GtkListView',
@@ -21,6 +21,21 @@ GtkListView class >> gtkNew [
 
 	^ self ffiCall: #(GtkListView *gtk_list_view_new (NULL, NULL))
 	
+]
+
+{ #category : 'private - events' }
+GtkListView >> addKeyEventControllerWith: aBlock [
+	"key event controllers stack (I can stack key pressed and key released events). 
+	 this is overriding its parent to change the propagation phase because list views capture 
+	 some key events (like space) and we may want to act on them."
+
+	aBlock value: (self 
+		detectController: [ :each | each isKeyController ]  
+		ifNone: [ 
+			| controller |
+			controller := GtkEventControllerKey new.
+			controller propagationPhase: GtkPropagationPhase GTK_PHASE_CAPTURE.
+			self addController: controller ])  
 ]
 
 { #category : 'private' }
