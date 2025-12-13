@@ -1,7 +1,9 @@
 "
 GtkWidget — Base class for all widgets.
 
-https://developer.gnome.org/gtk3/stable/GtkWidget.html
+https://docs.gtk.org/gtk4/class.Widget.html 
+
+
 "
 Class {
 	#name : 'GtkWidget',
@@ -1478,6 +1480,18 @@ GtkWidget >> sensitive: sensitive [
 	"sensitive is the gtk equivallent of enable/disable"
 
 	self ffiCall: #(void gtk_widget_set_sensitive (self, gboolean sensitive))
+]
+
+{ #category : 'accessing' }
+GtkWidget >> setCursor: cursor [
+
+	self ffiCall: #(void gtk_widget_set_cursor (self, GdkCursor* cursor))
+]
+
+{ #category : 'accessing' }
+GtkWidget >> setCursorFromName: aName [
+
+	self ffiCall: #(void gtk_widget_set_cursor_from_name (self, const char* aName))
 ]
 
 { #category : 'accessing' }
