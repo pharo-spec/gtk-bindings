@@ -1,5 +1,5 @@
 "
-I'm a base for all Gtk3 objects (not all Gtk3 references are).
+I'm a base for all Gtk objects (not all Gtk references are).
 "
 Class {
 	#name : 'GObject',
@@ -569,33 +569,41 @@ GObject >> gObjectGet: aName intoAddress: aBuffer [
 ]
 
 { #category : 'private - primitives' }
+GObject >> gObjectGet: aName intoProperty: aValue [
+
+	self 
+		ffiCall: #(void g_object_get_property (self, const gchar *aName, GValue *aValue)) 
+		module: GObjectLibrary
+]
+
+{ #category : 'private - primitives' }
 GObject >> gObjectGetBoolean: aName [
 	"a convenience method to read boolean properties"
-	| buffer |
+	| gValue |
 	
-	buffer := FFIBool newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer booleanAt: 1
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getBoolean
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetDouble: aName [
-	"a convenience method to read boolean properties"
-	| buffer |
+	"a convenience method to read double properties"
+	| gValue |
 	
-	buffer := FFIFloat64 newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer doubleAt: 1
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getDouble
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetHandle: aName [
-	| address |
+	"a convenience method to read handle (pointer) properties"
+	| gValue |
 	
-	address := ExternalAddress new.
-	self gObjectGet: aName intoAddress: address.
-	^ address	
-			
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getObject
 ]
 
 { #category : 'private - primitives' }
@@ -610,32 +618,32 @@ GObject >> gObjectGetHandle: aName as: aClass [
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetInteger: aName [
-	"a convenience method to read boolean properties"
-	| buffer |
+	"a convenience method to read integer properties"
+	| gValue |
 	
-	buffer := FFIInt32 newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer signedLongAt: 1
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getInt
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetLong: aName [
-	"a convenience method to read boolean properties"
-	| buffer |
-
-	buffer := FFILong newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer signedLongAt: 1
+	"a convenience method to read long properties"
+	| gValue |
+	
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getLong
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetString: aName [
 	"a convenience method to read string properties"
-	| buffer |
+	| gValue |
 	
-	buffer := ExternalAddress new.
-	self gObjectGet: aName intoAddress: buffer.
-	^ buffer utf8StringFromCString
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getString
 ]
 
 { #category : 'private - primitives' }

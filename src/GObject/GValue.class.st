@@ -82,6 +82,12 @@ GValue >> getBoolean [
 ]
 
 { #category : 'accessing' }
+GValue >> getDouble [
+
+	^ self ffiCall: #(gdouble g_value_get_double(self))
+]
+
+{ #category : 'accessing' }
 GValue >> getFloat [
 
 	^ self ffiCall: #(gfloat g_value_get_float (self))
