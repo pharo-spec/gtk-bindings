@@ -11,6 +11,18 @@ Class {
 	#tag : 'Base'
 }
 
+{ #category : 'instance creation' }
+GFile class >> forPath: aPath [
+
+	^ (self gNewForPath: aPath) initialize
+]
+
+{ #category : 'private' }
+GFile class >> gNewForPath: path [
+
+	^ self ffiCall: #(GFile* g_file_new_for_path (const char* path)) module: GLibIOLibrary
+]
+
 { #category : 'accessing' }
 GFile >> path [
 

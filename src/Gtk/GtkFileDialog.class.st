@@ -102,6 +102,28 @@ GtkFileDialog >> filters: aGListModel [
 	filters objectUnrefNow
 ]
 
+{ #category : 'private' }
+GtkFileDialog >> initialFolder: folder [
+
+	self ffiCall: #(void gtk_file_dialog_set_initial_folder (self, GFile* folder))
+]
+
+{ #category : 'accessing' }
+GtkFileDialog >> initialFolderName: aName [
+	| file |
+	
+	file := GFile forPath: aName.
+	[ self initialFolder: file ]
+	ensure: [ 
+		file objectUnrefNow ]
+]
+
+{ #category : 'accessing' }
+GtkFileDialog >> initialName: aName [
+
+	self ffiCall: #(void gtk_file_dialog_set_initial_name (self, const char* aName))
+]
+
 { #category : 'initialization' }
 GtkFileDialog >> initialize [
 
