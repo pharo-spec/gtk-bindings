@@ -57,7 +57,9 @@ GObject class >> gDefine: aClass [
 { #category : 'factory' }
 GObject class >> gObjectNew: object_type [
 
-	^ self ffiCall: #(void *g_object_new (gsize object_type, NULL))
+	^ self 
+		ffiCall: #(void *g_object_new (gsize object_type, NULL))
+		fixedArgumentCount: 2
 ]
 
 { #category : 'factory' }
@@ -69,7 +71,7 @@ GObject class >> gObjectNew: object_type propertyName: aName integerValue: aNumb
 			String aName, 
 			gint aNumber,
 			NULL))
-		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'accessing' }
@@ -652,6 +654,7 @@ GObject >> gObjectSet: aName toBoolean: aBoolean [
 	self 
 		ffiCall: #(void g_object_set (self, const gchar *aName, gboolean aBoolean, NULL))
 		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'private - primitives' }
@@ -660,6 +663,7 @@ GObject >> gObjectSet: aName toDouble: aNumber [
 	self 
 		ffiCall: #(void g_object_set (self, const gchar *aName, gdouble aNumber, NULL))
 		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'private - primitives' }
@@ -668,6 +672,7 @@ GObject >> gObjectSet: aName toInteger: aNumber [
 	self 
 		ffiCall: #(void g_object_set (self, const gchar *aName, gint aNumber, NULL))
 		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'private - primitives' }
@@ -676,6 +681,7 @@ GObject >> gObjectSet: aName toLong: aNumber [
 	self
 		ffiCall: #(void g_object_set (self, const gchar *aName, glong aNumber, NULL))
 		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'private - primitives' }
@@ -684,14 +690,16 @@ GObject >> gObjectSet: aName toPointer: aPointer [
 	self 
 		ffiCall: #(void g_object_set (self, const gchar *aName, gpointer aPointer, NULL))
 		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toString: aString [
 
 	self 
-		ffiCall: #(void g_object_set ( self, const gchar *aName, gchar *aString, NULL))
-		module: GObjectLibrary	
+		ffiCall: #(void g_object_set (self, const gchar *aName, gchar *aString, NULL))
+		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'private - signaling' }
