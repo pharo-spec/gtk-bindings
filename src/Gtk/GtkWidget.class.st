@@ -1409,6 +1409,16 @@ GtkWidget >> queueResizeNoRedraw [
 ]
 
 { #category : 'accessing - actions' }
+GtkWidget >> removeActionGroupNamed: aName [
+	| group |
+
+	group := self actionGroups removeKey: aName ifAbsent: [ ^ self ].
+	group removeAll.
+	self basicRemoveActionGroup: aName.
+	
+]
+
+{ #category : 'accessing - actions' }
 GtkWidget >> removeAllActions [
 
 	actionGroups ifNil: [ ^ self ].
@@ -1420,6 +1430,7 @@ GtkWidget >> removeAllActions [
 
 { #category : 'accessing - shortcuts' }
 GtkWidget >> removeAllShortcuts [
+	eventControllers ifNil: [ ^ self ].
 
 	(eventControllers 
 		select: [ :each | each isShortcutController ])
