@@ -30,7 +30,7 @@ GtkListItemFactory class >> gSize [
 { #category : 'accessing' }
 GtkListItemFactory class >> gType [ 
 	"This method was automatically generated"
-
+  
 	^ self ffiCall: #(gsize gtk_list_item_factory_get_type())
 ]
 

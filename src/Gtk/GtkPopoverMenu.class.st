@@ -1,7 +1,7 @@
 "
 GtkPopoverMenu — Popovers to use as menus
+https://docs.gtk.org/gtk4/class.PopoverMenu.html
 
-https://developer.gnome.org/gtk3/stable/GtkPopoverMenu.html
 "
 Class {
 	#name : 'GtkPopoverMenu',
@@ -89,6 +89,19 @@ GtkPopoverMenu >> finalize [
 	self isValidHandle ifFalse: [ ^ self ].
 	self unparent.
 	super finalize
+]
+
+{ #category : 'accessing' }
+GtkPopoverMenu >> flags [
+
+	self ffiCall: #("GtkPopoverMenuFlags"guint  gtk_popover_menu_get_flags (self))
+]
+
+{ #category : 'accessing' }
+GtkPopoverMenu >> flags: flags [
+
+	self ffiCall: #(void gtk_popover_menu_set_flags (self, "GtkPopoverMenuFlags"guint flags))
+
 ]
 
 { #category : 'private' }
