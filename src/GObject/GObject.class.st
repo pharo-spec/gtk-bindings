@@ -649,57 +649,59 @@ GObject >> gObjectGetString: aName [
 ]
 
 { #category : 'private - primitives' }
-GObject >> gObjectSet: aName toBoolean: aBoolean [
+GObject >> gObjectSet: aName fromProperty: aValue [
 
 	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gboolean aBoolean, NULL))
+		ffiCall: #(void g_object_set_property (self, const gchar *aName, GValue *aValue)) 
 		module: GObjectLibrary
-		fixedArgumentCount: 4
+]
+
+{ #category : 'private - primitives' }
+GObject >> gObjectSet: aName toBoolean: aBoolean [
+	| gValue |
+	
+	gValue := GValue newBoolean: aBoolean.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toDouble: aNumber [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gdouble aNumber, NULL))
-		module: GObjectLibrary
-		fixedArgumentCount: 4
+	| gValue |
+	
+	gValue := GValue newDouble: aNumber.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toInteger: aNumber [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gint aNumber, NULL))
-		module: GObjectLibrary
-		fixedArgumentCount: 4
+	| gValue |
+	
+	gValue := GValue newInt: aNumber. 
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toLong: aNumber [
-
-	self
-		ffiCall: #(void g_object_set (self, const gchar *aName, glong aNumber, NULL))
-		module: GObjectLibrary
-		fixedArgumentCount: 4
+	| gValue |
+	
+	gValue := GValue newInt64: aNumber.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toPointer: aPointer [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gpointer aPointer, NULL))
-		module: GObjectLibrary
-		fixedArgumentCount: 4
+	| gValue |
+	
+	gValue := GValue newPointer: aPointer. 
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toString: aString [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gchar *aString, NULL))
-		module: GObjectLibrary
-		fixedArgumentCount: 4
+	| gValue |
+	
+	gValue := GValue newString: aString.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - signaling' }

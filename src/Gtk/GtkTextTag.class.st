@@ -86,7 +86,8 @@ GtkTextTag >> beUnderlined [
 ]
 
 { #category : 'accessing' }
-GtkTextTag >> fontFamily: family size: size weight: weight [ 
+GtkTextTag >> fontFamily: family size: size weight: weight [
+
 	self gObjectSet: 'family' toString: family.
 	self gObjectSet: 'size-set' toBoolean: true.
 	self gObjectSet: 'size-points' toDouble: size.
