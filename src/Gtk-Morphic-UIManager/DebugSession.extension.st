@@ -1,6 +1,6 @@
-Extension { #name : #DebugSession }
+Extension { #name : 'DebugSession' }
 
-{ #category : #'*Gtk-Morphic-UIManager' }
+{ #category : '*Gtk-Morphic-UIManager' }
 DebugSession class >> new [
 	
 	^ self = DebugSession 
@@ -8,7 +8,7 @@ DebugSession class >> new [
 		ifFalse: [ super new ]
 ]
 
-{ #category : #'*Gtk-Morphic-UIManager' }
+{ #category : '*Gtk-Morphic-UIManager' }
 DebugSession class >> sessionClass [
 
 	^ UIManager default debugSessionClass
