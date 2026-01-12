@@ -137,7 +137,7 @@ GtkImage >> getIconName: icon_name size: size [
 { #category : 'private' }
 GtkImage >> getPaintable [
 
-	^ self ffiCall: #(GdkPaintable *gtk_image_get_paintable())
+	^ self ffiCall: #(GdkPaintable *gtk_image_get_paintable(self))
 ]
 
 { #category : 'private' }
