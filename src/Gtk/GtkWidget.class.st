@@ -744,6 +744,16 @@ GtkWidget >> connectNotifyProperty: property do: aBlock [
 	(GNotifyPropertyCallback property: property do: aBlock) connectTo: self
 ]
 
+{ #category : 'as yet unclassified' }
+GtkWidget >> connectParentChanged: aBlock [ 
+
+	self 
+		connect: 'notify::parent' 
+		signature: #(void (void *selfHandle, void *pspec, gpointer user_data)) 
+		do: [ :selfHandle :pspec :user_data | 
+			aBlock value ]
+]
+
 { #category : 'signaling' }
 GtkWidget >> connectRealize: aBlock [
 
