@@ -45,6 +45,12 @@ GtkRunLoop >> cleanUpOldProcesses [
 
 ]
 
+{ #category : 'running' }
+GtkRunLoop >> cleanUpQueue [
+
+	GQueueIdle uniqueInstance reset
+]
+
 { #category : 'deferring - gtk' }
 GtkRunLoop >> defer: aBlock [
 
@@ -127,6 +133,7 @@ GtkRunLoop >> naturalRunner [
 { #category : 'running' }
 GtkRunLoop >> preInstallRunLoop [ 
 
+	self cleanUpQueue.
 	self cleanUpFinalizationRegistry.
 	self cleanUpOldProcesses
 ]
