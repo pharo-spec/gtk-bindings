@@ -134,7 +134,10 @@ GListReferenceStore >> itemAt: aPosition [
 	aPosition = 0 ifTrue: [ ^ nil ].
 	aPosition > self get_n_items ifTrue: [ ^ nil ].
 
-	^ self items at: aPosition
+	^ [ self items at: aPosition ]
+	  on: Error 
+	  fork: [ :e | e pass ]
+	  return: [ nil ]
 ]
 
 { #category : 'accessing' }
