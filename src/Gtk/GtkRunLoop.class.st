@@ -108,7 +108,12 @@ GtkRunLoop >> installRunLoop [
 	runProcess := [
 		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance. 
 		[ running ] whileTrue: [ 
-			context iteration: true ].
+			[ context iteration: true ]
+			on: Error 
+			do: [ :e | 
+				"this can happen (afaik) just on reinitiating the environment in a bad state 
+				 (with a call being send to GTK)"
+				logger error: e ] ].
 		context release.	
 		'Gtk4 event loop ended' asBeaconSignal emit.
 	] 
