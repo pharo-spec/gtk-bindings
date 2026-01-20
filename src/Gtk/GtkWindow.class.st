@@ -261,7 +261,7 @@ GtkWindow >> computePoint: aPoint target: aWidget [
 	result := self 
 		basicComputePointTarget: aWidget 
 		point: aPoint asGraphenePoint
-		outPoint: outPoint.
+		outPoint: outPoint referenceTo.
 	result 
 		ifFalse: [ self error: 'Can''t convert to point.' ].
 		
