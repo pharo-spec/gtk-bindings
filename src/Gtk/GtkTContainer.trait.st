@@ -114,7 +114,7 @@ GtkTContainer >> removeAll [
 	children := #()
 ]
 
-{ #category : 'private - deferring' }
+{ #category : 'private' }
 GtkTContainer >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self.

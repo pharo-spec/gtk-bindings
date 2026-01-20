@@ -1719,7 +1719,7 @@ GtkWidget >> width: aNumber [
 	self sizeRequest: aNumber @ self height
 ]
 
-{ #category : 'private - deferring' }
+{ #category : 'private' }
 GtkWidget >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self

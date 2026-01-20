@@ -113,7 +113,7 @@ GtkOverlay >> setOverlayPassThrougth: boolean child: aChild [
 	self deprecated: #Gtk4
 ]
 
-{ #category : 'private - deferring' }
+{ #category : 'private' }
 GtkOverlay >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self.

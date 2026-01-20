@@ -114,7 +114,7 @@ GtkNotebookPage >> updateLabel: aWidget [
 	
 ]
 
-{ #category : 'enumerating' }
+{ #category : 'private' }
 GtkNotebookPage >> withAllChildrenDo: aBlock [
 	
 	aBlock cull: self label.
