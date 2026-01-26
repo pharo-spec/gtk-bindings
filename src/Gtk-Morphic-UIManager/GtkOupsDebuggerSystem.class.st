@@ -1,10 +1,11 @@
 Class {
-	#name : #GtkOupsDebuggerSystem,
-	#superclass : #OupsDebuggerSystem,
-	#category : #'Gtk-Morphic-UIManager'
+	#name : 'GtkOupsDebuggerSystem',
+	#superclass : 'OupsDebuggerSystem',
+	#category : 'Gtk-Morphic-UIManager',
+	#package : 'Gtk-Morphic-UIManager'
 }
 
-{ #category : #'open debugger' }
+{ #category : 'open debugger' }
 GtkOupsDebuggerSystem >> openDebuggerOnRequest: aDebugRequest [
 	"Prepare the opening of a debugger, and delegate the debugger selection and opening to a strategy"
 	<debuggerCompleteToSender>

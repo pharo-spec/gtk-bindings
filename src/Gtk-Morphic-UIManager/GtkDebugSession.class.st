@@ -1,67 +1,68 @@
 Class {
-	#name : #GtkDebugSession,
-	#superclass : #DebugSession,
+	#name : 'GtkDebugSession',
+	#superclass : 'DebugSession',
 	#instVars : [
 		'runLoop',
 		'oldUIProcess',
 		'newUIProcess',
 		'resumed'
 	],
-	#category : #'Gtk-Morphic-UIManager'
+	#category : 'Gtk-Morphic-UIManager',
+	#package : 'Gtk-Morphic-UIManager'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 GtkDebugSession >> initialize [
 
 	resumed := false.
 	super initialize
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDebugSession >> isInCallback [
 
 	^ runLoop notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDebugSession >> newUIProcess [
 
 	^ newUIProcess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDebugSession >> newUIProcess: aProcess [
 
 	newUIProcess := aProcess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDebugSession >> oldUIProcess [
 
 	^ oldUIProcess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDebugSession >> oldUIProcess: aProcess [
 
 	oldUIProcess := aProcess
 ]
 
-{ #category : #'debugging actions' }
+{ #category : 'debugging actions' }
 GtkDebugSession >> resume [
 
 	self stopRunLoop.
 	^ super resume
 ]
 
-{ #category : #'debugging actions' }
+{ #category : 'debugging actions' }
 GtkDebugSession >> resume: aValue [
 
 	self stopRunLoop.
 	^ super resume: aValue
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDebugSession >> resumeProcess [
 	"Make sure the interrupted process is restored properly and restart the low space handler"
 	
@@ -84,19 +85,19 @@ GtkDebugSession >> resumeProcess [
 	Smalltalk installLowSpaceWatcher
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDebugSession >> runLoop [
 
 	^ runLoop
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDebugSession >> runLoop: aRunLoop [
 
 	runLoop := aRunLoop
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkDebugSession >> spanNewSession [
 
 	^ super spanNewSession
@@ -106,13 +107,13 @@ GtkDebugSession >> spanNewSession [
 		yourself
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 GtkDebugSession >> spawnNewRunLoop [
 
 	runLoop := GRunLoop current spawnNewRunLoop
 ]
 
-{ #category : #keepAlive }
+{ #category : 'keepAlive' }
 GtkDebugSession >> stopKeepingAlive: anObjectThatNoLongerWantsToKeepMeAlive [
 	
 	self objectsThatWantToKeepMeAlive
@@ -126,7 +127,7 @@ GtkDebugSession >> stopKeepingAlive: anObjectThatNoLongerWantsToKeepMeAlive [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDebugSession >> stopRunLoop [
 
 	runLoop ifNil: [ ^ self ].
@@ -134,7 +135,7 @@ GtkDebugSession >> stopRunLoop [
 	runLoop := nil
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtkDebugSession >> stopUIProcess [
 	"ensure UIProcess die"
 	
@@ -153,7 +154,7 @@ GtkDebugSession >> stopUIProcess [
 				process isTerminated 	ifFalse: [ process terminate ] ] ]"
 ]
 
-{ #category : #'debugging actions' }
+{ #category : 'debugging actions' }
 GtkDebugSession >> terminate [
 
 	[

@@ -1,1 +1,1 @@
-Package { #name : #'Gtk-Morphic-UIManager' }
+Package { #name : 'Gtk-Morphic-UIManager' }

@@ -1,6 +1,6 @@
-Extension { #name : #TFRunner }
+Extension { #name : 'TFRunner' }
 
-{ #category : #'*Gtk-Morphic-UIManager' }
+{ #category : '*Gtk-Morphic-UIManager' }
 TFRunner >> handleExceptionDuring: aBlock [
 
 	UIManager default

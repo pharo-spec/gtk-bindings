@@ -1,22 +1,23 @@
 Class {
-	#name : #GtkMorphicUIManager,
-	#superclass : #MorphicUIManager,
-	#category : #'Gtk-Morphic-UIManager'
+	#name : 'GtkMorphicUIManager',
+	#superclass : 'MorphicUIManager',
+	#category : 'Gtk-Morphic-UIManager',
+	#package : 'Gtk-Morphic-UIManager'
 }
 
-{ #category : #activation }
+{ #category : 'activation' }
 GtkMorphicUIManager class >> activate [
 
 	self default: self new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicUIManager class >> isActiveManager [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GtkMorphicUIManager class >> isValidForCurrentSystemConfiguration [
 	
 	^ Smalltalk isHeadless 
@@ -24,27 +25,27 @@ GtkMorphicUIManager class >> isValidForCurrentSystemConfiguration [
 		and: [ OSWindowDriver driverClass = OSGtkDriver ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtkMorphicUIManager >> debugSessionClass [
 
 	^ GtkDebugSession
 ]
 
-{ #category : #debug }
+{ #category : 'debug' }
 GtkMorphicUIManager >> handleCallbackExceptionsWith: exceptionHandler during: aBlock [
 	"Let it pass, the UI manager will take care about"
 
 	aBlock value
 ]
 
-{ #category : #'handle debug requests' }
+{ #category : 'handle debug requests' }
 GtkMorphicUIManager >> handleDebugRequest: aDebugRequest [
 	<debuggerCompleteToSender>
 	
 	GtkOupsDebuggerSystem new openDebuggerOnRequest: aDebugRequest
 ]
 
-{ #category : #'handle debug requests' }
+{ #category : 'handle debug requests' }
 GtkMorphicUIManager >> handleWarningDebugRequest: aWarningDebugRequest [
 	<debuggerCompleteToSender>
 	
