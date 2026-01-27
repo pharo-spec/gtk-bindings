@@ -942,6 +942,7 @@ GObject >> withObjectReferenceDo: aBlock [
 
 { #category : 'private' }
 GObject >> withReferenceOf: aGObject do: aBlock [ 
+		| oldGObject |
 	
 	oldGObject := aGObject.
 	oldGObject isNullOrNil 
