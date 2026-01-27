@@ -79,6 +79,18 @@ GtkScrolledWindow >> isOverlayScrolling [
 	^ self ffiCall: #(gboolean gtk_scrolled_window_get_overlay_scrolling (self))
 ]
 
+{ #category : 'testing' }
+GtkScrolledWindow >> isPropagateNaturalHeight [
+
+	^ self ffiCall: #(gboolean gtk_scrolled_window_get_propagate_natural_height (self))
+]
+
+{ #category : 'testing' }
+GtkScrolledWindow >> isPropagateNaturalWidth [
+
+	^ self ffiCall: #(gboolean gtk_scrolled_window_get_propagate_natural_width (self))
+]
+
 { #category : 'accessing' }
 GtkScrolledWindow >> kineticScrolling: kinetic_scrolling [
 
@@ -115,6 +127,15 @@ GtkScrolledWindow >> overlayScrolling: overlay_scrolling [
 	self ffiCall: #(void gtk_scrolled_window_set_overlay_scrolling (
 		self, 
 		gboolean overlay_scrolling))
+]
+
+{ #category : 'accessing' }
+GtkScrolledWindow >> policyHScrollbar: hscrollbar_policy vScrollbar: vscrollbar_policy [
+
+	self ffiCall: #(void gtk_scrolled_window_set_policy (
+		self,
+ 		GtkPolicyType hscrollbar_policy,
+ 		GtkPolicyType vscrollbar_policy))
 ]
 
 { #category : 'accessing' }

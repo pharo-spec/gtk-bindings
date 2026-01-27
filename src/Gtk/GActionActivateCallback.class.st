@@ -22,7 +22,7 @@ GActionActivateCallback >> do: aBlock [
 
 	self 
 		signature: self signature 
-		block: [ :widget :parameter :user_data | aBlock value ]
+		block: [ :widget :parameter :user_data | aBlock cull: parameter ]
 ]
 
 { #category : 'accessing' }

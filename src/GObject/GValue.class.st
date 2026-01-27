@@ -34,9 +34,87 @@ GValue class >> fieldsDesc [
 ]
 
 { #category : 'instance creation' }
+GValue class >> newBoolean [
+
+	^ self new initBoolean
+]
+
+{ #category : 'instance creation' }
+GValue class >> newBoolean: aBoolean [
+
+	^ self new 
+		initBoolean;
+		setBoolean: aBoolean
+]
+
+{ #category : 'instance creation' }
+GValue class >> newDouble [
+
+	^ self new initDouble
+]
+
+{ #category : 'instance creation' }
+GValue class >> newDouble: aDouble [
+
+	^ self new 
+		initDouble;
+		setDouble: aDouble
+]
+
+{ #category : 'instance creation' }
+GValue class >> newInt [
+
+	^ self new initInt
+]
+
+{ #category : 'instance creation' }
+GValue class >> newInt64 [
+
+	^ self new initInt64
+]
+
+{ #category : 'instance creation' }
+GValue class >> newInt64: aNumber [
+
+	^ self new 
+		initInt64;
+		setInt64: aNumber
+]
+
+{ #category : 'instance creation' }
+GValue class >> newInt: aNumber [
+
+	^ self new 
+		initInt;
+		setInt: aNumber
+]
+
+{ #category : 'instance creation' }
+GValue class >> newPointer [
+
+	^ self new initPointer
+]
+
+{ #category : 'instance creation' }
+GValue class >> newPointer: aPointer [
+
+	^ self new 
+		initPointer;
+		setPointer: aPointer
+]
+
+{ #category : 'instance creation' }
 GValue class >> newString [
 
 	^ self new initString
+]
+
+{ #category : 'instance creation' }
+GValue class >> newString: aString [
+
+	^ self new 
+		initString;
+		setString: aString
 ]
 
 { #category : 'accessing - structure variables' }
@@ -82,6 +160,12 @@ GValue >> getBoolean [
 ]
 
 { #category : 'accessing' }
+GValue >> getDouble [
+
+	^ self ffiCall: #(gdouble g_value_get_double(self))
+]
+
+{ #category : 'accessing' }
 GValue >> getFloat [
 
 	^ self ffiCall: #(gfloat g_value_get_float (self))
@@ -118,6 +202,36 @@ GValue >> init: g_type [
 ]
 
 { #category : 'initialization' }
+GValue >> initBoolean [
+
+	self init: G_TYPE_BOOLEAN
+]
+
+{ #category : 'initialization' }
+GValue >> initDouble [
+
+	self init: G_TYPE_DOUBLE
+]
+
+{ #category : 'initialization' }
+GValue >> initInt [
+
+	self init: G_TYPE_INT
+]
+
+{ #category : 'initialization' }
+GValue >> initInt64 [
+
+	self init: G_TYPE_INT64
+]
+
+{ #category : 'initialization' }
+GValue >> initPointer [
+
+	self init: G_TYPE_POINTER
+]
+
+{ #category : 'initialization' }
 GValue >> initString [
 
 	self init: G_TYPE_STRING
@@ -126,7 +240,7 @@ GValue >> initString [
 { #category : 'accessing' }
 GValue >> setBoolean: v_boolean [ 
 
-	^ self ffiCall: #(void g_value_set_boolean (self, gboolean v_boolean))
+	^ self ffiCall: #(void g_value_set_boolean (self, Boolean v_boolean))
 ]
 
 { #category : 'accessing' }

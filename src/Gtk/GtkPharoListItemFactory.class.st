@@ -108,13 +108,15 @@ GtkPharoListItemFactory >> setup: item [
 { #category : 'accessing - functions' }
 GtkPharoListItemFactory >> setup: itemHandle bind: shouldBind func: func data: data [
 	| listItem |
-
-	listItem := self toListItem: itemHandle.
-	func isNull ifFalse: [ 
-		self execFunction: func with: { itemHandle. data } ].
-	self setup: listItem.
-	shouldBind ifTrue: [ 
-		self bind: listItem ]
+	[
+		listItem := self toListItem: itemHandle.
+		func isNull ifFalse: [ 
+			self execFunction: func with: { itemHandle. data } ].
+		self setup: listItem.
+		shouldBind ifTrue: [ 
+			self bind: listItem ] ]
+	on: Error 
+	fork: [ :e | e pass ]
 ]
 
 { #category : 'accessing' }
@@ -134,11 +136,14 @@ GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 	logger trace: unbind.
 	logger trace: func.
 	
-	listItem := self toListItem: item.
-	unbind ifTrue: [ self unbind: listItem ].
-	self teardown: listItem.
-	func isNull ifFalse: [ 
-		self execFunction: func with: { item. data } ]
+	[ 
+		listItem := self toListItem: item.
+		unbind ifTrue: [ self unbind: listItem ].
+		self teardown: listItem.
+		func isNull ifFalse: [ 
+			self execFunction: func with: { item. data } ] ]
+	on: Error 
+	fork: [ :e | e pass ]
 ]
 
 { #category : 'private' }
@@ -161,11 +166,13 @@ GtkPharoListItemFactory >> update: itemHandle unbind: shouldUnbind bind: shouldB
 	"logger trace: shouldBind.
 	logger trace: shouldUnbind.
 	logger trace: func."
-
-	listItem := self toListItem: itemHandle.
-	"shouldUnbind ifTrue: [
-		self unbind: listItem ]."
-	func isNull ifFalse: [
-		self execFunction: func with: { itemHandle. data } ].
-	shouldBind ifTrue: [ self bind: listItem ]
+	[
+		listItem := self toListItem: itemHandle.
+		"shouldUnbind ifTrue: [
+			self unbind: listItem ]."
+		func isNull ifFalse: [
+			self execFunction: func with: { itemHandle. data } ].
+		shouldBind ifTrue: [ self bind: listItem ] ]
+	on: Error 
+	fork: [ :e | e pass ]
 ]

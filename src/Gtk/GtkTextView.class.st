@@ -1,7 +1,8 @@
 "
 GtkTextView — Widget that displays a GtkTextBuffer
 
-https://developer.gnome.org/gtk3/stable/GtkTextView.html
+https://docs.gtk.org/gtk4/class.TextView.html
+
 "
 Class {
 	#name : 'GtkTextView',
@@ -296,11 +297,13 @@ GtkTextView >> textBuffer [
 
 { #category : 'accessing' }
 GtkTextView >> textBuffer: aTextBuffer [ 
+	| oldTextBuffer |
 
-	self withReferenceOf: textBuffer do: [
+	oldTextBuffer := textBuffer.
+	self withReferenceOf: oldTextBuffer do: [
 		textBuffer := aTextBuffer.
-		self setBuffer: aTextBuffer.
-		textBuffer objectUnrefNow ]
+		self setBuffer: aTextBuffer ].
+	 textBuffer objectUnrefNow
 ]
 
 { #category : 'accessing' }

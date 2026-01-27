@@ -45,6 +45,12 @@ GtkRunLoop >> cleanUpOldProcesses [
 
 ]
 
+{ #category : 'running' }
+GtkRunLoop >> cleanUpQueue [
+
+	GQueueIdle uniqueInstance reset
+]
+
 { #category : 'deferring - gtk' }
 GtkRunLoop >> defer: aBlock [
 
@@ -63,25 +69,22 @@ GtkRunLoop >> enterSystem: aBlock [
 
 { #category : 'deferring - gtk' }
 GtkRunLoop >> forceDefer: aBlock [
-	| sem result "exception" |
+	| sem result |
 
 	callerProcess := Processor activeProcess.
 	sem := Semaphore new.
-	"exception := nil."
 	mutex critical: [ 
 		GQueueIdle uniqueInstance idleAdd: [
 			result := [
 				aBlock 
 					on: Exception 
-					fork: [ :e | e pass ] ] 
+					fork: [ :e | 
+						logger error: e.
+						e pass ] ] 
 				ensure: [ 
 					sem signal ] ] ].
 	sem wait.
 	callerProcess := nil.
-
-	"exception ifNotNil: [
-		logger trace: exception. 
-		GtkDeferredError signalForException: exception ]."
 
 	^ result
 ]
@@ -105,7 +108,12 @@ GtkRunLoop >> installRunLoop [
 	runProcess := [
 		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance. 
 		[ running ] whileTrue: [ 
-			context iteration: true ].
+			[ context iteration: true ]
+			on: Error 
+			do: [ :e | 
+				"this can happen (afaik) just on reinitiating the environment in a bad state 
+				 (with a call being send to GTK)"
+				logger error: e ] ].
 		context release.	
 		'Gtk4 event loop ended' asBeaconSignal emit.
 	] 
@@ -130,6 +138,7 @@ GtkRunLoop >> naturalRunner [
 { #category : 'running' }
 GtkRunLoop >> preInstallRunLoop [ 
 
+	self cleanUpQueue.
 	self cleanUpFinalizationRegistry.
 	self cleanUpOldProcesses
 ]

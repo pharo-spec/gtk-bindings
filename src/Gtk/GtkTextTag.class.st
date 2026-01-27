@@ -8,6 +8,9 @@ Class {
 	#superclass : 'GObject',
 	#traits : 'GtkTLibrary',
 	#classTraits : 'GtkTLibrary classTrait',
+	#pools : [
+		'PangoUnderline'
+	],
 	#category : 'Gtk-Misc',
 	#package : 'Gtk',
 	#tag : 'Misc'
@@ -78,15 +81,15 @@ GtkTextTag >> beStrikeThrough [
 
 { #category : 'accessing' }
 GtkTextTag >> beUnderlined [
+	"this is provided for compatibility with TextEmphasis, other underline styles 
+	 can be added directly using `#underline:`" 
 
-	"does not seem to have any effect"
-	self flag: #TODO.
-	
-	self gObjectSet: 'underline-set' toBoolean: true
+	self underline: PANGO_UNDERLINE_SINGLE_LINE
 ]
 
 { #category : 'accessing' }
-GtkTextTag >> fontFamily: family size: size weight: weight [ 
+GtkTextTag >> fontFamily: family size: size weight: weight [
+
 	self gObjectSet: 'family' toString: family.
 	self gObjectSet: 'size-set' toBoolean: true.
 	self gObjectSet: 'size-points' toDouble: size.
@@ -129,4 +132,11 @@ GtkTextTag >> isForegroundSet [
 GtkTextTag >> name [
 
 	^ self gObjectGetString: 'name'
+]
+
+{ #category : 'accessing' }
+GtkTextTag >> underline: aPangoUnderline [
+	"see PangoUnderline enum for possible values"
+	
+	self gObjectSet: 'underline' toInteger: aPangoUnderline value
 ]

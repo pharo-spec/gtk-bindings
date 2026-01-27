@@ -1,5 +1,10 @@
 "
-[https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchContext.html](https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchSettings.html)
+https://developer.gnome.org/gtksourceview/stable/GtkSourceSearchContext.html
+
+**WARNING:** To move between matches, I am not using the async methods (in fact, I am just using 
+forwardThenDo: and backwardThenDo:).
+In case of usage of any of the others, we need to adapt them to preserve currentMatch, as its synchronous
+siblings.
 "
 Class {
 	#name : 'GtkSourceSearchContext',
@@ -9,7 +14,9 @@ Class {
 	#instVars : [
 		'settings',
 		'buffer',
-		'lastForwardCallback'
+		'lastForwardCallback',
+		'matchStyle',
+		'currentMatch'
 	],
 	#category : 'GtkSourceView-Search',
 	#package : 'GtkSourceView',
@@ -75,12 +82,18 @@ GtkSourceSearchContext >> backward: iter thenDo: aBlock [
 	matchEnd := GtkTextIter new.
 	wrappedAroundBuffer := (GObject resolveType: #gboolean) newBuffer.
 	
+	self resetCurrentMatch.
+	
 	backward := self 
 		backward: iter 
 		matchStart: matchStart getHandle
 		matchEnd: matchEnd getHandle
 		wrappedAround: wrappedAroundBuffer.
+	
 	backward ifFalse: [ ^ self ].
+	
+	self saveCurrentMatchStart: matchStart end: matchEnd.
+	
 	aBlock 
 		value: matchStart 
 		value: matchEnd
@@ -89,11 +102,15 @@ GtkSourceSearchContext >> backward: iter thenDo: aBlock [
 
 { #category : 'accessing' }
 GtkSourceSearchContext >> backwardThenDo: aBlock [
+	| iter |
+
+	"if we are already in a match, start from the end of the current match"
+	iter := currentMatch 
+		ifNotNil: [ currentMatch first ]
+		ifNil: [ self buffer iterAtMark: self buffer insertMark ].
 
 	^ self 
-		backward: ((self buffer iterAtMark: self buffer insertMark)
-			backwardChar;
-			yourself)
+		backward: iter
 		thenDo: aBlock
 ]
 
@@ -101,6 +118,17 @@ GtkSourceSearchContext >> backwardThenDo: aBlock [
 GtkSourceSearchContext >> buffer [
 	
 	^ buffer ifNil: [ buffer := self getBuffer ]
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> currentMatchRange [
+
+	currentMatch ifNil: [ ^ 0 to: 0 ].
+	
+	^ { 
+		currentMatch first offset.
+		currentMatch second offset
+	}
 ]
 
 { #category : 'accessing' }
@@ -138,19 +166,25 @@ GtkSourceSearchContext >> forward: iter thenDo: aBlock [
 	matchEnd := GtkTextIter new.
 	wrappedAroundBuffer := (GObject resolveType: #gboolean) newBuffer.
 	
+self resetCurrentMatch.
+	
 	forwarded := self 
 		forward: iter 
 		matchStart: matchStart getHandle
 		matchEnd: matchEnd getHandle
 		wrappedAround: wrappedAroundBuffer.
+		
 	forwarded ifFalse: [ ^ self ].
+	
+	self saveCurrentMatchStart: matchStart end: matchEnd.
+	
 	aBlock 
 		value: matchStart 
 		value: matchEnd
 		value: (wrappedAroundBuffer booleanAt: 1)
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - async' }
 GtkSourceSearchContext >> forwardAsync: iter onFirstPositionDo: aBlock [ 
 
 	self 
@@ -168,10 +202,11 @@ GtkSourceSearchContext >> forwardAsync: iter onFirstPositionDo: aBlock [
 				wrapped: ExternalAddress null 
 				error: ExternalAddress null.
 			found ifTrue: [ 
+				self saveCurrentMatchStart: start end: end.
 				aBlock value: start value: end ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - async' }
 GtkSourceSearchContext >> forwardAsync: iter onReadyDo: aBlock [ 
 
 	self 
@@ -207,12 +242,36 @@ GtkSourceSearchContext >> forwardFinish: result start: match_start end: match_en
 
 { #category : 'accessing' }
 GtkSourceSearchContext >> forwardThenDo: aBlock [
+	| iter |
+
+	"if we are already in a match, start from the end of the current match"
+	iter := currentMatch 
+		ifNotNil: [ currentMatch second ]
+		ifNil: [ 
+			"not sure this is good (using the current cursor position).
+			 for now, I am just searchign from the begining of the buffer :("
+			"self buffer iterAtMark: self buffer insertMark"
+			self buffer startIter ].
 
 	^ self 
-		forward: ((self buffer iterAtMark: self buffer insertMark)
-			forwardChar;
-			yourself)
+		forward: iter
 		thenDo: aBlock
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> forwardThenReplaceWith: aString [ 
+	| result error |
+
+	self forwardThenDo: [ :start :end :wrappedAround | 
+		error := GError newValueHolder.
+		result := self
+			replace: start
+			end: end
+			replace: aString 
+			size: aString size
+			error: error.
+		result ifFalse: [ 
+			Error signal: error value messageString ] ]
 ]
 
 { #category : 'private' }
@@ -224,12 +283,20 @@ GtkSourceSearchContext >> getBuffer [
 ]
 
 { #category : 'private' }
+GtkSourceSearchContext >> getMatchStyle [
+
+	^ self 
+		ffiCall: #(GtkSourceStyle* gtk_source_search_context_get_match_style (self))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : 'private' }
 GtkSourceSearchContext >> getOccurrencePositionStart: match_start end: match_end [
 
 	self ffiCall: #(gint gtk_source_search_context_get_occurrence_position (
 		self,
-		"GtkTextIter *"void *match_start,
-		"GtkTextIter *"void *match_end))
+		"const GtkTextIter *"void* match_start,
+		"const GtkTextIter *"void* match_end))
 ]
 
 { #category : 'accessing' }
@@ -251,22 +318,160 @@ GtkSourceSearchContext >> isHighlight [
 ]
 
 { #category : 'accessing' }
-GtkSourceSearchContext >> occurrencesCount [
+GtkSourceSearchContext >> matchStyle [
 
-	self ffiCall: #(gint gtk_source_search_context_get_occurrences_count (self))
+	^ matchStyle ifNil: [ matchStyle := self getMatchStyle ]
 ]
 
-{ #category : 'accessing settings' }
+{ #category : 'accessing' }
+GtkSourceSearchContext >> matchStyle: aSourceStyle [
+
+	matchStyle := aSourceStyle.
+	self setMatchStyle: aSourceStyle
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> occurrencesCount [
+
+	^ self ffiCall: #(gint gtk_source_search_context_get_occurrences_count (self))
+]
+
+{ #category : 'private' }
+GtkSourceSearchContext >> replace: match_start end: match_end replace: replace size: replace_length error: error [
+
+	self ffiCall: #(gboolean gtk_source_search_context_replace (
+  		self,
+  		GtkTextIter* match_start,
+  		GtkTextIter* match_end,
+  		const gchar* replace,
+  		gint replace_length,
+  		GError** error))
+]
+
+{ #category : 'private' }
+GtkSourceSearchContext >> replaceAll: replace size: replace_length error: error [
+
+	self ffiCall: #(guint gtk_source_search_context_replace_all (
+  		self,
+  		const gchar* replace,
+  		gint replace_length,
+  		GError** error))
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> replaceAllWith: aString [
+	| result result error |
+		
+	error := GError newValueHolder.
+	result := self 
+		replaceAll: aString 
+		size: aString size
+		error: error.
+		
+	^ result
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> replaceMatchWith: aString [
+	| result error |
+
+	logger trace: aString.
+	logger trace: currentMatch.
+
+	currentMatch ifNil: [ ^ self ].
+
+	error := GError newValueHolder.
+	result := self
+		replace: currentMatch first
+		end: currentMatch second
+		replace: aString 
+		size: aString size
+		error: error.
+
+	logger trace: result.
+
+	"replace current match"
+	currentMatch := {
+		currentMatch first.
+		currentMatch first copy 
+			forwardChars: aString size;
+			yourself.
+	}.
+
+	result ifFalse: [ 
+		Error signal: error value messageString ].
+		
+	^ result
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> replaceWith: aString [
+	| result error |
+	
+	self withOccurrencePositionDo: [ :matchStart :matchEnd |
+	
+		error := GError newValueHolder.
+		result := self 
+			replace: matchStart getHandle
+			end: matchEnd getHandle
+			replace: aString 
+			size: aString size
+			error: error.
+		result ifTrue: [ ^ self ].
+	
+		Error signal: error value messageString ]
+]
+
+{ #category : 'private' }
+GtkSourceSearchContext >> resetCurrentMatch [
+
+	currentMatch := nil
+]
+
+{ #category : 'private' }
+GtkSourceSearchContext >> saveCurrentMatchStart: matchStart end: matchEnd [
+
+	currentMatch := { matchStart. matchEnd }
+]
+
+{ #category : 'accessing - settings' }
 GtkSourceSearchContext >> searchText: aString [
 	
+	self resetCurrentMatch.
 	self settings searchText: aString
 ]
 
-{ #category : 'accessing settings' }
+{ #category : 'private' }
+GtkSourceSearchContext >> setMatchStyle: aStyle [
+
+	self 
+		ffiCall: #(void gtk_source_search_context_get_match_style (self, GtkSourceStyle *aStyle))
+		module: GtkSourceViewLibrary
+]
+
+{ #category : 'accessing - settings' }
 GtkSourceSearchContext >> settings [
 
 	^ settings ifNil: [ 
 		settings := self
 			gObjectGetHandle: 'settings'
 			as: GtkSourceSearchSettings ]
+]
+
+{ #category : 'accessing' }
+GtkSourceSearchContext >> withOccurrencePositionDo: aBlock [
+	| pos start end |
+	
+	start := GtkTextIter new.
+	end := GtkTextIter new.
+	
+	pos := self 
+		getOccurrencePositionStart: start referenceTo
+		end: end referenceTo.
+	
+	pos = 0 ifTrue: [ ^ self ].
+	
+	aBlock
+		value: start
+		value: end
 ]

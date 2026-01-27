@@ -1,5 +1,5 @@
 "
-I'm a base for all Gtk3 objects (not all Gtk3 references are).
+I'm a base for all Gtk objects (not all Gtk references are).
 "
 Class {
 	#name : 'GObject',
@@ -57,7 +57,9 @@ GObject class >> gDefine: aClass [
 { #category : 'factory' }
 GObject class >> gObjectNew: object_type [
 
-	^ self ffiCall: #(void *g_object_new (gsize object_type, NULL))
+	^ self 
+		ffiCall: #(void *g_object_new (gsize object_type, NULL))
+		fixedArgumentCount: 2
 ]
 
 { #category : 'factory' }
@@ -69,7 +71,7 @@ GObject class >> gObjectNew: object_type propertyName: aName integerValue: aNumb
 			String aName, 
 			gint aNumber,
 			NULL))
-		module: GObjectLibrary
+		fixedArgumentCount: 4
 ]
 
 { #category : 'accessing' }
@@ -569,33 +571,41 @@ GObject >> gObjectGet: aName intoAddress: aBuffer [
 ]
 
 { #category : 'private - primitives' }
+GObject >> gObjectGet: aName intoProperty: aValue [
+
+	self 
+		ffiCall: #(void g_object_get_property (self, const gchar *aName, GValue *aValue)) 
+		module: GObjectLibrary
+]
+
+{ #category : 'private - primitives' }
 GObject >> gObjectGetBoolean: aName [
 	"a convenience method to read boolean properties"
-	| buffer |
+	| gValue |
 	
-	buffer := FFIBool newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer booleanAt: 1
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getBoolean
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetDouble: aName [
-	"a convenience method to read boolean properties"
-	| buffer |
+	"a convenience method to read double properties"
+	| gValue |
 	
-	buffer := FFIFloat64 newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer doubleAt: 1
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getDouble
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetHandle: aName [
-	| address |
+	"a convenience method to read handle (pointer) properties"
+	| gValue |
 	
-	address := ExternalAddress new.
-	self gObjectGet: aName intoAddress: address.
-	^ address	
-			
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getObject
 ]
 
 { #category : 'private - primitives' }
@@ -610,80 +620,88 @@ GObject >> gObjectGetHandle: aName as: aClass [
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetInteger: aName [
-	"a convenience method to read boolean properties"
-	| buffer |
+	"a convenience method to read integer properties"
+	| gValue |
 	
-	buffer := FFIInt32 newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer signedLongAt: 1
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getInt
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetLong: aName [
-	"a convenience method to read boolean properties"
-	| buffer |
-
-	buffer := FFILong newBuffer.
-	self gObjectGet: aName into: buffer.
-	^ buffer signedLongAt: 1
+	"a convenience method to read long properties"
+	| gValue |
+	
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getLong
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectGetString: aName [
 	"a convenience method to read string properties"
-	| buffer |
+	| gValue |
 	
-	buffer := ExternalAddress new.
-	self gObjectGet: aName intoAddress: buffer.
-	^ buffer utf8StringFromCString
+	gValue := GValue new.
+	self gObjectGet: aName intoProperty: gValue referenceTo.
+	^ gValue getString
+]
+
+{ #category : 'private - primitives' }
+GObject >> gObjectSet: aName fromProperty: aValue [
+
+	self 
+		ffiCall: #(void g_object_set_property (self, const gchar *aName, GValue *aValue)) 
+		module: GObjectLibrary
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toBoolean: aBoolean [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gboolean aBoolean, NULL))
-		module: GObjectLibrary
+	| gValue |
+	
+	gValue := GValue newBoolean: aBoolean.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toDouble: aNumber [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gdouble aNumber, NULL))
-		module: GObjectLibrary
+	| gValue |
+	
+	gValue := GValue newDouble: aNumber.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toInteger: aNumber [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gint aNumber, NULL))
-		module: GObjectLibrary
+	| gValue |
+	
+	gValue := GValue newInt: aNumber. 
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toLong: aNumber [
-
-	self
-		ffiCall: #(void g_object_set (self, const gchar *aName, glong aNumber, NULL))
-		module: GObjectLibrary
+	| gValue |
+	
+	gValue := GValue newInt64: aNumber.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toPointer: aPointer [
-
-	self 
-		ffiCall: #(void g_object_set (self, const gchar *aName, gpointer aPointer, NULL))
-		module: GObjectLibrary
+	| gValue |
+	
+	gValue := GValue newPointer: aPointer. 
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - primitives' }
 GObject >> gObjectSet: aName toString: aString [
-
-	self 
-		ffiCall: #(void g_object_set ( self, const gchar *aName, gchar *aString, NULL))
-		module: GObjectLibrary	
+	| gValue |
+	
+	gValue := GValue newString: aString.
+	self gObjectSet: aName fromProperty: gValue referenceTo
 ]
 
 { #category : 'private - signaling' }
@@ -924,7 +942,6 @@ GObject >> withObjectReferenceDo: aBlock [
 
 { #category : 'private' }
 GObject >> withReferenceOf: aGObject do: aBlock [ 
-	| oldGObject |
 	
 	oldGObject := aGObject.
 	oldGObject isNullOrNil 

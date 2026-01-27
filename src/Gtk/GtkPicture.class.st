@@ -1,5 +1,6 @@
 "
 https://docs.gtk.org/gtk4/class.Picture.html
+
 "
 Class {
 	#name : 'GtkPicture',

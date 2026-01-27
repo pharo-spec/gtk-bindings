@@ -1,7 +1,7 @@
 "
 I'm a widget displaying an image.
+https://docs.gtk.org/gtk4/class.Image.html
 
-https://developer.gnome.org/gtk3/stable/GtkImage.html
 "
 Class {
 	#name : 'GtkImage',
@@ -137,7 +137,7 @@ GtkImage >> getIconName: icon_name size: size [
 { #category : 'private' }
 GtkImage >> getPaintable [
 
-	^ self ffiCall: #(GdkPaintable *gtk_image_get_paintable())
+	^ self ffiCall: #(GdkPaintable *gtk_image_get_paintable(self))
 ]
 
 { #category : 'private' }

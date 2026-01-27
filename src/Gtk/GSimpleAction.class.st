@@ -25,6 +25,12 @@ GSimpleAction class >> newName: aName [
 	^ (self gNew: aName) initialize
 ]
 
+{ #category : 'activation' }
+GSimpleAction >> activate [
+
+	self ffiCall: #(void g_action_activate (self, NULL))
+]
+
 { #category : 'signaling' }
 GSimpleAction >> connectActivate: aBlock [
 	"aBlock receives NO arguments"

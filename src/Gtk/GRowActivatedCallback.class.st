@@ -20,7 +20,10 @@ GRowActivatedCallback >> do: aBlock [
 
 	self 
 		signature: self signature 
-		block: [ :widget :position :user_data | aBlock value: position ]
+		block: [ :widget :position :user_data | 
+			[ aBlock value: position ]
+			on: Error 
+			fork: [ :e | e pass ] ]
 ]
 
 { #category : 'accessing' }

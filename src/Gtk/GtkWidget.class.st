@@ -1,7 +1,9 @@
 "
 GtkWidget — Base class for all widgets.
 
-https://developer.gnome.org/gtk3/stable/GtkWidget.html
+https://docs.gtk.org/gtk4/class.Widget.html 
+
+
 "
 Class {
 	#name : 'GtkWidget',
@@ -383,6 +385,22 @@ GtkWidget >> addMotionEvent: aBlock [
 		aController connectMotion: aBlock ]
 ]
 
+{ #category : 'accessing - tick' }
+GtkWidget >> addOneShotTickCallback: aBlock [
+	| callback id |
+	
+	callback := GCallback 
+		signature: #(gboolean (void* selfHandle, "GdkFrameClock*"void *frame_clock, gpointer user_data)) 
+		block: [ :selfHandle :frame_clock :user_data | 
+			aBlock cull: self.
+			self removeTickCallback: id.
+			callbacks remove: callback.
+			false "do not reuse"].
+			
+	self registerCallback: callback.
+	id := self addTickCallback: callback
+]
+
 { #category : 'accessing - events' }
 GtkWidget >> addPrimaryButtonPressEvent: aBlock [
 	"adds a button press event.
@@ -458,6 +476,16 @@ GtkWidget >> addShortcutControllerWith: aBlock [
 			self addController: (GtkShortcutController new
 				beLocal;
 				yourself) ])
+]
+
+{ #category : 'accessing - tick' }
+GtkWidget >> addTickCallback: aCallback [
+
+	self ffiCall: #(guint gtk_widget_add_tick_callback (
+		self, 
+		"GtkTickCallback"GCallback aCallback, 
+		"gpointer user_data" NULL,
+  		"GDestroyNotify notify" NULL))
 ]
 
 { #category : 'accessing - events' }
@@ -740,6 +768,16 @@ GtkWidget >> connectMotionNotify: aBlock [
 GtkWidget >> connectNotifyProperty: property do: aBlock [
 
 	(GNotifyPropertyCallback property: property do: aBlock) connectTo: self
+]
+
+{ #category : 'signaling' }
+GtkWidget >> connectParentChanged: aBlock [ 
+
+	self 
+		connect: 'notify::parent' 
+		signature: #(void (void *selfHandle, void *pspec, gpointer user_data)) 
+		do: [ :selfHandle :pspec :user_data | 
+			aBlock value ]
 ]
 
 { #category : 'signaling' }
@@ -1389,6 +1427,12 @@ GtkWidget >> preferredSizeNatural [
 ]
 
 { #category : 'accessing' }
+GtkWidget >> queueAllocate [
+
+	^ self ffiCall: #(void gtk_widget_queue_allocate (self))
+]
+
+{ #category : 'accessing' }
 GtkWidget >> queueDraw [
 
 	^ GtkQueueDraw uniqueInstance queueDraw: self
@@ -1407,6 +1451,16 @@ GtkWidget >> queueResizeNoRedraw [
 ]
 
 { #category : 'accessing - actions' }
+GtkWidget >> removeActionGroupNamed: aName [
+	| group |
+
+	group := self actionGroups removeKey: aName ifAbsent: [ ^ self ].
+	group removeAll.
+	self basicRemoveActionGroup: aName.
+	
+]
+
+{ #category : 'accessing - actions' }
 GtkWidget >> removeAllActions [
 
 	actionGroups ifNil: [ ^ self ].
@@ -1418,6 +1472,7 @@ GtkWidget >> removeAllActions [
 
 { #category : 'accessing - shortcuts' }
 GtkWidget >> removeAllShortcuts [
+	eventControllers ifNil: [ ^ self ].
 
 	(eventControllers 
 		select: [ :each | each isShortcutController ])
@@ -1454,6 +1509,12 @@ GtkWidget >> removeShortcut: aShortcut [
 		aController removeShortcut: aShortcut ]
 ]
 
+{ #category : 'accessing - tick' }
+GtkWidget >> removeTickCallback: anId [
+
+	self ffiCall: #(void gtk_widget_remove_tick_callback (self, guint anId))
+]
+
 { #category : 'accessing' }
 GtkWidget >> root [
 
@@ -1478,6 +1539,18 @@ GtkWidget >> sensitive: sensitive [
 	"sensitive is the gtk equivallent of enable/disable"
 
 	self ffiCall: #(void gtk_widget_set_sensitive (self, gboolean sensitive))
+]
+
+{ #category : 'accessing' }
+GtkWidget >> setCursor: cursor [
+
+	self ffiCall: #(void gtk_widget_set_cursor (self, GdkCursor* cursor))
+]
+
+{ #category : 'accessing' }
+GtkWidget >> setCursorFromName: aName [
+
+	self ffiCall: #(void gtk_widget_set_cursor_from_name (self, const char* aName))
 ]
 
 { #category : 'accessing' }
@@ -1684,7 +1757,7 @@ GtkWidget >> width: aNumber [
 	self sizeRequest: aNumber @ self height
 ]
 
-{ #category : 'private - deferring' }
+{ #category : 'private' }
 GtkWidget >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self

@@ -1,7 +1,7 @@
 "
 GtkBox — A container box.
 
-https://developer.gnome.org/gtk3/stable/GtkBox.html
+https://docs.gtk.org/gtk4/class.Box.html
 "
 Class {
 	#name : 'GtkBox',
@@ -75,6 +75,12 @@ GtkBox >> basicAppend: child [
 ]
 
 { #category : 'private' }
+GtkBox >> basicInsert: child after: sibling [ 
+
+	^ self ffiCall: #(void gtk_box_insert_child_after (self, GtkWidget *child, GtkWidget *sibling))
+]
+
+{ #category : 'private' }
 GtkBox >> basicPrepend: child [ 
 
 	^ self ffiCall: #(void gtk_box_prepend (self, GtkWidget *child))
@@ -97,6 +103,13 @@ GtkBox >> initialize [
 
 	super initialize.
 	self initializeTContainer
+]
+
+{ #category : 'accessing' }
+GtkBox >> insert: child after: sibling [
+
+	self keepWidget: child.
+	self basicInsert: child after: sibling
 ]
 
 { #category : 'testing' }

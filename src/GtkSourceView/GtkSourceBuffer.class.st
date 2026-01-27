@@ -10,7 +10,8 @@ Class {
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#instVars : [
 		'language',
-		'searchContext'
+		'searchContext',
+		'mutex'
 	],
 	#category : 'GtkSourceView-Base',
 	#package : 'GtkSourceView',
@@ -129,9 +130,17 @@ GtkSourceBuffer >> language: aLanguage [
 ]
 
 { #category : 'private' }
+GtkSourceBuffer >> mutex [
+
+	^ mutex ifNil: [ mutex := Mutex new ]
+]
+
+{ #category : 'private' }
 GtkSourceBuffer >> newSearchContext [
 
-	^ GtkSourceSearchContext newBuffer: self
+	^ (GtkSourceSearchContext newBuffer: self)
+		highlight: false;
+		yourself
 ]
 
 { #category : 'accessing' }
@@ -145,9 +154,21 @@ GtkSourceBuffer >> removeSourceMarksStart: start end: end category: category [
 ]
 
 { #category : 'accessing' }
+GtkSourceBuffer >> resetSearchContext [
+
+	self mutex critical: [
+		searchContext ifNotNil: [ 
+			"I need to reset the highlight because otherwise it remains there"
+			searchContext highlight: false.
+			searchContext := nil ] ]
+]
+
+{ #category : 'accessing' }
 GtkSourceBuffer >> searchContext [
 
-	^ searchContext ifNil: [ searchContext := self newSearchContext ]
+	^ self mutex critical: [ 
+		searchContext ifNil: [ 
+			searchContext := self newSearchContext ] ]
 ]
 
 { #category : 'private' }

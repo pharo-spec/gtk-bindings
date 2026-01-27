@@ -100,6 +100,18 @@ GtkEventController >> name: aName [
 ]
 
 { #category : 'accessing' }
+GtkEventController >> propagationPhase [
+
+	self ffiCall: #(GtkPropagationPhase gtk_event_controller_get_propagation_phase (self))
+]
+
+{ #category : 'accessing' }
+GtkEventController >> propagationPhase: phase [
+
+	self ffiCall: #(void gtk_event_controller_set_propagation_phase (self, GtkPropagationPhase phase))
+]
+
+{ #category : 'accessing' }
 GtkEventController >> reset [
 
 	self ffiCall: #(void gtk_event_controller_reset (self))
