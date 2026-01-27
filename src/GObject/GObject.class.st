@@ -943,11 +943,10 @@ GObject >> withObjectReferenceDo: aBlock [
 { #category : 'private' }
 GObject >> withReferenceOf: aGObject do: aBlock [ 
 	
-	"quick exit if there is no living object to reference"
-	aGObject isNullOrNil 
-		ifTrue: [ ^ aBlock value ].
-		
-	aGObject objectRef.
-	^ aBlock ensure: [
-		aGObject objectUnref ]
+	oldGObject := aGObject.
+	oldGObject isNullOrNil 
+		ifFalse: [ oldGObject objectRef ].
+	aBlock ensure: [ 
+		oldGObject isNullOrNil 
+			ifFalse: [ oldGObject objectUnref ] ]
 ]
