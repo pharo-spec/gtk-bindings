@@ -302,8 +302,9 @@ GtkTextView >> textBuffer: aTextBuffer [
 	oldTextBuffer := textBuffer.
 	self withReferenceOf: oldTextBuffer do: [
 		textBuffer := aTextBuffer.
-		self setBuffer: aTextBuffer ].
-	 textBuffer objectUnrefNow
+		self setBuffer: textBuffer ].
+	textBuffer isNullOrNil 
+	 	ifFalse: [ textBuffer objectUnrefNow ]
 ]
 
 { #category : 'accessing' }
