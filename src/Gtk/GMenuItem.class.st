@@ -31,6 +31,14 @@ GMenuItem class >> gNew: label action: detailed_action [
   		const gchar* detailed_action))
 ]
 
+{ #category : 'private' }
+GMenuItem class >> gNew: label section: sections [ 
+
+	^ self ffiCall: #(GMenuItem* g_menu_item_new_section (
+  		const gchar* label,
+  		GMenuModel* section))
+]
+
 { #category : 'instance creation' }
 GMenuItem class >> new [
 
@@ -47,6 +55,12 @@ GMenuItem class >> newLabel: aString [
 GMenuItem class >> newLabel: aString action: actionString [
 
 	^ (self gNew: aString action: actionString) initialize
+]
+
+{ #category : 'instance creation' }
+GMenuItem class >> newLabel: aString section: aSection [
+
+	^ (self gNew: aString section: aSection) initialize
 ]
 
 { #category : 'accessing' }
