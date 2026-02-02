@@ -30,6 +30,12 @@ GtkImage class >> gType [
 ]
 
 { #category : 'private' }
+GtkImage class >> imageNewFromFileName: filename [
+
+	self ffiCall: #(GtkImage* gtk_image_new_from_file (const char* filename))
+]
+
+{ #category : 'private' }
 GtkImage class >> imageNewFromIconName: icon_name [
 
 	self ffiCall: #(GtkImage *gtk_image_new_from_icon_name (const char* icon_name))
@@ -68,6 +74,12 @@ GtkImage class >> new [
 GtkImage class >> newEmpty [
 
 	^ self basicNewEmpty initialize
+]
+
+{ #category : 'instance creation' }
+GtkImage class >> newFromFileName: aString [ 
+
+	^ (self imageNewFromFileName: aString) initialize
 ]
 
 { #category : 'instance creation' }

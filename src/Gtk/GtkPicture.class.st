@@ -16,10 +16,22 @@ GtkPicture class >> gtkNew [
 	^ self ffiCall: #(GtkPicture* gtk_picture_new (void))
 ]
 
+{ #category : 'private' }
+GtkPicture class >> gtkNewForFileName: filename [
+
+	^ self ffiCall: #(GtkPicture* gtk_picture_new_for_filename (const char* filename))
+]
+
 { #category : 'instance creation' }
 GtkPicture class >> new [
 
 	^ self gtkNew initialize
+]
+
+{ #category : 'instance creation' }
+GtkPicture class >> newForFileName: fileName [
+
+	^ (self gtkNewForFileName: fileName) initialize
 ]
 
 { #category : 'accessing' }

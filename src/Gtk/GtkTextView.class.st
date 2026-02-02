@@ -39,6 +39,15 @@ GtkTextView class >> textViewNew [
 ]
 
 { #category : 'accessing' }
+GtkTextView >> addChild: child atAnchor: anchor [
+
+	self ffiCall: #(void gtk_text_view_add_child_at_anchor (
+		self, 
+		GtkWidget* child, 
+		GtkTextChildAnchor* anchor))
+]
+
+{ #category : 'accessing' }
 GtkTextView >> beWrapChar [
 
 	self setWrapMode: GTK_WRAP_CHAR

@@ -145,6 +145,12 @@ GtkTextBuffer >> createAnonymousTag [
 	^ self ffiCall: #(GtkTextTag *gtk_text_buffer_create_tag (self, NULL, NULL))
 ]
 
+{ #category : 'as yet unclassified' }
+GtkTextBuffer >> createChildAnchor: iter [
+
+	^ self ffiCall: #(GtkTextChildAnchor* gtk_text_buffer_create_child_anchor (self, GtkTextIter* iter))
+]
+
 { #category : 'accessing - mark' }
 GtkTextBuffer >> createMarkNamed: mark_name where: where leftGravity: left_gravity [
 
