@@ -1,7 +1,7 @@
 "
 GtkWindow — Toplevel which can contain other widgets.
 
-https://developer.gnome.org/gtk3/stable/GtkWindow.html
+https://docs.gtk.org/gtk4/class.Window.html
 "
 Class {
 	#name : 'GtkWindow',
@@ -280,6 +280,15 @@ GtkWindow >> computePositionOfPointerTarget: aWidget [
 GtkWindow >> connectActivateFocus: aBlock [
 
 	self connect: 'activate-focus' do: aBlock
+]
+
+{ #category : 'signaling' }
+GtkWindow >> connectActiveChanged: aBlock [
+
+	self 
+		connect: 'notify::is-active' 
+		signature: #(void (void *selfHandle, void *pspec, gpointer user_data))
+		do: [ :selfHandle :pspec : user_data | aBlock value ]
 ]
 
 { #category : 'signaling' }
