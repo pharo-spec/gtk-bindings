@@ -69,8 +69,7 @@ GtkSourceViewLibrary >> runner [
 { #category : 'accessing - platform' }
 GtkSourceViewLibrary >> unix64LibraryName [
 
-	GtkLibrary isDebug ifTrue: [ ^ '/home/esteban/jhbuild/install/lib/libgtksourceview-5.so' ].
-	^ FFIUnix64LibraryFinder findLibrary: 'libgtksourceview-5.so'
+	^ FFIUnix64LibraryFinder findAnyLibrary: #('libgtksourceview-5.so' 'libgtksourceview-5.so.0')
 ]
 
 { #category : 'accessing' }
