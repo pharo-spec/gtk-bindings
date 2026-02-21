@@ -8,3 +8,9 @@ FinalizationRegistry >> detect: aBlock ifFound: foundBlock [
 		ifFound: [ :entry | foundBlock value: entry value ]
 		ifNone: [ nil ]
 ]
+
+{ #category : '*GObject' }
+FinalizationRegistry >> removeAll [
+
+	ephemeronList removeAll
+]

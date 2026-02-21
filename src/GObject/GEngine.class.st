@@ -64,7 +64,7 @@ GEngine class >> isAvailable [
 { #category : 'testing' }
 GEngine class >> isRunning [ 
 	
-	^ self current notNil 
+	^ self current isNotNil 
 		and: [ self current isRunning ]
 ]
 

@@ -19,10 +19,35 @@ GSimpleAction class >> gNew: aName [
 	^ self ffiCall: #(GSimpleAction* g_simple_action_new (gchar* aName, NULL))
 ]
 
+{ #category : 'private' }
+GSimpleAction class >> gNewStateful: aName state: aState [
+
+	self ffiCall: #(GSimpleAction* g_simple_action_new_stateful (
+  		const gchar* aName,
+  		"const GVariantType* parameter_type"NULL,
+  		GVariant* aState))
+]
+
 { #category : 'instance creation' }
 GSimpleAction class >> newName: aName [ 
 
 	^ (self gNew: aName) initialize
+]
+
+{ #category : 'instance creation' }
+GSimpleAction class >> newNameStateful: aName [ 
+
+	^ self newNameStateful: aName state: false
+]
+
+{ #category : 'instance creation' }
+GSimpleAction class >> newNameStateful: aName state: aBoolean [ 
+	| instance variant |
+
+	variant := GVariant newBoolean: aBoolean.
+	instance := (self gNewStateful: aName state: variant) initialize.
+		
+	^ instance
 ]
 
 { #category : 'activation' }

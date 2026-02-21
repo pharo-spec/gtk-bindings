@@ -6,6 +6,14 @@ Class {
 	#tag : 'Base'
 }
 
+{ #category : 'class initialization' }
+GExternalResourceManager class >> reset [ 
+
+	uniqueInstance ifNotNil: [ uniqueInstance reset ].
+
+	super reset
+]
+
 { #category : 'external resource management' }
 GExternalResourceManager >> addResource: anObject [
 	
@@ -47,4 +55,10 @@ GExternalResourceManager >> removeResource: aGObject [
 		registry
 			detect: [ :each | each getHandle = aGObject getHandle ]
 			ifFound: [ :foundGObject | registry remove: foundGObject ifAbsent: [ ] ] ]
+]
+
+{ #category : 'initialization' }
+GExternalResourceManager >> reset [
+
+	registry removeAll
 ]
