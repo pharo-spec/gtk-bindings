@@ -138,8 +138,8 @@ GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 	
 	[ 
 		listItem := self toListItem: item.
-		unbind ifTrue: [ self unbind: listItem ].
 		self teardown: listItem.
+		unbind ifTrue: [ self unbind: listItem ].
 		func isNull ifFalse: [ 
 			self execFunction: func with: { item. data } ] ]
 	on: Error 
