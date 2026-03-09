@@ -10,7 +10,8 @@ Class {
 		'queue',
 		'function',
 		'processMutex',
-		'processing'
+		'processing',
+		'pending'
 	],
 	#category : 'GLib-Library',
 	#package : 'GLib',
@@ -37,9 +38,9 @@ GQueueIdle >> gIdleAddFull: aCallback [
 { #category : 'accessing' }
 GQueueIdle >> idleAdd: aBlock [
 
-	mutex critical: [ 
-		self ensureFunction.
-		queue nextPut: aBlock.
+	mutex critical: [
+		processMutex critical: [  
+			queue add: aBlock ].
 		self queueIdleAction ]
 ]
 
@@ -49,7 +50,8 @@ GQueueIdle >> initialize [
 	super initialize.
 	mutex := Mutex new.
 	processMutex := Mutex new.	
-	queue := WaitfreeQueue new
+	queue := OrderedCollection new: 500.
+	pending := false
 ]
 
 { #category : 'private' }
@@ -70,22 +72,28 @@ GQueueIdle >> nextQueuedBlock [
 
 { #category : 'private' }
 GQueueIdle >> processQueue [
-	| block |
+	| processingQueue |
 	
-	(block := self nextQueuedBlock) ifNotNil: [
-		block value.
+	processMutex critical: [ 
+		queue ifEmpty: [ ^ self ].
+		processingQueue := queue copy.
+		queue removeAll.
+		pending := false ].
+	
+	processingQueue do: [ :aBlock |
+		aBlock value.
 		"I need to let the scheduler decide if someone else needs the process"
-		Processor yield ].
-	"requeue (it there are more blocks). I do not process all blocks in a row because 
-	 I need to let GTK to process other internal events (drawing, etc.) before!"
-	self queueIdleAction
+		Processor yield ]
 ]
 
 { #category : 'private' }
 GQueueIdle >> queueIdleAction [
 
+	pending ifTrue: [ ^ self ].
 	queue isEmpty ifTrue: [ ^ self ].
-	self gIdleAddFull: function
+	processMutex critical: [ pending := true ].
+	self ensureFunction.
+	self gIdleAddFull: function 
 ]
 
 { #category : 'accessing' }
