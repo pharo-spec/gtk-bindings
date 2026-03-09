@@ -130,7 +130,8 @@ GtkApplicationEngine >> start [
 { #category : 'private - running' }
 GtkApplicationEngine >> startEngineSupports [
 	
-	GtkEngineSupport allAvailable do: [ :each | each start ]
+	GtkEngineSupport allAvailableForExecuteAfterInitialization 
+		do: [ :each | each start ]
 ]
 
 { #category : 'private - running' }

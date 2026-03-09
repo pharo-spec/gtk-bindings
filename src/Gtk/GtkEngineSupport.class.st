@@ -21,6 +21,16 @@ GtkEngineSupport class >> allAvailable [
 ]
 
 { #category : 'accessing' }
+GtkEngineSupport class >> allAvailableForExecuteAfterInitialization [
+	
+	^ self allSubclasses 
+		select: [ :each | 
+			each isAvailable 
+				and: [ self shouldRunBeforeEngineInitialization not ] ]
+		thenCollect: [ :each | each new ]
+]
+
+{ #category : 'accessing' }
 GtkEngineSupport class >> allAvailableForExecuteBeforeInitialization [
 	
 	^ self allSubclasses 
