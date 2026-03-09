@@ -2,7 +2,7 @@
 GtkMenuButton
 GtkMenuButton — A widget that shows a popup when clicked on
 
-https://docs.gtk.org/gtk4/class.MenuButton.html
+https://developer.gnome.org/gtk3/unstable/GtkMenuButton.html
 "
 Class {
 	#name : 'GtkMenuButton',
