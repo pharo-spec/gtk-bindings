@@ -21,7 +21,7 @@ Class {
 { #category : 'private' }
 GQueueIdle >> ensureFunction [
 
-	(function isNil or: [ function thunk isNull ]) ifFalse: [ ^ self ].
+	(function isNil or: [ function thunk isNullOrNil ]) ifFalse: [ ^ self ].
 	function := self newFunction
 ]
 
@@ -51,6 +51,7 @@ GQueueIdle >> initialize [
 	mutex := Mutex new.
 	processMutex := Mutex new.	
 	queue := OrderedCollection new: 500.
+	processing := false.
 	pending := false
 ]
 
@@ -60,30 +61,30 @@ GQueueIdle >> newFunction [
 	^ GSourceFunc new
 	 	signature: #(guint (void *data))
 		block: [ :data |
-			self processQueue.
-			0 ]
-]
-
-{ #category : 'private' }
-GQueueIdle >> nextQueuedBlock [
-	
-	^ queue nextOrNil
+			self processQueue
+				ifTrue: [ 1 ]
+				ifFalse: [ 0 ] ]
 ]
 
 { #category : 'private' }
 GQueueIdle >> processQueue [
-	| processingQueue |
+	| processingQueue oldProcessing |
 	
 	processMutex critical: [ 
 		queue ifEmpty: [ ^ self ].
 		processingQueue := queue copy.
 		queue removeAll.
 		pending := false ].
+	 
+	[
+		oldProcessing := processing.  
+		processing := true. 
+		processingQueue
+			do: [ :aBlock | aBlock value ] ] 
+	ensure: [ 
+		processing := false ].
 	
-	processingQueue do: [ :aBlock |
-		aBlock value.
-		"I need to let the scheduler decide if someone else needs the process"
-		Processor yield ]
+	^ queue isNotEmpty
 ]
 
 { #category : 'private' }
@@ -92,15 +93,17 @@ GQueueIdle >> queueIdleAction [
 	pending ifTrue: [ ^ self ].
 	queue isEmpty ifTrue: [ ^ self ].
 	processMutex critical: [ pending := true ].
-	self ensureFunction.
-	self gIdleAddFull: function 
+	processing ifFalse: [ 
+		self ensureFunction.
+		self gIdleAddFull: function ]
 ]
 
 { #category : 'accessing' }
 GQueueIdle >> reset [
 
 	mutex critical: [ 
-		queue removeAll ]
+		queue removeAll.
+		function := nil ]
 ]
 
 { #category : 'accessing platform' }
