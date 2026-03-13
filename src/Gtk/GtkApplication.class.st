@@ -106,5 +106,5 @@ GtkApplication >> run [
 		"exitCode = 0 
 			ifFalse: [ self error: ('Run loop exited with code {1}' format: { exitCode } ) ]" ]
 	forkAt: Processor lowIOPriority 
-	named: applicationId
+	named: ('{1}: {2}' format: { self className. applicationId })
 ]
