@@ -39,7 +39,9 @@ GObjectLibrary class >> isDebug [
 GObjectLibrary class >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk"
 	
-	^ GEngine ensureEngine naturalRunner
+	^ GEngine current 
+		ifNotNil: [ :anEngine | anEngine naturalRunner ]
+		ifNil: [ TFMainThreadRunner uniqueInstance ]
 ]
 
 { #category : 'options' }

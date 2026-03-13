@@ -25,3 +25,9 @@ GtkApplicationRunLoop >> engine: anEngine [
 GtkApplicationRunLoop >> installRunLoop [
 	"this will be run in GtkApplicationEngine"
 ]
+
+{ #category : 'accessing' }
+GtkApplicationRunLoop >> naturalRunner [
+
+	^ GtkMainThreadRunner uniqueInstance
+]

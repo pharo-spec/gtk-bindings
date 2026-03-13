@@ -29,6 +29,12 @@ GtkTextTag class >> newName: aString [
 	^ (self textTagNew: aString) initialize 
 ]
 
+{ #category : 'instance creation' }
+GtkTextTag class >> newUnownedName: aString [
+
+	^ (self textTagNew: aString) initializeUnowned
+]
+
 { #category : 'private' }
 GtkTextTag class >> textTagNew: aName [
 

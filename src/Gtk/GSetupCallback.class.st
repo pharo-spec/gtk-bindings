@@ -24,7 +24,7 @@ GSetupCallback >> do: aBlock [
 	self 
 		signature: self signature 
 		block: [ :factory :object :user_data | 
-			aBlock value: (self itemClass fromHandleUnreferenced: object) ]
+			aBlock value: (self itemClass fromHandleUnowned: object) ]
 ]
 
 { #category : 'accessing' }

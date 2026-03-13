@@ -143,7 +143,7 @@ GListReferenceStore >> itemAt: aPosition [
 { #category : 'accessing' }
 GListReferenceStore >> itemAtHandle: address [
 
-	^ self itemAt: ((GObject fromHandleUnreferenced: address) dataAt: 'position') asInteger + 1
+	^ self itemAt: ((GObject fromHandleUnowned: address) dataAt: 'position') asInteger + 1
 ]
 
 { #category : 'acccessing' }

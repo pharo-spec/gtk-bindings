@@ -31,7 +31,7 @@ GTreeListReferenceStore >> index: aNumber [
 GTreeListReferenceStore >> itemAtHandle: itemHandle children: aBlock [
 	| holder storeHandle store item children position |
 	
-	holder := GObject fromHandleUnreferenced: itemHandle.
+	holder := GObject fromHandleUnowned: itemHandle.
 	storeHandle := holder dataAt: 'store'.
 	store := self storeAt: storeHandle.
 	position := (holder dataAt: 'position') asInteger + 1.

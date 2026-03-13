@@ -85,7 +85,7 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 			signature: #(void (void *provider, void *context, void *cancellable, void *callback, gpointer user_data))
 			to: [ :provider :context :cancellable :callback :user_data | 
 				(self gInstance: provider) 
-					populateAsync: (GtkSourceCompletionContext fromHandleUnreferenced: context)
+					populateAsync: (GtkSourceCompletionContext fromHandleUnowned: context)
 					cancellable: cancellable
 					callback: callback
 					data: user_data ];	
@@ -98,20 +98,20 @@ GtkPharoSourceCompletionProvider class >> gDefineCompletionProviderInterface: in
 			signature: #(void (void *provider, void *context, void *model))
 			to: [ :provider :context :model | 
 				(self gInstance: provider) 
-					refilter: (GtkSourceCompletionContext fromHandleUnreferenced: context) 
+					refilter: (GtkSourceCompletionContext fromHandleUnowned: context) 
 					model: model ];	
 		connect: #display
 			signature: #(void (void *provider, void *context, void *proposal, void *cell))
 			to: [ :provider :context :proposal :cell | 
 				(self gInstance: provider) 
-					display: (GtkSourceCompletionContext fromHandleUnreferenced: context) 
+					display: (GtkSourceCompletionContext fromHandleUnowned: context) 
 					proposal: proposal 
 					cell: cell ];	
 		connect: #activate
 			signature: #(void (void *provider, void *context, void *proposal))
 			to: [ :provider :context :proposal | 
 				(self gInstance: provider) 
-					activate: (GtkSourceCompletionContext fromHandleUnreferenced: context) 
+					activate: (GtkSourceCompletionContext fromHandleUnowned: context) 
 					proposal: proposal ];	
 		connect: #list_alternates 
 			signature: #(void *(void *provider, void *context, void *proposal)) 
@@ -203,7 +203,7 @@ GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: aString posit
 GtkPharoSourceCompletionProvider >> display: context proposal: proposalHandle cell: cellHandle [
 	| cell |
 
-	cell := GtkSourceCompletionCell fromHandleUnreferenced: cellHandle.
+	cell := GtkSourceCompletionCell fromHandleUnowned: cellHandle.
 	(cell column = GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT) ifTrue: [ 
 		cell text: (lastResults 
 			itemByHandle: proposalHandle
@@ -332,7 +332,7 @@ GtkPharoSourceCompletionProvider >> populateAsync: context cancellable: cancella
 GtkPharoSourceCompletionProvider >> populateFinish: result error: error [
 
 	"this will take ownership, hence it needs to be referenced (otherwise, it will crash)"
-	^ (GTask fromHandleUnreferenced: result) propagatePointer: error
+	^ (GTask fromHandleUnowned: result) propagatePointer: error
 ]
 
 { #category : 'accessing - model' }

@@ -77,7 +77,7 @@ GtkApplication >> activeWindow [
 		as: GtkWindow
 ]
 
-{ #category : 'adding' }
+{ #category : 'accessing' }
 GtkApplication >> addWindow: window [
 
 	self ffiCall: #(void gtk_application_add_window (self, GtkWindow* window))

@@ -31,12 +31,14 @@ GtkRunLoop >> callerProcess [
 { #category : 'running' }
 GtkRunLoop >> cleanUpFinalizationRegistry [
 	
+	logger trace.
 	GExternalResourceManager reset
 ]
 
 { #category : 'running' }
 GtkRunLoop >> cleanUpOldProcesses [
 
+	logger trace.
 	"clean up gtk4 run loop possible remainings (this may happen on certain 
 	 exit conditions)"
 	Processor allProcesses 
@@ -48,6 +50,7 @@ GtkRunLoop >> cleanUpOldProcesses [
 { #category : 'running' }
 GtkRunLoop >> cleanUpQueue [
 
+	logger trace.
 	GQueueIdle uniqueInstance reset
 ]
 
@@ -99,7 +102,7 @@ GtkRunLoop >> initialize [
 { #category : 'private - installing' }
 GtkRunLoop >> installRunLoop [
 
-	'Installing Gtk4 event loop' asBeaconSignal emit. 
+	logger info: 'Installing Gtk4 event loop'. 
 
 	context := GMainContext default.
 	context acquire
@@ -113,9 +116,10 @@ GtkRunLoop >> installRunLoop [
 			do: [ :e | 
 				"this can happen (afaik) just on reinitiating the environment in a bad state 
 				 (with a call being send to GTK)"
-				logger error: e ] ].
+				logger error: e ].
+			Processor yield ].
 		context release.	
-		'Gtk4 event loop ended' asBeaconSignal emit.
+		logger info: 'Gtk4 event loop ended'.
 	] 
 	forkAt: Processor lowIOPriority
 	named: 'Gtk4 event loop'
@@ -137,6 +141,8 @@ GtkRunLoop >> naturalRunner [
 
 { #category : 'running' }
 GtkRunLoop >> preInstallRunLoop [ 
+
+	logger trace.
 
 	self cleanUpQueue.
 	self cleanUpFinalizationRegistry.

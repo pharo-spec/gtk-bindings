@@ -39,7 +39,19 @@ Form >> asGdkTexture [
 Form >> asGtkImage [
 	| paintable |
 	
-	paintable := self asGdkPaintable.
+	paintable := self asUnownedGdkPaintable.
 	^ [ GtkImage newPaintable: paintable ]
-		ensure: [ paintable objectUnrefNow ]  
+		ensure: [ paintable objectUnref ]  
+]
+
+{ #category : '*Gtk-Morphic' }
+Form >> asUnownedGdkPaintable [
+
+	^ self asUnownedGdkTexture
+]
+
+{ #category : '*Gtk-Morphic' }
+Form >> asUnownedGdkTexture [
+
+	^ self asAthensSurface asUnownedGdkTexture
 ]

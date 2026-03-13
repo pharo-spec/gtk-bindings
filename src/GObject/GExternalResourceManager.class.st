@@ -10,7 +10,6 @@ Class {
 GExternalResourceManager class >> reset [ 
 
 	uniqueInstance ifNotNil: [ uniqueInstance reset ].
-
 	super reset
 ]
 
@@ -54,7 +53,8 @@ GExternalResourceManager >> removeResource: aGObject [
 	removed ifNil: [ 
 		registry
 			detect: [ :each | each getHandle = aGObject getHandle ]
-			ifFound: [ :foundGObject | registry remove: foundGObject ifAbsent: [ ] ] ]
+			ifFound: [ :foundGObject | 
+				registry remove: foundGObject ifAbsent: [ logger debug: 'not found' ] ] ]
 ]
 
 { #category : 'initialization' }

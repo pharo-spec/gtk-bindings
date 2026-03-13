@@ -71,7 +71,7 @@ GdkClipboard >> readTextDo: aBlock [
 		signature: #(void (void *source, void *result, void *user_data))
 		block: [ :source :resultHandle :user_data |
 			| result error text |
-			result := (GObject fromHandleUnreferenced: resultHandle).
+			result := (GObject fromHandleUnowned: resultHandle).
 			text := self readTextFinish: result.
 			[ aBlock value: text ] fork ])
 ]

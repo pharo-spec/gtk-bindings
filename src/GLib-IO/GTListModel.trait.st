@@ -30,7 +30,7 @@ GTListModel >> do: aBlock [
 
 	classToUse := self classToUse.
 	0 to: (self numberOfItems - 1) do: [ :index |
-		aBlock value: (classToUse fromHandleUnreferenced: (self itemAt: index)) ]
+		aBlock value: (classToUse fromHandleUnowned: (self itemAt: index)) ]
 ]
 
 { #category : 'accessing' }
@@ -82,7 +82,7 @@ GTListModel >> objectAt: position as: aClass [
 	| itemHandle |
 
 	itemHandle := self itemAt: position.
-	^ aClass fromHandleUnreferenced: itemHandle
+	^ aClass fromHandleUnowned: itemHandle
 ]
 
 { #category : 'enumerating' }

@@ -61,7 +61,8 @@ GtkApplicationEngine >> ensureApplication [
 			| GApplicationFlags G_APPLICATION_CAN_OVERRIDE_APP_ID
 			| GApplicationFlags G_APPLICATION_NON_UNIQUE.
 			
-	application register.
+	application register
+		ifFalse: [ self error: 'I can''t register ', self id ].
 	
 	"this 'leaks', but since once started an application it cannot be destroyed unless you quit, 
 	 better to formalise it ;)"
@@ -98,6 +99,35 @@ GtkApplicationEngine >> initialize [
 	active := false
 ]
 
+{ #category : 'running' }
+GtkApplicationEngine >> install [
+
+	self isRunning ifTrue: [ self stop ].
+
+	Current := self.
+	
+	self startEngineSupportsBeforeInitialization.
+	self installGClasses.
+	self ensureApplication.
+
+	GApplicationStartAnnouncement emit.
+	self startEngineSupports.
+	application  connectActivate: [ 
+		"this will trigger whenActivatedDo:"
+		active := true ]
+]
+
+{ #category : 'private - running' }
+GtkApplicationEngine >> installGClasses [
+
+	TFProcessLocalWorker 
+		use: TFMainThreadRunner uniqueInstance
+		during: [ 
+			(GTClass users flatCollect: #withAllSubclasses) 
+				reject: [ :each | each isTrait or: [ each isAbstract ] ]
+				thenDo: [ :each | each gInstall ] ]
+]
+
 { #category : 'testing' }
 GtkApplicationEngine >> isActive [
 
@@ -110,21 +140,26 @@ GtkApplicationEngine >> naturalRunner [
 	^ runLoop naturalRunner
 ]
 
+{ #category : 'registry' }
+GtkApplicationEngine >> registerWindow: gtkWindow [
+	
+	logger trace: gtkWindow.
+	
+	application addWindow: gtkWindow.
+	super registerWindow: gtkWindow
+
+]
+
 { #category : 'running' }
 GtkApplicationEngine >> run [
 
-	Current := self
+	self start.
+	application run
 ]
 
 { #category : 'private - running' }
 GtkApplicationEngine >> start [
-
-	application := self ensureApplication.
-	GApplicationStartAnnouncement emit.
-	self startEngineSupports.			
-			
-	application  connectActivate: [ 
-		active := true ].
+	
 ]
 
 { #category : 'private - running' }
@@ -135,9 +170,22 @@ GtkApplicationEngine >> startEngineSupports [
 ]
 
 { #category : 'private - running' }
+GtkApplicationEngine >> startEngineSupportsBeforeInitialization [
+	
+	GtkEngineSupport allAvailableForExecuteBeforeInitialization 
+		do: [ :each | each start ]
+]
+
+{ #category : 'private - running' }
 GtkApplicationEngine >> stop [
 
 	"what to do here?"
+]
+
+{ #category : 'registry' }
+GtkApplicationEngine >> unregisterWindow: aWindow [
+
+	super unregisterWindow: aWindow
 ]
 
 { #category : 'api - events' }

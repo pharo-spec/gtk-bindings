@@ -20,7 +20,7 @@ GtkTreeViewExample >> newFactory: store [
 	factory connectBind: [ :listItem |
 		| expander box itemStore itemReference item row |
 		
-		row := GtkTreeListRow fromHandleUnreferenced: listItem item getHandle.
+		row := GtkTreeListRow fromHandleUnowned: listItem item getHandle.
 		
 		expander := factory objectAtHandle: listItem child.
 		expander listRow: row.

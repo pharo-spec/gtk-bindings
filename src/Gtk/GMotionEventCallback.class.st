@@ -27,7 +27,7 @@ GMotionEventCallback >> do: aBlock [
 	super do: [ :controllerHandle :x :y :user_data |
 		aBlock value: (GdkSimulatedMotionEvent 
 			newController: (controller 
-				ifNil: [ GtkEventControllerMotion fromHandleUnreferenced: controllerHandle ]) 
+				ifNil: [ GtkEventControllerMotion fromHandleUnowned: controllerHandle ]) 
 			position: x@y) ]
 
 ]

@@ -79,7 +79,7 @@ GtkWidgetTrace >> printOn: stream [
 { #category : 'actions' }
 GtkWidgetTrace >> reference [
 
-	^ self widgetClass fromHandleUnreferenced: self handle
+	^ self widgetClass fromHandleUnowned: self handle
 ]
 
 { #category : 'actions' }

@@ -11,7 +11,9 @@ Class {
 { #category : 'accessing' }
 GMainContext class >> default [
 
-	^ self ffiCall: #(GMainContext* g_main_context_default (void))
+	^ self 
+		ffiCall: #(GMainContext* g_main_context_default (void))
+		module: GQueueIdle
 ]
 
 { #category : 'events - processing' }
@@ -32,6 +34,28 @@ GMainContext >> hasPendingEvents [
 	^ self ffiCall: #(gboolean g_main_context_pending (self))
 ]
 
+{ #category : 'as yet unclassified' }
+GMainContext >> invoke: aFunction [
+
+	self ffiCall: #(void g_main_context_invoke (
+		self, "GSourceFunc function"
+		GCallback aFunction, 
+		"gpointer data"NULL))
+]
+
+{ #category : 'as yet unclassified' }
+GMainContext >> invokeFull: aFunction [
+
+	self 
+		ffiCall: #(void g_main_context_invoke (
+			self,
+			gint 0 "G_PRIORITY_DEFAULT", 
+			GCallback aFunction, 
+			NULL, 
+			NULL))
+		module: GQueueIdle
+]
+
 { #category : 'events - processing' }
 GMainContext >> iteration: may_block [
 
@@ -47,5 +71,7 @@ GMainContext >> release [
 { #category : 'acccessing' }
 GMainContext >> wakeup [
 
-	self ffiCall: #(void g_main_context_wakeup (self))
+	self 
+		ffiCall: #(void g_main_context_wakeup (self))
+		module: GQueueIdle
 ]

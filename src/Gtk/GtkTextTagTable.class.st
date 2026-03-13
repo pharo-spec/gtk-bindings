@@ -43,7 +43,7 @@ GtkTextTagTable >> add: tag [
 
 	tags add: tag.
 	self basicAdd: tag.
-	tag objectUnrefNow
+	tag objectUnref
 ]
 
 { #category : 'adding' }

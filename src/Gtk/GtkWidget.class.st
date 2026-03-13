@@ -81,7 +81,7 @@ GtkWidget class >> gtkBindingSetByClass: object_class [
 { #category : 'instance creation' }
 GtkWidget class >> newFrom: aSimilarObject [
 
-	^ self fromHandleUnreferenced: aSimilarObject getHandle
+	^ self fromHandleUnowned: aSimilarObject getHandle
 ]
 
 { #category : 'private' }
@@ -515,7 +515,7 @@ GtkWidget >> ancesorOfClass: aWidgetClass [
 	ancestorHandle := self ancesorOfGType: aWidgetClass gType.
 	^ ancestorHandle isNull
 		ifTrue: [ nil ]
-		ifFalse: [ aWidgetClass fromHandleUnreferenced: handle ]
+		ifFalse: [ aWidgetClass fromHandleUnowned: handle ]
 ]
 
 { #category : 'private' }

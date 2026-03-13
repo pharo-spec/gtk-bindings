@@ -30,11 +30,11 @@ GBaseObject class >> ffiLibrary [
 { #category : 'instance creation' }
 GBaseObject class >> fromGObject: aGObject [
 
-	^ self fromHandleUnreferenced: aGObject getHandle
+	^ self fromHandleUnowned: aGObject getHandle
 ]
 
 { #category : 'instance creation' }
-GBaseObject class >> fromHandleUnreferenced: aHandle [ 
+GBaseObject class >> fromHandleUnowned: aHandle [ 
 	"Creates an instance ensuring this reference does not enter the autoRelease cycle. 
 	 This will prevent an undesirable GC. 
 	 This style of instantiation is useful when creating objects that are actually managed in the 

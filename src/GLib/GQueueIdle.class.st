@@ -11,7 +11,8 @@ Class {
 		'function',
 		'processMutex',
 		'processing',
-		'pending'
+		'pending',
+		'mainContext'
 	],
 	#category : 'GLib-Library',
 	#package : 'GLib',
@@ -22,7 +23,18 @@ Class {
 GQueueIdle >> ensureFunction [
 
 	(function isNil or: [ function thunk isNullOrNil ]) ifFalse: [ ^ self ].
-	function := self newFunction
+	function := self newFunction.
+	
+	logger trace: function
+]
+
+{ #category : 'private' }
+GQueueIdle >> ensureMainContext [
+
+	mainContext isNullOrNil ifFalse: [ ^ self ].
+	mainContext := GMainContext default.
+	
+	logger trace: mainContext
 ]
 
 { #category : 'private' }
@@ -35,13 +47,23 @@ GQueueIdle >> gIdleAddFull: aCallback [
 		NULL))
 ]
 
+{ #category : 'private' }
+GQueueIdle >> gMainContextInvoke: aCallback [
+
+	self ffiCall: #(void g_main_context_invoke_full(
+		GMainContext *mainContext, 
+		gint 0 "G_PRIORITY_DEFAULT", 
+		GCallback aCallback, 
+		NULL, 
+		NULL))
+]
+
 { #category : 'accessing' }
 GQueueIdle >> idleAdd: aBlock [
 
-	mutex critical: [
 		processMutex critical: [  
 			queue add: aBlock ].
-		self queueIdleAction ]
+		self invokeAction
 ]
 
 { #category : 'initialization' }
@@ -53,6 +75,18 @@ GQueueIdle >> initialize [
 	queue := OrderedCollection new: 500.
 	processing := false.
 	pending := false
+]
+
+{ #category : 'private' }
+GQueueIdle >> invokeAction [
+
+	pending ifTrue: [ ^ self ].
+	queue isEmpty ifTrue: [ ^ self ].
+	processMutex critical: [ pending := true ].
+	processing ifFalse: [ 
+		self ensureFunction.
+		self ensureMainContext.
+		self gMainContextInvoke: function ]
 ]
 
 { #category : 'private' }
@@ -68,7 +102,7 @@ GQueueIdle >> newFunction [
 
 { #category : 'private' }
 GQueueIdle >> processQueue [
-	| processingQueue oldProcessing |
+	| processingQueue |
 	
 	processMutex critical: [ 
 		queue ifEmpty: [ ^ self ].
@@ -76,15 +110,10 @@ GQueueIdle >> processQueue [
 		queue removeAll.
 		pending := false ].
 	 
-	[
-		oldProcessing := processing.  
-		processing := true. 
-		processingQueue
-			do: [ :aBlock | aBlock value ] ] 
-	ensure: [ 
-		processing := false ].
+	processingQueue
+		do: [ :aBlock | aBlock value ].
 	
-	^ queue isNotEmpty
+	^ false
 ]
 
 { #category : 'private' }

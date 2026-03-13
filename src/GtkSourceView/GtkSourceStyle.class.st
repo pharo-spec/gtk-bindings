@@ -20,7 +20,7 @@ GtkSourceStyle class >> gType [
 { #category : 'private' }
 GtkSourceStyle class >> gtkNew [
 
-	^ self fromHandleUnreferenced: (self gObjectNew: self gType)
+	^ self fromHandleUnowned: (self gObjectNew: self gType)
 ]
 
 { #category : 'instance creation' }

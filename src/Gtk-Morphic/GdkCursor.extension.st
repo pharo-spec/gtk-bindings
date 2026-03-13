@@ -4,7 +4,7 @@ Extension { #name : 'GdkCursor' }
 GdkCursor class >> fromForm: aForm [
 	| texture |
 	
-	texture := aForm asGdkTexture.
+	texture := aForm asUnownedGdkTexture.
 	^ [ self newFromTexture: texture ]
-		ensure: [ texture objectUnrefNow ]
+		ensure: [ texture objectUnref ]
 ]

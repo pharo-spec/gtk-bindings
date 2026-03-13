@@ -149,7 +149,7 @@ GtkPharoListItemFactory >> teardown: item unbind: unbind func: func data: data [
 { #category : 'private' }
 GtkPharoListItemFactory >> toListItem: itemHandle [
 
-	^ self listItemClass fromHandleUnreferenced: itemHandle
+	^ self listItemClass fromHandleUnowned: itemHandle
 ]
 
 { #category : 'accessing' }

@@ -22,7 +22,7 @@ GButtonPressedCallback >> do: aBlock [
 
 	super do: [ :gesture :n_press :x :y :user_data |
 		aBlock cull: (GdkSimulatedButtonPressEvent 
-			newController: (GtkGestureClick fromHandleUnreferenced: gesture)
+			newController: (GtkGestureClick fromHandleUnowned: gesture)
 			position: x@y
 			numberPress: n_press) ]
 ]

@@ -761,6 +761,16 @@ GObject >> initialize [
 		self installDebugSignals	]
 ]
 
+{ #category : 'initialization' }
+GObject >> initializeUnowned [
+	"Call this when you want to unitialize an object as unowned (you have the refeence, but 
+	 you do not need to unref it)"
+
+	super initialize.
+	self isValidHandle ifTrue: [ 
+		self installDebugSignals	]
+]
+
 { #category : 'private - debugging' }
 GObject >> installDebugSignals [
 	"emit signals to debug"

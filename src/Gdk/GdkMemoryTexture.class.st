@@ -21,6 +21,18 @@ GdkMemoryTexture class >> gdkNewWidth: width height: height format: memoryFormat
 ]
 
 { #category : 'instance creation' }
+GdkMemoryTexture class >> newUnownedWidth: width height: height format: memoryFormat bytes: bytes stride: stride [
+
+	^ (self 
+		gdkNewWidth: width 
+			height: height 
+			format: memoryFormat 
+			bytes: bytes 
+			stride: stride)
+		initializeUnowned
+]
+
+{ #category : 'instance creation' }
 GdkMemoryTexture class >> newWidth: width height: height format: memoryFormat bytes: bytes stride: stride [
 
 	^ (self 

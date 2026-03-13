@@ -359,7 +359,7 @@ GtkTextIter >> tags [
 
 	tags := OrderedCollection new.
 	tagList := GSList fromHandle: self basicTags.
-	tags := tagList collect: [ :each | GtkTextTag fromHandleUnreferenced: each ].
+	tags := tagList collect: [ :each | GtkTextTag fromHandleUnowned: each ].
 	tagList free.
 	
 	^ tags asArray

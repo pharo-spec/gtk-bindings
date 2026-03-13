@@ -11,7 +11,7 @@ GtkImage class >> newMorph: anImageMorph [
 	| surface texture |
 	
 	surface := self surfaceFor: anImageMorph.
-	texture := surface asGdkTexture.
+	texture := surface asUnownedGdkTexture.
 	^ [ self newPaintable: texture ]
-		ensure: [ texture objectUnrefNow ]
+		ensure: [ texture objectUnref ]
 ]
