@@ -6,13 +6,12 @@ Class {
 	#name : 'GQueueIdle',
 	#superclass : 'GLibLibrary',
 	#instVars : [
-		'mutex',
 		'queue',
 		'function',
-		'processMutex',
 		'processing',
 		'pending',
-		'mainContext'
+		'mainContext',
+		'mutex'
 	],
 	#category : 'GLib-Library',
 	#package : 'GLib',
@@ -61,17 +60,16 @@ GQueueIdle >> gMainContextInvoke: aCallback [
 { #category : 'accessing' }
 GQueueIdle >> idleAdd: aBlock [
 
-		processMutex critical: [  
-			queue add: aBlock ].
-		self invokeAction
+	mutex critical: [  
+		queue add: aBlock ].
+	self invokeAction
 ]
 
 { #category : 'initialization' }
 GQueueIdle >> initialize [ 
 
 	super initialize.
-	mutex := Mutex new.
-	processMutex := Mutex new.	
+	mutex := Mutex new.	
 	queue := OrderedCollection new: 500.
 	processing := false.
 	pending := false
@@ -82,7 +80,8 @@ GQueueIdle >> invokeAction [
 
 	pending ifTrue: [ ^ self ].
 	queue isEmpty ifTrue: [ ^ self ].
-	processMutex critical: [ pending := true ].
+	pending := true.
+	
 	processing ifFalse: [ 
 		self ensureFunction.
 		self ensureMainContext.
@@ -104,7 +103,7 @@ GQueueIdle >> newFunction [
 GQueueIdle >> processQueue [
 	| processingQueue |
 	
-	processMutex critical: [ 
+	mutex critical: [ 
 		queue ifEmpty: [ ^ self ].
 		processingQueue := queue copy.
 		queue removeAll.
@@ -121,7 +120,7 @@ GQueueIdle >> queueIdleAction [
 
 	pending ifTrue: [ ^ self ].
 	queue isEmpty ifTrue: [ ^ self ].
-	processMutex critical: [ pending := true ].
+	mutex critical: [ pending := true ].
 	processing ifFalse: [ 
 		self ensureFunction.
 		self gIdleAddFull: function ]
