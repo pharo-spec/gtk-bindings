@@ -45,6 +45,8 @@ GCallback >> basicValueWithArguments: args [
 { #category : 'evaluating' }
 GCallback >> valueWithArguments: args [
 
-	GRunLoop current callbackEnter.	
+	logger trace: args.
+	
+	GRunLoop current callbackEnter.
 	^ self basicValueWithArguments: args
 ]

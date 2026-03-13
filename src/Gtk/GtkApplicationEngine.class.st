@@ -152,7 +152,7 @@ GtkApplicationEngine >> registerWindow: gtkWindow [
 
 { #category : 'running' }
 GtkApplicationEngine >> run [
-
+ 
 	self start.
 	application run
 ]

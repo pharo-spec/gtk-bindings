@@ -11,7 +11,8 @@ Class {
 		'processing',
 		'pending',
 		'mainContext',
-		'mutex'
+		'mutex',
+		'processMutex'
 	],
 	#category : 'GLib-Library',
 	#package : 'GLib',
@@ -59,17 +60,21 @@ GQueueIdle >> gMainContextInvoke: aCallback [
 
 { #category : 'accessing' }
 GQueueIdle >> idleAdd: aBlock [
+	
+	logger trace: aBlock.
 
-	mutex critical: [  
-		queue add: aBlock ].
-	self invokeAction
+	mutex critical: [ 
+		processMutex critical: [  
+			queue add: aBlock ].
+		self invokeAction ]
 ]
 
 { #category : 'initialization' }
 GQueueIdle >> initialize [ 
 
 	super initialize.
-	mutex := Mutex new.	
+	mutex := Mutex new.
+	processMutex := Mutex new.	
 	queue := OrderedCollection new: 500.
 	processing := false.
 	pending := false
@@ -103,7 +108,7 @@ GQueueIdle >> newFunction [
 GQueueIdle >> processQueue [
 	| processingQueue |
 	
-	mutex critical: [ 
+	processMutex critical: [ 
 		queue ifEmpty: [ ^ self ].
 		processingQueue := queue copy.
 		queue removeAll.
@@ -120,7 +125,8 @@ GQueueIdle >> queueIdleAction [
 
 	pending ifTrue: [ ^ self ].
 	queue isEmpty ifTrue: [ ^ self ].
-	mutex critical: [ pending := true ].
+	
+	processMutex critical: [ pending := true ].
 	processing ifFalse: [ 
 		self ensureFunction.
 		self gIdleAddFull: function ]
