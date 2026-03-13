@@ -483,6 +483,12 @@ GtkWindow >> isResizable [
 	^ self ffiCall: #(gboolean gtk_window_get_resizable (self))
 ]
 
+{ #category : 'testing' }
+GtkWindow >> isWindow [
+
+	^ true
+]
+
 { #category : 'private' }
 GtkWindow >> maximize [
 

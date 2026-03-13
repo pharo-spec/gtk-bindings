@@ -1246,6 +1246,12 @@ GtkWidget >> isVisible [
 	^ self ffiCall: #(gboolean gtk_widget_is_visible (self))
 ]
 
+{ #category : 'testing' }
+GtkWidget >> isWindow [
+
+	^ false
+]
+
 { #category : 'accessing' }
 GtkWidget >> layoutManager [
 

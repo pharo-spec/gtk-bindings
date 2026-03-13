@@ -145,9 +145,9 @@ GtkApplicationEngine >> registerWindow: gtkWindow [
 	
 	logger trace: gtkWindow.
 	
-	application addWindow: gtkWindow.
+	gtkWindow isWindow ifTrue: [ 
+		application addWindow: gtkWindow ].
 	super registerWindow: gtkWindow
-
 ]
 
 { #category : 'running' }
