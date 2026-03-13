@@ -64,6 +64,12 @@ GApplication >> gRun [
 	^ self ffiCall: #(int g_application_run (self, int 0, NULL))
 ]
 
+{ #category : 'private - primitives' }
+GApplication >> quit [
+
+	self ffiCall: #(void g_application_quit (self))
+]
+
 { #category : 'accessing' }
 GApplication >> register [
 
