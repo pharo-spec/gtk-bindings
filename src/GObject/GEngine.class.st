@@ -217,7 +217,6 @@ GEngine >> runLoop [
 { #category : 'system startup' }
 GEngine >> shutDown: quitting [
 
-
 	quitting ifFalse: [ ^ self ].	
 	self isRunning ifFalse: [ ^ self ].
 

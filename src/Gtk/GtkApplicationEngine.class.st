@@ -53,7 +53,7 @@ GtkApplicationEngine >> applicationClass: anApplicationClass [
 { #category : 'private - running' }
 GtkApplicationEngine >> ensureApplication [
 
-	application ifNotNil: [ ^ application ].
+	application isNullOrNil ifFalse: [ ^ application ].
 
 	application := self applicationClass 
 		newId: self id 
