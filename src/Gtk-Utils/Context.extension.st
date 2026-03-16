@@ -9,7 +9,7 @@ Context >> printToStderr [
 { #category : '*Gtk-Utils' }
 Context >> printToStdout [
 
-	self shortDebugStackOn: (ZnNewLineWriterStream on: Stdio stdout)
+	self printStackTraceOn: (ZnNewLineWriterStream on: Stdio stdout)
 ]
 
 { #category : '*Gtk-Utils' }
