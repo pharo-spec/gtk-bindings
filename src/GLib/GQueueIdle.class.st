@@ -109,7 +109,7 @@ GQueueIdle >> processQueue [
 	| processingQueue |
 	
 	processMutex critical: [ 
-		queue ifEmpty: [ ^ self ].
+		queue ifEmpty: [ ^ false ].
 		processingQueue := queue copy.
 		queue removeAll.
 		pending := false ].
