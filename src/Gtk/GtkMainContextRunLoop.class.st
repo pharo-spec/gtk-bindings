@@ -9,10 +9,10 @@ from validation event -windowWillClose- before confirming)... for those cases yo
 But the backend should choose that for itself.
 "
 Class {
-	#name : 'GtkSemaphoreContextRunLoop',
+	#name : 'GtkMainContextRunLoop',
 	#superclass : 'GtkContextRunLoop',
 	#instVars : [
-		'semaphore'
+		'context'
 	],
 	#category : 'Gtk-Application',
 	#package : 'Gtk',
@@ -20,16 +20,18 @@ Class {
 }
 
 { #category : 'private' }
-GtkSemaphoreContextRunLoop >> start [
+GtkMainContextRunLoop >> start [
 
-	done := false.
-	semaphore := Semaphore new.
-	semaphore wait
+	GRunLoop defer: [
+		context := GMainContext null.
+		done := false.
+		[ done ] whileFalse: [ 
+			context iteration: true ] ]
 ]
 
 { #category : 'private' }
-GtkSemaphoreContextRunLoop >> stop [
+GtkMainContextRunLoop >> stop [
 
 	done := true.
-	semaphore signal
+	context wakeup
 ]
