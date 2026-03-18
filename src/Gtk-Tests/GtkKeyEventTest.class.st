@@ -69,7 +69,7 @@ GtkKeyEventTest >> newFromKeyValue: aValue keyCode: aKeyCode [
 { #category : 'running' }
 GtkKeyEventTest >> runCase [
 
-	TFProcessLocalWorker worker: TFSameThreadRunner uniqueInstance.
+	TFProcessLocalWorker worker: GtkSameThreadRunner uniqueInstance.
 	[ super runCase ]
 	ensure: [ TFProcessLocalWorker worker: nil ]
 ]

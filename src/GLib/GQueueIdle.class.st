@@ -8,7 +8,6 @@ Class {
 	#instVars : [
 		'queue',
 		'function',
-		'processing',
 		'pending',
 		'mainContext',
 		'mutex',
@@ -63,10 +62,9 @@ GQueueIdle >> idleAdd: aBlock [
 	
 	logger trace: aBlock.
 
-	mutex critical: [ 
-		processMutex critical: [  
-			queue add: aBlock ].
-		self invokeAction ]
+	processMutex critical: [ queue add: aBlock ].
+	pending ifFalse: [ 
+		self queueIdleAction ]
 ]
 
 { #category : 'initialization' }
@@ -76,7 +74,6 @@ GQueueIdle >> initialize [
 	mutex := Mutex new.
 	processMutex := Mutex new.	
 	queue := OrderedCollection new: 500.
-	processing := false.
 	pending := false
 ]
 
@@ -84,13 +81,11 @@ GQueueIdle >> initialize [
 GQueueIdle >> invokeAction [
 
 	pending ifTrue: [ ^ self ].
-	queue isEmpty ifTrue: [ ^ self ].
-	pending := true.
-	
-	processing ifFalse: [ 
-		self ensureFunction.
-		self ensureMainContext.
-		self gMainContextInvoke: function ]
+	queue ifEmpty: [ ^ self ].
+	pending := true.	
+	self ensureFunction.
+	self ensureMainContext.
+	self gMainContextInvoke: function
 ]
 
 { #category : 'private' }
@@ -114,6 +109,8 @@ GQueueIdle >> processQueue [
 		queue removeAll.
 		pending := false ].
 	 
+	logger trace: processingQueue size.
+	 
 	processingQueue
 		do: [ :aBlock | aBlock value ].
 	
@@ -126,10 +123,9 @@ GQueueIdle >> queueIdleAction [
 	pending ifTrue: [ ^ self ].
 	queue isEmpty ifTrue: [ ^ self ].
 	
-	processMutex critical: [ pending := true ].
-	processing ifFalse: [ 
-		self ensureFunction.
-		self gIdleAddFull: function ]
+	pending := true.
+	self ensureFunction.
+	self gIdleAddFull: function
 ]
 
 { #category : 'accessing' }
@@ -143,5 +139,5 @@ GQueueIdle >> reset [
 { #category : 'accessing platform' }
 GQueueIdle >> runner [
 
-	^ TFSameThreadRunner uniqueInstance
+	^ GtkSameThreadRunner uniqueInstance
 ]

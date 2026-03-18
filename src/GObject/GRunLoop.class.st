@@ -142,7 +142,7 @@ GRunLoop >> isRunning [
 GRunLoop >> naturalRunner [
 	"Answer the 'natural' FFI client to run Gtk."
 
-	^ TFSameThreadRunner uniqueInstance
+	^ GtkSameThreadRunner uniqueInstance
 ]
 
 { #category : 'running' }

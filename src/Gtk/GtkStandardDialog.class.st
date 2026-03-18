@@ -17,6 +17,14 @@ GtkStandardDialog >> initialize [
 		self engine unregisterWindow: self ]
 ]
 
+{ #category : 'testing' }
+GtkStandardDialog >> isWindow [
+	"technically, this will be a window, once opened, but this is not a standard window and it does not 
+	 follow the regular path (it cannot be regustered an an application window)"
+	
+	^ false
+]
+
 { #category : 'private' }
 GtkStandardDialog >> newCallback: aBlock [
 "GAsyncReadyCallback

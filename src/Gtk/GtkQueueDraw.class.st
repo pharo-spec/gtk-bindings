@@ -30,5 +30,5 @@ GtkQueueDraw >> queueDrawArea: widget x: x y: y width: width height: height [
 { #category : 'accessing platform' }
 GtkQueueDraw >> runner [
 
-	^ TFSameThreadRunner uniqueInstance
+	^ GtkSameThreadRunner uniqueInstance
 ]
