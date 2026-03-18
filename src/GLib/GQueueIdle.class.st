@@ -10,7 +10,6 @@ Class {
 		'function',
 		'pending',
 		'mainContext',
-		'mutex',
 		'processMutex'
 	],
 	#category : 'GLib-Library',
@@ -71,7 +70,6 @@ GQueueIdle >> idleAdd: aBlock [
 GQueueIdle >> initialize [ 
 
 	super initialize.
-	mutex := Mutex new.
 	processMutex := Mutex new.	
 	queue := OrderedCollection new: 500.
 	pending := false
@@ -131,7 +129,7 @@ GQueueIdle >> queueIdleAction [
 { #category : 'accessing' }
 GQueueIdle >> reset [
 
-	mutex critical: [ 
+	processMutex critical: [ 
 		queue removeAll.
 		function := nil ]
 ]
