@@ -34,7 +34,7 @@ GMainContext >> hasPendingEvents [
 	^ self ffiCall: #(gboolean g_main_context_pending (self))
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 GMainContext >> invoke: aFunction [
 
 	self ffiCall: #(void g_main_context_invoke (
@@ -43,7 +43,7 @@ GMainContext >> invoke: aFunction [
 		"gpointer data"NULL))
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 GMainContext >> invokeFull: aFunction [
 
 	self 

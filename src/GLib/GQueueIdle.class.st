@@ -111,6 +111,9 @@ GQueueIdle >> processQueue [
 	 
 	processingQueue
 		do: [ :aBlock | aBlock value ].
+		
+	"send a wakeup message to the loop to speed up things"
+	mainContext wakeup.
 	
 	^ false
 ]
@@ -122,6 +125,7 @@ GQueueIdle >> queueIdleAction [
 	queue isEmpty ifTrue: [ ^ self ].
 	
 	pending := true.
+	self ensureMainContext.
 	self ensureFunction.
 	self gIdleAddFull: function
 ]
