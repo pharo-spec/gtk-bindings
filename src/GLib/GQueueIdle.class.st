@@ -135,6 +135,8 @@ GQueueIdle >> reset [
 
 	processMutex critical: [ 
 		queue removeAll.
+		pending := false.
+		mainContext := nil.
 		function := nil ]
 ]
 
