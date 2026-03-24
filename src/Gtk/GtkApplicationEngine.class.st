@@ -154,6 +154,7 @@ GtkApplicationEngine >> registerWindow: gtkWindow [
 GtkApplicationEngine >> run [
  
 	self start.
+	runLoop running: true.
 	application run
 ]
 

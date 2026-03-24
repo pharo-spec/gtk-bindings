@@ -26,8 +26,20 @@ GtkApplicationRunLoop >> installRunLoop [
 	"this will be run in GtkApplicationEngine"
 ]
 
+{ #category : 'testing' }
+GtkApplicationRunLoop >> isRunning [
+
+	^ running
+]
+
 { #category : 'accessing' }
 GtkApplicationRunLoop >> naturalRunner [
 
 	^ GtkMainThreadRunner uniqueInstance
+]
+
+{ #category : 'accessing' }
+GtkApplicationRunLoop >> running: aBoolean [
+
+	running := aBoolean
 ]
