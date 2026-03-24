@@ -113,7 +113,7 @@ GQueueIdle >> processQueue [
 		do: [ :aBlock | aBlock value ].
 		
 	"send a wakeup message to the loop to speed up things"
-	mainContext wakeup.
+	"mainContext wakeup."
 	
 	^ false
 ]
