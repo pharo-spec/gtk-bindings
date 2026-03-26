@@ -113,6 +113,7 @@ GtkApplicationEngine >> install [
 	GApplicationStartAnnouncement emit.
 	self startEngineSupports.
 	application  connectActivate: [ 
+		runLoop running: true.
 		"this will trigger whenActivatedDo:"
 		active := true ]
 ]
