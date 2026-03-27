@@ -499,6 +499,24 @@ GtkWidget >> addVerticalScrollEvent: aBlock [
 			connectScroll: aBlock ]
 ]
 
+{ #category : 'accessing - children' }
+GtkWidget >> allConcreteWidgetChildren [
+	"answer this widget with all its children, trying to map them to its concrete type"
+
+	^ self widgetChildren 
+		inject: #() 
+		into: [ :all :each | all, each withAllConcreteWidgetChildren ]
+]
+
+{ #category : 'accessing - children' }
+GtkWidget >> allWidgetChildren [
+	"answer this widget with all its children"
+	
+	^ self widgetChildren 
+		inject: #()
+		into: [ :all :each | all, each withAllWidgetChildren ]
+]
+
 { #category : 'accessing' }
 GtkWidget >> allocation [
 	| allocation |
@@ -846,6 +864,22 @@ GtkWidget >> contextMenu: aGtkMenu [
 GtkWidget >> createPangoLayout: text [
 
 	^ self ffiCall: #(PangoLayout *gtk_widget_create_pango_layout ( self, const gchar* text ))
+]
+
+{ #category : 'accessing' }
+GtkWidget >> cssClasses [
+	| handle stringPointers |
+	
+	handle := self getCssClasses.
+	stringPointers := handle 
+		readArrayOf: FFIOop new 
+		until: [ :each | each isNull ].
+		
+	^ [ 
+		stringPointers collect: #utf8StringFromCString ]
+	ensure: [
+		stringPointers do: #free.
+		handle free ]
 ]
 
 { #category : 'style' }
@@ -1767,4 +1801,22 @@ GtkWidget >> width: aNumber [
 GtkWidget >> withAllChildrenDo: aBlock [
 
 	aBlock cull: self
+]
+
+{ #category : 'accessing - children' }
+GtkWidget >> withAllConcreteWidgetChildren [
+	"answer this widget with all its children, trying to map them to its concrete type"
+
+	^ self widgetChildren 
+		inject: { self asConcreteType } 
+		into: [ :all :each | all, each withAllConcreteWidgetChildren ]
+]
+
+{ #category : 'accessing - children' }
+GtkWidget >> withAllWidgetChildren [
+	"answer this widget with all its children"
+	
+	^ self widgetChildren 
+		inject: { self } 
+		into: [ :all :each | all, each withAllWidgetChildren ]
 ]
