@@ -1048,15 +1048,15 @@ GtkWidget >> getAllocation: allocation [
 ]
 
 { #category : 'private' }
-GtkWidget >> getCSSClasses [
-
-	self ffiCall: #("char**"void *gtk_widget_get_css_classes (self))
-]
-
-{ #category : 'private' }
 GtkWidget >> getColorRGBAInto: color [
 
 	^ self ffiCall: #(void gtk_widget_get_color (self, GdkRGBA* color))
+]
+
+{ #category : 'private' }
+GtkWidget >> getCssClasses [
+
+	self ffiCall: #("char**"void *gtk_widget_get_css_classes (self))
 ]
 
 { #category : 'private' }
@@ -1180,6 +1180,12 @@ GtkWidget >> hasActionGroupNamed: aName [
 		at: aName 
 		ifPresent: [ :ignore | true ]
 		ifAbsent: [ false ]
+]
+
+{ #category : 'testing' }
+GtkWidget >> hasCssClass: css_class [
+
+	^ self ffiCall: #(gboolean gtk_widget_has_css_class (self, const char* css_class))
 ]
 
 { #category : 'geometry' }
