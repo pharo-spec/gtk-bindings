@@ -47,6 +47,12 @@ GtkButton class >> newLabel: aString [
 ]
 
 { #category : 'accessing' }
+GtkButton >> actionName: aName [
+
+	self ffiCall: #(void gtk_actionable_set_action_name(self, char *aName))
+]
+
+{ #category : 'accessing' }
 GtkButton >> alwaysShowImage [
 
 	self deprecated: #Gtk4
@@ -189,6 +195,12 @@ GtkButton >> reliefStyle [
 GtkButton >> reliefStyle: relief [
 
 	self deprecated: #Gtk4
+]
+
+{ #category : 'accessing' }
+GtkButton >> resetActionName [
+
+	self ffiCall: #(void gtk_actionable_set_action_name(self, NULL))
 ]
 
 { #category : 'private' }
