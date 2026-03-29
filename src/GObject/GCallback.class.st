@@ -42,6 +42,12 @@ GCallback >> basicValueWithArguments: args [
 		finished ifFalse: [  self beFailed ] ]
 ]
 
+{ #category : 'signalling' }
+GCallback >> signalName [
+
+	^ nil
+]
+
 { #category : 'evaluating' }
 GCallback >> valueWithArguments: args [
 
