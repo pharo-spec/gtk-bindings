@@ -41,7 +41,7 @@ GObjectLibrary class >> naturalRunner [
 	
 	^ GEngine current 
 		ifNotNil: [ :anEngine | anEngine naturalRunner ]
-		ifNil: [ TFMainThreadRunner uniqueInstance ]
+		ifNil: [ GtkMainThreadRunner uniqueInstance ]
 ]
 
 { #category : 'options' }

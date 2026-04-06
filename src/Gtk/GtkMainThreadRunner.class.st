@@ -1,6 +1,6 @@
 Class {
 	#name : 'GtkMainThreadRunner',
-	#superclass : 'TFMainThreadRunner',
+	#superclass : 'TFGILMainThreadRunner',
 	#category : 'Gtk-App-Experimental',
 	#package : 'Gtk',
 	#tag : 'App-Experimental'

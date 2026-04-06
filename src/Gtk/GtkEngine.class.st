@@ -116,7 +116,7 @@ GtkEngine >> hasValidApplication [
 GtkEngine >> installGClasses [
 
 	TFProcessLocalWorker 
-		use: TFMainThreadRunner uniqueInstance
+		use: GtkMainThreadRunner uniqueInstance
 		during: [ 
 			(GTClass users flatCollect: #withAllSubclasses) 
 				reject: [ :each | each isTrait or: [ each isAbstract ] ]

@@ -53,7 +53,7 @@ BaselineOfGtk >> baseline: spec [
 		spec group: 'Tests' with: #('Gtk-Tests').
 		spec group: 'MorphicTests' with: #('Gtk-Morphic-Tests').
 		
-		spec group: 'Base' with: #('Core' 'Code').
+		spec group: 'Base' with: #('Core' 'Code' 'Gtk-Utils').
 		
 		spec group: 'default' with: #('Base' 'GIO' 'Tests' 'Morphic' 'MorphicTests').
 		
