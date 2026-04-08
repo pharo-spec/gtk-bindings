@@ -115,6 +115,12 @@ GdkSimulatedButtonEvent >> position: aPoint [
 ]
 
 { #category : 'compatibility' }
+GdkSimulatedButtonEvent >> shiftPressed [
+
+	^ self hasShiftModifier
+]
+
+{ #category : 'compatibility' }
 GdkSimulatedButtonEvent >> state [
 	^ self modifierState
 ]
