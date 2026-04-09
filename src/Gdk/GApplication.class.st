@@ -69,7 +69,7 @@ GApplication >> gRun [
 		returnType: TFBasicType sint32.
 	^ GtkMainThreadRunner uniqueInstance
 		invokeDetachableFunction: function
-		withArguments: { self. 0. ExternalAddress null }
+		withArguments: { self getHandle. 0. ExternalAddress null }
 ]
 
 { #category : 'private - primitives' }
