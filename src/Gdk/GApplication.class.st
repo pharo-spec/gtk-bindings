@@ -60,8 +60,16 @@ GApplication >> connectActivate: aBlock [
 
 { #category : 'private - primitives' }
 GApplication >> gRun [
-	
-	^ self ffiCall: #(int g_application_run (self, int 0, NULL))
+
+	| function |
+	function := TFExternalFunction
+		name: 'g_application_run'
+		moduleName: self ffiLibrary libraryName
+		parameterTypes: { TFBasicType pointer. TFBasicType sint32. TFBasicType pointer }
+		returnType: TFBasicType sint32.
+	^ GtkMainThreadRunner uniqueInstance
+		invokeDetachableFunction: function
+		withArguments: { self. 0. ExternalAddress null }
 ]
 
 { #category : 'private - primitives' }
