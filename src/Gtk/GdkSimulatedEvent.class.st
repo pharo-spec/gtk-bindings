@@ -76,7 +76,16 @@ GdkSimulatedEvent >> isMotionEvent [
 { #category : 'accessing' }
 GdkSimulatedEvent >> modifierState [
 
-	^ modifierState ifNil: [ modifierState := self controller currentEventState ]
+	^ modifierState ifNil: [
+		self controller ifNotNil: [ :aController |
+			modifierState := GRunLoop defer: [ aController currentEventState ] ].
+		modifierState ]
+]
+
+{ #category : 'initialization' }
+GdkSimulatedEvent >> modifierState: aState [
+
+	modifierState := aState
 ]
 
 { #category : 'compatibility' }
