@@ -31,7 +31,20 @@ GtkListViewExample >> addContentsTo: window [
 	window child: box
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'opening' }
+GtkListViewExample >> basicOpen [
+	| window |
+
+	window := GtkWindow new.
+	window defaultSize: 600@400.
+	window title: self title.
+	self addContentsTo: window.
+	window present.
+	
+	^ window
+]
+
+{ #category : 'private' }
 GtkListViewExample >> newListView [
 	| store factory selectionModel |
 
@@ -68,15 +81,10 @@ GtkListViewExample >> newListView [
 { #category : 'opening' }
 GtkListViewExample >> open [
 	<script: 'self new open'>
-	| window |
 
 	GEngine ensureRunning.
 	GRunLoop defer: [ 
-		window := GtkWindow new.
-		window defaultSize: 600@400.
-		window title: self title.
-		self addContentsTo: window.
-		window present ]
+		self basicOpen ]
 ]
 
 { #category : 'opening' }
