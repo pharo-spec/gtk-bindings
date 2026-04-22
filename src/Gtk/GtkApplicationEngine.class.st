@@ -156,7 +156,10 @@ GtkApplicationEngine >> run [
  
 	self start.
 	runLoop running: true.
-	application run
+	^ [ application run ]
+		ensure: [
+			runLoop running: false.
+			active := false ]
 ]
 
 { #category : 'private - running' }
