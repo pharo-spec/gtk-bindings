@@ -82,7 +82,9 @@ GtkApplicationEngine >> ensureRunLoop [
 { #category : 'running' }
 GtkApplicationEngine >> forkRun [
  
-	[ self run ] fork
+	[ self run ] 
+	forkAt:  Processor lowIOPriority
+	named: 'GTK Event loop'
 ]
 
 { #category : 'private - gilworker' }
