@@ -154,9 +154,11 @@ GtkApplicationEngine >> isActive [
 GtkApplicationEngine >> maybeInstallGILWorkerDetachPollFunction [
 	| runner gPoll |
 
-	(Smalltalk commandLine arguments includes: '--gil-callback-detach=hybrid') ifFalse: [ ^ self ].
-	
 	runner := GtkMainThreadRunner uniqueInstance.
+	runner isGILWorker ifFalse: [ ^ self ].
+	
+	runner callbackDetachPolicy: #hybrid.
+
 	gPoll := ExternalAddress loadSymbol: 'g_poll' from: GLibLibrary.
 	gPoll isNull ifTrue: [ self error: 'Cannot resolve g_poll from GLibLibrary' ].
 	
