@@ -98,13 +98,15 @@ GtkApplication >> isRunning [
 
 { #category : 'running' }
 GtkApplication >> run [
-	
-	runProcess := [
-		| exitCode | 
-		TFProcessLocalWorker worker: GtkMainThreadRunner uniqueInstance.
+	| exitCode |
+
+	TFProcessLocalWorker worker: GtkMainThreadRunner uniqueInstance.
+	runProcess := Processor activeProcess.
+	^ [ 
 		exitCode := self gRun.
 		"exitCode = 0 
-			ifFalse: [ self error: ('Run loop exited with code {1}' format: { exitCode } ) ]" ]
-	forkAt: Processor lowIOPriority 
-	named: ('{1}: {2}' format: { self className. applicationId })
+			ifFalse: [ self error: ('Run loop exited with code {1}' format: { exitCode } ) ]"
+		exitCode ]
+		ensure: [ 
+			runProcess := nil ]
 ]

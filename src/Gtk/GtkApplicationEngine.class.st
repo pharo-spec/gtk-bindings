@@ -79,6 +79,20 @@ GtkApplicationEngine >> ensureRunLoop [
 		yourself
 ]
 
+{ #category : 'running' }
+GtkApplicationEngine >> forkRun [
+ 
+	[ self run ] fork
+]
+
+{ #category : 'private - gilworker' }
+GtkApplicationEngine >> gilWorkerDetachPollFunctionAddress [
+
+	^ ExternalAddress
+		loadSymbol: 'pharo_gtk4_detaching_g_main_context_poll'
+		from: 'PharoVMGTK4GIL'
+]
+
 { #category : 'api' }
 GtkApplicationEngine >> id [
 
@@ -99,7 +113,7 @@ GtkApplicationEngine >> initialize [
 	active := false
 ]
 
-{ #category : 'running' }
+{ #category : 'installing' }
 GtkApplicationEngine >> install [
 
 	self isRunning ifTrue: [ self stop ].
@@ -109,6 +123,7 @@ GtkApplicationEngine >> install [
 	self startEngineSupportsBeforeInitialization.
 	self installGClasses.
 	self ensureApplication.
+	self maybeInstallGILWorkerDetachPollFunction.
 
 	GApplicationStartAnnouncement emit.
 	self startEngineSupports.
@@ -133,6 +148,20 @@ GtkApplicationEngine >> installGClasses [
 GtkApplicationEngine >> isActive [
 
 	^ active
+]
+
+{ #category : 'private' }
+GtkApplicationEngine >> maybeInstallGILWorkerDetachPollFunction [
+	| runner gPoll |
+
+	(Smalltalk commandLine arguments includes: '--gil-callback-detach=hybrid') ifFalse: [ ^ self ].
+	
+	runner := GtkMainThreadRunner uniqueInstance.
+	gPoll := ExternalAddress loadSymbol: 'g_poll' from: GLibLibrary.
+	gPoll isNull ifTrue: [ self error: 'Cannot resolve g_poll from GLibLibrary' ].
+	
+	self setGILWorkerGMainPollFunction: gPoll.
+	GMainContext default setPollFunction: self gilWorkerDetachPollFunctionAddress
 ]
 
 { #category : 'accessing' }
@@ -160,6 +189,15 @@ GtkApplicationEngine >> run [
 		ensure: [
 			runLoop running: false.
 			active := false ]
+]
+
+{ #category : 'private - gilworker' }
+GtkApplicationEngine >> setGILWorkerGMainPollFunction: aFunctionAddress [
+
+	^ self
+		ffiCall: #(void pharo_gtk4_set_g_poll_function (
+			void *aFunctionAddress))
+		module: 'PharoVMGTK4GIL'
 ]
 
 { #category : 'private - running' }

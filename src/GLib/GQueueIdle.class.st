@@ -66,6 +66,25 @@ GQueueIdle >> gMainContextInvoke: aCallback [
 		NULL))
 ]
 
+{ #category : 'private' }
+GQueueIdle >> gMainContextSetPollFunc: aCallback [
+
+	self ffiCall: #(void g_main_context_set_poll_func(
+		GMainContext *mainContext,
+		GCallback aCallback))
+]
+
+{ #category : 'private' }
+GQueueIdle >> gTimeoutAddFullHandle: aCallback milliseconds: milliseconds [
+
+	self ffiCall: #(void g_timeout_add_full(
+		gint 200 "G_PRIORITY_DEFAULT_IDLE",
+		guint milliseconds,
+		GCallback aCallback,
+		NULL,
+		NULL))
+]
+
 { #category : 'accessing' }
 GQueueIdle >> idleAdd: aBlock [
 	
@@ -101,6 +120,14 @@ GQueueIdle >> invokeAction [
 	self ensureFunction.
 	self ensureMainContext.
 	self gMainContextInvoke: function
+]
+
+{ #category : 'private' }
+GQueueIdle >> maybeInstallGILDetachPollFunction [
+
+	(Smalltalk commandLine arguments includes: '--gil-callback-detach=hybrid') ifFalse: [ ^ self ].
+	self gMainContextSetPollFunc:
+		(ExternalAddress loadSymbol: 'worker_detaching_g_main_context_poll')
 ]
 
 { #category : 'private' }
@@ -161,4 +188,13 @@ GQueueIdle >> reset [
 GQueueIdle >> runner [
 
 	^ GtkSameThreadRunner uniqueInstance
+]
+
+{ #category : 'adding' }
+GQueueIdle >> timeoutAddDetachActivationFor: aRunner milliseconds: milliseconds [
+
+	self ensureMainContext.
+	self
+		gTimeoutAddFullHandle: aRunner primitiveGetActivatePendingGILWorkerDetachInnerAddress
+		milliseconds: milliseconds
 ]

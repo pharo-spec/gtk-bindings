@@ -68,6 +68,14 @@ GMainContext >> release [
 	self ffiCall: #(void g_main_context_release (self))
 ]
 
+{ #category : 'accessing' }
+GMainContext >> setPollFunction: aFunctionAddress [
+
+	^ self ffiCall: #(void g_main_context_set_poll_func (
+		self,
+		gpointer aFunctionAddress))
+]
+
 { #category : 'acccessing' }
 GMainContext >> wakeup [
 
