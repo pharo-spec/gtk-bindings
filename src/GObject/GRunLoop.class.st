@@ -15,7 +15,8 @@ Class {
 	#instVars : [
 		'#session',
 		'#running',
-		'#inCallback => ProcessLocalSlot'
+		'#inCallback => ProcessLocalSlot',
+		'#systemWorker'
 	],
 	#pools : [
 		'GObjectTypes'
@@ -97,7 +98,7 @@ GRunLoop >> enterSystem: aBlock [
 
 	"systemWorker isBusy crTrace.
 	aBlock crTrace."  
-	aBlock fork
+	self systemWorker schedule: aBlock
 ]
 
 { #category : 'deferring - gtk' }
@@ -175,6 +176,16 @@ GRunLoop >> stop [
 	self isRunning ifFalse: [ ^ self ].
 	self uninstallRunLoop.	
 	running := false
+]
+
+{ #category : 'deferring - system' }
+GRunLoop >> systemWorker [
+
+	^ systemWorker ifNil: [ 
+			systemWorker := TKTWorkerPool new 
+				poolMaxSize: 10; 
+				priority: Processor userSchedulingPriority;
+				start ]
 ]
 
 { #category : 'private - installing' }
