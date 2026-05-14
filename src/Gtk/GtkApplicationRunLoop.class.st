@@ -35,7 +35,7 @@ GtkApplicationRunLoop >> isRunning [
 { #category : 'accessing' }
 GtkApplicationRunLoop >> naturalRunner [
 
-	^ GtkMainThreadRunner uniqueInstance
+	^ GMainThreadRunner uniqueInstance
 ]
 
 { #category : 'accessing' }

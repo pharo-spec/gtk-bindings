@@ -109,7 +109,7 @@ GtkRunLoop >> installRunLoop [
 		ifFalse: [ self error: 'I cannot acquire the main context' ].	
 	
 	runProcess := [
-		TFProcessLocalWorker worker: GtkMainThreadRunner uniqueInstance. 
+		TFProcessLocalWorker worker: GMainThreadRunner uniqueInstance. 
 		[ running ] whileTrue: [ 
 			[ context iteration: true ]
 			on: Error 
@@ -136,7 +136,7 @@ GtkRunLoop >> isRunning [
 { #category : 'accessing' }
 GtkRunLoop >> naturalRunner [
 
-	^ GtkMainThreadRunner uniqueInstance
+	^ GMainThreadRunner uniqueInstance
 ]
 
 { #category : 'running' }

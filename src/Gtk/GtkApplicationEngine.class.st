@@ -7,7 +7,8 @@ Class {
 		'#application',
 		'#applicationClass',
 		'#id',
-		'#active => ObservableSlot'
+		'#active => ObservableSlot',
+		'#holdedApplication'
 	],
 	#category : 'Gtk-App-Experimental',
 	#package : 'Gtk',
@@ -82,8 +83,11 @@ GtkApplicationEngine >> ensureRunLoop [
 { #category : 'running' }
 GtkApplicationEngine >> forkRun [
  
-	[ self run ] 
-	forkAt:  Processor lowIOPriority
+	logger trace.
+	[ 
+		self run.
+	 	logger debug: 'g_application_run ended' ] 
+	forkAt:  Processor highIOPriority
 	named: 'GTK Event loop'
 ]
 
@@ -93,6 +97,15 @@ GtkApplicationEngine >> gilWorkerDetachPollFunctionAddress [
 	^ ExternalAddress
 		loadSymbol: 'pharo_gtk4_detaching_g_main_context_poll'
 		from: 'PharoVMGTK4GIL'
+]
+
+{ #category : 'private' }
+GtkApplicationEngine >> holdApplication [
+
+	logger trace.
+	logger debug: 'Release holded application'.
+	holdedApplication := true.
+	application hold
 ]
 
 { #category : 'api' }
@@ -112,11 +125,14 @@ GtkApplicationEngine >> initialize [
 
 	super initialize.
 	self class initializeSlots: self.
-	active := false
+	active := false.
+	holdedApplication := false
 ]
 
 { #category : 'installing' }
 GtkApplicationEngine >> install [
+
+	logger trace.
 
 	self isRunning ifTrue: [ self stop ].
 
@@ -128,22 +144,24 @@ GtkApplicationEngine >> install [
 	self maybeInstallGILWorkerDetachPollFunction.
 
 	GApplicationStartAnnouncement emit.
-	self startEngineSupports.
-	application  connectActivate: [ 
-		runLoop running: true.
-		"this will trigger whenActivatedDo:"
-		active := true ]
+	"defer in case we have a GIL"
+	GMainThreadRunner uniqueInstance defer: [ 
+		self startEngineSupports.
+		application connectActivate: [ 
+			runLoop running: true.
+			self start ] ]
 ]
 
 { #category : 'private - running' }
 GtkApplicationEngine >> installGClasses [
 
 	TFProcessLocalWorker 
-		use: GtkMainThreadRunner uniqueInstance
+		use: GMainThreadRunner uniqueInstance
 		during: [ 
-			(GTClass users flatCollect: #withAllSubclasses) 
-				reject: [ :each | each isTrait or: [ each isAbstract ] ]
-				thenDo: [ :each | each gInstall ] ]
+			GMainThreadRunner uniqueInstance defer: [  
+				(GTClass users flatCollect: #withAllSubclasses) 
+					reject: [ :each | each isTrait or: [ each isAbstract ] ]
+					thenDo: [ :each | each gInstall ] ] ]
 ]
 
 { #category : 'testing' }
@@ -156,8 +174,12 @@ GtkApplicationEngine >> isActive [
 GtkApplicationEngine >> maybeInstallGILWorkerDetachPollFunction [
 	| runner gPoll |
 
-	runner := GtkMainThreadRunner uniqueInstance.
+	logger trace.
+
+	runner := GMainThreadRunner uniqueInstance.
 	runner isGILWorker ifFalse: [ ^ self ].
+
+	logger debug: 'Preparing as GIL hybrid detach policy.'.
 	
 	runner callbackDetachPolicy: #hybrid.
 
@@ -166,6 +188,18 @@ GtkApplicationEngine >> maybeInstallGILWorkerDetachPollFunction [
 	
 	self setGILWorkerGMainPollFunction: gPoll.
 	GMainContext default setPollFunction: self gilWorkerDetachPollFunctionAddress
+]
+
+{ #category : 'private' }
+GtkApplicationEngine >> maybeReleaseHoldedApplication [
+
+	logger trace.
+
+	(holdedApplication and: [ windowRegistry isEmpty ]) ifFalse: [ ^ self ].
+
+	logger debug: 'Release holded application'.
+	application release.
+	holdedApplication := false
 ]
 
 { #category : 'accessing' }
@@ -178,7 +212,6 @@ GtkApplicationEngine >> naturalRunner [
 GtkApplicationEngine >> registerWindow: gtkWindow [
 	
 	logger trace: gtkWindow.
-	
 	gtkWindow isWindow ifTrue: [ 
 		application addWindow: gtkWindow ].
 	super registerWindow: gtkWindow
@@ -187,26 +220,31 @@ GtkApplicationEngine >> registerWindow: gtkWindow [
 { #category : 'running' }
 GtkApplicationEngine >> run [
  
-	self start.
 	runLoop running: true.
 	^ [ application run ]
 		ensure: [
 			runLoop running: false.
-			active := false ]
+			self stop ]
 ]
 
 { #category : 'private - gilworker' }
 GtkApplicationEngine >> setGILWorkerGMainPollFunction: aFunctionAddress [
 
 	^ self
-		ffiCall: #(void pharo_gtk4_set_g_poll_function (
-			void *aFunctionAddress))
+		ffiCall: #(void pharo_gtk4_set_g_poll_function (void *aFunctionAddress))
 		module: 'PharoVMGTK4GIL'
 ]
 
 { #category : 'private - running' }
 GtkApplicationEngine >> start [
 	
+	logger trace: active.
+	active ifTrue: [ ^ self ].
+	"this will trigger whenActivatedDo:"
+	active := true.
+	"if not windows registered on activation phase, we still want to keep it. 
+	 So we keep it always (it will not hurt)"
+	self holdApplication
 ]
 
 { #category : 'private - running' }
@@ -226,13 +264,17 @@ GtkApplicationEngine >> startEngineSupportsBeforeInitialization [
 { #category : 'private - running' }
 GtkApplicationEngine >> stop [
 
-	"what to do here?"
+	logger trace: active.
+
+	active ifFalse: [ ^ self ].
+	active := false
 ]
 
 { #category : 'registry' }
 GtkApplicationEngine >> unregisterWindow: aWindow [
 
-	super unregisterWindow: aWindow
+	super unregisterWindow: aWindow.
+	self maybeReleaseHoldedApplication
 ]
 
 { #category : 'api - events' }

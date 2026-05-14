@@ -1,13 +1,13 @@
 Class {
-	#name : 'GtkMainThreadRunner',
+	#name : 'GMainThreadRunner',
 	#superclass : 'TFGILMainThreadRunner',
-	#category : 'Gtk-App-Experimental',
-	#package : 'Gtk',
-	#tag : 'App-Experimental'
+	#category : 'GObject-Base',
+	#package : 'GObject',
+	#tag : 'Base'
 }
 
 { #category : 'executing' }
-GtkMainThreadRunner >> invokeFunction: function withArguments: aCollection [
+GMainThreadRunner >> invokeFunction: function withArguments: aCollection [
 
 	logger trace: function functionName.
 	

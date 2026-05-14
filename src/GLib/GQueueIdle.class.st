@@ -190,7 +190,7 @@ GQueueIdle >> runner [
 	^ GtkSameThreadRunner uniqueInstance
 ]
 
-{ #category : 'adding' }
+{ #category : 'accessing' }
 GQueueIdle >> timeoutAddDetachActivationFor: aRunner milliseconds: milliseconds [
 
 	self ensureMainContext.

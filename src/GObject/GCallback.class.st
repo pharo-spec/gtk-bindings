@@ -52,7 +52,8 @@ GCallback >> signalName [
 GCallback >> valueWithArguments: args [
 
 	logger trace: args.
-	
+
 	GRunLoop current callbackEnter.
-	^ self basicValueWithArguments: args
+	^ [ self basicValueWithArguments: args ]
+		ensure: [ GRunLoop current callbackLeave ]
 ]

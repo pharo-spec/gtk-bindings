@@ -60,16 +60,23 @@ GApplication >> connectActivate: aBlock [
 
 { #category : 'private - primitives' }
 GApplication >> gRun [
-
 	| function |
+	
 	function := TFExternalFunction
 		name: 'g_application_run'
 		moduleName: self ffiLibrary libraryName
 		parameterTypes: { TFBasicType pointer. TFBasicType sint32. TFBasicType pointer }
 		returnType: TFBasicType sint32.
-	^ GtkMainThreadRunner uniqueInstance
+		
+	^ GMainThreadRunner uniqueInstance
 		invokeDetachableFunction: function
 		withArguments: { self getHandle. 0. ExternalAddress null }
+]
+
+{ #category : 'accessing' }
+GApplication >> hold [
+
+	self ffiCall: #(void g_application_hold (self))
 ]
 
 { #category : 'private - primitives' }
@@ -85,6 +92,12 @@ GApplication >> register [
 		self,
 		"GCancellable *cancellable"NULL,
 		"GError **error"NULL))
+]
+
+{ #category : 'accessing' }
+GApplication >> release [
+
+	self ffiCall: #(void g_application_release (self))
 ]
 
 { #category : 'accessing' }

@@ -100,7 +100,7 @@ GtkApplication >> isRunning [
 GtkApplication >> run [
 	| exitCode |
 
-	TFProcessLocalWorker worker: GtkMainThreadRunner uniqueInstance.
+	TFProcessLocalWorker worker: GMainThreadRunner uniqueInstance.
 	runProcess := Processor activeProcess.
 	^ [ 
 		exitCode := self gRun.
