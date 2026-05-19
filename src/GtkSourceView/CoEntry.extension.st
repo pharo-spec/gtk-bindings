@@ -1,7 +1,7 @@
-Extension { #name : 'NECEntry' }
+Extension { #name : 'CoEntry' }
 
 { #category : '*GtkSourceView' }
-NECEntry >> icon [
+CoEntry >> icon [
 	| completion |
 	
 	completion := self contents.
