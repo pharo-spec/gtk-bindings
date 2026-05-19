@@ -101,7 +101,7 @@ GtkApplication >> run [
 	
 	runProcess := [
 		| exitCode | 
-		TFProcessLocalWorker worker: GtkMainThreadRunner uniqueInstance.
+		TFProcessLocalWorker worker: TFMainThreadRunner uniqueInstance.
 		exitCode := self gRun.
 		"exitCode = 0 
 			ifFalse: [ self error: ('Run loop exited with code {1}' format: { exitCode } ) ]" ]

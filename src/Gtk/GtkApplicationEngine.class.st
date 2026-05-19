@@ -122,7 +122,7 @@ GtkApplicationEngine >> install [
 GtkApplicationEngine >> installGClasses [
 
 	TFProcessLocalWorker 
-		use: GtkMainThreadRunner uniqueInstance
+		use: TFMainThreadRunner uniqueInstance
 		during: [ 
 			(GTClass users flatCollect: #withAllSubclasses) 
 				reject: [ :each | each isTrait or: [ each isAbstract ] ]
@@ -156,10 +156,7 @@ GtkApplicationEngine >> run [
  
 	self start.
 	runLoop running: true.
-	^ [ application run ]
-		ensure: [
-			runLoop running: false.
-			active := false ]
+	application run
 ]
 
 { #category : 'private - running' }

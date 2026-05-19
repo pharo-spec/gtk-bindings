@@ -46,16 +46,6 @@ GQueueIdle >> gIdleAddFull: aCallback [
 ]
 
 { #category : 'private' }
-GQueueIdle >> gIdleAddFullHandle: anAddress [
-
-	self ffiCall: #(void g_idle_add_full(
-		gint 200 "G_PRIORITY_DEFAULT_IDLE", 
-		void *anAddress, 
-		NULL, 
-		NULL))
-]
-
-{ #category : 'private' }
 GQueueIdle >> gMainContextInvoke: aCallback [
 
 	self ffiCall: #(void g_main_context_invoke_full(
@@ -74,13 +64,6 @@ GQueueIdle >> idleAdd: aBlock [
 	processMutex critical: [ queue add: aBlock ].
 	pending ifFalse: [ 
 		self queueIdleAction ]
-]
-
-{ #category : 'accessing' }
-GQueueIdle >> idleAddDetachActivationFor: aRunner [
-
-	self ensureMainContext.
-	self gIdleAddFullHandle: aRunner primitiveGetActivatePendingGILWorkerDetachInnerAddress
 ]
 
 { #category : 'initialization' }
