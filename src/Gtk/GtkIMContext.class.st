@@ -1,7 +1,7 @@
 "
 GtkIMContext — Base class for input method contexts
+https://docs.gtk.org/gtk4/class.IMContext.html
 
-https://developer.gnome.org/gtk3/stable/GtkIMContext.html
 "
 Class {
 	#name : 'GtkIMContext',
