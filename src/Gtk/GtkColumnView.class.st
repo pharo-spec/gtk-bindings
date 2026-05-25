@@ -6,7 +6,8 @@ Class {
 	#superclass : 'GtkListBase',
 	#instVars : [
 		'columns',
-		'headerFactory'
+		'headerFactory',
+		'sorter'
 	],
 	#pools : [
 		'GtkListScrollFlags'
@@ -91,6 +92,12 @@ GtkColumnView >> getHeaderFactory [
 GtkColumnView >> getModel [
 
 	self ffiCall: #(GtkSelectionModel* gtk_column_view_get_model (self))
+]
+
+{ #category : 'private' }
+GtkColumnView >> getSorter [
+
+	self ffiCall: #(GtkColumnViewSorter* gtk_column_view_get_sorter (self))
 ]
 
 { #category : 'accessing' }
@@ -209,6 +216,23 @@ GtkColumnView >> sortByColumn: column direction: direction [
 		self,
   		GtkColumnViewColumn* column,
   		GtkSortType direction))
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> sorter [
+
+	^ sorter ifNil: [ 
+		sorter := self getSorter
+			columnView: self; 
+			yourself ]
+]
+
+{ #category : 'accessing' }
+GtkColumnView >> sorter: aSorter [
+
+	sorter := aSorter.
+	self setSorter: aSorter.
+	sorter objectUnrefNow
 ]
 
 { #category : 'accessing' }

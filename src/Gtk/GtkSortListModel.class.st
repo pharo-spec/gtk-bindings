@@ -32,6 +32,27 @@ GtkSortListModel class >> newModel: aModel [
 		yourself
 ]
 
+{ #category : 'instance creation' }
+GtkSortListModel class >> newModel: aModel sorter: aSorter [
+
+	^ self new 
+		model: aModel;
+		sorter: aSorter;
+		yourself
+]
+
+{ #category : 'accessing' }
+GtkSortListModel >> itemAt: index [
+
+	^ self model itemAt: index
+]
+
+{ #category : 'accessing' }
+GtkSortListModel >> model [
+
+	^ model
+]
+
 { #category : 'accessing' }
 GtkSortListModel >> model: aModel [
 
