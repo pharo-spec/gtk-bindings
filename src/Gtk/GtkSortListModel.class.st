@@ -48,6 +48,12 @@ GtkSortListModel >> itemAt: index [
 ]
 
 { #category : 'accessing' }
+GtkSortListModel >> items [
+
+	^ self model items
+]
+
+{ #category : 'accessing' }
 GtkSortListModel >> model [
 
 	^ model
