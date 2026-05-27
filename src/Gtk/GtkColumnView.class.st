@@ -143,6 +143,15 @@ GtkColumnView >> removeColumn: aColumn [
 ]
 
 { #category : 'accessing' }
+GtkColumnView >> resetSorting [
+
+	self ffiCall: #(void gtk_column_view_sort_by_column (
+		self,
+  		NULL,
+  		int 0))
+]
+
+{ #category : 'accessing' }
 GtkColumnView >> scrollToPosition: index [
 
 	self 
