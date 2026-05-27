@@ -2,7 +2,7 @@
 GtkMenuButton
 GtkMenuButton — A widget that shows a popup when clicked on
 
-https://developer.gnome.org/gtk3/unstable/GtkMenuButton.html
+https://docs.gtk.org/gtk4/class.MenuButton.html
 "
 Class {
 	#name : 'GtkMenuButton',
@@ -114,6 +114,17 @@ GtkMenuButton >> bePopupDirectionUp [
 	self popupDirection: GTK_ARROW_UP
 ]
 
+{ #category : 'accessing' }
+GtkMenuButton >> createPopupFunc: aBlock [ 
+	| callback |
+	
+	callback := GCallback 
+		signature: #(void (void *selfHandle, gpointer user_data)) 
+		block: [ :selfHandle :user_data | aBlock value ]. 
+	self registerCallback: callback.
+	self setCreatePopupFunc: callback
+]
+
 { #category : 'private' }
 GtkMenuButton >> getChild [
 
@@ -215,6 +226,16 @@ GtkMenuButton >> popupDirection: direction [
 GtkMenuButton >> setChild: aWidget [
 
 	self ffiCall: #(void gtk_menu_button_set_child (self, GtkWidget* aWidget))
+]
+
+{ #category : 'initialization' }
+GtkMenuButton >> setCreatePopupFunc: func [
+
+	self ffiCall: #(void gtk_menu_button_set_create_popup_func (
+  		self,
+  		"GtkMenuButtonCreatePopupFunc"GCallback func,
+  		"gpointer user_data" NULL,
+  		"GDestroyNotify destroy_notify"NULL))
 ]
 
 { #category : 'private' }
