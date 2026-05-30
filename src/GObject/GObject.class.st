@@ -908,6 +908,16 @@ GObject >> signal: signalName connect: callback data: aData flags: connectFlags 
 		uint64 connectFlags ) ) module: GObjectLibrary
 ]
 
+{ #category : 'private - signaling' }
+GObject >> signal: aString connectAfter: callback data: aData [
+
+	^ self 
+		signal: aString  
+		connect: callback 
+		data: aData
+		flags: G_CONNECT_AFTER
+]
+
 { #category : 'accessing - referencing' }
 GObject >> weakRef: notify [ 
 
