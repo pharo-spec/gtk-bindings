@@ -70,6 +70,15 @@ GMenuItem >> accel: aString [
 ]
 
 { #category : 'accessing' }
+GMenuItem >> action: action withTargetValue: target_value [
+
+	self ffiCall: #(void g_menu_item_set_action_and_target_value (
+  		self,
+  		const gchar* action,
+  		GVariant* target_value))
+]
+
+{ #category : 'accessing' }
 GMenuItem >> attributeAt: attribute put: format_string [
 
 	self ffiCall: #(void

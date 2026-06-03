@@ -1502,8 +1502,7 @@ GtkWidget >> removeActionGroupNamed: aName [
 
 	group := self actionGroups removeKey: aName ifAbsent: [ ^ self ].
 	group removeAll.
-	self basicRemoveActionGroup: aName.
-	
+	self basicRemoveActionGroup: aName
 ]
 
 { #category : 'accessing - actions' }

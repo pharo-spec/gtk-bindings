@@ -32,6 +32,12 @@ GTAction >> name [
 	^ self ffiCall: #(const gchar* g_action_get_name (self))
 ]
 
+{ #category : 'actions' }
+GTAction >> parameterType [
+
+	^ self ffiCall: #(GVariantType* g_action_get_parameter_type (self))
+]
+
 { #category : 'accessing' }
 GTAction >> state [
 	| variant value |

@@ -160,6 +160,12 @@ GValue >> getBoolean [
 ]
 
 { #category : 'accessing' }
+GValue >> getBoxed [
+
+	^ self ffiCall: #(gpointer g_value_get_boxed (self))
+]
+
+{ #category : 'accessing' }
 GValue >> getDouble [
 
 	^ self ffiCall: #(gdouble g_value_get_double(self))
@@ -190,9 +196,21 @@ GValue >> getObject [
 ]
 
 { #category : 'accessing' }
+GValue >> getPointer [
+
+	^ self ffiCall: #(gpointer g_value_get_pointer (self))
+]
+
+{ #category : 'accessing' }
 GValue >> getString [
 
 	^ self ffiCall: #(gchar* g_value_get_string  (self))
+]
+
+{ #category : 'accessing' }
+GValue >> getVariant [
+
+	^ self ffiCall: #(GVariant* g_value_get_variant (self))
 ]
 
 { #category : 'initialization' }
@@ -235,6 +253,12 @@ GValue >> initPointer [
 GValue >> initString [
 
 	self init: G_TYPE_STRING
+]
+
+{ #category : 'initialization' }
+GValue >> initVariant [
+
+	self init: GVariant gType
 ]
 
 { #category : 'accessing' }
