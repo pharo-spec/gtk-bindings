@@ -48,6 +48,12 @@ GSimpleActionGroup >> basicRemove: action_name [
 ]
 
 { #category : 'testing' }
+GSimpleActionGroup >> hasActionNamed: aName [
+
+	^ (self lookup: aName) isNotNil
+]
+
+{ #category : 'testing' }
 GSimpleActionGroup >> hasActions [
 
 	^ actions isNotEmpty
