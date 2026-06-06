@@ -1,7 +1,8 @@
 "
 GtkSourceLanguageManager — Provides access to GtkSourceLanguages
 
-https://developer.gnome.org/gtksourceview/unstable/GtkSourceLanguageManager.html#gtk-source-language-manager-get-language-ids
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.LanguageManager.html
+
 "
 Class {
 	#name : 'GtkSourceLanguageManager',
@@ -74,6 +75,12 @@ GtkSourceLanguageManager >> getLanguageIds [
 		module: GtkSourceViewLibrary
 ]
 
+{ #category : 'private' }
+GtkSourceLanguageManager >> getSearchPath [
+
+	^ self ffiCall: #(gchar** gtk_source_language_manager_get_search_path (self))
+]
+
 { #category : 'accessing' }
 GtkSourceLanguageManager >> languageIds [ 
 	| ids |
@@ -96,6 +103,18 @@ GtkSourceLanguageManager >> languageWithId: id [
 			self,
 			const gchar *id))
 		module: GtkSourceViewLibrary
+]
+
+{ #category : 'accessing' }
+GtkSourceLanguageManager >> searchPath [
+	| addr |
+
+	addr := self getSearchPath.
+	^ (addr
+		   	readArrayOf: FFIOop new
+		   	until: [ :each | each isNull ]) 
+		collect: [ :each |
+			each utf8StringFromCString ]
 ]
 
 { #category : 'accessing' }
