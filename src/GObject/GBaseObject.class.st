@@ -47,7 +47,7 @@ GBaseObject class >> fromHandleUnowned: aHandle [
 { #category : 'private' }
 GBaseObject class >> isValidHandle: handle [
 
-	^ handle notNil and: [ handle isNull not ]
+	^ handle isNullOrNil not
 ]
 
 { #category : 'instance creation' }
