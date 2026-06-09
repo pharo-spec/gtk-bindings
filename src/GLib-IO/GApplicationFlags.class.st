@@ -18,8 +18,8 @@ Class {
 		'G_APPLICATION_REPLACE',
 		'G_APPLICATION_SEND_ENVIRONMENT'
 	],
-	#category : 'Gdk-Application',
-	#package : 'Gdk',
+	#category : 'GLib-IO-Application',
+	#package : 'GLib-IO',
 	#tag : 'Application'
 }
 
