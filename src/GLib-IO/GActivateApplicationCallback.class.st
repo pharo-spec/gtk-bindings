@@ -6,8 +6,8 @@ https://docs.gtk.org/gio/signal.Application.activate.html
 Class {
 	#name : 'GActivateApplicationCallback',
 	#superclass : 'GManagedSignalCallback',
-	#category : 'Gdk-Callbacks',
-	#package : 'Gdk',
+	#category : 'GLib-IO-Callbacks',
+	#package : 'GLib-IO',
 	#tag : 'Callbacks'
 }
 
