@@ -1410,19 +1410,19 @@ GtkWidget >> pangoContext [
 	^ self ffiCall: #(PangoContext *gtk_widget_get_pango_context (self))
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - parent' }
 GtkWidget >> parent [
 
 	^ self ffiCall: #(GtkWidget* gtk_widget_get_parent (self))
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - parent' }
 GtkWidget >> parent: parent [
 
 	self ffiCall: #(void gtk_widget_set_parent (self, GtkWidget* parent))
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - parent' }
 GtkWidget >> parentWindow [ 
 	| windowHandle |
 	
@@ -1707,7 +1707,7 @@ GtkWidget >> translateCoordinatesTo: dest_widget x: src_x y: src_y toX: dest_x t
  		void *dest_y))
 ]
 
-{ #category : 'accessing' }
+{ #category : 'accessing - parent' }
 GtkWidget >> unparent [
 
 	^ self ffiCall: #(void gtk_widget_unparent (self))
@@ -1808,6 +1808,15 @@ GtkWidget >> withAllChildrenDo: aBlock [
 	aBlock cull: self
 ]
 
+{ #category : 'accessing - parent' }
+GtkWidget >> withAllConcreteParents [
+
+	self parent isNullOrNil
+		ifFalse: [ ^ self parent withAllConcreteParents, { self asConcreteType } ].
+		
+	^ { self asConcreteType }
+]
+
 { #category : 'accessing - children' }
 GtkWidget >> withAllConcreteWidgetChildren [
 	"answer this widget with all its children, trying to map them to its concrete type"
@@ -1815,6 +1824,15 @@ GtkWidget >> withAllConcreteWidgetChildren [
 	^ self widgetChildren 
 		inject: { self asConcreteType } 
 		into: [ :all :each | all, each withAllConcreteWidgetChildren ]
+]
+
+{ #category : 'accessing - parent' }
+GtkWidget >> withAllParents [
+
+	self parent isNullOrNil
+		ifFalse: [ ^ self parent withAllParents, { self } ].
+		
+	^ { self }
 ]
 
 { #category : 'accessing - children' }
