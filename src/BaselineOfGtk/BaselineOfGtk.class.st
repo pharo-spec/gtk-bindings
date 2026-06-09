@@ -28,7 +28,7 @@ BaselineOfGtk >> baseline: spec [
 				"Gdk"
 				package: 'Gdk' with: [ spec requires: #('GObject') ];
 				package: 'Pango' with: [ spec requires: #('GObject' 'GLib') ];
-				package: 'Gtk' with: [ spec requires: #('GObject' 'GLib' 'Gdk' 'Pango') ];
+				package: 'Gtk' with: [ spec requires: #('GObject' 'GLib' 'GLib-IO' 'Gdk' 'Pango') ];
 				"code"
 				package: 'GtkSourceView' with: [ spec requires: #('Gtk') ];
 				package: 'Gtk-Shortcuts' with: [ spec requires: #('Gtk') ];
