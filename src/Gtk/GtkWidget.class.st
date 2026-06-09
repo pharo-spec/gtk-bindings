@@ -992,6 +992,19 @@ GtkWidget >> ffiLibraryName [
 	^ self class ffiLibraryName
 ]
 
+{ #category : 'accessing - parent' }
+GtkWidget >> findParentSuchAs: aBlock [
+	| concreteParent |
+
+	concreteParent := self parent asConcreteType.
+	^ (aBlock value: concreteParent)
+		ifTrue: [ concreteParent ]
+		ifFalse: [
+			concreteParent isRoot 
+				ifTrue: [ nil ]
+				ifFalse: [ concreteParent findParentSuchAs: aBlock ] ]
+]
+
 { #category : 'accessing - children' }
 GtkWidget >> firstChild [
 
@@ -1265,6 +1278,16 @@ GtkWidget >> isFocusable [
 GtkWidget >> isHExpand [
 
 	self ffiCall: #(gboolean gtk_widget_get_hexpand (self))
+]
+
+{ #category : 'testing' }
+GtkWidget >> isRoot [
+	"this is just true in the case of GtkWindow, but I want to be able to ask like that"
+	| root |
+
+	root := self root.
+	^ root isNullOrNil not 
+		and: [ self getHandle = root getHandle ]
 ]
 
 { #category : 'testing' }
@@ -1811,8 +1834,9 @@ GtkWidget >> withAllChildrenDo: aBlock [
 { #category : 'accessing - parent' }
 GtkWidget >> withAllConcreteParents [
 
-	self parent isNullOrNil
-		ifFalse: [ ^ self parent withAllConcreteParents, { self asConcreteType } ].
+	self isRoot ifFalse: [ 
+		self parent isNullOrNil
+			ifFalse: [ ^ self parent withAllConcreteParents, { self asConcreteType } ] ].
 		
 	^ { self asConcreteType }
 ]
@@ -1828,9 +1852,9 @@ GtkWidget >> withAllConcreteWidgetChildren [
 
 { #category : 'accessing - parent' }
 GtkWidget >> withAllParents [
-
-	self parent isNullOrNil
-		ifFalse: [ ^ self parent withAllParents, { self } ].
+	self isRoot ifFalse: [ 
+		self parent isNullOrNil
+			ifFalse: [ ^ self parent withAllParents, { self } ] ].
 		
 	^ { self }
 ]

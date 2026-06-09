@@ -484,6 +484,12 @@ GtkWindow >> isResizable [
 ]
 
 { #category : 'testing' }
+GtkWindow >> isRoot [
+
+	^ true
+]
+
+{ #category : 'testing' }
 GtkWindow >> isWindow [
 
 	^ true
