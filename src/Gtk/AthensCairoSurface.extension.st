@@ -2,17 +2,8 @@ Extension { #name : 'AthensCairoSurface' }
 
 { #category : '*Gtk' }
 AthensCairoSurface >> asGdkTexture [
-	| bytes |
-	logger trace.
-	bytes := GBytes newData: self getDataPtr size: self privateHeight * self stride.
-	^ [ GdkMemoryTexture 
-			newWidth: self width 
-			height: self privateHeight
-			format: GdkMemoryFormat GDK_MEMORY_DEFAULT
-			bytes: bytes
-			stride: self stride ]
-		ensure: [ 
-			bytes unref ]
+	
+	^ GdkMemoryTexture fromSurface: self
 ]
 
 { #category : '*Gtk' }
