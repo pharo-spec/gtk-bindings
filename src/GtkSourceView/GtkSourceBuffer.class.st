@@ -46,6 +46,15 @@ GtkSourceBuffer class >> sourceBufferNew: table [
 		module: GtkSourceViewLibrary
 ]
 
+{ #category : 'as yet unclassified' }
+GtkSourceBuffer >> allMarksAtLine: line [
+
+	^ self ffiCall: #(GSList* gtk_source_buffer_get_source_marks_at_line (
+		self,
+  		gint line,
+  		NULL))
+]
+
 { #category : 'accessing' }
 GtkSourceBuffer >> createSourceMarkNamed: name category: category where: where [
 

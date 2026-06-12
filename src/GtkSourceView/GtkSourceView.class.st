@@ -9,8 +9,8 @@ This class provides:
 - Configuration for the Home and End keyboard keys;
 - Configure and show line marks;
 - And a few other things.
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.View.html
 
-https://developer.gnome.org/gtksourceview/stable/GtkSourceView.html
 "
 Class {
 	#name : 'GtkSourceView',
@@ -297,6 +297,18 @@ GtkSourceView >> isShowRightMargin [
 ]
 
 { #category : 'accessing' }
+GtkSourceView >> markAttributeCategories [
+
+	^ self markAttributes keys
+]
+
+{ #category : 'accessing' }
+GtkSourceView >> markAttributes [
+
+	^ markAttributes ifNil: [ SmallDictionary new ]
+]
+
+{ #category : 'accessing' }
 GtkSourceView >> markAttributesForCategory: category attributes: attributes priority: priority [
 
 	markAttributes ifNil: [ markAttributes := SmallDictionary new ].
@@ -304,7 +316,8 @@ GtkSourceView >> markAttributesForCategory: category attributes: attributes prio
 	self 
 		setMarkAttributesForCategory: category 
 		attributes: attributes 
-		priority: priority
+		priority: priority.
+	attributes objectUnrefNow
 ]
 
 { #category : 'private' }

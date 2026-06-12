@@ -1,7 +1,7 @@
 "
 GtkSourceMarkAttributes — The source mark attributes object
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.MarkAttributes.html
 
-https://developer.gnome.org/gtksourceview/stable/GtkSourceMarkAttributes.html
 "
 Class {
 	#name : 'GtkSourceMarkAttributes',
@@ -43,6 +43,31 @@ GtkSourceMarkAttributes >> background: background [
 	^ self 
 		ffiCall: #(void gtk_source_mark_attributes_set_background (self, const GdkRGBA *background))
 		module: GtkSourceViewLibrary
+]
+
+{ #category : 'signaling' }
+GtkSourceMarkAttributes >> connectQueryTooltipMarkup: aBlock [ 
+
+	self 
+		connect: 'query-tooltip-markup'
+		signature: #(void* (void* selfhandle, void* markHandle, gpointer user_data))
+		do: [ :selfHandle :markHandle :user_data | 
+			logger trace.
+			(aBlock value: (GtkSourceMark fromHandleUnowned: markHandle))
+				ifNotNil: [ :aString | GLibLibrary uniqueInstance gstrdup: aString]
+				ifNil: [ ExternalAddress null ] ]
+]
+
+{ #category : 'signaling' }
+GtkSourceMarkAttributes >> connectQueryTooltipText: aBlock [ 
+
+	self 
+		connect: 'query-tooltip-text'
+		signature: #(void* (void* selfhandle, void* markHandle, gpointer user_data))
+		do: [ :selfHandle :markHandle :user_data |
+			"you need to answer an instant that can be destroyed by the caller. 
+			 you can use `GLibLibrary>>#gstrdup:` for that"
+			aBlock value: (GtkSourceMark fromHandleUnowned: markHandle) ]
 ]
 
 { #category : 'private' }

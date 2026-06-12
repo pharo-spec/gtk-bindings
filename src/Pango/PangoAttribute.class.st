@@ -196,7 +196,7 @@ PangoAttribute class >> styleNew: style [
 { #category : 'private' }
 PangoAttribute class >> underlineNew: underline [
 
-	^ self ffiCall: #(PangoAttribute* pango_attr_underline_new ("PangoUnderline"int underline))
+	^ self ffiCall: #(PangoAttribute* pango_attr_underline_new ("PangoUnderline"int #isUnderline))
 ]
 
 { #category : 'private' }

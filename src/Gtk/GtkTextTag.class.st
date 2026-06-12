@@ -1,7 +1,8 @@
 "
 GtkTextTag — A tag that can be applied to text in a GtkTextBuffer
 
-https://developer.gnome.org/gtk3/stable/GtkTextTag.html
+https://docs.gtk.org/gtk4/class.TextTag.html
+
 "
 Class {
 	#name : 'GtkTextTag',
@@ -145,4 +146,16 @@ GtkTextTag >> underline: aPangoUnderline [
 	"see PangoUnderline enum for possible values"
 	
 	self gObjectSet: 'underline' toInteger: aPangoUnderline value
+]
+
+{ #category : 'accessing' }
+GtkTextTag >> underlineColor: aColor [
+
+	self underlineRGBA: aColor asGdkRGBA
+]
+
+{ #category : 'accessing' }
+GtkTextTag >> underlineRGBA: aRGBA [
+
+	self gObjectSet: 'underline-rgba' toObject: aRGBA
 ]

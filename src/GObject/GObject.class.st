@@ -689,6 +689,14 @@ GObject >> gObjectSet: aName toLong: aNumber [
 ]
 
 { #category : 'private - primitives' }
+GObject >> gObjectSet: aName toObject: aGObject [
+	| gValue |
+	
+	gValue := GValue newObject: aGObject. 
+	self gObjectSet: aName fromProperty: gValue referenceTo
+]
+
+{ #category : 'private - primitives' }
 GObject >> gObjectSet: aName toPointer: aPointer [
 	| gValue |
 	

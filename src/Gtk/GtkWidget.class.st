@@ -1201,6 +1201,18 @@ GtkWidget >> hasCssClass: css_class [
 	^ self ffiCall: #(gboolean gtk_widget_has_css_class (self, const char* css_class))
 ]
 
+{ #category : 'testing' }
+GtkWidget >> hasTooltip [
+
+	self ffiCall: #(gboolean gtk_widget_get_has_tooltip (self))
+]
+
+{ #category : 'accessing' }
+GtkWidget >> hasTooltip: has_tooltip [
+
+	self ffiCall: #(void gtk_widget_set_has_tooltip (self, gboolean has_tooltip))
+]
+
 { #category : 'geometry' }
 GtkWidget >> height [
 

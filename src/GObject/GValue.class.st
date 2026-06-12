@@ -1,7 +1,6 @@
 "
 GValue 
-
-https://developer.gnome.org/gobject/stable/gobject-Generic-values.html#GValue
+https://docs.gtk.org/gobject/struct.Value.html
 "
 Class {
 	#name : 'GValue',
@@ -87,6 +86,20 @@ GValue class >> newInt: aNumber [
 	^ self new 
 		initInt;
 		setInt: aNumber
+]
+
+{ #category : 'instance creation' }
+GValue class >> newObject [
+
+	^ self new initObject
+]
+
+{ #category : 'instance creation' }
+GValue class >> newObject: aGObject [
+
+	^ self new 
+		initObject;
+		setObject: aGObject
 ]
 
 { #category : 'instance creation' }
@@ -244,6 +257,12 @@ GValue >> initInt64 [
 ]
 
 { #category : 'initialization' }
+GValue >> initObject [
+
+	self init: G_TYPE_OBJECT
+]
+
+{ #category : 'initialization' }
 GValue >> initPointer [
 
 	self init: G_TYPE_POINTER
@@ -298,9 +317,9 @@ GValue >> setLong: v_long [
 ]
 
 { #category : 'accessing' }
-GValue >> setObject: v_object [ 
+GValue >> setObject: object [
 
-	^ self ffiCall: #(void g_value_set_object (self, gpointer v_object))
+	self ffiCall: #(void g_value_set_object (self, GObject* object))
 ]
 
 { #category : 'accessing' }

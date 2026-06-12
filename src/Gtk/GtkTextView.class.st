@@ -145,6 +145,16 @@ GtkTextView >> getIterLocation: iter to: location [
 		GdkRectangle *location))
 ]
 
+{ #category : 'as yet unclassified' }
+GtkTextView >> getLineAtY: y iter: target_iter line: line_top [
+
+	self ffiCall: #(void gtk_text_view_get_line_at_y (
+  		self,
+  		GtkTextIter* target_iter,
+  		int y,
+  		int* line_top))
+]
+
 { #category : 'accessing' }
 GtkTextView >> imContextFilterKeypress: event [
 
@@ -169,7 +179,7 @@ GtkTextView >> iterAtLocation: aPoint [
 	| iter result |
 	
 	iter := GtkTextIter new.
-	result := self getIterAtLocationX: aPoint x y: aPoint y to: iter.
+	result := self getIterAtLocationX: aPoint x y: aPoint y to: iter referenceTo.
 	^ result 
 		ifTrue: [ iter ]
 		ifFalse: [ nil ]
@@ -194,6 +204,20 @@ GtkTextView >> leftMargin [
 GtkTextView >> leftMargin: left_margin [
 
 	self ffiCall: #(void gtk_text_view_set_left_margin (self, gint left_margin))
+]
+
+{ #category : 'as yet unclassified' }
+GtkTextView >> lineAtY: y [ 
+	| iter yHolder result |
+	
+	iter := GtkTextIter new.
+	yHolder := FFIInt32 newValueHolder.
+	self 
+		getLineAtY: y 
+		iter: iter referenceTo 
+		line: yHolder.
+		
+	^ iter line
 ]
 
 { #category : 'accessing' }

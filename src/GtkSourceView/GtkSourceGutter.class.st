@@ -1,11 +1,11 @@
 "
 GtkSourceGutter — Gutter object for GtkSourceView
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.Gutter.html
 
-https://developer-old.gnome.org/gtksourceview/stable/GtkSourceGutter.html
 "
 Class {
 	#name : 'GtkSourceGutter',
-	#superclass : 'GObject',
+	#superclass : 'GtkWidget',
 	#traits : 'GtkSourceViewTLibrary',
 	#classTraits : 'GtkSourceViewTLibrary classTrait',
 	#category : 'GtkSourceView-Base',
