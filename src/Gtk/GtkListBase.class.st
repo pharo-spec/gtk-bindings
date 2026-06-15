@@ -81,10 +81,19 @@ GtkListBase >> selectionModel: aModel [
 	 clear the model fails (in gtk side) :("
 	oldSelectionModel := selectionModel.
 	oldSelectionModel ifNotNil: [ oldSelectionModel objectRef ].
-	selectionModel := aModel.
-	self setModel: selectionModel.
+	oldSelectionModel
+		ifNotNil: [
+			oldSelectionModel
+				blockCallback: GSelectionChangedCallback signalName
+				during: [
+					selectionModel := aModel.
+					self setModel: selectionModel ] ]
+		ifNil: [
+			selectionModel := aModel.
+			self setModel: selectionModel ].
 	selectionModel objectUnrefNow.
 	oldSelectionModel ifNotNil: [ 
+		oldSelectionModel disconnect: GSelectionChangedCallback signalName.
 		oldSelectionModel 
 			doNotAutoRelease; 
 			objectUnref;
