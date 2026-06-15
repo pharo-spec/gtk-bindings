@@ -65,7 +65,7 @@ GtkTextTag >> background [
 { #category : 'accessing' }
 GtkTextTag >> background: aColor [
 
-	self gObjectSet: 'background' toString: '#', aColor asHexString
+	self gObjectSet: 'background' toString: '#', aColor asHexStringWithAlpha
 ]
 
 { #category : 'accessing' }
@@ -112,7 +112,7 @@ GtkTextTag >> foreground [
 { #category : 'accessing' }
 GtkTextTag >> foreground: aColor [
 
-	self gObjectSet: 'foreground' toString: '#', aColor asHexString
+	self gObjectSet: 'foreground' toString: '#', aColor asHexStringWithAlpha
 ]
 
 { #category : 'accessing' }

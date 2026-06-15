@@ -19,6 +19,20 @@ GtkSourceMarkAttributes class >> new [
 	^ self sourceMarkAttributesNew initialize
 ]
 
+{ #category : 'instance creation' }
+GtkSourceMarkAttributes class >> newForm: aForm [
+
+	^ self newPixbuf: aForm asGdkPixbuf
+]
+
+{ #category : 'instance creation' }
+GtkSourceMarkAttributes class >> newPixbuf: aPixbuf [
+
+	^ self new 
+		pixbuf: aPixbuf;
+		yourself
+]
+
 { #category : 'private' }
 GtkSourceMarkAttributes class >> sourceMarkAttributesNew [
 
