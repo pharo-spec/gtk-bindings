@@ -267,8 +267,7 @@ GObject >> basicConnectSignal: callback [
 	self registerCallback: callback.
 	id := self 
 		signal: callback signalName
-		connect: callback 
-		data: callback thunk.
+		connect: callback.
 	callback registerId: id
 ]
 
@@ -881,48 +880,43 @@ GObject >> resetHandle [
 ]
 
 { #category : 'private - signaling' }
-GObject >> signal: aString connect: callback data: aData [
+GObject >> signal: aString connect: callback [
+	
+	GEngine current registerCallback: callback.
 
 	^ self 
 		signal: aString  
 		connect: callback 
-		data: aData
+		data: callback thunk
+		destroyData: GEngine current finalizeCallbackCallback 
 		flags: G_CONNECT_NONE
 ]
 
 { #category : 'private - signaling' }
-GObject >> signal: signalName connect: callback data: aData flags: connectFlags [
-
+GObject >> signal: signalName connect: callback data: aData destroyData: destroyCallback flags: connectFlags [
+	"should not be used directly (because we need yhe data and the destroy)"
+	
 	^ self 
-		ffiCall: #( gulong g_signal_connect_data ( 
+		ffiCall: #(gulong g_signal_connect_data ( 
 			self,
 			const gchar *signalName,
 			GCallback callback,
-			gpointer 	aData,
-			NULL,
-			GConnectFlags connectFlags ) ) 
+			gpointer aData,
+			GCallback destroyCallback,
+			GConnectFlags connectFlags)) 
 		module: GObjectLibrary
 ]
 
 { #category : 'private - signaling' }
-GObject >> signal: signalName connect: callback data: aData flags: connectFlags variable: variable [
+GObject >> signal: aString connectAfter: callback [
 	
-	^ self ffiCall: #( gulong g_signal_connect_data ( 
-		self,
-		const gchar *signalName,
-		GCallback callback,
-		gpointer 	aData,
-		uint64 variable,
-		uint64 connectFlags ) ) module: GObjectLibrary
-]
-
-{ #category : 'private - signaling' }
-GObject >> signal: aString connectAfter: callback data: aData [
+GEngine current registerCallback: callback.
 
 	^ self 
 		signal: aString  
 		connect: callback 
-		data: aData
+		data: callback thunk
+		destroyData: GEngine current finalizeCallbackCallback
 		flags: G_CONNECT_AFTER
 ]
 

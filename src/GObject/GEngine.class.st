@@ -12,7 +12,10 @@ Class {
 		'windowRegistry',
 		'shutdownRegistry',
 		'disposeRegistry',
-		'disposeCallback'
+		'disposeCallback',
+		'finalizeCallbackCallback',
+		'callbackRegistry',
+		'callbackRegistryMutex'
 	],
 	#classVars : [
 		'Current'
@@ -137,13 +140,25 @@ GEngine >> ensureRunLoop [
 	self subclassResponsibility
 ]
 
+{ #category : 'registry' }
+GEngine >> finalizeCallbackCallback [
+	"a callback to finalize callbacks"
+
+	^ finalizeCallbackCallback ifNil: [ 
+		finalizeCallbackCallback := GCallback
+			signature: #(void (void *data, void *closure)) 
+			block: [ :data :object | self unregisterCallbackData: data ] ]
+]
+
 { #category : 'initialization' }
 GEngine >> initialize [
 
 	super initialize.
 	windowRegistry := IdentitySet new.
 	shutdownRegistry := Set new.
-	"This is a regular dictionery and not a weak value because I actually need to 
+	callbackRegistry := IdentityDictionary new.
+	callbackRegistryMutex := Mutex new.
+	"This is a regular dictionary and not a weak value because I actually need to 
 	 keep a string reference to it until it is destroyed at gtk side."
 	disposeRegistry := SmallDictionary new.
 	runLoop := self ensureRunLoop
@@ -165,6 +180,15 @@ GEngine >> isWindowRegistered: aWindow [
 GEngine >> naturalRunner [
 
 	^ self subclassResponsibility
+]
+
+{ #category : 'registry' }
+GEngine >> registerCallback: aCallback [
+	
+	callbackRegistryMutex critical: [
+		callbackRegistry 
+			at: aCallback thunk asInteger 
+			put: aCallback ]
 ]
 
 { #category : 'registry' }
@@ -253,6 +277,15 @@ GEngine >> suspendRunLoopWhile: aBlock [
 
 	self stop.
 	^ aBlock ensure: [ self start ]
+]
+
+{ #category : 'registry' }
+GEngine >> unregisterCallbackData: aData [
+
+	callbackRegistryMutex critical: [ 
+		callbackRegistry 
+			removeKey: aData asInteger 
+			ifAbsent: [] ]
 ]
 
 { #category : 'registry' }
