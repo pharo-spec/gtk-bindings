@@ -185,6 +185,8 @@ GEngine >> naturalRunner [
 { #category : 'registry' }
 GEngine >> registerCallback: aCallback [
 	
+	logger trace: aCallback.
+	
 	callbackRegistryMutex critical: [
 		callbackRegistry 
 			at: aCallback thunk asInteger 
@@ -281,6 +283,8 @@ GEngine >> suspendRunLoopWhile: aBlock [
 
 { #category : 'registry' }
 GEngine >> unregisterCallbackData: aData [
+
+	logger trace: aData.
 
 	callbackRegistryMutex critical: [ 
 		callbackRegistry 
