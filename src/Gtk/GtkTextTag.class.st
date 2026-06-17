@@ -157,5 +157,5 @@ GtkTextTag >> underlineColor: aColor [
 { #category : 'accessing' }
 GtkTextTag >> underlineRGBA: aRGBA [
 
-	self gObjectSet: 'underline-rgba' toObject: aRGBA
+	self gObjectSet: 'underline-rgba' toRGBA: aRGBA
 ]

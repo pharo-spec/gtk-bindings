@@ -117,6 +117,20 @@ GValue class >> newPointer: aPointer [
 ]
 
 { #category : 'instance creation' }
+GValue class >> newRGBA [
+
+	^ self new initRGBA
+]
+
+{ #category : 'instance creation' }
+GValue class >> newRGBA: aRGBA [
+
+	^ self new 
+		initRGBA;
+		setBoxed: aRGBA
+]
+
+{ #category : 'instance creation' }
 GValue class >> newString [
 
 	^ self new initString
@@ -175,7 +189,7 @@ GValue >> getBoolean [
 { #category : 'accessing' }
 GValue >> getBoxed [
 
-	^ self ffiCall: #(gpointer g_value_get_boxed (self))
+	self ffiCall: #(gpointer g_value_get_boxed (self))
 ]
 
 { #category : 'accessing' }
@@ -269,6 +283,12 @@ GValue >> initPointer [
 ]
 
 { #category : 'initialization' }
+GValue >> initRGBA [
+
+	self init: GdkRGBA gType
+]
+
+{ #category : 'initialization' }
 GValue >> initString [
 
 	self init: G_TYPE_STRING
@@ -284,6 +304,12 @@ GValue >> initVariant [
 GValue >> setBoolean: v_boolean [ 
 
 	^ self ffiCall: #(void g_value_set_boolean (self, Boolean v_boolean))
+]
+
+{ #category : 'accessing' }
+GValue >> setBoxed: v_boxed [
+
+	self ffiCall: #(void g_value_set_boxed (self, gpointer v_boxed))
 ]
 
 { #category : 'accessing' }

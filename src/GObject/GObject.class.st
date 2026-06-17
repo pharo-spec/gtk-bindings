@@ -704,6 +704,14 @@ GObject >> gObjectSet: aName toPointer: aPointer [
 ]
 
 { #category : 'private - primitives' }
+GObject >> gObjectSet: aName toRGBA: aRGBA [
+	| gValue |
+	
+	gValue := GValue newRGBA: aRGBA.
+	self gObjectSet: aName fromProperty: gValue referenceTo
+]
+
+{ #category : 'private - primitives' }
 GObject >> gObjectSet: aName toString: aString [
 	| gValue |
 	
