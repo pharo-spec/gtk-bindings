@@ -41,6 +41,12 @@ GdkSeat >> gtkGetPointer [
 ]
 
 { #category : 'accessing' }
+GdkSeat >> keyboard [
+
+	^ self ffiCall: #(GdkDevice *gdk_seat_get_keyboard (self))
+]
+
+{ #category : 'accessing' }
 GdkSeat >> pointer [
 
 	"do not send #initialize here because we do not need it (and keeping a reference 

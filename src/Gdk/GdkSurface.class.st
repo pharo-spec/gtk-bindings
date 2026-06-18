@@ -47,6 +47,18 @@ GdkSurface >> ffiLibraryName [
 	^ GdkLibrary
 ]
 
+{ #category : 'testing' }
+GdkSurface >> isDestroyed [
+
+	^ self ffiCall: #(gboolean gdk_surface_is_destroyed (self))
+]
+
+{ #category : 'testing' }
+GdkSurface >> isMapped [
+
+	^ self ffiCall: #(gboolean gdk_surface_get_mapped (self))
+]
+
 { #category : 'accessing' }
 GdkSurface >> opacity: opacity [
 
