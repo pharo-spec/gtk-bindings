@@ -4,6 +4,9 @@ https://docs.gtk.org/gtk4/class.NamedAction.html
 Class {
 	#name : 'GtkNamedAction',
 	#superclass : 'GtkShortcutAction',
+	#instVars : [
+		'name'
+	],
 	#category : 'Gtk-Shortcut',
 	#package : 'Gtk',
 	#tag : 'Shortcut'
@@ -18,5 +21,18 @@ GtkNamedAction class >> gtkNew: aName [
 { #category : 'instance creation' }
 GtkNamedAction class >> newName: aString [
 
-	^ (self gtkNew: aString) initialize
+	^ (self gtkNew: aString) initializeName: aString
+]
+
+{ #category : 'initialization' }
+GtkNamedAction >> initializeName: aName [ 
+
+	name := aName.
+	self initialize
+]
+
+{ #category : 'accessing' }
+GtkNamedAction >> name [
+
+	^ name
 ]

@@ -62,6 +62,12 @@ GtkShortcutController >> beManaged [
 ]
 
 { #category : 'testing' }
+GtkShortcutController >> includesShortcutToActionNamed: aName [
+
+	^ self shortcuts anySatisfy: [ :each | each action name = aName ]
+]
+
+{ #category : 'testing' }
 GtkShortcutController >> isGlobal [
 
 	^ self scope = GTK_SHORTCUT_SCOPE_GLOBAL

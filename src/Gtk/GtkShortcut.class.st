@@ -62,6 +62,12 @@ GtkShortcut class >> newTrigger: aTrigger action: anAction [
 ]
 
 { #category : 'accessing' }
+GtkShortcut >> action [
+
+	^ action
+]
+
+{ #category : 'accessing' }
 GtkShortcut >> action: anAction [
 
 	action := anAction.
