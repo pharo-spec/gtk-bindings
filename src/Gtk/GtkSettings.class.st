@@ -1,7 +1,6 @@
 "
 Settings — Sharing settings between applications
-
-https://developer.gnome.org/gtk3/stable/GtkSettings.html
+https://docs.gtk.org/gtk4/class.Settings.html
 "
 Class {
 	#name : 'GtkSettings',

@@ -106,5 +106,5 @@ GError >> message: anObject [
 GError >> messageString [
 
 	self message isNull ifTrue: [ ^ 'Unknown error.' ].
-	^ self message bytesFromCString
+	^ self message utf8StringFromCString
 ]

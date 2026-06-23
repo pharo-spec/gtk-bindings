@@ -18,11 +18,11 @@ Class {
 GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp: envp flags: flags childSetup: child_setup data: user_data [
 	| gPidOut stdinFdOut stdoutFdOut stderrFdOut error result |
 	
-	gPidOut := FFIInt32 newBuffer.
-	stdinFdOut := FFIInt32 newBuffer.
-	stdoutFdOut := FFIInt32 newBuffer.
-	stderrFdOut := FFIInt32 newBuffer.
-	error := GErrorHolder new.
+	gPidOut := FFIInt32 newValueHolder.
+	stdinFdOut := FFIInt32 newValueHolder.
+	stdoutFdOut := FFIInt32 newValueHolder.
+	stderrFdOut := FFIInt32 newValueHolder.
+	error := GError newValueHolder.
 	
 	result := self 
 		gSpawnAsyncWithPipes: working_directory 
@@ -40,10 +40,10 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
 		self error: error value messageString ].
 	
 	^ self basicNew 
-		initializePid: (gPidOut signedLongAt: 1)
-			in: (stdinFdOut signedLongAt: 1)
-			out: (stdoutFdOut signedLongAt: 1)
-			err: (stderrFdOut signedLongAt: 1);
+		initializePid: (gPidOut value)
+			in: (stdinFdOut value)
+			out: (stdoutFdOut value)
+			err: (stderrFdOut value);
 		yourself
 ]
 
@@ -59,10 +59,10 @@ GIOPipedProcess class >> gSpawnAsyncWithPipes: working_directory argv: argv envp
  		"GSpawnChildSetupFunc "void *child_setup,
 		gpointer user_data,
 		"GPid *"void *child_pid_out,
-		"gint *"void *stdin_pipe_out,
-		"gint *"void *stdout_pipe_out,
-		"gint *"void *stderr_pipe_out,
-		"GError **"GErrorHolder error))
+		gint *stdin_pipe_out,
+		gint *stdout_pipe_out,
+		gint *stderr_pipe_out,
+		GError **error))
 ]
 
 { #category : 'private' }
