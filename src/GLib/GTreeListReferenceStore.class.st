@@ -95,10 +95,16 @@ GTreeListReferenceStore >> reset [
 
 { #category : 'accessing' }
 GTreeListReferenceStore >> storeAt: storeHandle [
+	
+	^ self storeAt: storeHandle ifAbsent: [ NotFound signal ]
+]
+
+{ #category : 'accessing' }
+GTreeListReferenceStore >> storeAt: storeHandle ifAbsent: aBlock [
 	| storeIndex |
 
 	storeIndex := storeHandle asInteger.
 	^ storeIndex = 0
 		ifTrue: [ self ]
-		ifFalse: [ stores at: storeIndex ]
+		ifFalse: [ stores at: storeIndex ifAbsent: aBlock ]
 ]
