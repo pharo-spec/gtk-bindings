@@ -1633,12 +1633,6 @@ GtkWidget >> setCursorFromName: aName [
 	self ffiCall: #(void gtk_widget_set_cursor_from_name (self, const char* aName))
 ]
 
-{ #category : 'accessing' }
-GtkWidget >> setSizeRequestWidth: width height: height [
-	
-	self ffiCall: #(void gtk_widget_set_size_request #(self, gint width, gint height))
-]
-
 { #category : 'private' }
 GtkWidget >> setTooltipText: text [
 
@@ -1683,7 +1677,8 @@ GtkWidget >> sizeRequest: aPoint [
 
 { #category : 'private' }
 GtkWidget >> sizeRequestWidth: width height: height [
-	^ self ffiCall: #(void gtk_widget_set_size_request ( self, gint width, gint height ) )
+
+	^ self ffiCall: #(void gtk_widget_set_size_request(self, gint width, gint height ))
 ]
 
 { #category : 'style' }

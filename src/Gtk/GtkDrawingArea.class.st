@@ -93,8 +93,9 @@ GtkDrawingArea >> draw: cr [
 
 { #category : 'private' }
 GtkDrawingArea >> extent: aPoint [
+
 	requestedSize := aPoint.
-	self setSizeRequestWidth: aPoint x height: aPoint y
+	self sizeRequest: aPoint
 ]
 
 { #category : 'private' }
@@ -155,11 +156,4 @@ GtkDrawingArea >> setDrawFunc: draw_func [
 		"GtkDrawingAreaDrawFunc" GCallback draw_func,
   		"gpointer user_data" NULL,
   		"GDestroyNotify destroy" NULL))
-]
-
-{ #category : 'private' }
-GtkDrawingArea >> setSizeRequestWidth: width height: height [
-	
-	self
-		ffiCall: #(void gtk_widget_set_size_request #(self , gint width , gint height))
 ]

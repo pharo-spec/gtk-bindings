@@ -519,8 +519,8 @@ GtkMorphView >> intersectingMorphsWithin: aRect [
 { #category : 'world simulation' }
 GtkMorphView >> invalidRect: damageRect from: aMorph [
 
-	self isUpdating 
-		ifFalse: [ self sizeRequest: aMorph extent ].
+	self isUpdating
+		ifFalse: [ GRunLoop defer: [ self sizeRequest: aMorph extent ] ].
 	self invalidateRect: damageRect
 ]
 
