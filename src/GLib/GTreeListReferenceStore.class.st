@@ -106,5 +106,5 @@ GTreeListReferenceStore >> storeAt: storeHandle ifAbsent: aBlock [
 	storeIndex := storeHandle asInteger.
 	^ storeIndex = 0
 		ifTrue: [ self ]
-		ifFalse: [ stores at: storeIndex ifAbsent: aBlock ]
+		ifFalse: [ (stores ifNil: [ #() ]) at: storeIndex ifAbsent: aBlock ]
 ]
