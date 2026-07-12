@@ -1,7 +1,7 @@
 "
 GtkTextMark — A position in the buffer preserved across buffer modifications
 
-https://developer.gnome.org/gtk3/stable/GtkTextMark.html
+https://docs.gtk.org/gtk4/class.TextMark.html
 "
 Class {
 	#name : 'GtkTextMark',
