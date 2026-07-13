@@ -37,7 +37,7 @@ GtkGSettingsSchemaSupport >> visitMacOSX: aPlatform [
 
 	OSEnvironment current 
 		at: #GSETTINGS_SCHEMA_DIR
-		put: FileLocator vmDirectory fullName
+		put: (FileLocator vmBinary parent parent / 'Resources' / 'glib-2.0' / 'schemas') fullName
 ]
 
 { #category : 'visiting' }
