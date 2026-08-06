@@ -1,5 +1,5 @@
 "
-https://developer.gnome.org/gtksourceview/stable/GtkSourceStyleSchemeManager.html
+https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.StyleSchemeManager.html
 "
 Class {
 	#name : 'GtkSourceStyleSchemeManager',
