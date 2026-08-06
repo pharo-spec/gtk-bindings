@@ -23,6 +23,34 @@ GFile class >> gNewForPath: path [
 	^ self ffiCall: #(GFile* g_file_new_for_path (const char* path)) module: GLibIOLibrary
 ]
 
+{ #category : 'monitoring' }
+GFile >> monitorDirectory [
+	"Obtains a directory monitor for the directory with no special flags."
+
+	^ GFileMonitor onDirectory: self
+]
+
+{ #category : 'monitoring' }
+GFile >> monitorDirectoryWithFlags: aFlags [
+	"Obtains a directory monitor for the directory with the given GFileMonitorFlags."
+
+	^ GFileMonitor onDirectory: self flags: aFlags
+]
+
+{ #category : 'monitoring' }
+GFile >> monitorFile [
+	"Obtains a file monitor for the file with no special flags."
+
+	^ GFileMonitor onFile: self
+]
+
+{ #category : 'monitoring' }
+GFile >> monitorFileWithFlags: aFlags [
+	"Obtains a file monitor for the file with the given GFileMonitorFlags."
+
+	^ GFileMonitor onFile: self flags: aFlags
+]
+
 { #category : 'accessing' }
 GFile >> path [
 
