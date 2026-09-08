@@ -29,6 +29,7 @@ Class {
 { #category : 'accessing' }
 GRunLoop class >> current [
 
+	GEngine isRunning ifFalse: [ ^ nil ].
 	^ GEngine current runLoop
 ]
 
