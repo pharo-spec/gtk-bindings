@@ -39,6 +39,18 @@ GtkTreeExpander >> getChild [
 ]
 
 { #category : 'accessing' }
+GtkTreeExpander >> item [
+
+	^ self ffiCall: #(GObject* gtk_tree_expander_get_item (self))
+]
+
+{ #category : 'accessing' }
+GtkTreeExpander >> listRow [
+
+	^ self ffiCall: #(GtkTreeListRow* gtk_tree_expander_get_list_row  (self))
+]
+
+{ #category : 'accessing' }
 GtkTreeExpander >> listRow: aRow [ 
 
 	listRow := aRow.

@@ -1,5 +1,6 @@
 "
-[https://developer.gnome.org/gio/stable/GApplication.html](https://developer.gnome.org/gio/stable/GApplication.html)
+https://docs.gtk.org/gio/class.Application.html
+
 "
 Class {
 	#name : 'GApplication',

@@ -1,3 +1,6 @@
+"
+https://docs.gtk.org/gtk4/class.Application.html
+"
 Class {
 	#name : 'GtkApplication',
 	#superclass : 'GApplication',
