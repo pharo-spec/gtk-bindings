@@ -55,6 +55,11 @@ GFileMonitor class >> onFile: aGFile flags: aFlags [
 	^ (self gFileMonitorFile: aGFile flags: aFlags) initialize
 ]
 
+{ #category : 'initialization' }
+GFileMonitor >> autoObjectUnref [
+	"do not auto object unref GFileMonitor: users needs to do it by themselves."
+]
+
 { #category : 'operations' }
 GFileMonitor >> cancel [
 	"Cancels this file monitor."

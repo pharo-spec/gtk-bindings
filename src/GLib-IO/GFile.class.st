@@ -23,6 +23,11 @@ GFile class >> gNewForPath: path [
 	^ self ffiCall: #(GFile* g_file_new_for_path (const char* path)) module: GLibIOLibrary
 ]
 
+{ #category : 'initialization' }
+GFile >> autoObjectUnref [
+	"do not auto object unref GFile: users needs to do it by themselves"
+]
+
 { #category : 'monitoring' }
 GFile >> monitorDirectory [
 	"Obtains a directory monitor for the directory with no special flags."
