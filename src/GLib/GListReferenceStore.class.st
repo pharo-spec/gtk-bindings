@@ -26,7 +26,7 @@ GListReferenceStore class >> gClassSize [
 GListReferenceStore class >> gDefine: gClass [
 
 	gClass 
-		parent: GObject;
+		parent: GListStore;
 		addInterface: GListModelIface 
 			initialize: [ :interface | self gDefineListModelInterface: interface ];
 		classInitialize: [ :gclass | 
@@ -74,6 +74,12 @@ GListReferenceStore class >> gDefineSignals: aTypeClass [
 GListReferenceStore class >> gSize [
 
 	^ super gSize
+]
+
+{ #category : 'acccessing' }
+GListReferenceStore >> basicItems: aSequenceableCollection [
+
+	items := aSequenceableCollection copy
 ]
 
 { #category : 'finalization' }
@@ -155,13 +161,8 @@ GListReferenceStore >> items [
 { #category : 'acccessing' }
 GListReferenceStore >> items: aSequenceableCollection [
 
-	items := aSequenceableCollection copy.
+	self basicItems: aSequenceableCollection.
 	self reset
-]
-
-{ #category : 'accessing - model' }
-GListReferenceStore >> items_changed: position removed: removed added: added [
-
 ]
 
 { #category : 'private' }

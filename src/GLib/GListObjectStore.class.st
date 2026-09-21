@@ -8,8 +8,7 @@ Class {
 	#traits : 'GTClass',
 	#classTraits : 'GTClass classTrait',
 	#instVars : [
-		'items',
-		'type'
+		'items'
 	],
 	#category : 'GLib-Lists',
 	#package : 'GLib',
