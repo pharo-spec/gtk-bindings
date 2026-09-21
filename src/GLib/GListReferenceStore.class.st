@@ -76,7 +76,7 @@ GListReferenceStore class >> gSize [
 	^ super gSize
 ]
 
-{ #category : 'acccessing' }
+{ #category : 'private' }
 GListReferenceStore >> basicItems: aSequenceableCollection [
 
 	items := aSequenceableCollection copy
