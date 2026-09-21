@@ -38,6 +38,13 @@ GtkNotebookPage class >> newNotebook: aNotebook label: labelWidget content: page
 		yourself
 ]
 
+{ #category : 'private' }
+GtkNotebookPage >> cleanupAfterReplacing [
+
+	label ifNotNil: #cleanupAfterReplacing.
+	content ifNotNil: #cleanupAfterReplacing
+]
+
 { #category : 'accessing' }
 GtkNotebookPage >> content [
 
