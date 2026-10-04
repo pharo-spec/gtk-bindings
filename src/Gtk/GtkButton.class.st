@@ -1,7 +1,6 @@
 "
 GtkButton — A widget that emits a signal when clicked on
-
-https://developer.gnome.org/gtk3/stable/GtkButton.html
+https://docs.gtk.org/gtk4/class.Button.html
 "
 Class {
 	#name : 'GtkButton',
