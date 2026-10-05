@@ -86,7 +86,10 @@ GtkNotebook >> connectSwitchPage: aBlock [
 	 aBlock receives the index of the switched page"
 
 	(GtkSwitchPageCallback 
-		do: [ :pageNum | aBlock value: (self children at: pageNum) ])
+		do: [ :pageNum | 
+			"size may change while updating"
+			(self children size >= pageNum) 
+				ifTrue: [ aBlock value: (self children at: pageNum) ] ])
 		connectTo: self
 ]
 
