@@ -1,3 +1,25 @@
+"
+I am a `GIOProcess` whose standard streams are connected to pipes created by GLib's `g_spawn_async_with_pipes`. I am useful when a child process must be driven interactively: the caller writes to the child's standard input and reads its standard output and error while the process is running, instead of only starting it and waiting for it to finish.
+
+I keep the three pipe descriptors returned by the spawn and rely on my superclass for the process id. Each stream is exposed as a `GIOChannel` on first use: `inChannel` carries data to the child's standard input, while `outChannel` and `errChannel` carry its standard output and error back to the image. The descriptors and channels are valid only after a successful spawn, and the channels are created lazily, so asking for one does not create the others.
+
+My main collaborators are `GIOProcess`, which provides pid tracking, watching, and termination; `GIOChannel`, which performs the actual I/O; and GLib's spawn API, which creates the pipes and reports failures through a `GError`. Closing me also shuts down any channels that have been created.
+
+For example:
+
+```smalltalk
+process := GIOPipedProcess
+    spawn: '/bin/cat'
+    arguments: #()
+    workingDirectory: nil
+    flags: GSpawnFlags G_SPAWN_DEFAULT.
+[ process inChannel writeLineFlush: 'hello'.
+  process outChannel readLine ]
+    ensure: [ process close ]
+```
+
+See also `GIOProcess class>>spawn:arguments:workingDirectory:flags:`, `GIOProcess>>watch:`, `GIOChannel>>readLine`, and `GIOChannel>>writeLineFlush:`.
+"
 Class {
 	#name : 'GIOPipedProcess',
 	#superclass : 'GIOProcess',
