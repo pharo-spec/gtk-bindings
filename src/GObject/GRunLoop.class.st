@@ -36,6 +36,8 @@ GRunLoop class >> current [
 { #category : 'deferring - gtk' }
 GRunLoop class >> defer: aBlock [
 
+	self current ifNil: [ ^ nil ].
+
 	^ self current defer: aBlock
 ]
 
