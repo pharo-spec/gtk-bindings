@@ -74,6 +74,14 @@ BaselineOfGtk >> installGtkDriver [
 		ifPresent: [ :driverClass | OSWindowDriver driverClass: driverClass ]
 ]
 
+{ #category : 'doits' }
+BaselineOfGtk >> installRunner [
+
+	Smalltalk 
+		at: #gtkMainThreadRunner 
+		put: GtkMainThreadRunner uniqueInstance
+]
+
 { #category : 'baseline' }
 BaselineOfGtk >> lightLogger: spec [
 
@@ -86,6 +94,7 @@ BaselineOfGtk >> lightLogger: spec [
 { #category : 'doits' }
 BaselineOfGtk >> postLoad [
 
+	self installRunner.
 	self installGtkDriver.
 	self recompileStructures.
 	(Smalltalk classNamed: #GEnumeration) allSubclassesDo: [ :each | each initializeEnumeration ].
