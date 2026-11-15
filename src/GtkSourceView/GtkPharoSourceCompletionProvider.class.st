@@ -13,7 +13,12 @@ Class {
 	#instVars : [
 		'completionEngine',
 		'iconsCache',
-		'lastResults'
+		'lastResults',
+		'completionContext',
+		'completionContextStem',
+		'completionContextClass',
+		'completionContextScripting',
+		'completionBuildCount'
 	],
 	#classVars : [
 		'Separators'
@@ -172,30 +177,55 @@ GtkPharoSourceCompletionProvider >> clearLastResults [
 ]
 
 { #category : 'accessing' }
+GtkPharoSourceCompletionProvider >> completionBuildCount [
+	^ completionBuildCount ifNil: [ completionBuildCount := 0 ]
+]
+
+{ #category : 'accessing' }
+GtkPharoSourceCompletionProvider >> completionContext [
+	^ completionContext
+]
+
+{ #category : 'accessing' }
 GtkPharoSourceCompletionProvider >> completionEngine [
 
 	^ completionEngine ifNil: [ completionEngine := self class defaultCompletionEngine ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'Protocol (accessing) - 2 selector(s)' }
 GtkPharoSourceCompletionProvider >> completionEngine: aCompletionEngine [
-
-	completionEngine := aCompletionEngine
+	completionEngine := aCompletionEngine.
+	completionContext := nil.
+	completionContextStem := nil.
+	completionContextClass := nil
+	"completionContextScripting is refreshed with the next build."
 ]
 
-{ #category : 'private - populate' }
+{ #category : 'Protocol (private - populate) - 3 selector(s)' }
 GtkPharoSourceCompletionProvider >> completionEntriesFor: word in: aString position: aPosition [
-	| completionContext |
-
-	(word isNil or: [ word size < 2 ]) ifTrue: [ ^ #() ].
-
-	completionContext := GtkCompletionContext
-		engine: self completionEngine
-		class: self completionEngine completionClass
-		source: aString
-		position: aPosition.
+	"Answer entries for the current token. The expensive parse and fetcher setup depends
+	 only on the text before the token, so a growing or shrinking token reuses the same
+	 completion context and only replaces its filter."
+	| engine stem same |
+	( word isNil or: [ word size < 2 ] ) ifTrue: [ ^ #() ].
+	engine := self completionEngine.
+	engine ifNil: [ ^ #() ].
+	stem := aString copyFrom: 1 to: ( ( aPosition - word size ) max: 0 ).
+	same := completionContext notNil
+		and: [ completionContextStem = stem
+		and: [ completionContextClass == engine completionClass
+		and: [ completionContextScripting = engine isScripting ] ] ].
+	same ifFalse: [
+		completionContext := GtkCompletionContext
+			engine: engine
+			class: engine completionClass
+			source: aString
+			position: aPosition.
+		completionContextStem := stem.
+		completionContextClass := engine completionClass.
+		completionContextScripting := engine isScripting.
+		completionBuildCount := self completionBuildCount + 1 ].
 	completionContext narrowWith: word.
-
 	^ completionContext entries
 ]
 
